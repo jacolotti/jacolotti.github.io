@@ -1,53 +1,119 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-<title>Automation Engineering Tools</title>
+  <title>Automation Engineering Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      padding:0;
+      margin:0;
+    }
 
-<style>
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
 
-body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
-padding:40px;
-}
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
 
-.container{
-background:white;
-padding:30px;
-max-width:600px;
-margin:auto;
-border-radius:10px;
-box-shadow:0px 0px 10px rgba(0,0,0,.1);
-}
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
 
-a{
-display:block;
-margin:10px;
-font-size:18px;
-}
+    .container{
+      background:white;
+      padding:40px 30px;
+      max-width:900px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
 
-</style>
+    .subtitle{
+      color:#555;
+      margin-bottom:30px;
+      font-size:18px;
+    }
 
+    .tools-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:20px;
+      margin-top:30px;
+    }
+
+    .tool-card{
+      display:block;
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:25px 20px;
+      text-decoration:none;
+      color:#1f2a44;
+      box-shadow:0px 2px 6px rgba(0,0,0,.05);
+      transition:transform .2s, box-shadow .2s;
+    }
+
+    .tool-card:hover{
+      transform:translateY(-3px);
+      box-shadow:0px 4px 12px rgba(0,0,0,.12);
+    }
+
+    .tool-card h3{
+      margin-top:0;
+      margin-bottom:10px;
+      font-size:20px;
+    }
+
+    .tool-card p{
+      margin:0;
+      color:#555;
+      font-size:15px;
+      line-height:1.5;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+  </div>
 
-<h1>Automation Engineering Tools</h1>
+  <div class="container">
+    <h1>Automation Engineering Tools</h1>
+    <p class="subtitle">Free calculators for engineers, controls specialists, and automation professionals</p>
 
-<p>Free calculators for engineers and automation specialists</p>
+    <div class="tools-grid">
+      <a class="tool-card" href="pneumatic.html">
+        <h3>Pneumatic Force</h3>
+        <p>Calculate cylinder extend and retract force in newtons and pounds-force.</p>
+      </a>
 
-<a href="robot.html">Robot Cycle Time Calculator</a>
+      <a class="tool-card" href="robot.html">
+        <h3>Robot Cycle Time</h3>
+        <p>Estimate robot motion cycle time for automation and production planning.</p>
+      </a>
 
-<a href="motor.html">Conveyor Motor Sizing Calculator</a>
-
-<a href="pneumatic.html">Pneumatic Cylinder Force Calculator</a>
-
-</div>
+      <a class="tool-card" href="motor.html">
+        <h3>Motor Sizing</h3>
+        <p>Estimate conveyor motor torque and power requirements for basic applications.</p>
+      </a>
+    </div>
+  </div>
 
 </body>
-
 </html>
