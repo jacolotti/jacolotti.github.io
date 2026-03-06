@@ -9,6 +9,25 @@
       background:#f4f4f4;
       text-align:center;
       padding:40px;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:30px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
     }
 
     .container{
@@ -21,14 +40,14 @@
     }
 
     input, select{
-  width:100%;
-  padding:10px;
-  margin:10px 0;
-  font-size:16px;
-  box-sizing:border-box;
-  border:1px solid #ccc;
-  border-radius:5px;
-}
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
 
     button{
       padding:12px 20px;
@@ -45,16 +64,16 @@
     }
 
     .result{
-  margin-top:20px;
-  padding:20px;
-  background:#f0f6ff;
-  border:1px solid #cfe0ff;
-  border-radius:8px;
-  font-size:18px;
-  line-height:1.6;
-}
+      margin-top:20px;
+      padding:20px;
+      background:#f0f6ff;
+      border:1px solid #cfe0ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+    }
 
-    a{
+    .back-link{
       display:inline-block;
       margin-top:20px;
       color:#0077ff;
@@ -64,96 +83,95 @@
 </head>
 <body>
 
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+  </div>
+
   <div class="container">
     <h2>Pneumatic Cylinder Force Calculator</h2>
-<p>Length Units</p>
-<select id="lengthUnit" onchange="updateLabels()">
-<option value="mm">Millimeters</option>
-<option value="inch">Inches</option>
-</select>
+
+    <p>Length Units</p>
+    <select id="lengthUnit" onchange="updateLabels()">
+      <option value="mm">Millimeters</option>
+      <option value="inch">Inches</option>
+    </select>
+
     <p>Pressure Units</p>
-<select id="pressureUnit" onchange="updateLabels()">
-<option value="bar">Bar</option>
-<option value="psi">PSI</option>
-</select>
-    
+    <select id="pressureUnit" onchange="updateLabels()">
+      <option value="bar">Bar</option>
+      <option value="psi">PSI</option>
+    </select>
+
     <p id="boreLabel">Bore Diameter (mm)</p>
-<input id="bore" type="number" value="50">
+    <input id="bore" type="number" value="50">
 
-<p id="rodLabel">Rod Diameter (mm)</p>
-<input id="rod" type="number" value="20">
+    <p id="rodLabel">Rod Diameter (mm)</p>
+    <input id="rod" type="number" value="20">
 
-<p id="pressureLabel">Air Pressure (bar)</p>
-<input id="pressure" type="number" value="6">
+    <p id="pressureLabel">Air Pressure (bar)</p>
+    <input id="pressure" type="number" value="6">
 
     <button onclick="calculate()">Calculate</button>
 
     <div class="result" id="output"></div>
 
-    <a href="index.html">← Back to Home</a>
+    <a class="back-link" href="index.html">← Back to Home</a>
   </div>
 
   <script>
     function updateLabels(){
-  let lengthUnit = document.getElementById("lengthUnit").value
-  let pressureUnit = document.getElementById("pressureUnit").value
+      let lengthUnit = document.getElementById("lengthUnit").value;
+      let pressureUnit = document.getElementById("pressureUnit").value;
 
-  document.getElementById("boreLabel").innerText =
-    "Bore Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")"
+      document.getElementById("boreLabel").innerText =
+        "Bore Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
 
-  document.getElementById("rodLabel").innerText =
-    "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")"
+      document.getElementById("rodLabel").innerText =
+        "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
 
-  document.getElementById("pressureLabel").innerText =
-    "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")"
-}
+      document.getElementById("pressureLabel").innerText =
+        "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
+    }
+
     function calculate(){
+      let bore = parseFloat(document.getElementById("bore").value);
+      let rod = parseFloat(document.getElementById("rod").value);
+      let pressure = parseFloat(document.getElementById("pressure").value);
 
-let bore = parseFloat(document.getElementById("bore").value)
-let rod = parseFloat(document.getElementById("rod").value)
-let pressure = parseFloat(document.getElementById("pressure").value)
+      let lengthUnit = document.getElementById("lengthUnit").value;
+      let pressureUnit = document.getElementById("pressureUnit").value;
 
-let lengthUnit = document.getElementById("lengthUnit").value
-let pressureUnit = document.getElementById("pressureUnit").value
+      if(lengthUnit === "inch"){
+        bore = bore * 25.4;
+        rod = rod * 25.4;
+      }
 
-// Convert inches to mm
-if(lengthUnit === "inch"){
-    bore = bore * 25.4
-    rod = rod * 25.4
-}
+      if(pressureUnit === "psi"){
+        pressure = pressure * 0.0689476;
+      }
 
-// Convert psi to bar
-if(pressureUnit === "psi"){
-    pressure = pressure * 0.0689476
-}
+      let boreArea = Math.PI * (bore / 2) * (bore / 2);
+      let rodArea = Math.PI * (rod / 2) * (rod / 2);
 
-let boreArea = Math.PI*(bore/2)*(bore/2)
-let rodArea = Math.PI*(rod/2)*(rod/2)
+      let extendForceN = boreArea * pressure * 0.1;
+      let retractForceN = (boreArea - rodArea) * pressure * 0.1;
 
-let extendForceN = boreArea*pressure*0.1
-let retractForceN = (boreArea-rodArea)*pressure*0.1
+      let extendForceLbf = extendForceN * 0.224809;
+      let retractForceLbf = retractForceN * 0.224809;
 
-let extendForceLbf = extendForceN * 0.224809
-let retractForceLbf = retractForceN * 0.224809
+      document.getElementById("output").innerHTML =
+        "<strong>Extend Force</strong><br>" +
+        extendForceN.toFixed(2) + " N<br>" +
+        extendForceLbf.toFixed(2) + " lbf<br><br>" +
+        "<strong>Retract Force</strong><br>" +
+        retractForceN.toFixed(2) + " N<br>" +
+        retractForceLbf.toFixed(2) + " lbf";
+    }
 
-document.getElementById("output").innerHTML =
-
-"<strong>Extend Force</strong><br>" +
-extendForceN.toFixed(2) + " N<br>" +
-extendForceLbf.toFixed(2) + " lbf<br><br>" +
-
-"<strong>Retract Force</strong><br>" +
-retractForceN.toFixed(2) + " N<br>" +
-retractForceLbf.toFixed(2) + " lbf"
-
-"Extend Force: " + extendForceN.toFixed(2) + " N<br>" +
-extendForceLbf.toFixed(2) + " lbf<br><br>" +
-
-"Retract Force: " + retractForceN.toFixed(2) + " N<br>" +
-retractForceLbf.toFixed(2) + " lbf"
-
-}
-    updateLabels()
+    updateLabels();
   </script>
 
 </body>
