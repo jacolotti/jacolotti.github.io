@@ -78,28 +78,37 @@
   </div>
 
   <script>
-    function calculate() {
-      let bore = parseFloat(document.getElementById("bore").value);
-      let rod = parseFloat(document.getElementById("rod").value);
-      let pressure = parseFloat(document.getElementById("pressure").value);
+    function calculate(){
 
-      let boreArea = Math.PI * Math.pow(bore / 2, 2);
-      let rodArea = Math.PI * Math.pow(rod / 2, 2);
+let bore = parseFloat(document.getElementById("bore").value)
+let rod = parseFloat(document.getElementById("rod").value)
+let pressure = parseFloat(document.getElementById("pressure").value)
 
-      let extendForceN = boreArea * pressure * 0.1;
-      let retractForceN = (boreArea - rodArea) * pressure * 0.1;
+let boreArea = Math.PI*(bore/2)*(bore/2)
+let rodArea = Math.PI*(rod/2)*(rod/2)
 
-      let extendForceLbf = extendForceN * 0.224809;
-      let retractForceLbf = retractForceN * 0.224809;
+let extendForceN = boreArea*pressure*0.1
+let retractForceN = (boreArea-rodArea)*pressure*0.1
 
-      document.getElementById("output").innerHTML =
-        "<strong>Extend Force:</strong><br>" +
-        extendForceN.toFixed(2) + " N<br>" +
-        extendForceLbf.toFixed(2) + " lbf<br><br>" +
-        "<strong>Retract Force:</strong><br>" +
-        retractForceN.toFixed(2) + " N<br>" +
-        retractForceLbf.toFixed(2) + " lbf";
-    }
+// Convert Newtons to pounds-force
+let extendForceLbf = extendForceN * 0.224809
+let retractForceLbf = retractForceN * 0.224809
+
+// Convert to ft-lb equivalent torque at 1 ft lever
+let extendFtLb = extendForceLbf * 1
+let retractFtLb = retractForceLbf * 1
+
+document.getElementById("output").innerHTML =
+
+"Extend Force: " + extendForceN.toFixed(2) + " N<br>" +
+extendForceLbf.toFixed(2) + " lbf<br>" +
+extendFtLb.toFixed(2) + " ft-lb (1 ft lever)<br><br>" +
+
+"Retract Force: " + retractForceN.toFixed(2) + " N<br>" +
+retractForceLbf.toFixed(2) + " lbf<br>" +
+retractFtLb.toFixed(2) + " ft-lb (1 ft lever)"
+
+}
   </script>
 
 </body>
