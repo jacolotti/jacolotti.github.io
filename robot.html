@@ -30,6 +30,18 @@
       opacity:0.8;
     }
 
+    .description{
+  margin-top:0;
+  margin-bottom:25px;
+  color:#555;
+  font-size:16px;
+  line-height:1.5;
+  font-weight:normal;
+}
+
+.container h2{
+  margin-bottom:10px;
+}
     .container{
       background:white;
       padding:30px;
@@ -274,6 +286,7 @@ Estimate robot cycle time for pick-and-place style motion using travel distance,
       let timePerPoint = jointMoveTime + linearMoveTime + (dwell / 1000);
       let totalCycleTime = timePerPoint * totalPoints;
       let partsPerMinute = 60 / totalCycleTime;
+      let partsPerHour = partsPerMinute * 60;
 
       document.getElementById("output").innerHTML =
         "<strong>Robot Preset</strong><br>" +
@@ -295,7 +308,10 @@ Estimate robot cycle time for pick-and-place style motion using travel distance,
         totalCycleTime.toFixed(3) + " sec<br><br>" +
 
         "<strong>Parts Per Minute</strong><br>" +
-        partsPerMinute.toFixed(2);
+partsPerMinute.toFixed(2) + "<br><br>" +
+
+"<strong>Parts Per Hour</strong><br>" +
+partsPerHour.toFixed(0);
     }
 
     updateLabels();
