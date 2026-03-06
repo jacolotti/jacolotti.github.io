@@ -1,74 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-<title>Pneumatic Cylinder Force Calculator</title>
-
-<style>
-body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
-padding:40px;
-}
-
-.container{
-background:white;
-padding:30px;
-max-width:500px;
-margin:auto;
-border-radius:10px;
-box-shadow:0px 0px 10px rgba(0,0,0,.1);
-}
-
-input{
-width:100%;
-padding:10px;
-margin:10px 0;
-font-size:16px;
-}
-
-button{
-padding:12px 20px;
-font-size:16px;
-background:#0077ff;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
-
-.result{
-margin-top:20px;
-font-size:18px;
-}
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h2>Pneumatic Cylinder Force Calculator</h2>
-
-<p>Bore Diameter (mm)</p>
-<input id="bore" type="number" value="50">
-
-<p>Rod Diameter (mm)</p>
-<input id="rod" type="number" value="20">
-
-<p>Air Pressure (bar)</p>
-<input id="pressure" type="number" value="6">
-
-<button onclick="calculate()">Calculate</button>
-
-<div class="result" id="output"></div>
-
-</div>
-
-<script>
-
 function calculate(){
 
 let bore = document.getElementById("bore").value
@@ -78,19 +7,25 @@ let pressure = document.getElementById("pressure").value
 let boreArea = Math.PI*(bore/2)*(bore/2)
 let rodArea = Math.PI*(rod/2)*(rod/2)
 
-let extendForce = boreArea*pressure*0.1
-let retractForce = (boreArea-rodArea)*pressure*0.1
+let extendForceN = boreArea*pressure*0.1
+let retractForceN = (boreArea-rodArea)*pressure*0.1
+
+// Convert Newtons to pounds-force
+let extendForceLbf = extendForceN * 0.224809
+let retractForceLbf = retractForceN * 0.224809
+
+// Convert to ft-lb equivalent torque at 1 ft
+let extendFtLb = extendForceLbf * 1
+let retractFtLb = retractForceLbf * 1
 
 document.getElementById("output").innerHTML =
 
-"Extend Force: "+extendForce.toFixed(2)+" N <br><br>" +
+"Extend Force: "+extendForceN.toFixed(2)+" N<br>"+
+extendForceLbf.toFixed(2)+" lbf<br>"+
+extendFtLb.toFixed(2)+" ft-lb (1 ft lever)<br><br>"+
 
-"Retract Force: "+retractForce.toFixed(2)+" N"
+"Retract Force: "+retractForceN.toFixed(2)+" N<br>"+
+retractForceLbf.toFixed(2)+" lbf<br>"+
+retractFtLb.toFixed(2)+" ft-lb (1 ft lever)"
 
 }
-
-</script>
-
-</body>
-
-</html>
