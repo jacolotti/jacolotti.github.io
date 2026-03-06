@@ -125,57 +125,57 @@
   </div>
 
   <script>
-    function updateLabels(){
-      let lengthUnit = document.getElementById("lengthUnit").value;
-      let pressureUnit = document.getElementById("pressureUnit").value;
+  function updateLabels(){
+    let lengthUnit = document.getElementById("lengthUnit").value;
+    let pressureUnit = document.getElementById("pressureUnit").value;
 
-      document.getElementById("boreLabel").innerText =
-        "Bore Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+    document.getElementById("boreLabel").innerText =
+      "Bore Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
 
-      document.getElementById("rodLabel").innerText =
-        "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+    document.getElementById("rodLabel").innerText =
+      "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
 
-      document.getElementById("pressureLabel").innerText =
-        "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
+    document.getElementById("pressureLabel").innerText =
+      "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
+  }
+
+  function calculate(){
+    let bore = parseFloat(document.getElementById("bore").value);
+    let rod = parseFloat(document.getElementById("rod").value);
+    let pressure = parseFloat(document.getElementById("pressure").value);
+
+    let lengthUnit = document.getElementById("lengthUnit").value;
+    let pressureUnit = document.getElementById("pressureUnit").value;
+
+    if(lengthUnit === "inch"){
+      bore = bore * 25.4;
+      rod = rod * 25.4;
     }
 
-    function calculate(){
-      let bore = parseFloat(document.getElementById("bore").value);
-      let rod = parseFloat(document.getElementById("rod").value);
-      let pressure = parseFloat(document.getElementById("pressure").value);
-
-      let lengthUnit = document.getElementById("lengthUnit").value;
-      let pressureUnit = document.getElementById("pressureUnit").value;
-
-      if(lengthUnit === "inch"){
-        bore = bore * 25.4;
-        rod = rod * 25.4;
-      }
-
-      if(pressureUnit === "psi"){
-        pressure = pressure * 0.0689476;
-      }
-
-      let boreArea = Math.PI * (bore / 2) * (bore / 2);
-      let rodArea = Math.PI * (rod / 2) * (rod / 2);
-
-      let extendForceN = boreArea * pressure * 0.1;
-      let retractForceN = (boreArea - rodArea) * pressure * 0.1;
-
-      let extendForceLbf = extendForceN * 0.224809;
-      let retractForceLbf = retractForceN * 0.224809;
-
-     document.getElementById("output").innerHTML = "Enter values and press Calculate"
-        "<strong>Extend Force</strong><br>" +
-        extendForceN.toFixed(2) + " N<br>" +
-        extendForceLbf.toFixed(2) + " lbf<br><br>" +
-        "<strong>Retract Force</strong><br>" +
-        retractForceN.toFixed(2) + " N<br>" +
-        retractForceLbf.toFixed(2) + " lbf";
+    if(pressureUnit === "psi"){
+      pressure = pressure * 0.0689476;
     }
 
-    updateLabels();
-  </script>
+    let boreArea = Math.PI * (bore / 2) * (bore / 2);
+    let rodArea = Math.PI * (rod / 2) * (rod / 2);
 
+    let extendForceN = boreArea * pressure * 0.1;
+    let retractForceN = (boreArea - rodArea) * pressure * 0.1;
+
+    let extendForceLbf = extendForceN * 0.224809;
+    let retractForceLbf = retractForceN * 0.224809;
+
+    document.getElementById("output").innerHTML =
+      "<strong>Extend Force</strong><br>" +
+      extendForceN.toFixed(2) + " N<br>" +
+      extendForceLbf.toFixed(2) + " lbf<br><br>" +
+      "<strong>Retract Force</strong><br>" +
+      retractForceN.toFixed(2) + " N<br>" +
+      retractForceLbf.toFixed(2) + " lbf";
+  }
+
+  updateLabels();
+  document.getElementById("output").innerHTML = "Enter values and press Calculate";
+</script>
 </body>
 </html>
