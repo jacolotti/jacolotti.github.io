@@ -33,7 +33,7 @@
     .container{
       background:white;
       padding:30px;
-      max-width:650px;
+      max-width:700px;
       margin:auto;
       border-radius:10px;
       box-shadow:0px 0px 10px rgba(0,0,0,.1);
@@ -95,23 +95,26 @@
   <div class="container">
     <h2>Robot Cycle Time Calculator</h2>
 
-    <p>Distance Per Move (mm)</p>
-    <input id="distance" type="number" value="800">
+    <p>Joint Move Distance (mm)</p>
+    <input id="jointDistance" type="number" value="1000">
+
+    <p>Linear Move Distance (mm)</p>
+    <input id="linearDistance" type="number" value="200">
 
     <p>Robot Speed (mm/sec)</p>
     <input id="speed" type="number" value="2000">
 
-    <p>Number of Moves</p>
-    <input id="moves" type="number" value="6">
+    <p>Pick Points</p>
+    <input id="pickPoints" type="number" value="1">
 
-    <p>Dwell Time per Move (ms)</p>
+    <p>Place Points</p>
+    <input id="placePoints" type="number" value="1">
+
+    <p>Dwell Time per Point (ms)</p>
     <input id="dwell" type="number" value="100">
 
-    <p>Motion Type</p>
-    <select id="motionType">
-      <option value="linear">Linear</option>
-      <option value="joint">Joint</option>
-    </select>
+    <p>Payload (kg)</p>
+    <input id="payload" type="number" value="5">
 
     <p>Blend / CNT Effect</p>
     <select id="blend">
@@ -137,24 +140,20 @@
   <script>
     function calculate(){
 
-      let distance = parseFloat(document.getElementById("distance").value);
+      let jointDistance = parseFloat(document.getElementById("jointDistance").value);
+      let linearDistance = parseFloat(document.getElementById("linearDistance").value);
       let speed = parseFloat(document.getElementById("speed").value);
-      let moves = parseFloat(document.getElementById("moves").value);
+      let pickPoints = parseFloat(document.getElementById("pickPoints").value);
+      let placePoints = parseFloat(document.getElementById("placePoints").value);
       let dwell = parseFloat(document.getElementById("dwell").value);
+      let payload = parseFloat(document.getElementById("payload").value);
 
-      let motionType = document.getElementById("motionType").value;
       let blend = document.getElementById("blend").value;
       let accelProfile = document.getElementById("accelProfile").value;
 
-      let motionFactor = 1.0;
       let blendFactor = 1.0;
       let accelFactor = 1.0;
-
-      if(motionType === "joint"){
-        motionFactor = 0.85;
-      } else {
-        motionFactor = 1.0;
-      }
+      let payloadFactor = 1.0;
 
       if(blend === "fine"){
         blendFactor = 1.0;
@@ -172,18 +171,44 @@
         accelFactor = 0.9;
       }
 
-      let moveTime = (distance / speed) * motionFactor * blendFactor * accelFactor;
-      let dwellSeconds = dwell / 1000;
-      let timePerMove = moveTime + dwellSeconds;
-      let cycleTime = timePerMove * moves;
-      let partsPerMinute = 60 / cycleTime;
+      // Simple payload penalty
+      if(payload <= 5){
+        payloadFactor = 1.0;
+      } else if(payload <= 10){
+        payloadFactor = 1.08;
+      } else if(payload <= 20){
+        payloadFactor = 1.18;
+      } else {
+        payloadFactor = 1.3;
+      }
+
+      let totalPoints = pickPoints + placePoints;
+
+      // Joint moves are usually faster than linear moves
+      let jointMoveTime = (jointDistance / speed) * 0.85 * blendFactor * accelFactor * payloadFactor;
+      let linearMoveTime = (linearDistance / speed) * 1.0 * blendFactor * accelFactor * payloadFactor;
+
+      // Assume each point has one approach/retract style linear move
+      let timePerPoint = jointMoveTime + linearMoveTime + (dwell / 1000);
+
+      let totalCycleTime = timePerPoint * totalPoints;
+      let partsPerMinute = 60 / totalCycleTime;
 
       document.getElementById("output").innerHTML =
-        "<strong>Time Per Move</strong><br>" +
-        timePerMove.toFixed(3) + " sec<br><br>" +
+        "<strong>Total Points</strong><br>" +
+        totalPoints.toFixed(0) + "<br><br>" +
+
+        "<strong>Joint Move Time</strong><br>" +
+        jointMoveTime.toFixed(3) + " sec<br><br>" +
+
+        "<strong>Linear Move Time</strong><br>" +
+        linearMoveTime.toFixed(3) + " sec<br><br>" +
+
+        "<strong>Time Per Point</strong><br>" +
+        timePerPoint.toFixed(3) + " sec<br><br>" +
 
         "<strong>Total Cycle Time</strong><br>" +
-        cycleTime.toFixed(3) + " sec<br><br>" +
+        totalCycleTime.toFixed(3) + " sec<br><br>" +
 
         "<strong>Parts Per Minute</strong><br>" +
         partsPerMinute.toFixed(2);
