@@ -95,6 +95,15 @@
   <div class="container">
     <h2>Robot Cycle Time Calculator</h2>
 
+    <p>Robot Preset</p>
+    <select id="robotPreset" onchange="applyPreset()">
+      <option value="fanucSmall">Fanuc Small Robot</option>
+      <option value="fanucMedium">Fanuc Medium Robot</option>
+      <option value="abbMedium">ABB Medium Robot</option>
+      <option value="kukaHeavy">KUKA Heavy Robot</option>
+      <option value="custom">Custom</option>
+    </select>
+
     <p>Joint Move Distance (mm)</p>
     <input id="jointDistance" type="number" value="1000">
 
@@ -102,7 +111,7 @@
     <input id="linearDistance" type="number" value="200">
 
     <p>Robot Speed (mm/sec)</p>
-    <input id="speed" type="number" value="2000">
+    <input id="speed" type="number" value="2200">
 
     <p>Pick Points</p>
     <input id="pickPoints" type="number" value="1">
@@ -138,8 +147,22 @@
   </div>
 
   <script>
-    function calculate(){
+    function applyPreset(){
+      let preset = document.getElementById("robotPreset").value;
 
+      if(preset === "fanucSmall"){
+        document.getElementById("speed").value = 2200;
+      } else if(preset === "fanucMedium"){
+        document.getElementById("speed").value = 1800;
+      } else if(preset === "abbMedium"){
+        document.getElementById("speed").value = 1700;
+      } else if(preset === "kukaHeavy"){
+        document.getElementById("speed").value = 1300;
+      }
+    }
+
+    function calculate(){
+      let preset = document.getElementById("robotPreset").value;
       let jointDistance = parseFloat(document.getElementById("jointDistance").value);
       let linearDistance = parseFloat(document.getElementById("linearDistance").value);
       let speed = parseFloat(document.getElementById("speed").value);
@@ -154,6 +177,7 @@
       let blendFactor = 1.0;
       let accelFactor = 1.0;
       let payloadFactor = 1.0;
+      let presetFactor = 1.0;
 
       if(blend === "fine"){
         blendFactor = 1.0;
@@ -171,7 +195,6 @@
         accelFactor = 0.9;
       }
 
-      // Simple payload penalty
       if(payload <= 5){
         payloadFactor = 1.0;
       } else if(payload <= 10){
@@ -182,19 +205,32 @@
         payloadFactor = 1.3;
       }
 
+      if(preset === "fanucSmall"){
+        presetFactor = 0.95;
+      } else if(preset === "fanucMedium"){
+        presetFactor = 1.0;
+      } else if(preset === "abbMedium"){
+        presetFactor = 1.03;
+      } else if(preset === "kukaHeavy"){
+        presetFactor = 1.18;
+      } else {
+        presetFactor = 1.0;
+      }
+
       let totalPoints = pickPoints + placePoints;
 
-      // Joint moves are usually faster than linear moves
-      let jointMoveTime = (jointDistance / speed) * 0.85 * blendFactor * accelFactor * payloadFactor;
-      let linearMoveTime = (linearDistance / speed) * 1.0 * blendFactor * accelFactor * payloadFactor;
+      let jointMoveTime = (jointDistance / speed) * 0.85 * blendFactor * accelFactor * payloadFactor * presetFactor;
+      let linearMoveTime = (linearDistance / speed) * 1.0 * blendFactor * accelFactor * payloadFactor * presetFactor;
 
-      // Assume each point has one approach/retract style linear move
       let timePerPoint = jointMoveTime + linearMoveTime + (dwell / 1000);
 
       let totalCycleTime = timePerPoint * totalPoints;
       let partsPerMinute = 60 / totalCycleTime;
 
       document.getElementById("output").innerHTML =
+        "<strong>Robot Preset</strong><br>" +
+        document.getElementById("robotPreset").options[document.getElementById("robotPreset").selectedIndex].text + "<br><br>" +
+
         "<strong>Total Points</strong><br>" +
         totalPoints.toFixed(0) + "<br><br>" +
 
@@ -213,6 +249,8 @@
         "<strong>Parts Per Minute</strong><br>" +
         partsPerMinute.toFixed(2);
     }
+
+    applyPreset();
   </script>
 
 </body>
