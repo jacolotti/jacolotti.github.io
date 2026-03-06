@@ -84,29 +84,36 @@ let bore = parseFloat(document.getElementById("bore").value)
 let rod = parseFloat(document.getElementById("rod").value)
 let pressure = parseFloat(document.getElementById("pressure").value)
 
+let lengthUnit = document.getElementById("lengthUnit").value
+let pressureUnit = document.getElementById("pressureUnit").value
+
+// Convert inches to mm
+if(lengthUnit === "inch"){
+    bore = bore * 25.4
+    rod = rod * 25.4
+}
+
+// Convert psi to bar
+if(pressureUnit === "psi"){
+    pressure = pressure * 0.0689476
+}
+
 let boreArea = Math.PI*(bore/2)*(bore/2)
 let rodArea = Math.PI*(rod/2)*(rod/2)
 
 let extendForceN = boreArea*pressure*0.1
 let retractForceN = (boreArea-rodArea)*pressure*0.1
 
-// Convert Newtons to pounds-force
 let extendForceLbf = extendForceN * 0.224809
 let retractForceLbf = retractForceN * 0.224809
-
-// Convert to ft-lb equivalent torque at 1 ft lever
-let extendFtLb = extendForceLbf * 1
-let retractFtLb = retractForceLbf * 1
 
 document.getElementById("output").innerHTML =
 
 "Extend Force: " + extendForceN.toFixed(2) + " N<br>" +
-extendForceLbf.toFixed(2) + " lbf<br>" +
-extendFtLb.toFixed(2) + " ft-lb (1 ft lever)<br><br>" +
+extendForceLbf.toFixed(2) + " lbf<br><br>" +
 
 "Retract Force: " + retractForceN.toFixed(2) + " N<br>" +
-retractForceLbf.toFixed(2) + " lbf<br>" +
-retractFtLb.toFixed(2) + " ft-lb (1 ft lever)"
+retractForceLbf.toFixed(2) + " lbf"
 
 }
   </script>
