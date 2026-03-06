@@ -4,152 +4,191 @@
   <title>Robot Cycle Time Calculator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
 
-body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
-margin:0;
-}
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
 
-.navbar{
-background:#1f2a44;
-padding:15px;
-margin-bottom:40px;
-text-align:left;
-}
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
 
-.navbar a{
-color:white;
-margin:0 15px;
-text-decoration:none;
-font-weight:bold;
-}
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
 
-.navbar a:hover{
-text-decoration:underline;
-opacity:0.8;
-}
+    .container{
+      background:white;
+      padding:30px;
+      max-width:650px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
 
-.container{
-background:white;
-padding:30px;
-max-width:650px;
-margin:auto;
-border-radius:10px;
-box-shadow:0px 0px 10px rgba(0,0,0,.1);
-}
+    .container p{
+      margin-top:20px;
+      margin-bottom:5px;
+      font-weight:500;
+    }
 
-.container p{
-margin-top:20px;
-margin-bottom:5px;
-font-weight:500;
-}
+    input, select{
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
 
-input, select{
-width:100%;
-padding:10px;
-margin:10px 0;
-font-size:16px;
-box-sizing:border-box;
-border:1px solid #ccc;
-border-radius:5px;
-}
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:15px;
+      transition:background .2s;
+    }
 
-button{
-padding:12px 26px;
-font-size:16px;
-background:#1e6bd6;
-color:white;
-border:none;
-border-radius:6px;
-cursor:pointer;
-margin-top:15px;
-}
+    button:hover{
+      background:#1555ad;
+    }
 
-button:hover{
-background:#1555ad;
-}
-
-.result{
-margin-top:25px;
-padding:20px;
-background:#e9f1ff;
-border:1px solid #c8d9ff;
-border-radius:8px;
-font-size:18px;
-line-height:1.6;
-}
-
-</style>
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="navbar">
-<a href="index.html">Home</a>
-<a href="pneumatic.html">Pneumatic</a>
-<a href="robot.html">Robot</a>
-<a href="motor.html">Motor</a>
-</div>
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+  </div>
 
-<div class="container">
+  <div class="container">
+    <h2>Robot Cycle Time Calculator</h2>
 
-<h2>Robot Cycle Time Calculator</h2>
+    <p>Distance Per Move (mm)</p>
+    <input id="distance" type="number" value="800">
 
-<p>Distance Per Move (mm)</p>
-<input id="distance" type="number" value="800">
+    <p>Robot Speed (mm/sec)</p>
+    <input id="speed" type="number" value="2000">
 
-<p>Robot Speed (mm/sec)</p>
-<input id="speed" type="number" value="2000">
+    <p>Number of Moves</p>
+    <input id="moves" type="number" value="6">
 
-<p>Number of Moves</p>
-<input id="moves" type="number" value="6">
+    <p>Dwell Time per Move (ms)</p>
+    <input id="dwell" type="number" value="100">
 
-<p>Dwell Time per Move (ms)</p>
-<input id="dwell" type="number" value="100">
+    <p>Motion Type</p>
+    <select id="motionType">
+      <option value="linear">Linear</option>
+      <option value="joint">Joint</option>
+    </select>
 
-<button onclick="calculate()">Calculate</button>
+    <p>Blend / CNT Effect</p>
+    <select id="blend">
+      <option value="fine">Fine / Stop at point</option>
+      <option value="medium">Medium Blend</option>
+      <option value="high">High Blend</option>
+    </select>
 
-<div class="result" id="output">
-Enter values and press Calculate
-</div>
+    <p>Acceleration Profile</p>
+    <select id="accelProfile">
+      <option value="slow">Slow</option>
+      <option value="normal">Normal</option>
+      <option value="fast">Fast</option>
+    </select>
 
-</div>
+    <button onclick="calculate()">Calculate</button>
 
-<script>
+    <div class="result" id="output">
+      Enter values and press Calculate
+    </div>
+  </div>
 
-function calculate(){
+  <script>
+    function calculate(){
 
-let distance = parseFloat(document.getElementById("distance").value)
-let speed = parseFloat(document.getElementById("speed").value)
-let moves = parseFloat(document.getElementById("moves").value)
-let dwell = parseFloat(document.getElementById("dwell").value)
+      let distance = parseFloat(document.getElementById("distance").value);
+      let speed = parseFloat(document.getElementById("speed").value);
+      let moves = parseFloat(document.getElementById("moves").value);
+      let dwell = parseFloat(document.getElementById("dwell").value);
 
-let moveTime = distance / speed
+      let motionType = document.getElementById("motionType").value;
+      let blend = document.getElementById("blend").value;
+      let accelProfile = document.getElementById("accelProfile").value;
 
-let dwellSeconds = dwell / 1000
+      let motionFactor = 1.0;
+      let blendFactor = 1.0;
+      let accelFactor = 1.0;
 
-let timePerMove = moveTime + dwellSeconds
+      if(motionType === "joint"){
+        motionFactor = 0.85;
+      } else {
+        motionFactor = 1.0;
+      }
 
-let cycleTime = timePerMove * moves
+      if(blend === "fine"){
+        blendFactor = 1.0;
+      } else if(blend === "medium"){
+        blendFactor = 0.9;
+      } else if(blend === "high"){
+        blendFactor = 0.8;
+      }
 
-let partsPerMinute = 60 / cycleTime
+      if(accelProfile === "slow"){
+        accelFactor = 1.15;
+      } else if(accelProfile === "normal"){
+        accelFactor = 1.0;
+      } else if(accelProfile === "fast"){
+        accelFactor = 0.9;
+      }
 
-document.getElementById("output").innerHTML =
+      let moveTime = (distance / speed) * motionFactor * blendFactor * accelFactor;
+      let dwellSeconds = dwell / 1000;
+      let timePerMove = moveTime + dwellSeconds;
+      let cycleTime = timePerMove * moves;
+      let partsPerMinute = 60 / cycleTime;
 
-"<strong>Time Per Move</strong><br>" +
-timePerMove.toFixed(3) + " sec<br><br>" +
+      document.getElementById("output").innerHTML =
+        "<strong>Time Per Move</strong><br>" +
+        timePerMove.toFixed(3) + " sec<br><br>" +
 
-"<strong>Total Cycle Time</strong><br>" +
-cycleTime.toFixed(3) + " sec<br><br>" +
+        "<strong>Total Cycle Time</strong><br>" +
+        cycleTime.toFixed(3) + " sec<br><br>" +
 
-"<strong>Parts Per Minute</strong><br>" +
-partsPerMinute.toFixed(2)
-
-}
-
-</script>
+        "<strong>Parts Per Minute</strong><br>" +
+        partsPerMinute.toFixed(2);
+    }
+  </script>
 
 </body>
 </html>
