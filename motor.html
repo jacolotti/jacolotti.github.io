@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Conveyor Motor Sizing Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:700px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container p{
+      margin-top:20px;
+      margin-bottom:5px;
+      font-weight:500;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:15px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+  </div>
+
+  <div class="container">
+    <h2>Conveyor Motor Sizing Calculator</h2>
+
+    <p>Load Weight (kg)</p>
+    <input id="weight" type="number" value="50">
+
+    <p>Conveyor Speed (m/min)</p>
+    <input id="speed" type="number" value="20">
+
+    <p>Drive Roller Diameter (mm)</p>
+    <input id="diameter" type="number" value="100">
+
+    <p>Friction Factor</p>
+    <input id="friction" type="number" value="0.05" step="0.01">
+
+    <p>Mechanical Efficiency (%)</p>
+    <input id="efficiency" type="number" value="85">
+
+    <p>Safety Factor</p>
+    <input id="safety" type="number" value="1.5" step="0.1">
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="result" id="output">
+      Enter values and press Calculate
+    </div>
+  </div>
+
+  <script>
+    function calculate(){
+      let weight = parseFloat(document.getElementById("weight").value);
+      let speed = parseFloat(document.getElementById("speed").value);
+      let diameter = parseFloat(document.getElementById("diameter").value);
+      let friction = parseFloat(document.getElementById("friction").value);
+      let efficiency = parseFloat(document.getElementById("efficiency").value) / 100;
+      let safety = parseFloat(document.getElementById("safety").value);
+
+      let g = 9.81;
+
+      let force = weight * g * friction * safety;
+      let radius = (diameter / 1000) / 2;
+      let torque = force * radius;
+
+      let speedMps = speed / 60;
+      let powerWatts = (force * speedMps) / efficiency;
+      let powerKw = powerWatts / 1000;
+      let horsepower = powerWatts / 745.7;
+
+      document.getElementById("output").innerHTML =
+        "<strong>Required Force</strong><br>" +
+        force.toFixed(2) + " N<br><br>" +
+
+        "<strong>Required Torque</strong><br>" +
+        torque.toFixed(2) + " N·m<br><br>" +
+
+        "<strong>Power</strong><br>" +
+        powerWatts.toFixed(2) + " W<br>" +
+        powerKw.toFixed(3) + " kW<br>" +
+        horsepower.toFixed(3) + " hp";
+    }
+  </script>
+
+</body>
+</html>
