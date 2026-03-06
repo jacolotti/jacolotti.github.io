@@ -61,12 +61,12 @@
   <div class="container">
     <h2>Pneumatic Cylinder Force Calculator</h2>
 <p>Length Units</p>
-<select id="lengthUnit">
+<select id="lengthUnit" onchange="updateLabels()">
 <option value="mm">Millimeters</option>
 <option value="inch">Inches</option>
 </select>
     <p>Pressure Units</p>
-<select id="pressureUnit">
+<select id="pressureUnit" onchange="updateLabels()">
 <option value="bar">Bar</option>
 <option value="psi">PSI</option>
 </select>
@@ -139,6 +139,7 @@ extendForceLbf.toFixed(2) + " lbf<br><br>" +
 retractForceLbf.toFixed(2) + " lbf"
 
 }
+    updateLabels()
   </script>
 
 </body>
