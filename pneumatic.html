@@ -15,7 +15,7 @@
     .navbar{
       background:#1f2a44;
       padding:15px;
-      margin-bottom:30px;
+     margin-bottom:40px;
       text-align:left;
     }
 
@@ -27,6 +27,10 @@
     }
 
     .navbar a:hover{
+      .navbar a:hover{
+  text-decoration:underline;
+  opacity:0.8;
+}
       text-decoration:underline;
     }
 
@@ -162,7 +166,7 @@
       let extendForceLbf = extendForceN * 0.224809;
       let retractForceLbf = retractForceN * 0.224809;
 
-      document.getElementById("output").innerHTML =
+     document.getElementById("output").innerHTML = "Enter values and press Calculate"
         "<strong>Extend Force</strong><br>" +
         extendForceN.toFixed(2) + " N<br>" +
         extendForceLbf.toFixed(2) + " lbf<br><br>" +
