@@ -95,6 +95,18 @@
   <div class="container">
     <h2>Robot Cycle Time Calculator</h2>
 
+    <p>Distance Units</p>
+    <select id="distanceUnit" onchange="updateLabels()">
+      <option value="mm">Millimeters</option>
+      <option value="inch">Inches</option>
+    </select>
+
+    <p>Speed Units</p>
+    <select id="speedUnit" onchange="updateLabels()">
+      <option value="mms">mm/sec</option>
+      <option value="ins">in/sec</option>
+    </select>
+
     <p>Robot Preset</p>
     <select id="robotPreset" onchange="applyPreset()">
       <option value="fanucSmall">Fanuc Small Robot</option>
@@ -104,13 +116,13 @@
       <option value="custom">Custom</option>
     </select>
 
-    <p>Joint Move Distance (mm)</p>
+    <p id="jointLabel">Joint Move Distance (mm)</p>
     <input id="jointDistance" type="number" value="1000">
 
-    <p>Linear Move Distance (mm)</p>
+    <p id="linearLabel">Linear Move Distance (mm)</p>
     <input id="linearDistance" type="number" value="200">
 
-    <p>Robot Speed (mm/sec)</p>
+    <p id="speedLabel">Robot Speed (mm/sec)</p>
     <input id="speed" type="number" value="2200">
 
     <p>Pick Points</p>
@@ -147,22 +159,49 @@
   </div>
 
   <script>
+    function updateLabels(){
+      let distanceUnit = document.getElementById("distanceUnit").value;
+      let speedUnit = document.getElementById("speedUnit").value;
+
+      document.getElementById("jointLabel").innerText =
+        "Joint Move Distance (" + (distanceUnit === "inch" ? "in" : "mm") + ")";
+
+      document.getElementById("linearLabel").innerText =
+        "Linear Move Distance (" + (distanceUnit === "inch" ? "in" : "mm") + ")";
+
+      document.getElementById("speedLabel").innerText =
+        "Robot Speed (" + (speedUnit === "ins" ? "in/sec" : "mm/sec") + ")";
+    }
+
     function applyPreset(){
       let preset = document.getElementById("robotPreset").value;
+      let speedUnit = document.getElementById("speedUnit").value;
+      let speedValue = 2200;
 
       if(preset === "fanucSmall"){
-        document.getElementById("speed").value = 2200;
+        speedValue = 2200;
       } else if(preset === "fanucMedium"){
-        document.getElementById("speed").value = 1800;
+        speedValue = 1800;
       } else if(preset === "abbMedium"){
-        document.getElementById("speed").value = 1700;
+        speedValue = 1700;
       } else if(preset === "kukaHeavy"){
-        document.getElementById("speed").value = 1300;
+        speedValue = 1300;
+      }
+
+      if(speedUnit === "ins"){
+        speedValue = speedValue / 25.4;
+      }
+
+      if(preset !== "custom"){
+        document.getElementById("speed").value = speedValue.toFixed(1);
       }
     }
 
     function calculate(){
       let preset = document.getElementById("robotPreset").value;
+      let distanceUnit = document.getElementById("distanceUnit").value;
+      let speedUnit = document.getElementById("speedUnit").value;
+
       let jointDistance = parseFloat(document.getElementById("jointDistance").value);
       let linearDistance = parseFloat(document.getElementById("linearDistance").value);
       let speed = parseFloat(document.getElementById("speed").value);
@@ -173,6 +212,15 @@
 
       let blend = document.getElementById("blend").value;
       let accelProfile = document.getElementById("accelProfile").value;
+
+      if(distanceUnit === "inch"){
+        jointDistance = jointDistance * 25.4;
+        linearDistance = linearDistance * 25.4;
+      }
+
+      if(speedUnit === "ins"){
+        speed = speed * 25.4;
+      }
 
       let blendFactor = 1.0;
       let accelFactor = 1.0;
@@ -213,8 +261,6 @@
         presetFactor = 1.03;
       } else if(preset === "kukaHeavy"){
         presetFactor = 1.18;
-      } else {
-        presetFactor = 1.0;
       }
 
       let totalPoints = pickPoints + placePoints;
@@ -223,7 +269,6 @@
       let linearMoveTime = (linearDistance / speed) * 1.0 * blendFactor * accelFactor * payloadFactor * presetFactor;
 
       let timePerPoint = jointMoveTime + linearMoveTime + (dwell / 1000);
-
       let totalCycleTime = timePerPoint * totalPoints;
       let partsPerMinute = 60 / totalCycleTime;
 
@@ -250,6 +295,7 @@
         partsPerMinute.toFixed(2);
     }
 
+    updateLabels();
     applyPreset();
   </script>
 
