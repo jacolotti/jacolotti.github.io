@@ -1,1 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Automation ROI Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
 
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:700px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:25px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      font-weight:normal;
+    }
+
+    .container p{
+      margin-top:20px;
+      margin-bottom:5px;
+      font-weight:500;
+    }
+
+    input{
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin:15px 8px 0 8px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+      white-space:pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+    <a href="roi.html">ROI</a>
+  </div>
+
+  <div class="container">
+    <h2>Automation ROI Calculator</h2>
+    <p class="description">
+      Estimate payback period and return on investment for automation projects using annual savings and system cost.
+    </p>
+
+    <p>Automation System Cost ($)</p>
+    <input id="systemCost" type="number" value="120000">
+
+    <p>Annual Labor Savings ($)</p>
+    <input id="laborSavings" type="number" value="35000">
+
+    <p>Annual Scrap Reduction Savings ($)</p>
+    <input id="scrapSavings" type="number" value="5000">
+
+    <p>Annual Throughput Increase Savings ($)</p>
+    <input id="throughputSavings" type="number" value="8000">
+
+    <p>Other Annual Savings ($)</p>
+    <input id="otherSavings" type="number" value="0">
+
+    <p>Annual Maintenance Cost ($)</p>
+    <input id="maintenanceCost" type="number" value="5000">
+
+    <button onclick="calculateROI()">Calculate</button>
+    <button onclick="copyResults()">Copy Results</button>
+
+    <div class="result" id="output">Enter values and press Calculate</div>
+  </div>
+
+  <script>
+    let lastResultsText = "";
+
+    function formatMoney(value){
+      return "$" + value.toFixed(2);
+    }
+
+    function calculateROI(){
+      let systemCost = parseFloat(document.getElementById("systemCost").value) || 0;
+      let laborSavings = parseFloat(document.getElementById("laborSavings").value) || 0;
+      let scrapSavings = parseFloat(document.getElementById("scrapSavings").value) || 0;
+      let throughputSavings = parseFloat(document.getElementById("throughputSavings").value) || 0;
+      let otherSavings = parseFloat(document.getElementById("otherSavings").value) || 0;
+      let maintenanceCost = parseFloat(document.getElementById("maintenanceCost").value) || 0;
+
+      let totalAnnualSavings = laborSavings + scrapSavings + throughputSavings + otherSavings;
+      let netAnnualBenefit = totalAnnualSavings - maintenanceCost;
+
+      let paybackYears = netAnnualBenefit > 0 ? systemCost / netAnnualBenefit : 0;
+      let oneYearROI = systemCost > 0 ? (netAnnualBenefit / systemCost) * 100 : 0;
+      let threeYearROI = systemCost > 0 ? ((netAnnualBenefit * 3) / systemCost) * 100 : 0;
+
+      lastResultsText =
+        "Automation ROI Results\n" +
+        "Automation System Cost: " + formatMoney(systemCost) + "\n" +
+        "Total Annual Savings: " + formatMoney(totalAnnualSavings) + "\n" +
+        "Annual Maintenance Cost: " + formatMoney(maintenanceCost) + "\n" +
+        "Net Annual Benefit: " + formatMoney(netAnnualBenefit) + "\n" +
+        "Payback Period: " + paybackYears.toFixed(2) + " years\n" +
+        "1-Year ROI: " + oneYearROI.toFixed(2) + "%\n" +
+        "3-Year ROI: " + threeYearROI.toFixed(2) + "%";
+
+      document.getElementById("output").innerHTML =
+        "<strong>Total Annual Savings</strong><br>" +
+        formatMoney(totalAnnualSavings) + "<br><br>" +
+
+        "<strong>Net Annual Benefit</strong><br>" +
+        formatMoney(netAnnualBenefit) + "<br><br>" +
+
+        "<strong>Payback Period</strong><br>" +
+        paybackYears.toFixed(2) + " years<br><br>" +
+
+        "<strong>1-Year ROI</strong><br>" +
+        oneYearROI.toFixed(2) + "%<br><br>" +
+
+        "<strong>3-Year ROI</strong><br>" +
+        threeYearROI.toFixed(2) + "%";
+    }
+
+    function copyResults(){
+      if(!lastResultsText){
+        alert("Please calculate results first.");
+        return;
+      }
+
+      navigator.clipboard.writeText(lastResultsText)
+        .then(() => alert("Results copied to clipboard."))
+        .catch(() => alert("Copy failed. Please try again."));
+    }
+  </script>
+
+</body>
+</html>
