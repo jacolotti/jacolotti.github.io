@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <link rel="canonical" href="https://automationcalculators.net/roi.html">
+  <meta name="robots" content="index, follow">
 
-  gtag('config', 'G-G4TY96JHNH');
-</script>
-  <title>Automation ROI Calculator</title>
-  <meta name="description" content="Free automation engineering calculator for conveyor motor sizing, robot cycle time, pneumatic cylinder force, and automation ROI.">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Automation ROI Calculator | Payback Period & Return on Investment</title>
+  <meta name="description" content="Free automation ROI calculator for machine builders and controls engineers. Estimate annual savings, net annual benefit, payback period, and 1-year and 3-year ROI for automation projects.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
     body{
       font-family:Arial;
@@ -55,7 +59,7 @@
 
     .description{
       margin-top:0;
-      margin-bottom:25px;
+      margin-bottom:18px;
       color:#555;
       font-size:16px;
       line-height:1.5;
@@ -105,11 +109,17 @@
       font-weight:500;
       white-space:pre-line;
     }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
   </style>
 </head>
 <body>
 
-<div class="navbar">
+  <div class="navbar">
     <a href="index.html">Home</a>
     <a href="pneumatic.html">Pneumatic</a>
     <a href="robot.html">Robot</a>
@@ -118,44 +128,56 @@
     <a href="voltage-drop.html">Voltage Drop</a>
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
-  <a href="servo-torque.html">Servo Torque</a>
+    <a href="servo-torque.html">Servo Torque</a>
   </div>
 
   <div class="container">
     <h2>Automation ROI Calculator</h2>
+
     <p class="description">
-      Estimate payback period and return on investment for automation projects using annual savings and system cost.
+      Estimate payback period and return on investment for automation projects using annual savings, maintenance cost, and total system cost.
+    </p>
+
+    <p class="description">
+      This calculator is useful for estimating the financial benefit of robotics, conveyor systems, machine upgrades, assembly automation, and other industrial automation projects.
     </p>
 
     <p>Automation System Cost ($)</p>
-    <input id="systemCost" type="number" value="120000">
+    <input id="systemCost" type="number" value="120000" min="0" step="0.01">
 
     <p>Annual Labor Savings ($)</p>
-    <input id="laborSavings" type="number" value="35000">
+    <input id="laborSavings" type="number" value="35000" min="0" step="0.01">
 
     <p>Annual Scrap Reduction Savings ($)</p>
-    <input id="scrapSavings" type="number" value="5000">
+    <input id="scrapSavings" type="number" value="5000" min="0" step="0.01">
 
     <p>Annual Throughput Increase Savings ($)</p>
-    <input id="throughputSavings" type="number" value="8000">
+    <input id="throughputSavings" type="number" value="8000" min="0" step="0.01">
 
     <p>Other Annual Savings ($)</p>
-    <input id="otherSavings" type="number" value="0">
+    <input id="otherSavings" type="number" value="0" min="0" step="0.01">
 
     <p>Annual Maintenance Cost ($)</p>
-    <input id="maintenanceCost" type="number" value="5000">
+    <input id="maintenanceCost" type="number" value="5000" min="0" step="0.01">
 
-    <button onclick="calculateROI()">Calculate</button>
-    <button onclick="copyResults()">Copy Results</button>
+    <button onclick="calculateROI(); gtag('event','roi_calculation');">Calculate</button>
+    <button onclick="copyResults(); gtag('event','roi_copy_results');">Copy Results</button>
 
     <div class="result" id="output">Enter values and press Calculate</div>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
+    </div>
   </div>
 
   <script>
     let lastResultsText = "";
 
     function formatMoney(value){
-      return "$" + value.toFixed(2);
+      return "$" + value.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
     }
 
     function calculateROI(){
@@ -166,12 +188,26 @@
       let otherSavings = parseFloat(document.getElementById("otherSavings").value) || 0;
       let maintenanceCost = parseFloat(document.getElementById("maintenanceCost").value) || 0;
 
+      const output = document.getElementById("output");
+
+      if(systemCost <= 0){
+        output.innerHTML = "<strong>Please enter an automation system cost greater than 0.</strong>";
+        return;
+      }
+
+      if(laborSavings < 0 || scrapSavings < 0 || throughputSavings < 0 || otherSavings < 0 || maintenanceCost < 0){
+        output.innerHTML = "<strong>Please enter savings and maintenance values of 0 or greater.</strong>";
+        return;
+      }
+
       let totalAnnualSavings = laborSavings + scrapSavings + throughputSavings + otherSavings;
       let netAnnualBenefit = totalAnnualSavings - maintenanceCost;
 
       let paybackYears = netAnnualBenefit > 0 ? systemCost / netAnnualBenefit : 0;
-      let oneYearROI = systemCost > 0 ? (netAnnualBenefit / systemCost) * 100 : 0;
-      let threeYearROI = systemCost > 0 ? ((netAnnualBenefit * 3) / systemCost) * 100 : 0;
+      let paybackMonths = netAnnualBenefit > 0 ? paybackYears * 12 : 0;
+
+      let oneYearROI = (netAnnualBenefit / systemCost) * 100;
+      let threeYearROI = ((netAnnualBenefit * 3) / systemCost) * 100;
 
       lastResultsText =
         "Automation ROI Results\n" +
@@ -179,19 +215,28 @@
         "Total Annual Savings: " + formatMoney(totalAnnualSavings) + "\n" +
         "Annual Maintenance Cost: " + formatMoney(maintenanceCost) + "\n" +
         "Net Annual Benefit: " + formatMoney(netAnnualBenefit) + "\n" +
-        "Payback Period: " + paybackYears.toFixed(2) + " years\n" +
+        (netAnnualBenefit > 0
+          ? "Payback Period: " + paybackYears.toFixed(2) + " years (" + paybackMonths.toFixed(1) + " months)\n"
+          : "Payback Period: No payback based on current inputs\n"
+        ) +
         "1-Year ROI: " + oneYearROI.toFixed(2) + "%\n" +
         "3-Year ROI: " + threeYearROI.toFixed(2) + "%";
 
-      document.getElementById("output").innerHTML =
+      output.innerHTML =
         "<strong>Total Annual Savings</strong><br>" +
         formatMoney(totalAnnualSavings) + "<br><br>" +
+
+        "<strong>Annual Maintenance Cost</strong><br>" +
+        formatMoney(maintenanceCost) + "<br><br>" +
 
         "<strong>Net Annual Benefit</strong><br>" +
         formatMoney(netAnnualBenefit) + "<br><br>" +
 
         "<strong>Payback Period</strong><br>" +
-        paybackYears.toFixed(2) + " years<br><br>" +
+        (netAnnualBenefit > 0
+          ? paybackYears.toFixed(2) + " years<br>" + paybackMonths.toFixed(1) + " months"
+          : "No payback based on current inputs"
+        ) + "<br><br>" +
 
         "<strong>1-Year ROI</strong><br>" +
         oneYearROI.toFixed(2) + "%<br><br>" +
