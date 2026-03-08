@@ -14,7 +14,7 @@
 
   <title>Servo Motor Torque Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free servo motor torque calculator for automation engineers. Estimate required torque, peak torque, angular acceleration, and power using load force, radius, efficiency, safety factor, target RPM, and acceleration time.">
+  <meta name="description" content="Free servo motor torque calculator for automation engineers. Estimate running torque, acceleration torque, peak torque, power, reflected inertia, and motor torque using load mass, travel mode, radius, speed, acceleration time, gear ratio, efficiency, and safety factor.">
 
   <style>
     body{
@@ -46,7 +46,7 @@
     .container{
       background:white;
       padding:30px;
-      max-width:760px;
+      max-width:850px;
       margin:auto;
       border-radius:10px;
       box-shadow:0px 0px 10px rgba(0,0,0,.1);
@@ -62,21 +62,25 @@
       color:#555;
       font-size:16px;
       line-height:1.5;
-      font-weight:normal;
       text-align:left;
     }
 
-    .container p{
-      margin-top:18px;
-      margin-bottom:5px;
-      font-weight:500;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:18px;
       text-align:left;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
     }
 
     input, select{
       width:100%;
       padding:10px;
-      margin:10px 0;
       font-size:16px;
       box-sizing:border-box;
       border:1px solid #ccc;
@@ -91,7 +95,7 @@
       border:none;
       border-radius:6px;
       cursor:pointer;
-      margin-top:15px;
+      margin-top:20px;
       transition:background .2s;
     }
 
@@ -105,9 +109,8 @@
       background:#e9f1ff;
       border:1px solid #c8d9ff;
       border-radius:8px;
-      font-size:18px;
-      line-height:1.6;
-      font-weight:500;
+      font-size:17px;
+      line-height:1.7;
       text-align:left;
     }
 
@@ -123,6 +126,10 @@
       margin-top:40px;
       color:#666;
       font-size:14px;
+    }
+
+    .hidden{
+      display:none;
     }
   </style>
 </head>
@@ -141,28 +148,70 @@
   </div>
 
   <div class="container">
-    <h2>Servo Motor Torque Calculator</h2>
+    <h2>Advanced Servo Motor Torque Calculator</h2>
     <p class="description">
-      Estimate running torque, peak torque, angular acceleration, and power for a pulley, wheel, or rotary-driven load. This is a practical first-pass sizing tool for automation and machine design.
+      Estimate motor torque for rotary or linear motion systems using load mass, pulley radius, target speed, acceleration time, gear ratio, efficiency, and safety factor. Includes reflected inertia and peak torque estimates for a stronger first-pass sizing tool.
     </p>
 
-    <p>Load Force (lb)</p>
-    <input id="loadForce" type="number" value="50" step="0.1">
+    <div class="grid">
+      <div class="field">
+        <label for="mode">Application Mode</label>
+        <select id="mode" onchange="toggleModeFields()">
+          <option value="linear">Linear Travel</option>
+          <option value="rotary">Rotary Load</option>
+        </select>
+      </div>
 
-    <p>Radius (in)</p>
-    <input id="radius" type="number" value="2" step="0.1">
+      <div class="field">
+        <label for="mass">Load Mass (lb)</label>
+        <input id="mass" type="number" value="50" step="0.1">
+      </div>
 
-    <p>Mechanical Efficiency (%)</p>
-    <input id="efficiency" type="number" value="90" step="1">
+      <div class="field">
+        <label for="radius">Pulley / Wheel Radius (in)</label>
+        <input id="radius" type="number" value="2" step="0.1">
+      </div>
 
-    <p>Safety Factor</p>
-    <input id="safetyFactor" type="number" value="1.5" step="0.1">
+      <div class="field">
+        <label for="gearRatio">Gear Ratio (load : motor)</label>
+        <input id="gearRatio" type="number" value="1" step="0.1">
+      </div>
 
-    <p>Target Speed (RPM)</p>
-    <input id="targetRPM" type="number" value="120" step="1">
+      <div class="field">
+        <label for="efficiency">Mechanical Efficiency (%)</label>
+        <input id="efficiency" type="number" value="90" step="1">
+      </div>
 
-    <p>Acceleration Time to Target Speed (sec)</p>
-    <input id="accelTime" type="number" value="0.4" step="0.01">
+      <div class="field">
+        <label for="safetyFactor">Safety Factor</label>
+        <input id="safetyFactor" type="number" value="1.5" step="0.1">
+      </div>
+
+      <div class="field" id="linearSpeedField">
+        <label for="linearSpeed">Target Linear Speed (in/sec)</label>
+        <input id="linearSpeed" type="number" value="20" step="0.1">
+      </div>
+
+      <div class="field hidden" id="rotarySpeedField">
+        <label for="targetRPM">Target Load Speed (RPM)</label>
+        <input id="targetRPM" type="number" value="120" step="1">
+      </div>
+
+      <div class="field">
+        <label for="accelTime">Acceleration Time (sec)</label>
+        <input id="accelTime" type="number" value="0.4" step="0.01">
+      </div>
+
+      <div class="field">
+        <label for="moveDistance">Move Distance (in, optional)</label>
+        <input id="moveDistance" type="number" value="12" step="0.1">
+      </div>
+
+      <div class="field hidden" id="externalInertiaField">
+        <label for="externalInertia">External Rotary Inertia at Load (lb-in², optional)</label>
+        <input id="externalInertia" type="number" value="0" step="0.01">
+      </div>
+    </div>
 
     <button onclick="calculateServoTorque(); gtag('event','servo_torque_calculation');">
       Calculate
@@ -173,7 +222,7 @@
     </div>
 
     <p class="note">
-      This calculator uses a simplified model based on tangential load and rotational speed. Final motor sizing should also consider reflected inertia, gearbox ratio, duty cycle, vertical load conditions, shock loading, and actual motion profile.
+      This is a practical first-pass sizing calculator. Final servo selection should still consider true reflected inertia from all rotating components, move profile shape, gravity loads, gearbox backlash, duty cycle, shock loading, and vendor torque-speed curves.
     </p>
 
     <div class="footer">
@@ -182,15 +231,52 @@
   </div>
 
   <script>
-    function calculateServoTorque(){
-      let loadForce = parseFloat(document.getElementById("loadForce").value) || 0;
-      let radius = parseFloat(document.getElementById("radius").value) || 0;
-      let efficiencyPercent = parseFloat(document.getElementById("efficiency").value) || 0;
-      let safetyFactor = parseFloat(document.getElementById("safetyFactor").value) || 0;
-      let targetRPM = parseFloat(document.getElementById("targetRPM").value) || 0;
-      let accelTime = parseFloat(document.getElementById("accelTime").value) || 0;
+    function toggleModeFields(){
+      const mode = document.getElementById("mode").value;
+      const linearSpeedField = document.getElementById("linearSpeedField");
+      const rotarySpeedField = document.getElementById("rotarySpeedField");
+      const externalInertiaField = document.getElementById("externalInertiaField");
 
-      let output = document.getElementById("output");
+      if(mode === "linear"){
+        linearSpeedField.classList.remove("hidden");
+        rotarySpeedField.classList.add("hidden");
+        externalInertiaField.classList.add("hidden");
+      } else {
+        linearSpeedField.classList.add("hidden");
+        rotarySpeedField.classList.remove("hidden");
+        externalInertiaField.classList.remove("hidden");
+      }
+    }
+
+    function calculateServoTorque(){
+      const mode = document.getElementById("mode").value;
+      const massLb = parseFloat(document.getElementById("mass").value) || 0;
+      const radiusIn = parseFloat(document.getElementById("radius").value) || 0;
+      const gearRatio = parseFloat(document.getElementById("gearRatio").value) || 0;
+      const efficiencyPercent = parseFloat(document.getElementById("efficiency").value) || 0;
+      const safetyFactor = parseFloat(document.getElementById("safetyFactor").value) || 0;
+      const linearSpeedInSec = parseFloat(document.getElementById("linearSpeed").value) || 0;
+      const targetRPM = parseFloat(document.getElementById("targetRPM").value) || 0;
+      const accelTime = parseFloat(document.getElementById("accelTime").value) || 0;
+      const moveDistance = parseFloat(document.getElementById("moveDistance").value) || 0;
+      const externalInertiaLbIn2 = parseFloat(document.getElementById("externalInertia").value) || 0;
+
+      const output = document.getElementById("output");
+
+      if(massLb <= 0){
+        output.innerHTML = "<strong>Please enter a load mass greater than 0.</strong>";
+        return;
+      }
+
+      if(radiusIn <= 0){
+        output.innerHTML = "<strong>Please enter a radius greater than 0.</strong>";
+        return;
+      }
+
+      if(gearRatio <= 0){
+        output.innerHTML = "<strong>Please enter a gear ratio greater than 0.</strong>";
+        return;
+      }
 
       if(efficiencyPercent <= 0){
         output.innerHTML = "<strong>Please enter an efficiency greater than 0%.</strong>";
@@ -202,83 +288,155 @@
         return;
       }
 
-      if(radius <= 0){
-        output.innerHTML = "<strong>Please enter a radius greater than 0.</strong>";
-        return;
-      }
-
       if(accelTime <= 0){
         output.innerHTML = "<strong>Please enter an acceleration time greater than 0.</strong>";
         return;
       }
 
-      let efficiency = efficiencyPercent / 100;
+      const efficiency = efficiencyPercent / 100;
+      const gInSec2 = 386.09;
 
-      // Running torque from tangential load
-      let basicTorqueLbIn = loadForce * radius;
-      let requiredTorqueLbIn = basicTorqueLbIn / efficiency;
-      let recommendedRunningTorqueLbIn = requiredTorqueLbIn * safetyFactor;
+      const radiusFt = radiusIn / 12;
+      const radiusM = radiusIn * 0.0254;
+      const massKg = massLb * 0.45359237;
+      const loadForceLb = massLb; 
 
-      // Speed conversions
-      let omega = targetRPM * 2 * Math.PI / 60; // rad/s
-      let alpha = omega / accelTime; // rad/s^2
+      let loadRPM = 0;
+      let motorRPM = 0;
+      let omegaLoad = 0;
+      let omegaMotor = 0;
+      let alphaLoad = 0;
+      let alphaMotor = 0;
 
-      // Approximate inertia using equivalent tangential load at radius
-      // mass = force / g, with g = 32.174 ft/s²
-      // radius converted from inches to feet
-      let radiusFt = radius / 12;
-      let massSlugs = loadForce / 32.174;
-      let inertia = massSlugs * Math.pow(radiusFt, 2); // slug-ft²
+      let runningTorqueLoadLbIn = 0;
+      let runningTorqueMotorLbIn = 0;
+      let accelTorqueLoadLbIn = 0;
+      let accelTorqueMotorLbIn = 0;
 
-      // Acceleration torque in lb-ft, then lb-in
-      let accelTorqueLbFt = inertia * alpha;
-      let accelTorqueLbIn = accelTorqueLbFt * 12;
+      let loadInertiaLbIn2 = 0;
+      let loadInertiaMotorSideLbIn2 = 0;
 
-      // Peak torque = running torque + acceleration torque
-      let peakTorqueLbIn = (requiredTorqueLbIn + accelTorqueLbIn) * safetyFactor;
+      if(mode === "linear"){
+        if(linearSpeedInSec <= 0){
+          output.innerHTML = "<strong>Please enter a linear speed greater than 0.</strong>";
+          return;
+        }
 
-      // Power using required running torque at target RPM
-      let requiredTorqueLbFt = requiredTorqueLbIn / 12;
-      let powerHP = (requiredTorqueLbFt * targetRPM) / 5252;
-      let powerKW = powerHP * 0.7457;
+        loadRPM = (linearSpeedInSec / (2 * Math.PI * radiusIn)) * 60;
+        motorRPM = loadRPM * gearRatio;
 
-      // Metric conversions
-      let requiredTorqueNm = requiredTorqueLbIn * 0.112985;
-      let recommendedRunningTorqueNm = recommendedRunningTorqueLbIn * 0.112985;
-      let accelTorqueNm = accelTorqueLbIn * 0.112985;
-      let peakTorqueNm = peakTorqueLbIn * 0.112985;
+        omegaLoad = loadRPM * 2 * Math.PI / 60;
+        omegaMotor = motorRPM * 2 * Math.PI / 60;
+
+        alphaLoad = omegaLoad / accelTime;
+        alphaMotor = omegaMotor / accelTime;
+
+        runningTorqueLoadLbIn = loadForceLb * radiusIn;
+        runningTorqueMotorLbIn = (runningTorqueLoadLbIn / gearRatio) / efficiency;
+
+        loadInertiaLbIn2 = massLb * Math.pow(radiusIn, 2);
+        loadInertiaMotorSideLbIn2 = loadInertiaLbIn2 / Math.pow(gearRatio, 2);
+
+        accelTorqueLoadLbIn = (massLb * radiusIn * linearSpeedInSec) / (gInSec2 * accelTime);
+        accelTorqueMotorLbIn = (accelTorqueLoadLbIn / gearRatio) / efficiency;
+      } else {
+        if(targetRPM <= 0){
+          output.innerHTML = "<strong>Please enter a target RPM greater than 0.</strong>";
+          return;
+        }
+
+        loadRPM = targetRPM;
+        motorRPM = loadRPM * gearRatio;
+
+        omegaLoad = loadRPM * 2 * Math.PI / 60;
+        omegaMotor = motorRPM * 2 * Math.PI / 60;
+
+        alphaLoad = omegaLoad / accelTime;
+        alphaMotor = omegaMotor / accelTime;
+
+        runningTorqueLoadLbIn = loadForceLb * radiusIn;
+        runningTorqueMotorLbIn = (runningTorqueLoadLbIn / gearRatio) / efficiency;
+
+        loadInertiaLbIn2 = externalInertiaLbIn2;
+        loadInertiaMotorSideLbIn2 = loadInertiaLbIn2 / Math.pow(gearRatio, 2);
+
+        const alphaRadSec2 = alphaLoad;
+        const inertiaSlugFt2 = (loadInertiaLbIn2 / 144) / 32.174;
+        const accelTorqueLoadLbFt = inertiaSlugFt2 * alphaRadSec2;
+        accelTorqueLoadLbIn = accelTorqueLoadLbFt * 12;
+        accelTorqueMotorLbIn = (accelTorqueLoadLbIn / gearRatio) / efficiency;
+      }
+
+      const totalMotorTorqueLbIn = runningTorqueMotorLbIn + accelTorqueMotorLbIn;
+      const recommendedMotorTorqueLbIn = totalMotorTorqueLbIn * safetyFactor;
+
+      const motorTorqueLbFt = totalMotorTorqueLbIn / 12;
+      const recommendedMotorTorqueLbFt = recommendedMotorTorqueLbIn / 12;
+
+      const totalMotorTorqueNm = totalMotorTorqueLbIn * 0.112985;
+      const recommendedMotorTorqueNm = recommendedMotorTorqueLbIn * 0.112985;
+
+      const powerHP = (motorTorqueLbFt * motorRPM) / 5252;
+      const powerKW = powerHP * 0.7457;
+
+      const moveTimeAtSpeed = mode === "linear" && linearSpeedInSec > 0
+        ? moveDistance / linearSpeedInSec
+        : (loadRPM > 0 ? (moveDistance / 360) * (60 / loadRPM) : 0);
 
       output.innerHTML =
-        "<strong>Basic Running Torque</strong><br>" +
-        basicTorqueLbIn.toFixed(2) + " lb-in<br><br>" +
+        "<strong>Load Speed</strong><br>" +
+        loadRPM.toFixed(2) + " RPM<br><br>" +
 
-        "<strong>Required Running Torque (efficiency adjusted)</strong><br>" +
-        requiredTorqueLbIn.toFixed(2) + " lb-in<br>" +
-        (requiredTorqueLbIn / 12).toFixed(2) + " lb-ft<br>" +
-        requiredTorqueNm.toFixed(2) + " N·m<br><br>" +
+        "<strong>Motor Speed</strong><br>" +
+        motorRPM.toFixed(2) + " RPM<br><br>" +
 
-        "<strong>Recommended Running Torque (with safety factor)</strong><br>" +
-        recommendedRunningTorqueLbIn.toFixed(2) + " lb-in<br>" +
-        (recommendedRunningTorqueLbIn / 12).toFixed(2) + " lb-ft<br>" +
-        recommendedRunningTorqueNm.toFixed(2) + " N·m<br><br>" +
+        "<strong>Load Angular Acceleration</strong><br>" +
+        alphaLoad.toFixed(2) + " rad/s²<br><br>" +
 
-        "<strong>Angular Acceleration</strong><br>" +
-        alpha.toFixed(2) + " rad/s²<br><br>" +
+        "<strong>Motor Angular Acceleration</strong><br>" +
+        alphaMotor.toFixed(2) + " rad/s²<br><br>" +
 
-        "<strong>Estimated Acceleration Torque</strong><br>" +
-        accelTorqueLbIn.toFixed(2) + " lb-in<br>" +
-        (accelTorqueLbIn / 12).toFixed(2) + " lb-ft<br>" +
-        accelTorqueNm.toFixed(2) + " N·m<br><br>" +
+        "<strong>Running Torque at Load</strong><br>" +
+        runningTorqueLoadLbIn.toFixed(2) + " lb-in<br><br>" +
 
-        "<strong>Estimated Peak Torque</strong><br>" +
-        peakTorqueLbIn.toFixed(2) + " lb-in<br>" +
-        (peakTorqueLbIn / 12).toFixed(2) + " lb-ft<br>" +
-        peakTorqueNm.toFixed(2) + " N·m<br><br>" +
+        "<strong>Motor Running Torque</strong><br>" +
+        runningTorqueMotorLbIn.toFixed(2) + " lb-in<br>" +
+        (runningTorqueMotorLbIn / 12).toFixed(2) + " lb-ft<br>" +
+        (runningTorqueMotorLbIn * 0.112985).toFixed(2) + " N·m<br><br>" +
 
-        "<strong>Power at Target Speed</strong><br>" +
+        "<strong>Estimated Acceleration Torque at Load</strong><br>" +
+        accelTorqueLoadLbIn.toFixed(2) + " lb-in<br><br>" +
+
+        "<strong>Estimated Motor Acceleration Torque</strong><br>" +
+        accelTorqueMotorLbIn.toFixed(2) + " lb-in<br>" +
+        (accelTorqueMotorLbIn / 12).toFixed(2) + " lb-ft<br>" +
+        (accelTorqueMotorLbIn * 0.112985).toFixed(2) + " N·m<br><br>" +
+
+        "<strong>Total Estimated Motor Torque</strong><br>" +
+        totalMotorTorqueLbIn.toFixed(2) + " lb-in<br>" +
+        motorTorqueLbFt.toFixed(2) + " lb-ft<br>" +
+        totalMotorTorqueNm.toFixed(2) + " N·m<br><br>" +
+
+        "<strong>Recommended Motor Torque (with safety factor)</strong><br>" +
+        recommendedMotorTorqueLbIn.toFixed(2) + " lb-in<br>" +
+        recommendedMotorTorqueLbFt.toFixed(2) + " lb-ft<br>" +
+        recommendedMotorTorqueNm.toFixed(2) + " N·m<br><br>" +
+
+        "<strong>Reflected Load Inertia at Load</strong><br>" +
+        loadInertiaLbIn2.toFixed(2) + " lb-in²<br><br>" +
+
+        "<strong>Reflected Load Inertia at Motor</strong><br>" +
+        loadInertiaMotorSideLbIn2.toFixed(2) + " lb-in²<br><br>" +
+
+        "<strong>Estimated Motor Power at Speed</strong><br>" +
         powerHP.toFixed(3) + " hp<br>" +
-        powerKW.toFixed(3) + " kW";
+        powerKW.toFixed(3) + " kW<br><br>" +
+
+        "<strong>Approximate Move Time at Constant Speed</strong><br>" +
+        moveTimeAtSpeed.toFixed(3) + " sec";
     }
+
+    toggleModeFields();
   </script>
 </body>
 </html>
