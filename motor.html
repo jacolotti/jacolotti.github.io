@@ -90,6 +90,23 @@
       font-size:18px;
       line-height:1.6;
       font-weight:500;
+
+      .input-group{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:12px 0;
+}
+
+.input-group label{
+  width:55%;
+  text-align:left;
+  font-weight:500;
+}
+
+.input-group input{
+  width:40%;
+}
     }
 </style>
 </head>
@@ -107,8 +124,10 @@
   <div class="container">
     <h2>Conveyor Motor Sizing Calculator</h2>
 
-    <p>Load Weight (kg)</p>
-    <input id="weight" type="number" value="50">
+    <div class="input-group">
+<label>Load Weight (kg)</label>
+<input id="weight" type="number" value="50">
+</div>
 
     <p>Conveyor Speed (m/min)</p>
     <input id="speed" type="number" value="20">
