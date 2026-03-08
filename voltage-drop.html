@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <link rel="canonical" href="https://automationcalculators.net/voltage-drop.html">
+  <meta name="robots" content="index, follow">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
     gtag('config', 'G-G4TY96JHNH');
   </script>
-  
+
   <title>Voltage Drop Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Free voltage drop calculator for automation and electrical design. Calculate voltage drop, percent drop, and final voltage using wire gauge, length, current, and conductor material.">
+
   <style>
     body{
       font-family:Arial;
@@ -54,7 +58,7 @@
 
     .description{
       margin-top:0;
-      margin-bottom:25px;
+      margin-bottom:20px;
       color:#555;
       font-size:16px;
       line-height:1.5;
@@ -131,6 +135,10 @@
       Calculate voltage drop, percent voltage drop, and final load voltage for automation and electrical circuits using wire gauge, length, current, and conductor material.
     </p>
 
+    <p class="description">
+      This calculator is useful for 24VDC controls, PLC panels, sensors, actuators, and industrial automation wiring where excessive voltage drop can cause poor performance.
+    </p>
+
     <p>System Voltage (V)</p>
     <input id="voltage" type="number" value="24">
 
@@ -159,7 +167,7 @@
       <option value="aluminum">Aluminum</option>
     </select>
 
-    <button onclick="calculateVoltageDrop()">Calculate</button>
+    <button onclick="calculateVoltageDrop(); gtag('event','voltage_drop_calculation');">Calculate</button>
 
     <div class="result" id="output">
       Enter values and press Calculate
@@ -178,7 +186,21 @@
       let awg = document.getElementById("awg").value;
       let material = document.getElementById("material").value;
 
-      // Ohms per 1000 ft
+      if(voltage <= 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter a system voltage greater than 0.</strong>";
+        return;
+      }
+
+      if(current < 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter a current of 0 or greater.</strong>";
+        return;
+      }
+
+      if(length < 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter a wire length of 0 or greater.</strong>";
+        return;
+      }
+
       let copperResistance = {
         "18": 6.385,
         "16": 4.016,
@@ -198,12 +220,10 @@
         resistancePer1000Ft = resistancePer1000Ft * aluminumMultiplier;
       }
 
-      // Round-trip wire length for DC / 2-wire circuit
       let totalLength = length * 2;
-
       let totalResistance = (resistancePer1000Ft / 1000) * totalLength;
       let voltageDrop = current * totalResistance;
-      let percentDrop = voltage > 0 ? (voltageDrop / voltage) * 100 : 0;
+      let percentDrop = (voltageDrop / voltage) * 100;
       let finalVoltage = voltage - voltageDrop;
 
       document.getElementById("output").innerHTML =
