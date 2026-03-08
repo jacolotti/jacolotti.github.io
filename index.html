@@ -1,100 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="canonical" href="https://automationcalculators.net/">
+
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
 
-  gtag('config', 'G-G4TY96JHNH');
-</script>
-<title>Automation Calculators | Robot Cycle Time, Pneumatic Force, Conveyor Motor Sizing</title>
-  <meta name="description" content="Free automation engineering calculator for conveyor motor sizing, robot cycle time, pneumatic cylinder force, and automation ROI.">
+  <title>Automation Calculators | Robot Cycle Time, Pneumatic Force, Servo Torque, Conveyor Motor Sizing</title>
+  <meta name="description" content="Free automation engineering calculators for servo torque, conveyor motor sizing, robot cycle time, pneumatic cylinder force, voltage drop, air consumption, and automation ROI.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
 
-<style>
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
 
-body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
-margin:0;
-}
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
 
-.navbar{
-background:#1f2a44;
-padding:15px;
-margin-bottom:40px;
-text-align:left;
-}
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
 
-.navbar a{
-color:white;
-margin:0 15px;
-text-decoration:none;
-font-weight:bold;
-}
+    .container{
+      background:white;
+      padding:40px;
+      max-width:900px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
 
-.navbar a:hover{
-text-decoration:underline;
-opacity:0.8;
-}
+    .subtitle{
+      color:#555;
+      margin-bottom:20px;
+      line-height:1.5;
+    }
 
-.container{
-background:white;
-padding:40px;
-max-width:900px;
-margin:auto;
-border-radius:10px;
-box-shadow:0px 0px 10px rgba(0,0,0,.1);
-}
+    .seo-text{
+      color:#555;
+      max-width:760px;
+      margin:0 auto 30px auto;
+      line-height:1.6;
+      font-size:16px;
+    }
 
-.subtitle{
-color:#555;
-margin-bottom:30px;
-}
+    .tools{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+      margin-top:30px;
+    }
 
-.tools{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-top:30px;
-}
+    .tool{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:25px;
+      text-decoration:none;
+      color:#1f2a44;
+      transition:transform .2s, box-shadow .2s;
+      display:block;
+    }
 
-.tool{
-background:#f8fbff;
-border:1px solid #d7e6ff;
-border-radius:10px;
-padding:25px;
-text-decoration:none;
-color:#1f2a44;
-transition:transform .2s, box-shadow .2s;
-}
+    .tool:hover{
+      transform:translateY(-4px);
+      box-shadow:0px 4px 12px rgba(0,0,0,.12);
+    }
 
-.tool:hover{
-transform:translateY(-4px);
-box-shadow:0px 4px 12px rgba(0,0,0,.12);
-}
+    .tool h3{
+      margin-top:0;
+    }
 
-.tool h3{
-margin-top:0;
-}
-
-.footer{
-margin-top:40px;
-color:#666;
-font-size:14px;
-}
-
-</style>
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="navbar">
+  <div class="navbar">
     <a href="index.html">Home</a>
     <a href="pneumatic.html">Pneumatic</a>
     <a href="robot.html">Robot</a>
@@ -103,69 +112,70 @@ font-size:14px;
     <a href="voltage-drop.html">Voltage Drop</a>
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
-  <a href="servo-torque.html">Servo Torque</a>
+    <a href="servo-torque.html">Servo Torque</a>
   </div>
 
-<div class="container">
+  <div class="container">
 
-<h1>Automation Engineering Tools</h1>
+    <h1>Automation Engineering Tools</h1>
 
-<p class="subtitle">
-Free calculators for engineers, automation specialists, and controls engineers.
-</p>
-
-<div class="tools">
-
-<a class="tool" href="pneumatic.html">
-<h3>Pneumatic Force Calculator</h3>
-<p>Calculate cylinder extend and retract force using bore, rod diameter, and pressure.</p>
-</a>
-
-<a class="tool" href="robot.html">
-<h3>Robot Cycle Time</h3>
-<p>Estimate robot cycle time using distance, speed, payload, and motion settings.</p>
-</a>
-
-<a class="tool" href="motor.html">
-<h3>Conveyor Motor Sizing</h3>
-<p>Estimate conveyor drive force, torque, and motor power requirements.</p>
-</a>
-
-  <a class="tool" href="roi.html">
-  <h3>Automation ROI Calculator</h3>
-  <p>Estimate payback period and return on investment for automation projects.</p>
-</a>
-
-  <a class="tool" href="voltage-drop.html">
-  <h3>Voltage Drop Calculator</h3>
-  <p>Calculate voltage drop, percent drop, and final voltage using wire gauge, current, length, and conductor material.</p>
-</a>
-
-  <a class="tool" href="air-consumption.html">
-  <h3>Pneumatic Air Consumption</h3>
-  <p>Estimate cylinder air use per cycle and SCFM using bore, stroke, pressure, and cycle rate.</p>
-</a>
-
- <a class="tool" href="bin-simulator.html">
-  <h3>Bin Loading Simulator</h3>
-  <p>Preview 2D free-fall part stacking with adjustable shape, friction, bounce, and drop conditions.</p>
-</a>
-
-<div class="tool-card">
-  <a href="servo-torque.html">
-    <h3>Servo Torque Calculator</h3>
-    <p>
-      Estimate required servo torque, peak torque, and power using load mass,
-      radius, speed, acceleration time, gear ratio, and efficiency.
+    <p class="subtitle">
+      Free calculators for engineers, automation specialists, and controls engineers.
     </p>
-  </a>
-</div>
 
-<div class="footer">
-Automation Engineering Tools • Practical calculators for real automation work
-</div>
+    <p class="seo-text">
+      AutomationCalculators.net provides free engineering calculators for machine design, robotics, motion control, and industrial automation. Use these tools to estimate servo torque, robot cycle time, conveyor motor sizing, pneumatic cylinder force, voltage drop, air consumption, and automation ROI.
+    </p>
 
-</div>
+    <div class="tools">
+
+      <a class="tool" href="pneumatic.html">
+        <h3>Pneumatic Force Calculator</h3>
+        <p>Calculate cylinder extend and retract force using bore, rod diameter, and pressure.</p>
+      </a>
+
+      <a class="tool" href="robot.html">
+        <h3>Robot Cycle Time</h3>
+        <p>Estimate robot cycle time using distance, speed, payload, and motion settings.</p>
+      </a>
+
+      <a class="tool" href="motor.html">
+        <h3>Conveyor Motor Sizing</h3>
+        <p>Estimate conveyor drive force, torque, and motor power requirements.</p>
+      </a>
+
+      <a class="tool" href="roi.html">
+        <h3>Automation ROI Calculator</h3>
+        <p>Estimate payback period and return on investment for automation projects.</p>
+      </a>
+
+      <a class="tool" href="voltage-drop.html">
+        <h3>Voltage Drop Calculator</h3>
+        <p>Calculate voltage drop, percent drop, and final voltage using wire gauge, current, length, and conductor material.</p>
+      </a>
+
+      <a class="tool" href="air-consumption.html">
+        <h3>Pneumatic Air Consumption</h3>
+        <p>Estimate cylinder air use per cycle and SCFM using bore, stroke, pressure, and cycle rate.</p>
+      </a>
+
+      <a class="tool" href="bin-simulator.html">
+        <h3>Bin Loading Simulator</h3>
+        <p>Preview 2D free-fall part stacking with adjustable shape, friction, bounce, and drop conditions.</p>
+      </a>
+
+      <a class="tool" href="servo-torque.html">
+        <h3>Servo Torque Calculator</h3>
+        <p>Estimate required servo torque, peak torque, and motor power using load mass, pulley radius, speed, gear ratio, and efficiency.</p>
+      </a>
+
+    </div>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
+    </div>
+
+  </div>
 
 </body>
 </html>
