@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <link rel="canonical" href="https://automationcalculators.net/robot.html">
+  <meta name="robots" content="index, follow">
 
-  gtag('config', 'G-G4TY96JHNH');
-</script>
-  <title>Robot Cycle Time Calculator</title>
-  <meta name="description" content="Free automation engineering calculator for conveyor motor sizing, robot cycle time, pneumatic cylinder force, and automation ROI.">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Robot Cycle Time Calculator | Automation Calculators</title>
+  <meta name="description" content="Free robot cycle time calculator for automation engineers. Estimate robot cycle time, points per cycle, parts per minute, and parts per hour using move distance, speed, dwell time, payload, and blend settings.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
     body{
       font-family:Arial;
@@ -40,18 +44,6 @@
       opacity:0.8;
     }
 
-    .description{
-  margin-top:0;
-  margin-bottom:25px;
-  color:#555;
-  font-size:16px;
-  line-height:1.5;
-  font-weight:normal;
-}
-
-.container h2{
-  margin-bottom:10px;
-}
     .container{
       background:white;
       padding:30px;
@@ -59,6 +51,19 @@
       margin:auto;
       border-radius:10px;
       box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      font-weight:normal;
     }
 
     .container p{
@@ -103,11 +108,17 @@
       line-height:1.6;
       font-weight:500;
     }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
   </style>
 </head>
 <body>
 
- <div class="navbar">
+  <div class="navbar">
     <a href="index.html">Home</a>
     <a href="pneumatic.html">Pneumatic</a>
     <a href="robot.html">Robot</a>
@@ -116,14 +127,19 @@
     <a href="voltage-drop.html">Voltage Drop</a>
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
-   <a href="servo-torque.html">Servo Torque</a>
+    <a href="servo-torque.html">Servo Torque</a>
   </div>
 
   <div class="container">
     <h2>Robot Cycle Time Calculator</h2>
+
     <p class="description">
-Estimate robot cycle time for pick-and-place style motion using travel distance, speed, payload, and motion settings.
-</p>
+      Estimate robot cycle time for pick-and-place style motion using travel distance, robot speed, payload, dwell time, and motion settings.
+    </p>
+
+    <p class="description">
+      This calculator is useful for early robot feasibility studies, throughput estimates, and automation concept design for handling, assembly, and transfer applications.
+    </p>
 
     <p>Distance Units</p>
     <select id="distanceUnit" onchange="updateLabels()">
@@ -132,7 +148,7 @@ Estimate robot cycle time for pick-and-place style motion using travel distance,
     </select>
 
     <p>Speed Units</p>
-    <select id="speedUnit" onchange="updateLabels()">
+    <select id="speedUnit" onchange="updateLabels(); applyPreset();">
       <option value="mms">mm/sec</option>
       <option value="ins">in/sec</option>
     </select>
@@ -147,25 +163,25 @@ Estimate robot cycle time for pick-and-place style motion using travel distance,
     </select>
 
     <p id="jointLabel">Joint Move Distance (mm)</p>
-    <input id="jointDistance" type="number" value="1000">
+    <input id="jointDistance" type="number" value="1000" min="0" step="0.1">
 
     <p id="linearLabel">Linear Move Distance (mm)</p>
-    <input id="linearDistance" type="number" value="200">
+    <input id="linearDistance" type="number" value="200" min="0" step="0.1">
 
     <p id="speedLabel">Robot Speed (mm/sec)</p>
-    <input id="speed" type="number" value="2200">
+    <input id="speed" type="number" value="2200" min="0.1" step="0.1">
 
     <p>Pick Points</p>
-    <input id="pickPoints" type="number" value="1">
+    <input id="pickPoints" type="number" value="1" min="0" step="1">
 
     <p>Place Points</p>
-    <input id="placePoints" type="number" value="1">
+    <input id="placePoints" type="number" value="1" min="0" step="1">
 
     <p>Dwell Time per Point (ms)</p>
-    <input id="dwell" type="number" value="100">
+    <input id="dwell" type="number" value="100" min="0" step="1">
 
     <p>Payload (kg)</p>
-    <input id="payload" type="number" value="5">
+    <input id="payload" type="number" value="5" min="0" step="0.1">
 
     <p>Blend / CNT Effect</p>
     <select id="blend">
@@ -181,10 +197,14 @@ Estimate robot cycle time for pick-and-place style motion using travel distance,
       <option value="fast">Fast</option>
     </select>
 
-    <button onclick="calculate()">Calculate</button>
+    <button onclick="calculate(); gtag('event','robot_cycle_calculation');">Calculate</button>
 
     <div class="result" id="output">
       Enter values and press Calculate
+    </div>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
     </div>
   </div>
 
@@ -232,16 +252,47 @@ Estimate robot cycle time for pick-and-place style motion using travel distance,
       let distanceUnit = document.getElementById("distanceUnit").value;
       let speedUnit = document.getElementById("speedUnit").value;
 
-      let jointDistance = parseFloat(document.getElementById("jointDistance").value);
-      let linearDistance = parseFloat(document.getElementById("linearDistance").value);
-      let speed = parseFloat(document.getElementById("speed").value);
-      let pickPoints = parseFloat(document.getElementById("pickPoints").value);
-      let placePoints = parseFloat(document.getElementById("placePoints").value);
-      let dwell = parseFloat(document.getElementById("dwell").value);
-      let payload = parseFloat(document.getElementById("payload").value);
+      let jointDistance = parseFloat(document.getElementById("jointDistance").value) || 0;
+      let linearDistance = parseFloat(document.getElementById("linearDistance").value) || 0;
+      let speed = parseFloat(document.getElementById("speed").value) || 0;
+      let pickPoints = parseFloat(document.getElementById("pickPoints").value) || 0;
+      let placePoints = parseFloat(document.getElementById("placePoints").value) || 0;
+      let dwell = parseFloat(document.getElementById("dwell").value) || 0;
+      let payload = parseFloat(document.getElementById("payload").value) || 0;
 
       let blend = document.getElementById("blend").value;
       let accelProfile = document.getElementById("accelProfile").value;
+      const output = document.getElementById("output");
+
+      if(jointDistance < 0 || linearDistance < 0){
+        output.innerHTML = "<strong>Please enter move distances of 0 or greater.</strong>";
+        return;
+      }
+
+      if(speed <= 0){
+        output.innerHTML = "<strong>Please enter a robot speed greater than 0.</strong>";
+        return;
+      }
+
+      if(pickPoints < 0 || placePoints < 0){
+        output.innerHTML = "<strong>Please enter pick and place points of 0 or greater.</strong>";
+        return;
+      }
+
+      if((pickPoints + placePoints) <= 0){
+        output.innerHTML = "<strong>Please enter at least 1 total point.</strong>";
+        return;
+      }
+
+      if(dwell < 0){
+        output.innerHTML = "<strong>Please enter a dwell time of 0 or greater.</strong>";
+        return;
+      }
+
+      if(payload < 0){
+        output.innerHTML = "<strong>Please enter a payload of 0 or greater.</strong>";
+        return;
+      }
 
       if(distanceUnit === "inch"){
         jointDistance = jointDistance * 25.4;
@@ -300,10 +351,10 @@ Estimate robot cycle time for pick-and-place style motion using travel distance,
 
       let timePerPoint = jointMoveTime + linearMoveTime + (dwell / 1000);
       let totalCycleTime = timePerPoint * totalPoints;
-      let partsPerMinute = 60 / totalCycleTime;
+      let partsPerMinute = totalCycleTime > 0 ? 60 / totalCycleTime : 0;
       let partsPerHour = partsPerMinute * 60;
 
-      document.getElementById("output").innerHTML =
+      output.innerHTML =
         "<strong>Robot Preset</strong><br>" +
         document.getElementById("robotPreset").options[document.getElementById("robotPreset").selectedIndex].text + "<br><br>" +
 
@@ -323,10 +374,10 @@ Estimate robot cycle time for pick-and-place style motion using travel distance,
         totalCycleTime.toFixed(3) + " sec<br><br>" +
 
         "<strong>Parts Per Minute</strong><br>" +
-partsPerMinute.toFixed(2) + "<br><br>" +
+        partsPerMinute.toFixed(2) + "<br><br>" +
 
-"<strong>Parts Per Hour</strong><br>" +
-partsPerHour.toFixed(0);
+        "<strong>Parts Per Hour</strong><br>" +
+        partsPerHour.toFixed(0);
     }
 
     updateLabels();
