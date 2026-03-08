@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <link rel="canonical" href="https://automationcalculators.net/pneumatic.html">
+  <meta name="robots" content="index, follow">
 
-  gtag('config', 'G-G4TY96JHNH');
-</script>
-  <title>Pneumatic Cylinder Force Calculator</title>
-  <meta name="description" content="Free automation engineering calculator for conveyor motor sizing, robot cycle time, pneumatic cylinder force, and automation ROI.">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Pneumatic Cylinder Force Calculator | Automation Calculators</title>
+  <meta name="description" content="Free pneumatic cylinder force calculator for automation engineers. Estimate cylinder extend and retract force using bore diameter, rod diameter, air pressure, and metric or imperial units.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
     body{
       font-family:Arial;
@@ -25,7 +29,7 @@
     .navbar{
       background:#1f2a44;
       padding:15px;
-     margin-bottom:40px;
+      margin-bottom:40px;
       text-align:left;
     }
 
@@ -37,39 +41,37 @@
     }
 
     .navbar a:hover{
-  text-decoration:underline;
-  opacity:0.8;
-}
-    
-.container{
-  background:white;
-  padding:30px;
-  max-width:650px;
-  margin:auto;
-  border-radius:10px;
-  box-shadow:0px 0px 10px rgba(0,0,0,.1);
-}
+      text-decoration:underline;
+      opacity:0.8;
+    }
 
-.container h2{
-  margin-bottom:10px;
-}
+    .container{
+      background:white;
+      padding:30px;
+      max-width:650px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
 
-.description{
-  margin-top:0;
-  margin-bottom:25px;
-  color:#555;
-  font-size:16px;
-  line-height:1.5;
-  font-weight:normal;
-}
+    .container h2{
+      margin-bottom:10px;
+    }
 
-.container p{
-  margin-top:20px;
-  margin-bottom:5px;
-  font-weight:500;
-}
-   
-}
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      font-weight:normal;
+    }
+
+    .container p{
+      margin-top:20px;
+      margin-bottom:5px;
+      font-weight:500;
+    }
 
     input, select{
       width:100%;
@@ -82,45 +84,42 @@
     }
 
     button{
-  padding:12px 26px;
-  font-size:16px;
-  background:#1e6bd6;
-  color:white;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-  margin-top:15px;
-  transition:background .2s;
-}
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:15px;
+      transition:background .2s;
+    }
 
-button:hover{
-  background:#1555ad;
-}
-
-  
+    button:hover{
+      background:#1555ad;
+    }
 
     .result{
-  margin-top:25px;
-  padding:20px;
-  background:#e9f1ff;
-  border:1px solid #c8d9ff;
-  border-radius:8px;
-  font-size:18px;
-  line-height:1.6;
-  font-weight:500;
-}
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+    }
 
-    .back-link{
-      display:inline-block;
-      margin-top:20px;
-      color:#0077ff;
-      text-decoration:none;
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
     }
   </style>
 </head>
 <body>
 
- <div class="navbar">
+  <div class="navbar">
     <a href="index.html">Home</a>
     <a href="pneumatic.html">Pneumatic</a>
     <a href="robot.html">Robot</a>
@@ -129,14 +128,20 @@ button:hover{
     <a href="voltage-drop.html">Voltage Drop</a>
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
-   <a href="servo-torque.html">Servo Torque</a>
+    <a href="servo-torque.html">Servo Torque</a>
   </div>
 
   <div class="container">
     <h2>Pneumatic Cylinder Force Calculator</h2>
-<p class="description">
-Estimate cylinder extend and retract force using metric or imperial inputs.
-</p>
+
+    <p class="description">
+      Estimate cylinder extend and retract force using bore diameter, rod diameter, air pressure, and metric or imperial inputs.
+    </p>
+
+    <p class="description">
+      This calculator is useful for pneumatic cylinder sizing in industrial automation, machine design, tooling, part clamping, and actuator force checks.
+    </p>
+
     <p>Length Units</p>
     <select id="lengthUnit" onchange="updateLabels()">
       <option value="mm">Millimeters</option>
@@ -150,75 +155,97 @@ Estimate cylinder extend and retract force using metric or imperial inputs.
     </select>
 
     <p id="boreLabel">Bore Diameter (mm)</p>
-    <input id="bore" type="number" value="50">
+    <input id="bore" type="number" value="50" min="0.01" step="0.01">
 
     <p id="rodLabel">Rod Diameter (mm)</p>
-    <input id="rod" type="number" value="20">
+    <input id="rod" type="number" value="20" min="0" step="0.01">
 
     <p id="pressureLabel">Air Pressure (bar)</p>
-    <input id="pressure" type="number" value="6">
+    <input id="pressure" type="number" value="6" min="0.01" step="0.01">
 
-    <button onclick="calculate()">Calculate</button>
+    <button onclick="calculate(); gtag('event','pneumatic_force_calculation');">Calculate</button>
 
     <div class="result" id="output">
-  Enter values and press Calculate
-</div>
+      Enter values and press Calculate
+    </div>
 
-    <a class="back-link" href="index.html">← Back to Home</a>
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
+    </div>
   </div>
 
   <script>
-  function updateLabels(){
-    let lengthUnit = document.getElementById("lengthUnit").value;
-    let pressureUnit = document.getElementById("pressureUnit").value;
+    function updateLabels(){
+      let lengthUnit = document.getElementById("lengthUnit").value;
+      let pressureUnit = document.getElementById("pressureUnit").value;
 
-    document.getElementById("boreLabel").innerText =
-      "Bore Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+      document.getElementById("boreLabel").innerText =
+        "Bore Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
 
-    document.getElementById("rodLabel").innerText =
-      "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+      document.getElementById("rodLabel").innerText =
+        "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
 
-    document.getElementById("pressureLabel").innerText =
-      "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
-  }
-
-  function calculate(){
-    let bore = parseFloat(document.getElementById("bore").value);
-    let rod = parseFloat(document.getElementById("rod").value);
-    let pressure = parseFloat(document.getElementById("pressure").value);
-
-    let lengthUnit = document.getElementById("lengthUnit").value;
-    let pressureUnit = document.getElementById("pressureUnit").value;
-
-    if(lengthUnit === "inch"){
-      bore = bore * 25.4;
-      rod = rod * 25.4;
+      document.getElementById("pressureLabel").innerText =
+        "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
     }
 
-    if(pressureUnit === "psi"){
-      pressure = pressure * 0.0689476;
+    function calculate(){
+      let bore = parseFloat(document.getElementById("bore").value) || 0;
+      let rod = parseFloat(document.getElementById("rod").value) || 0;
+      let pressure = parseFloat(document.getElementById("pressure").value) || 0;
+
+      let lengthUnit = document.getElementById("lengthUnit").value;
+      let pressureUnit = document.getElementById("pressureUnit").value;
+      const output = document.getElementById("output");
+
+      if(bore <= 0){
+        output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
+        return;
+      }
+
+      if(rod < 0){
+        output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
+        return;
+      }
+
+      if(rod >= bore){
+        output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
+        return;
+      }
+
+      if(pressure <= 0){
+        output.innerHTML = "<strong>Please enter an air pressure greater than 0.</strong>";
+        return;
+      }
+
+      if(lengthUnit === "inch"){
+        bore = bore * 25.4;
+        rod = rod * 25.4;
+      }
+
+      if(pressureUnit === "psi"){
+        pressure = pressure * 0.0689476;
+      }
+
+      let boreArea = Math.PI * Math.pow(bore / 2, 2);
+      let rodArea = Math.PI * Math.pow(rod / 2, 2);
+
+      let extendForceN = boreArea * pressure * 0.1;
+      let retractForceN = (boreArea - rodArea) * pressure * 0.1;
+
+      let extendForceLbf = extendForceN * 0.224809;
+      let retractForceLbf = retractForceN * 0.224809;
+
+      output.innerHTML =
+        "<strong>Extend Force</strong><br>" +
+        extendForceN.toFixed(2) + " N<br>" +
+        extendForceLbf.toFixed(2) + " lbf<br><br>" +
+        "<strong>Retract Force</strong><br>" +
+        retractForceN.toFixed(2) + " N<br>" +
+        retractForceLbf.toFixed(2) + " lbf";
     }
 
-    let boreArea = Math.PI * (bore / 2) * (bore / 2);
-    let rodArea = Math.PI * (rod / 2) * (rod / 2);
-
-    let extendForceN = boreArea * pressure * 0.1;
-    let retractForceN = (boreArea - rodArea) * pressure * 0.1;
-
-    let extendForceLbf = extendForceN * 0.224809;
-    let retractForceLbf = retractForceN * 0.224809;
-
-    document.getElementById("output").innerHTML =
-      "<strong>Extend Force</strong><br>" +
-      extendForceN.toFixed(2) + " N<br>" +
-      extendForceLbf.toFixed(2) + " lbf<br><br>" +
-      "<strong>Retract Force</strong><br>" +
-      retractForceN.toFixed(2) + " N<br>" +
-      retractForceLbf.toFixed(2) + " lbf";
-  }
-
-  updateLabels();
-  
-</script>
+    updateLabels();
+  </script>
 </body>
 </html>
