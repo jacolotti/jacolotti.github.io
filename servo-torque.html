@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/servo-torque.html">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Servo Motor Torque Calculator | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free servo motor torque calculator for automation engineers. Estimate required torque, force, and recommended design torque using load, pulley radius, efficiency, and safety factor.">
+
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:700px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:25px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      font-weight:normal;
+    }
+
+    .container p{
+      margin-top:20px;
+      margin-bottom:5px;
+      font-weight:500;
+      text-align:left;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:15px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+      text-align:left;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+    <a href="roi.html">ROI</a>
+    <a href="voltage-drop.html">Voltage Drop</a>
+    <a href="air-consumption.html">Air Consumption</a>
+    <a href="bin-simulator.html">Bin Simulator</a>
+    <a href="servo-torque.html">Servo Torque</a>
+  </div>
+
+  <div class="container">
+    <h2>Servo Motor Torque Calculator</h2>
+    <p class="description">
+      Estimate required servo torque for a pulley, wheel, or rotary driven load using tangential load force, radius, efficiency, and safety factor.
+    </p>
+
+    <p>Load Force (lb)</p>
+    <input id="loadForce" type="number" value="50" step="0.1">
+
+    <p>Radius (in)</p>
+    <input id="radius" type="number" value="2" step="0.1">
+
+    <p>Mechanical Efficiency (%)</p>
+    <input id="efficiency" type="number" value="90" step="1">
+
+    <p>Safety Factor</p>
+    <input id="safetyFactor" type="number" value="1.5" step="0.1">
+
+    <button onclick="calculateServoTorque(); gtag('event','servo_torque_calculation');">
+      Calculate
+    </button>
+
+    <div class="result" id="output">
+      Enter values and press Calculate
+    </div>
+
+    <p class="note">
+      This calculator is a simplified sizing tool for estimating torque at the drive. Final motor selection should also consider acceleration, reflected inertia, peak torque, duty cycle, gearbox losses, and application shock loading.
+    </p>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
+    </div>
+  </div>
+
+  <script>
+    function calculateServoTorque(){
+      let loadForce = parseFloat(document.getElementById("loadForce").value) || 0;
+      let radius = parseFloat(document.getElementById("radius").value) || 0;
+      let efficiencyPercent = parseFloat(document.getElementById("efficiency").value) || 0;
+      let safetyFactor = parseFloat(document.getElementById("safetyFactor").value) || 0;
+
+      let efficiency = efficiencyPercent / 100;
+
+      if(efficiency <= 0){
+        document.getElementById("output").innerHTML =
+          "<strong>Please enter an efficiency greater than 0%.</strong>";
+        return;
+      }
+
+      if(safetyFactor <= 0){
+        document.getElementById("output").innerHTML =
+          "<strong>Please enter a safety factor greater than 0.</strong>";
+        return;
+      }
+
+      let basicTorque = loadForce * radius;
+      let requiredTorque = basicTorque / efficiency;
+      let recommendedTorque = requiredTorque * safetyFactor;
+
+      let requiredTorqueLbFt = requiredTorque / 12;
+      let recommendedTorqueLbFt = recommendedTorque / 12;
+      let requiredTorqueNm = requiredTorque * 0.112985;
+      let recommendedTorqueNm = recommendedTorque * 0.112985;
+
+      document.getElementById("output").innerHTML =
+        "<strong>Basic Torque</strong><br>" +
+        basicTorque.toFixed(2) + " lb-in<br><br>" +
+
+        "<strong>Required Torque (efficiency adjusted)</strong><br>" +
+        requiredTorque.toFixed(2) + " lb-in<br>" +
+        requiredTorqueLbFt.toFixed(2) + " lb-ft<br>" +
+        requiredTorqueNm.toFixed(2) + " N·m<br><br>" +
+
+        "<strong>Recommended Design Torque</strong><br>" +
+        recommendedTorque.toFixed(2) + " lb-in<br>" +
+        recommendedTorqueLbFt.toFixed(2) + " lb-ft<br>" +
+        recommendedTorqueNm.toFixed(2) + " N·m";
+    }
+  </script>
+
+</body>
+</html>
