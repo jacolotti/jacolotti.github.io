@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <link rel="canonical" href="https://automationcalculators.net/motor.html">
+  <meta name="robots" content="index, follow">
 
-  gtag('config', 'G-G4TY96JHNH');
-</script>
-  <title>Conveyor Motor Sizing Calculator</title>
-  <p class="description">
-  Estimate conveyor drive force, torque, and motor power for basic horizontal conveyor applications.
-</p>
-  <meta name="description" content="Free conveyor motor sizing calculator for automation engineers. Estimate required conveyor force, torque, power, kW, and horsepower.">.">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Conveyor Motor Sizing Calculator | Automation Calculators</title>
+  <meta name="description" content="Free conveyor motor sizing calculator for automation engineers. Estimate required conveyor force, torque, power, kilowatts, and horsepower for basic horizontal conveyor applications.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <style>
     body{
       font-family:Arial;
@@ -52,43 +53,37 @@
       box-shadow:0px 0px 10px rgba(0,0,0,.1);
     }
 
-    .container p{
-      margin-top:20px;
-      margin-bottom:5px;
+    .container h2{
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      font-weight:normal;
+    }
+
+    .input-group{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+      margin:14px 0;
+    }
+
+    .input-group label{
+      width:50%;
+      text-align:left;
       font-weight:500;
     }
 
-    .container h2{
-  margin-bottom:10px;
-}
-
-.description{
-  margin-top:0;
-  margin-bottom:25px;
-  color:#555;
-  font-size:16px;
-  line-height:1.5;
-  font-weight:normal;
-}
-
-.input-group{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  margin:14px 0;
-}
-
-.input-group label{
-  width:50%;
-  text-align:left;
-  font-weight:500;
-}
-
-.input-group input{
-  width:50%;
-  margin:0;
-}
+    .input-group input{
+      width:50%;
+      margin:0;
+    }
 
     input, select{
       width:100%;
@@ -125,29 +120,31 @@
       font-size:18px;
       line-height:1.6;
       font-weight:500;
-
-      .input-group{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin:12px 0;
-}
-
-.input-group label{
-  width:55%;
-  text-align:left;
-  font-weight:500;
-}
-
-.input-group input{
-  width:40%;
-}
     }
-</style>
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+
+    @media (max-width: 640px){
+      .input-group{
+        flex-direction:column;
+        align-items:stretch;
+        gap:8px;
+      }
+
+      .input-group label,
+      .input-group input{
+        width:100%;
+      }
+    }
+  </style>
 </head>
 <body>
 
- <div class="navbar">
+  <div class="navbar">
     <a href="index.html">Home</a>
     <a href="pneumatic.html">Pneumatic</a>
     <a href="robot.html">Robot</a>
@@ -156,58 +153,103 @@
     <a href="voltage-drop.html">Voltage Drop</a>
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
-   <a href="servo-torque.html">Servo Torque</a>
+    <a href="servo-torque.html">Servo Torque</a>
   </div>
 
   <div class="container">
     <h2>Conveyor Motor Sizing Calculator</h2>
 
+    <p class="description">
+      Estimate conveyor drive force, torque, and motor power for basic horizontal conveyor applications.
+    </p>
+
+    <p class="description">
+      This calculator is useful for early conveyor sizing in automation systems, material handling equipment, transfer conveyors, and basic machine design.
+    </p>
+
     <div class="input-group">
-  <label for="weight">Load Weight (kg)</label>
-  <input id="weight" type="number" value="50" step="any">
-</div>
+      <label for="weight">Load Weight (kg)</label>
+      <input id="weight" type="number" value="50" min="0" step="any">
+    </div>
 
-<div class="input-group">
-  <label for="speed">Conveyor Speed (m/min)</label>
-  <input id="speed" type="number" value="20" step="any">
-</div>
+    <div class="input-group">
+      <label for="speed">Conveyor Speed (m/min)</label>
+      <input id="speed" type="number" value="20" min="0" step="any">
+    </div>
 
-<div class="input-group">
-  <label for="diameter">Drive Roller Diameter (mm)</label>
-  <input id="diameter" type="number" value="100" step="any">
-</div>
+    <div class="input-group">
+      <label for="diameter">Drive Roller Diameter (mm)</label>
+      <input id="diameter" type="number" value="100" min="0.01" step="any">
+    </div>
 
-<div class="input-group">
-  <label for="friction">Friction Factor</label>
-  <input id="friction" type="number" value="0.05" step="any">
-</div>
+    <div class="input-group">
+      <label for="friction">Friction Factor</label>
+      <input id="friction" type="number" value="0.05" min="0" step="any">
+    </div>
 
-<div class="input-group">
-  <label for="efficiency">Mechanical Efficiency (%)</label>
-  <input id="efficiency" type="number" value="85" step="any">
-</div>
+    <div class="input-group">
+      <label for="efficiency">Mechanical Efficiency (%)</label>
+      <input id="efficiency" type="number" value="85" min="0.01" max="100" step="any">
+    </div>
 
-<div class="input-group">
-  <label for="safety">Safety Factor</label>
-  <input id="safety" type="number" value="1.5" step="any">
-</div>
+    <div class="input-group">
+      <label for="safety">Safety Factor</label>
+      <input id="safety" type="number" value="1.5" min="0.01" step="any">
+    </div>
 
-    <button onclick="calculate()">Calculate</button>
+    <button onclick="calculate(); gtag('event','conveyor_motor_calculation');">Calculate</button>
 
     <div class="result" id="output">
       Enter values and press Calculate
+    </div>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
     </div>
   </div>
 
   <script>
     function calculate(){
-      let weight = parseFloat(document.getElementById("weight").value);
-      let speed = parseFloat(document.getElementById("speed").value);
-      let diameter = parseFloat(document.getElementById("diameter").value);
-      let friction = parseFloat(document.getElementById("friction").value);
-      let efficiency = parseFloat(document.getElementById("efficiency").value) / 100;
-      let safety = parseFloat(document.getElementById("safety").value);
+      let weight = parseFloat(document.getElementById("weight").value) || 0;
+      let speed = parseFloat(document.getElementById("speed").value) || 0;
+      let diameter = parseFloat(document.getElementById("diameter").value) || 0;
+      let friction = parseFloat(document.getElementById("friction").value) || 0;
+      let efficiencyPercent = parseFloat(document.getElementById("efficiency").value) || 0;
+      let safety = parseFloat(document.getElementById("safety").value) || 0;
 
+      const output = document.getElementById("output");
+
+      if(weight < 0){
+        output.innerHTML = "<strong>Please enter a load weight of 0 or greater.</strong>";
+        return;
+      }
+
+      if(speed < 0){
+        output.innerHTML = "<strong>Please enter a conveyor speed of 0 or greater.</strong>";
+        return;
+      }
+
+      if(diameter <= 0){
+        output.innerHTML = "<strong>Please enter a drive roller diameter greater than 0.</strong>";
+        return;
+      }
+
+      if(friction < 0){
+        output.innerHTML = "<strong>Please enter a friction factor of 0 or greater.</strong>";
+        return;
+      }
+
+      if(efficiencyPercent <= 0 || efficiencyPercent > 100){
+        output.innerHTML = "<strong>Please enter a mechanical efficiency greater than 0 and up to 100%.</strong>";
+        return;
+      }
+
+      if(safety <= 0){
+        output.innerHTML = "<strong>Please enter a safety factor greater than 0.</strong>";
+        return;
+      }
+
+      let efficiency = efficiencyPercent / 100;
       let g = 9.81;
 
       let force = weight * g * friction * safety;
@@ -215,11 +257,11 @@
       let torque = force * radius;
 
       let speedMps = speed / 60;
-      let powerWatts = (force * speedMps) / efficiency;
+      let powerWatts = speedMps > 0 ? (force * speedMps) / efficiency : 0;
       let powerKw = powerWatts / 1000;
       let horsepower = powerWatts / 745.7;
 
-      document.getElementById("output").innerHTML =
+      output.innerHTML =
         "<strong>Required Force</strong><br>" +
         force.toFixed(2) + " N<br><br>" +
 
