@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pneumatic Air Consumption Calculator | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free pneumatic air consumption calculator for automation engineers. Estimate cylinder air use, cubic inches per cycle, and SCFM using bore, stroke, pressure, and cycles per minute.">
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:700px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:25px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      font-weight:normal;
+    }
+
+    .container p{
+      margin-top:20px;
+      margin-bottom:5px;
+      font-weight:500;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:15px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="air-consumption.html">Air Consumption</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+    <a href="roi.html">ROI</a>
+    <a href="voltage-drop.html">Voltage Drop</a>
+  </div>
+
+  <div class="container">
+    <h2>Pneumatic Air Consumption Calculator</h2>
+    <p class="description">
+      Estimate pneumatic cylinder air usage per cycle and SCFM using bore diameter, stroke length, operating pressure, and cycle rate.
+    </p>
+
+    <p>Bore Diameter (in)</p>
+    <input id="bore" type="number" value="2">
+
+    <p>Stroke Length (in)</p>
+    <input id="stroke" type="number" value="6">
+
+    <p>Operating Pressure (PSI)</p>
+    <input id="pressure" type="number" value="80">
+
+    <p>Cycles Per Minute</p>
+    <input id="cpm" type="number" value="20">
+
+    <p>Double Acting Cylinder?</p>
+    <select id="doubleActing">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <button onclick="calculateAirConsumption()">Calculate</button>
+
+    <div class="result" id="output">
+      Enter values and press Calculate
+    </div>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
+    </div>
+  </div>
+
+  <script>
+    function calculateAirConsumption(){
+      let bore = parseFloat(document.getElementById("bore").value) || 0;
+      let stroke = parseFloat(document.getElementById("stroke").value) || 0;
+      let pressure = parseFloat(document.getElementById("pressure").value) || 0;
+      let cpm = parseFloat(document.getElementById("cpm").value) || 0;
+      let doubleActing = document.getElementById("doubleActing").value;
+
+      let boreArea = Math.PI * Math.pow(bore / 2, 2);
+      let volumePerStroke = boreArea * stroke; // cubic inches
+
+      let strokesPerCycle = (doubleActing === "yes") ? 2 : 1;
+      let cubicInchesPerCycle = volumePerStroke * strokesPerCycle;
+
+      // Convert to free air equivalent
+      let compressionRatio = (pressure + 14.7) / 14.7;
+      let freeAirPerCycle = cubicInchesPerCycle * compressionRatio;
+
+      // SCFM approximation
+      let cubicFeetPerMinute = (freeAirPerCycle * cpm) / 1728;
+
+      document.getElementById("output").innerHTML =
+        "<strong>Cylinder Volume Per Stroke</strong><br>" +
+        volumePerStroke.toFixed(2) + " in³<br><br>" +
+
+        "<strong>Air Per Cycle</strong><br>" +
+        cubicInchesPerCycle.toFixed(2) + " in³<br><br>" +
+
+        "<strong>Free Air Equivalent Per Cycle</strong><br>" +
+        freeAirPerCycle.toFixed(2) + " in³<br><br>" +
+
+        "<strong>Estimated SCFM</strong><br>" +
+        cubicFeetPerMinute.toFixed(3) + " SCFM";
+    }
+  </script>
+
+</body>
+</html>
