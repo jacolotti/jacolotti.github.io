@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -11,7 +10,7 @@
   </script>
 
   <title>Bin Loading Simulator | Automation Calculators</title>
-  <meta name="description" content="Free 2D bin loading simulator for automation engineers. Simulate parts free falling into a bin using adjustable part size, bin size, drop height, and quantity.">
+  <meta name="description" content="Free 2D bin loading simulator for automation engineers. Simulate rectangular or round parts free falling into a bin using adjustable size, drop height, friction, bounce, and quantity.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -44,7 +43,7 @@
     .container{
       background:white;
       padding:30px;
-      max-width:1000px;
+      max-width:1100px;
       margin:auto;
       border-radius:10px;
       box-shadow:0px 0px 10px rgba(0,0,0,.1);
@@ -76,7 +75,8 @@
       margin-bottom:6px;
     }
 
-    .control-group input{
+    .control-group input,
+    .control-group select{
       width:100%;
       padding:10px;
       font-size:16px;
@@ -120,6 +120,20 @@
       overflow:hidden;
     }
 
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
     .note{
       margin-top:20px;
       color:#666;
@@ -150,17 +164,25 @@
   <div class="container">
     <h2>Bin Loading Simulator</h2>
     <p class="description">
-      Simulate rectangular parts free falling into a bin. Adjust part size, bin size, drop height, and quantity to preview basic stacking behavior.
+      Simulate parts free falling into a bin with adjustable size, shape, drop height, friction, bounce, and quantity. This is a simple 2D visualization tool for rough concept evaluation.
     </p>
 
     <div class="controls">
       <div class="control-group">
-        <label for="partWidth">Part Width (px)</label>
+        <label for="partShape">Part Shape</label>
+        <select id="partShape">
+          <option value="rectangle">Rectangle</option>
+          <option value="circle">Circle</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="partWidth">Part Width / Diameter (px)</label>
         <input id="partWidth" type="number" value="50" step="1">
       </div>
 
       <div class="control-group">
-        <label for="partHeight">Part Height (px)</label>
+        <label for="partHeight">Part Height (px, rectangles only)</label>
         <input id="partHeight" type="number" value="30" step="1">
       </div>
 
@@ -183,6 +205,26 @@
         <label for="partCount">Number of Parts</label>
         <input id="partCount" type="number" value="20" step="1">
       </div>
+
+      <div class="control-group">
+        <label for="friction">Friction (0 to 1)</label>
+        <input id="friction" type="number" value="0.5" step="0.05" min="0" max="1">
+      </div>
+
+      <div class="control-group">
+        <label for="bounce">Bounce / Restitution (0 to 1)</label>
+        <input id="bounce" type="number" value="0.15" step="0.05" min="0" max="1">
+      </div>
+
+      <div class="control-group">
+        <label for="rotationRandomness">Rotation Randomness (0 to 1)</label>
+        <input id="rotationRandomness" type="number" value="0.4" step="0.05" min="0" max="1">
+      </div>
+
+      <div class="control-group">
+        <label for="dropSpread">Horizontal Drop Spread (%)</label>
+        <input id="dropSpread" type="number" value="70" step="1" min="1" max="100">
+      </div>
     </div>
 
     <div class="button-row">
@@ -195,8 +237,12 @@
       <div id="sim-container"></div>
     </div>
 
+    <div class="result" id="output">
+      Enter values and run the simulation
+    </div>
+
     <p class="note">
-      This is a simple 2D physics preview, not a full production physics model. It is useful for rough visualization, not final engineering validation.
+      This is a simple 2D physics preview, not a final engineering validation tool. Use it for rough visualization only.
     </p>
 
     <div class="footer">
@@ -206,14 +252,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
   <script>
-    const {
-      Engine,
-      Render,
-      Runner,
-      World,
-      Bodies,
-      Composite
-    } = Matter;
+    const { Engine, Render, Runner, World, Bodies } = Matter;
 
     let engine;
     let render;
@@ -244,11 +283,11 @@
       });
 
       runner = Runner.create();
-
       Render.run(render);
       Runner.run(runner, engine);
 
       createBin();
+      updateResults();
     }
 
     function createBin(){
@@ -260,7 +299,6 @@
       const binBottom = canvasHeight - 40;
       const binTop = binBottom - binHeight;
 
-      // Clear old walls
       if(binWalls.length > 0){
         World.remove(engine.world, binWalls);
       }
@@ -298,11 +336,45 @@
         World.remove(engine.world, droppedParts);
         droppedParts = [];
       }
+      updateResults();
+    }
+
+    function getDropX(binLeft, binRight){
+      const spreadPercent = (parseFloat(document.getElementById("dropSpread").value) || 70) / 100;
+      const centerX = (binLeft + binRight) / 2;
+      const usableWidth = (binRight - binLeft) * spreadPercent;
+      const minX = centerX - usableWidth / 2;
+      const maxX = centerX + usableWidth / 2;
+      return minX + Math.random() * (maxX - minX);
+    }
+
+    function createPartBody(x, y){
+      const shape = document.getElementById("partShape").value;
+      const partWidth = parseFloat(document.getElementById("partWidth").value) || 50;
+      const partHeight = parseFloat(document.getElementById("partHeight").value) || 30;
+      const friction = parseFloat(document.getElementById("friction").value) || 0.5;
+      const bounce = parseFloat(document.getElementById("bounce").value) || 0.15;
+      const rotationRandomness = parseFloat(document.getElementById("rotationRandomness").value) || 0.4;
+
+      const commonOptions = {
+        restitution: bounce,
+        friction: friction,
+        frictionAir: 0.01,
+        density: 0.0015,
+        angle: (Math.random() - 0.5) * rotationRandomness,
+        render: {
+          fillStyle: "#1e6bd6"
+        }
+      };
+
+      if(shape === "circle"){
+        return Bodies.circle(x, y, partWidth / 2, commonOptions);
+      }
+
+      return Bodies.rectangle(x, y, partWidth, partHeight, commonOptions);
     }
 
     function dropOnePart(){
-      const partWidth = parseFloat(document.getElementById("partWidth").value) || 50;
-      const partHeight = parseFloat(document.getElementById("partHeight").value) || 30;
       const binWidth = parseFloat(document.getElementById("binWidth").value) || 500;
       const binHeight = parseFloat(document.getElementById("binHeight").value) || 300;
       const dropHeight = parseFloat(document.getElementById("dropHeight").value) || 120;
@@ -312,29 +384,14 @@
       const binBottom = canvasHeight - 40;
       const binTop = binBottom - binHeight;
 
-      const minX = binLeft + 40;
-      const maxX = binRight - 40;
-      const randomX = minX + Math.random() * (maxX - minX);
+      const x = getDropX(binLeft + 40, binRight - 40);
+      const y = binTop - dropHeight;
 
-      const part = Bodies.rectangle(
-        randomX,
-        binTop - dropHeight,
-        partWidth,
-        partHeight,
-        {
-          restitution: 0.15,
-          friction: 0.5,
-          frictionAir: 0.01,
-          density: 0.0015,
-          angle: (Math.random() - 0.5) * 0.4,
-          render: {
-            fillStyle: "#1e6bd6"
-          }
-        }
-      );
-
+      const part = createPartBody(x, y);
       droppedParts.push(part);
       World.add(engine.world, part);
+
+      setTimeout(updateResults, 150);
     }
 
     function runSimulation(){
@@ -346,8 +403,43 @@
       for(let i = 0; i < partCount; i++){
         setTimeout(() => {
           dropOnePart();
-        }, i * 250);
+        }, i * 220);
       }
+
+      setTimeout(updateResults, partCount * 220 + 1200);
+    }
+
+    function updateResults(){
+      const binWidth = parseFloat(document.getElementById("binWidth").value) || 500;
+      const binHeight = parseFloat(document.getElementById("binHeight").value) || 300;
+      const partShape = document.getElementById("partShape").value;
+      const partWidth = parseFloat(document.getElementById("partWidth").value) || 50;
+      const partHeight = parseFloat(document.getElementById("partHeight").value) || 30;
+
+      const binArea = binWidth * binHeight;
+      let singlePartArea = 0;
+
+      if(partShape === "circle"){
+        singlePartArea = Math.PI * Math.pow(partWidth / 2, 2);
+      } else {
+        singlePartArea = partWidth * partHeight;
+      }
+
+      const totalPartArea = singlePartArea * droppedParts.length;
+      const fillPercent = binArea > 0 ? (totalPartArea / binArea) * 100 : 0;
+
+      document.getElementById("output").innerHTML =
+        "<strong>Parts In Bin</strong><br>" +
+        droppedParts.length + "<br><br>" +
+
+        "<strong>Single Part Area</strong><br>" +
+        singlePartArea.toFixed(1) + " px²<br><br>" +
+
+        "<strong>Total Part Area</strong><br>" +
+        totalPartArea.toFixed(1) + " px²<br><br>" +
+
+        "<strong>Estimated Bin Fill</strong><br>" +
+        fillPercent.toFixed(1) + "%";
     }
 
     initSimulation();
