@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Bin Loading Simulator | Automation Calculators</title>
+  <meta name="description" content="Free 2D bin loading simulator for automation engineers. Simulate parts free falling into a bin using adjustable part size, bin size, drop height, and quantity.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:1000px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:25px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:500;
+      margin-bottom:6px;
+    }
+
+    .control-group input{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    .button-row{
+      margin:20px 0;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin:6px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    #sim-wrapper{
+      margin-top:20px;
+      display:flex;
+      justify-content:center;
+    }
+
+    #sim-container{
+      width:900px;
+      max-width:100%;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      background:#f8fbff;
+      overflow:hidden;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+    <a href="roi.html">ROI</a>
+    <a href="voltage-drop.html">Voltage Drop</a>
+    <a href="air-consumption.html">Air Consumption</a>
+    <a href="bin-simulator.html">Bin Simulator</a>
+  </div>
+
+  <div class="container">
+    <h2>Bin Loading Simulator</h2>
+    <p class="description">
+      Simulate rectangular parts free falling into a bin. Adjust part size, bin size, drop height, and quantity to preview basic stacking behavior.
+    </p>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="partWidth">Part Width (px)</label>
+        <input id="partWidth" type="number" value="50" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="partHeight">Part Height (px)</label>
+        <input id="partHeight" type="number" value="30" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="binWidth">Bin Width (px)</label>
+        <input id="binWidth" type="number" value="500" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="binHeight">Bin Height (px)</label>
+        <input id="binHeight" type="number" value="300" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="dropHeight">Drop Height Above Bin (px)</label>
+        <input id="dropHeight" type="number" value="120" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="partCount">Number of Parts</label>
+        <input id="partCount" type="number" value="20" step="1">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="runSimulation()">Run Simulation</button>
+      <button onclick="dropOnePart()">Drop One Part</button>
+      <button onclick="clearParts()">Clear Parts</button>
+    </div>
+
+    <div id="sim-wrapper">
+      <div id="sim-container"></div>
+    </div>
+
+    <p class="note">
+      This is a simple 2D physics preview, not a full production physics model. It is useful for rough visualization, not final engineering validation.
+    </p>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators and simulators for real automation work
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
+  <script>
+    const {
+      Engine,
+      Render,
+      Runner,
+      World,
+      Bodies,
+      Composite
+    } = Matter;
+
+    let engine;
+    let render;
+    let runner;
+    let binWalls = [];
+    let droppedParts = [];
+
+    const canvasWidth = 900;
+    const canvasHeight = 600;
+    const wallThickness = 30;
+
+    function initSimulation(){
+      const simContainer = document.getElementById("sim-container");
+      simContainer.innerHTML = "";
+
+      engine = Engine.create();
+      engine.world.gravity.y = 1;
+
+      render = Render.create({
+        element: simContainer,
+        engine: engine,
+        options: {
+          width: canvasWidth,
+          height: canvasHeight,
+          wireframes: false,
+          background: "#f8fbff"
+        }
+      });
+
+      runner = Runner.create();
+
+      Render.run(render);
+      Runner.run(runner, engine);
+
+      createBin();
+    }
+
+    function createBin(){
+      const binWidth = parseFloat(document.getElementById("binWidth").value) || 500;
+      const binHeight = parseFloat(document.getElementById("binHeight").value) || 300;
+
+      const binLeft = (canvasWidth - binWidth) / 2;
+      const binRight = binLeft + binWidth;
+      const binBottom = canvasHeight - 40;
+      const binTop = binBottom - binHeight;
+
+      // Clear old walls
+      if(binWalls.length > 0){
+        World.remove(engine.world, binWalls);
+      }
+
+      const floor = Bodies.rectangle(
+        canvasWidth / 2,
+        binBottom,
+        binWidth + wallThickness,
+        wallThickness,
+        { isStatic: true, render: { fillStyle: "#1f2a44" } }
+      );
+
+      const leftWall = Bodies.rectangle(
+        binLeft,
+        binTop + binHeight / 2,
+        wallThickness,
+        binHeight,
+        { isStatic: true, render: { fillStyle: "#1f2a44" } }
+      );
+
+      const rightWall = Bodies.rectangle(
+        binRight,
+        binTop + binHeight / 2,
+        wallThickness,
+        binHeight,
+        { isStatic: true, render: { fillStyle: "#1f2a44" } }
+      );
+
+      binWalls = [floor, leftWall, rightWall];
+      World.add(engine.world, binWalls);
+    }
+
+    function clearParts(){
+      if(droppedParts.length > 0){
+        World.remove(engine.world, droppedParts);
+        droppedParts = [];
+      }
+    }
+
+    function dropOnePart(){
+      const partWidth = parseFloat(document.getElementById("partWidth").value) || 50;
+      const partHeight = parseFloat(document.getElementById("partHeight").value) || 30;
+      const binWidth = parseFloat(document.getElementById("binWidth").value) || 500;
+      const binHeight = parseFloat(document.getElementById("binHeight").value) || 300;
+      const dropHeight = parseFloat(document.getElementById("dropHeight").value) || 120;
+
+      const binLeft = (canvasWidth - binWidth) / 2;
+      const binRight = binLeft + binWidth;
+      const binBottom = canvasHeight - 40;
+      const binTop = binBottom - binHeight;
+
+      const minX = binLeft + 40;
+      const maxX = binRight - 40;
+      const randomX = minX + Math.random() * (maxX - minX);
+
+      const part = Bodies.rectangle(
+        randomX,
+        binTop - dropHeight,
+        partWidth,
+        partHeight,
+        {
+          restitution: 0.15,
+          friction: 0.5,
+          frictionAir: 0.01,
+          density: 0.0015,
+          angle: (Math.random() - 0.5) * 0.4,
+          render: {
+            fillStyle: "#1e6bd6"
+          }
+        }
+      );
+
+      droppedParts.push(part);
+      World.add(engine.world, part);
+    }
+
+    function runSimulation(){
+      const partCount = parseInt(document.getElementById("partCount").value) || 20;
+
+      clearParts();
+      createBin();
+
+      for(let i = 0; i < partCount; i++){
+        setTimeout(() => {
+          dropOnePart();
+        }, i * 250);
+      }
+    }
+
+    initSimulation();
+  </script>
+</body>
+</html>
