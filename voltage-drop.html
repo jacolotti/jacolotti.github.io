@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Voltage Drop Calculator | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free voltage drop calculator for automation and electrical design. Calculate voltage drop, percent drop, and final voltage using wire gauge, length, current, and conductor material.">
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:700px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:25px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      font-weight:normal;
+    }
+
+    .container p{
+      margin-top:20px;
+      margin-bottom:5px;
+      font-weight:500;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:15px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+    <a href="roi.html">ROI</a>
+    <a href="voltage-drop.html">Voltage Drop</a>
+  </div>
+
+  <div class="container">
+    <h2>Voltage Drop Calculator</h2>
+    <p class="description">
+      Calculate voltage drop, percent voltage drop, and final load voltage for automation and electrical circuits using wire gauge, length, current, and conductor material.
+    </p>
+
+    <p>System Voltage (V)</p>
+    <input id="voltage" type="number" value="24">
+
+    <p>Current (A)</p>
+    <input id="current" type="number" value="2">
+
+    <p>One-Way Wire Length (ft)</p>
+    <input id="length" type="number" value="100">
+
+    <p>Wire Gauge (AWG)</p>
+    <select id="awg">
+      <option value="18">18 AWG</option>
+      <option value="16">16 AWG</option>
+      <option value="14">14 AWG</option>
+      <option value="12">12 AWG</option>
+      <option value="10">10 AWG</option>
+      <option value="8">8 AWG</option>
+      <option value="6">6 AWG</option>
+      <option value="4">4 AWG</option>
+      <option value="2">2 AWG</option>
+    </select>
+
+    <p>Conductor Material</p>
+    <select id="material">
+      <option value="copper">Copper</option>
+      <option value="aluminum">Aluminum</option>
+    </select>
+
+    <button onclick="calculateVoltageDrop()">Calculate</button>
+
+    <div class="result" id="output">
+      Enter values and press Calculate
+    </div>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
+    </div>
+  </div>
+
+  <script>
+    function calculateVoltageDrop(){
+      let voltage = parseFloat(document.getElementById("voltage").value) || 0;
+      let current = parseFloat(document.getElementById("current").value) || 0;
+      let length = parseFloat(document.getElementById("length").value) || 0;
+      let awg = document.getElementById("awg").value;
+      let material = document.getElementById("material").value;
+
+      // Ohms per 1000 ft
+      let copperResistance = {
+        "18": 6.385,
+        "16": 4.016,
+        "14": 2.525,
+        "12": 1.588,
+        "10": 0.999,
+        "8": 0.6282,
+        "6": 0.3951,
+        "4": 0.2485,
+        "2": 0.1563
+      };
+
+      let aluminumMultiplier = 1.61;
+
+      let resistancePer1000Ft = copperResistance[awg];
+      if(material === "aluminum"){
+        resistancePer1000Ft = resistancePer1000Ft * aluminumMultiplier;
+      }
+
+      // Round-trip wire length for DC / 2-wire circuit
+      let totalLength = length * 2;
+
+      let totalResistance = (resistancePer1000Ft / 1000) * totalLength;
+      let voltageDrop = current * totalResistance;
+      let percentDrop = voltage > 0 ? (voltageDrop / voltage) * 100 : 0;
+      let finalVoltage = voltage - voltageDrop;
+
+      document.getElementById("output").innerHTML =
+        "<strong>Voltage Drop</strong><br>" +
+        voltageDrop.toFixed(3) + " V<br><br>" +
+
+        "<strong>Percent Drop</strong><br>" +
+        percentDrop.toFixed(2) + "%<br><br>" +
+
+        "<strong>Final Voltage At Load</strong><br>" +
+        finalVoltage.toFixed(3) + " V";
+    }
+  </script>
+
+</body>
+</html>
