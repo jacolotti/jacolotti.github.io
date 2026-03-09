@@ -4,6 +4,7 @@
   <link rel="canonical" href="https://automationcalculators.net/projection-weld.html">
   <meta name="robots" content="index, follow">
 
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,7 +15,7 @@
 
   <title>Projection Weld Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free projection weld calculator for automation and manufacturing engineers. Estimate current, force, and weld time for projection welding by material, thickness, and number of projections.">
+  <meta name="description" content="Free projection weld calculator for automation and manufacturing engineers. Estimate projection weld current, current per projection, electrode force, and weld time using material, thickness, number of projections, and machine type.">
 
   <style>
     body{
@@ -86,20 +87,24 @@
       border-radius:5px;
     }
 
+    .button-row{
+      margin-top:18px;
+    }
+
     button{
       padding:12px 26px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
       border-radius:6px;
       cursor:pointer;
-      margin-top:20px;
+      margin:6px;
       transition:background .2s;
     }
 
     button:hover{
-      background:#1555ad;
+      background:#2d3d63;
     }
 
     .result{
@@ -126,6 +131,17 @@
       color:#666;
       font-size:14px;
     }
+
+    @media (max-width: 700px){
+      .container{
+        padding:20px;
+      }
+
+      button{
+        width:100%;
+        margin:6px 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -140,6 +156,7 @@
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
     <a href="servo-torque.html">Servo Torque</a>
+    <a href="gear-ratio.html">Gear Ratio</a>
     <a href="spot-weld.html">Spot Weld</a>
     <a href="projection-weld.html">Projection Weld</a>
   </div>
@@ -148,11 +165,15 @@
     <h2>Projection Weld Calculator</h2>
 
     <p class="description">
-      Estimate a starting projection weld schedule using material type, thickness, and number of projections.
+      Estimate a starting projection weld schedule using material type, thickness, number of projections, weld quality target, and machine type.
     </p>
 
     <p class="description">
       Use this as a setup estimator for early process planning. Real schedules still need weld testing, collapse checks, nugget verification, and machine-specific tuning.
+    </p>
+
+    <p class="description">
+      This free projection weld calculator helps estimate total weld current, current per projection, electrode force, and weld time for common production projection welding applications.
     </p>
 
     <div class="grid">
@@ -193,14 +214,22 @@
       </div>
     </div>
 
-    <button onclick="calculateProjectionWeld();">Calculate</button>
+    <div class="button-row">
+      <button onclick="calculateProjectionWeld();">Calculate</button>
+      <button onclick="loadExample(); gtag('event','projection_weld_example');">Load Example</button>
+      <button onclick="clearCalculator(); gtag('event','projection_weld_clear');">Clear</button>
+    </div>
 
     <div class="result" id="output">
       Enter values and press Calculate
     </div>
 
     <p class="note">
-      Projection welding concentrates heat at formed projections, so force balance, collapse behavior, and current distribution become critical as the number of projections increases.
+      Projection welding concentrates heat at formed projections, so force balance, collapse behavior, and current distribution become more critical as the number of projections increases.
+    </p>
+
+    <p class="note">
+      Weld time shown in cycles assumes standard AC cycle-style timing reference at 60 Hz. The millisecond value is included as a quick cross-reference, especially for MFDC setup discussions.
     </p>
 
     <div class="footer">
@@ -209,6 +238,10 @@
   </div>
 
   <script>
+    function showMessage(message){
+      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+    }
+
     function calculateProjectionWeld(){
       const material = document.getElementById("material").value;
       const thickness = parseFloat(document.getElementById("thickness").value) || 0;
@@ -231,6 +264,7 @@
       let forcePerProjection = 1.2;
       let timeFactor = 10;
       let materialNote = "";
+      let machineNote = "";
 
       if(material === "mild"){
         currentPerProjection = 6.0;
@@ -262,11 +296,15 @@
 
       if(machine === "mfdc"){
         timeFactor *= 0.75;
+        machineNote = "MFDC systems often allow shorter effective weld times and tighter process control than AC systems.";
+      } else {
+        machineNote = "AC welders often use cycle-based timing directly, so the cycle estimate can be a convenient starting reference.";
       }
 
       const totalCurrentKA = currentPerProjection * projections * thickness;
       const totalForceKN = forcePerProjection * projections * thickness;
       const weldTimeCycles = timeFactor * thickness;
+      const weldTimeMs = weldTimeCycles * (1000 / 60);
 
       gtag('event', 'projection_weld_calculation', {
         material: material,
@@ -279,16 +317,41 @@
         totalCurrentKA.toFixed(1) + " kA<br><br>" +
 
         "<strong>Suggested Current Per Projection</strong><br>" +
-        (totalCurrentKA / projections).toFixed(1) + " kA<br><br>" +
+        currentPerProjection.toFixed(1) + " kA<br><br>" +
 
-        "<strong>Suggested Electrode Force</strong><br>" +
+        "<strong>Suggested Total Electrode Force</strong><br>" +
         totalForceKN.toFixed(2) + " kN<br><br>" +
 
-        "<strong>Suggested Weld Time</strong><br>" +
-        weldTimeCycles.toFixed(0) + " cycles<br><br>" +
+        "<strong>Suggested Force Per Projection</strong><br>" +
+        (totalForceKN / projections).toFixed(2) + " kN<br><br>" +
 
-        "<strong>Process Note</strong><br>" +
-        materialNote;
+        "<strong>Suggested Weld Time</strong><br>" +
+        weldTimeCycles.toFixed(0) + " cycles<br>" +
+        weldTimeMs.toFixed(0) + " ms<br><br>" +
+
+        "<strong>Material Note</strong><br>" +
+        materialNote + "<br><br>" +
+
+        "<strong>Machine Note</strong><br>" +
+        machineNote;
+    }
+
+    function clearCalculator(){
+      document.getElementById("material").value = "mild";
+      document.getElementById("thickness").value = "2.0";
+      document.getElementById("projections").value = "1";
+      document.getElementById("quality").value = "standard";
+      document.getElementById("machine").value = "ac";
+      showMessage("Enter values and press Calculate");
+    }
+
+    function loadExample(){
+      document.getElementById("material").value = "mild";
+      document.getElementById("thickness").value = "2.0";
+      document.getElementById("projections").value = "2";
+      document.getElementById("quality").value = "standard";
+      document.getElementById("machine").value = "mfdc";
+      calculateProjectionWeld();
     }
   </script>
 </body>
