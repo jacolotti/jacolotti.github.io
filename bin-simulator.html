@@ -269,315 +269,320 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
-  <script>
-    const { Engine, Render, Runner, World, Bodies } = Matter;
 
-    let engine;
-    let render;
-    let runner;
-    let binWalls = [];
-    let droppedParts = [];
+<script>
+  const { Engine, Render, Runner, World, Bodies } = Matter;
 
-    const canvasWidth = 900;
-    const canvasHeight = 600;
-    const wallThickness = 30;
+  let engine;
+  let render;
+  let runner;
+  let binWalls = [];
+  let droppedParts = [];
 
-    function showMessage(message){
-      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+  const canvasWidth = 900;
+  const canvasHeight = 600;
+  const wallThickness = 30;
+
+  function showMessage(message){
+    document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+  }
+
+  function safeParseFloat(id, fallback){
+    const value = parseFloat(document.getElementById(id).value);
+    return isNaN(value) ? fallback : value;
+  }
+
+  function safeParseInt(id, fallback){
+    const value = parseInt(document.getElementById(id).value);
+    return isNaN(value) ? fallback : value;
+  }
+
+  function getInputs(){
+    return {
+      partShape: document.getElementById("partShape").value,
+      partWidth: safeParseFloat("partWidth", 0),
+      partHeight: safeParseFloat("partHeight", 0),
+      binWidth: safeParseFloat("binWidth", 0),
+      binHeight: safeParseFloat("binHeight", 0),
+      dropHeight: safeParseFloat("dropHeight", 0),
+      partCount: safeParseInt("partCount", 0),
+      friction: safeParseFloat("friction", 0.5),
+      bounce: safeParseFloat("bounce", 0.15),
+      rotationRandomness: safeParseFloat("rotationRandomness", 0.4),
+      dropSpread: safeParseFloat("dropSpread", 70)
+    };
+  }
+
+  function validateInputs(requirePartCount){
+    const i = getInputs();
+
+    if(i.partWidth <= 0){
+      showMessage("Please enter a part width greater than 0.");
+      return false;
     }
 
-    function safeParseFloat(id, fallback){
-      const value = parseFloat(document.getElementById(id).value);
-      return isNaN(value) ? fallback : value;
+    if(i.partShape === "rectangle" && i.partHeight <= 0){
+      showMessage("Please enter a part height greater than 0 for rectangles.");
+      return false;
     }
 
-    function safeParseInt(id, fallback){
-      const value = parseInt(document.getElementById(id).value);
-      return isNaN(value) ? fallback : value;
+    if(i.binWidth <= 50 || i.binHeight <= 50){
+      showMessage("Please enter bin dimensions greater than 50 px.");
+      return false;
     }
 
-    function getInputs(){
-      return {
-        partShape: document.getElementById("partShape").value,
-        partWidth: safeParseFloat("partWidth", 0),
-        partHeight: safeParseFloat("partHeight", 0),
-        binWidth: safeParseFloat("binWidth", 0),
-        binHeight: safeParseFloat("binHeight", 0),
-        dropHeight: safeParseFloat("dropHeight", 0),
-        partCount: safeParseInt("partCount", 0),
-        friction: safeParseFloat("friction", 0.5),
-        bounce: safeParseFloat("bounce", 0.15),
-        rotationRandomness: safeParseFloat("rotationRandomness", 0.4),
-        dropSpread: safeParseFloat("dropSpread", 70)
-      };
+    if(i.binWidth >= canvasWidth - 20){
+      showMessage("Bin width must be smaller than the simulator width.");
+      return false;
     }
 
-    function validateInputs(requirePartCount){
-      const i = getInputs();
-
-      if(i.partWidth <= 0){
-        showMessage("Please enter a part width greater than 0.");
-        return false;
-      }
-
-      if(i.partShape === "rectangle" && i.partHeight <= 0){
-        showMessage("Please enter a part height greater than 0 for rectangles.");
-        return false;
-      }
-
-      if(i.binWidth <= 50 || i.binHeight <= 50){
-        showMessage("Please enter bin dimensions greater than 50 px.");
-        return false;
-      }
-
-      if(i.binWidth >= canvasWidth - 20){
-        showMessage("Bin width must be smaller than the simulator width.");
-        return false;
-      }
-
-      if(i.binHeight >= canvasHeight - 60){
-        showMessage("Bin height must be smaller than the simulator height.");
-        return false;
-      }
-
-      if(i.dropHeight < 0){
-        showMessage("Please enter a drop height of 0 or greater.");
-        return false;
-      }
-
-      if(i.dropHeight > 400){
-        showMessage("Please use a drop height of 400 px or less.");
-        return false;
-      }
-
-      if(requirePartCount && i.partCount <= 0){
-        showMessage("Please enter a number of parts greater than 0.");
-        return false;
-      }
-
-      if(i.friction < 0 || i.friction > 1){
-        showMessage("Friction must be between 0 and 1.");
-        return false;
-      }
-
-      if(i.bounce < 0 || i.bounce > 1){
-        showMessage("Bounce must be between 0 and 1.");
-        return false;
-      }
-
-      if(i.rotationRandomness < 0 || i.rotationRandomness > 1){
-        showMessage("Rotation randomness must be between 0 and 1.");
-        return false;
-      }
-
-      if(i.dropSpread < 1 || i.dropSpread > 100){
-        showMessage("Drop spread must be between 1 and 100.");
-        return false;
-      }
-
-      return true;
+    if(i.binHeight >= canvasHeight - 60){
+      showMessage("Bin height must be smaller than the simulator height.");
+      return false;
     }
 
-    function initSimulation(){
-      const simContainer = document.getElementById("sim-container");
-      simContainer.innerHTML = "";
+    if(i.dropHeight < 0){
+      showMessage("Please enter a drop height of 0 or greater.");
+      return false;
+    }
 
-      if(runner){
-        Runner.stop(runner);
+    if(i.dropHeight > 400){
+      showMessage("Please use a drop height of 400 px or less.");
+      return false;
+    }
+
+    if(requirePartCount && i.partCount <= 0){
+      showMessage("Please enter a number of parts greater than 0.");
+      return false;
+    }
+
+    if(i.friction < 0 || i.friction > 1){
+      showMessage("Friction must be between 0 and 1.");
+      return false;
+    }
+
+    if(i.bounce < 0 || i.bounce > 1){
+      showMessage("Bounce must be between 0 and 1.");
+      return false;
+    }
+
+    if(i.rotationRandomness < 0 || i.rotationRandomness > 1){
+      showMessage("Rotation randomness must be between 0 and 1.");
+      return false;
+    }
+
+    if(i.dropSpread < 1 || i.dropSpread > 100){
+      showMessage("Drop spread must be between 1 and 100.");
+      return false;
+    }
+
+    return true;
+  }
+
+  function initSimulation(){
+    const simContainer = document.getElementById("sim-container");
+    simContainer.innerHTML = "";
+
+    if(runner){
+      Runner.stop(runner);
+    }
+
+    if(render){
+      Render.stop(render);
+      if(render.canvas) render.canvas.remove();
+      if(render.textures) render.textures = {};
+    }
+
+    engine = Engine.create();
+    engine.world.gravity.y = 1;
+
+    render = Render.create({
+      element: simContainer,
+      engine: engine,
+      options: {
+        width: canvasWidth,
+        height: canvasHeight,
+        wireframes: false,
+        background: "#f8fbff"
       }
+    });
 
-      if(render){
-        Render.stop(render);
-        if(render.canvas) render.canvas.remove();
-        if(render.textures) render.textures = {};
-      }
+    runner = Runner.create();
+    Render.run(render);
+    Runner.run(runner, engine);
 
-      engine = Engine.create();
-      engine.world.gravity.y = 1;
+    binWalls = [];
+    droppedParts = [];
 
-      render = Render.create({
-        element: simContainer,
-        engine: engine,
-        options: {
-          width: canvasWidth,
-          height: canvasHeight,
-          wireframes: false,
-          background: "#f8fbff"
-        }
-      });
+    createBin();
+    updateResults();
+  }
 
-      runner = Runner.create();
-      Render.run(render);
-      Runner.run(runner, engine);
+  function createBin(){
+    const { binWidth, binHeight } = getInputs();
 
-      binWalls = [];
+    const binLeft = (canvasWidth - binWidth) / 2;
+    const binRight = binLeft + binWidth;
+    const binBottom = canvasHeight - 40;
+    const binTop = binBottom - binHeight;
+
+    if(binWalls.length > 0){
+      World.remove(engine.world, binWalls);
+    }
+
+    const floor = Bodies.rectangle(
+      canvasWidth / 2,
+      binBottom,
+      binWidth + wallThickness,
+      wallThickness,
+      { isStatic: true, render: { fillStyle: "#1f2a44" } }
+    );
+
+    const leftWall = Bodies.rectangle(
+      binLeft,
+      binTop + binHeight / 2,
+      wallThickness,
+      binHeight,
+      { isStatic: true, render: { fillStyle: "#1f2a44" } }
+    );
+
+    const rightWall = Bodies.rectangle(
+      binRight,
+      binTop + binHeight / 2,
+      wallThickness,
+      binHeight,
+      { isStatic: true, render: { fillStyle: "#1f2a44" } }
+    );
+
+    binWalls = [floor, leftWall, rightWall];
+    World.add(engine.world, binWalls);
+  }
+
+  function clearParts(){
+    if(droppedParts.length > 0){
+      World.remove(engine.world, droppedParts);
       droppedParts = [];
-
-      createBin();
-      updateResults();
     }
+    createBin();
+    updateResults();
+  }
 
-    function createBin(){
-      const { binWidth, binHeight } = getInputs();
+  function getDropX(binLeft, binRight){
+    const spreadPercent = getInputs().dropSpread / 100;
+    const centerX = (binLeft + binRight) / 2;
+    const usableWidth = (binRight - binLeft) * spreadPercent;
+    const minX = centerX - usableWidth / 2;
+    const maxX = centerX + usableWidth / 2;
+    return minX + Math.random() * (maxX - minX);
+  }
 
-      const binLeft = (canvasWidth - binWidth) / 2;
-      const binRight = binLeft + binWidth;
-      const binBottom = canvasHeight - 40;
-      const binTop = binBottom - binHeight;
+  function createPartBody(x, y){
+    const shape = document.getElementById("partShape").value;
+    const partWidth = safeParseFloat("partWidth", 50);
+    const partHeight = safeParseFloat("partHeight", 30);
+    const friction = safeParseFloat("friction", 0.5);
+    const bounce = safeParseFloat("bounce", 0.15);
+    const rotationRandomness = safeParseFloat("rotationRandomness", 0.4);
 
-      if(binWalls.length > 0){
-        World.remove(engine.world, binWalls);
+    const commonOptions = {
+      restitution: bounce,
+      friction: friction,
+      frictionAir: 0.01,
+      density: 0.0015,
+      angle: (Math.random() - 0.5) * rotationRandomness,
+      render: {
+        fillStyle: "#1e6bd6"
       }
+    };
 
-      const floor = Bodies.rectangle(
-        canvasWidth / 2,
-        binBottom,
-        binWidth + wallThickness,
-        wallThickness,
-        { isStatic: true, render: { fillStyle: "#1f2a44" } }
-      );
-
-      const leftWall = Bodies.rectangle(
-        binLeft,
-        binTop + binHeight / 2,
-        wallThickness,
-        binHeight,
-        { isStatic: true, render: { fillStyle: "#1f2a44" } }
-      );
-
-      const rightWall = Bodies.rectangle(
-        binRight,
-        binTop + binHeight / 2,
-        wallThickness,
-        binHeight,
-        { isStatic: true, render: { fillStyle: "#1f2a44" } }
-      );
-
-      binWalls = [floor, leftWall, rightWall];
-      World.add(engine.world, binWalls);
+    if(shape === "circle"){
+      return Bodies.circle(x, y, partWidth / 2, commonOptions);
     }
 
-    function clearParts(){
-      if(droppedParts.length > 0){
-        World.remove(engine.world, droppedParts);
-        droppedParts = [];
-      }
-      createBin();
-      updateResults();
+    return Bodies.rectangle(x, y, partWidth, partHeight, commonOptions);
+  }
+
+  function dropOnePart(){
+    if(!validateInputs(false)) return;
+
+    const { binWidth, binHeight, dropHeight } = getInputs();
+
+    const binLeft = (canvasWidth - binWidth) / 2;
+    const binRight = binLeft + binWidth;
+    const binBottom = canvasHeight - 40;
+    const binTop = binBottom - binHeight;
+
+    const x = getDropX(binLeft + 40, binRight - 40);
+    const y = binTop - dropHeight;
+
+    const part = createPartBody(x, y);
+    droppedParts.push(part);
+    World.add(engine.world, part);
+
+    setTimeout(updateResults, 150);
+  }
+
+  function runSimulation(){
+    if(!validateInputs(true)) return;
+
+    const inputs = getInputs();
+    const partCount = inputs.partCount;
+
+    gtag('event', 'bin_simulation_run', {
+      part_count: partCount,
+      part_shape: inputs.partShape,
+      bin_width: inputs.binWidth,
+      bin_height: inputs.binHeight
+    });
+
+    clearParts();
+    createBin();
+
+    for(let i = 0; i < partCount; i++){
+      setTimeout(() => {
+        dropOnePart();
+      }, i * 220);
     }
 
-    function getDropX(binLeft, binRight){
-      const spreadPercent = getInputs().dropSpread / 100;
-      const centerX = (binLeft + binRight) / 2;
-      const usableWidth = (binRight - binLeft) * spreadPercent;
-      const minX = centerX - usableWidth / 2;
-      const maxX = centerX + usableWidth / 2;
-      return minX + Math.random() * (maxX - minX);
+    setTimeout(updateResults, partCount * 220 + 1200);
+  }
+
+  function updateResults(){
+    const { binWidth, binHeight, partShape, partWidth, partHeight } = getInputs();
+
+    const binArea = binWidth * binHeight;
+    let singlePartArea = 0;
+
+    if(partShape === "circle"){
+      singlePartArea = Math.PI * Math.pow(partWidth / 2, 2);
+    } else {
+      singlePartArea = partWidth * partHeight;
     }
 
-    function createPartBody(x, y){
-      const shape = document.getElementById("partShape").value;
-      const partWidth = safeParseFloat("partWidth", 50);
-      const partHeight = safeParseFloat("partHeight", 30);
-      const friction = safeParseFloat("friction", 0.5);
-      const bounce = safeParseFloat("bounce", 0.15);
-      const rotationRandomness = safeParseFloat("rotationRandomness", 0.4);
+    const totalPartArea = singlePartArea * droppedParts.length;
+    const fillPercent = binArea > 0 ? (totalPartArea / binArea) * 100 : 0;
 
-      const commonOptions = {
-        restitution: bounce,
-        friction: friction,
-        frictionAir: 0.01,
-        density: 0.0015,
-        angle: (Math.random() - 0.5) * rotationRandomness,
-        render: {
-          fillStyle: "#1e6bd6"
-        }
-      };
+    document.getElementById("output").innerHTML =
+      "<strong>Parts In Bin</strong><br>" +
+      droppedParts.length + "<br><br>" +
 
-      if(shape === "circle"){
-        return Bodies.circle(x, y, partWidth / 2, commonOptions);
-      }
+      "<strong>Single Part Area</strong><br>" +
+      singlePartArea.toFixed(1) + " px²<br><br>" +
 
-      return Bodies.rectangle(x, y, partWidth, partHeight, commonOptions);
-    }
+      "<strong>Total Part Area</strong><br>" +
+      totalPartArea.toFixed(1) + " px²<br><br>" +
 
-    function dropOnePart(){
-      if(!validateInputs(false)) return;
+      "<strong>Approximate 2D Area Fill</strong><br>" +
+      fillPercent.toFixed(1) + "%<br><br>" +
 
-      const { binWidth, binHeight, dropHeight } = getInputs();
+      "<strong>Note</strong><br>" +
+      "Area-based estimate only, not true packing density.";
+  }
 
-      const binLeft = (canvasWidth - binWidth) / 2;
-      const binRight = binLeft + binWidth;
-      const binBottom = canvasHeight - 40;
-      const binTop = binBottom - binHeight;
+  initSimulation();
+</script>
 
-      const x = getDropX(binLeft + 40, binRight - 40);
-      const y = binTop - dropHeight;
-
-      const part = createPartBody(x, y);
-      droppedParts.push(part);
-      World.add(engine.world, part);
-
-      setTimeout(updateResults, 150);
-    }
-
-    function runSimulation(){
-      if(!validateInputs(true)) return;
-
-      const inputs = getInputs();
-      const partCount = inputs.partCount;
-
-      gtag('event', 'bin_simulation_run', {
-        part_count: partCount,
-        part_shape: inputs.partShape,
-        bin_width: inputs.binWidth,
-        bin_height: inputs.binHeight
-      });
-
-      clearParts();
-      createBin();
-
-      for(let i = 0; i < partCount; i++){
-        setTimeout(() => {
-          dropOnePart();
-        }, i * 220);
-      }
-
-      setTimeout(updateResults, partCount * 220 + 1200);
-    }
-
-    function updateResults(){
-      const { binWidth, binHeight, partShape, partWidth, partHeight } = getInputs();
-
-      const binArea = binWidth * binHeight;
-      let singlePartArea = 0;
-
-      if(partShape === "circle"){
-        singlePartArea = Math.PI * Math.pow(partWidth / 2, 2);
-      } else {
-        singlePartArea = partWidth * partHeight;
-      }
-
-      const totalPartArea = singlePartArea * droppedParts.length;
-      const fillPercent = binArea > 0 ? (totalPartArea / binArea) * 100 : 0;
-
-      document.getElementById("output").innerHTML =
-        "<strong>Parts In Bin</strong><br>" +
-        droppedParts.length + "<br><br>" +
-
-        "<strong>Single Part Area</strong><br>" +
-        singlePartArea.toFixed(1) + " px²<br><br>" +
-
-        "<strong>Total Part Area</strong><br>" +
-        totalPartArea.toFixed(1) + " px²<br><br>" +
-
-        "<strong>Approximate 2D Area Fill</strong><br>" +
-        fillPercent.toFixed(1) + "%<br><br>" +
-
-        "<strong>Note</strong><br>" +
-        "Area-based estimate only, not true packing density.";
-    }
-    <script>
+<script>
   fetch("navbar.html")
     .then(response => response.text())
     .then(data => {
@@ -587,8 +592,3 @@
       console.error("Navbar failed to load:", error);
     });
 </script>
-
-    initSimulation();
-  </script>
-</body>
-</html>
