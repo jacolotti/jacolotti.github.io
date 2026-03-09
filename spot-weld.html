@@ -368,10 +368,11 @@
       document.getElementById("thickness2").value = "1.2";
       document.getElementById("quality").value = "standard";
       document.getElementById("machine").value = "mfdc";
-      calculateSpotWeld();
+          calculateSpotWeld();
     }
+</script>
 
-    <script>
+<script>
   fetch("navbar.html")
     .then(response => response.text())
     .then(data => {
@@ -381,6 +382,5 @@
       console.error("Navbar failed to load:", error);
     });
 </script>
-  </script>
 </body>
 </html>
