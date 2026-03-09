@@ -51,7 +51,7 @@ opacity:0.8;
 .container{
 background:white;
 padding:40px;
-max-width:900px;
+max-width:1100px;
 margin:auto;
 border-radius:10px;
 box-shadow:0px 0px 10px rgba(0,0,0,.1);
@@ -130,7 +130,7 @@ font-size:14px;
 <h1>Automation Engineering Tools</h1>
 
 <p class="subtitle">
-Free calculators for engineers, automation specialists, and controls engineers.
+Free calculators for engineers, automation specialists, controls engineers, and machine designers.
 </p>
 
 <p class="seo-text">
@@ -138,7 +138,7 @@ AutomationCalculators.net provides free engineering calculators for machine desi
 </p>
 
 <p class="seo-text">
-These calculators are built for practical shop-floor and engineering use, helping with early design estimates, equipment sizing, motion calculations, welding process setup, and automation concept evaluation. Tools are designed to be simple, fast, and useful for real-world automation work.
+These calculators are built for practical shop-floor and engineering use, helping with early design estimates, equipment sizing, motion calculations, welding process setup, and automation concept evaluation. The site serves as a collection of automation calculators, machine design calculators, and industrial engineering tools for real-world applications.
 </p>
 
 <div class="tools">
@@ -146,6 +146,11 @@ These calculators are built for practical shop-floor and engineering use, helpin
 <a class="tool" href="pneumatic.html" onclick="gtag('event','tool_open',{tool:'pneumatic_force'});">
 <h3>Pneumatic Force Calculator</h3>
 <p>Calculate cylinder extend and retract force using bore, rod diameter, and pressure.</p>
+</a>
+
+<a class="tool" href="air-consumption.html" onclick="gtag('event','tool_open',{tool:'air_consumption'});">
+<h3>Pneumatic Air Consumption</h3>
+<p>Estimate cylinder air use per cycle and SCFM using bore, rod diameter, stroke, pressure, and cycle rate.</p>
 </a>
 
 <a class="tool" href="robot.html" onclick="gtag('event','tool_open',{tool:'robot_cycle'});">
@@ -158,26 +163,6 @@ These calculators are built for practical shop-floor and engineering use, helpin
 <p>Estimate conveyor drive force, torque, and motor power requirements.</p>
 </a>
 
-<a class="tool" href="roi.html" onclick="gtag('event','tool_open',{tool:'automation_roi'});">
-<h3>Automation ROI Calculator</h3>
-<p>Estimate payback period and return on investment for automation projects.</p>
-</a>
-
-<a class="tool" href="voltage-drop.html" onclick="gtag('event','tool_open',{tool:'voltage_drop'});">
-<h3>Voltage Drop Calculator</h3>
-<p>Calculate voltage drop, percent drop, and final voltage using wire gauge, current, length, and conductor material.</p>
-</a>
-
-<a class="tool" href="air-consumption.html" onclick="gtag('event','tool_open',{tool:'air_consumption'});">
-<h3>Pneumatic Air Consumption</h3>
-<p>Estimate cylinder air use per cycle and SCFM using bore, stroke, pressure, and cycle rate.</p>
-</a>
-
-<a class="tool" href="bin-simulator.html" onclick="gtag('event','tool_open',{tool:'bin_simulator'});">
-<h3>Bin Loading Simulator</h3>
-<p>Preview 2D free-fall part stacking with adjustable shape, friction, bounce, and drop conditions.</p>
-</a>
-
 <a class="tool" href="servo-torque.html" onclick="gtag('event','tool_open',{tool:'servo_torque'});">
 <h3>Servo Torque Calculator</h3>
 <p>Estimate required servo torque, peak torque, and motor power using load mass, pulley radius, speed, gear ratio, and efficiency.</p>
@@ -188,6 +173,21 @@ These calculators are built for practical shop-floor and engineering use, helpin
 <p>Calculate single-stage or multi-stage gear ratio, output speed, output torque, and direction change for gear trains.</p>
 </a>
 
+<a class="tool" href="voltage-drop.html" onclick="gtag('event','tool_open',{tool:'voltage_drop'});">
+<h3>Voltage Drop Calculator</h3>
+<p>Calculate voltage drop, percent drop, and final voltage using wire gauge, current, length, and conductor material.</p>
+</a>
+
+<a class="tool" href="roi.html" onclick="gtag('event','tool_open',{tool:'automation_roi'});">
+<h3>Automation ROI Calculator</h3>
+<p>Estimate payback period and return on investment for automation projects.</p>
+</a>
+
+<a class="tool" href="bin-simulator.html" onclick="gtag('event','tool_open',{tool:'bin_simulator'});">
+<h3>Bin Loading Simulator</h3>
+<p>Preview 2D free-fall part stacking with adjustable shape, friction, bounce, and drop conditions.</p>
+</a>
+
 <a class="tool" href="spot-weld.html" onclick="gtag('event','tool_open',{tool:'spot_weld'});">
 <h3>Spot Weld Calculator</h3>
 <p>Estimate starting current, weld time, force, and tip size for resistance spot welding.</p>
@@ -196,7 +196,7 @@ These calculators are built for practical shop-floor and engineering use, helpin
 <a class="tool" href="projection-weld.html" onclick="gtag('event','tool_open',{tool:'projection_weld'});">
 <h3>Projection Weld Calculator</h3>
 <p>Estimate starting current, force, and weld time for projection welding by material and thickness.</p>
-</a> 
+</a>
 
 </div>
 
