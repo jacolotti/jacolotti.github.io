@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/spot-weld.html">
+  <meta name="robots" content="index, follow">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Spot Weld Calculator | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free spot weld calculator for automation and manufacturing engineers. Estimate starting current, weld time, electrode force, and tip diameter for resistance spot welding by material and thickness.">
+
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:760px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:18px;
+      text-align:left;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:20px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+    <a href="roi.html">ROI</a>
+    <a href="voltage-drop.html">Voltage Drop</a>
+    <a href="air-consumption.html">Air Consumption</a>
+    <a href="bin-simulator.html">Bin Simulator</a>
+    <a href="servo-torque.html">Servo Torque</a>
+    <a href="spot-weld.html">Spot Weld</a>
+    <a href="projection-weld.html">Projection Weld</a>
+  </div>
+
+  <div class="container">
+    <h2>Resistance Spot Weld Calculator</h2>
+
+    <p class="description">
+      Estimate a starting weld schedule for resistance spot welding using material type, sheet thickness, and weld quality target.
+    </p>
+
+    <p class="description">
+      This is a first-pass estimator for setup and planning. Final weld schedules should always be validated with destructive testing, nugget checks, and real machine capability.
+    </p>
+
+    <div class="grid">
+      <div class="field">
+        <label for="material">Material</label>
+        <select id="material">
+          <option value="mild">Bare Mild Steel</option>
+          <option value="galvanized">Galvanized Steel</option>
+          <option value="galvaneal">Galvaneal Steel</option>
+          <option value="stainless">Stainless Steel</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="thickness1">Sheet 1 Thickness (mm)</label>
+        <input id="thickness1" type="number" value="1.0" min="0.1" step="0.01">
+      </div>
+
+      <div class="field">
+        <label for="thickness2">Sheet 2 Thickness (mm)</label>
+        <input id="thickness2" type="number" value="1.0" min="0.1" step="0.01">
+      </div>
+
+      <div class="field">
+        <label for="quality">Weld Quality Target</label>
+        <select id="quality">
+          <option value="standard">Standard Production</option>
+          <option value="high">High Strength / Cosmetic Focus</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="machine">Machine Type</label>
+        <select id="machine">
+          <option value="ac">AC Welder</option>
+          <option value="mfdc">MFDC Welder</option>
+        </select>
+      </div>
+    </div>
+
+    <button onclick="calculateSpotWeld();">Calculate</button>
+
+    <div class="result" id="output">
+      Enter values and press Calculate
+    </div>
+
+    <p class="note">
+      Galvanized and galvaneal steels usually require more current and tighter process control because the coating affects contact resistance and electrode life.
+    </p>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
+    </div>
+  </div>
+
+  <script>
+    function calculateSpotWeld(){
+      const material = document.getElementById("material").value;
+      const t1 = parseFloat(document.getElementById("thickness1").value) || 0;
+      const t2 = parseFloat(document.getElementById("thickness2").value) || 0;
+      const quality = document.getElementById("quality").value;
+      const machine = document.getElementById("machine").value;
+      const output = document.getElementById("output");
+
+      if(t1 <= 0 || t2 <= 0){
+        output.innerHTML = "<strong>Please enter sheet thickness values greater than 0.</strong>";
+        return;
+      }
+
+      const totalThickness = t1 + t2;
+      const minThickness = Math.min(t1, t2);
+
+      let currentFactor = 8.5;   // kA per mm baseline
+      let forceFactor = 0.55;    // kN per mm baseline
+      let cycleFactor = 12;      // cycles per mm baseline
+      let materialNote = "";
+
+      if(material === "mild"){
+        currentFactor = 8.5;
+        forceFactor = 0.55;
+        cycleFactor = 12;
+        materialNote = "Bare mild steel is usually the easiest starting point for schedule development.";
+      } else if(material === "galvanized"){
+        currentFactor = 9.5;
+        forceFactor = 0.60;
+        cycleFactor = 13;
+        materialNote = "Galvanized steel usually needs slightly higher current and careful electrode maintenance.";
+      } else if(material === "galvaneal"){
+        currentFactor = 9.2;
+        forceFactor = 0.60;
+        cycleFactor = 13;
+        materialNote = "Galvaneal often behaves a little more consistently than galvanized but still needs coating-aware setup.";
+      } else if(material === "stainless"){
+        currentFactor = 7.2;
+        forceFactor = 0.50;
+        cycleFactor = 10;
+        materialNote = "Stainless often uses lower current than coated carbon steels but still requires validation.";
+      }
+
+      if(quality === "high"){
+        currentFactor *= 1.05;
+        forceFactor *= 1.08;
+        cycleFactor *= 1.10;
+      }
+
+      if(machine === "mfdc"){
+        cycleFactor *= 0.70;
+      }
+
+      const weldCurrentKA = currentFactor * totalThickness;
+      const electrodeForceKN = forceFactor * totalThickness;
+      const weldTimeCycles = cycleFactor * totalThickness;
+      const tipDiameterMM = 5 * Math.sqrt(minThickness);
+
+      const currentLow = weldCurrentKA * 0.9;
+      const currentHigh = weldCurrentKA * 1.1;
+      const forceLow = electrodeForceKN * 0.9;
+      const forceHigh = electrodeForceKN * 1.1;
+      const timeLow = weldTimeCycles * 0.9;
+      const timeHigh = weldTimeCycles * 1.1;
+
+      gtag('event', 'spot_weld_calculation', {
+        material: material,
+        machine_type: machine,
+        total_thickness_mm: totalThickness
+      });
+
+      output.innerHTML =
+        "<strong>Total Thickness</strong><br>" +
+        totalThickness.toFixed(2) + " mm<br><br>" +
+
+        "<strong>Suggested Weld Current Range</strong><br>" +
+        currentLow.toFixed(1) + " to " + currentHigh.toFixed(1) + " kA<br><br>" +
+
+        "<strong>Suggested Electrode Force Range</strong><br>" +
+        forceLow.toFixed(2) + " to " + forceHigh.toFixed(2) + " kN<br><br>" +
+
+        "<strong>Suggested Weld Time Range</strong><br>" +
+        timeLow.toFixed(0) + " to " + timeHigh.toFixed(0) + " cycles<br><br>" +
+
+        "<strong>Suggested Starting Tip Diameter</strong><br>" +
+        tipDiameterMM.toFixed(1) + " mm<br><br>" +
+
+        "<strong>Process Note</strong><br>" +
+        materialNote;
+    }
+  </script>
+</body>
+</html>
