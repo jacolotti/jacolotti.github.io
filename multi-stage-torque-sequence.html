@@ -697,22 +697,22 @@
       toggleInputs();
       loadRecommendedStages(false);
       showMessage("Enter values and calculate the torque sequence");
-      gtag('event','torque_sequence_reset');
+           gtag('event','torque_sequence_reset');
     }
-
-    <script>
-  fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar").innerHTML = data;
-    })
-    .catch(error => {
-      console.error("Navbar failed to load:", error);
-    });
-</script>
 
     toggleInputs();
     loadRecommendedStages(false);
+  </script>
+
+  <script>
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar").innerHTML = data;
+      })
+      .catch(error => {
+        console.error("Navbar failed to load:", error);
+      });
   </script>
 </body>
 </html>
