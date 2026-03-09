@@ -4,7 +4,6 @@
   <link rel="canonical" href="https://automationcalculators.net/bolt-tightening-torque.html">
   <meta name="robots" content="index, follow">
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,7 +13,7 @@
   </script>
 
   <title>Bolt Tightening Torque Calculator | Automation Calculators</title>
-  <meta name="description" content="Free bolt tightening torque calculator. Estimate recommended bolt torque from diameter, strength class, desired proof load percentage, and nut factor.">
+  <meta name="description" content="Free bolt tightening torque calculator. Estimate recommended bolt torque from metric size, property class, target proof load percentage, and nut factor.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -24,26 +23,22 @@
       text-align:center;
       margin:0;
     }
-
     .navbar{
       background:#1f2a44;
       padding:15px;
       margin-bottom:40px;
       text-align:left;
     }
-
     .navbar a{
       color:white;
       margin:0 15px;
       text-decoration:none;
       font-weight:bold;
     }
-
     .navbar a:hover{
       text-decoration:underline;
       opacity:0.8;
     }
-
     .container{
       background:white;
       padding:30px;
@@ -52,12 +47,10 @@
       border-radius:10px;
       box-shadow:0px 0px 10px rgba(0,0,0,.1);
     }
-
     .container h2{
       margin-bottom:10px;
       color:#1f2a44;
     }
-
     .description{
       margin-top:0;
       margin-bottom:18px;
@@ -65,7 +58,6 @@
       font-size:16px;
       line-height:1.5;
     }
-
     .controls{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
@@ -73,13 +65,11 @@
       margin-bottom:20px;
       text-align:left;
     }
-
     .control-group label{
       display:block;
       font-weight:500;
       margin-bottom:6px;
     }
-
     .control-group input,
     .control-group select{
       width:100%;
@@ -89,11 +79,9 @@
       border:1px solid #ccc;
       border-radius:5px;
     }
-
     .button-row{
       margin:20px 0;
     }
-
     button{
       padding:12px 26px;
       font-size:16px;
@@ -105,11 +93,9 @@
       margin:6px;
       transition:background .2s;
     }
-
     button:hover{
       background:#1555ad;
     }
-
     .result{
       margin-top:25px;
       padding:20px;
@@ -124,7 +110,6 @@
       margin-right:auto;
       text-align:left;
     }
-
     .note{
       margin-top:20px;
       color:#666;
@@ -135,18 +120,13 @@
       margin-right:auto;
       text-align:left;
     }
-
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
     }
-
-    @media (max-width: 700px){
-      .container{
-        padding:20px;
-      }
-
+    @media (max-width:700px){
+      .container{ padding:20px; }
       button{
         width:100%;
         margin:6px 0;
@@ -155,7 +135,6 @@
   </style>
 </head>
 <body>
-
   <div class="navbar">
     <a href="index.html">Home</a>
     <a href="pneumatic.html">Pneumatic</a>
@@ -181,46 +160,59 @@
     <h2>Bolt Tightening Torque Calculator</h2>
 
     <p class="description">
-      Estimate recommended tightening torque from bolt diameter, strength class, nut factor, and desired proof load percentage.
+      Estimate recommended tightening torque from metric bolt size, property class, target proof load percentage, and nut factor.
     </p>
 
     <p class="description">
-      This calculator is useful for rough bolt torque planning in assembly, automation, fixtures, machine build, and general manufacturing work.
+      This calculator is useful for rough bolt torque planning in automation, fixtures, machine build, tooling, and assembly applications.
     </p>
 
     <p class="description">
-      Use this free bolt tightening torque calculator to estimate a starting torque value from proof strength and target preload percentage.
+      Use this free bolt tightening torque calculator to generate a practical starting torque value from proof strength and target preload percentage.
     </p>
 
     <div class="controls">
       <div class="control-group">
-        <label for="diameter">Bolt Diameter</label>
-        <input id="diameter" type="number" value="10" step="0.1" min="0.1">
-      </div>
-
-      <div class="control-group">
-        <label for="diameterUnit">Diameter Units</label>
-        <select id="diameterUnit">
-          <option value="mm">mm</option>
-          <option value="in">in</option>
+        <label for="boltSize">Metric Bolt Size</label>
+        <select id="boltSize" onchange="applyBoltData()">
+          <option value="M4">M4</option>
+          <option value="M5">M5</option>
+          <option value="M6">M6</option>
+          <option value="M8">M8</option>
+          <option value="M10" selected>M10</option>
+          <option value="M12">M12</option>
+          <option value="M14">M14</option>
+          <option value="M16">M16</option>
+          <option value="M20">M20</option>
         </select>
       </div>
 
       <div class="control-group">
-        <label for="proofStrength">Proof Strength</label>
+        <label for="pitch">Thread Pitch (mm)</label>
+        <input id="pitch" type="number" value="1.5" step="0.01" min="0.1">
+      </div>
+
+      <div class="control-group">
+        <label for="tensileArea">Tensile Stress Area (mm²)</label>
+        <input id="tensileArea" type="number" value="58.0" step="0.1" min="0.1">
+      </div>
+
+      <div class="control-group">
+        <label for="propertyClass">Property Class</label>
+        <select id="propertyClass" onchange="applyPropertyClass()">
+          <option value="8.8">8.8</option>
+          <option value="10.9" selected>10.9</option>
+          <option value="12.9">12.9</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="proofStrength">Proof Strength (MPa)</label>
         <input id="proofStrength" type="number" value="830" step="1" min="1">
       </div>
 
       <div class="control-group">
-        <label for="proofUnit">Proof Strength Units</label>
-        <select id="proofUnit">
-          <option value="MPa">MPa</option>
-          <option value="psi">psi</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="proofPercent">Desired Proof Load (%)</label>
+        <label for="proofPercent">Target Proof Load (%)</label>
         <input id="proofPercent" type="number" value="75" step="1" min="1" max="100">
       </div>
 
@@ -249,7 +241,7 @@
     </div>
 
     <p class="note">
-      This is a simplified estimate using a circular tensile stress area approximation. Actual recommended torque depends on lubrication, thread condition, washer use, joint type, and manufacturer data.
+      This is a practical estimate only. Actual tightening torque depends on lubrication, friction, coatings, thread condition, joint materials, washer use, and fastener manufacturer data.
     </p>
 
     <div class="footer">
@@ -258,21 +250,38 @@
   </div>
 
   <script>
+    const boltData = {
+      "M4":  { pitch: 0.7, area: 8.78, diameter: 4 },
+      "M5":  { pitch: 0.8, area: 14.2, diameter: 5 },
+      "M6":  { pitch: 1.0, area: 20.1, diameter: 6 },
+      "M8":  { pitch: 1.25, area: 36.6, diameter: 8 },
+      "M10": { pitch: 1.5, area: 58.0, diameter: 10 },
+      "M12": { pitch: 1.75, area: 84.3, diameter: 12 },
+      "M14": { pitch: 2.0, area: 115.0, diameter: 14 },
+      "M16": { pitch: 2.0, area: 157.0, diameter: 16 },
+      "M20": { pitch: 2.5, area: 245.0, diameter: 20 }
+    };
+
+    const propertyClassData = {
+      "8.8":  { proof: 600 },
+      "10.9": { proof: 830 },
+      "12.9": { proof: 970 }
+    };
+
+    function applyBoltData(){
+      const size = document.getElementById("boltSize").value;
+      document.getElementById("pitch").value = boltData[size].pitch;
+      document.getElementById("tensileArea").value = boltData[size].area;
+    }
+
+    function applyPropertyClass(){
+      const pc = document.getElementById("propertyClass").value;
+      document.getElementById("proofStrength").value = propertyClassData[pc].proof;
+    }
+
     function safeParseFloat(id, fallback){
       const value = parseFloat(document.getElementById(id).value);
       return isNaN(value) ? fallback : value;
-    }
-
-    function diameterToMeters(value, unit){
-      if(unit === "mm") return value / 1000;
-      if(unit === "in") return value * 0.0254;
-      return value;
-    }
-
-    function proofToPa(value, unit){
-      if(unit === "MPa") return value * 1000000;
-      if(unit === "psi") return value * 6894.75729;
-      return value;
     }
 
     function convertNm(value, unit){
@@ -283,53 +292,45 @@
     }
 
     function formatForce(n){
-      if(n >= 1000){
-        return (n / 1000).toFixed(2) + " kN";
-      }
+      if(n >= 1000) return (n / 1000).toFixed(2) + " kN";
       return n.toFixed(2) + " N";
     }
 
     function calculateTorque(){
-      const diameter = safeParseFloat("diameter", 0);
-      const diameterUnit = document.getElementById("diameterUnit").value;
+      const boltSize = document.getElementById("boltSize").value;
+      const tensileArea = safeParseFloat("tensileArea", 0);
       const proofStrength = safeParseFloat("proofStrength", 0);
-      const proofUnit = document.getElementById("proofUnit").value;
       const proofPercent = safeParseFloat("proofPercent", 0);
       const nutFactor = safeParseFloat("nutFactor", 0);
       const torqueUnit = document.getElementById("torqueUnit").value;
+      const diameterM = boltData[boltSize].diameter / 1000;
 
-      if(diameter <= 0){
-        document.getElementById("output").innerHTML = "<strong>Please enter a bolt diameter greater than 0.</strong>";
+      if(tensileArea <= 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter a tensile stress area greater than 0.</strong>";
         return;
       }
-
       if(proofStrength <= 0){
         document.getElementById("output").innerHTML = "<strong>Please enter a proof strength greater than 0.</strong>";
         return;
       }
-
       if(proofPercent <= 0 || proofPercent > 100){
         document.getElementById("output").innerHTML = "<strong>Please enter a proof load percentage between 1 and 100.</strong>";
         return;
       }
-
       if(nutFactor <= 0){
         document.getElementById("output").innerHTML = "<strong>Please enter a nut factor greater than 0.</strong>";
         return;
       }
 
-      const d = diameterToMeters(diameter, diameterUnit);
-      const proofPa = proofToPa(proofStrength, proofUnit);
-
-      const tensileArea = Math.PI * Math.pow(d, 2) / 4 * 0.75;
-      const targetClampLoad = tensileArea * proofPa * (proofPercent / 100);
-      const torqueNm = targetClampLoad * nutFactor * d;
+      const targetClampLoad = tensileArea * proofStrength * (proofPercent / 100);
+      const torqueNm = targetClampLoad * nutFactor * diameterM;
       const outputTorque = convertNm(torqueNm, torqueUnit);
+      const preloadStress = proofStrength * (proofPercent / 100);
 
       gtag('event','tool_calculation',{
         tool:'bolt_tightening_torque',
-        diameter:diameter,
-        diameter_unit:diameterUnit,
+        bolt_size:boltSize,
+        property_class:document.getElementById("propertyClass").value,
         proof_percent:proofPercent
       });
 
@@ -340,26 +341,38 @@
         "<strong>Target Clamp Load</strong><br>" +
         formatForce(targetClampLoad) + "<br><br>" +
 
-        "<strong>Approximate Tensile Stress Area</strong><br>" +
-        (tensileArea * 1000000).toFixed(2) + " mm²<br><br>" +
+        "<strong>Approximate Preload Stress</strong><br>" +
+        preloadStress.toFixed(1) + " MPa<br><br>" +
 
-        "<strong>Nut Factor Used</strong><br>" +
-        nutFactor.toFixed(3) + "<br><br>" +
+        "<strong>Bolt Size</strong><br>" +
+        boltSize + "<br><br>" +
+
+        "<strong>Tensile Stress Area</strong><br>" +
+        tensileArea.toFixed(2) + " mm²<br><br>" +
+
+        "<strong>Proof Strength</strong><br>" +
+        proofStrength.toFixed(0) + " MPa<br><br>" +
 
         "<strong>Target Proof Load</strong><br>" +
-        proofPercent.toFixed(1) + "%";
+        proofPercent.toFixed(1) + "%<br><br>" +
+
+        "<strong>Nut Factor</strong><br>" +
+        nutFactor.toFixed(3);
     }
 
     function resetCalculator(){
-      document.getElementById("diameter").value = "10";
-      document.getElementById("diameterUnit").value = "mm";
-      document.getElementById("proofStrength").value = "830";
-      document.getElementById("proofUnit").value = "MPa";
+      document.getElementById("boltSize").value = "M10";
+      applyBoltData();
+      document.getElementById("propertyClass").value = "10.9";
+      applyPropertyClass();
       document.getElementById("proofPercent").value = "75";
       document.getElementById("nutFactor").value = "0.2";
       document.getElementById("torqueUnit").value = "Nm";
       document.getElementById("output").innerHTML = "Enter values and calculate tightening torque";
     }
+
+    applyBoltData();
+    applyPropertyClass();
   </script>
 </body>
 </html>
