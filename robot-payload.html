@@ -190,10 +190,11 @@
         requiredPayload.toFixed(2) + " lb<br><br>" +
 
         "<strong>Safety Factor Applied</strong><br>" +
-        safetyFactor.toFixed(2) + "%";
+                safetyFactor.toFixed(2) + "%";
     }
+</script>
 
-    <script>
+<script>
   fetch("navbar.html")
     .then(response => response.text())
     .then(data => {
@@ -203,7 +204,6 @@
       console.error("Navbar failed to load:", error);
     });
 </script>
-  </script>
 
 </body>
 </html>
