@@ -202,11 +202,12 @@
         "<strong>Remaining Reach Margin</strong><br>" +
         remainingMargin.toFixed(2) + " in<br><br>" +
 
-        "<strong>Result</strong><br>" +
+               "<strong>Result</strong><br>" +
         status;
     }
+</script>
 
-    <script>
+<script>
   fetch("navbar.html")
     .then(response => response.text())
     .then(data => {
@@ -216,7 +217,6 @@
       console.error("Navbar failed to load:", error);
     });
 </script>
-  </script>
 
 </body>
 </html>
