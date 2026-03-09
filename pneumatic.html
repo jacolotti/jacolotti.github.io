@@ -14,7 +14,7 @@
   </script>
 
   <title>Pneumatic Cylinder Force Calculator | Automation Calculators</title>
-  <meta name="description" content="Free pneumatic cylinder force calculator for automation engineers. Estimate cylinder extend and retract force using bore diameter, rod diameter, air pressure, and metric or imperial units.">
+  <meta name="description" content="Free pneumatic cylinder force calculator for automation engineers. Estimate cylinder extend force and retract force using bore diameter, rod diameter, air pressure, and metric or imperial units.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -48,7 +48,7 @@
     .container{
       background:white;
       padding:30px;
-      max-width:650px;
+      max-width:760px;
       margin:auto;
       border-radius:10px;
       box-shadow:0px 0px 10px rgba(0,0,0,.1);
@@ -71,6 +71,7 @@
       margin-top:20px;
       margin-bottom:5px;
       font-weight:500;
+      text-align:left;
     }
 
     input, select{
@@ -83,20 +84,24 @@
       border-radius:5px;
     }
 
+    .button-row{
+      margin-top:18px;
+    }
+
     button{
       padding:12px 26px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
       border-radius:6px;
       cursor:pointer;
-      margin-top:15px;
+      margin:6px;
       transition:background .2s;
     }
 
     button:hover{
-      background:#1555ad;
+      background:#2d3d63;
     }
 
     .result{
@@ -108,12 +113,36 @@
       font-size:18px;
       line-height:1.6;
       font-weight:500;
+      text-align:left;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+      text-align:left;
     }
 
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+    }
+
+    @media (max-width: 700px){
+      .container{
+        padding:20px;
+      }
+
+      button{
+        width:100%;
+        margin:6px 0;
+      }
+
+      .result{
+        font-size:16px;
+      }
     }
   </style>
 </head>
@@ -129,17 +158,24 @@
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
     <a href="servo-torque.html">Servo Torque</a>
+    <a href="gear-ratio.html">Gear Ratio</a>
+    <a href="spot-weld.html">Spot Weld</a>
+    <a href="projection-weld.html">Projection Weld</a>
   </div>
 
   <div class="container">
     <h2>Pneumatic Cylinder Force Calculator</h2>
 
     <p class="description">
-      Estimate cylinder extend and retract force using bore diameter, rod diameter, air pressure, and metric or imperial inputs.
+      Estimate cylinder extend force and retract force using bore diameter, rod diameter, air pressure, and metric or imperial inputs.
     </p>
 
     <p class="description">
-      This calculator is useful for pneumatic cylinder sizing in industrial automation, machine design, tooling, part clamping, and actuator force checks.
+      This calculator is useful for pneumatic cylinder sizing in industrial automation, machine design, tooling, part clamping, actuator force checks, and general pneumatic design work.
+    </p>
+
+    <p class="description">
+      This free pneumatic force calculator helps estimate piston area, rod-side area, and output force for common double-acting air cylinder applications.
     </p>
 
     <p>Length Units</p>
@@ -163,11 +199,19 @@
     <p id="pressureLabel">Air Pressure (bar)</p>
     <input id="pressure" type="number" value="6" min="0.01" step="0.01">
 
-    <button onclick="calculate(); gtag('event','pneumatic_force_calculation');">Calculate</button>
+    <div class="button-row">
+      <button onclick="calculate(); gtag('event','pneumatic_force_calculation');">Calculate</button>
+      <button onclick="loadExample(); gtag('event','pneumatic_force_example');">Load Example</button>
+      <button onclick="clearCalculator(); gtag('event','pneumatic_force_clear');">Clear</button>
+    </div>
 
     <div class="result" id="output">
       Enter values and press Calculate
     </div>
+
+    <p class="note">
+      This calculator estimates theoretical cylinder force from pressure and area. It does not account for seal drag, friction losses, pressure drop, cushioning, side loading, mounting effects, or real-world performance losses.
+    </p>
 
     <div class="footer">
       Automation Engineering Tools • Practical calculators for real automation work
@@ -187,6 +231,10 @@
 
       document.getElementById("pressureLabel").innerText =
         "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
+    }
+
+    function showMessage(message){
+      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
     }
 
     function calculate(){
@@ -218,31 +266,66 @@
         return;
       }
 
+      let boreMm = bore;
+      let rodMm = rod;
+      let pressureBar = pressure;
+
       if(lengthUnit === "inch"){
-        bore = bore * 25.4;
-        rod = rod * 25.4;
+        boreMm = bore * 25.4;
+        rodMm = rod * 25.4;
       }
 
       if(pressureUnit === "psi"){
-        pressure = pressure * 0.0689476;
+        pressureBar = pressure * 0.0689476;
       }
 
-      let boreArea = Math.PI * Math.pow(bore / 2, 2);
-      let rodArea = Math.PI * Math.pow(rod / 2, 2);
+      let boreAreaMm2 = Math.PI * Math.pow(boreMm / 2, 2);
+      let rodAreaMm2 = Math.PI * Math.pow(rodMm / 2, 2);
+      let retractAreaMm2 = boreAreaMm2 - rodAreaMm2;
 
-      let extendForceN = boreArea * pressure * 0.1;
-      let retractForceN = (boreArea - rodArea) * pressure * 0.1;
+      let extendForceN = boreAreaMm2 * pressureBar * 0.1;
+      let retractForceN = retractAreaMm2 * pressureBar * 0.1;
 
       let extendForceLbf = extendForceN * 0.224809;
       let retractForceLbf = retractForceN * 0.224809;
 
       output.innerHTML =
+        "<strong>Bore Area</strong><br>" +
+        boreAreaMm2.toFixed(2) + " mm²<br><br>" +
+
+        "<strong>Rod Area</strong><br>" +
+        rodAreaMm2.toFixed(2) + " mm²<br><br>" +
+
+        "<strong>Retract-Side Area</strong><br>" +
+        retractAreaMm2.toFixed(2) + " mm²<br><br>" +
+
         "<strong>Extend Force</strong><br>" +
         extendForceN.toFixed(2) + " N<br>" +
         extendForceLbf.toFixed(2) + " lbf<br><br>" +
+
         "<strong>Retract Force</strong><br>" +
         retractForceN.toFixed(2) + " N<br>" +
         retractForceLbf.toFixed(2) + " lbf";
+    }
+
+    function clearCalculator(){
+      document.getElementById("lengthUnit").value = "mm";
+      document.getElementById("pressureUnit").value = "bar";
+      document.getElementById("bore").value = "50";
+      document.getElementById("rod").value = "20";
+      document.getElementById("pressure").value = "6";
+      updateLabels();
+      showMessage("Enter values and press Calculate");
+    }
+
+    function loadExample(){
+      document.getElementById("lengthUnit").value = "mm";
+      document.getElementById("pressureUnit").value = "bar";
+      document.getElementById("bore").value = "50";
+      document.getElementById("rod").value = "20";
+      document.getElementById("pressure").value = "6";
+      updateLabels();
+      calculate();
     }
 
     updateLabels();
