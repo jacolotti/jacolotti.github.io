@@ -472,10 +472,14 @@
       document.getElementById("accelProfile").value = "normal";
       updateLabels();
       applyPreset();
-      calculate();
+         calculate();
     }
 
-    <script>
+    updateLabels();
+    applyPreset();
+</script>
+
+<script>
   fetch("navbar.html")
     .then(response => response.text())
     .then(data => {
@@ -485,10 +489,6 @@
       console.error("Navbar failed to load:", error);
     });
 </script>
-
-    updateLabels();
-    applyPreset();
-  </script>
 
 </body>
 </html>
