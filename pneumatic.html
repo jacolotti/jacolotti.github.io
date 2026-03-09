@@ -14,7 +14,7 @@
   </script>
 
   <title>Pneumatic Cylinder Force Calculator | Automation Calculators</title>
-  <meta name="description" content="Free pneumatic cylinder force calculator for automation engineers. Estimate cylinder extend force and retract force using bore diameter, rod diameter, air pressure, and metric or imperial units.">
+  <meta name="description" content="Free pneumatic cylinder force calculator for automation engineers. Estimate cylinder extend force, retract force, piston area, rod-side area, and derated force using bore diameter, rod diameter, air pressure, stroke, and metric or imperial units.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -167,7 +167,7 @@
     <h2>Pneumatic Cylinder Force Calculator</h2>
 
     <p class="description">
-      Estimate cylinder extend force and retract force using bore diameter, rod diameter, air pressure, and metric or imperial inputs.
+      Estimate cylinder extend force and retract force using bore diameter, rod diameter, air pressure, stroke, derating, and metric or imperial inputs.
     </p>
 
     <p class="description">
@@ -175,7 +175,7 @@
     </p>
 
     <p class="description">
-      This free pneumatic force calculator helps estimate piston area, rod-side area, and output force for common double-acting air cylinder applications.
+      This free pneumatic force calculator helps estimate piston area, rod-side area, theoretical output force, derated force, and approximate work per stroke for common air cylinder applications.
     </p>
 
     <p>Length Units</p>
@@ -190,6 +190,12 @@
       <option value="psi">PSI</option>
     </select>
 
+    <p>Cylinder Type</p>
+    <select id="cylinderType">
+      <option value="double">Double Acting</option>
+      <option value="single">Single Acting</option>
+    </select>
+
     <p id="boreLabel">Bore Diameter (mm)</p>
     <input id="bore" type="number" value="50" min="0.01" step="0.01">
 
@@ -198,6 +204,12 @@
 
     <p id="pressureLabel">Air Pressure (bar)</p>
     <input id="pressure" type="number" value="6" min="0.01" step="0.01">
+
+    <p id="strokeLabel">Stroke Length (mm)</p>
+    <input id="stroke" type="number" value="100" min="0" step="0.01">
+
+    <p>Force Derating (%)</p>
+    <input id="derating" type="number" value="100" min="1" max="100" step="0.1">
 
     <div class="button-row">
       <button onclick="calculate(); gtag('event','pneumatic_force_calculation');">Calculate</button>
@@ -210,7 +222,11 @@
     </div>
 
     <p class="note">
-      This calculator estimates theoretical cylinder force from pressure and area. It does not account for seal drag, friction losses, pressure drop, cushioning, side loading, mounting effects, or real-world performance losses.
+      This calculator estimates theoretical cylinder force from pressure and area, then applies the entered derating percentage. It does not account for seal drag, friction losses, pressure drop, cushioning, side loading, spring force in single-acting cylinders, mounting effects, or other real-world losses.
+    </p>
+
+    <p class="note">
+      For single-acting cylinders, this tool still shows retract-side area for reference, but actual return behavior may depend on spring force, gravity, or external load.
     </p>
 
     <div class="footer">
@@ -229,6 +245,9 @@
       document.getElementById("rodLabel").innerText =
         "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
 
+      document.getElementById("strokeLabel").innerText =
+        "Stroke Length (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+
       document.getElementById("pressureLabel").innerText =
         "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
     }
@@ -241,9 +260,12 @@
       let bore = parseFloat(document.getElementById("bore").value) || 0;
       let rod = parseFloat(document.getElementById("rod").value) || 0;
       let pressure = parseFloat(document.getElementById("pressure").value) || 0;
+      let stroke = parseFloat(document.getElementById("stroke").value) || 0;
+      let derating = parseFloat(document.getElementById("derating").value) || 0;
 
       let lengthUnit = document.getElementById("lengthUnit").value;
       let pressureUnit = document.getElementById("pressureUnit").value;
+      let cylinderType = document.getElementById("cylinderType").value;
       const output = document.getElementById("output");
 
       if(bore <= 0){
@@ -266,18 +288,32 @@
         return;
       }
 
+      if(stroke < 0){
+        output.innerHTML = "<strong>Please enter a stroke length of 0 or greater.</strong>";
+        return;
+      }
+
+      if(derating <= 0 || derating > 100){
+        output.innerHTML = "<strong>Please enter a force derating percentage greater than 0 and up to 100.</strong>";
+        return;
+      }
+
       let boreMm = bore;
       let rodMm = rod;
+      let strokeMm = stroke;
       let pressureBar = pressure;
 
       if(lengthUnit === "inch"){
         boreMm = bore * 25.4;
         rodMm = rod * 25.4;
+        strokeMm = stroke * 25.4;
       }
 
       if(pressureUnit === "psi"){
         pressureBar = pressure * 0.0689476;
       }
+
+      let derateFactor = derating / 100;
 
       let boreAreaMm2 = Math.PI * Math.pow(boreMm / 2, 2);
       let rodAreaMm2 = Math.PI * Math.pow(rodMm / 2, 2);
@@ -286,10 +322,39 @@
       let extendForceN = boreAreaMm2 * pressureBar * 0.1;
       let retractForceN = retractAreaMm2 * pressureBar * 0.1;
 
+      let deratedExtendForceN = extendForceN * derateFactor;
+      let deratedRetractForceN = retractForceN * derateFactor;
+
       let extendForceLbf = extendForceN * 0.224809;
       let retractForceLbf = retractForceN * 0.224809;
+      let deratedExtendForceLbf = deratedExtendForceN * 0.224809;
+      let deratedRetractForceLbf = deratedRetractForceN * 0.224809;
+
+      let extendForceKgf = extendForceN / 9.80665;
+      let retractForceKgf = retractForceN / 9.80665;
+      let deratedExtendForceKgf = deratedExtendForceN / 9.80665;
+      let deratedRetractForceKgf = deratedRetractForceN / 9.80665;
+
+      let strokeMeters = strokeMm / 1000;
+      let extendWorkJ = deratedExtendForceN * strokeMeters;
+      let retractWorkJ = deratedRetractForceN * strokeMeters;
+
+      let cylinderTypeText = cylinderType === "single" ? "Single Acting" : "Double Acting";
+
+      let retractSectionTitle = "Retract Force";
+      let retractDeratedTitle = "Derated Retract Force";
+      let retractWorkTitle = "Approx. Retract Work Per Stroke";
+
+      if(cylinderType === "single"){
+        retractSectionTitle = "Retract-Side Force Reference";
+        retractDeratedTitle = "Derated Retract-Side Force Reference";
+        retractWorkTitle = "Approx. Retract-Side Work Reference";
+      }
 
       output.innerHTML =
+        "<strong>Cylinder Type</strong><br>" +
+        cylinderTypeText + "<br><br>" +
+
         "<strong>Bore Area</strong><br>" +
         boreAreaMm2.toFixed(2) + " mm²<br><br>" +
 
@@ -301,19 +366,40 @@
 
         "<strong>Extend Force</strong><br>" +
         extendForceN.toFixed(2) + " N<br>" +
-        extendForceLbf.toFixed(2) + " lbf<br><br>" +
+        extendForceLbf.toFixed(2) + " lbf<br>" +
+        extendForceKgf.toFixed(2) + " kgf<br><br>" +
 
-        "<strong>Retract Force</strong><br>" +
+        "<strong>" + retractSectionTitle + "</strong><br>" +
         retractForceN.toFixed(2) + " N<br>" +
-        retractForceLbf.toFixed(2) + " lbf";
+        retractForceLbf.toFixed(2) + " lbf<br>" +
+        retractForceKgf.toFixed(2) + " kgf<br><br>" +
+
+        "<strong>Derated Extend Force</strong><br>" +
+        deratedExtendForceN.toFixed(2) + " N<br>" +
+        deratedExtendForceLbf.toFixed(2) + " lbf<br>" +
+        deratedExtendForceKgf.toFixed(2) + " kgf<br><br>" +
+
+        "<strong>" + retractDeratedTitle + "</strong><br>" +
+        deratedRetractForceN.toFixed(2) + " N<br>" +
+        deratedRetractForceLbf.toFixed(2) + " lbf<br>" +
+        deratedRetractForceKgf.toFixed(2) + " kgf<br><br>" +
+
+        "<strong>Approx. Extend Work Per Stroke</strong><br>" +
+        extendWorkJ.toFixed(3) + " J<br><br>" +
+
+        "<strong>" + retractWorkTitle + "</strong><br>" +
+        retractWorkJ.toFixed(3) + " J";
     }
 
     function clearCalculator(){
       document.getElementById("lengthUnit").value = "mm";
       document.getElementById("pressureUnit").value = "bar";
+      document.getElementById("cylinderType").value = "double";
       document.getElementById("bore").value = "50";
       document.getElementById("rod").value = "20";
       document.getElementById("pressure").value = "6";
+      document.getElementById("stroke").value = "100";
+      document.getElementById("derating").value = "100";
       updateLabels();
       showMessage("Enter values and press Calculate");
     }
@@ -321,9 +407,12 @@
     function loadExample(){
       document.getElementById("lengthUnit").value = "mm";
       document.getElementById("pressureUnit").value = "bar";
+      document.getElementById("cylinderType").value = "double";
       document.getElementById("bore").value = "50";
       document.getElementById("rod").value = "20";
       document.getElementById("pressure").value = "6";
+      document.getElementById("stroke").value = "100";
+      document.getElementById("derating").value = "90";
       updateLabels();
       calculate();
     }
