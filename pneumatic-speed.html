@@ -225,10 +225,11 @@
         extendSpeed.toFixed(2) + " in/sec<br><br>" +
 
         "<strong>Estimated Retract Speed</strong><br>" +
-        retractSpeed.toFixed(2) + " in/sec";
+                retractSpeed.toFixed(2) + " in/sec";
     }
+</script>
 
-    <script>
+<script>
   fetch("navbar.html")
     .then(response => response.text())
     .then(data => {
@@ -238,7 +239,6 @@
       console.error("Navbar failed to load:", error);
     });
 </script>
-  </script>
 
 </body>
 </html>
