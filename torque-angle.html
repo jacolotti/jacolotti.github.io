@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/torque-angle.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Torque Angle Calculator | Automation Calculators</title>
+  <meta name="description" content="Free torque angle calculator for fastener tightening. Estimate linear advance and clamp change from bolt pitch and angle after torque.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:1100px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:500;
+      margin-bottom:6px;
+    }
+
+    .control-group input,
+    .control-group select{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    .button-row{
+      margin:20px 0;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin:6px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align:left;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align:left;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+
+    @media (max-width: 700px){
+      .container{
+        padding:20px;
+      }
+
+      button{
+        width:100%;
+        margin:6px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+    <a href="roi.html">ROI</a>
+    <a href="voltage-drop.html">Voltage Drop</a>
+    <a href="air-consumption.html">Air Consumption</a>
+    <a href="bin-simulator.html">Bin Simulator</a>
+    <a href="servo-torque.html">Servo Torque</a>
+    <a href="gear-ratio.html">Gear Ratio</a>
+    <a href="spot-weld.html">Spot Weld</a>
+    <a href="projection-weld.html">Projection Weld</a>
+    <a href="robot-reach.html">Robot Reach</a>
+    <a href="conveyor-speed.html">Conveyor Speed</a>
+    <a href="gearbox-torque.html">Gearbox Torque</a>
+    <a href="pneumatic-speed.html">Pneumatic Speed</a>
+    <a href="robot-payload.html">Robot Payload</a>
+    <a href="multi-stage-torque-sequence.html">Torque Sequence</a>
+  </div>
+
+  <div class="container">
+    <h2>Torque Angle Calculator</h2>
+
+    <p class="description">
+      Estimate fastener linear advance and clamp movement from bolt pitch and angle after torque. This is a useful planning tool for torque-angle tightening strategies.
+    </p>
+
+    <p class="description">
+      This calculator is useful for assembly engineers, controls engineers, and manufacturing teams reviewing torque-angle strategies and bolt advance behavior.
+    </p>
+
+    <p class="description">
+      Use this free torque angle calculator to estimate thread advance after a given angle of rotation based on thread pitch.
+    </p>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="angle">Angle After Torque</label>
+        <input id="angle" type="number" value="60" step="1" min="0">
+      </div>
+
+      <div class="control-group">
+        <label for="pitch">Thread Pitch</label>
+        <input id="pitch" type="number" value="1.5" step="0.01" min="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="pitchUnit">Pitch Units</label>
+        <select id="pitchUnit">
+          <option value="mm/rev">mm/rev</option>
+          <option value="in/rev">in/rev</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="jointEfficiency">Estimated Joint Transfer Efficiency (%)</label>
+        <input id="jointEfficiency" type="number" value="85" step="1" min="1" max="100">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateTorqueAngle();">Calculate Advance</button>
+      <button onclick="resetCalculator();">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and calculate thread advance
+    </div>
+
+    <p class="note">
+      This is a simplified thread advance estimate only. Actual clamp load increase during torque-angle tightening depends on joint stiffness, fastener stretch, embedment, friction, and seating behavior.
+    </p>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators and simulators for real automation work
+    </div>
+  </div>
+
+  <script>
+    function safeParseFloat(id, fallback){
+      const value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? fallback : value;
+    }
+
+    function calculateTorqueAngle(){
+      const angle = safeParseFloat("angle", 0);
+      const pitch = safeParseFloat("pitch", 0);
+      const pitchUnit = document.getElementById("pitchUnit").value;
+      const jointEfficiency = safeParseFloat("jointEfficiency", 0);
+
+      if(angle < 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter an angle of 0 or greater.</strong>";
+        return;
+      }
+
+      if(pitch <= 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter a thread pitch greater than 0.</strong>";
+        return;
+      }
+
+      if(jointEfficiency <= 0 || jointEfficiency > 100){
+        document.getElementById("output").innerHTML = "<strong>Please enter a joint efficiency between 1 and 100.</strong>";
+        return;
+      }
+
+      const linearAdvance = pitch * (angle / 360);
+      const effectiveAdvance = linearAdvance * (jointEfficiency / 100);
+
+      let advanceMm = 0;
+      let advanceIn = 0;
+      let effectiveMm = 0;
+      let effectiveIn = 0;
+
+      if(pitchUnit === "mm/rev"){
+        advanceMm = linearAdvance;
+        advanceIn = linearAdvance / 25.4;
+        effectiveMm = effectiveAdvance;
+        effectiveIn = effectiveAdvance / 25.4;
+      } else {
+        advanceIn = linearAdvance;
+        advanceMm = linearAdvance * 25.4;
+        effectiveIn = effectiveAdvance;
+        effectiveMm = effectiveAdvance * 25.4;
+      }
+
+      gtag('event','tool_calculation',{
+        tool:'torque_angle',
+        angle:angle,
+        pitch:pitch,
+        pitch_unit:pitchUnit
+      });
+
+      document.getElementById("output").innerHTML =
+        "<strong>Theoretical Thread Advance</strong><br>" +
+        advanceMm.toFixed(4) + " mm<br>" +
+        advanceIn.toFixed(5) + " in<br><br>" +
+
+        "<strong>Estimated Effective Joint Advance</strong><br>" +
+        effectiveMm.toFixed(4) + " mm<br>" +
+        effectiveIn.toFixed(5) + " in<br><br>" +
+
+        "<strong>Angle Used</strong><br>" +
+        angle.toFixed(1) + "°<br><br>" +
+
+        "<strong>Thread Pitch</strong><br>" +
+        pitch.toFixed(3) + " " + pitchUnit + "<br><br>" +
+
+        "<strong>Joint Efficiency Applied</strong><br>" +
+        jointEfficiency.toFixed(1) + "%";
+    }
+
+    function resetCalculator(){
+      document.getElementById("angle").value = "60";
+      document.getElementById("pitch").value = "1.5";
+      document.getElementById("pitchUnit").value = "mm/rev";
+      document.getElementById("jointEfficiency").value = "85";
+      document.getElementById("output").innerHTML = "Enter values and calculate thread advance";
+    }
+  </script>
+</body>
+</html>
