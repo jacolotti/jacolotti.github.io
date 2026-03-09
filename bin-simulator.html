@@ -2,7 +2,9 @@
 <html>
 <head>
   <link rel="canonical" href="https://automationcalculators.net/bin-simulator.html">
+  <meta name="robots" content="index, follow">
 
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -57,7 +59,7 @@
 
     .description{
       margin-top:0;
-      margin-bottom:25px;
+      margin-bottom:18px;
       color:#555;
       font-size:16px;
       line-height:1.5;
@@ -141,12 +143,26 @@
       color:#666;
       font-size:14px;
       line-height:1.5;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
     }
 
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+    }
+
+    @media (max-width: 700px){
+      .container{
+        padding:20px;
+      }
+
+      button{
+        width:100%;
+        margin:6px 0;
+      }
     }
   </style>
 </head>
@@ -166,8 +182,13 @@
 
   <div class="container">
     <h2>Bin Loading Simulator</h2>
+
     <p class="description">
       Simulate parts free falling into a bin with adjustable size, shape, drop height, friction, bounce, and quantity. This is a simple 2D visualization tool for rough concept evaluation.
+    </p>
+
+    <p class="description">
+      This simulator is useful for early automation concept work, bin presentation ideas, rough part stacking visualization, and free-fall loading estimates. It is not a replacement for physical testing or full 3D simulation.
     </p>
 
     <div class="controls">
@@ -181,32 +202,32 @@
 
       <div class="control-group">
         <label for="partWidth">Part Width / Diameter (px)</label>
-        <input id="partWidth" type="number" value="50" step="1">
+        <input id="partWidth" type="number" value="50" step="1" min="1">
       </div>
 
       <div class="control-group">
         <label for="partHeight">Part Height (px, rectangles only)</label>
-        <input id="partHeight" type="number" value="30" step="1">
+        <input id="partHeight" type="number" value="30" step="1" min="1">
       </div>
 
       <div class="control-group">
         <label for="binWidth">Bin Width (px)</label>
-        <input id="binWidth" type="number" value="500" step="1">
+        <input id="binWidth" type="number" value="500" step="1" min="50">
       </div>
 
       <div class="control-group">
         <label for="binHeight">Bin Height (px)</label>
-        <input id="binHeight" type="number" value="300" step="1">
+        <input id="binHeight" type="number" value="300" step="1" min="50">
       </div>
 
       <div class="control-group">
         <label for="dropHeight">Drop Height Above Bin (px)</label>
-        <input id="dropHeight" type="number" value="120" step="1">
+        <input id="dropHeight" type="number" value="120" step="1" min="0">
       </div>
 
       <div class="control-group">
         <label for="partCount">Number of Parts</label>
-        <input id="partCount" type="number" value="20" step="1">
+        <input id="partCount" type="number" value="20" step="1" min="1">
       </div>
 
       <div class="control-group">
@@ -231,9 +252,9 @@
     </div>
 
     <div class="button-row">
-<button onclick="runSimulation(); gtag('event','bin_simulation_run');">Run Simulation</button>
-<button onclick="dropOnePart(); gtag('event','bin_simulation_drop_one');">Drop One Part</button>
-<button onclick="clearParts(); gtag('event','bin_simulation_clear');">Clear Parts</button>
+      <button onclick="runSimulation()">Run Simulation</button>
+      <button onclick="dropOnePart(); gtag('event','bin_simulation_drop_one');">Drop One Part</button>
+      <button onclick="clearParts(); gtag('event','bin_simulation_clear');">Clear Parts</button>
     </div>
 
     <div id="sim-wrapper">
@@ -267,9 +288,100 @@
     const canvasHeight = 600;
     const wallThickness = 30;
 
+    function showMessage(message){
+      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+    }
+
+    function getInputs(){
+      return {
+        partShape: document.getElementById("partShape").value,
+        partWidth: parseFloat(document.getElementById("partWidth").value) || 0,
+        partHeight: parseFloat(document.getElementById("partHeight").value) || 0,
+        binWidth: parseFloat(document.getElementById("binWidth").value) || 0,
+        binHeight: parseFloat(document.getElementById("binHeight").value) || 0,
+        dropHeight: parseFloat(document.getElementById("dropHeight").value) || 0,
+        partCount: parseInt(document.getElementById("partCount").value) || 0,
+        friction: parseFloat(document.getElementById("friction").value),
+        bounce: parseFloat(document.getElementById("bounce").value),
+        rotationRandomness: parseFloat(document.getElementById("rotationRandomness").value),
+        dropSpread: parseFloat(document.getElementById("dropSpread").value) || 0
+      };
+    }
+
+    function validateInputs(requirePartCount){
+      const i = getInputs();
+
+      if(i.partWidth <= 0){
+        showMessage("Please enter a part width greater than 0.");
+        return false;
+      }
+
+      if(i.partShape === "rectangle" && i.partHeight <= 0){
+        showMessage("Please enter a part height greater than 0 for rectangles.");
+        return false;
+      }
+
+      if(i.binWidth <= 50 || i.binHeight <= 50){
+        showMessage("Please enter bin dimensions greater than 50 px.");
+        return false;
+      }
+
+      if(i.binWidth >= canvasWidth - 20){
+        showMessage("Bin width must be smaller than the simulator width.");
+        return false;
+      }
+
+      if(i.binHeight >= canvasHeight - 60){
+        showMessage("Bin height must be smaller than the simulator height.");
+        return false;
+      }
+
+      if(i.dropHeight < 0){
+        showMessage("Please enter a drop height of 0 or greater.");
+        return false;
+      }
+
+      if(requirePartCount && i.partCount <= 0){
+        showMessage("Please enter a number of parts greater than 0.");
+        return false;
+      }
+
+      if(i.friction < 0 || i.friction > 1){
+        showMessage("Friction must be between 0 and 1.");
+        return false;
+      }
+
+      if(i.bounce < 0 || i.bounce > 1){
+        showMessage("Bounce must be between 0 and 1.");
+        return false;
+      }
+
+      if(i.rotationRandomness < 0 || i.rotationRandomness > 1){
+        showMessage("Rotation randomness must be between 0 and 1.");
+        return false;
+      }
+
+      if(i.dropSpread < 1 || i.dropSpread > 100){
+        showMessage("Drop spread must be between 1 and 100.");
+        return false;
+      }
+
+      return true;
+    }
+
     function initSimulation(){
       const simContainer = document.getElementById("sim-container");
       simContainer.innerHTML = "";
+
+      if(runner){
+        Runner.stop(runner);
+      }
+
+      if(render){
+        Render.stop(render);
+        if(render.canvas) render.canvas.remove();
+        if(render.textures) render.textures = {};
+      }
 
       engine = Engine.create();
       engine.world.gravity.y = 1;
@@ -289,13 +401,15 @@
       Render.run(render);
       Runner.run(runner, engine);
 
+      binWalls = [];
+      droppedParts = [];
+
       createBin();
       updateResults();
     }
 
     function createBin(){
-      const binWidth = parseFloat(document.getElementById("binWidth").value) || 500;
-      const binHeight = parseFloat(document.getElementById("binHeight").value) || 300;
+      const { binWidth, binHeight } = getInputs();
 
       const binLeft = (canvasWidth - binWidth) / 2;
       const binRight = binLeft + binWidth;
@@ -378,9 +492,9 @@
     }
 
     function dropOnePart(){
-      const binWidth = parseFloat(document.getElementById("binWidth").value) || 500;
-      const binHeight = parseFloat(document.getElementById("binHeight").value) || 300;
-      const dropHeight = parseFloat(document.getElementById("dropHeight").value) || 120;
+      if(!validateInputs(false)) return;
+
+      const { binWidth, binHeight, dropHeight } = getInputs();
 
       const binLeft = (canvasWidth - binWidth) / 2;
       const binRight = binLeft + binWidth;
@@ -398,7 +512,17 @@
     }
 
     function runSimulation(){
-      const partCount = parseInt(document.getElementById("partCount").value) || 20;
+      if(!validateInputs(true)) return;
+
+      const inputs = getInputs();
+      const partCount = inputs.partCount;
+
+      gtag('event', 'bin_simulation_run', {
+        part_count: partCount,
+        part_shape: inputs.partShape,
+        bin_width: inputs.binWidth,
+        bin_height: inputs.binHeight
+      });
 
       clearParts();
       createBin();
@@ -413,11 +537,7 @@
     }
 
     function updateResults(){
-      const binWidth = parseFloat(document.getElementById("binWidth").value) || 500;
-      const binHeight = parseFloat(document.getElementById("binHeight").value) || 300;
-      const partShape = document.getElementById("partShape").value;
-      const partWidth = parseFloat(document.getElementById("partWidth").value) || 50;
-      const partHeight = parseFloat(document.getElementById("partHeight").value) || 30;
+      const { binWidth, binHeight, partShape, partWidth, partHeight } = getInputs();
 
       const binArea = binWidth * binHeight;
       let singlePartArea = 0;
