@@ -243,6 +243,16 @@
         "<strong>Estimated SCFM</strong><br>" +
         scfm.toFixed(3) + " SCFM";
     }
+    <script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
   </script>
 
 </body>
