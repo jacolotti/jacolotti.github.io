@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/conveyor-speed.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Conveyor Speed Calculator | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free conveyor speed calculator for automation engineers. Calculate conveyor speed, parts per minute, and travel time using part spacing and production rate.">
+
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:700px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      font-weight:normal;
+    }
+
+    .container p{
+      margin-top:20px;
+      margin-bottom:5px;
+      font-weight:500;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:15px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+    <a href="roi.html">ROI</a>
+    <a href="voltage-drop.html">Voltage Drop</a>
+    <a href="air-consumption.html">Air Consumption</a>
+    <a href="bin-simulator.html">Bin Simulator</a>
+    <a href="servo-torque.html">Servo Torque</a>
+    <a href="gear-ratio.html">Gear Ratio</a>
+    <a href="projection-weld.html">Projection Weld</a>
+    <a href="spot-weld.html">Spot Weld</a>
+    <a href="conveyor-speed.html">Conveyor Speed</a>
+  </div>
+
+  <div class="container">
+    <h2>Conveyor Speed Calculator</h2>
+
+    <p class="description">
+      Calculate required conveyor speed using part spacing and production rate. Estimate travel speed in inches per minute, feet per minute, and travel time.
+    </p>
+
+    <p class="description">
+      This calculator is useful for conveyor sizing, line balancing, part spacing checks, throughput planning, and automation line design.
+    </p>
+
+    <p>Part Spacing (in)</p>
+    <input id="spacing" type="number" value="12" min="0.01" step="0.01">
+
+    <p>Required Parts Per Minute</p>
+    <input id="ppm" type="number" value="20" min="0.01" step="0.01">
+
+    <p>Conveyor Travel Distance (ft)</p>
+    <input id="travelDistance" type="number" value="10" min="0.01" step="0.01">
+
+    <button onclick="calculateConveyorSpeed(); gtag('event','conveyor_speed_calculation');">Calculate</button>
+
+    <div class="result" id="output">
+      Enter values and press Calculate
+    </div>
+
+    <p class="note">
+      This calculator assumes evenly spaced parts and continuous conveyor motion. It does not account for accumulation, indexing, product slip, acceleration zones, or start-stop conveyor effects.
+    </p>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
+    </div>
+  </div>
+
+  <script>
+    function calculateConveyorSpeed(){
+      let spacing = parseFloat(document.getElementById("spacing").value) || 0;
+      let ppm = parseFloat(document.getElementById("ppm").value) || 0;
+      let travelDistance = parseFloat(document.getElementById("travelDistance").value) || 0;
+
+      const output = document.getElementById("output");
+
+      if(spacing <= 0){
+        output.innerHTML = "<strong>Please enter a part spacing greater than 0.</strong>";
+        return;
+      }
+
+      if(ppm <= 0){
+        output.innerHTML = "<strong>Please enter required parts per minute greater than 0.</strong>";
+        return;
+      }
+
+      if(travelDistance <= 0){
+        output.innerHTML = "<strong>Please enter a conveyor travel distance greater than 0.</strong>";
+        return;
+      }
+
+      let speedIPM = spacing * ppm;
+      let speedFPM = speedIPM / 12;
+      let travelTimeMin = travelDistance / speedFPM;
+      let travelTimeSec = travelTimeMin * 60;
+
+      output.innerHTML =
+        "<strong>Required Conveyor Speed</strong><br>" +
+        speedIPM.toFixed(2) + " in/min<br><br>" +
+
+        "<strong>Required Conveyor Speed</strong><br>" +
+        speedFPM.toFixed(2) + " ft/min<br><br>" +
+
+        "<strong>Travel Time Over " + travelDistance.toFixed(2) + " ft</strong><br>" +
+        travelTimeSec.toFixed(2) + " sec<br><br>" +
+
+        "<strong>Throughput</strong><br>" +
+        ppm.toFixed(2) + " parts/min";
+    }
+  </script>
+
+</body>
+</html>
