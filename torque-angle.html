@@ -4,7 +4,6 @@
   <link rel="canonical" href="https://automationcalculators.net/torque-angle.html">
   <meta name="robots" content="index, follow">
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,7 +13,7 @@
   </script>
 
   <title>Torque Angle Calculator | Automation Calculators</title>
-  <meta name="description" content="Free torque angle calculator for fastener tightening. Estimate linear advance and clamp change from bolt pitch and angle after torque.">
+  <meta name="description" content="Free torque angle calculator for fastener tightening. Estimate thread advance, effective joint movement, and approximate clamp load change from bolt pitch, angle, and joint stiffness assumptions.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -24,26 +23,22 @@
       text-align:center;
       margin:0;
     }
-
     .navbar{
       background:#1f2a44;
       padding:15px;
       margin-bottom:40px;
       text-align:left;
     }
-
     .navbar a{
       color:white;
       margin:0 15px;
       text-decoration:none;
       font-weight:bold;
     }
-
     .navbar a:hover{
       text-decoration:underline;
       opacity:0.8;
     }
-
     .container{
       background:white;
       padding:30px;
@@ -52,12 +47,10 @@
       border-radius:10px;
       box-shadow:0px 0px 10px rgba(0,0,0,.1);
     }
-
     .container h2{
       margin-bottom:10px;
       color:#1f2a44;
     }
-
     .description{
       margin-top:0;
       margin-bottom:18px;
@@ -65,7 +58,6 @@
       font-size:16px;
       line-height:1.5;
     }
-
     .controls{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
@@ -73,13 +65,11 @@
       margin-bottom:20px;
       text-align:left;
     }
-
     .control-group label{
       display:block;
       font-weight:500;
       margin-bottom:6px;
     }
-
     .control-group input,
     .control-group select{
       width:100%;
@@ -89,11 +79,9 @@
       border:1px solid #ccc;
       border-radius:5px;
     }
-
     .button-row{
       margin:20px 0;
     }
-
     button{
       padding:12px 26px;
       font-size:16px;
@@ -105,11 +93,9 @@
       margin:6px;
       transition:background .2s;
     }
-
     button:hover{
       background:#1555ad;
     }
-
     .result{
       margin-top:25px;
       padding:20px;
@@ -124,7 +110,6 @@
       margin-right:auto;
       text-align:left;
     }
-
     .note{
       margin-top:20px;
       color:#666;
@@ -135,18 +120,13 @@
       margin-right:auto;
       text-align:left;
     }
-
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
     }
-
-    @media (max-width: 700px){
-      .container{
-        padding:20px;
-      }
-
+    @media (max-width:700px){
+      .container{ padding:20px; }
       button{
         width:100%;
         margin:6px 0;
@@ -155,7 +135,6 @@
   </style>
 </head>
 <body>
-
   <div class="navbar">
     <a href="index.html">Home</a>
     <a href="pneumatic.html">Pneumatic</a>
@@ -181,39 +160,56 @@
     <h2>Torque Angle Calculator</h2>
 
     <p class="description">
-      Estimate fastener linear advance and clamp movement from bolt pitch and angle after torque. This is a useful planning tool for torque-angle tightening strategies.
+      Estimate thread advance, effective joint movement, and approximate clamp load change from angle after torque using bolt pitch and simplified joint assumptions.
     </p>
 
     <p class="description">
-      This calculator is useful for assembly engineers, controls engineers, and manufacturing teams reviewing torque-angle strategies and bolt advance behavior.
+      This calculator is useful for torque-angle strategy planning, tightening setup review, and fastener movement estimates in manufacturing and automation applications.
     </p>
 
     <p class="description">
-      Use this free torque angle calculator to estimate thread advance after a given angle of rotation based on thread pitch.
+      Use this free torque angle calculator to estimate bolt advance after a given angle of rotation and a rough preload increase from joint stiffness assumptions.
     </p>
 
     <div class="controls">
       <div class="control-group">
-        <label for="angle">Angle After Torque</label>
-        <input id="angle" type="number" value="60" step="1" min="0">
-      </div>
-
-      <div class="control-group">
-        <label for="pitch">Thread Pitch</label>
-        <input id="pitch" type="number" value="1.5" step="0.01" min="0.01">
-      </div>
-
-      <div class="control-group">
-        <label for="pitchUnit">Pitch Units</label>
-        <select id="pitchUnit">
-          <option value="mm/rev">mm/rev</option>
-          <option value="in/rev">in/rev</option>
+        <label for="boltSize">Metric Bolt Size</label>
+        <select id="boltSize" onchange="applyBoltData()">
+          <option value="M4">M4</option>
+          <option value="M5">M5</option>
+          <option value="M6">M6</option>
+          <option value="M8">M8</option>
+          <option value="M10" selected>M10</option>
+          <option value="M12">M12</option>
+          <option value="M14">M14</option>
+          <option value="M16">M16</option>
+          <option value="M20">M20</option>
         </select>
       </div>
 
       <div class="control-group">
-        <label for="jointEfficiency">Estimated Joint Transfer Efficiency (%)</label>
+        <label for="pitch">Thread Pitch (mm)</label>
+        <input id="pitch" type="number" value="1.5" step="0.01" min="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="tensileArea">Tensile Stress Area (mm²)</label>
+        <input id="tensileArea" type="number" value="58.0" step="0.1" min="0.1">
+      </div>
+
+      <div class="control-group">
+        <label for="angle">Angle After Torque (deg)</label>
+        <input id="angle" type="number" value="60" step="1" min="0">
+      </div>
+
+      <div class="control-group">
+        <label for="jointEfficiency">Effective Joint Transfer (%)</label>
         <input id="jointEfficiency" type="number" value="85" step="1" min="1" max="100">
+      </div>
+
+      <div class="control-group">
+        <label for="jointRate">Approximate Joint Rate (N/mm)</label>
+        <input id="jointRate" type="number" value="120000" step="1000" min="1">
       </div>
     </div>
 
@@ -227,7 +223,7 @@
     </div>
 
     <p class="note">
-      This is a simplified thread advance estimate only. Actual clamp load increase during torque-angle tightening depends on joint stiffness, fastener stretch, embedment, friction, and seating behavior.
+      This is a simplified estimate only. Actual clamp load increase during torque-angle tightening depends on joint stiffness, bolt stretch, embedment, friction, seating behavior, and tooling accuracy.
     </p>
 
     <div class="footer">
@@ -236,85 +232,108 @@
   </div>
 
   <script>
+    const boltData = {
+      "M4":  { pitch: 0.7, area: 8.78 },
+      "M5":  { pitch: 0.8, area: 14.2 },
+      "M6":  { pitch: 1.0, area: 20.1 },
+      "M8":  { pitch: 1.25, area: 36.6 },
+      "M10": { pitch: 1.5, area: 58.0 },
+      "M12": { pitch: 1.75, area: 84.3 },
+      "M14": { pitch: 2.0, area: 115.0 },
+      "M16": { pitch: 2.0, area: 157.0 },
+      "M20": { pitch: 2.5, area: 245.0 }
+    };
+
+    function applyBoltData(){
+      const size = document.getElementById("boltSize").value;
+      document.getElementById("pitch").value = boltData[size].pitch;
+      document.getElementById("tensileArea").value = boltData[size].area;
+    }
+
     function safeParseFloat(id, fallback){
       const value = parseFloat(document.getElementById(id).value);
       return isNaN(value) ? fallback : value;
     }
 
     function calculateTorqueAngle(){
-      const angle = safeParseFloat("angle", 0);
+      const boltSize = document.getElementById("boltSize").value;
       const pitch = safeParseFloat("pitch", 0);
-      const pitchUnit = document.getElementById("pitchUnit").value;
+      const tensileArea = safeParseFloat("tensileArea", 0);
+      const angle = safeParseFloat("angle", 0);
       const jointEfficiency = safeParseFloat("jointEfficiency", 0);
-
-      if(angle < 0){
-        document.getElementById("output").innerHTML = "<strong>Please enter an angle of 0 or greater.</strong>";
-        return;
-      }
+      const jointRate = safeParseFloat("jointRate", 0);
 
       if(pitch <= 0){
         document.getElementById("output").innerHTML = "<strong>Please enter a thread pitch greater than 0.</strong>";
         return;
       }
-
+      if(tensileArea <= 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter a tensile stress area greater than 0.</strong>";
+        return;
+      }
+      if(angle < 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter an angle of 0 or greater.</strong>";
+        return;
+      }
       if(jointEfficiency <= 0 || jointEfficiency > 100){
-        document.getElementById("output").innerHTML = "<strong>Please enter a joint efficiency between 1 and 100.</strong>";
+        document.getElementById("output").innerHTML = "<strong>Please enter a joint transfer value between 1 and 100.</strong>";
+        return;
+      }
+      if(jointRate <= 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter a joint rate greater than 0.</strong>";
         return;
       }
 
-      const linearAdvance = pitch * (angle / 360);
-      const effectiveAdvance = linearAdvance * (jointEfficiency / 100);
-
-      let advanceMm = 0;
-      let advanceIn = 0;
-      let effectiveMm = 0;
-      let effectiveIn = 0;
-
-      if(pitchUnit === "mm/rev"){
-        advanceMm = linearAdvance;
-        advanceIn = linearAdvance / 25.4;
-        effectiveMm = effectiveAdvance;
-        effectiveIn = effectiveAdvance / 25.4;
-      } else {
-        advanceIn = linearAdvance;
-        advanceMm = linearAdvance * 25.4;
-        effectiveIn = effectiveAdvance;
-        effectiveMm = effectiveAdvance * 25.4;
-      }
+      const theoreticalAdvanceMm = pitch * (angle / 360);
+      const effectiveAdvanceMm = theoreticalAdvanceMm * (jointEfficiency / 100);
+      const clampLoadChangeN = effectiveAdvanceMm * jointRate;
+      const preloadStressMPa = clampLoadChangeN / tensileArea;
 
       gtag('event','tool_calculation',{
         tool:'torque_angle',
-        angle:angle,
-        pitch:pitch,
-        pitch_unit:pitchUnit
+        bolt_size:boltSize,
+        angle:angle
       });
 
       document.getElementById("output").innerHTML =
         "<strong>Theoretical Thread Advance</strong><br>" +
-        advanceMm.toFixed(4) + " mm<br>" +
-        advanceIn.toFixed(5) + " in<br><br>" +
+        theoreticalAdvanceMm.toFixed(4) + " mm<br><br>" +
 
         "<strong>Estimated Effective Joint Advance</strong><br>" +
-        effectiveMm.toFixed(4) + " mm<br>" +
-        effectiveIn.toFixed(5) + " in<br><br>" +
+        effectiveAdvanceMm.toFixed(4) + " mm<br><br>" +
 
-        "<strong>Angle Used</strong><br>" +
-        angle.toFixed(1) + "°<br><br>" +
+        "<strong>Approximate Clamp Load Increase</strong><br>" +
+        clampLoadChangeN.toFixed(0) + " N<br><br>" +
+
+        "<strong>Approximate Preload Stress Increase</strong><br>" +
+        preloadStressMPa.toFixed(1) + " MPa<br><br>" +
+
+        "<strong>Bolt Size</strong><br>" +
+        boltSize + "<br><br>" +
 
         "<strong>Thread Pitch</strong><br>" +
-        pitch.toFixed(3) + " " + pitchUnit + "<br><br>" +
+        pitch.toFixed(2) + " mm<br><br>" +
 
-        "<strong>Joint Efficiency Applied</strong><br>" +
-        jointEfficiency.toFixed(1) + "%";
+        "<strong>Tensile Stress Area</strong><br>" +
+        tensileArea.toFixed(2) + " mm²<br><br>" +
+
+        "<strong>Joint Transfer Applied</strong><br>" +
+        jointEfficiency.toFixed(1) + "%<br><br>" +
+
+        "<strong>Joint Rate Used</strong><br>" +
+        jointRate.toFixed(0) + " N/mm";
     }
 
     function resetCalculator(){
+      document.getElementById("boltSize").value = "M10";
+      applyBoltData();
       document.getElementById("angle").value = "60";
-      document.getElementById("pitch").value = "1.5";
-      document.getElementById("pitchUnit").value = "mm/rev";
       document.getElementById("jointEfficiency").value = "85";
+      document.getElementById("jointRate").value = "120000";
       document.getElementById("output").innerHTML = "Enter values and calculate thread advance";
     }
+
+    applyBoltData();
   </script>
 </body>
 </html>
