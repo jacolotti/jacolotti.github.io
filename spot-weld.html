@@ -4,6 +4,7 @@
   <link rel="canonical" href="https://automationcalculators.net/spot-weld.html">
   <meta name="robots" content="index, follow">
 
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,7 +15,7 @@
 
   <title>Spot Weld Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free spot weld calculator for automation and manufacturing engineers. Estimate starting current, weld time, electrode force, and tip diameter for resistance spot welding by material and thickness.">
+  <meta name="description" content="Free spot weld calculator for automation and manufacturing engineers. Estimate starting current, weld time, electrode force, tip diameter, and nugget target for resistance spot welding by material and thickness.">
 
   <style>
     body{
@@ -152,7 +153,7 @@
     </p>
 
     <p class="description">
-      This is a first-pass estimator for setup and planning. Final weld schedules should always be validated with destructive testing, nugget checks, and real machine capability.
+      This is a first-pass estimator for setup and planning. Final weld schedules should always be validated with destructive testing, nugget checks, peel tests, and real machine capability.
     </p>
 
     <div class="grid">
@@ -168,12 +169,12 @@
 
       <div class="field">
         <label for="thickness1">Sheet 1 Thickness (mm)</label>
-        <input id="thickness1" type="number" value="1.0" min="0.1" step="0.01">
+        <input id="thickness1" type="number" value="1.0" min="0.1" max="6" step="0.01">
       </div>
 
       <div class="field">
         <label for="thickness2">Sheet 2 Thickness (mm)</label>
-        <input id="thickness2" type="number" value="1.0" min="0.1" step="0.01">
+        <input id="thickness2" type="number" value="1.0" min="0.1" max="6" step="0.01">
       </div>
 
       <div class="field">
@@ -222,12 +223,17 @@
         return;
       }
 
+      if(t1 > 6 || t2 > 6){
+        output.innerHTML = "<strong>This calculator is intended for light to moderate sheet thicknesses up to about 6 mm.</strong>";
+        return;
+      }
+
       const totalThickness = t1 + t2;
       const minThickness = Math.min(t1, t2);
 
-      let currentFactor = 8.5;   // kA per mm baseline
-      let forceFactor = 0.55;    // kN per mm baseline
-      let cycleFactor = 12;      // cycles per mm baseline
+      let currentFactor = 8.5;
+      let forceFactor = 0.55;
+      let cycleFactor = 12;
       let materialNote = "";
 
       if(material === "mild"){
@@ -266,6 +272,9 @@
       const electrodeForceKN = forceFactor * totalThickness;
       const weldTimeCycles = cycleFactor * totalThickness;
       const tipDiameterMM = 5 * Math.sqrt(minThickness);
+      const nuggetDiameterMM = 4 * Math.sqrt(minThickness);
+      const squeezeTimeCycles = Math.max(8, Math.round(6 + totalThickness * 4));
+      const holdTimeCycles = Math.max(6, Math.round(4 + totalThickness * 3));
 
       const currentLow = weldCurrentKA * 0.9;
       const currentHigh = weldCurrentKA * 1.1;
@@ -277,7 +286,8 @@
       gtag('event', 'spot_weld_calculation', {
         material: material,
         machine_type: machine,
-        total_thickness_mm: totalThickness
+        total_thickness_mm: totalThickness,
+        quality: quality
       });
 
       output.innerHTML =
@@ -293,8 +303,17 @@
         "<strong>Suggested Weld Time Range</strong><br>" +
         timeLow.toFixed(0) + " to " + timeHigh.toFixed(0) + " cycles<br><br>" +
 
+        "<strong>Suggested Squeeze Time</strong><br>" +
+        squeezeTimeCycles.toFixed(0) + " cycles<br><br>" +
+
+        "<strong>Suggested Hold Time</strong><br>" +
+        holdTimeCycles.toFixed(0) + " cycles<br><br>" +
+
         "<strong>Suggested Starting Tip Diameter</strong><br>" +
         tipDiameterMM.toFixed(1) + " mm<br><br>" +
+
+        "<strong>Suggested Nugget Diameter Target</strong><br>" +
+        nuggetDiameterMM.toFixed(1) + " mm<br><br>" +
 
         "<strong>Process Note</strong><br>" +
         materialNote;
