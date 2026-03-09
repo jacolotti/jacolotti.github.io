@@ -2,6 +2,7 @@
 <html>
 <head>
   <link rel="canonical" href="https://automationcalculators.net/air-consumption.html">
+  <meta name="robots" content="index, follow">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -58,7 +59,7 @@
 
     .description{
       margin-top:0;
-      margin-bottom:25px;
+      margin-bottom:18px;
       color:#555;
       font-size:16px;
       line-height:1.5;
@@ -127,26 +128,30 @@
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
     <a href="servo-torque.html">Servo Torque</a>
- 
   </div>
 
   <div class="container">
     <h2>Pneumatic Air Consumption Calculator</h2>
+
     <p class="description">
       Estimate pneumatic cylinder air usage per cycle and SCFM using bore diameter, stroke length, operating pressure, and cycle rate.
     </p>
 
+    <p class="description">
+      This calculator is useful for pneumatic cylinder sizing, compressed air demand checks, valve selection, and estimating air usage in industrial automation systems.
+    </p>
+
     <p>Bore Diameter (in)</p>
-    <input id="bore" type="number" value="2">
+    <input id="bore" type="number" value="2" min="0.01" step="0.01">
 
     <p>Stroke Length (in)</p>
-    <input id="stroke" type="number" value="6">
+    <input id="stroke" type="number" value="6" min="0.01" step="0.01">
 
     <p>Operating Pressure (PSI)</p>
-    <input id="pressure" type="number" value="80">
+    <input id="pressure" type="number" value="80" min="0.01" step="0.01">
 
     <p>Cycles Per Minute</p>
-    <input id="cpm" type="number" value="20">
+    <input id="cpm" type="number" value="20" min="0" step="0.01">
 
     <p>Double Acting Cylinder?</p>
     <select id="doubleActing">
@@ -173,6 +178,28 @@
       let cpm = parseFloat(document.getElementById("cpm").value) || 0;
       let doubleActing = document.getElementById("doubleActing").value;
 
+      const output = document.getElementById("output");
+
+      if(bore <= 0){
+        output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
+        return;
+      }
+
+      if(stroke <= 0){
+        output.innerHTML = "<strong>Please enter a stroke length greater than 0.</strong>";
+        return;
+      }
+
+      if(pressure <= 0){
+        output.innerHTML = "<strong>Please enter an operating pressure greater than 0.</strong>";
+        return;
+      }
+
+      if(cpm < 0){
+        output.innerHTML = "<strong>Please enter cycles per minute of 0 or greater.</strong>";
+        return;
+      }
+
       let boreArea = Math.PI * Math.pow(bore / 2, 2);
       let volumePerStroke = boreArea * stroke;
 
@@ -184,13 +211,16 @@
 
       let cubicFeetPerMinute = (freeAirPerCycle * cpm) / 1728;
 
-      document.getElementById("output").innerHTML =
+      output.innerHTML =
         "<strong>Cylinder Volume Per Stroke</strong><br>" +
         volumePerStroke.toFixed(2) + " in³<br><br>" +
+
         "<strong>Air Per Cycle</strong><br>" +
         cubicInchesPerCycle.toFixed(2) + " in³<br><br>" +
+
         "<strong>Free Air Equivalent Per Cycle</strong><br>" +
         freeAirPerCycle.toFixed(2) + " in³<br><br>" +
+
         "<strong>Estimated SCFM</strong><br>" +
         cubicFeetPerMinute.toFixed(3) + " SCFM";
     }
