@@ -14,9 +14,9 @@ gtag('js', new Date());
 gtag('config', 'G-G4TY96JHNH');
 </script>
 
-<title>Automation Calculators | Servo Torque, Gear Ratio, Spot Weld, Robot Cycle Time, Conveyor Motor Sizing</title>
+<title>Automation Calculators | Servo Torque, Gear Ratio, Robot Reach, Conveyor Speed, Pneumatic, Welding</title>
 
-<meta name="description" content="Free automation engineering calculators for servo torque, gear ratio, spot welding, projection welding, conveyor motor sizing, robot cycle time, pneumatic cylinder force, voltage drop, air consumption, and automation ROI.">
+<meta name="description" content="Free automation engineering calculators for servo torque, gear ratio, robot reach, robot payload, robot cycle time, conveyor speed, gearbox torque, conveyor motor sizing, pneumatic cylinder force, pneumatic speed, voltage drop, air consumption, welding, and automation ROI.">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -123,6 +123,11 @@ font-size:14px;
 <a href="gear-ratio.html">Gear Ratio</a>
 <a href="spot-weld.html">Spot Weld</a>
 <a href="projection-weld.html">Projection Weld</a>
+<a href="robot-reach.html">Robot Reach</a>
+<a href="conveyor-speed.html">Conveyor Speed</a>
+<a href="gearbox-torque.html">Gearbox Torque</a>
+<a href="pneumatic-speed.html">Pneumatic Speed</a>
+<a href="robot-payload.html">Robot Payload</a>
 </div>
 
 <div class="container">
@@ -130,15 +135,15 @@ font-size:14px;
 <h1>Automation Engineering Tools</h1>
 
 <p class="subtitle">
-Free calculators for engineers, automation specialists, controls engineers, and machine designers.
+Free calculators for engineers, automation specialists, controls engineers, machine designers, and manufacturing teams.
 </p>
 
 <p class="seo-text">
-AutomationCalculators.net provides free engineering calculators for machine design, robotics, motion control, industrial automation, and resistance welding. Use these tools to estimate servo torque, gear ratio, robot cycle time, conveyor motor sizing, pneumatic cylinder force, voltage drop, air consumption, spot weld schedules, projection weld settings, and automation ROI.
+AutomationCalculators.net provides free engineering calculators for machine design, robotics, motion control, industrial automation, pneumatics, conveyors, motor sizing, and resistance welding. Use these tools to estimate servo torque, gear ratio, robot reach, robot payload, robot cycle time, conveyor speed, gearbox output torque, pneumatic cylinder force, pneumatic cylinder speed, voltage drop, air consumption, spot weld schedules, projection weld settings, and automation ROI.
 </p>
 
 <p class="seo-text">
-These calculators are built for practical shop-floor and engineering use, helping with early design estimates, equipment sizing, motion calculations, welding process setup, and automation concept evaluation. The site serves as a collection of automation calculators, machine design calculators, and industrial engineering tools for real-world applications.
+These calculators are built for practical shop-floor and engineering use, helping with early design estimates, equipment sizing, motion calculations, welding process setup, pneumatic timing checks, and automation concept evaluation. The site serves as a growing library of automation calculators, machine design calculators, robotics calculators, and industrial engineering tools for real-world applications.
 </p>
 
 <div class="tools">
@@ -153,14 +158,34 @@ These calculators are built for practical shop-floor and engineering use, helpin
 <p>Estimate cylinder air use per cycle and SCFM using bore, rod diameter, stroke, pressure, and cycle rate.</p>
 </a>
 
+<a class="tool" href="pneumatic-speed.html" onclick="gtag('event','tool_open',{tool:'pneumatic_speed'});">
+<h3>Pneumatic Cylinder Speed</h3>
+<p>Estimate cylinder extend and retract speed using bore, rod diameter, stroke, and available SCFM.</p>
+</a>
+
 <a class="tool" href="robot.html" onclick="gtag('event','tool_open',{tool:'robot_cycle'});">
 <h3>Robot Cycle Time</h3>
 <p>Estimate robot cycle time using distance, speed, payload, and motion settings.</p>
 </a>
 
+<a class="tool" href="robot-reach.html" onclick="gtag('event','tool_open',{tool:'robot_reach'});">
+<h3>Robot Reach Calculator</h3>
+<p>Estimate whether a robot can reach a target point using horizontal distance, vertical distance, and available robot reach.</p>
+</a>
+
+<a class="tool" href="robot-payload.html" onclick="gtag('event','tool_open',{tool:'robot_payload'});">
+<h3>Robot Payload Calculator</h3>
+<p>Estimate required robot payload using part weight, gripper weight, tooling weight, and safety factor.</p>
+</a>
+
 <a class="tool" href="motor.html" onclick="gtag('event','tool_open',{tool:'conveyor_motor'});">
 <h3>Conveyor Motor Sizing</h3>
 <p>Estimate conveyor drive force, torque, and motor power requirements.</p>
+</a>
+
+<a class="tool" href="conveyor-speed.html" onclick="gtag('event','tool_open',{tool:'conveyor_speed'});">
+<h3>Conveyor Speed Calculator</h3>
+<p>Calculate required conveyor speed, throughput, and travel time using part spacing and production rate.</p>
 </a>
 
 <a class="tool" href="servo-torque.html" onclick="gtag('event','tool_open',{tool:'servo_torque'});">
@@ -171,6 +196,11 @@ These calculators are built for practical shop-floor and engineering use, helpin
 <a class="tool" href="gear-ratio.html" onclick="gtag('event','tool_open',{tool:'gear_ratio'});">
 <h3>Gear Ratio Calculator</h3>
 <p>Calculate single-stage or multi-stage gear ratio, output speed, output torque, and direction change for gear trains.</p>
+</a>
+
+<a class="tool" href="gearbox-torque.html" onclick="gtag('event','tool_open',{tool:'gearbox_torque'});">
+<h3>Gearbox Output Torque</h3>
+<p>Calculate gearbox output torque and output speed using motor torque, motor RPM, gear ratio, and efficiency.</p>
 </a>
 
 <a class="tool" href="voltage-drop.html" onclick="gtag('event','tool_open',{tool:'voltage_drop'});">
