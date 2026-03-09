@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/bolt-tightening-torque.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Bolt Tightening Torque Calculator | Automation Calculators</title>
+  <meta name="description" content="Free bolt tightening torque calculator. Estimate recommended bolt torque from diameter, strength class, desired proof load percentage, and nut factor.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:1100px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:500;
+      margin-bottom:6px;
+    }
+
+    .control-group input,
+    .control-group select{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    .button-row{
+      margin:20px 0;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin:6px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align:left;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align:left;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+
+    @media (max-width: 700px){
+      .container{
+        padding:20px;
+      }
+
+      button{
+        width:100%;
+        margin:6px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+    <a href="roi.html">ROI</a>
+    <a href="voltage-drop.html">Voltage Drop</a>
+    <a href="air-consumption.html">Air Consumption</a>
+    <a href="bin-simulator.html">Bin Simulator</a>
+    <a href="servo-torque.html">Servo Torque</a>
+    <a href="gear-ratio.html">Gear Ratio</a>
+    <a href="spot-weld.html">Spot Weld</a>
+    <a href="projection-weld.html">Projection Weld</a>
+    <a href="robot-reach.html">Robot Reach</a>
+    <a href="conveyor-speed.html">Conveyor Speed</a>
+    <a href="gearbox-torque.html">Gearbox Torque</a>
+    <a href="pneumatic-speed.html">Pneumatic Speed</a>
+    <a href="robot-payload.html">Robot Payload</a>
+    <a href="multi-stage-torque-sequence.html">Torque Sequence</a>
+  </div>
+
+  <div class="container">
+    <h2>Bolt Tightening Torque Calculator</h2>
+
+    <p class="description">
+      Estimate recommended tightening torque from bolt diameter, strength class, nut factor, and desired proof load percentage.
+    </p>
+
+    <p class="description">
+      This calculator is useful for rough bolt torque planning in assembly, automation, fixtures, machine build, and general manufacturing work.
+    </p>
+
+    <p class="description">
+      Use this free bolt tightening torque calculator to estimate a starting torque value from proof strength and target preload percentage.
+    </p>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="diameter">Bolt Diameter</label>
+        <input id="diameter" type="number" value="10" step="0.1" min="0.1">
+      </div>
+
+      <div class="control-group">
+        <label for="diameterUnit">Diameter Units</label>
+        <select id="diameterUnit">
+          <option value="mm">mm</option>
+          <option value="in">in</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="proofStrength">Proof Strength</label>
+        <input id="proofStrength" type="number" value="830" step="1" min="1">
+      </div>
+
+      <div class="control-group">
+        <label for="proofUnit">Proof Strength Units</label>
+        <select id="proofUnit">
+          <option value="MPa">MPa</option>
+          <option value="psi">psi</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="proofPercent">Desired Proof Load (%)</label>
+        <input id="proofPercent" type="number" value="75" step="1" min="1" max="100">
+      </div>
+
+      <div class="control-group">
+        <label for="nutFactor">Nut Factor / K-Factor</label>
+        <input id="nutFactor" type="number" value="0.2" step="0.01" min="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="torqueUnit">Output Torque Units</label>
+        <select id="torqueUnit">
+          <option value="Nm">Nm</option>
+          <option value="ft-lb">ft-lb</option>
+          <option value="in-lb">in-lb</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateTorque();">Calculate Torque</button>
+      <button onclick="resetCalculator();">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and calculate tightening torque
+    </div>
+
+    <p class="note">
+      This is a simplified estimate using a circular tensile stress area approximation. Actual recommended torque depends on lubrication, thread condition, washer use, joint type, and manufacturer data.
+    </p>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators and simulators for real automation work
+    </div>
+  </div>
+
+  <script>
+    function safeParseFloat(id, fallback){
+      const value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? fallback : value;
+    }
+
+    function diameterToMeters(value, unit){
+      if(unit === "mm") return value / 1000;
+      if(unit === "in") return value * 0.0254;
+      return value;
+    }
+
+    function proofToPa(value, unit){
+      if(unit === "MPa") return value * 1000000;
+      if(unit === "psi") return value * 6894.75729;
+      return value;
+    }
+
+    function convertNm(value, unit){
+      if(unit === "Nm") return value;
+      if(unit === "ft-lb") return value / 1.35581795;
+      if(unit === "in-lb") return value / 0.112984829;
+      return value;
+    }
+
+    function formatForce(n){
+      if(n >= 1000){
+        return (n / 1000).toFixed(2) + " kN";
+      }
+      return n.toFixed(2) + " N";
+    }
+
+    function calculateTorque(){
+      const diameter = safeParseFloat("diameter", 0);
+      const diameterUnit = document.getElementById("diameterUnit").value;
+      const proofStrength = safeParseFloat("proofStrength", 0);
+      const proofUnit = document.getElementById("proofUnit").value;
+      const proofPercent = safeParseFloat("proofPercent", 0);
+      const nutFactor = safeParseFloat("nutFactor", 0);
+      const torqueUnit = document.getElementById("torqueUnit").value;
+
+      if(diameter <= 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter a bolt diameter greater than 0.</strong>";
+        return;
+      }
+
+      if(proofStrength <= 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter a proof strength greater than 0.</strong>";
+        return;
+      }
+
+      if(proofPercent <= 0 || proofPercent > 100){
+        document.getElementById("output").innerHTML = "<strong>Please enter a proof load percentage between 1 and 100.</strong>";
+        return;
+      }
+
+      if(nutFactor <= 0){
+        document.getElementById("output").innerHTML = "<strong>Please enter a nut factor greater than 0.</strong>";
+        return;
+      }
+
+      const d = diameterToMeters(diameter, diameterUnit);
+      const proofPa = proofToPa(proofStrength, proofUnit);
+
+      const tensileArea = Math.PI * Math.pow(d, 2) / 4 * 0.75;
+      const targetClampLoad = tensileArea * proofPa * (proofPercent / 100);
+      const torqueNm = targetClampLoad * nutFactor * d;
+      const outputTorque = convertNm(torqueNm, torqueUnit);
+
+      gtag('event','tool_calculation',{
+        tool:'bolt_tightening_torque',
+        diameter:diameter,
+        diameter_unit:diameterUnit,
+        proof_percent:proofPercent
+      });
+
+      document.getElementById("output").innerHTML =
+        "<strong>Estimated Tightening Torque</strong><br>" +
+        outputTorque.toFixed(2) + " " + torqueUnit + "<br><br>" +
+
+        "<strong>Target Clamp Load</strong><br>" +
+        formatForce(targetClampLoad) + "<br><br>" +
+
+        "<strong>Approximate Tensile Stress Area</strong><br>" +
+        (tensileArea * 1000000).toFixed(2) + " mm²<br><br>" +
+
+        "<strong>Nut Factor Used</strong><br>" +
+        nutFactor.toFixed(3) + "<br><br>" +
+
+        "<strong>Target Proof Load</strong><br>" +
+        proofPercent.toFixed(1) + "%";
+    }
+
+    function resetCalculator(){
+      document.getElementById("diameter").value = "10";
+      document.getElementById("diameterUnit").value = "mm";
+      document.getElementById("proofStrength").value = "830";
+      document.getElementById("proofUnit").value = "MPa";
+      document.getElementById("proofPercent").value = "75";
+      document.getElementById("nutFactor").value = "0.2";
+      document.getElementById("torqueUnit").value = "Nm";
+      document.getElementById("output").innerHTML = "Enter values and calculate tightening torque";
+    }
+  </script>
+</body>
+</html>
