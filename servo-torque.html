@@ -2,6 +2,7 @@
 <html>
 <head>
   <link rel="canonical" href="https://automationcalculators.net/servo-torque.html">
+  <meta name="robots" content="index, follow">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -58,7 +59,7 @@
 
     .description{
       margin-top:0;
-      margin-bottom:25px;
+      margin-bottom:18px;
       color:#555;
       font-size:16px;
       line-height:1.5;
@@ -149,8 +150,13 @@
 
   <div class="container">
     <h2>Advanced Servo Motor Torque Calculator</h2>
+
     <p class="description">
       Estimate motor torque for rotary or linear motion systems using load mass, pulley radius, target speed, acceleration time, gear ratio, efficiency, and safety factor. Includes reflected inertia and peak torque estimates for a stronger first-pass sizing tool.
+    </p>
+
+    <p class="description">
+      This calculator is useful for early servo sizing, motion system concept design, pulley-driven axes, conveyor-style drives, and rough motor selection in industrial automation equipment.
     </p>
 
     <div class="grid">
@@ -163,57 +169,57 @@
       </div>
 
       <div class="field">
-        <label for="mass">Load Mass (lb)</label>
-        <input id="mass" type="number" value="50" step="0.1">
+        <label for="mass">Load Mass / Force Equivalent (lb)</label>
+        <input id="mass" type="number" value="50" min="0.01" step="0.1">
       </div>
 
       <div class="field">
         <label for="radius">Pulley / Wheel Radius (in)</label>
-        <input id="radius" type="number" value="2" step="0.1">
+        <input id="radius" type="number" value="2" min="0.01" step="0.1">
       </div>
 
       <div class="field">
         <label for="gearRatio">Gear Ratio (load : motor)</label>
-        <input id="gearRatio" type="number" value="1" step="0.1">
+        <input id="gearRatio" type="number" value="1" min="0.01" step="0.1">
       </div>
 
       <div class="field">
         <label for="efficiency">Mechanical Efficiency (%)</label>
-        <input id="efficiency" type="number" value="90" step="1">
+        <input id="efficiency" type="number" value="90" min="0.01" max="100" step="1">
       </div>
 
       <div class="field">
         <label for="safetyFactor">Safety Factor</label>
-        <input id="safetyFactor" type="number" value="1.5" step="0.1">
+        <input id="safetyFactor" type="number" value="1.5" min="0.01" step="0.1">
       </div>
 
       <div class="field" id="linearSpeedField">
         <label for="linearSpeed">Target Linear Speed (in/sec)</label>
-        <input id="linearSpeed" type="number" value="20" step="0.1">
+        <input id="linearSpeed" type="number" value="20" min="0.01" step="0.1">
       </div>
 
       <div class="field hidden" id="rotarySpeedField">
         <label for="targetRPM">Target Load Speed (RPM)</label>
-        <input id="targetRPM" type="number" value="120" step="1">
+        <input id="targetRPM" type="number" value="120" min="0.01" step="1">
       </div>
 
       <div class="field">
         <label for="accelTime">Acceleration Time (sec)</label>
-        <input id="accelTime" type="number" value="0.4" step="0.01">
+        <input id="accelTime" type="number" value="0.4" min="0.01" step="0.01">
       </div>
 
       <div class="field">
         <label for="moveDistance">Move Distance (in, optional)</label>
-        <input id="moveDistance" type="number" value="12" step="0.1">
+        <input id="moveDistance" type="number" value="12" min="0" step="0.1">
       </div>
 
       <div class="field hidden" id="externalInertiaField">
         <label for="externalInertia">External Rotary Inertia at Load (lb-in², optional)</label>
-        <input id="externalInertia" type="number" value="0" step="0.01">
+        <input id="externalInertia" type="number" value="0" min="0" step="0.01">
       </div>
     </div>
 
-    <button onclick="calculateServoTorque(); gtag('event','servo_torque_calculation');">
+    <button onclick="calculateServoTorque();">
       Calculate
     </button>
 
@@ -223,6 +229,10 @@
 
     <p class="note">
       This is a practical first-pass sizing calculator. Final servo selection should still consider true reflected inertia from all rotating components, move profile shape, gravity loads, gearbox backlash, duty cycle, shock loading, and vendor torque-speed curves.
+    </p>
+
+    <p class="note">
+      For this simplified model, the load input is treated as a force-equivalent load in pounds. Use it as an early estimate, not as a final motor sizing calculation.
     </p>
 
     <div class="footer">
@@ -264,7 +274,7 @@
       const output = document.getElementById("output");
 
       if(massLb <= 0){
-        output.innerHTML = "<strong>Please enter a load mass greater than 0.</strong>";
+        output.innerHTML = "<strong>Please enter a load value greater than 0.</strong>";
         return;
       }
 
@@ -278,8 +288,8 @@
         return;
       }
 
-      if(efficiencyPercent <= 0){
-        output.innerHTML = "<strong>Please enter an efficiency greater than 0%.</strong>";
+      if(efficiencyPercent <= 0 || efficiencyPercent > 100){
+        output.innerHTML = "<strong>Please enter an efficiency greater than 0% and up to 100%.</strong>";
         return;
       }
 
@@ -293,18 +303,22 @@
         return;
       }
 
+      if(moveDistance < 0){
+        output.innerHTML = "<strong>Please enter a move distance of 0 or greater.</strong>";
+        return;
+      }
+
+      if(externalInertiaLbIn2 < 0){
+        output.innerHTML = "<strong>Please enter an external inertia of 0 or greater.</strong>";
+        return;
+      }
+
       const efficiency = efficiencyPercent / 100;
       const gInSec2 = 386.09;
-
-      const radiusFt = radiusIn / 12;
-      const radiusM = radiusIn * 0.0254;
-      const massKg = massLb * 0.45359237;
-      const loadForceLb = massLb; 
+      const loadForceLb = massLb;
 
       let loadRPM = 0;
       let motorRPM = 0;
-      let omegaLoad = 0;
-      let omegaMotor = 0;
       let alphaLoad = 0;
       let alphaMotor = 0;
 
@@ -325,8 +339,8 @@
         loadRPM = (linearSpeedInSec / (2 * Math.PI * radiusIn)) * 60;
         motorRPM = loadRPM * gearRatio;
 
-        omegaLoad = loadRPM * 2 * Math.PI / 60;
-        omegaMotor = motorRPM * 2 * Math.PI / 60;
+        const omegaLoad = loadRPM * 2 * Math.PI / 60;
+        const omegaMotor = motorRPM * 2 * Math.PI / 60;
 
         alphaLoad = omegaLoad / accelTime;
         alphaMotor = omegaMotor / accelTime;
@@ -348,8 +362,8 @@
         loadRPM = targetRPM;
         motorRPM = loadRPM * gearRatio;
 
-        omegaLoad = loadRPM * 2 * Math.PI / 60;
-        omegaMotor = motorRPM * 2 * Math.PI / 60;
+        const omegaLoad = loadRPM * 2 * Math.PI / 60;
+        const omegaMotor = motorRPM * 2 * Math.PI / 60;
 
         alphaLoad = omegaLoad / accelTime;
         alphaMotor = omegaMotor / accelTime;
@@ -360,9 +374,8 @@
         loadInertiaLbIn2 = externalInertiaLbIn2;
         loadInertiaMotorSideLbIn2 = loadInertiaLbIn2 / Math.pow(gearRatio, 2);
 
-        const alphaRadSec2 = alphaLoad;
         const inertiaSlugFt2 = (loadInertiaLbIn2 / 144) / 32.174;
-        const accelTorqueLoadLbFt = inertiaSlugFt2 * alphaRadSec2;
+        const accelTorqueLoadLbFt = inertiaSlugFt2 * alphaLoad;
         accelTorqueLoadLbIn = accelTorqueLoadLbFt * 12;
         accelTorqueMotorLbIn = (accelTorqueLoadLbIn / gearRatio) / efficiency;
       }
@@ -380,8 +393,14 @@
       const powerKW = powerHP * 0.7457;
 
       const moveTimeAtSpeed = mode === "linear" && linearSpeedInSec > 0
-        ? moveDistance / linearSpeedInSec
+        ? (linearSpeedInSec > 0 ? moveDistance / linearSpeedInSec : 0)
         : (loadRPM > 0 ? (moveDistance / 360) * (60 / loadRPM) : 0);
+
+      gtag('event', 'servo_torque_calculation', {
+        mode: mode,
+        gear_ratio: gearRatio,
+        safety_factor: safetyFactor
+      });
 
       output.innerHTML =
         "<strong>Load Speed</strong><br>" +
