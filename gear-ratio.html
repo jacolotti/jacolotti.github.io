@@ -14,7 +14,7 @@
   </script>
 
   <title>Gear Ratio Calculator | Automation Calculators</title>
-  <meta name="description" content="Free gear ratio calculator for automation engineers and machine designers. Calculate single-stage or multi-stage gear ratio, output speed, output torque, and rotation direction.">
+  <meta name="description" content="Free gear ratio calculator for automation engineers and machine designers. Calculate single-stage or multi-stage gear ratio, output speed, output torque, active stages, and rotation direction.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -110,7 +110,7 @@
     button{
       padding:12px 26px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
       border-radius:6px;
@@ -120,7 +120,7 @@
     }
 
     button:hover{
-      background:#1555ad;
+      background:#2d3d63;
     }
 
     .result{
@@ -202,17 +202,23 @@
     <a href="bin-simulator.html">Bin Simulator</a>
     <a href="servo-torque.html">Servo Torque</a>
     <a href="gear-ratio.html">Gear Ratio</a>
+    <a href="spot-weld.html">Spot Weld</a>
+    <a href="projection-weld.html">Projection Weld</a>
   </div>
 
   <div class="container">
     <h2>Gear Ratio Calculator</h2>
 
     <p class="description">
-      Calculate gear ratio, output speed, output torque, and direction change for single-stage or multi-stage external gear trains.
+      Calculate gear ratio, output speed, output torque, active stages, and direction change for single-stage or multi-stage external gear trains.
     </p>
 
     <p class="description">
       This calculator is useful for machine design, conveyors, automation systems, servo-driven mechanisms, and general power transmission estimates. It is intended for quick engineering calculations, not final validation.
+    </p>
+
+    <p class="description">
+      This free gear ratio calculator helps estimate total gear train ratio, speed reduction, output shaft speed, and torque multiplication for external gear sets. It is useful for reducer sizing, drive design, machine mechanisms, and automation engineering calculations.
     </p>
 
     <div class="section-title">General Inputs</div>
@@ -254,7 +260,7 @@
         <label for="decimalPlaces">Decimal Places</label>
         <select id="decimalPlaces">
           <option value="2">2</option>
-          <option value="3">3</option>
+          <option value="3" selected>3</option>
           <option value="4">4</option>
         </select>
       </div>
@@ -466,12 +472,21 @@
       let idealOutputTorqueText = "Not entered";
       let estimatedOutputTorqueText = "Not entered";
 
-      if(inputTorque !== null && inputTorque > 0){
+      if(inputTorque !== null && inputTorque >= 0){
         const idealOutputTorque = inputTorque * totalRatio;
         const estimatedOutputTorque = idealOutputTorque * (efficiency / 100);
 
         idealOutputTorqueText = formatNumber(idealOutputTorque, decimalPlaces) + " " + torqueUnit;
         estimatedOutputTorqueText = formatNumber(estimatedOutputTorque, decimalPlaces) + " " + torqueUnit;
+      }
+
+      let rpmReferenceText = "";
+      if(speedUnit === "rad/s"){
+        rpmReferenceText =
+          "<br><br><strong>Input Speed Reference</strong><br>" +
+          formatNumber(inputRPM, decimalPlaces) + " RPM<br><br>" +
+          "<strong>Output Speed Reference</strong><br>" +
+          formatNumber(outputRPM, decimalPlaces) + " RPM";
       }
 
       document.getElementById("output").innerHTML =
@@ -480,6 +495,9 @@
 
         "<strong>Ratio Type</strong><br>" +
         ratioType(totalRatio) + "<br><br>" +
+
+        "<strong>Active Stages</strong><br>" +
+        activeStages.length + "<br><br>" +
 
         "<strong>Input Speed</strong><br>" +
         formatNumber(inputSpeed, decimalPlaces) + " " + speedUnit + "<br><br>" +
@@ -498,6 +516,8 @@
 
         "<strong>Estimated Output Torque</strong><br>" +
         estimatedOutputTorqueText +
+
+        rpmReferenceText +
 
         "<table>" +
           "<tr>" +
@@ -518,8 +538,8 @@
       document.getElementById("torqueUnit").value = "lb-in";
       document.getElementById("efficiency").value = "95";
       document.getElementById("decimalPlaces").value = "3";
-      document.getElementById("driver1").value = "";
-      document.getElementById("driven1").value = "";
+      document.getElementById("driver1").value = "20";
+      document.getElementById("driven1").value = "60";
       document.getElementById("driver2").value = "";
       document.getElementById("driven2").value = "";
       document.getElementById("driver3").value = "";
