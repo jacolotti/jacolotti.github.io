@@ -14,7 +14,7 @@
   </script>
 
   <title>Robot Cycle Time Calculator | Automation Calculators</title>
-  <meta name="description" content="Free robot cycle time calculator for automation engineers. Estimate robot cycle time, points per cycle, parts per minute, and parts per hour using move distance, speed, dwell time, payload, and blend settings.">
+  <meta name="description" content="Free robot cycle time calculator for automation engineers. Estimate robot cycle time, points per cycle, parts per minute, parts per hour, and 8-hour shift throughput using move distance, speed, dwell time, payload, and blend settings.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -47,7 +47,7 @@
     .container{
       background:white;
       padding:30px;
-      max-width:700px;
+      max-width:760px;
       margin:auto;
       border-radius:10px;
       box-shadow:0px 0px 10px rgba(0,0,0,.1);
@@ -70,6 +70,7 @@
       margin-top:20px;
       margin-bottom:5px;
       font-weight:500;
+      text-align:left;
     }
 
     input, select{
@@ -82,20 +83,24 @@
       border-radius:5px;
     }
 
+    .button-row{
+      margin-top:18px;
+    }
+
     button{
       padding:12px 26px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
       border-radius:6px;
       cursor:pointer;
-      margin-top:15px;
+      margin:6px;
       transition:background .2s;
     }
 
     button:hover{
-      background:#1555ad;
+      background:#2d3d63;
     }
 
     .result{
@@ -107,12 +112,36 @@
       font-size:18px;
       line-height:1.6;
       font-weight:500;
+      text-align:left;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+      text-align:left;
     }
 
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+    }
+
+    @media (max-width: 700px){
+      .container{
+        padding:20px;
+      }
+
+      button{
+        width:100%;
+        margin:6px 0;
+      }
+
+      .result{
+        font-size:16px;
+      }
     }
   </style>
 </head>
@@ -128,6 +157,9 @@
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
     <a href="servo-torque.html">Servo Torque</a>
+    <a href="gear-ratio.html">Gear Ratio</a>
+    <a href="spot-weld.html">Spot Weld</a>
+    <a href="projection-weld.html">Projection Weld</a>
   </div>
 
   <div class="container">
@@ -138,7 +170,11 @@
     </p>
 
     <p class="description">
-      This calculator is useful for early robot feasibility studies, throughput estimates, and automation concept design for handling, assembly, and transfer applications.
+      This calculator is useful for early robot feasibility studies, throughput estimates, and automation concept design for handling, assembly, transfer, packaging, and machine tending applications.
+    </p>
+
+    <p class="description">
+      This free robot cycle time calculator helps estimate total cycle time, points per cycle, throughput per minute, throughput per hour, and approximate shift output using joint motion distance, linear motion distance, speed, dwell time, payload, and blending.
     </p>
 
     <p>Distance Units</p>
@@ -185,7 +221,7 @@
 
     <p>Blend / CNT Effect</p>
     <select id="blend">
-      <option value="fine">Fine / Stop at point</option>
+      <option value="fine">Fine / Stop at Point</option>
       <option value="medium">Medium Blend</option>
       <option value="high">High Blend</option>
     </select>
@@ -197,11 +233,23 @@
       <option value="fast">Fast</option>
     </select>
 
-    <button onclick="calculate(); gtag('event','robot_cycle_calculation');">Calculate</button>
+    <div class="button-row">
+      <button onclick="calculate(); gtag('event','robot_cycle_calculation');">Calculate</button>
+      <button onclick="loadExample(); gtag('event','robot_cycle_example');">Load Example</button>
+      <button onclick="clearCalculator(); gtag('event','robot_cycle_clear');">Clear</button>
+    </div>
 
     <div class="result" id="output">
       Enter values and press Calculate
     </div>
+
+    <p class="note">
+      This calculator is intended for early estimating only. Real robot cycle time depends on robot model, reach, arm posture, path shape, controller settings, acceleration limits, zone or CNT settings, payload inertia, EOAT weight, and process timing.
+    </p>
+
+    <p class="note">
+      Joint and linear move times shown here are simplified estimate components, not exact controller-calculated motion profiles.
+    </p>
 
     <div class="footer">
       Automation Engineering Tools • Practical calculators for real automation work
@@ -221,6 +269,10 @@
 
       document.getElementById("speedLabel").innerText =
         "Robot Speed (" + (speedUnit === "ins" ? "in/sec" : "mm/sec") + ")";
+    }
+
+    function showMessage(message){
+      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
     }
 
     function applyPreset(){
@@ -345,14 +397,17 @@
       }
 
       let totalPoints = pickPoints + placePoints;
+      let dwellSeconds = dwell / 1000;
 
       let jointMoveTime = (jointDistance / speed) * 0.85 * blendFactor * accelFactor * payloadFactor * presetFactor;
       let linearMoveTime = (linearDistance / speed) * 1.0 * blendFactor * accelFactor * payloadFactor * presetFactor;
 
-      let timePerPoint = jointMoveTime + linearMoveTime + (dwell / 1000);
+      let motionTimePerPoint = jointMoveTime + linearMoveTime;
+      let timePerPoint = motionTimePerPoint + dwellSeconds;
       let totalCycleTime = timePerPoint * totalPoints;
       let partsPerMinute = totalCycleTime > 0 ? 60 / totalCycleTime : 0;
       let partsPerHour = partsPerMinute * 60;
+      let partsPerShift = partsPerHour * 8;
 
       output.innerHTML =
         "<strong>Robot Preset</strong><br>" +
@@ -361,13 +416,16 @@
         "<strong>Total Points</strong><br>" +
         totalPoints.toFixed(0) + "<br><br>" +
 
-        "<strong>Joint Move Time</strong><br>" +
+        "<strong>Joint Move Time per Point</strong><br>" +
         jointMoveTime.toFixed(3) + " sec<br><br>" +
 
-        "<strong>Linear Move Time</strong><br>" +
+        "<strong>Linear Move Time per Point</strong><br>" +
         linearMoveTime.toFixed(3) + " sec<br><br>" +
 
-        "<strong>Time Per Point</strong><br>" +
+        "<strong>Dwell Time per Point</strong><br>" +
+        dwellSeconds.toFixed(3) + " sec<br><br>" +
+
+        "<strong>Total Time per Point</strong><br>" +
         timePerPoint.toFixed(3) + " sec<br><br>" +
 
         "<strong>Total Cycle Time</strong><br>" +
@@ -377,7 +435,57 @@
         partsPerMinute.toFixed(2) + "<br><br>" +
 
         "<strong>Parts Per Hour</strong><br>" +
-        partsPerHour.toFixed(0);
+        partsPerHour.toFixed(0) + "<br><br>" +
+
+        "<strong>Approx. Parts per 8-Hour Shift</strong><br>" +
+        partsPerShift.toFixed(0) + "<br><br>" +
+
+        "<strong>Applied Blend Factor</strong><br>" +
+        blendFactor.toFixed(2) + "<br><br>" +
+
+        "<strong>Applied Acceleration Factor</strong><br>" +
+        accelFactor.toFixed(2) + "<br><br>" +
+
+        "<strong>Applied Payload Factor</strong><br>" +
+        payloadFactor.toFixed(2) + "<br><br>" +
+
+        "<strong>Applied Preset Factor</strong><br>" +
+        presetFactor.toFixed(2);
+    }
+
+    function clearCalculator(){
+      document.getElementById("distanceUnit").value = "mm";
+      document.getElementById("speedUnit").value = "mms";
+      document.getElementById("robotPreset").value = "fanucSmall";
+      document.getElementById("jointDistance").value = "1000";
+      document.getElementById("linearDistance").value = "200";
+      document.getElementById("speed").value = "2200";
+      document.getElementById("pickPoints").value = "1";
+      document.getElementById("placePoints").value = "1";
+      document.getElementById("dwell").value = "100";
+      document.getElementById("payload").value = "5";
+      document.getElementById("blend").value = "fine";
+      document.getElementById("accelProfile").value = "normal";
+      updateLabels();
+      applyPreset();
+      showMessage("Enter values and press Calculate");
+    }
+
+    function loadExample(){
+      document.getElementById("distanceUnit").value = "mm";
+      document.getElementById("speedUnit").value = "mms";
+      document.getElementById("robotPreset").value = "fanucMedium";
+      document.getElementById("jointDistance").value = "1200";
+      document.getElementById("linearDistance").value = "250";
+      document.getElementById("pickPoints").value = "1";
+      document.getElementById("placePoints").value = "1";
+      document.getElementById("dwell").value = "120";
+      document.getElementById("payload").value = "8";
+      document.getElementById("blend").value = "medium";
+      document.getElementById("accelProfile").value = "normal";
+      updateLabels();
+      applyPreset();
+      calculate();
     }
 
     updateLabels();
