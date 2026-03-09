@@ -174,76 +174,78 @@
   </div>
 
   <script>
-    function calculateAirConsumption(){
-      let bore = parseFloat(document.getElementById("bore").value) || 0;
-      let rod = parseFloat(document.getElementById("rod").value) || 0;
-      let stroke = parseFloat(document.getElementById("stroke").value) || 0;
-      let pressure = parseFloat(document.getElementById("pressure").value) || 0;
-      let cpm = parseFloat(document.getElementById("cpm").value) || 0;
-      let doubleActing = document.getElementById("doubleActing").value;
+  function calculateAirConsumption(){
+    let bore = parseFloat(document.getElementById("bore").value) || 0;
+    let rod = parseFloat(document.getElementById("rod").value) || 0;
+    let stroke = parseFloat(document.getElementById("stroke").value) || 0;
+    let pressure = parseFloat(document.getElementById("pressure").value) || 0;
+    let cpm = parseFloat(document.getElementById("cpm").value) || 0;
+    let doubleActing = document.getElementById("doubleActing").value;
 
-      const output = document.getElementById("output");
+    const output = document.getElementById("output");
 
-      if(bore <= 0){
-        output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
-        return;
-      }
-
-      if(rod < 0){
-        output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
-        return;
-      }
-
-      if(rod >= bore){
-        output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
-        return;
-      }
-
-      if(stroke <= 0){
-        output.innerHTML = "<strong>Please enter a stroke length greater than 0.</strong>";
-        return;
-      }
-
-      if(pressure <= 0){
-        output.innerHTML = "<strong>Please enter an operating pressure greater than 0.</strong>";
-        return;
-      }
-
-      if(cpm < 0){
-        output.innerHTML = "<strong>Please enter cycles per minute of 0 or greater.</strong>";
-        return;
-      }
-
-      let boreArea = Math.PI * Math.pow(bore / 2, 2);
-      let rodArea = Math.PI * Math.pow(rod / 2, 2);
-      let retractArea = boreArea - rodArea;
-
-      let extendVolume = boreArea * stroke;
-      let retractVolume = (doubleActing === "yes") ? retractArea * stroke : 0;
-      let totalCylinderVolumePerCycle = extendVolume + retractVolume;
-
-      let compressionRatio = (pressure + 14.7) / 14.7;
-      let freeAirPerCycle = totalCylinderVolumePerCycle * compressionRatio;
-
-      let scfm = (freeAirPerCycle * cpm) / 1728;
-
-      output.innerHTML =
-        "<strong>Extend Volume</strong><br>" +
-        extendVolume.toFixed(2) + " in³<br><br>" +
-
-        "<strong>Retract Volume</strong><br>" +
-        retractVolume.toFixed(2) + " in³<br><br>" +
-
-        "<strong>Total Air Per Cycle</strong><br>" +
-        totalCylinderVolumePerCycle.toFixed(2) + " in³<br><br>" +
-
-        "<strong>Free Air Equivalent Per Cycle</strong><br>" +
-        freeAirPerCycle.toFixed(2) + " in³<br><br>" +
-
-        "<strong>Estimated SCFM</strong><br>" +
-        scfm.toFixed(3) + " SCFM";
+    if(bore <= 0){
+      output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
+      return;
     }
-    <script>
+
+    if(rod < 0){
+      output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
+      return;
+    }
+
+    if(rod >= bore){
+      output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
+      return;
+    }
+
+    if(stroke <= 0){
+      output.innerHTML = "<strong>Please enter a stroke length greater than 0.</strong>";
+      return;
+    }
+
+    if(pressure <= 0){
+      output.innerHTML = "<strong>Please enter an operating pressure greater than 0.</strong>";
+      return;
+    }
+
+    if(cpm < 0){
+      output.innerHTML = "<strong>Please enter cycles per minute of 0 or greater.</strong>";
+      return;
+    }
+
+    let boreArea = Math.PI * Math.pow(bore / 2, 2);
+    let rodArea = Math.PI * Math.pow(rod / 2, 2);
+    let retractArea = boreArea - rodArea;
+
+    let extendVolume = boreArea * stroke;
+    let retractVolume = (doubleActing === "yes") ? retractArea * stroke : 0;
+    let totalCylinderVolumePerCycle = extendVolume + retractVolume;
+
+    let compressionRatio = (pressure + 14.7) / 14.7;
+    let freeAirPerCycle = totalCylinderVolumePerCycle * compressionRatio;
+
+    let scfm = (freeAirPerCycle * cpm) / 1728;
+
+    output.innerHTML =
+      "<strong>Extend Volume</strong><br>" +
+      extendVolume.toFixed(2) + " in³<br><br>" +
+
+      "<strong>Retract Volume</strong><br>" +
+      retractVolume.toFixed(2) + " in³<br><br>" +
+
+      "<strong>Total Air Per Cycle</strong><br>" +
+      totalCylinderVolumePerCycle.toFixed(2) + " in³<br><br>" +
+
+      "<strong>Free Air Equivalent Per Cycle</strong><br>" +
+      freeAirPerCycle.toFixed(2) + " in³<br><br>" +
+
+      "<strong>Estimated SCFM</strong><br>" +
+      scfm.toFixed(3) + " SCFM";
+  }
+</script>
+
+<script>
   fetch("navbar.html")
     .then(response => response.text())
     .then(data => {
@@ -253,7 +255,3 @@
       console.error("Navbar failed to load:", error);
     });
 </script>
-  
-
-</body>
-</html>
