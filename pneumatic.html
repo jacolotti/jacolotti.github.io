@@ -401,10 +401,13 @@
       document.getElementById("stroke").value = "100";
       document.getElementById("derating").value = "90";
       updateLabels();
-      calculate();
+          calculate();
     }
 
-    <script>
+    updateLabels();
+</script>
+
+<script>
   fetch("navbar.html")
     .then(response => response.text())
     .then(data => {
@@ -415,7 +418,5 @@
     });
 </script>
 
-    updateLabels();
-  </script>
 </body>
 </html>
