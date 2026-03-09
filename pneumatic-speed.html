@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/pneumatic-speed.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Pneumatic Cylinder Speed Calculator | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free pneumatic cylinder speed calculator for automation engineers. Estimate cylinder extend and retract speed using flow rate, bore, rod diameter, and stroke length.">
+
+  <style>
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:40px;
+      text-align:left;
+    }
+
+    .navbar a{
+      color:white;
+      margin:0 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .navbar a:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:700px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      font-weight:normal;
+    }
+
+    .container p{
+      margin-top:20px;
+      margin-bottom:5px;
+      font-weight:500;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:15px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#1555ad;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="pneumatic.html">Pneumatic</a>
+    <a href="robot.html">Robot</a>
+    <a href="motor.html">Motor</a>
+    <a href="roi.html">ROI</a>
+    <a href="voltage-drop.html">Voltage Drop</a>
+    <a href="air-consumption.html">Air Consumption</a>
+    <a href="bin-simulator.html">Bin Simulator</a>
+    <a href="servo-torque.html">Servo Torque</a>
+    <a href="gear-ratio.html">Gear Ratio</a>
+    <a href="projection-weld.html">Projection Weld</a>
+    <a href="spot-weld.html">Spot Weld</a>
+    <a href="pneumatic-speed.html">Pneumatic Speed</a>
+  </div>
+
+  <div class="container">
+    <h2>Pneumatic Cylinder Speed Calculator</h2>
+
+    <p class="description">
+      Estimate pneumatic cylinder extend and retract speed using cylinder size, rod diameter, stroke, and supplied flow rate.
+    </p>
+
+    <p class="description">
+      This calculator is useful for preliminary cylinder timing estimates, pneumatic sizing, valve selection, and automation cycle time planning.
+    </p>
+
+    <p>Bore Diameter (in)</p>
+    <input id="bore" type="number" value="2" min="0.01" step="0.01">
+
+    <p>Rod Diameter (in)</p>
+    <input id="rod" type="number" value="0.625" min="0" step="0.01">
+
+    <p>Stroke Length (in)</p>
+    <input id="stroke" type="number" value="6" min="0.01" step="0.01">
+
+    <p>Available Flow Rate (SCFM)</p>
+    <input id="scfm" type="number" value="4" min="0.01" step="0.01">
+
+    <button onclick="calculatePneumaticSpeed(); gtag('event','pneumatic_speed_calculation');">Calculate</button>
+
+    <div class="result" id="output">
+      Enter values and press Calculate
+    </div>
+
+    <p class="note">
+      This is a simplified estimate using standard cubic feet per minute converted to free air volume. Real cylinder speed depends heavily on pressure, valve Cv, tubing length, regulator performance, load, cushioning, exhaust restriction, and meter-in or meter-out control.
+    </p>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical calculators for real automation work
+    </div>
+  </div>
+
+  <script>
+    function calculatePneumaticSpeed(){
+      let bore = parseFloat(document.getElementById("bore").value) || 0;
+      let rod = parseFloat(document.getElementById("rod").value) || 0;
+      let stroke = parseFloat(document.getElementById("stroke").value) || 0;
+      let scfm = parseFloat(document.getElementById("scfm").value) || 0;
+
+      const output = document.getElementById("output");
+
+      if(bore <= 0){
+        output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
+        return;
+      }
+
+      if(rod < 0){
+        output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
+        return;
+      }
+
+      if(rod >= bore){
+        output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
+        return;
+      }
+
+      if(stroke <= 0){
+        output.innerHTML = "<strong>Please enter a stroke length greater than 0.</strong>";
+        return;
+      }
+
+      if(scfm <= 0){
+        output.innerHTML = "<strong>Please enter a flow rate greater than 0.</strong>";
+        return;
+      }
+
+      let boreArea = Math.PI * Math.pow(bore / 2, 2);
+      let rodArea = Math.PI * Math.pow(rod / 2, 2);
+      let retractArea = boreArea - rodArea;
+
+      let extendVolume = boreArea * stroke;
+      let retractVolume = retractArea * stroke;
+
+      let flowIn3PerSec = (scfm * 1728) / 60;
+
+      let extendTimeSec = extendVolume / flowIn3PerSec;
+      let retractTimeSec = retractVolume / flowIn3PerSec;
+
+      let extendSpeed = stroke / extendTimeSec;
+      let retractSpeed = stroke / retractTimeSec;
+
+      output.innerHTML =
+        "<strong>Estimated Extend Time</strong><br>" +
+        extendTimeSec.toFixed(3) + " sec<br><br>" +
+
+        "<strong>Estimated Retract Time</strong><br>" +
+        retractTimeSec.toFixed(3) + " sec<br><br>" +
+
+        "<strong>Estimated Extend Speed</strong><br>" +
+        extendSpeed.toFixed(2) + " in/sec<br><br>" +
+
+        "<strong>Estimated Retract Speed</strong><br>" +
+        retractSpeed.toFixed(2) + " in/sec";
+    }
+  </script>
+
+</body>
+</html>
