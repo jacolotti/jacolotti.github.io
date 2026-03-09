@@ -15,7 +15,7 @@
 
   <title>Pneumatic Air Consumption Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free pneumatic air consumption calculator for automation engineers. Estimate cylinder air use, cubic inches per cycle, and SCFM using bore, stroke, pressure, and cycles per minute.">
+  <meta name="description" content="Free pneumatic air consumption calculator for automation engineers. Estimate cylinder air use, cubic inches per cycle, and SCFM using bore, rod diameter, stroke, pressure, and cycles per minute.">
 
   <style>
     body{
@@ -109,6 +109,13 @@
       font-weight:500;
     }
 
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+    }
+
     .footer{
       margin-top:40px;
       color:#666;
@@ -137,7 +144,7 @@
     <h2>Pneumatic Air Consumption Calculator</h2>
 
     <p class="description">
-      Estimate pneumatic cylinder air usage per cycle and SCFM using bore diameter, stroke length, operating pressure, and cycle rate.
+      Estimate pneumatic cylinder air usage per cycle and SCFM using bore diameter, rod diameter, stroke length, operating pressure, and cycle rate.
     </p>
 
     <p class="description">
@@ -146,6 +153,9 @@
 
     <p>Bore Diameter (in)</p>
     <input id="bore" type="number" value="2" min="0.01" step="0.01">
+
+    <p>Rod Diameter (in)</p>
+    <input id="rod" type="number" value="0.625" min="0" step="0.01">
 
     <p>Stroke Length (in)</p>
     <input id="stroke" type="number" value="6" min="0.01" step="0.01">
@@ -168,6 +178,10 @@
       Enter values and press Calculate
     </div>
 
+    <p class="note">
+      For double-acting cylinders, extend air volume uses full bore area and retract air volume uses bore area minus rod area. This is a practical engineering estimate and does not account for leakage, cushioning losses, compressibility effects beyond standard free-air conversion, or valve timing.
+    </p>
+
     <div class="footer">
       Automation Engineering Tools • Practical calculators for real automation work
     </div>
@@ -176,6 +190,7 @@
   <script>
     function calculateAirConsumption(){
       let bore = parseFloat(document.getElementById("bore").value) || 0;
+      let rod = parseFloat(document.getElementById("rod").value) || 0;
       let stroke = parseFloat(document.getElementById("stroke").value) || 0;
       let pressure = parseFloat(document.getElementById("pressure").value) || 0;
       let cpm = parseFloat(document.getElementById("cpm").value) || 0;
@@ -185,6 +200,16 @@
 
       if(bore <= 0){
         output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
+        return;
+      }
+
+      if(rod < 0){
+        output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
+        return;
+      }
+
+      if(rod >= bore){
+        output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
         return;
       }
 
@@ -204,28 +229,33 @@
       }
 
       let boreArea = Math.PI * Math.pow(bore / 2, 2);
-      let volumePerStroke = boreArea * stroke;
+      let rodArea = Math.PI * Math.pow(rod / 2, 2);
+      let retractArea = boreArea - rodArea;
 
-      let strokesPerCycle = (doubleActing === "yes") ? 2 : 1;
-      let cubicInchesPerCycle = volumePerStroke * strokesPerCycle;
+      let extendVolume = boreArea * stroke;
+      let retractVolume = (doubleActing === "yes") ? retractArea * stroke : 0;
+      let totalCylinderVolumePerCycle = extendVolume + retractVolume;
 
       let compressionRatio = (pressure + 14.7) / 14.7;
-      let freeAirPerCycle = cubicInchesPerCycle * compressionRatio;
+      let freeAirPerCycle = totalCylinderVolumePerCycle * compressionRatio;
 
-      let cubicFeetPerMinute = (freeAirPerCycle * cpm) / 1728;
+      let scfm = (freeAirPerCycle * cpm) / 1728;
 
       output.innerHTML =
-        "<strong>Cylinder Volume Per Stroke</strong><br>" +
-        volumePerStroke.toFixed(2) + " in³<br><br>" +
+        "<strong>Extend Volume</strong><br>" +
+        extendVolume.toFixed(2) + " in³<br><br>" +
 
-        "<strong>Air Per Cycle</strong><br>" +
-        cubicInchesPerCycle.toFixed(2) + " in³<br><br>" +
+        "<strong>Retract Volume</strong><br>" +
+        retractVolume.toFixed(2) + " in³<br><br>" +
+
+        "<strong>Total Air Per Cycle</strong><br>" +
+        totalCylinderVolumePerCycle.toFixed(2) + " in³<br><br>" +
 
         "<strong>Free Air Equivalent Per Cycle</strong><br>" +
         freeAirPerCycle.toFixed(2) + " in³<br><br>" +
 
         "<strong>Estimated SCFM</strong><br>" +
-        cubicFeetPerMinute.toFixed(3) + " SCFM";
+        scfm.toFixed(3) + " SCFM";
     }
   </script>
 
