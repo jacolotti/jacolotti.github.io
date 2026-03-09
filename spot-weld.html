@@ -15,7 +15,7 @@
 
   <title>Spot Weld Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free spot weld calculator for automation and manufacturing engineers. Estimate starting current, weld time, electrode force, tip diameter, and nugget target for resistance spot welding by material and thickness.">
+  <meta name="description" content="Free spot weld calculator for automation and manufacturing engineers. Estimate starting current, weld time, electrode force, squeeze time, hold time, tip diameter, and nugget target for resistance spot welding by material and thickness.">
 
   <style>
     body{
@@ -87,20 +87,24 @@
       border-radius:5px;
     }
 
+    .button-row{
+      margin-top:18px;
+    }
+
     button{
       padding:12px 26px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
       border-radius:6px;
       cursor:pointer;
-      margin-top:20px;
+      margin:6px;
       transition:background .2s;
     }
 
     button:hover{
-      background:#1555ad;
+      background:#2d3d63;
     }
 
     .result{
@@ -127,6 +131,17 @@
       color:#666;
       font-size:14px;
     }
+
+    @media (max-width: 700px){
+      .container{
+        padding:20px;
+      }
+
+      button{
+        width:100%;
+        margin:6px 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -141,6 +156,7 @@
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
     <a href="servo-torque.html">Servo Torque</a>
+    <a href="gear-ratio.html">Gear Ratio</a>
     <a href="spot-weld.html">Spot Weld</a>
     <a href="projection-weld.html">Projection Weld</a>
   </div>
@@ -154,6 +170,10 @@
 
     <p class="description">
       This is a first-pass estimator for setup and planning. Final weld schedules should always be validated with destructive testing, nugget checks, peel tests, and real machine capability.
+    </p>
+
+    <p class="description">
+      This free spot weld calculator helps estimate weld current, force, weld time, squeeze time, hold time, tip diameter, and nugget target for common sheet metal spot welding applications.
     </p>
 
     <div class="grid">
@@ -194,7 +214,11 @@
       </div>
     </div>
 
-    <button onclick="calculateSpotWeld();">Calculate</button>
+    <div class="button-row">
+      <button onclick="calculateSpotWeld();">Calculate</button>
+      <button onclick="loadExample(); gtag('event','spot_weld_example');">Load Example</button>
+      <button onclick="clearCalculator(); gtag('event','spot_weld_clear');">Clear</button>
+    </div>
 
     <div class="result" id="output">
       Enter values and press Calculate
@@ -204,12 +228,20 @@
       Galvanized and galvaneal steels usually require more current and tighter process control because the coating affects contact resistance and electrode life.
     </p>
 
+    <p class="note">
+      Weld time shown in cycles assumes a standard 60 Hz timing reference. The millisecond value is included as a quick cross-reference, especially useful when comparing AC and MFDC timing discussions.
+    </p>
+
     <div class="footer">
       Automation Engineering Tools • Practical calculators for real automation work
     </div>
   </div>
 
   <script>
+    function showMessage(message){
+      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+    }
+
     function calculateSpotWeld(){
       const material = document.getElementById("material").value;
       const t1 = parseFloat(document.getElementById("thickness1").value) || 0;
@@ -235,6 +267,7 @@
       let forceFactor = 0.55;
       let cycleFactor = 12;
       let materialNote = "";
+      let machineNote = "";
 
       if(material === "mild"){
         currentFactor = 8.5;
@@ -266,15 +299,21 @@
 
       if(machine === "mfdc"){
         cycleFactor *= 0.70;
+        machineNote = "MFDC welders often allow shorter effective weld times and tighter process control than AC systems.";
+      } else {
+        machineNote = "AC welders often use cycle-based timing directly, so cycle estimates can be a convenient starting reference.";
       }
 
       const weldCurrentKA = currentFactor * totalThickness;
       const electrodeForceKN = forceFactor * totalThickness;
       const weldTimeCycles = cycleFactor * totalThickness;
+      const weldTimeMs = weldTimeCycles * (1000 / 60);
       const tipDiameterMM = 5 * Math.sqrt(minThickness);
       const nuggetDiameterMM = 4 * Math.sqrt(minThickness);
       const squeezeTimeCycles = Math.max(8, Math.round(6 + totalThickness * 4));
       const holdTimeCycles = Math.max(6, Math.round(4 + totalThickness * 3));
+      const squeezeTimeMs = squeezeTimeCycles * (1000 / 60);
+      const holdTimeMs = holdTimeCycles * (1000 / 60);
 
       const currentLow = weldCurrentKA * 0.9;
       const currentHigh = weldCurrentKA * 1.1;
@@ -282,6 +321,8 @@
       const forceHigh = electrodeForceKN * 1.1;
       const timeLow = weldTimeCycles * 0.9;
       const timeHigh = weldTimeCycles * 1.1;
+      const timeLowMs = timeLow * (1000 / 60);
+      const timeHighMs = timeHigh * (1000 / 60);
 
       gtag('event', 'spot_weld_calculation', {
         material: material,
@@ -301,13 +342,16 @@
         forceLow.toFixed(2) + " to " + forceHigh.toFixed(2) + " kN<br><br>" +
 
         "<strong>Suggested Weld Time Range</strong><br>" +
-        timeLow.toFixed(0) + " to " + timeHigh.toFixed(0) + " cycles<br><br>" +
+        timeLow.toFixed(0) + " to " + timeHigh.toFixed(0) + " cycles<br>" +
+        timeLowMs.toFixed(0) + " to " + timeHighMs.toFixed(0) + " ms<br><br>" +
 
         "<strong>Suggested Squeeze Time</strong><br>" +
-        squeezeTimeCycles.toFixed(0) + " cycles<br><br>" +
+        squeezeTimeCycles.toFixed(0) + " cycles<br>" +
+        squeezeTimeMs.toFixed(0) + " ms<br><br>" +
 
         "<strong>Suggested Hold Time</strong><br>" +
-        holdTimeCycles.toFixed(0) + " cycles<br><br>" +
+        holdTimeCycles.toFixed(0) + " cycles<br>" +
+        holdTimeMs.toFixed(0) + " ms<br><br>" +
 
         "<strong>Suggested Starting Tip Diameter</strong><br>" +
         tipDiameterMM.toFixed(1) + " mm<br><br>" +
@@ -315,8 +359,29 @@
         "<strong>Suggested Nugget Diameter Target</strong><br>" +
         nuggetDiameterMM.toFixed(1) + " mm<br><br>" +
 
-        "<strong>Process Note</strong><br>" +
-        materialNote;
+        "<strong>Material Note</strong><br>" +
+        materialNote + "<br><br>" +
+
+        "<strong>Machine Note</strong><br>" +
+        machineNote;
+    }
+
+    function clearCalculator(){
+      document.getElementById("material").value = "mild";
+      document.getElementById("thickness1").value = "1.0";
+      document.getElementById("thickness2").value = "1.0";
+      document.getElementById("quality").value = "standard";
+      document.getElementById("machine").value = "ac";
+      showMessage("Enter values and press Calculate");
+    }
+
+    function loadExample(){
+      document.getElementById("material").value = "galvanized";
+      document.getElementById("thickness1").value = "1.2";
+      document.getElementById("thickness2").value = "1.2";
+      document.getElementById("quality").value = "standard";
+      document.getElementById("machine").value = "mfdc";
+      calculateSpotWeld();
     }
   </script>
 </body>
