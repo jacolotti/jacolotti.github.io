@@ -125,26 +125,7 @@
 </head>
 <body>
 
- <div class="navbar">
-    <a href="index.html">Home</a>
-    <a href="pneumatic.html">Pneumatic</a>
-    <a href="robot.html">Robot</a>
-    <a href="motor.html">Motor</a>
-    <a href="roi.html">ROI</a>
-    <a href="voltage-drop.html">Voltage Drop</a>
-    <a href="air-consumption.html">Air Consumption</a>
-    <a href="bin-simulator.html">Bin Simulator</a>
-    <a href="servo-torque.html">Servo Torque</a>
-    <a href="gear-ratio.html">Gear Ratio</a>
-    <a href="spot-weld.html">Spot Weld</a>
-    <a href="projection-weld.html">Projection Weld</a>
-    <a href="robot-reach.html">Robot Reach</a>
-    <a href="conveyor-speed.html">Conveyor Speed</a>
-    <a href="gearbox-torque.html">Gearbox Torque</a>
-    <a href="pneumatic-speed.html">Pneumatic Speed</a>
-    <a href="robot-payload.html">Robot Payload</a>
-    <a href="multi-stage-torque-sequence.html">Torque Sequence</a>
-  </div>
+<div id="navbar"></div>
 
   <div class="container">
     <h2>Robot Payload Calculator</h2>
@@ -211,6 +192,17 @@
         "<strong>Safety Factor Applied</strong><br>" +
         safetyFactor.toFixed(2) + "%";
     }
+
+    <script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
   </script>
 
 </body>
