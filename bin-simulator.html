@@ -14,7 +14,7 @@
   </script>
 
   <title>Bin Loading Simulator | Automation Calculators</title>
-  <meta name="description" content="Free 2D bin loading simulator for automation engineers. Simulate rectangular or round parts free falling into a bin using adjustable size, drop height, friction, bounce, and quantity.">
+  <meta name="description" content="Free 2D bin loading simulator for automation engineers. Simulate rectangular or round parts free falling into a bin using adjustable size, drop height, friction, bounce, quantity, and spread.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -178,6 +178,9 @@
     <a href="air-consumption.html">Air Consumption</a>
     <a href="bin-simulator.html">Bin Simulator</a>
     <a href="servo-torque.html">Servo Torque</a>
+    <a href="gear-ratio.html">Gear Ratio</a>
+    <a href="spot-weld.html">Spot Weld</a>
+    <a href="projection-weld.html">Projection Weld</a>
   </div>
 
   <div class="container">
@@ -188,7 +191,11 @@
     </p>
 
     <p class="description">
-      This simulator is useful for early automation concept work, bin presentation ideas, rough part stacking visualization, and free-fall loading estimates. It is not a replacement for physical testing or full 3D simulation.
+      This simulator is useful for early automation concept work, part presentation ideas, rough part stacking visualization, tote loading review, and free-fall loading estimates. It is not a replacement for physical testing or full 3D simulation.
+    </p>
+
+    <p class="description">
+      Use this free bin loading simulator to explore automation part presentation, free fall into a bin, and rough stacking behavior for rectangular or round parts under varying drop conditions.
     </p>
 
     <div class="controls">
@@ -222,7 +229,7 @@
 
       <div class="control-group">
         <label for="dropHeight">Drop Height Above Bin (px)</label>
-        <input id="dropHeight" type="number" value="120" step="1" min="0">
+        <input id="dropHeight" type="number" value="120" step="1" min="0" max="400">
       </div>
 
       <div class="control-group">
@@ -252,7 +259,7 @@
     </div>
 
     <div class="button-row">
-      <button onclick="runSimulation()">Run Simulation</button>
+      <button onclick="runSimulation();">Run Simulation</button>
       <button onclick="dropOnePart(); gtag('event','bin_simulation_drop_one');">Drop One Part</button>
       <button onclick="clearParts(); gtag('event','bin_simulation_clear');">Clear Parts</button>
     </div>
@@ -266,7 +273,7 @@
     </div>
 
     <p class="note">
-      This is a simple 2D physics preview, not a final engineering validation tool. Use it for rough visualization only.
+      This is a simple 2D physics preview, not a final engineering validation tool. Fill result is an area-based estimate only and does not represent true 3D packing density or validated physical behavior.
     </p>
 
     <div class="footer">
@@ -292,19 +299,29 @@
       document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
     }
 
+    function safeParseFloat(id, fallback){
+      const value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? fallback : value;
+    }
+
+    function safeParseInt(id, fallback){
+      const value = parseInt(document.getElementById(id).value);
+      return isNaN(value) ? fallback : value;
+    }
+
     function getInputs(){
       return {
         partShape: document.getElementById("partShape").value,
-        partWidth: parseFloat(document.getElementById("partWidth").value) || 0,
-        partHeight: parseFloat(document.getElementById("partHeight").value) || 0,
-        binWidth: parseFloat(document.getElementById("binWidth").value) || 0,
-        binHeight: parseFloat(document.getElementById("binHeight").value) || 0,
-        dropHeight: parseFloat(document.getElementById("dropHeight").value) || 0,
-        partCount: parseInt(document.getElementById("partCount").value) || 0,
-        friction: parseFloat(document.getElementById("friction").value),
-        bounce: parseFloat(document.getElementById("bounce").value),
-        rotationRandomness: parseFloat(document.getElementById("rotationRandomness").value),
-        dropSpread: parseFloat(document.getElementById("dropSpread").value) || 0
+        partWidth: safeParseFloat("partWidth", 0),
+        partHeight: safeParseFloat("partHeight", 0),
+        binWidth: safeParseFloat("binWidth", 0),
+        binHeight: safeParseFloat("binHeight", 0),
+        dropHeight: safeParseFloat("dropHeight", 0),
+        partCount: safeParseInt("partCount", 0),
+        friction: safeParseFloat("friction", 0.5),
+        bounce: safeParseFloat("bounce", 0.15),
+        rotationRandomness: safeParseFloat("rotationRandomness", 0.4),
+        dropSpread: safeParseFloat("dropSpread", 70)
       };
     }
 
@@ -338,6 +355,11 @@
 
       if(i.dropHeight < 0){
         showMessage("Please enter a drop height of 0 or greater.");
+        return false;
+      }
+
+      if(i.dropHeight > 400){
+        showMessage("Please use a drop height of 400 px or less.");
         return false;
       }
 
@@ -453,11 +475,12 @@
         World.remove(engine.world, droppedParts);
         droppedParts = [];
       }
+      createBin();
       updateResults();
     }
 
     function getDropX(binLeft, binRight){
-      const spreadPercent = (parseFloat(document.getElementById("dropSpread").value) || 70) / 100;
+      const spreadPercent = getInputs().dropSpread / 100;
       const centerX = (binLeft + binRight) / 2;
       const usableWidth = (binRight - binLeft) * spreadPercent;
       const minX = centerX - usableWidth / 2;
@@ -467,11 +490,11 @@
 
     function createPartBody(x, y){
       const shape = document.getElementById("partShape").value;
-      const partWidth = parseFloat(document.getElementById("partWidth").value) || 50;
-      const partHeight = parseFloat(document.getElementById("partHeight").value) || 30;
-      const friction = parseFloat(document.getElementById("friction").value) || 0.5;
-      const bounce = parseFloat(document.getElementById("bounce").value) || 0.15;
-      const rotationRandomness = parseFloat(document.getElementById("rotationRandomness").value) || 0.4;
+      const partWidth = safeParseFloat("partWidth", 50);
+      const partHeight = safeParseFloat("partHeight", 30);
+      const friction = safeParseFloat("friction", 0.5);
+      const bounce = safeParseFloat("bounce", 0.15);
+      const rotationRandomness = safeParseFloat("rotationRandomness", 0.4);
 
       const commonOptions = {
         restitution: bounce,
@@ -561,8 +584,11 @@
         "<strong>Total Part Area</strong><br>" +
         totalPartArea.toFixed(1) + " px²<br><br>" +
 
-        "<strong>Estimated Bin Fill</strong><br>" +
-        fillPercent.toFixed(1) + "%";
+        "<strong>Approximate 2D Area Fill</strong><br>" +
+        fillPercent.toFixed(1) + "%<br><br>" +
+
+        "<strong>Note</strong><br>" +
+        "Area-based estimate only, not true packing density.";
     }
 
     initSimulation();
