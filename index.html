@@ -14,9 +14,9 @@ gtag('js', new Date());
 gtag('config', 'G-G4TY96JHNH');
 </script>
 
-<title>Automation Calculators | Servo Torque, Gear Ratio, Robot Reach, Conveyor Speed, Pneumatic, Welding</title>
+<title>Automation Calculators | Servo Torque, Gear Ratio, PLC Analog Scaling, Robot Reach, Conveyor Speed, Pneumatic, Welding</title>
 
-<meta name="description" content="Free automation engineering calculators for servo torque, gear ratio, robot reach, robot payload, robot cycle time, conveyor speed, gearbox torque, conveyor motor sizing, pneumatic cylinder force, pneumatic speed, voltage drop, air consumption, welding, and automation ROI.">
+<meta name="description" content="Free automation engineering calculators for servo torque, gear ratio, PLC analog scaling, robot reach, robot payload, robot cycle time, conveyor speed, gearbox torque, conveyor motor sizing, pneumatic cylinder force, pneumatic speed, voltage drop, air consumption, welding, and automation ROI.">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -118,6 +118,7 @@ font-size:14px;
 <a href="roi.html">ROI</a>
 <a href="voltage-drop.html">Voltage Drop</a>
 <a href="air-consumption.html">Air Consumption</a>
+<a href="analog-scaling.html">Analog Scaling</a>
 <a href="bin-simulator.html">Bin Simulator</a>
 <a href="servo-torque.html">Servo Torque</a>
 <a href="gear-ratio.html">Gear Ratio</a>
@@ -131,6 +132,7 @@ font-size:14px;
 <a href="multi-stage-torque-sequence.html">Torque Sequence</a> 
 <a href="bolt-tightening-torque.html">Bolt Tightening Torque</a>
 <a href="torque-angle.html">Torque Angle</a>
+<a href="torque-clamp-load.html">Torque to Clamp Load</a>
 </div>
 
 <div class="container">
@@ -142,11 +144,11 @@ Free calculators for engineers, automation specialists, controls engineers, mach
 </p>
 
 <p class="seo-text">
-AutomationCalculators.net provides free engineering calculators for machine design, robotics, motion control, industrial automation, pneumatics, conveyors, motor sizing, and resistance welding. Use these tools to estimate servo torque, gear ratio, robot reach, robot payload, robot cycle time, conveyor speed, gearbox output torque, pneumatic cylinder force, pneumatic cylinder speed, voltage drop, air consumption, spot weld schedules, projection weld settings, and automation ROI.
+AutomationCalculators.net provides free engineering calculators for machine design, robotics, motion control, industrial automation, pneumatics, conveyors, motor sizing, resistance welding, and PLC signal scaling. Use these tools to estimate servo torque, gear ratio, PLC analog scaling, robot reach, robot payload, robot cycle time, conveyor speed, gearbox output torque, pneumatic cylinder force, pneumatic cylinder speed, voltage drop, air consumption, spot weld schedules, projection weld settings, and automation ROI.
 </p>
 
 <p class="seo-text">
-These calculators are built for practical shop-floor and engineering use, helping with early design estimates, equipment sizing, motion calculations, welding process setup, pneumatic timing checks, and automation concept evaluation. The site serves as a growing library of automation calculators, machine design calculators, robotics calculators, and industrial engineering tools for real-world applications.
+These calculators are built for practical shop-floor and engineering use, helping with early design estimates, equipment sizing, motion calculations, welding process setup, pneumatic timing checks, analog input scaling, and automation concept evaluation. The site serves as a growing library of automation calculators, machine design calculators, robotics calculators, PLC calculators, and industrial engineering tools for real-world applications.
 </p>
 
 <div class="tools">
@@ -206,6 +208,11 @@ These calculators are built for practical shop-floor and engineering use, helpin
 <p>Calculate gearbox output torque and output speed using motor torque, motor RPM, gear ratio, and efficiency.</p>
 </a>
 
+<a class="tool" href="analog-scaling.html" onclick="gtag('event','tool_open',{tool:'analog_scaling'});">
+<h3>PLC Analog Scaling Calculator</h3>
+<p>Convert 4-20mA, 0-10V, or PLC raw counts into engineering units using standard linear scaling formulas.</p>
+</a>
+
 <a class="tool" href="voltage-drop.html" onclick="gtag('event','tool_open',{tool:'voltage_drop'});">
 <h3>Voltage Drop Calculator</h3>
 <p>Calculate voltage drop, percent drop, and final voltage using wire gauge, current, length, and conductor material.</p>
@@ -237,18 +244,18 @@ These calculators are built for practical shop-floor and engineering use, helpin
 </a> 
 
 <a class="tool" href="torque-clamp-load.html" onclick="gtag('event','tool_open',{tool:'torque_clamp_load'});">
-  <h3>Torque to Clamp Load Calculator</h3>
-  <p>Estimate bolt clamp load from applied torque using bolt size, tensile stress area, nut factor, and tightening assumptions.</p>
+<h3>Torque to Clamp Load Calculator</h3>
+<p>Estimate bolt clamp load from applied torque using bolt size, tensile stress area, nut factor, and tightening assumptions.</p>
 </a>
 
 <a class="tool" href="bolt-tightening-torque.html" onclick="gtag('event','tool_open',{tool:'bolt_tightening_torque'});">
-  <h3>Bolt Tightening Torque Calculator</h3>
-  <p>Estimate recommended bolt torque from metric size, property class, target proof load percentage, and nut factor.</p>
+<h3>Bolt Tightening Torque Calculator</h3>
+<p>Estimate recommended bolt torque from metric size, property class, target proof load percentage, and nut factor.</p>
 </a>
 
 <a class="tool" href="torque-angle.html" onclick="gtag('event','tool_open',{tool:'torque_angle'});">
-  <h3>Torque Angle Calculator</h3>
-  <p>Estimate thread advance, effective joint movement, and approximate clamp load change from bolt pitch and angle after torque.</p>
+<h3>Torque Angle Calculator</h3>
+<p>Estimate thread advance, effective joint movement, and approximate clamp load change from bolt pitch and angle after torque.</p>
 </a>
 
 </div>
