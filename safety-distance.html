@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="canonical" href="https://automationcalculators.net/safety-distance.html">
+<meta name="robots" content="index, follow">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-G4TY96JHNH');
+</script>
+
+<title>Safety Distance Calculator | Automation Calculators</title>
+
+<meta name="description" content="Free machine safety distance calculator for automation engineers. Estimate required safety distance for light curtains, safety scanners, and machine guarding using stop time and approach speed.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+text-align:center;
+margin:0;
+}
+
+.navbar{
+background:#1f2a44;
+padding:15px;
+margin-bottom:40px;
+text-align:left;
+}
+
+.navbar a{
+color:white;
+margin:0 15px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.navbar a:hover{
+text-decoration:underline;
+opacity:0.8;
+}
+
+.container{
+background:white;
+padding:30px;
+max-width:700px;
+margin:auto;
+border-radius:10px;
+box-shadow:0px 0px 10px rgba(0,0,0,.1);
+}
+
+.container h2{
+margin-bottom:10px;
+}
+
+.description{
+margin-top:0;
+margin-bottom:18px;
+color:#555;
+font-size:16px;
+line-height:1.5;
+font-weight:normal;
+}
+
+.container p{
+margin-top:20px;
+margin-bottom:5px;
+font-weight:500;
+text-align:left;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+font-size:16px;
+box-sizing:border-box;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+button{
+padding:12px 26px;
+font-size:16px;
+background:#1e6bd6;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+margin-top:15px;
+transition:background .2s;
+}
+
+button:hover{
+background:#1555ad;
+}
+
+.result{
+margin-top:25px;
+padding:20px;
+background:#e9f1ff;
+border:1px solid #c8d9ff;
+border-radius:8px;
+font-size:18px;
+line-height:1.6;
+font-weight:500;
+}
+
+.note{
+margin-top:20px;
+color:#666;
+font-size:14px;
+line-height:1.5;
+}
+
+.footer{
+margin-top:40px;
+color:#666;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+<h2>Safety Distance Calculator</h2>
+
+<p class="description">
+Estimate required machine safety distance for light curtains, safety scanners, and guarding devices using stop time, system response time, and approach speed.
+</p>
+
+<p class="description">
+This calculator is commonly used during machine design and risk assessment to determine the minimum safe mounting distance for safeguarding devices.
+</p>
+
+<p>Machine Stop Time (ms)</p>
+<input id="machineStop" type="number" value="250" min="0" step="1">
+
+<p>Safety System Response Time (ms)</p>
+<input id="responseTime" type="number" value="50" min="0" step="1">
+
+<p>Approach Speed (mm/s)</p>
+<input id="approachSpeed" type="number" value="1600" min="1" step="1">
+
+<p>Intrusion Factor C (mm)</p>
+<input id="intrusion" type="number" value="120" min="0" step="1">
+
+<button onclick="calculateSafetyDistance(); gtag('event','safety_distance_calculation');">Calculate</button>
+
+<div class="result" id="output">
+Enter values and press Calculate
+</div>
+
+<p class="note">
+Formula used: <strong>S = (K × T) + C</strong><br><br>
+S = Safety distance<br>
+K = Approach speed<br>
+T = Total stop time<br>
+C = Intrusion factor<br><br>
+This calculator provides a simplified estimate and should not replace a full safety risk assessment.
+</p>
+
+<div class="footer">
+Automation Engineering Tools • Practical calculators for real automation work
+</div>
+
+</div>
+
+<script>
+
+function calculateSafetyDistance(){
+
+let machineStop = parseFloat(document.getElementById("machineStop").value) || 0;
+let responseTime = parseFloat(document.getElementById("responseTime").value) || 0;
+let approachSpeed = parseFloat(document.getElementById("approachSpeed").value) || 0;
+let intrusion = parseFloat(document.getElementById("intrusion").value) || 0;
+
+const output = document.getElementById("output");
+
+if(machineStop < 0 || responseTime < 0 || approachSpeed <= 0 || intrusion < 0){
+output.innerHTML = "<strong>Please enter valid values.</strong>";
+return;
+}
+
+let totalTimeMs = machineStop + responseTime;
+let totalTimeSec = totalTimeMs / 1000;
+
+let safetyDistance = (approachSpeed * totalTimeSec) + intrusion;
+
+output.innerHTML =
+"<strong>Total Stop Time</strong><br>" +
+totalTimeMs.toFixed(1) + " ms<br><br>" +
+
+"<strong>Total Stop Time</strong><br>" +
+totalTimeSec.toFixed(3) + " s<br><br>" +
+
+"<strong>Required Safety Distance</strong><br>" +
+safetyDistance.toFixed(1) + " mm";
+
+}
+
+</script>
+
+<script>
+fetch("navbar.html")
+.then(response => response.text())
+.then(data => {
+document.getElementById("navbar").innerHTML = data;
+})
+.catch(error => {
+console.error("Navbar failed to load:", error);
+});
+</script>
+
+</body>
+</html>
