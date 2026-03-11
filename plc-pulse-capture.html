@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/plc-pulse-capture.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>PLC Scan Time & Pulse Capture Calculator | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free PLC scan time and pulse capture calculator for automation engineers. Estimate whether a PLC input can reliably detect a sensor pulse using pulse width, off time, scan time, input filter, and safety margin.">
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+      color:#222;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:800px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,.1);
+    }
+
+    .container h2{
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:18px;
+      text-align:left;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+      background:white;
+    }
+
+    .button-row{
+      margin-top:18px;
+    }
+
+    button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1f2a44;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      margin:6px;
+      transition:background .2s;
+    }
+
+    button:hover{
+      background:#2d3d63;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+
+    .good{
+      color:#1d6b2b;
+      font-weight:bold;
+    }
+
+    .warn{
+      color:#9a6400;
+      font-weight:bold;
+    }
+
+    .bad{
+      color:#a12626;
+      font-weight:bold;
+    }
+
+    @media (max-width:700px){
+      .container{
+        padding:20px;
+        margin:0 12px;
+      }
+
+      button{
+        width:100%;
+        margin:6px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+  <h2>PLC Scan Time & Pulse Capture Calculator</h2>
+
+  <p class="description">
+    Estimate whether a PLC input can reliably detect a sensor pulse using pulse width, off time, PLC scan time, input filter time, and safety margin.
+  </p>
+
+  <p class="description">
+    This tool is useful for checking sensor pulses, part tracking, prox input timing, missed pulses, scan limitations, and whether a standard input is likely fast enough.
+  </p>
+
+  <p class="description">
+    Use this free PLC pulse capture calculator to estimate pulse frequency, duty cycle, minimum practical pulse width, and whether the signal is likely detectable by normal PLC scan logic.
+  </p>
+
+  <div class="grid">
+    <div class="field">
+      <label for="onTime">Pulse ON Time (ms)</label>
+      <input id="onTime" type="number" value="20" min="0.001" step="0.001">
+    </div>
+
+    <div class="field">
+      <label for="offTime">Pulse OFF Time (ms)</label>
+      <input id="offTime" type="number" value="80" min="0.001" step="0.001">
+    </div>
+
+    <div class="field">
+      <label for="scanTime">PLC Scan Time (ms)</label>
+      <input id="scanTime" type="number" value="10" min="0.001" step="0.001">
+    </div>
+
+    <div class="field">
+      <label for="inputFilter">Input Filter Time (ms)</label>
+      <input id="inputFilter" type="number" value="3" min="0" step="0.001">
+    </div>
+
+    <div class="field">
+      <label for="marginFactor">Safety Margin Factor</label>
+      <select id="marginFactor">
+        <option value="1.0">Minimal (1.0x)</option>
+        <option value="1.5" selected>Practical (1.5x)</option>
+        <option value="2.0">Conservative (2.0x)</option>
+        <option value="3.0">Very Conservative (3.0x)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="captureMethod">Detection Method</label>
+      <select id="captureMethod">
+        <option value="normal" selected>Normal Cyclic PLC Logic</option>
+        <option value="interrupt">Fast Task / Interrupt Logic</option>
+        <option value="hsc">High-Speed Input / Counter</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="button-row">
+    <button onclick="calculatePulseCapture();">Calculate</button>
+    <button onclick="loadExample(); gtag('event','plc_pulse_capture_example');">Load Example</button>
+    <button onclick="clearCalculator(); gtag('event','plc_pulse_capture_clear');">Clear</button>
+  </div>
+
+  <div class="result" id="output">
+    Enter values and press Calculate
+  </div>
+
+  <p class="note">
+    This is a practical engineering estimate, not a guarantee. Actual detectability depends on PLC input hardware, input update behavior, task timing, asynchronous input handling, debounce/filter settings, and whether latching or edge capture is used.
+  </p>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
+  </div>
+</div>
+
+<script>
+  function showMessage(message){
+    document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+  }
+
+  function roundTo(value, decimals){
+    return Number(value.toFixed(decimals));
+  }
+
+  function calculatePulseCapture(){
+    const onTime = parseFloat(document.getElementById("onTime").value) || 0;
+    const offTime = parseFloat(document.getElementById("offTime").value) || 0;
+    const scanTime = parseFloat(document.getElementById("scanTime").value) || 0;
+    const inputFilter = parseFloat(document.getElementById("inputFilter").value) || 0;
+    const marginFactor = parseFloat(document.getElementById("marginFactor").value) || 1;
+    const captureMethod = document.getElementById("captureMethod").value;
+    const output = document.getElementById("output");
+
+    if(onTime <= 0){
+      output.innerHTML = "<strong>Please enter a pulse ON time greater than 0.</strong>";
+      return;
+    }
+
+    if(offTime <= 0){
+      output.innerHTML = "<strong>Please enter a pulse OFF time greater than 0.</strong>";
+      return;
+    }
+
+    if(scanTime <= 0){
+      output.innerHTML = "<strong>Please enter a PLC scan time greater than 0.</strong>";
+      return;
+    }
+
+    if(inputFilter < 0){
+      output.innerHTML = "<strong>Please enter an input filter time of 0 or greater.</strong>";
+      return;
+    }
+
+    const periodMs = onTime + offTime;
+    const frequencyHz = 1000 / periodMs;
+    const dutyCycle = (onTime / periodMs) * 100;
+
+    let baseDetectMs = Math.max(onTime, inputFilter);
+    let recommendedMinPulseMs = 0;
+    let methodNote = "";
+    let statusClass = "good";
+    let statusText = "";
+    let engineeringNote = "";
+
+    if(captureMethod === "normal"){
+      recommendedMinPulseMs = Math.max(baseDetectMs, scanTime * marginFactor, inputFilter * marginFactor);
+      methodNote = "Normal cyclic PLC logic usually needs pulse width comfortably larger than scan time and input filter time.";
+    } else if(captureMethod === "interrupt"){
+      recommendedMinPulseMs = Math.max(baseDetectMs, (scanTime * 0.35) * marginFactor, inputFilter * marginFactor);
+      methodNote = "Fast task or interrupt logic usually improves capture reliability, but hardware input update limits still matter.";
+    } else {
+      recommendedMinPulseMs = Math.max(baseDetectMs, inputFilter * marginFactor);
+      methodNote = "High-speed inputs or counters can often detect pulses much shorter than the normal PLC scan, depending on hardware design.";
+    }
+
+    const detectRatio = onTime / recommendedMinPulseMs;
+
+    if(detectRatio >= 1.2){
+      statusClass = "good";
+      statusText = "Likely detectable";
+      engineeringNote = "This pulse width appears reasonably safe for the selected detection method.";
+    } else if(detectRatio >= 0.9){
+      statusClass = "warn";
+      statusText = "Borderline";
+      engineeringNote = "This pulse may be detected sometimes, but it is too close to practical timing limits for comfort.";
+    } else {
+      statusClass = "bad";
+      statusText = "Likely to be missed";
+      engineeringNote = "This pulse is too short for the selected method without faster handling, reduced filtering, or pulse stretching.";
+    }
+
+    let recommendation = "";
+    if(captureMethod === "normal" && detectRatio < 1.0){
+      recommendation = "Consider a high-speed input, interrupt task, one-shot latching, faster scan, or longer sensor ON time.";
+    } else if(inputFilter >= onTime){
+      recommendation = "Input filter time is equal to or longer than the pulse ON time. The filter alone may block detection.";
+    } else if(captureMethod === "hsc"){
+      recommendation = "Verify the actual hardware high-speed input frequency limit and whether the signal needs edge or level capture.";
+    } else {
+      recommendation = "Normal cyclic logic may be acceptable, but validate on the actual PLC and input hardware.";
+    }
+
+    gtag('event', 'plc_pulse_capture_calculation', {
+      on_time_ms: onTime,
+      off_time_ms: offTime,
+      scan_time_ms: scanTime,
+      input_filter_ms: inputFilter,
+      capture_method: captureMethod
+    });
+
+    output.innerHTML =
+      "<strong>Pulse Frequency</strong><br>" +
+      roundTo(frequencyHz, 2) + " Hz<br><br>" +
+
+      "<strong>Pulse Period</strong><br>" +
+      roundTo(periodMs, 3) + " ms<br><br>" +
+
+      "<strong>Duty Cycle</strong><br>" +
+      roundTo(dutyCycle, 1) + "%<br><br>" +
+
+      "<strong>Minimum Practical Pulse Width for Selected Method</strong><br>" +
+      roundTo(recommendedMinPulseMs, 3) + " ms<br><br>" +
+
+      "<strong>Detection Status</strong><br>" +
+      "<span class='" + statusClass + "'>" + statusText + "</span><br><br>" +
+
+      "<strong>Method Note</strong><br>" +
+      methodNote + "<br><br>" +
+
+      "<strong>Engineering Note</strong><br>" +
+      engineeringNote + "<br><br>" +
+
+      "<strong>Recommendation</strong><br>" +
+      recommendation + "<br><br>" +
+
+      "<strong>Entered Pulse ON Time</strong><br>" +
+      roundTo(onTime, 3) + " ms<br><br>" +
+
+      "<strong>Entered PLC Scan Time</strong><br>" +
+      roundTo(scanTime, 3) + " ms<br><br>" +
+
+      "<strong>Entered Input Filter Time</strong><br>" +
+      roundTo(inputFilter, 3) + " ms";
+  }
+
+  function clearCalculator(){
+    document.getElementById("onTime").value = "20";
+    document.getElementById("offTime").value = "80";
+    document.getElementById("scanTime").value = "10";
+    document.getElementById("inputFilter").value = "3";
+    document.getElementById("marginFactor").value = "1.5";
+    document.getElementById("captureMethod").value = "normal";
+    showMessage("Enter values and press Calculate");
+  }
+
+  function loadExample(){
+    document.getElementById("onTime").value = "6";
+    document.getElementById("offTime").value = "24";
+    document.getElementById("scanTime").value = "8";
+    document.getElementById("inputFilter").value = "2";
+    document.getElementById("marginFactor").value = "1.5";
+    document.getElementById("captureMethod").value = "normal";
+    calculatePulseCapture();
+  }
+</script>
+
+<script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
