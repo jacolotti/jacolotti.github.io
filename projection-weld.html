@@ -15,14 +15,15 @@
 
   <title>Projection Weld Starting Parameter Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free projection weld starting parameter calculator for automation and manufacturing engineers. Estimate conservative starting current, force, weld time, and projection count for weld nuts, weld studs, weld bolts, and stamped multi-projection parts.">
+  <meta name="description" content="Free projection weld starting parameter calculator for automation and manufacturing engineers. Estimate conservative starting current, force in kN and lbf, weld time, and projection count for weld nuts, weld studs, weld bolts, and stamped multi-projection parts.">
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
       text-align:center;
       margin:0;
+      color:#222;
     }
 
     .navbar{
@@ -62,7 +63,7 @@
       font-size:16px;
       cursor:pointer;
       padding:8px 10px;
-      font-family:Arial;
+      font-family:Arial, sans-serif;
     }
 
     .dropbtn:hover{
@@ -77,7 +78,7 @@
       left:0;
       background:white;
       min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
       border-radius:8px;
       z-index:1000;
       overflow:hidden;
@@ -143,6 +144,7 @@
       box-sizing:border-box;
       border:1px solid #ccc;
       border-radius:5px;
+      background:white;
     }
 
     .button-row{
@@ -222,7 +224,7 @@
     </p>
 
     <p class="description">
-      Use this free projection weld calculator to estimate projection count, total weld current range, current per projection, force range, and weld time range for common projection welding applications.
+      Use this free projection weld calculator to estimate projection count, total weld current range, current per projection, force range in kN and lbf, and weld time range for common projection welding applications.
     </p>
 
     <div class="grid">
@@ -260,12 +262,12 @@
 
       <div class="field">
         <label for="baseThickness">Base Material Thickness (mm)</label>
-        <input id="baseThickness" type="number" value="2.0" min="0.3" step="0.01">
+        <input id="baseThickness" type="number" value="2.0" min="0.3" max="8" step="0.01">
       </div>
 
       <div class="field">
         <label for="projections">Number of Projections</label>
-        <input id="projections" type="number" value="3" min="1" step="1">
+        <input id="projections" type="number" value="3" min="1" max="12" step="1">
       </div>
 
       <div class="field">
@@ -286,12 +288,12 @@
 
       <div class="field hidden" id="customCurrentField">
         <label for="customCurrentPerProjection">Custom Current per Projection (kA)</label>
-        <input id="customCurrentPerProjection" type="number" value="4.5" min="0.1" step="0.1">
+        <input id="customCurrentPerProjection" type="number" value="4.5" min="0.1" max="50" step="0.1">
       </div>
 
       <div class="field hidden" id="customForceField">
         <label for="customForcePerProjection">Custom Force per Projection (kN)</label>
-        <input id="customForcePerProjection" type="number" value="1.0" min="0.1" step="0.1">
+        <input id="customForcePerProjection" type="number" value="1.0" min="0.1" max="20" step="0.1">
       </div>
     </div>
 
@@ -306,7 +308,7 @@
     </div>
 
     <p class="note">
-      Projection welding is highly sensitive to projection geometry, fastener design, coating, machine stiffness, force follow-up, electrode face condition, and secondary impedance. These values are intentionally conservative starting ranges, not guaranteed production settings.
+      Projection welding is highly sensitive to projection geometry, fastener design, coating, machine stiffness, force follow-up, electrode face condition, and secondary impedance. These values are conservative starting ranges, not guaranteed production settings.
     </p>
 
     <p class="note">
@@ -319,6 +321,8 @@
   </div>
 
   <script>
+    const LBF_PER_KN = 224.809;
+
     const presetData = {
       weldNut: {
         M5:  { projections: 3, current: 3.8, force: 0.8, time: 7, note: "Small weld nuts usually start with moderate current and stable collapse control." },
@@ -354,6 +358,10 @@
       document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
     }
 
+    function roundTo(value, decimals){
+      return Number(value.toFixed(decimals));
+    }
+
     function toggleCustomFields(){
       const isCustom = document.getElementById("partType").value === "custom";
       document.getElementById("customCurrentField").classList.toggle("hidden", !isCustom);
@@ -371,12 +379,19 @@
         return;
       }
 
-      const preset = presetData[partType][size];
+      const presetGroup = presetData[partType];
+      if(!presetGroup || !presetGroup[size]){
+        return;
+      }
+
+      const preset = presetGroup[size];
       document.getElementById("projections").value = preset.projections;
 
       let baseThickness = parseFloat(document.getElementById("baseThickness").value) || 2.0;
+
       if(baseThickness < 0.8 && (size === "M10" || size === "M12")){
         document.getElementById("baseThickness").value = "1.5";
+        baseThickness = 1.5;
       }
 
       if(material === "stainless" && baseThickness < 1.0){
@@ -389,7 +404,7 @@
       const size = document.getElementById("size").value;
       const material = document.getElementById("material").value;
       const baseThickness = parseFloat(document.getElementById("baseThickness").value) || 0;
-      const projections = parseInt(document.getElementById("projections").value) || 0;
+      const projections = parseInt(document.getElementById("projections").value, 10) || 0;
       const quality = document.getElementById("quality").value;
       const machine = document.getElementById("machine").value;
       const output = document.getElementById("output");
@@ -399,8 +414,18 @@
         return;
       }
 
+      if(baseThickness > 8){
+        output.innerHTML = "<strong>This calculator is intended for common light to moderate projection welding applications up to about 8 mm base thickness.</strong>";
+        return;
+      }
+
       if(projections <= 0){
         output.innerHTML = "<strong>Please enter at least 1 projection.</strong>";
+        return;
+      }
+
+      if(projections > 12){
+        output.innerHTML = "<strong>Please keep projection count at 12 or less for this starting calculator.</strong>";
         return;
       }
 
@@ -410,6 +435,8 @@
       let applicationNote = "";
       let materialNote = "";
       let machineNote = "";
+      let thicknessNote = "";
+      let loadingNote = "";
 
       if(partType === "custom"){
         currentPerProjection = parseFloat(document.getElementById("customCurrentPerProjection").value) || 0;
@@ -421,7 +448,7 @@
           return;
         }
 
-        applicationNote = "Custom projection parts vary significantly with projection geometry, contact area, and tooling setup.";
+        applicationNote = "Custom projection parts vary significantly with projection geometry, contact area, part rigidity, and tooling setup.";
       } else {
         const preset = presetData[partType][size];
         currentPerProjection = preset.current;
@@ -438,9 +465,21 @@
       if(thicknessForceFactor < 0.80) thicknessForceFactor = 0.80;
       if(thicknessTimeFactor < 0.85) thicknessTimeFactor = 0.85;
 
+      if(thicknessCurrentFactor > 1.30) thicknessCurrentFactor = 1.30;
+      if(thicknessForceFactor > 1.30) thicknessForceFactor = 1.30;
+      if(thicknessTimeFactor > 1.25) thicknessTimeFactor = 1.25;
+
       currentPerProjection *= thicknessCurrentFactor;
       forcePerProjection *= thicknessForceFactor;
       baseCycles *= thicknessTimeFactor;
+
+      if(baseThickness < 1.0){
+        thicknessNote = "Thin base material detected. Watch for push-through, expulsion, distortion, and thread damage risk.";
+      } else if(baseThickness >= 3.5){
+        thicknessNote = "Heavier base material detected. Expect greater heat sink effect and make sure machine current delivery is actually available.";
+      } else {
+        thicknessNote = "Base thickness is in a common working range for many standard projection welding applications.";
+      }
 
       if(material === "galvanized"){
         currentPerProjection *= 1.08;
@@ -473,18 +512,36 @@
       }
 
       const totalCurrent = currentPerProjection * projections;
-      const totalForce = forcePerProjection * projections;
+      const totalForceKN = forcePerProjection * projections;
+      const totalForceLbf = totalForceKN * LBF_PER_KN;
+      const forcePerProjectionLbf = forcePerProjection * LBF_PER_KN;
+
       const timeCycles = baseCycles;
       const timeMs = timeCycles * (1000 / 60);
 
       const currentLow = totalCurrent * 0.85;
       const currentHigh = totalCurrent * 1.05;
-      const forceLow = totalForce * 0.90;
-      const forceHigh = totalForce * 1.10;
+
+      const forceLowKN = totalForceKN * 0.90;
+      const forceHighKN = totalForceKN * 1.10;
+      const forceLowLbf = forceLowKN * LBF_PER_KN;
+      const forceHighLbf = forceHighKN * LBF_PER_KN;
+
       const timeLow = timeCycles * 0.90;
       const timeHigh = timeCycles * 1.10;
       const timeLowMs = timeLow * (1000 / 60);
       const timeHighMs = timeHigh * (1000 / 60);
+
+      const currentPerProjectionLow = currentPerProjection * 0.90;
+      const currentPerProjectionHigh = currentPerProjection * 1.10;
+
+      if(projections === 1){
+        loadingNote = "Single-projection loading is simpler to balance, but collapse and expulsion can happen quickly if force follow-up is weak.";
+      } else if(projections <= 4){
+        loadingNote = "Moderate projection count usually remains manageable if tooling flatness and force distribution are good.";
+      } else {
+        loadingNote = "Higher projection count increases the need for even force distribution, flat tooling, and clean current balance across all projections.";
+      }
 
       let typeLabel = "";
       if(partType === "weldNut") typeLabel = "Weld Nut";
@@ -498,7 +555,8 @@
         size: size,
         projections: projections,
         machine_type: machine,
-        material: material
+        material: material,
+        base_thickness_mm: baseThickness
       });
 
       output.innerHTML =
@@ -512,23 +570,35 @@
         projections + "<br><br>" +
 
         "<strong>Conservative Starting Total Current Range</strong><br>" +
-        currentLow.toFixed(1) + " to " + currentHigh.toFixed(1) + " kA<br><br>" +
+        roundTo(currentLow, 1) + " to " + roundTo(currentHigh, 1) + " kA<br><br>" +
 
         "<strong>Starting Current per Projection</strong><br>" +
-        currentPerProjection.toFixed(1) + " kA<br><br>" +
+        roundTo(currentPerProjectionLow, 1) + " to " + roundTo(currentPerProjectionHigh, 1) + " kA<br><br>" +
 
         "<strong>Starting Total Force Range</strong><br>" +
-        forceLow.toFixed(2) + " to " + forceHigh.toFixed(2) + " kN<br><br>" +
+        roundTo(forceLowKN, 2) + " to " + roundTo(forceHighKN, 2) + " kN<br>" +
+        roundTo(forceLowLbf, 0) + " to " + roundTo(forceHighLbf, 0) + " lbf<br><br>" +
 
         "<strong>Starting Force per Projection</strong><br>" +
-        forcePerProjection.toFixed(2) + " kN<br><br>" +
+        roundTo(forcePerProjection, 2) + " kN<br>" +
+        roundTo(forcePerProjectionLbf, 0) + " lbf<br><br>" +
+
+        "<strong>Nominal Total Force</strong><br>" +
+        roundTo(totalForceKN, 2) + " kN<br>" +
+        roundTo(totalForceLbf, 0) + " lbf<br><br>" +
 
         "<strong>Starting Weld Time Range</strong><br>" +
-        timeLow.toFixed(0) + " to " + timeHigh.toFixed(0) + " cycles<br>" +
-        timeLowMs.toFixed(0) + " to " + timeHighMs.toFixed(0) + " ms<br><br>" +
+        roundTo(timeLow, 0) + " to " + roundTo(timeHigh, 0) + " cycles<br>" +
+        roundTo(timeLowMs, 0) + " to " + roundTo(timeHighMs, 0) + " ms<br><br>" +
 
         "<strong>Application Note</strong><br>" +
         applicationNote + "<br><br>" +
+
+        "<strong>Thickness Note</strong><br>" +
+        thicknessNote + "<br><br>" +
+
+        "<strong>Projection Loading Note</strong><br>" +
+        loadingNote + "<br><br>" +
 
         "<strong>Material Note</strong><br>" +
         materialNote + "<br><br>" +
@@ -545,6 +615,7 @@
       document.getElementById("size").value = "M6";
       document.getElementById("material").value = "mild";
       document.getElementById("baseThickness").value = "2.0";
+      document.getElementById("projections").value = "3";
       document.getElementById("quality").value = "standard";
       document.getElementById("machine").value = "ac";
       document.getElementById("customCurrentPerProjection").value = "4.5";
