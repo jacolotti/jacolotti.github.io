@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/bolt-torque-chart.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Bolt Torque Chart | Metric & SAE Torque Values</title>
+  <meta name="description" content="Free bolt torque chart for common metric and SAE bolts. Quickly look up recommended torque values or estimate tightening torque using bolt diameter, grade, and friction factor.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      text-align:center;
+      color:#222;
+    }
+
+    .container{
+      max-width:1000px;
+      margin:0 auto 40px auto;
+      background:white;
+      padding:30px 20px 40px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1{
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    h2{
+      color:#1f2a44;
+      margin-top:35px;
+      margin-bottom:15px;
+    }
+
+    p{
+      line-height:1.6;
+      max-width:850px;
+      margin:10px auto;
+    }
+
+    table{
+      width:100%;
+      max-width:900px;
+      border-collapse:collapse;
+      margin:20px auto;
+    }
+
+    th, td{
+      border:1px solid #ccc;
+      padding:12px 10px;
+      text-align:center;
+    }
+
+    th{
+      background:#1f2a44;
+      color:white;
+    }
+
+    tr:nth-child(even){
+      background:#f7f7f7;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+      gap:15px;
+      max-width:700px;
+      margin:25px auto;
+    }
+
+    .card{
+      background:#f8f9fb;
+      border:1px solid #d9dfeb;
+      border-radius:8px;
+      padding:18px;
+    }
+
+    label{
+      display:block;
+      font-weight:bold;
+      margin-bottom:6px;
+      text-align:left;
+      color:#1f2a44;
+    }
+
+    input{
+      width:100%;
+      padding:10px;
+      border:1px solid #bbb;
+      border-radius:6px;
+      font-size:16px;
+      box-sizing:border-box;
+    }
+
+    button{
+      background:#1f2a44;
+      color:white;
+      border:none;
+      padding:12px 24px;
+      font-size:16px;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    button:hover{
+      background:#2d3b5f;
+    }
+
+    .result{
+      margin-top:25px;
+      font-size:18px;
+      font-weight:bold;
+      color:#1f2a44;
+      line-height:1.6;
+    }
+
+    .formula{
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:8px;
+      padding:18px;
+      margin:20px auto;
+      max-width:600px;
+      font-weight:bold;
+      font-size:18px;
+    }
+
+    .footer-note{
+      font-size:13px;
+      color:#666;
+      margin-top:20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+<h1>Bolt Torque Chart</h1>
+
+<p>
+Use this bolt torque chart as a quick reference for common metric and SAE bolt sizes.
+Torque values vary depending on bolt grade, lubrication, and joint conditions.
+Always verify torque specifications for critical applications.
+</p>
+
+<h2>Metric Bolt Torque Chart (Class 8.8)</h2>
+
+<table>
+<tr>
+<th>Bolt Size</th>
+<th>Torque (Nm)</th>
+<th>Torque (ft-lb)</th>
+</tr>
+<tr><td>M5</td><td>5</td><td>4</td></tr>
+<tr><td>M6</td><td>10</td><td>7</td></tr>
+<tr><td>M8</td><td>25</td><td>18</td></tr>
+<tr><td>M10</td><td>49</td><td>36</td></tr>
+<tr><td>M12</td><td>85</td><td>63</td></tr>
+<tr><td>M14</td><td>135</td><td>100</td></tr>
+<tr><td>M16</td><td>210</td><td>155</td></tr>
+<tr><td>M20</td><td>410</td><td>302</td></tr>
+</table>
+
+<h2>SAE Bolt Torque Chart (Grade 8)</h2>
+
+<table>
+<tr>
+<th>Bolt Size</th>
+<th>Torque (ft-lb)</th>
+<th>Torque (Nm)</th>
+</tr>
+<tr><td>1/4"</td><td>12</td><td>16</td></tr>
+<tr><td>5/16"</td><td>25</td><td>34</td></tr>
+<tr><td>3/8"</td><td>45</td><td>61</td></tr>
+<tr><td>7/16"</td><td>70</td><td>95</td></tr>
+<tr><td>1/2"</td><td>110</td><td>149</td></tr>
+<tr><td>5/8"</td><td>215</td><td>291</td></tr>
+<tr><td>3/4"</td><td>380</td><td>515</td></tr>
+</table>
+
+<h2>Bolt Torque Calculator</h2>
+
+<p>
+Estimate tightening torque using a simplified engineering formula.
+</p>
+
+<div class="formula">
+Torque = K × F × D
+</div>
+
+<p>
+Where:<br>
+K = friction factor (~0.18–0.22 typical)<br>
+F = clamp load (N)<br>
+D = bolt diameter (m)
+</p>
+
+<div class="grid">
+
+<div class="card">
+<label>Bolt Diameter (mm)</label>
+<input id="diameter" type="number" placeholder="e.g. 10">
+</div>
+
+<div class="card">
+<label>Clamp Load (N)</label>
+<input id="force" type="number" placeholder="e.g. 20000">
+</div>
+
+<div class="card">
+<label>Friction Factor (K)</label>
+<input id="kfactor" type="number" step="0.01" value="0.20">
+</div>
+
+</div>
+
+<button onclick="calcTorque()">Calculate Torque</button>
+
+<div class="result" id="result"></div>
+
+<p class="footer-note">
+Actual torque requirements depend on lubrication, thread condition, joint stiffness, and bolt grade.
+</p>
+
+</div>
+
+<script>
+
+function calcTorque(){
+
+let d = parseFloat(document.getElementById("diameter").value)/1000;
+let f = parseFloat(document.getElementById("force").value);
+let k = parseFloat(document.getElementById("kfactor").value);
+
+if(isNaN(d)||isNaN(f)||isNaN(k)){
+document.getElementById("result").innerHTML="Enter valid values.";
+return;
+}
+
+let torqueNm = k*f*d;
+let torqueFt = torqueNm*0.737562;
+
+document.getElementById("result").innerHTML =
+"Estimated Torque: "+torqueNm.toFixed(1)+" Nm<br>"+
+torqueFt.toFixed(1)+" ft-lb";
+
+}
+
+fetch("navbar.html?v=20260311")
+.then(response => response.text())
+.then(data => {
+document.getElementById("navbar").innerHTML = data;
+});
+
+</script>
+
+</body>
+</html>
