@@ -13,7 +13,7 @@
   </script>
 
   <title>Bolt Tightening Torque Calculator | Automation Calculators</title>
-  <meta name="description" content="Free bolt tightening torque calculator. Estimate recommended bolt torque from metric size, property class, target proof load percentage, and nut factor with practical starting ranges.">
+  <meta name="description" content="Free bolt tightening torque calculator for practical engineering use. Estimate starting bolt torque, clamp load, preload stress, and torque ranges by metric size, thread pitch, property class, preload target, and assembly condition.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -103,7 +103,7 @@
     .container{
       background:white;
       padding:30px;
-      max-width:1100px;
+      max-width:1150px;
       margin:auto;
       border-radius:10px;
       box-shadow:0 0 10px rgba(0,0,0,.1);
@@ -124,7 +124,7 @@
 
     .controls{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
       gap:16px;
       margin-bottom:20px;
       text-align:left;
@@ -132,7 +132,7 @@
 
     .control-group label{
       display:block;
-      font-weight:500;
+      font-weight:600;
       margin-bottom:6px;
     }
 
@@ -175,10 +175,31 @@
       border-radius:8px;
       font-size:17px;
       line-height:1.6;
-      max-width:900px;
+      max-width:980px;
       margin-left:auto;
       margin-right:auto;
       text-align:left;
+      overflow-x:auto;
+    }
+
+    .result table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      font-size:15px;
+      background:white;
+    }
+
+    .result th,
+    .result td{
+      border:1px solid #d8e3f5;
+      padding:10px;
+      text-align:left;
+    }
+
+    .result th{
+      background:#f4f8ff;
+      color:#1f2a44;
     }
 
     .note{
@@ -186,7 +207,7 @@
       color:#666;
       font-size:14px;
       line-height:1.5;
-      max-width:900px;
+      max-width:980px;
       margin-left:auto;
       margin-right:auto;
       text-align:left;
@@ -196,6 +217,21 @@
       margin-top:40px;
       color:#666;
       font-size:14px;
+    }
+
+    .warn{
+      color:#8a4b00;
+      font-weight:600;
+    }
+
+    .danger{
+      color:#a12626;
+      font-weight:600;
+    }
+
+    .good{
+      color:#1b6b2a;
+      font-weight:600;
     }
 
     @media (max-width:700px){
@@ -212,282 +248,432 @@
 </head>
 <body>
 
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h2>Bolt Tightening Torque Calculator</h2>
+<div class="container">
+  <h2>Bolt Tightening Torque Calculator</h2>
 
-    <p class="description">
-      Estimate recommended tightening torque from metric bolt size, property class, target proof load percentage, and nut factor.
-    </p>
+  <p class="description">
+    Estimate practical starting bolt torque from metric size, thread pitch, property class, preload target, and assembly condition.
+  </p>
 
-    <p class="description">
-      This calculator is useful for rough bolt torque planning in automation, fixtures, machine build, tooling, and assembly applications.
-    </p>
+  <p class="description">
+    This calculator is intended for rough engineering use in automation, fixtures, tooling, machine build, and assembly planning. It is most useful as a preload-based starting estimate, not as a final validated torque specification.
+  </p>
 
-    <p class="description">
-      Use this free bolt tightening torque calculator to generate a practical starting torque value from proof strength and target preload percentage.
-    </p>
+  <p class="description">
+    Use this free bolt tightening torque calculator to estimate clamp load, preload stress, torque ranges, and the effect of assembly friction conditions.
+  </p>
 
-    <div class="controls">
-      <div class="control-group">
-        <label for="boltSize">Metric Bolt Size</label>
-        <select id="boltSize" onchange="applyBoltData()">
-          <option value="M4">M4</option>
-          <option value="M5">M5</option>
-          <option value="M6">M6</option>
-          <option value="M8">M8</option>
-          <option value="M10" selected>M10</option>
-          <option value="M12">M12</option>
-          <option value="M14">M14</option>
-          <option value="M16">M16</option>
-          <option value="M20">M20</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="pitch">Thread Pitch (mm, reference only)</label>
-        <input id="pitch" type="number" value="1.5" step="0.01" min="0.1">
-      </div>
-
-      <div class="control-group">
-        <label for="tensileArea">Tensile Stress Area (mm²)</label>
-        <input id="tensileArea" type="number" value="58.0" step="0.1" min="0.1">
-      </div>
-
-      <div class="control-group">
-        <label for="propertyClass">Property Class</label>
-        <select id="propertyClass" onchange="applyPropertyClass()">
-          <option value="8.8">8.8</option>
-          <option value="10.9" selected>10.9</option>
-          <option value="12.9">12.9</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="proofStrength">Proof Strength (MPa)</label>
-        <input id="proofStrength" type="number" value="830" step="1" min="1">
-      </div>
-
-      <div class="control-group">
-        <label for="proofPercent">Target Proof Load (%)</label>
-        <input id="proofPercent" type="number" value="75" step="1" min="1" max="100">
-      </div>
-
-      <div class="control-group">
-        <label for="condition">Joint / Lubrication Condition</label>
-        <select id="condition" onchange="applyCondition()">
-          <option value="custom">Custom K-Factor</option>
-          <option value="0.24">Dry / higher friction (~0.24)</option>
-          <option value="0.20" selected>General steel / typical (~0.20)</option>
-          <option value="0.18">Lightly oiled (~0.18)</option>
-          <option value="0.16">Lubricated / lower friction (~0.16)</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="nutFactor">Nut Factor / K-Factor</label>
-        <input id="nutFactor" type="number" value="0.20" step="0.01" min="0.01">
-      </div>
-
-      <div class="control-group">
-        <label for="torqueUnit">Output Torque Units</label>
-        <select id="torqueUnit">
-          <option value="Nm">Nm</option>
-          <option value="ft-lb">ft-lb</option>
-          <option value="in-lb">in-lb</option>
-        </select>
-      </div>
+  <div class="controls">
+    <div class="control-group">
+      <label for="boltSize">Metric Bolt Size</label>
+      <select id="boltSize" onchange="applyBoltData()">
+        <option value="M4">M4</option>
+        <option value="M5">M5</option>
+        <option value="M6">M6</option>
+        <option value="M8">M8</option>
+        <option value="M10" selected>M10</option>
+        <option value="M12">M12</option>
+        <option value="M14">M14</option>
+        <option value="M16">M16</option>
+        <option value="M20">M20</option>
+      </select>
     </div>
 
-    <div class="button-row">
-      <button onclick="calculateTorque();">Calculate Torque</button>
-      <button onclick="resetCalculator();">Reset</button>
+    <div class="control-group">
+      <label for="threadSeries">Thread Series</label>
+      <select id="threadSeries" onchange="applyBoltData()">
+        <option value="coarse" selected>Coarse</option>
+        <option value="fine">Fine</option>
+      </select>
     </div>
 
-    <div class="result" id="output">
-      Enter values and calculate tightening torque
+    <div class="control-group">
+      <label for="pitch">Thread Pitch (mm)</label>
+      <input id="pitch" type="number" value="1.5" step="0.01" min="0.1">
     </div>
 
-    <p class="note">
-      This is a practical preload-based estimate only. Actual tightening torque depends heavily on lubrication, friction, coatings, thread condition, joint materials, washer use, under-head friction, and fastener manufacturer data.
-    </p>
+    <div class="control-group">
+      <label for="tensileArea">Tensile Stress Area (mm²)</label>
+      <input id="tensileArea" type="number" value="58.0" step="0.1" min="0.1">
+    </div>
 
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators and simulators for real automation work
+    <div class="control-group">
+      <label for="propertyClass">Property Class</label>
+      <select id="propertyClass" onchange="applyPropertyClass()">
+        <option value="8.8">8.8</option>
+        <option value="10.9" selected>10.9</option>
+        <option value="12.9">12.9</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="proofStrength">Proof Strength (MPa)</label>
+      <input id="proofStrength" type="number" value="830" step="1" min="1">
+    </div>
+
+    <div class="control-group">
+      <label for="proofPercent">Target Proof Load (%)</label>
+      <input id="proofPercent" type="number" value="75" step="1" min="1" max="100">
+    </div>
+
+    <div class="control-group">
+      <label for="jointType">Joint Type</label>
+      <select id="jointType">
+        <option value="general" selected>General Clamp Joint</option>
+        <option value="hard">Hard Joint / Metal-to-Metal</option>
+        <option value="soft">Soft Joint / Compressible Stack</option>
+        <option value="service">Repeated Service Joint</option>
+        <option value="critical">Critical Joint</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="bearingCondition">Bearing Surface</label>
+      <select id="bearingCondition">
+        <option value="standard" selected>Standard Bearing Surface</option>
+        <option value="washer">With Washer</option>
+        <option value="hardenedWasher">With Hardened Washer</option>
+        <option value="flange">Flange Head / Flange Nut</option>
+        <option value="unknown">Unknown / Variable Surface</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="condition">Assembly Condition</label>
+      <select id="condition" onchange="applyCondition()">
+        <option value="custom">Custom K-Factor</option>
+        <option value="dry_plain">Dry Plain Steel</option>
+        <option value="zinc_dry">Zinc Plated Dry</option>
+        <option value="light_oil" selected>Lightly Oiled</option>
+        <option value="lubricated">Lubricated</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <label for="nutFactor">Nominal K-Factor</label>
+      <input id="nutFactor" type="number" value="0.18" step="0.01" min="0.01">
+    </div>
+
+    <div class="control-group">
+      <label for="showUnits">Primary Display Units</label>
+      <select id="showUnits">
+        <option value="Nm" selected>Nm</option>
+        <option value="ft-lb">ft-lb</option>
+        <option value="in-lb">in-lb</option>
+      </select>
     </div>
   </div>
 
-  <script>
-    const boltData = {
-      "M4":  { pitch: 0.7, area: 8.78, diameter: 4 },
-      "M5":  { pitch: 0.8, area: 14.2, diameter: 5 },
-      "M6":  { pitch: 1.0, area: 20.1, diameter: 6 },
-      "M8":  { pitch: 1.25, area: 36.6, diameter: 8 },
-      "M10": { pitch: 1.5, area: 58.0, diameter: 10 },
-      "M12": { pitch: 1.75, area: 84.3, diameter: 12 },
-      "M14": { pitch: 2.0, area: 115.0, diameter: 14 },
-      "M16": { pitch: 2.0, area: 157.0, diameter: 16 },
-      "M20": { pitch: 2.5, area: 245.0, diameter: 20 }
-    };
+  <div class="button-row">
+    <button onclick="calculateTorque();">Calculate Torque</button>
+    <button onclick="resetCalculator();">Reset</button>
+  </div>
 
-    const propertyClassData = {
-      "8.8":  { proof: 600 },
-      "10.9": { proof: 830 },
-      "12.9": { proof: 970 }
-    };
+  <div class="result" id="output">
+    Enter values and calculate tightening torque
+  </div>
 
-    function applyBoltData(){
-      const size = document.getElementById("boltSize").value;
-      document.getElementById("pitch").value = boltData[size].pitch;
-      document.getElementById("tensileArea").value = boltData[size].area;
+  <p class="note">
+    This calculator uses a practical preload relationship based on torque = K × clamp load × nominal diameter. Real clamp load depends strongly on thread friction, under-head friction, lubrication, coatings, joint stiffness, washer condition, and assembly variation. For critical joints, validate against manufacturer data or tested tightening procedures.
+  </p>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators and simulators for real automation work
+  </div>
+</div>
+
+<script>
+  const boltData = {
+    "M4":  { diameter: 4, coarse: { pitch: 0.7, area: 8.78 }, fine: { pitch: 0.5, area: 10.2 } },
+    "M5":  { diameter: 5, coarse: { pitch: 0.8, area: 14.2 }, fine: { pitch: 0.5, area: 16.1 } },
+    "M6":  { diameter: 6, coarse: { pitch: 1.0, area: 20.1 }, fine: { pitch: 0.75, area: 22.0 } },
+    "M8":  { diameter: 8, coarse: { pitch: 1.25, area: 36.6 }, fine: { pitch: 1.0, area: 39.2 } },
+    "M10": { diameter: 10, coarse: { pitch: 1.5, area: 58.0 }, fine: { pitch: 1.25, area: 61.2 } },
+    "M12": { diameter: 12, coarse: { pitch: 1.75, area: 84.3 }, fine: { pitch: 1.5, area: 88.1 } },
+    "M14": { diameter: 14, coarse: { pitch: 2.0, area: 115.0 }, fine: { pitch: 1.5, area: 125.0 } },
+    "M16": { diameter: 16, coarse: { pitch: 2.0, area: 157.0 }, fine: { pitch: 1.5, area: 167.0 } },
+    "M20": { diameter: 20, coarse: { pitch: 2.5, area: 245.0 }, fine: { pitch: 1.5, area: 272.0 } }
+  };
+
+  const propertyClassData = {
+    "8.8":  { proof: 600 },
+    "10.9": { proof: 830 },
+    "12.9": { proof: 970 }
+  };
+
+  const conditionData = {
+    dry_plain: { kNom: 0.23, kLow: 0.21, kHigh: 0.26, label: "Dry plain steel", scatter: "High" },
+    zinc_dry:  { kNom: 0.22, kLow: 0.20, kHigh: 0.25, label: "Zinc plated dry", scatter: "High" },
+    light_oil: { kNom: 0.18, kLow: 0.16, kHigh: 0.20, label: "Lightly oiled", scatter: "Medium" },
+    lubricated:{ kNom: 0.15, kLow: 0.14, kHigh: 0.17, label: "Lubricated", scatter: "Medium" }
+  };
+
+  function applyBoltData(){
+    const size = document.getElementById("boltSize").value;
+    const series = document.getElementById("threadSeries").value;
+    const data = boltData[size][series];
+
+    document.getElementById("pitch").value = data.pitch;
+    document.getElementById("tensileArea").value = data.area;
+  }
+
+  function applyPropertyClass(){
+    const pc = document.getElementById("propertyClass").value;
+    document.getElementById("proofStrength").value = propertyClassData[pc].proof;
+  }
+
+  function applyCondition(){
+    const condition = document.getElementById("condition").value;
+    if(condition !== "custom"){
+      document.getElementById("nutFactor").value = conditionData[condition].kNom.toFixed(2);
+    }
+  }
+
+  function safeParseFloat(id, fallback){
+    const value = parseFloat(document.getElementById(id).value);
+    return isNaN(value) ? fallback : value;
+  }
+
+  function nmToFtLb(v){ return v * 0.737562; }
+  function nmToInLb(v){ return v * 8.85075; }
+  function nToLbf(v){ return v * 0.224809; }
+
+  function formatForceMetric(n){
+    if(n >= 1000) return (n / 1000).toFixed(2) + " kN";
+    return n.toFixed(1) + " N";
+  }
+
+  function formatForceImperial(n){
+    const lbf = nToLbf(n);
+    if(lbf >= 1000) return (lbf / 1000).toFixed(2) + " kip";
+    return lbf.toFixed(1) + " lbf";
+  }
+
+  function formatTorqueAll(nm){
+    return (
+      nm.toFixed(2) + " Nm<br>" +
+      nmToFtLb(nm).toFixed(2) + " ft-lb<br>" +
+      nmToInLb(nm).toFixed(1) + " in-lb"
+    );
+  }
+
+  function primaryTorqueText(nm, unit){
+    if(unit === "ft-lb") return nmToFtLb(nm).toFixed(2) + " ft-lb";
+    if(unit === "in-lb") return nmToInLb(nm).toFixed(1) + " in-lb";
+    return nm.toFixed(2) + " Nm";
+  }
+
+  function getUtilizationClass(proofPercent){
+    if(proofPercent < 70) return { text: "Conservative preload target", css: "good" };
+    if(proofPercent <= 80) return { text: "Common practical preload range", css: "good" };
+    if(proofPercent <= 90) return { text: "Aggressive preload target", css: "warn" };
+    return { text: "High-risk preload target", css: "danger" };
+  }
+
+  function getEngineeringWarning(proofPercent, jointType, propertyClass, condition, bearingCondition, customK){
+    const warnings = [];
+
+    if(proofPercent >= 85){
+      warnings.push("High preload target selected. Tight friction control and careful joint validation are strongly recommended.");
     }
 
-    function applyPropertyClass(){
-      const pc = document.getElementById("propertyClass").value;
-      document.getElementById("proofStrength").value = propertyClassData[pc].proof;
+    if(jointType === "soft"){
+      warnings.push("Soft joints can settle after tightening. Torque-only control may not hold preload as expected.");
     }
 
-    function applyCondition(){
-      const condition = document.getElementById("condition").value;
-      if(condition !== "custom"){
-        document.getElementById("nutFactor").value = Number(condition).toFixed(2);
-      }
+    if(jointType === "service"){
+      warnings.push("Repeated service joints may need more conservative preload targets and attention to reuse condition.");
     }
 
-    function safeParseFloat(id, fallback){
-      const value = parseFloat(document.getElementById(id).value);
-      return isNaN(value) ? fallback : value;
+    if(jointType === "critical"){
+      warnings.push("Critical joint selected. Torque-only tightening may not provide reliable preload control without validation.");
     }
 
-    function convertNm(value, unit){
-      if(unit === "Nm") return value;
-      if(unit === "ft-lb") return value * 0.737562;
-      if(unit === "in-lb") return value * 8.85075;
-      return value;
+    if(propertyClass === "12.9"){
+      warnings.push("Class 12.9 fasteners should be reviewed carefully for application suitability, embrittlement risk, and assembly consistency.");
     }
 
-    function formatForceMetric(n){
-      if(n >= 1000) return (n / 1000).toFixed(2) + " kN";
-      return n.toFixed(2) + " N";
+    if(bearingCondition === "unknown"){
+      warnings.push("Unknown bearing surface increases torque-to-preload uncertainty.");
     }
 
-    function formatForceLbf(n){
-      const lbf = n * 0.224809;
-      if(lbf >= 1000) return (lbf / 1000).toFixed(2) + " kip";
-      return lbf.toFixed(1) + " lbf";
+    if(condition === "custom" && customK >= 0.24){
+      warnings.push("High custom K-factor selected. Clamp load scatter may be larger than expected.");
     }
 
-    function calculateTorque(){
-      const boltSize = document.getElementById("boltSize").value;
-      const tensileArea = safeParseFloat("tensileArea", 0);
-      const proofStrength = safeParseFloat("proofStrength", 0);
-      const proofPercent = safeParseFloat("proofPercent", 0);
-      const nutFactor = safeParseFloat("nutFactor", 0);
-      const torqueUnit = document.getElementById("torqueUnit").value;
-      const propertyClass = document.getElementById("propertyClass").value;
-      const diameterM = boltData[boltSize].diameter / 1000;
-
-      if(tensileArea <= 0){
-        document.getElementById("output").innerHTML = "<strong>Please enter a tensile stress area greater than 0.</strong>";
-        return;
-      }
-      if(proofStrength <= 0){
-        document.getElementById("output").innerHTML = "<strong>Please enter a proof strength greater than 0.</strong>";
-        return;
-      }
-      if(proofPercent <= 0 || proofPercent > 100){
-        document.getElementById("output").innerHTML = "<strong>Please enter a proof load percentage between 1 and 100.</strong>";
-        return;
-      }
-      if(nutFactor <= 0){
-        document.getElementById("output").innerHTML = "<strong>Please enter a nut factor greater than 0.</strong>";
-        return;
-      }
-
-      const targetClampLoadN = tensileArea * proofStrength * (proofPercent / 100);
-      const torqueNm = targetClampLoadN * nutFactor * diameterM;
-      const torqueLowNm = torqueNm * 0.90;
-      const torqueHighNm = torqueNm * 1.10;
-      const outputTorque = convertNm(torqueNm, torqueUnit);
-      const outputTorqueLow = convertNm(torqueLowNm, torqueUnit);
-      const outputTorqueHigh = convertNm(torqueHighNm, torqueUnit);
-      const preloadStress = proofStrength * (proofPercent / 100);
-
-      let warningText = "This is a reasonable starting estimate for non-critical planning use.";
-      if(proofPercent >= 85){
-        warningText = "High preload target selected. Tight friction control and careful joint validation are strongly recommended.";
-      } else if(nutFactor >= 0.24){
-        warningText = "High nut factor selected. Torque-to-preload scatter may be larger than expected.";
-      } else if(propertyClass === "12.9"){
-        warningText = "Class 12.9 fasteners can be sensitive to application details and should be reviewed carefully for real production use.";
-      }
-
-      gtag('event','tool_calculation',{
-        tool:'bolt_tightening_torque',
-        bolt_size:boltSize,
-        property_class:propertyClass,
-        proof_percent:proofPercent
-      });
-
-      document.getElementById("output").innerHTML =
-        "<strong>Estimated Tightening Torque</strong><br>" +
-        outputTorque.toFixed(2) + " " + torqueUnit + "<br><br>" +
-
-        "<strong>Practical Starting Torque Range</strong><br>" +
-        outputTorqueLow.toFixed(2) + " to " + outputTorqueHigh.toFixed(2) + " " + torqueUnit + "<br><br>" +
-
-        "<strong>Target Clamp Load</strong><br>" +
-        formatForceMetric(targetClampLoadN) + "<br>" +
-        formatForceLbf(targetClampLoadN) + "<br><br>" +
-
-        "<strong>Approximate Preload Stress</strong><br>" +
-        preloadStress.toFixed(1) + " MPa<br><br>" +
-
-        "<strong>Bolt Size</strong><br>" +
-        boltSize + "<br><br>" +
-
-        "<strong>Tensile Stress Area</strong><br>" +
-        tensileArea.toFixed(2) + " mm²<br><br>" +
-
-        "<strong>Proof Strength</strong><br>" +
-        proofStrength.toFixed(0) + " MPa<br><br>" +
-
-        "<strong>Target Proof Load</strong><br>" +
-        proofPercent.toFixed(1) + "%<br><br>" +
-
-        "<strong>Nut Factor</strong><br>" +
-        nutFactor.toFixed(3) + "<br><br>" +
-
-        "<strong>Engineering Note</strong><br>" +
-        warningText;
+    if(condition === "custom" && customK <= 0.14){
+      warnings.push("Very low custom K-factor selected. Double-check lubrication assumptions to avoid over-tightening.");
     }
 
-    function resetCalculator(){
-      document.getElementById("boltSize").value = "M10";
-      applyBoltData();
-      document.getElementById("propertyClass").value = "10.9";
-      applyPropertyClass();
-      document.getElementById("proofPercent").value = "75";
-      document.getElementById("condition").value = "0.20";
-      document.getElementById("nutFactor").value = "0.20";
-      document.getElementById("torqueUnit").value = "Nm";
-      document.getElementById("output").innerHTML = "Enter values and calculate tightening torque";
+    if(warnings.length === 0){
+      warnings.push("This is a reasonable starting estimate for non-critical planning use.");
     }
 
+    return warnings;
+  }
+
+  function calculateTorque(){
+    const boltSize = document.getElementById("boltSize").value;
+    const propertyClass = document.getElementById("propertyClass").value;
+    const tensileArea = safeParseFloat("tensileArea", 0);
+    const proofStrength = safeParseFloat("proofStrength", 0);
+    const proofPercent = safeParseFloat("proofPercent", 0);
+    const customK = safeParseFloat("nutFactor", 0);
+    const threadSeries = document.getElementById("threadSeries").value;
+    const pitch = safeParseFloat("pitch", 0);
+    const jointType = document.getElementById("jointType").value;
+    const bearingCondition = document.getElementById("bearingCondition").value;
+    const condition = document.getElementById("condition").value;
+    const primaryUnit = document.getElementById("showUnits").value;
+
+    const diameterM = boltData[boltSize].diameter / 1000;
+    const output = document.getElementById("output");
+
+    if(tensileArea <= 0){
+      output.innerHTML = "<strong>Please enter a tensile stress area greater than 0.</strong>";
+      return;
+    }
+    if(proofStrength <= 0){
+      output.innerHTML = "<strong>Please enter a proof strength greater than 0.</strong>";
+      return;
+    }
+    if(proofPercent <= 0 || proofPercent > 100){
+      output.innerHTML = "<strong>Please enter a proof load percentage between 1 and 100.</strong>";
+      return;
+    }
+    if(customK <= 0){
+      output.innerHTML = "<strong>Please enter a K-factor greater than 0.</strong>";
+      return;
+    }
+    if(pitch <= 0){
+      output.innerHTML = "<strong>Please enter a thread pitch greater than 0.</strong>";
+      return;
+    }
+
+    const targetClampLoadN = tensileArea * proofStrength * (proofPercent / 100);
+    const preloadStress = proofStrength * (proofPercent / 100);
+
+    let rows = [];
+    let scatterText = "";
+    let nominalTorqueNm = 0;
+
+    if(condition === "custom"){
+      const lowK = customK * 0.90;
+      const nomK = customK;
+      const highK = customK * 1.10;
+
+      nominalTorqueNm = targetClampLoadN * nomK * diameterM;
+      scatterText = "User-defined K-factor. Uncertainty depends entirely on how accurate the friction assumption is.";
+
+      rows = [
+        { label: "Low friction estimate", k: lowK, torqueNm: targetClampLoadN * lowK * diameterM },
+        { label: "Nominal estimate", k: nomK, torqueNm: targetClampLoadN * nomK * diameterM },
+        { label: "High friction estimate", k: highK, torqueNm: targetClampLoadN * highK * diameterM }
+      ];
+    } else {
+      const c = conditionData[condition];
+      nominalTorqueNm = targetClampLoadN * c.kNom * diameterM;
+      scatterText = c.scatter + " expected torque-to-preload scatter for this assembly condition.";
+
+      rows = [
+        { label: c.label + " - low", k: c.kLow, torqueNm: targetClampLoadN * c.kLow * diameterM },
+        { label: c.label + " - nominal", k: c.kNom, torqueNm: targetClampLoadN * c.kNom * diameterM },
+        { label: c.label + " - high", k: c.kHigh, torqueNm: targetClampLoadN * c.kHigh * diameterM }
+      ];
+    }
+
+    const util = getUtilizationClass(proofPercent);
+    const warnings = getEngineeringWarning(proofPercent, jointType, propertyClass, condition, bearingCondition, customK);
+
+    let tableHtml = "<table><thead><tr><th>Condition</th><th>K-Factor</th><th>Torque (" + primaryUnit + ")</th><th>All Torque Units</th></tr></thead><tbody>";
+    rows.forEach(row => {
+      tableHtml += "<tr>" +
+        "<td>" + row.label + "</td>" +
+        "<td>" + row.k.toFixed(3) + "</td>" +
+        "<td>" + primaryTorqueText(row.torqueNm, primaryUnit) + "</td>" +
+        "<td>" + formatTorqueAll(row.torqueNm) + "</td>" +
+        "</tr>";
+    });
+    tableHtml += "</tbody></table>";
+
+    let warningHtml = "";
+    warnings.forEach(w => {
+      const cls = (w.includes("Critical") || w.includes("High preload") || w.includes("12.9")) ? "danger" : "warn";
+      warningHtml += "<div class='" + cls + "'>" + w + "</div><br>";
+    });
+
+    gtag('event','tool_calculation',{
+      tool:'bolt_tightening_torque',
+      bolt_size:boltSize,
+      property_class:propertyClass,
+      proof_percent:proofPercent,
+      thread_series:threadSeries
+    });
+
+    output.innerHTML =
+      "<strong>Nominal Starting Torque</strong><br>" +
+      primaryTorqueText(nominalTorqueNm, primaryUnit) + "<br><br>" +
+
+      "<strong>Clamp Load Target</strong><br>" +
+      formatForceMetric(targetClampLoadN) + "<br>" +
+      formatForceImperial(targetClampLoadN) + "<br><br>" +
+
+      "<strong>Approximate Preload Stress</strong><br>" +
+      preloadStress.toFixed(1) + " MPa<br><br>" +
+
+      "<strong>Preload Utilization</strong><br>" +
+      "<span class='" + util.css + "'>" + util.text + "</span><br><br>" +
+
+      "<strong>Bolt Data</strong><br>" +
+      boltSize + " " + threadSeries + " thread<br>" +
+      "Pitch: " + pitch.toFixed(2) + " mm<br>" +
+      "Tensile stress area: " + tensileArea.toFixed(2) + " mm²<br>" +
+      "Property class: " + propertyClass + "<br>" +
+      "Proof strength: " + proofStrength.toFixed(0) + " MPa<br>" +
+      "Target proof load: " + proofPercent.toFixed(1) + "%<br><br>" +
+
+      "<strong>Assembly Scatter Guidance</strong><br>" +
+      scatterText + "<br><br>" +
+
+      "<strong>Torque Table</strong><br>" +
+      tableHtml + "<br>" +
+
+      "<strong>Engineering Warnings</strong><br>" +
+      warningHtml;
+  }
+
+  function resetCalculator(){
+    document.getElementById("boltSize").value = "M10";
+    document.getElementById("threadSeries").value = "coarse";
     applyBoltData();
+    document.getElementById("propertyClass").value = "10.9";
     applyPropertyClass();
-  </script>
+    document.getElementById("proofPercent").value = "75";
+    document.getElementById("jointType").value = "general";
+    document.getElementById("bearingCondition").value = "standard";
+    document.getElementById("condition").value = "light_oil";
+    document.getElementById("nutFactor").value = "0.18";
+    document.getElementById("showUnits").value = "Nm";
+    document.getElementById("output").innerHTML = "Enter values and calculate tightening torque";
+  }
 
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
+  applyBoltData();
+  applyPropertyClass();
+  applyCondition();
+</script>
+
+<script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
 </body>
 </html>
