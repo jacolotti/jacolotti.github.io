@@ -15,11 +15,11 @@
 
   <title>PLC Analog Scaling Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free PLC analog scaling calculator for automation engineers. Convert 4-20mA, 0-10V, or raw counts into engineering units using standard linear scaling formulas.">
+  <meta name="description" content="Free PLC analog scaling calculator for automation engineers. Convert 4-20mA, 0-10V, or raw counts into engineering units using standard linear scaling formulas with optional clamping and out-of-range indication.">
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
       text-align:center;
       margin:0;
@@ -49,65 +49,13 @@
       opacity:0.8;
     }
 
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
-      color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
-    }
-
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
     .container{
       background:white;
       padding:30px;
-      max-width:700px;
+      max-width:760px;
       margin:auto;
       border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+      box-shadow:0 0 10px rgba(0,0,0,.1);
     }
 
     .container h2{
@@ -124,31 +72,37 @@
       font-weight:normal;
     }
 
-    .container p{
-      margin-top:20px;
-      margin-bottom:5px;
-      font-weight:500;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:18px;
       text-align:left;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
     }
 
     input, select{
       width:100%;
       padding:10px;
-      margin:10px 0;
       font-size:16px;
       box-sizing:border-box;
       border:1px solid #ccc;
       border-radius:5px;
+      background:white;
     }
 
     .button-row{
-      margin-top:15px;
+      margin-top:18px;
     }
 
     .button-row button{
       padding:12px 26px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
       border-radius:6px;
@@ -158,7 +112,7 @@
     }
 
     .button-row button:hover{
-      background:#1555ad;
+      background:#2d3d63;
     }
 
     .result{
@@ -167,10 +121,21 @@
       background:#e9f1ff;
       border:1px solid #c8d9ff;
       border-radius:8px;
-      font-size:18px;
+      font-size:17px;
       line-height:1.6;
-      font-weight:500;
       text-align:left;
+    }
+
+    .codebox{
+      margin-top:12px;
+      padding:12px;
+      background:#f7f9fc;
+      border:1px solid #d7e2f1;
+      border-radius:6px;
+      font-family:Consolas, monospace;
+      white-space:pre-wrap;
+      word-break:break-word;
+      font-size:14px;
     }
 
     .note{
@@ -211,38 +176,77 @@
   </p>
 
   <p class="description">
-    This calculator is useful for 4-20mA transmitters, 0-10V sensors, analog cards, HMI values, PLC raw counts, and general automation signal scaling.
+    This calculator is useful for 4-20 mA transmitters, 0-10 V sensors, analog cards, HMI values, PLC raw counts, and general automation signal scaling.
   </p>
 
-  <p>Preset Signal Type</p>
-  <select id="preset" onchange="applyPreset()">
-    <option value="custom">Custom</option>
-    <option value="4-20mA">4-20 mA</option>
-    <option value="0-10V">0-10 V</option>
-    <option value="abRaw">Allen-Bradley Raw Counts (0-32767)</option>
-    <option value="siemensRaw">Siemens Raw Counts (0-27648)</option>
-  </select>
+  <div class="grid">
+    <div class="field">
+      <label for="preset">Preset Signal Type</label>
+      <select id="preset" onchange="applyPreset()">
+        <option value="custom">Custom</option>
+        <option value="4-20mA">4-20 mA</option>
+        <option value="0-20mA">0-20 mA</option>
+        <option value="0-10V">0-10 V</option>
+        <option value="1-5V">1-5 V</option>
+        <option value="abRaw">Allen-Bradley Raw Counts (0-32767)</option>
+        <option value="siemensRaw">Siemens Raw Counts (0-27648)</option>
+      </select>
+    </div>
 
-  <p>Input Value</p>
-  <input id="rawInput" type="number" value="12" step="0.001">
+    <div class="field">
+      <label for="rawInput">Input Value</label>
+      <input id="rawInput" type="number" value="12" step="0.001">
+    </div>
 
-  <p>Raw Minimum</p>
-  <input id="rawMin" type="number" value="4" step="0.001">
+    <div class="field">
+      <label for="rawMin">Raw Minimum</label>
+      <input id="rawMin" type="number" value="4" step="0.001">
+    </div>
 
-  <p>Raw Maximum</p>
-  <input id="rawMax" type="number" value="20" step="0.001">
+    <div class="field">
+      <label for="rawMax">Raw Maximum</label>
+      <input id="rawMax" type="number" value="20" step="0.001">
+    </div>
 
-  <p>Engineering Minimum</p>
-  <input id="engMin" type="number" value="0" step="0.001">
+    <div class="field">
+      <label for="engMin">Engineering Minimum</label>
+      <input id="engMin" type="number" value="0" step="0.001">
+    </div>
 
-  <p>Engineering Maximum</p>
-  <input id="engMax" type="number" value="300" step="0.001">
+    <div class="field">
+      <label for="engMax">Engineering Maximum</label>
+      <input id="engMax" type="number" value="300" step="0.001">
+    </div>
 
-  <p>Engineering Units Label</p>
-  <input id="engUnits" type="text" value="PSI">
+    <div class="field">
+      <label for="engUnits">Engineering Units Label</label>
+      <input id="engUnits" type="text" value="PSI">
+    </div>
+
+    <div class="field">
+      <label for="mode">Out-of-Range Handling</label>
+      <select id="mode">
+        <option value="extrapolate">Extrapolate Beyond Range</option>
+        <option value="clamp">Clamp to Engineering Limits</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="decimals">Displayed Decimal Places</label>
+      <select id="decimals">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+        <option value="4">4</option>
+      </select>
+    </div>
+  </div>
 
   <div class="button-row">
     <button onclick="calculateAnalogScaling(); gtag('event','analog_scaling_calculation');">Calculate</button>
+    <button onclick="loadExample(); gtag('event','analog_scaling_example');">Load Example</button>
+    <button onclick="clearCalculator(); gtag('event','analog_scaling_clear');">Clear</button>
   </div>
 
   <div class="result" id="output">
@@ -250,11 +254,7 @@
   </div>
 
   <p class="note">
-    This calculator uses standard linear interpolation:
-    <br><br>
-    Scaled Value = ((Input - Raw Min) / (Raw Max - Raw Min)) × (Engineering Max - Engineering Min) + Engineering Min
-    <br><br>
-    It is intended for normal analog scaling applications and does not include filtering, sensor non-linearity, card calibration offsets, or fault handling logic.
+    This calculator uses standard linear interpolation. It is intended for normal analog scaling applications and does not include filtering, sensor non-linearity, card calibration offsets, underrange/overrange fault thresholds, or module-specific diagnostic behavior.
   </p>
 
   <div class="footer">
@@ -264,40 +264,60 @@
 
 <script>
   function applyPreset(){
-    let preset = document.getElementById("preset").value;
+    const preset = document.getElementById("preset").value;
 
     if(preset === "4-20mA"){
-      document.getElementById("rawInput").value = 12;
-      document.getElementById("rawMin").value = 4;
-      document.getElementById("rawMax").value = 20;
+      document.getElementById("rawInput").value = "12";
+      document.getElementById("rawMin").value = "4";
+      document.getElementById("rawMax").value = "20";
+    }
+    else if(preset === "0-20mA"){
+      document.getElementById("rawInput").value = "10";
+      document.getElementById("rawMin").value = "0";
+      document.getElementById("rawMax").value = "20";
     }
     else if(preset === "0-10V"){
-      document.getElementById("rawInput").value = 5;
-      document.getElementById("rawMin").value = 0;
-      document.getElementById("rawMax").value = 10;
+      document.getElementById("rawInput").value = "5";
+      document.getElementById("rawMin").value = "0";
+      document.getElementById("rawMax").value = "10";
+    }
+    else if(preset === "1-5V"){
+      document.getElementById("rawInput").value = "3";
+      document.getElementById("rawMin").value = "1";
+      document.getElementById("rawMax").value = "5";
     }
     else if(preset === "abRaw"){
-      document.getElementById("rawInput").value = 16384;
-      document.getElementById("rawMin").value = 0;
-      document.getElementById("rawMax").value = 32767;
+      document.getElementById("rawInput").value = "16384";
+      document.getElementById("rawMin").value = "0";
+      document.getElementById("rawMax").value = "32767";
     }
     else if(preset === "siemensRaw"){
-      document.getElementById("rawInput").value = 13824;
-      document.getElementById("rawMin").value = 0;
-      document.getElementById("rawMax").value = 27648;
+      document.getElementById("rawInput").value = "13824";
+      document.getElementById("rawMin").value = "0";
+      document.getElementById("rawMax").value = "27648";
     }
   }
 
+  function clamp(value, min, max){
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function formatNumber(value, decimals){
+    return Number(value).toFixed(decimals);
+  }
+
   function calculateAnalogScaling(){
-    let rawInput = parseFloat(document.getElementById("rawInput").value);
-    let rawMin = parseFloat(document.getElementById("rawMin").value);
-    let rawMax = parseFloat(document.getElementById("rawMax").value);
-    let engMin = parseFloat(document.getElementById("engMin").value);
-    let engMax = parseFloat(document.getElementById("engMax").value);
-    let engUnits = document.getElementById("engUnits").value.trim();
+    const rawInput = parseFloat(document.getElementById("rawInput").value);
+    const rawMin = parseFloat(document.getElementById("rawMin").value);
+    const rawMax = parseFloat(document.getElementById("rawMax").value);
+    const engMin = parseFloat(document.getElementById("engMin").value);
+    const engMax = parseFloat(document.getElementById("engMax").value);
+    const engUnits = document.getElementById("engUnits").value.trim();
+    const mode = document.getElementById("mode").value;
+    const decimals = parseInt(document.getElementById("decimals").value, 10);
     const output = document.getElementById("output");
 
-    if(isNaN(rawInput) || isNaN(rawMin) || isNaN(rawMax) || isNaN(engMin) || isNaN(engMax)){
+    if([rawInput, rawMin, rawMax, engMin, engMax].some(v => isNaN(v))){
       output.innerHTML = "<strong>Please enter valid numeric values in all numeric fields.</strong>";
       return;
     }
@@ -307,20 +327,83 @@
       return;
     }
 
-    let scaledValue = ((rawInput - rawMin) / (rawMax - rawMin)) * (engMax - engMin) + engMin;
-    let percentOfRange = ((rawInput - rawMin) / (rawMax - rawMin)) * 100;
+    const fraction = (rawInput - rawMin) / (rawMax - rawMin);
+    const scaledValue = fraction * (engMax - engMin) + engMin;
 
-    let unitsText = engUnits !== "" ? " " + engUnits : "";
+    const engLow = Math.min(engMin, engMax);
+    const engHigh = Math.max(engMin, engMax);
+    const clampedValue = clamp(scaledValue, engLow, engHigh);
+
+    const displayValue = (mode === "clamp") ? clampedValue : scaledValue;
+    const percentOfRawRange = fraction * 100;
+
+    let status = "Input is within the defined raw range.";
+    if(rawInput < rawMin){
+      status = "Input is below the raw minimum.";
+    } else if(rawInput > rawMax){
+      status = "Input is above the raw maximum.";
+    }
+
+    const unitsText = engUnits ? " " + engUnits : "";
+
+    const structuredText =
+`ScaledValue := ((InputValue - ${rawMin}) / (${rawMax} - ${rawMin})) * (${engMax} - ${engMin}) + ${engMin};`;
+
+    const structuredTextClamp =
+`ScaledValue := ((InputValue - ${rawMin}) / (${rawMax} - ${rawMin})) * (${engMax} - ${engMin}) + ${engMin};
+IF ScaledValue < ${engLow} THEN ScaledValue := ${engLow}; END_IF;
+IF ScaledValue > ${engHigh} THEN ScaledValue := ${engHigh}; END_IF;`;
+
+    const formulaUsed =
+      "((Input - Raw Min) / (Raw Max - Raw Min)) × (Engineering Max - Engineering Min) + Engineering Min";
 
     output.innerHTML =
       "<strong>Scaled Engineering Value</strong><br>" +
-      scaledValue.toFixed(3) + unitsText + "<br><br>" +
+      formatNumber(displayValue, decimals) + unitsText + "<br><br>" +
+
+      "<strong>Unclamped Calculated Value</strong><br>" +
+      formatNumber(scaledValue, decimals) + unitsText + "<br><br>" +
+
+      "<strong>Clamped Engineering Value</strong><br>" +
+      formatNumber(clampedValue, decimals) + unitsText + "<br><br>" +
 
       "<strong>Percent of Raw Range</strong><br>" +
-      percentOfRange.toFixed(2) + "%<br><br>" +
+      formatNumber(percentOfRawRange, 2) + "%<br><br>" +
+
+      "<strong>Input Status</strong><br>" +
+      status + "<br><br>" +
 
       "<strong>Formula Used</strong><br>" +
-      "((Input - Raw Min) / (Raw Max - Raw Min)) × (Engineering Max - Engineering Min) + Engineering Min";
+      formulaUsed + "<br><br>" +
+
+      "<strong>Structured Text Example</strong>" +
+      "<div class='codebox'>" + (mode === "clamp" ? structuredTextClamp : structuredText) + "</div>";
+  }
+
+  function clearCalculator(){
+    document.getElementById("preset").value = "custom";
+    document.getElementById("rawInput").value = "12";
+    document.getElementById("rawMin").value = "4";
+    document.getElementById("rawMax").value = "20";
+    document.getElementById("engMin").value = "0";
+    document.getElementById("engMax").value = "300";
+    document.getElementById("engUnits").value = "PSI";
+    document.getElementById("mode").value = "extrapolate";
+    document.getElementById("decimals").value = "3";
+    document.getElementById("output").innerHTML = "Enter values and press Calculate";
+  }
+
+  function loadExample(){
+    document.getElementById("preset").value = "4-20mA";
+    document.getElementById("rawInput").value = "12";
+    document.getElementById("rawMin").value = "4";
+    document.getElementById("rawMax").value = "20";
+    document.getElementById("engMin").value = "0";
+    document.getElementById("engMax").value = "300";
+    document.getElementById("engUnits").value = "PSI";
+    document.getElementById("mode").value = "extrapolate";
+    document.getElementById("decimals").value = "3";
+    calculateAnalogScaling();
   }
 </script>
 
