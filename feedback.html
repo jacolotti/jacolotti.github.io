@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/feedback.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Feedback | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Send feedback, report bugs, request new calculators, or suggest improvements for AutomationCalculators.net.">
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      text-align:center;
+      margin:0;
+      color:#222;
+    }
+
+    #navbar{
+      margin-bottom:40px;
+    }
+
+    .container{
+      background:white;
+      padding:30px;
+      max-width:760px;
+      margin:auto;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,.1);
+    }
+
+    .container h1{
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+    }
+
+    .form-wrap{
+      margin-top:25px;
+      text-align:left;
+    }
+
+    .form-wrap label{
+      display:block;
+      margin:14px 0 6px 0;
+      font-weight:600;
+    }
+
+    .form-wrap input,
+    .form-wrap select,
+    .form-wrap textarea{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+      background:white;
+    }
+
+    .form-wrap textarea{
+      resize:vertical;
+    }
+
+    .button-row{
+      margin-top:20px;
+    }
+
+    .button-row button{
+      padding:12px 26px;
+      font-size:16px;
+      background:#1f2a44;
+      color:white;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      transition:background .2s;
+    }
+
+    .button-row button:hover{
+      background:#2d3d63;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+    }
+
+    @media (max-width:700px){
+      .container{
+        padding:20px;
+        margin:0 12px;
+      }
+
+      .button-row button{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+  <h1>Feedback</h1>
+
+  <p class="description">
+    Found a bug, want a new calculator, or have an idea to improve the site? Send it here.
+  </p>
+
+  <p class="description">
+    Feedback from real engineers and technicians is what makes these tools better.
+  </p>
+
+  <div class="form-wrap">
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <label for="name">Name</label>
+      <input id="name" type="text" name="name" placeholder="Your name">
+
+      <label for="email">Email</label>
+      <input id="email" type="email" name="email" placeholder="Your email">
+
+      <label for="feedbackType">Feedback Type</label>
+      <select id="feedbackType" name="feedback_type">
+        <option value="general">General Feedback</option>
+        <option value="bug">Bug Report</option>
+        <option value="calculator_request">Calculator Request</option>
+        <option value="improvement">Improvement Idea</option>
+      </select>
+
+      <label for="page">Related Page</label>
+      <input id="page" type="text" name="page" placeholder="Example: spot-weld.html">
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="7" placeholder="Tell me what you found, what seems wrong, or what calculator you want added." required></textarea>
+
+      <div class="button-row">
+        <button type="submit" onclick="gtag('event','feedback_submit_click');">Send Feedback</button>
+      </div>
+    </form>
+  </div>
+
+  <p class="note">
+    This page is intended for calculator feedback, bug reports, and tool requests. Do not include confidential company information, passwords, or sensitive production data.
+  </p>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
+  </div>
+</div>
+
+<script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
