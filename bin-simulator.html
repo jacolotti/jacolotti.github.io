@@ -30,18 +30,75 @@
       padding:15px;
       margin-bottom:40px;
       text-align:left;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
     }
 
     .navbar a{
       color:white;
-      margin:0 15px;
       text-decoration:none;
       font-weight:bold;
+      padding:8px 10px;
+      display:inline-block;
     }
 
     .navbar a:hover{
       text-decoration:underline;
       opacity:0.8;
+    }
+
+    .dropdown{
+      position:relative;
+      display:inline-block;
+    }
+
+    .dropbtn{
+      background:none;
+      border:none;
+      color:white;
+      font-weight:bold;
+      font-size:16px;
+      cursor:pointer;
+      padding:8px 10px;
+      font-family:Arial;
+    }
+
+    .dropbtn:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .dropdown-content{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      background:white;
+      min-width:220px;
+      box-shadow:0px 4px 12px rgba(0,0,0,.15);
+      border-radius:8px;
+      z-index:1000;
+      overflow:hidden;
+    }
+
+    .dropdown-content a{
+      display:block;
+      color:#1f2a44;
+      padding:12px 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .dropdown-content a:hover{
+      background:#f4f8ff;
+      text-decoration:none;
+      opacity:1;
+    }
+
+    .dropdown:hover .dropdown-content{
+      display:block;
     }
 
     .container{
@@ -55,6 +112,7 @@
 
     .container h2{
       margin-bottom:10px;
+      color:#1f2a44;
     }
 
     .description{
@@ -93,7 +151,7 @@
       margin:20px 0;
     }
 
-    button{
+    .button-row button{
       padding:12px 26px;
       font-size:16px;
       background:#1e6bd6;
@@ -105,7 +163,7 @@
       transition:background .2s;
     }
 
-    button:hover{
+    .button-row button:hover{
       background:#1555ad;
     }
 
@@ -136,6 +194,7 @@
       max-width:900px;
       margin-left:auto;
       margin-right:auto;
+      text-align:left;
     }
 
     .note{
@@ -146,6 +205,7 @@
       max-width:900px;
       margin-left:auto;
       margin-right:auto;
+      text-align:left;
     }
 
     .footer{
@@ -154,12 +214,12 @@
       font-size:14px;
     }
 
-    @media (max-width: 700px){
+    @media (max-width:700px){
       .container{
         padding:20px;
       }
 
-      button{
+      .button-row button{
         width:100%;
         margin:6px 0;
       }
@@ -168,107 +228,107 @@
 </head>
 <body>
 
- <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h2>Bin Loading Simulator</h2>
+<div class="container">
+  <h2>Bin Loading Simulator</h2>
 
-    <p class="description">
-      Simulate parts free falling into a bin with adjustable size, shape, drop height, friction, bounce, and quantity. This is a simple 2D visualization tool for rough concept evaluation.
-    </p>
+  <p class="description">
+    Simulate parts free falling into a bin with adjustable size, shape, drop height, friction, bounce, and quantity. This is a simple 2D visualization tool for rough concept evaluation.
+  </p>
 
-    <p class="description">
-      This simulator is useful for early automation concept work, part presentation ideas, rough part stacking visualization, tote loading review, and free-fall loading estimates. It is not a replacement for physical testing or full 3D simulation.
-    </p>
+  <p class="description">
+    This simulator is useful for early automation concept work, part presentation ideas, rough part stacking visualization, tote loading review, and free-fall loading estimates. It is not a replacement for physical testing or full 3D simulation.
+  </p>
 
-    <p class="description">
-      Use this free bin loading simulator to explore automation part presentation, free fall into a bin, and rough stacking behavior for rectangular or round parts under varying drop conditions.
-    </p>
+  <p class="description">
+    Use this free bin loading simulator to explore automation part presentation, free fall into a bin, and rough stacking behavior for rectangular or round parts under varying drop conditions.
+  </p>
 
-    <div class="controls">
-      <div class="control-group">
-        <label for="partShape">Part Shape</label>
-        <select id="partShape">
-          <option value="rectangle">Rectangle</option>
-          <option value="circle">Circle</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="partWidth">Part Width / Diameter (px)</label>
-        <input id="partWidth" type="number" value="50" step="1" min="1">
-      </div>
-
-      <div class="control-group">
-        <label for="partHeight">Part Height (px, rectangles only)</label>
-        <input id="partHeight" type="number" value="30" step="1" min="1">
-      </div>
-
-      <div class="control-group">
-        <label for="binWidth">Bin Width (px)</label>
-        <input id="binWidth" type="number" value="500" step="1" min="50">
-      </div>
-
-      <div class="control-group">
-        <label for="binHeight">Bin Height (px)</label>
-        <input id="binHeight" type="number" value="300" step="1" min="50">
-      </div>
-
-      <div class="control-group">
-        <label for="dropHeight">Drop Height Above Bin (px)</label>
-        <input id="dropHeight" type="number" value="120" step="1" min="0" max="400">
-      </div>
-
-      <div class="control-group">
-        <label for="partCount">Number of Parts</label>
-        <input id="partCount" type="number" value="20" step="1" min="1">
-      </div>
-
-      <div class="control-group">
-        <label for="friction">Friction (0 to 1)</label>
-        <input id="friction" type="number" value="0.5" step="0.05" min="0" max="1">
-      </div>
-
-      <div class="control-group">
-        <label for="bounce">Bounce / Restitution (0 to 1)</label>
-        <input id="bounce" type="number" value="0.15" step="0.05" min="0" max="1">
-      </div>
-
-      <div class="control-group">
-        <label for="rotationRandomness">Rotation Randomness (0 to 1)</label>
-        <input id="rotationRandomness" type="number" value="0.4" step="0.05" min="0" max="1">
-      </div>
-
-      <div class="control-group">
-        <label for="dropSpread">Horizontal Drop Spread (%)</label>
-        <input id="dropSpread" type="number" value="70" step="1" min="1" max="100">
-      </div>
+  <div class="controls">
+    <div class="control-group">
+      <label for="partShape">Part Shape</label>
+      <select id="partShape">
+        <option value="rectangle">Rectangle</option>
+        <option value="circle">Circle</option>
+      </select>
     </div>
 
-    <div class="button-row">
-      <button onclick="runSimulation();">Run Simulation</button>
-      <button onclick="dropOnePart(); gtag('event','bin_simulation_drop_one');">Drop One Part</button>
-      <button onclick="clearParts(); gtag('event','bin_simulation_clear');">Clear Parts</button>
+    <div class="control-group">
+      <label for="partWidth">Part Width / Diameter (px)</label>
+      <input id="partWidth" type="number" value="50" step="1" min="1">
     </div>
 
-    <div id="sim-wrapper">
-      <div id="sim-container"></div>
+    <div class="control-group">
+      <label for="partHeight">Part Height (px, rectangles only)</label>
+      <input id="partHeight" type="number" value="30" step="1" min="1">
     </div>
 
-    <div class="result" id="output">
-      Enter values and run the simulation
+    <div class="control-group">
+      <label for="binWidth">Bin Width (px)</label>
+      <input id="binWidth" type="number" value="500" step="1" min="50">
     </div>
 
-    <p class="note">
-      This is a simple 2D physics preview, not a final engineering validation tool. Fill result is an area-based estimate only and does not represent true 3D packing density or validated physical behavior.
-    </p>
+    <div class="control-group">
+      <label for="binHeight">Bin Height (px)</label>
+      <input id="binHeight" type="number" value="300" step="1" min="50">
+    </div>
 
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators and simulators for real automation work
+    <div class="control-group">
+      <label for="dropHeight">Drop Height Above Bin (px)</label>
+      <input id="dropHeight" type="number" value="120" step="1" min="0" max="400">
+    </div>
+
+    <div class="control-group">
+      <label for="partCount">Number of Parts</label>
+      <input id="partCount" type="number" value="20" step="1" min="1">
+    </div>
+
+    <div class="control-group">
+      <label for="friction">Friction (0 to 1)</label>
+      <input id="friction" type="number" value="0.5" step="0.05" min="0" max="1">
+    </div>
+
+    <div class="control-group">
+      <label for="bounce">Bounce / Restitution (0 to 1)</label>
+      <input id="bounce" type="number" value="0.15" step="0.05" min="0" max="1">
+    </div>
+
+    <div class="control-group">
+      <label for="rotationRandomness">Rotation Randomness (0 to 1)</label>
+      <input id="rotationRandomness" type="number" value="0.4" step="0.05" min="0" max="1">
+    </div>
+
+    <div class="control-group">
+      <label for="dropSpread">Horizontal Drop Spread (%)</label>
+      <input id="dropSpread" type="number" value="70" step="1" min="1" max="100">
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
+  <div class="button-row">
+    <button onclick="runSimulation();">Run Simulation</button>
+    <button onclick="dropOnePart(); gtag('event','bin_simulation_drop_one');">Drop One Part</button>
+    <button onclick="clearParts(); gtag('event','bin_simulation_clear');">Clear Parts</button>
+  </div>
+
+  <div id="sim-wrapper">
+    <div id="sim-container"></div>
+  </div>
+
+  <div class="result" id="output">
+    Enter values and run the simulation
+  </div>
+
+  <p class="note">
+    This is a simple 2D physics preview, not a final engineering validation tool. Fill result is an area-based estimate only and does not represent true 3D packing density or validated physical behavior.
+  </p>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators and simulators for real automation work
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
 
 <script>
   const { Engine, Render, Runner, World, Bodies } = Matter;
@@ -503,6 +563,10 @@
   }
 
   function dropOnePart(){
+    if(!engine){
+      initSimulation();
+    }
+
     if(!validateInputs(false)) return;
 
     const { binWidth, binHeight, dropHeight } = getInputs();
@@ -523,6 +587,10 @@
   }
 
   function runSimulation(){
+    if(!engine){
+      initSimulation();
+    }
+
     if(!validateInputs(true)) return;
 
     const inputs = getInputs();
@@ -592,3 +660,6 @@
       console.error("Navbar failed to load:", error);
     });
 </script>
+
+</body>
+</html>
