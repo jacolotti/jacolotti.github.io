@@ -30,18 +30,75 @@
       padding:15px;
       margin-bottom:40px;
       text-align:left;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
     }
 
     .navbar a{
       color:white;
-      margin:0 15px;
       text-decoration:none;
       font-weight:bold;
+      padding:8px 10px;
+      display:inline-block;
     }
 
     .navbar a:hover{
       text-decoration:underline;
       opacity:0.8;
+    }
+
+    .dropdown{
+      position:relative;
+      display:inline-block;
+    }
+
+    .dropbtn{
+      background:none;
+      border:none;
+      color:white;
+      font-weight:bold;
+      font-size:16px;
+      cursor:pointer;
+      padding:8px 10px;
+      font-family:Arial;
+    }
+
+    .dropbtn:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .dropdown-content{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      background:white;
+      min-width:220px;
+      box-shadow:0px 4px 12px rgba(0,0,0,.15);
+      border-radius:8px;
+      z-index:1000;
+      overflow:hidden;
+    }
+
+    .dropdown-content a{
+      display:block;
+      color:#1f2a44;
+      padding:12px 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .dropdown-content a:hover{
+      background:#f4f8ff;
+      text-decoration:none;
+      opacity:1;
+    }
+
+    .dropdown:hover .dropdown-content{
+      display:block;
     }
 
     .container{
@@ -55,6 +112,7 @@
 
     .container h2{
       margin-bottom:10px;
+      color:#1f2a44;
     }
 
     .description{
@@ -132,7 +190,7 @@
       font-size:14px;
     }
 
-    @media (max-width: 700px){
+    @media (max-width:700px){
       .container{
         padding:20px;
       }
@@ -148,228 +206,228 @@
 
 <div id="navbar"></div>
 
-  <div class="container">
-    <h2>Resistance Spot Weld Calculator</h2>
+<div class="container">
+  <h2>Resistance Spot Weld Calculator</h2>
 
-    <p class="description">
-      Estimate a starting weld schedule for resistance spot welding using material type, sheet thickness, and weld quality target.
-    </p>
+  <p class="description">
+    Estimate a starting weld schedule for resistance spot welding using material type, sheet thickness, and weld quality target.
+  </p>
 
-    <p class="description">
-      This is a first-pass estimator for setup and planning. Final weld schedules should always be validated with destructive testing, nugget checks, peel tests, and real machine capability.
-    </p>
+  <p class="description">
+    This is a first-pass estimator for setup and planning. Final weld schedules should always be validated with destructive testing, nugget checks, peel tests, and real machine capability.
+  </p>
 
-    <p class="description">
-      This free spot weld calculator helps estimate weld current, force, weld time, squeeze time, hold time, tip diameter, and nugget target for common sheet metal spot welding applications.
-    </p>
+  <p class="description">
+    This free spot weld calculator helps estimate weld current, force, weld time, squeeze time, hold time, tip diameter, and nugget target for common sheet metal spot welding applications.
+  </p>
 
-    <div class="grid">
-      <div class="field">
-        <label for="material">Material</label>
-        <select id="material">
-          <option value="mild">Bare Mild Steel</option>
-          <option value="galvanized">Galvanized Steel</option>
-          <option value="galvaneal">Galvaneal Steel</option>
-          <option value="stainless">Stainless Steel</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="thickness1">Sheet 1 Thickness (mm)</label>
-        <input id="thickness1" type="number" value="1.0" min="0.1" max="6" step="0.01">
-      </div>
-
-      <div class="field">
-        <label for="thickness2">Sheet 2 Thickness (mm)</label>
-        <input id="thickness2" type="number" value="1.0" min="0.1" max="6" step="0.01">
-      </div>
-
-      <div class="field">
-        <label for="quality">Weld Quality Target</label>
-        <select id="quality">
-          <option value="standard">Standard Production</option>
-          <option value="high">High Strength / Cosmetic Focus</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="machine">Machine Type</label>
-        <select id="machine">
-          <option value="ac">AC Welder</option>
-          <option value="mfdc">MFDC Welder</option>
-        </select>
-      </div>
+  <div class="grid">
+    <div class="field">
+      <label for="material">Material</label>
+      <select id="material">
+        <option value="mild">Bare Mild Steel</option>
+        <option value="galvanized">Galvanized Steel</option>
+        <option value="galvaneal">Galvaneal Steel</option>
+        <option value="stainless">Stainless Steel</option>
+      </select>
     </div>
 
-    <div class="button-row">
-      <button onclick="calculateSpotWeld();">Calculate</button>
-      <button onclick="loadExample(); gtag('event','spot_weld_example');">Load Example</button>
-      <button onclick="clearCalculator(); gtag('event','spot_weld_clear');">Clear</button>
+    <div class="field">
+      <label for="thickness1">Sheet 1 Thickness (mm)</label>
+      <input id="thickness1" type="number" value="1.0" min="0.1" max="6" step="0.01">
     </div>
 
-    <div class="result" id="output">
-      Enter values and press Calculate
+    <div class="field">
+      <label for="thickness2">Sheet 2 Thickness (mm)</label>
+      <input id="thickness2" type="number" value="1.0" min="0.1" max="6" step="0.01">
     </div>
 
-    <p class="note">
-      Galvanized and galvaneal steels usually require more current and tighter process control because the coating affects contact resistance and electrode life.
-    </p>
+    <div class="field">
+      <label for="quality">Weld Quality Target</label>
+      <select id="quality">
+        <option value="standard">Standard Production</option>
+        <option value="high">High Strength / Cosmetic Focus</option>
+      </select>
+    </div>
 
-    <p class="note">
-      Weld time shown in cycles assumes a standard 60 Hz timing reference. The millisecond value is included as a quick cross-reference, especially useful when comparing AC and MFDC timing discussions.
-    </p>
-
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators for real automation work
+    <div class="field">
+      <label for="machine">Machine Type</label>
+      <select id="machine">
+        <option value="ac">AC Welder</option>
+        <option value="mfdc">MFDC Welder</option>
+      </select>
     </div>
   </div>
 
-  <script>
-    function showMessage(message){
-      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+  <div class="button-row">
+    <button onclick="calculateSpotWeld();">Calculate</button>
+    <button onclick="loadExample(); gtag('event','spot_weld_example');">Load Example</button>
+    <button onclick="clearCalculator(); gtag('event','spot_weld_clear');">Clear</button>
+  </div>
+
+  <div class="result" id="output">
+    Enter values and press Calculate
+  </div>
+
+  <p class="note">
+    Galvanized and galvaneal steels usually require more current and tighter process control because the coating affects contact resistance and electrode life.
+  </p>
+
+  <p class="note">
+    Weld time shown in cycles assumes a standard 60 Hz timing reference. The millisecond value is included as a quick cross-reference, especially useful when comparing AC and MFDC timing discussions.
+  </p>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
+  </div>
+</div>
+
+<script>
+  function showMessage(message){
+    document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+  }
+
+  function calculateSpotWeld(){
+    const material = document.getElementById("material").value;
+    const t1 = parseFloat(document.getElementById("thickness1").value) || 0;
+    const t2 = parseFloat(document.getElementById("thickness2").value) || 0;
+    const quality = document.getElementById("quality").value;
+    const machine = document.getElementById("machine").value;
+    const output = document.getElementById("output");
+
+    if(t1 <= 0 || t2 <= 0){
+      output.innerHTML = "<strong>Please enter sheet thickness values greater than 0.</strong>";
+      return;
     }
 
-    function calculateSpotWeld(){
-      const material = document.getElementById("material").value;
-      const t1 = parseFloat(document.getElementById("thickness1").value) || 0;
-      const t2 = parseFloat(document.getElementById("thickness2").value) || 0;
-      const quality = document.getElementById("quality").value;
-      const machine = document.getElementById("machine").value;
-      const output = document.getElementById("output");
-
-      if(t1 <= 0 || t2 <= 0){
-        output.innerHTML = "<strong>Please enter sheet thickness values greater than 0.</strong>";
-        return;
-      }
-
-      if(t1 > 6 || t2 > 6){
-        output.innerHTML = "<strong>This calculator is intended for light to moderate sheet thicknesses up to about 6 mm.</strong>";
-        return;
-      }
-
-      const totalThickness = t1 + t2;
-      const minThickness = Math.min(t1, t2);
-
-      let currentFactor = 8.5;
-      let forceFactor = 0.55;
-      let cycleFactor = 12;
-      let materialNote = "";
-      let machineNote = "";
-
-      if(material === "mild"){
-        currentFactor = 8.5;
-        forceFactor = 0.55;
-        cycleFactor = 12;
-        materialNote = "Bare mild steel is usually the easiest starting point for schedule development.";
-      } else if(material === "galvanized"){
-        currentFactor = 9.5;
-        forceFactor = 0.60;
-        cycleFactor = 13;
-        materialNote = "Galvanized steel usually needs slightly higher current and careful electrode maintenance.";
-      } else if(material === "galvaneal"){
-        currentFactor = 9.2;
-        forceFactor = 0.60;
-        cycleFactor = 13;
-        materialNote = "Galvaneal often behaves a little more consistently than galvanized but still needs coating-aware setup.";
-      } else if(material === "stainless"){
-        currentFactor = 7.2;
-        forceFactor = 0.50;
-        cycleFactor = 10;
-        materialNote = "Stainless often uses lower current than coated carbon steels but still requires validation.";
-      }
-
-      if(quality === "high"){
-        currentFactor *= 1.05;
-        forceFactor *= 1.08;
-        cycleFactor *= 1.10;
-      }
-
-      if(machine === "mfdc"){
-        cycleFactor *= 0.70;
-        machineNote = "MFDC welders often allow shorter effective weld times and tighter process control than AC systems.";
-      } else {
-        machineNote = "AC welders often use cycle-based timing directly, so cycle estimates can be a convenient starting reference.";
-      }
-
-      const weldCurrentKA = currentFactor * totalThickness;
-      const electrodeForceKN = forceFactor * totalThickness;
-      const weldTimeCycles = cycleFactor * totalThickness;
-      const weldTimeMs = weldTimeCycles * (1000 / 60);
-      const tipDiameterMM = 5 * Math.sqrt(minThickness);
-      const nuggetDiameterMM = 4 * Math.sqrt(minThickness);
-      const squeezeTimeCycles = Math.max(8, Math.round(6 + totalThickness * 4));
-      const holdTimeCycles = Math.max(6, Math.round(4 + totalThickness * 3));
-      const squeezeTimeMs = squeezeTimeCycles * (1000 / 60);
-      const holdTimeMs = holdTimeCycles * (1000 / 60);
-
-      const currentLow = weldCurrentKA * 0.9;
-      const currentHigh = weldCurrentKA * 1.1;
-      const forceLow = electrodeForceKN * 0.9;
-      const forceHigh = electrodeForceKN * 1.1;
-      const timeLow = weldTimeCycles * 0.9;
-      const timeHigh = weldTimeCycles * 1.1;
-      const timeLowMs = timeLow * (1000 / 60);
-      const timeHighMs = timeHigh * (1000 / 60);
-
-      gtag('event', 'spot_weld_calculation', {
-        material: material,
-        machine_type: machine,
-        total_thickness_mm: totalThickness,
-        quality: quality
-      });
-
-      output.innerHTML =
-        "<strong>Total Thickness</strong><br>" +
-        totalThickness.toFixed(2) + " mm<br><br>" +
-
-        "<strong>Suggested Weld Current Range</strong><br>" +
-        currentLow.toFixed(1) + " to " + currentHigh.toFixed(1) + " kA<br><br>" +
-
-        "<strong>Suggested Electrode Force Range</strong><br>" +
-        forceLow.toFixed(2) + " to " + forceHigh.toFixed(2) + " kN<br><br>" +
-
-        "<strong>Suggested Weld Time Range</strong><br>" +
-        timeLow.toFixed(0) + " to " + timeHigh.toFixed(0) + " cycles<br>" +
-        timeLowMs.toFixed(0) + " to " + timeHighMs.toFixed(0) + " ms<br><br>" +
-
-        "<strong>Suggested Squeeze Time</strong><br>" +
-        squeezeTimeCycles.toFixed(0) + " cycles<br>" +
-        squeezeTimeMs.toFixed(0) + " ms<br><br>" +
-
-        "<strong>Suggested Hold Time</strong><br>" +
-        holdTimeCycles.toFixed(0) + " cycles<br>" +
-        holdTimeMs.toFixed(0) + " ms<br><br>" +
-
-        "<strong>Suggested Starting Tip Diameter</strong><br>" +
-        tipDiameterMM.toFixed(1) + " mm<br><br>" +
-
-        "<strong>Suggested Nugget Diameter Target</strong><br>" +
-        nuggetDiameterMM.toFixed(1) + " mm<br><br>" +
-
-        "<strong>Material Note</strong><br>" +
-        materialNote + "<br><br>" +
-
-        "<strong>Machine Note</strong><br>" +
-        machineNote;
+    if(t1 > 6 || t2 > 6){
+      output.innerHTML = "<strong>This calculator is intended for light to moderate sheet thicknesses up to about 6 mm.</strong>";
+      return;
     }
 
-    function clearCalculator(){
-      document.getElementById("material").value = "mild";
-      document.getElementById("thickness1").value = "1.0";
-      document.getElementById("thickness2").value = "1.0";
-      document.getElementById("quality").value = "standard";
-      document.getElementById("machine").value = "ac";
-      showMessage("Enter values and press Calculate");
+    const totalThickness = t1 + t2;
+    const minThickness = Math.min(t1, t2);
+
+    let currentFactor = 8.5;
+    let forceFactor = 0.55;
+    let cycleFactor = 12;
+    let materialNote = "";
+    let machineNote = "";
+
+    if(material === "mild"){
+      currentFactor = 8.5;
+      forceFactor = 0.55;
+      cycleFactor = 12;
+      materialNote = "Bare mild steel is usually the easiest starting point for schedule development.";
+    } else if(material === "galvanized"){
+      currentFactor = 9.5;
+      forceFactor = 0.60;
+      cycleFactor = 13;
+      materialNote = "Galvanized steel usually needs slightly higher current and careful electrode maintenance.";
+    } else if(material === "galvaneal"){
+      currentFactor = 9.2;
+      forceFactor = 0.60;
+      cycleFactor = 13;
+      materialNote = "Galvaneal often behaves a little more consistently than galvanized but still needs coating-aware setup.";
+    } else if(material === "stainless"){
+      currentFactor = 7.2;
+      forceFactor = 0.50;
+      cycleFactor = 10;
+      materialNote = "Stainless often uses lower current than coated carbon steels but still requires validation.";
     }
 
-    function loadExample(){
-      document.getElementById("material").value = "galvanized";
-      document.getElementById("thickness1").value = "1.2";
-      document.getElementById("thickness2").value = "1.2";
-      document.getElementById("quality").value = "standard";
-      document.getElementById("machine").value = "mfdc";
-          calculateSpotWeld();
+    if(quality === "high"){
+      currentFactor *= 1.05;
+      forceFactor *= 1.08;
+      cycleFactor *= 1.10;
     }
+
+    if(machine === "mfdc"){
+      cycleFactor *= 0.70;
+      machineNote = "MFDC welders often allow shorter effective weld times and tighter process control than AC systems.";
+    } else {
+      machineNote = "AC welders often use cycle-based timing directly, so cycle estimates can be a convenient starting reference.";
+    }
+
+    const weldCurrentKA = currentFactor * totalThickness;
+    const electrodeForceKN = forceFactor * totalThickness;
+    const weldTimeCycles = cycleFactor * totalThickness;
+    const weldTimeMs = weldTimeCycles * (1000 / 60);
+    const tipDiameterMM = 5 * Math.sqrt(minThickness);
+    const nuggetDiameterMM = 4 * Math.sqrt(minThickness);
+    const squeezeTimeCycles = Math.max(8, Math.round(6 + totalThickness * 4));
+    const holdTimeCycles = Math.max(6, Math.round(4 + totalThickness * 3));
+    const squeezeTimeMs = squeezeTimeCycles * (1000 / 60);
+    const holdTimeMs = holdTimeCycles * (1000 / 60);
+
+    const currentLow = weldCurrentKA * 0.9;
+    const currentHigh = weldCurrentKA * 1.1;
+    const forceLow = electrodeForceKN * 0.9;
+    const forceHigh = electrodeForceKN * 1.1;
+    const timeLow = weldTimeCycles * 0.9;
+    const timeHigh = weldTimeCycles * 1.1;
+    const timeLowMs = timeLow * (1000 / 60);
+    const timeHighMs = timeHigh * (1000 / 60);
+
+    gtag('event', 'spot_weld_calculation', {
+      material: material,
+      machine_type: machine,
+      total_thickness_mm: totalThickness,
+      quality: quality
+    });
+
+    output.innerHTML =
+      "<strong>Total Thickness</strong><br>" +
+      totalThickness.toFixed(2) + " mm<br><br>" +
+
+      "<strong>Suggested Weld Current Range</strong><br>" +
+      currentLow.toFixed(1) + " to " + currentHigh.toFixed(1) + " kA<br><br>" +
+
+      "<strong>Suggested Electrode Force Range</strong><br>" +
+      forceLow.toFixed(2) + " to " + forceHigh.toFixed(2) + " kN<br><br>" +
+
+      "<strong>Suggested Weld Time Range</strong><br>" +
+      timeLow.toFixed(0) + " to " + timeHigh.toFixed(0) + " cycles<br>" +
+      timeLowMs.toFixed(0) + " to " + timeHighMs.toFixed(0) + " ms<br><br>" +
+
+      "<strong>Suggested Squeeze Time</strong><br>" +
+      squeezeTimeCycles.toFixed(0) + " cycles<br>" +
+      squeezeTimeMs.toFixed(0) + " ms<br><br>" +
+
+      "<strong>Suggested Hold Time</strong><br>" +
+      holdTimeCycles.toFixed(0) + " cycles<br>" +
+      holdTimeMs.toFixed(0) + " ms<br><br>" +
+
+      "<strong>Suggested Starting Tip Diameter</strong><br>" +
+      tipDiameterMM.toFixed(1) + " mm<br><br>" +
+
+      "<strong>Suggested Nugget Diameter Target</strong><br>" +
+      nuggetDiameterMM.toFixed(1) + " mm<br><br>" +
+
+      "<strong>Material Note</strong><br>" +
+      materialNote + "<br><br>" +
+
+      "<strong>Machine Note</strong><br>" +
+      machineNote;
+  }
+
+  function clearCalculator(){
+    document.getElementById("material").value = "mild";
+    document.getElementById("thickness1").value = "1.0";
+    document.getElementById("thickness2").value = "1.0";
+    document.getElementById("quality").value = "standard";
+    document.getElementById("machine").value = "ac";
+    showMessage("Enter values and press Calculate");
+  }
+
+  function loadExample(){
+    document.getElementById("material").value = "galvanized";
+    document.getElementById("thickness1").value = "1.2";
+    document.getElementById("thickness2").value = "1.2";
+    document.getElementById("quality").value = "standard";
+    document.getElementById("machine").value = "mfdc";
+    calculateSpotWeld();
+  }
 </script>
 
 <script>
