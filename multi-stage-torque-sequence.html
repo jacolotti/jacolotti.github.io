@@ -30,18 +30,75 @@
       padding:15px;
       margin-bottom:40px;
       text-align:left;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
     }
 
     .navbar a{
       color:white;
-      margin:0 15px;
       text-decoration:none;
       font-weight:bold;
+      padding:8px 10px;
+      display:inline-block;
     }
 
     .navbar a:hover{
       text-decoration:underline;
       opacity:0.8;
+    }
+
+    .dropdown{
+      position:relative;
+      display:inline-block;
+    }
+
+    .dropbtn{
+      background:none;
+      border:none;
+      color:white;
+      font-weight:bold;
+      font-size:16px;
+      cursor:pointer;
+      padding:8px 10px;
+      font-family:Arial;
+    }
+
+    .dropbtn:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .dropdown-content{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      background:white;
+      min-width:220px;
+      box-shadow:0px 4px 12px rgba(0,0,0,.15);
+      border-radius:8px;
+      z-index:1000;
+      overflow:hidden;
+    }
+
+    .dropdown-content a{
+      display:block;
+      color:#1f2a44;
+      padding:12px 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .dropdown-content a:hover{
+      background:#f4f8ff;
+      text-decoration:none;
+      opacity:1;
+    }
+
+    .dropdown:hover .dropdown-content{
+      display:block;
     }
 
     .container{
@@ -171,7 +228,7 @@
       display:none;
     }
 
-    @media (max-width: 700px){
+    @media (max-width:700px){
       .container{
         padding:20px;
       }
@@ -210,6 +267,7 @@
 <body>
 
   <div id="navbar"></div>
+
   <div class="container">
     <h2>Multi-Stage Torque Sequence Calculator</h2>
 
@@ -366,42 +424,36 @@
         finalAngleInput.disabled = true;
       }
 
-      if(sequenceMode === "snug_final"){
-        snugInput.disabled = false;
-      } else {
-        snugInput.disabled = false;
-      }
+      snugInput.disabled = false;
     }
 
     function applyJointPreset(){
       const preset = document.getElementById("jointPreset").value;
-      const mode = document.getElementById("sequenceMode").value;
-      const stageCount = safeParseInt("stageCount", 3);
 
       if(preset === "hard"){
         document.getElementById("tolerance").value = 3;
-        if(mode === "torque_angle"){
+        if(document.getElementById("sequenceMode").value === "torque_angle"){
           document.getElementById("finalAngle").value = 30;
         } else {
           document.getElementById("finalAngle").value = 0;
         }
       } else if(preset === "medium"){
         document.getElementById("tolerance").value = 5;
-        if(mode === "torque_angle"){
+        if(document.getElementById("sequenceMode").value === "torque_angle"){
           document.getElementById("finalAngle").value = 60;
         } else {
           document.getElementById("finalAngle").value = 0;
         }
       } else if(preset === "soft"){
         document.getElementById("tolerance").value = 7;
-        if(mode === "torque_angle"){
+        if(document.getElementById("sequenceMode").value === "torque_angle"){
           document.getElementById("finalAngle").value = 90;
         } else {
           document.getElementById("finalAngle").value = 0;
         }
       }
 
-      loadRecommendedStages(stageCount, false);
+      loadRecommendedStages(false);
     }
 
     function getRecommendedPercentages(stageCount, sequenceMode){
@@ -566,6 +618,20 @@
       return "Intermediate " + index;
     }
 
+    function formatSequenceMode(value){
+      if(value === "snug_final") return "Snug + Final Torque";
+      if(value === "multi_torque") return "Multi-Stage Torque";
+      if(value === "torque_angle") return "Torque + Angle Final";
+      return value;
+    }
+
+    function formatJointPreset(value){
+      if(value === "hard") return "Hard Joint";
+      if(value === "medium") return "Medium Joint";
+      if(value === "soft") return "Soft Joint";
+      return "Custom";
+    }
+
     function calculateSequence(){
       if(!validateInputs()) return;
 
@@ -666,20 +732,6 @@
       document.getElementById("output").innerHTML = html;
     }
 
-    function formatSequenceMode(value){
-      if(value === "snug_final") return "Snug + Final Torque";
-      if(value === "multi_torque") return "Multi-Stage Torque";
-      if(value === "torque_angle") return "Torque + Angle Final";
-      return value;
-    }
-
-    function formatJointPreset(value){
-      if(value === "hard") return "Hard Joint";
-      if(value === "medium") return "Medium Joint";
-      if(value === "soft") return "Soft Joint";
-      return "Custom";
-    }
-
     function resetCalculator(){
       document.getElementById("brand").value = "Cleco";
       document.getElementById("units").value = "Nm";
@@ -697,7 +749,7 @@
       toggleInputs();
       loadRecommendedStages(false);
       showMessage("Enter values and calculate the torque sequence");
-           gtag('event','torque_sequence_reset');
+      gtag('event','torque_sequence_reset');
     }
 
     toggleInputs();
