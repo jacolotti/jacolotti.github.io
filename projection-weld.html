@@ -15,7 +15,7 @@
 
   <title>Projection Weld Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free projection weld calculator for automation and manufacturing engineers. Estimate projection weld current, current per projection, electrode force, and weld time using material, thickness, number of projections, and machine type.">
+  <meta name="description" content="Free projection weld calculator for automation and manufacturing engineers. Estimate projection weld starting current, force, weld time, and projection count for weld nuts, weld studs, weld bolts, and stamped multi-projection parts.">
 
   <style>
     body{
@@ -104,7 +104,7 @@
     .container{
       background:white;
       padding:30px;
-      max-width:760px;
+      max-width:900px;
       margin:auto;
       border-radius:10px;
       box-shadow:0 0 10px rgba(0,0,0,.1);
@@ -190,6 +190,10 @@
       font-size:14px;
     }
 
+    .hidden{
+      display:none;
+    }
+
     @media (max-width:700px){
       .container{
         padding:20px;
@@ -207,24 +211,46 @@
   <div id="navbar"></div>
 
   <div class="container">
-    <h2>Projection Weld Calculator</h2>
+    <h2>Projection Weld Starting Parameter Calculator</h2>
 
     <p class="description">
-      Estimate a starting projection weld schedule using material type, thickness, number of projections, weld quality target, and machine type.
+      Estimate practical starting projection weld parameters for weld nuts, weld studs, weld bolts, and stamped multi-projection parts using fastener type, size, base metal thickness, material, and machine type.
     </p>
 
     <p class="description">
-      Use this as a setup estimator for early process planning. Real schedules still need weld testing, collapse checks, nugget verification, and machine-specific tuning.
+      This tool is intended as a starting setup guide for production planning and troubleshooting. Final values should always be validated with collapse checks, destructive testing, nugget confirmation, thread quality checks, and actual machine capability.
     </p>
 
     <p class="description">
-      This free projection weld calculator helps estimate total weld current, current per projection, electrode force, and weld time for common production projection welding applications.
+      Use this free projection weld calculator to estimate projection count, total weld current range, current per projection, force range, weld time range, and setup notes for common projection welding applications.
     </p>
 
     <div class="grid">
       <div class="field">
-        <label for="material">Material</label>
-        <select id="material">
+        <label for="partType">Fastener / Part Type</label>
+        <select id="partType" onchange="applyPreset()">
+          <option value="weldNut">Weld Nut</option>
+          <option value="weldStud">Weld Stud</option>
+          <option value="weldBolt">Weld Bolt</option>
+          <option value="stampedPart">Multi-Projection Stamped Part</option>
+          <option value="custom">Custom Projection Part</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="size">Fastener Size / Part Size</label>
+        <select id="size" onchange="applyPreset()">
+          <option value="M5">M5</option>
+          <option value="M6" selected>M6</option>
+          <option value="M8">M8</option>
+          <option value="M10">M10</option>
+          <option value="M12">M12</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="material">Base Material</label>
+        <select id="material" onchange="applyPreset()">
           <option value="mild">Bare Mild Steel</option>
           <option value="galvanized">Galvanized Steel</option>
           <option value="galvaneal">Galvaneal Steel</option>
@@ -233,13 +259,13 @@
       </div>
 
       <div class="field">
-        <label for="thickness">Material Thickness (mm)</label>
-        <input id="thickness" type="number" value="2.0" min="0.1" step="0.01">
+        <label for="baseThickness">Base Material Thickness (mm)</label>
+        <input id="baseThickness" type="number" value="2.0" min="0.3" step="0.01">
       </div>
 
       <div class="field">
         <label for="projections">Number of Projections</label>
-        <input id="projections" type="number" value="1" min="1" step="1">
+        <input id="projections" type="number" value="3" min="1" step="1">
       </div>
 
       <div class="field">
@@ -257,6 +283,16 @@
           <option value="mfdc">MFDC Welder</option>
         </select>
       </div>
+
+      <div class="field hidden" id="customCurrentField">
+        <label for="customCurrentPerProjection">Custom Current per Projection (kA)</label>
+        <input id="customCurrentPerProjection" type="number" value="6.0" min="0.1" step="0.1">
+      </div>
+
+      <div class="field hidden" id="customForceField">
+        <label for="customForcePerProjection">Custom Force per Projection (kN)</label>
+        <input id="customForcePerProjection" type="number" value="1.2" min="0.1" step="0.1">
+      </div>
     </div>
 
     <div class="button-row">
@@ -270,11 +306,11 @@
     </div>
 
     <p class="note">
-      Projection welding concentrates heat at formed projections, so force balance, collapse behavior, and current distribution become more critical as the number of projections increases.
+      Projection welding is highly dependent on projection shape, fastener design, base metal, coating, machine force control, current rise, and collapse behavior. This calculator is a starting reference, not a certified weld schedule.
     </p>
 
     <p class="note">
-      Weld time shown in cycles assumes standard AC cycle-style timing reference at 60 Hz. The millisecond value is included as a quick cross-reference, especially for MFDC setup discussions.
+      Weld time shown in cycles assumes a standard 60 Hz timing reference. The millisecond value is included as a practical cross-reference, especially when comparing AC and MFDC setup discussions.
     </p>
 
     <div class="footer">
@@ -283,20 +319,83 @@
   </div>
 
   <script>
+    const presetData = {
+      weldNut: {
+        M5:  { projections: 3, current: 5.2, force: 1.0, time: 8, note: "Small weld nuts usually use moderate current with stable collapse control." },
+        M6:  { projections: 3, current: 5.8, force: 1.2, time: 9, note: "M6 weld nuts are a common production application and often use 3 projections." },
+        M8:  { projections: 3, current: 6.8, force: 1.6, time: 10, note: "M8 weld nuts usually need stronger force balance and tighter collapse control." },
+        M10: { projections: 4, current: 7.8, force: 2.0, time: 11, note: "Larger weld nuts often use more total current and stronger force control." },
+        M12: { projections: 4, current: 8.8, force: 2.5, time: 12, note: "Large weld nuts should always be verified with collapse and thread checks." }
+      },
+      weldStud: {
+        M5:  { projections: 1, current: 4.8, force: 1.0, time: 7, note: "Stud welding setups are sensitive to projection design and base sheet stability." },
+        M6:  { projections: 1, current: 5.5, force: 1.2, time: 8, note: "M6 studs often need careful force control to avoid expulsion or poor collapse." },
+        M8:  { projections: 1, current: 6.5, force: 1.5, time: 9, note: "Larger studs typically need stronger force and a stable base condition." },
+        M10: { projections: 1, current: 7.5, force: 1.9, time: 10, note: "M10 studs can quickly become machine-capability limited on thinner base material." },
+        M12: { projections: 1, current: 8.5, force: 2.3, time: 11, note: "Large stud welding should be validated with destructive testing and thread protection checks." }
+      },
+      weldBolt: {
+        M5:  { projections: 1, current: 4.8, force: 1.0, time: 7, note: "Projection bolts often behave similarly to studs but still depend on head design." },
+        M6:  { projections: 1, current: 5.6, force: 1.2, time: 8, note: "Bolt head projection design strongly affects usable starting parameters." },
+        M8:  { projections: 1, current: 6.6, force: 1.5, time: 9, note: "M8 projection bolts commonly need more force control than small bolts." },
+        M10: { projections: 1, current: 7.6, force: 1.9, time: 10, note: "Heavier bolts usually need more stable squeeze and hold consistency." },
+        M12: { projections: 1, current: 8.6, force: 2.3, time: 11, note: "Large projection bolts should be confirmed against machine and tooling capability." }
+      },
+      stampedPart: {
+        M5:  { projections: 2, current: 4.8, force: 0.9, time: 8, note: "Stamped parts vary a lot; projection shape matters as much as size." },
+        M6:  { projections: 3, current: 5.5, force: 1.1, time: 9, note: "Multi-projection stamped parts often need more force balance than fasteners." },
+        M8:  { projections: 4, current: 6.2, force: 1.3, time: 10, note: "More projections increase the need for current balance and equal collapse." },
+        M10: { projections: 4, current: 7.0, force: 1.7, time: 11, note: "Large stamped multi-projection parts should be verified for even collapse." },
+        M12: { projections: 4, current: 8.0, force: 2.0, time: 12, note: "Stamped heavy projection parts often become highly tooling-dependent." }
+      }
+    };
+
     function showMessage(message){
       document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
     }
 
-    function calculateProjectionWeld(){
+    function toggleCustomFields(){
+      const isCustom = document.getElementById("partType").value === "custom";
+      document.getElementById("customCurrentField").classList.toggle("hidden", !isCustom);
+      document.getElementById("customForceField").classList.toggle("hidden", !isCustom);
+    }
+
+    function applyPreset(){
+      const partType = document.getElementById("partType").value;
+      const size = document.getElementById("size").value;
       const material = document.getElementById("material").value;
-      const thickness = parseFloat(document.getElementById("thickness").value) || 0;
+
+      toggleCustomFields();
+
+      if(partType === "custom"){
+        return;
+      }
+
+      const preset = presetData[partType][size];
+      document.getElementById("projections").value = preset.projections;
+
+      let baseThickness = parseFloat(document.getElementById("baseThickness").value) || 2.0;
+      if(baseThickness < 0.8 && (size === "M10" || size === "M12")){
+        document.getElementById("baseThickness").value = "1.5";
+      }
+
+      if(material === "stainless" && baseThickness < 1.0){
+        document.getElementById("baseThickness").value = "1.0";
+      }
+    }
+
+    function calculateProjectionWeld(){
+      const partType = document.getElementById("partType").value;
+      const size = document.getElementById("size").value;
+      const material = document.getElementById("material").value;
+      const baseThickness = parseFloat(document.getElementById("baseThickness").value) || 0;
       const projections = parseInt(document.getElementById("projections").value) || 0;
       const quality = document.getElementById("quality").value;
       const machine = document.getElementById("machine").value;
       const output = document.getElementById("output");
 
-      if(thickness <= 0){
-        output.innerHTML = "<strong>Please enter a material thickness greater than 0.</strong>";
+      if(baseThickness <= 0){
+        output.innerHTML = "<strong>Please enter a base material thickness greater than 0.</strong>";
         return;
       }
 
@@ -305,74 +404,126 @@
         return;
       }
 
-      let currentPerProjection = 6.0;
-      let forcePerProjection = 1.2;
-      let timeFactor = 10;
+      let currentPerProjection = 0;
+      let forcePerProjection = 0;
+      let baseCycles = 0;
+      let applicationNote = "";
       let materialNote = "";
       let machineNote = "";
 
-      if(material === "mild"){
-        currentPerProjection = 6.0;
-        forcePerProjection = 1.2;
-        timeFactor = 10;
-        materialNote = "Bare mild steel is usually the most forgiving projection weld starting point.";
-      } else if(material === "galvanized"){
-        currentPerProjection = 6.8;
-        forcePerProjection = 1.3;
-        timeFactor = 11;
-        materialNote = "Galvanized steel often needs slightly higher current and careful monitoring of coating effects.";
+      if(partType === "custom"){
+        currentPerProjection = parseFloat(document.getElementById("customCurrentPerProjection").value) || 0;
+        forcePerProjection = parseFloat(document.getElementById("customForcePerProjection").value) || 0;
+        baseCycles = 9;
+
+        if(currentPerProjection <= 0 || forcePerProjection <= 0){
+          output.innerHTML = "<strong>Please enter valid custom current and force values greater than 0.</strong>";
+          return;
+        }
+
+        applicationNote = "Custom projection parts vary significantly with projection geometry, contact area, and tooling setup.";
+      } else {
+        const preset = presetData[partType][size];
+        currentPerProjection = preset.current;
+        forcePerProjection = preset.force;
+        baseCycles = preset.time;
+        applicationNote = preset.note;
+      }
+
+      let thicknessFactor = 1 + ((baseThickness - 2.0) * 0.08);
+      if(thicknessFactor < 0.75) thicknessFactor = 0.75;
+
+      currentPerProjection *= thicknessFactor;
+      forcePerProjection *= (1 + ((baseThickness - 2.0) * 0.06));
+      baseCycles *= (1 + ((baseThickness - 2.0) * 0.05));
+
+      if(material === "galvanized"){
+        currentPerProjection *= 1.10;
+        forcePerProjection *= 1.05;
+        materialNote = "Galvanized steel often needs more current and careful electrode maintenance because coating affects contact resistance.";
       } else if(material === "galvaneal"){
-        currentPerProjection = 6.5;
-        forcePerProjection = 1.3;
-        timeFactor = 11;
-        materialNote = "Galvaneal can be more predictable than galvanized, but still needs coating-aware validation.";
+        currentPerProjection *= 1.07;
+        forcePerProjection *= 1.05;
+        materialNote = "Galvaneal often behaves more consistently than galvanized, but still needs coating-aware validation.";
       } else if(material === "stainless"){
-        currentPerProjection = 5.5;
-        forcePerProjection = 1.0;
-        timeFactor = 9;
-        materialNote = "Stainless often responds differently than carbon steel and should be confirmed with testing.";
+        currentPerProjection *= 0.92;
+        forcePerProjection *= 0.90;
+        baseCycles *= 0.95;
+        materialNote = "Stainless often uses different starting current and force behavior than carbon steel and should be verified by testing.";
+      } else {
+        materialNote = "Bare mild steel is often the most forgiving starting point for projection welding setup.";
       }
 
       if(quality === "high"){
         currentPerProjection *= 1.05;
-        forcePerProjection *= 1.10;
-        timeFactor *= 1.08;
+        forcePerProjection *= 1.08;
+        baseCycles *= 1.08;
       }
 
       if(machine === "mfdc"){
-        timeFactor *= 0.75;
-        machineNote = "MFDC systems often allow shorter effective weld times and tighter process control than AC systems.";
+        baseCycles *= 0.72;
+        machineNote = "MFDC welders often allow shorter effective weld times and tighter process control than AC machines.";
       } else {
-        machineNote = "AC welders often use cycle-based timing directly, so the cycle estimate can be a convenient starting reference.";
+        machineNote = "AC welders often use cycle-based timing directly, making cycle estimates a practical starting reference.";
       }
 
-      const totalCurrentKA = currentPerProjection * projections * thickness;
-      const totalForceKN = forcePerProjection * projections * thickness;
-      const weldTimeCycles = timeFactor * thickness;
-      const weldTimeMs = weldTimeCycles * (1000 / 60);
+      const totalCurrent = currentPerProjection * projections;
+      const totalForce = forcePerProjection * projections;
+      const timeCycles = baseCycles;
+      const timeMs = timeCycles * (1000 / 60);
+
+      const currentLow = totalCurrent * 0.90;
+      const currentHigh = totalCurrent * 1.10;
+      const forceLow = totalForce * 0.90;
+      const forceHigh = totalForce * 1.10;
+      const timeLow = timeCycles * 0.90;
+      const timeHigh = timeCycles * 1.10;
+      const timeLowMs = timeLow * (1000 / 60);
+      const timeHighMs = timeHigh * (1000 / 60);
+
+      let typeLabel = "";
+      if(partType === "weldNut") typeLabel = "Weld Nut";
+      else if(partType === "weldStud") typeLabel = "Weld Stud";
+      else if(partType === "weldBolt") typeLabel = "Weld Bolt";
+      else if(partType === "stampedPart") typeLabel = "Multi-Projection Stamped Part";
+      else typeLabel = "Custom Projection Part";
 
       gtag('event', 'projection_weld_calculation', {
-        material: material,
+        part_type: partType,
+        size: size,
         projections: projections,
-        machine_type: machine
+        machine_type: machine,
+        material: material
       });
 
       output.innerHTML =
-        "<strong>Suggested Total Weld Current</strong><br>" +
-        totalCurrentKA.toFixed(1) + " kA<br><br>" +
+        "<strong>Application Type</strong><br>" +
+        typeLabel + "<br><br>" +
 
-        "<strong>Suggested Current Per Projection</strong><br>" +
+        "<strong>Fastener / Part Size</strong><br>" +
+        size + "<br><br>" +
+
+        "<strong>Projection Count Used</strong><br>" +
+        projections + "<br><br>" +
+
+        "<strong>Suggested Total Weld Current Range</strong><br>" +
+        currentLow.toFixed(1) + " to " + currentHigh.toFixed(1) + " kA<br><br>" +
+
+        "<strong>Suggested Current per Projection</strong><br>" +
         currentPerProjection.toFixed(1) + " kA<br><br>" +
 
-        "<strong>Suggested Total Electrode Force</strong><br>" +
-        totalForceKN.toFixed(2) + " kN<br><br>" +
+        "<strong>Suggested Total Force Range</strong><br>" +
+        forceLow.toFixed(2) + " to " + forceHigh.toFixed(2) + " kN<br><br>" +
 
-        "<strong>Suggested Force Per Projection</strong><br>" +
-        (totalForceKN / projections).toFixed(2) + " kN<br><br>" +
+        "<strong>Suggested Force per Projection</strong><br>" +
+        forcePerProjection.toFixed(2) + " kN<br><br>" +
 
-        "<strong>Suggested Weld Time</strong><br>" +
-        weldTimeCycles.toFixed(0) + " cycles<br>" +
-        weldTimeMs.toFixed(0) + " ms<br><br>" +
+        "<strong>Suggested Weld Time Range</strong><br>" +
+        timeLow.toFixed(0) + " to " + timeHigh.toFixed(0) + " cycles<br>" +
+        timeLowMs.toFixed(0) + " to " + timeHighMs.toFixed(0) + " ms<br><br>" +
+
+        "<strong>Application Note</strong><br>" +
+        applicationNote + "<br><br>" +
 
         "<strong>Material Note</strong><br>" +
         materialNote + "<br><br>" +
@@ -382,22 +533,30 @@
     }
 
     function clearCalculator(){
+      document.getElementById("partType").value = "weldNut";
+      document.getElementById("size").value = "M6";
       document.getElementById("material").value = "mild";
-      document.getElementById("thickness").value = "2.0";
-      document.getElementById("projections").value = "1";
+      document.getElementById("baseThickness").value = "2.0";
       document.getElementById("quality").value = "standard";
       document.getElementById("machine").value = "ac";
+      document.getElementById("customCurrentPerProjection").value = "6.0";
+      document.getElementById("customForcePerProjection").value = "1.2";
+      applyPreset();
       showMessage("Enter values and press Calculate");
     }
 
     function loadExample(){
-      document.getElementById("material").value = "mild";
-      document.getElementById("thickness").value = "2.0";
-      document.getElementById("projections").value = "2";
+      document.getElementById("partType").value = "weldNut";
+      document.getElementById("size").value = "M8";
+      document.getElementById("material").value = "galvanized";
+      document.getElementById("baseThickness").value = "2.0";
       document.getElementById("quality").value = "standard";
       document.getElementById("machine").value = "mfdc";
+      applyPreset();
       calculateProjectionWeld();
     }
+
+    applyPreset();
   </script>
 
   <script>
