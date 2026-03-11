@@ -13,12 +13,12 @@
   </script>
 
   <title>Bolt Tightening Torque Calculator | Automation Calculators</title>
-  <meta name="description" content="Free bolt tightening torque calculator. Estimate recommended bolt torque from metric size, property class, target proof load percentage, and nut factor.">
+  <meta name="description" content="Free bolt tightening torque calculator. Estimate recommended bolt torque from metric size, property class, target proof load percentage, and nut factor with practical starting ranges.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
       text-align:center;
       margin:0;
@@ -61,7 +61,7 @@
       font-size:16px;
       cursor:pointer;
       padding:8px 10px;
-      font-family:Arial;
+      font-family:Arial, sans-serif;
     }
 
     .dropbtn:hover{
@@ -76,7 +76,7 @@
       left:0;
       background:white;
       min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
       border-radius:8px;
       z-index:1000;
       overflow:hidden;
@@ -106,7 +106,7 @@
       max-width:1100px;
       margin:auto;
       border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+      box-shadow:0 0 10px rgba(0,0,0,.1);
     }
 
     .container h2{
@@ -144,6 +144,7 @@
       box-sizing:border-box;
       border:1px solid #ccc;
       border-radius:5px;
+      background:white;
     }
 
     .button-row{
@@ -153,7 +154,7 @@
     button{
       padding:12px 26px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
       border-radius:6px;
@@ -163,7 +164,7 @@
     }
 
     button:hover{
-      background:#1555ad;
+      background:#2d3d63;
     }
 
     .result{
@@ -172,9 +173,8 @@
       background:#e9f1ff;
       border:1px solid #c8d9ff;
       border-radius:8px;
-      font-size:18px;
+      font-size:17px;
       line-height:1.6;
-      font-weight:500;
       max-width:900px;
       margin-left:auto;
       margin-right:auto;
@@ -246,7 +246,7 @@
       </div>
 
       <div class="control-group">
-        <label for="pitch">Thread Pitch (mm)</label>
+        <label for="pitch">Thread Pitch (mm, reference only)</label>
         <input id="pitch" type="number" value="1.5" step="0.01" min="0.1">
       </div>
 
@@ -275,8 +275,19 @@
       </div>
 
       <div class="control-group">
+        <label for="condition">Joint / Lubrication Condition</label>
+        <select id="condition" onchange="applyCondition()">
+          <option value="custom">Custom K-Factor</option>
+          <option value="0.24">Dry / higher friction (~0.24)</option>
+          <option value="0.20" selected>General steel / typical (~0.20)</option>
+          <option value="0.18">Lightly oiled (~0.18)</option>
+          <option value="0.16">Lubricated / lower friction (~0.16)</option>
+        </select>
+      </div>
+
+      <div class="control-group">
         <label for="nutFactor">Nut Factor / K-Factor</label>
-        <input id="nutFactor" type="number" value="0.2" step="0.01" min="0.01">
+        <input id="nutFactor" type="number" value="0.20" step="0.01" min="0.01">
       </div>
 
       <div class="control-group">
@@ -299,7 +310,7 @@
     </div>
 
     <p class="note">
-      This is a practical estimate only. Actual tightening torque depends on lubrication, friction, coatings, thread condition, joint materials, washer use, and fastener manufacturer data.
+      This is a practical preload-based estimate only. Actual tightening torque depends heavily on lubrication, friction, coatings, thread condition, joint materials, washer use, under-head friction, and fastener manufacturer data.
     </p>
 
     <div class="footer">
@@ -337,6 +348,13 @@
       document.getElementById("proofStrength").value = propertyClassData[pc].proof;
     }
 
+    function applyCondition(){
+      const condition = document.getElementById("condition").value;
+      if(condition !== "custom"){
+        document.getElementById("nutFactor").value = Number(condition).toFixed(2);
+      }
+    }
+
     function safeParseFloat(id, fallback){
       const value = parseFloat(document.getElementById(id).value);
       return isNaN(value) ? fallback : value;
@@ -349,9 +367,15 @@
       return value;
     }
 
-    function formatForce(n){
+    function formatForceMetric(n){
       if(n >= 1000) return (n / 1000).toFixed(2) + " kN";
       return n.toFixed(2) + " N";
+    }
+
+    function formatForceLbf(n){
+      const lbf = n * 0.224809;
+      if(lbf >= 1000) return (lbf / 1000).toFixed(2) + " kip";
+      return lbf.toFixed(1) + " lbf";
     }
 
     function calculateTorque(){
@@ -361,6 +385,7 @@
       const proofPercent = safeParseFloat("proofPercent", 0);
       const nutFactor = safeParseFloat("nutFactor", 0);
       const torqueUnit = document.getElementById("torqueUnit").value;
+      const propertyClass = document.getElementById("propertyClass").value;
       const diameterM = boltData[boltSize].diameter / 1000;
 
       if(tensileArea <= 0){
@@ -380,15 +405,28 @@
         return;
       }
 
-      const targetClampLoad = tensileArea * proofStrength * (proofPercent / 100);
-      const torqueNm = targetClampLoad * nutFactor * diameterM;
+      const targetClampLoadN = tensileArea * proofStrength * (proofPercent / 100);
+      const torqueNm = targetClampLoadN * nutFactor * diameterM;
+      const torqueLowNm = torqueNm * 0.90;
+      const torqueHighNm = torqueNm * 1.10;
       const outputTorque = convertNm(torqueNm, torqueUnit);
+      const outputTorqueLow = convertNm(torqueLowNm, torqueUnit);
+      const outputTorqueHigh = convertNm(torqueHighNm, torqueUnit);
       const preloadStress = proofStrength * (proofPercent / 100);
+
+      let warningText = "This is a reasonable starting estimate for non-critical planning use.";
+      if(proofPercent >= 85){
+        warningText = "High preload target selected. Tight friction control and careful joint validation are strongly recommended.";
+      } else if(nutFactor >= 0.24){
+        warningText = "High nut factor selected. Torque-to-preload scatter may be larger than expected.";
+      } else if(propertyClass === "12.9"){
+        warningText = "Class 12.9 fasteners can be sensitive to application details and should be reviewed carefully for real production use.";
+      }
 
       gtag('event','tool_calculation',{
         tool:'bolt_tightening_torque',
         bolt_size:boltSize,
-        property_class:document.getElementById("propertyClass").value,
+        property_class:propertyClass,
         proof_percent:proofPercent
       });
 
@@ -396,8 +434,12 @@
         "<strong>Estimated Tightening Torque</strong><br>" +
         outputTorque.toFixed(2) + " " + torqueUnit + "<br><br>" +
 
+        "<strong>Practical Starting Torque Range</strong><br>" +
+        outputTorqueLow.toFixed(2) + " to " + outputTorqueHigh.toFixed(2) + " " + torqueUnit + "<br><br>" +
+
         "<strong>Target Clamp Load</strong><br>" +
-        formatForce(targetClampLoad) + "<br><br>" +
+        formatForceMetric(targetClampLoadN) + "<br>" +
+        formatForceLbf(targetClampLoadN) + "<br><br>" +
 
         "<strong>Approximate Preload Stress</strong><br>" +
         preloadStress.toFixed(1) + " MPa<br><br>" +
@@ -415,7 +457,10 @@
         proofPercent.toFixed(1) + "%<br><br>" +
 
         "<strong>Nut Factor</strong><br>" +
-        nutFactor.toFixed(3);
+        nutFactor.toFixed(3) + "<br><br>" +
+
+        "<strong>Engineering Note</strong><br>" +
+        warningText;
     }
 
     function resetCalculator(){
@@ -424,7 +469,8 @@
       document.getElementById("propertyClass").value = "10.9";
       applyPropertyClass();
       document.getElementById("proofPercent").value = "75";
-      document.getElementById("nutFactor").value = "0.2";
+      document.getElementById("condition").value = "0.20";
+      document.getElementById("nutFactor").value = "0.20";
       document.getElementById("torqueUnit").value = "Nm";
       document.getElementById("output").innerHTML = "Enter values and calculate tightening torque";
     }
