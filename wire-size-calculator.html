@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/wire-size-calculator.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Wire Size Calculator | AWG Wire Gauge by Amps, Distance, Voltage Drop</title>
+  <meta name="description" content="Free wire size calculator for electrical and automation design. Estimate recommended AWG wire gauge using current, voltage, distance, conductor material, phase, and allowable voltage drop.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      text-align:center;
+      color:#222;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto 40px auto;
+      background:white;
+      padding:30px 20px 40px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1, h2, h3{
+      color:#1f2a44;
+    }
+
+    p{
+      line-height:1.6;
+      max-width:900px;
+      margin:10px auto;
+    }
+
+    .note{
+      font-size:14px;
+      color:#555;
+      max-width:900px;
+      margin:10px auto 20px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:15px;
+      max-width:950px;
+      margin:25px auto;
+    }
+
+    .card{
+      background:#f8f9fb;
+      border:1px solid #d9dfeb;
+      border-radius:8px;
+      padding:18px;
+    }
+
+    label{
+      display:block;
+      font-weight:bold;
+      margin-bottom:6px;
+      color:#1f2a44;
+      text-align:left;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      border:1px solid #bbb;
+      border-radius:6px;
+      box-sizing:border-box;
+    }
+
+    button{
+      background:#1f2a44;
+      color:white;
+      border:none;
+      padding:12px 24px;
+      font-size:16px;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    button:hover{
+      background:#2d3b5f;
+    }
+
+    .result{
+      margin-top:25px;
+      font-size:18px;
+      font-weight:bold;
+      color:#1f2a44;
+      line-height:1.8;
+    }
+
+    .subresult{
+      font-size:15px;
+      font-weight:normal;
+      color:#444;
+      margin-top:12px;
+      line-height:1.7;
+    }
+
+    .warning{
+      margin-top:12px;
+      color:#b00020;
+      font-weight:bold;
+    }
+
+    .success{
+      margin-top:12px;
+      color:#1b6e1b;
+      font-weight:bold;
+    }
+
+    .formula-box{
+      max-width:850px;
+      margin:20px auto;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:8px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+    }
+
+    table{
+      width:100%;
+      max-width:950px;
+      border-collapse:collapse;
+      margin:20px auto;
+      background:white;
+    }
+
+    th, td{
+      border:1px solid #ccc;
+      padding:12px 10px;
+      text-align:center;
+    }
+
+    th{
+      background:#1f2a44;
+      color:white;
+    }
+
+    tr:nth-child(even){
+      background:#f7f7f7;
+    }
+
+    .link-box{
+      margin-top:30px;
+      padding:20px;
+      background:#eef3ff;
+      border-radius:8px;
+      border:1px solid #cfdaf5;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    a{
+      color:#1f2a44;
+      font-weight:bold;
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    .footer-note{
+      font-size:13px;
+      color:#666;
+      margin-top:20px;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    @media (max-width:700px){
+      .container{
+        margin:0 10px 30px;
+        padding:20px 15px 30px;
+      }
+
+      th, td{
+        font-size:14px;
+        padding:10px 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+  <h1>Wire Size Calculator</h1>
+
+  <p>
+    Use this wire size calculator to estimate the recommended AWG wire gauge based on current, voltage, distance, conductor material, phase, and acceptable voltage drop.
+    This tool is useful for automation systems, controls panels, motor circuits, field devices, and general electrical design.
+  </p>
+
+  <p class="note">
+    This calculator provides a practical engineering estimate and is not a substitute for NEC, local code, insulation temperature rating, bundling adjustments, ambient corrections, or final design review.
+    Always verify the final conductor size for your specific installation.
+  </p>
+
+  <h2>Wire Size Calculator</h2>
+
+  <div class="formula-box">
+    Single-Phase Voltage Drop ≈ 2 × Current × Resistance × Distance<br>
+    Three-Phase Voltage Drop ≈ 1.732 × Current × Resistance × Distance<br>
+    <br>
+    This calculator selects the smallest conductor that meets both:
+    ampacity check and voltage drop target.
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <label for="amps">Current (A)</label>
+      <input type="number" id="amps" step="0.01" placeholder="e.g. 32">
+    </div>
+
+    <div class="card">
+      <label for="voltage">System Voltage (V)</label>
+      <input type="number" id="voltage" step="0.01" placeholder="e.g. 480">
+    </div>
+
+    <div class="card">
+      <label for="distance">One-Way Distance (ft)</label>
+      <input type="number" id="distance" step="0.01" placeholder="e.g. 120">
+    </div>
+
+    <div class="card">
+      <label for="material">Conductor Material</label>
+      <select id="material">
+        <option value="copper">Copper</option>
+        <option value="aluminum">Aluminum</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label for="phase">Phase</label>
+      <select id="phase">
+        <option value="single">Single-Phase / DC</option>
+        <option value="three">Three-Phase</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label for="maxDrop">Allowable Voltage Drop (%)</label>
+      <input type="number" id="maxDrop" step="0.1" value="3" placeholder="e.g. 3">
+    </div>
+  </div>
+
+  <button onclick="calculateWireSize()">Calculate</button>
+
+  <div class="result" id="result"></div>
+  <div id="statusMessage"></div>
+
+  <h2>Quick AWG Reference</h2>
+
+  <table>
+    <tr>
+      <th>AWG</th>
+      <th>Area (mm²)</th>
+      <th>Resistance Copper (Ω / 1000 ft)</th>
+      <th>Typical Copper Ampacity</th>
+    </tr>
+    <tr><td>20</td><td>0.52</td><td>10.15</td><td>5 A</td></tr>
+    <tr><td>18</td><td>0.82</td><td>6.39</td><td>7 A</td></tr>
+    <tr><td>16</td><td>1.31</td><td>4.02</td><td>10 A</td></tr>
+    <tr><td>14</td><td>2.08</td><td>2.53</td><td>15 A</td></tr>
+    <tr><td>12</td><td>3.31</td><td>1.59</td><td>20 A</td></tr>
+    <tr><td>10</td><td>5.26</td><td>1.00</td><td>30 A</td></tr>
+    <tr><td>8</td><td>8.37</td><td>0.63</td><td>40 A</td></tr>
+    <tr><td>6</td><td>13.3</td><td>0.40</td><td>55 A</td></tr>
+    <tr><td>4</td><td>21.1</td><td>0.25</td><td>70 A</td></tr>
+    <tr><td>2</td><td>33.6</td><td>0.16</td><td>95 A</td></tr>
+    <tr><td>1</td><td>42.4</td><td>0.13</td><td>110 A</td></tr>
+    <tr><td>1/0</td><td>53.5</td><td>0.10</td><td>125 A</td></tr>
+    <tr><td>2/0</td><td>67.4</td><td>0.08</td><td>145 A</td></tr>
+    <tr><td>3/0</td><td>85.0</td><td>0.06</td><td>165 A</td></tr>
+    <tr><td>4/0</td><td>107</td><td>0.05</td><td>195 A</td></tr>
+  </table>
+
+  <div class="link-box">
+    Related electrical tools:
+    <a href="awg-wire-gauge-chart.html">AWG Wire Gauge Chart</a>
+    &nbsp;|&nbsp;
+    <a href="wire-gauge-amps.html">Wire Gauge vs Amps</a>
+    &nbsp;|&nbsp;
+    <a href="voltage-drop.html">Voltage Drop Calculator</a>
+    &nbsp;|&nbsp;
+    <a href="motor-fla-calculator.html">Motor Full Load Current</a>
+  </div>
+
+  <p class="footer-note">
+    Practical wire sizing should also consider insulation temperature rating, installation method, conductor fill, ambient temperature, duty cycle, inrush current, and local code requirements.
+  </p>
+
+</div>
+
+<script>
+  const wireDataCopper = [
+    { awg: "20", area: 0.52, ohms: 10.15, amps: 5 },
+    { awg: "18", area: 0.82, ohms: 6.39, amps: 7 },
+    { awg: "16", area: 1.31, ohms: 4.02, amps: 10 },
+    { awg: "14", area: 2.08, ohms: 2.53, amps: 15 },
+    { awg: "12", area: 3.31, ohms: 1.59, amps: 20 },
+    { awg: "10", area: 5.26, ohms: 1.00, amps: 30 },
+    { awg: "8", area: 8.37, ohms: 0.63, amps: 40 },
+    { awg: "6", area: 13.3, ohms: 0.40, amps: 55 },
+    { awg: "4", area: 21.1, ohms: 0.25, amps: 70 },
+    { awg: "2", area: 33.6, ohms: 0.16, amps: 95 },
+    { awg: "1", area: 42.4, ohms: 0.13, amps: 110 },
+    { awg: "1/0", area: 53.5, ohms: 0.10, amps: 125 },
+    { awg: "2/0", area: 67.4, ohms: 0.08, amps: 145 },
+    { awg: "3/0", area: 85.0, ohms: 0.06, amps: 165 },
+    { awg: "4/0", area: 107.0, ohms: 0.05, amps: 195 }
+  ];
+
+  function calculateWireSize(){
+    const amps = parseFloat(document.getElementById("amps").value);
+    const voltage = parseFloat(document.getElementById("voltage").value);
+    const distance = parseFloat(document.getElementById("distance").value);
+    const material = document.getElementById("material").value;
+    const phase = document.getElementById("phase").value;
+    const maxDropPercent = parseFloat(document.getElementById("maxDrop").value);
+
+    const result = document.getElementById("result");
+    const statusMessage = document.getElementById("statusMessage");
+
+    result.innerHTML = "";
+    statusMessage.innerHTML = "";
+
+    if(
+      isNaN(amps) || amps <= 0 ||
+      isNaN(voltage) || voltage <= 0 ||
+      isNaN(distance) || distance <= 0 ||
+      isNaN(maxDropPercent) || maxDropPercent <= 0
+    ){
+      result.innerHTML = "Please enter valid current, voltage, distance, and allowable voltage drop values.";
+      return;
+    }
+
+    let wireData = JSON.parse(JSON.stringify(wireDataCopper));
+
+    if(material === "aluminum"){
+      wireData.forEach(w => {
+        w.ohms *= 1.64;
+        w.amps *= 0.85;
+      });
+    }
+
+    const maxDropVolts = voltage * (maxDropPercent / 100);
+
+    let selectedWire = null;
+    let selectedDropVolts = null;
+    let selectedDropPercent = null;
+    let selectedFinalVoltage = null;
+    let selectedPowerLoss = null;
+
+    for(let i = 0; i < wireData.length; i++){
+      const wire = wireData[i];
+
+      if(amps <= wire.amps){
+        let voltageDrop;
+
+        if(phase === "three"){
+          voltageDrop = 1.732 * amps * wire.ohms * (distance / 1000);
+        } else {
+          voltageDrop = 2 * amps * wire.ohms * (distance / 1000);
+        }
+
+        const dropPercent = (voltageDrop / voltage) * 100;
+        const finalVoltage = voltage - voltageDrop;
+        const powerLoss = phase === "three"
+          ? Math.sqrt(3) * voltageDrop * amps
+          : voltageDrop * amps;
+
+        if(voltageDrop <= maxDropVolts){
+          selectedWire = wire;
+          selectedDropVolts = voltageDrop;
+          selectedDropPercent = dropPercent;
+          selectedFinalVoltage = finalVoltage;
+          selectedPowerLoss = powerLoss;
+          break;
+        }
+      }
+    }
+
+    if(selectedWire){
+      result.innerHTML = `
+        Recommended Wire Size: ${selectedWire.awg} AWG
+        <div class="subresult">
+          Estimated Voltage Drop: ${selectedDropVolts.toFixed(2)} V<br>
+          Estimated Voltage Drop: ${selectedDropPercent.toFixed(2)}%<br>
+          Estimated Final Voltage: ${selectedFinalVoltage.toFixed(2)} V<br>
+          Estimated Power Loss: ${selectedPowerLoss.toFixed(1)} W<br>
+          Material: ${material.charAt(0).toUpperCase() + material.slice(1)}<br>
+          Phase: ${phase === "three" ? "Three-Phase" : "Single-Phase / DC"}
+        </div>
+      `;
+
+      statusMessage.innerHTML = `<div class="success">This wire size meets the entered ampacity and voltage drop target.</div>`;
+    } else {
+      result.innerHTML = `
+        No conductor in the quick table meets both the ampacity and voltage drop target.<br>
+        Try a larger conductor than 4/0 AWG, reduce distance, reduce current, or allow more voltage drop.
+      `;
+
+      statusMessage.innerHTML = `<div class="warning">Your design conditions are outside the range of this quick AWG table.</div>`;
+    }
+  }
+
+  fetch("navbar.html?v=20260311")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
