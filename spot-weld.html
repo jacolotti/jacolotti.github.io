@@ -15,96 +15,21 @@
 
   <title>Resistance Spot Weld Starting Parameter Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free spot weld starting parameter calculator for automation and manufacturing engineers. Estimate conservative starting current, force, weld time, squeeze time, hold time, tip diameter, and nugget target for resistance spot welding by material and sheet thickness.">
+  <meta name="description" content="Free resistance spot weld starting parameter calculator for automation and manufacturing engineers. Estimate conservative starting current, force in kN and lbf, weld time, squeeze time, hold time, tip diameter, and nugget target by material and sheet thickness.">
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
       text-align:center;
       margin:0;
-    }
-
-    .navbar{
-      background:#1f2a44;
-      padding:15px;
-      margin-bottom:40px;
-      text-align:left;
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      gap:10px;
-    }
-
-    .navbar a{
-      color:white;
-      text-decoration:none;
-      font-weight:bold;
-      padding:8px 10px;
-      display:inline-block;
-    }
-
-    .navbar a:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
-      color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
-    }
-
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
+      color:#222;
     }
 
     .container{
       background:white;
       padding:30px;
-      max-width:760px;
+      max-width:780px;
       margin:auto;
       border-radius:10px;
       box-shadow:0 0 10px rgba(0,0,0,.1);
@@ -143,6 +68,7 @@
       box-sizing:border-box;
       border:1px solid #ccc;
       border-radius:5px;
+      background:white;
     }
 
     .button-row{
@@ -210,7 +136,7 @@
   <h2>Resistance Spot Weld Starting Parameter Calculator</h2>
 
   <p class="description">
-    Estimate conservative starting parameters for resistance spot welding using material type, sheet thickness, weld quality target, and machine type.
+    Estimate conservative starting parameters for resistance spot welding using material type, sheet thickness, stack condition, weld quality target, and machine type.
   </p>
 
   <p class="description">
@@ -218,7 +144,7 @@
   </p>
 
   <p class="description">
-    Use this free spot weld calculator to estimate starting current range, force range, weld time range, squeeze time, hold time, tip diameter, and nugget target for common sheet metal spot welding applications.
+    Use this free spot weld calculator to estimate starting current range, force range in kN and lbf, weld time range, squeeze time, hold time, tip diameter, and nugget target for common sheet metal spot welding applications.
   </p>
 
   <div class="grid">
@@ -240,6 +166,15 @@
     <div class="field">
       <label for="thickness2">Sheet 2 Thickness (mm)</label>
       <input id="thickness2" type="number" value="1.0" min="0.1" max="6" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="stackType">Sheet Stack Type</label>
+      <select id="stackType">
+        <option value="equal">Equal Thickness / Balanced Stack</option>
+        <option value="thin_to_thick">Thin to Thick</option>
+        <option value="thick_to_thin">Thick to Thin</option>
+      </select>
     </div>
 
     <div class="field">
@@ -287,10 +222,15 @@
     document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
   }
 
+  function roundTo(value, decimals){
+    return Number(value.toFixed(decimals));
+  }
+
   function calculateSpotWeld(){
     const material = document.getElementById("material").value;
     const t1 = parseFloat(document.getElementById("thickness1").value) || 0;
     const t2 = parseFloat(document.getElementById("thickness2").value) || 0;
+    const stackType = document.getElementById("stackType").value;
     const quality = document.getElementById("quality").value;
     const machine = document.getElementById("machine").value;
     const output = document.getElementById("output");
@@ -307,12 +247,14 @@
 
     const totalThickness = t1 + t2;
     const minThickness = Math.min(t1, t2);
+    const thicknessRatio = Math.max(t1, t2) / Math.min(t1, t2);
 
     let currentFactor = 7.2;
     let forceFactor = 0.45;
     let cycleFactor = 10;
     let materialNote = "";
     let machineNote = "";
+    let stackNote = "";
 
     if(material === "mild"){
       currentFactor = 7.2;
@@ -349,9 +291,27 @@
       machineNote = "AC welders often use cycle-based timing directly, so cycle estimates can be a practical starting reference.";
     }
 
-    const weldCurrentKA = currentFactor * totalThickness;
-    const electrodeForceKN = forceFactor * totalThickness;
-    const weldTimeCycles = cycleFactor * totalThickness;
+    let currentStackFactor = 1.00;
+    let forceStackFactor = 1.00;
+    let timeStackFactor = 1.00;
+
+    if(stackType === "thin_to_thick"){
+      currentStackFactor = 1.08;
+      forceStackFactor = 1.05;
+      timeStackFactor = 1.05;
+      stackNote = "Thin-to-thick stacks often need slightly more current, force, and time because heat balance shifts toward the thicker sheet.";
+    } else if(stackType === "thick_to_thin"){
+      currentStackFactor = 0.95;
+      forceStackFactor = 1.10;
+      timeStackFactor = 1.10;
+      stackNote = "Thick-to-thin stacks can overheat the thin sheet more easily, so higher force and slightly longer timing may help control the weld.";
+    } else {
+      stackNote = "Balanced or near-equal stacks usually behave more predictably and are the simplest place to begin schedule development.";
+    }
+
+    const weldCurrentKA = currentFactor * totalThickness * currentStackFactor;
+    const electrodeForceKN = forceFactor * totalThickness * forceStackFactor;
+    const weldTimeCycles = cycleFactor * totalThickness * timeStackFactor;
     const weldTimeMs = weldTimeCycles * (1000 / 60);
 
     const tipDiameterMM = 5 * Math.sqrt(minThickness);
@@ -364,53 +324,73 @@
 
     const currentLow = weldCurrentKA * 0.85;
     const currentHigh = weldCurrentKA * 1.05;
-    const forceLow = electrodeForceKN * 0.90;
-    const forceHigh = electrodeForceKN * 1.10;
+
+    const forceLowKN = electrodeForceKN * 0.90;
+    const forceHighKN = electrodeForceKN * 1.10;
+
+    const forceLowLbf = forceLowKN * 224.809;
+    const forceHighLbf = forceHighKN * 224.809;
+
     const timeLow = weldTimeCycles * 0.90;
     const timeHigh = weldTimeCycles * 1.10;
     const timeLowMs = timeLow * (1000 / 60);
     const timeHighMs = timeHigh * (1000 / 60);
 
+    let balanceNote = "";
+    if(thicknessRatio >= 1.5){
+      balanceNote = "Large sheet thickness mismatch detected. Expect heat balance sensitivity and validate aggressively with destructive testing.";
+    } else {
+      balanceNote = "Sheet thicknesses are reasonably close, which usually improves starting-point predictability.";
+    }
+
     gtag('event', 'spot_weld_calculation', {
       material: material,
       machine_type: machine,
       total_thickness_mm: totalThickness,
-      quality: quality
+      quality: quality,
+      stack_type: stackType
     });
 
     output.innerHTML =
       "<strong>Total Thickness</strong><br>" +
-      totalThickness.toFixed(2) + " mm<br><br>" +
+      roundTo(totalThickness, 2) + " mm<br><br>" +
 
       "<strong>Conservative Starting Weld Current Range</strong><br>" +
-      currentLow.toFixed(1) + " to " + currentHigh.toFixed(1) + " kA<br><br>" +
+      roundTo(currentLow, 1) + " to " + roundTo(currentHigh, 1) + " kA<br><br>" +
 
       "<strong>Starting Electrode Force Range</strong><br>" +
-      forceLow.toFixed(2) + " to " + forceHigh.toFixed(2) + " kN<br><br>" +
+      roundTo(forceLowKN, 2) + " to " + roundTo(forceHighKN, 2) + " kN<br>" +
+      roundTo(forceLowLbf, 0) + " to " + roundTo(forceHighLbf, 0) + " lbf<br><br>" +
 
       "<strong>Starting Weld Time Range</strong><br>" +
-      timeLow.toFixed(0) + " to " + timeHigh.toFixed(0) + " cycles<br>" +
-      timeLowMs.toFixed(0) + " to " + timeHighMs.toFixed(0) + " ms<br><br>" +
+      roundTo(timeLow, 0) + " to " + roundTo(timeHigh, 0) + " cycles<br>" +
+      roundTo(timeLowMs, 0) + " to " + roundTo(timeHighMs, 0) + " ms<br><br>" +
 
       "<strong>Suggested Squeeze Time</strong><br>" +
-      squeezeTimeCycles.toFixed(0) + " cycles<br>" +
-      squeezeTimeMs.toFixed(0) + " ms<br><br>" +
+      roundTo(squeezeTimeCycles, 0) + " cycles<br>" +
+      roundTo(squeezeTimeMs, 0) + " ms<br><br>" +
 
       "<strong>Suggested Hold Time</strong><br>" +
-      holdTimeCycles.toFixed(0) + " cycles<br>" +
-      holdTimeMs.toFixed(0) + " ms<br><br>" +
+      roundTo(holdTimeCycles, 0) + " cycles<br>" +
+      roundTo(holdTimeMs, 0) + " ms<br><br>" +
 
       "<strong>Suggested Starting Tip Diameter</strong><br>" +
-      tipDiameterMM.toFixed(1) + " mm<br><br>" +
+      roundTo(tipDiameterMM, 1) + " mm<br><br>" +
 
       "<strong>Suggested Nugget Diameter Target</strong><br>" +
-      nuggetDiameterMM.toFixed(1) + " mm<br><br>" +
+      roundTo(nuggetDiameterMM, 1) + " mm<br><br>" +
 
       "<strong>Material Note</strong><br>" +
       materialNote + "<br><br>" +
 
+      "<strong>Stack Note</strong><br>" +
+      stackNote + "<br><br>" +
+
       "<strong>Machine Note</strong><br>" +
       machineNote + "<br><br>" +
+
+      "<strong>Balance Note</strong><br>" +
+      balanceNote + "<br><br>" +
 
       "<strong>Important</strong><br>" +
       "These are conservative first-pass starting values only. Validate with destructive testing, nugget checks, peel tests, and actual machine behavior.";
@@ -420,6 +400,7 @@
     document.getElementById("material").value = "mild";
     document.getElementById("thickness1").value = "1.0";
     document.getElementById("thickness2").value = "1.0";
+    document.getElementById("stackType").value = "equal";
     document.getElementById("quality").value = "standard";
     document.getElementById("machine").value = "ac";
     showMessage("Enter values and press Calculate");
@@ -429,6 +410,7 @@
     document.getElementById("material").value = "galvanized";
     document.getElementById("thickness1").value = "1.2";
     document.getElementById("thickness2").value = "1.2";
+    document.getElementById("stackType").value = "equal";
     document.getElementById("quality").value = "standard";
     document.getElementById("machine").value = "mfdc";
     calculateSpotWeld();
