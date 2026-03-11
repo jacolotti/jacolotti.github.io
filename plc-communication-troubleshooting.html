@@ -12,7 +12,7 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>PLC Communication Troubleshooter | Automation Calculators</title>
+  <title>PLC Communication Troubleshooting Tool | Ethernet/IP, Profinet, Modbus | Automation Calculators</title>
   <meta name="description" content="Free PLC communication troubleshooting tool for automation engineers and technicians. Diagnose common Ethernet/IP, Profinet, Modbus TCP, and serial communication problems based on symptoms and network conditions.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -213,7 +213,7 @@
   <div id="navbar"></div>
 
   <div class="container">
-    <h2>PLC Communication Troubleshooter</h2>
+    <h1>PLC Communication Troubleshooter</h1>
 
     <p class="description">
       Diagnose common PLC communication problems using protocol, symptoms, power condition, physical link condition, and recent changes.
@@ -490,6 +490,10 @@
       }
 
       let html = "";
+
+      if(likelyCauses.length === 0){
+  likelyCauses.push("General communication configuration or network condition issue");
+}
 
       html += "<strong>Estimated Issue Severity</strong><br>" + severity + "<br><br>";
 
