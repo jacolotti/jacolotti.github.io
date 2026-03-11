@@ -1,3 +1,92 @@
+<style>
+  .navbar{
+    background:#1f2a44;
+    padding:15px;
+    margin-bottom:40px;
+    text-align:left;
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:10px;
+  }
+
+  .navbar a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    padding:8px 10px;
+    display:inline-block;
+  }
+
+  .navbar a:hover{
+    text-decoration:underline;
+    opacity:0.85;
+  }
+
+  .dropdown{
+    position:relative;
+    display:inline-block;
+  }
+
+  .dropbtn{
+    background:none;
+    border:none;
+    color:white;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    padding:8px 10px;
+    font-family:Arial, sans-serif;
+  }
+
+  .dropbtn:hover{
+    text-decoration:underline;
+    opacity:0.85;
+  }
+
+  .dropdown-content{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:white;
+    min-width:220px;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+    border-radius:8px;
+    z-index:1000;
+    overflow:hidden;
+  }
+
+  .dropdown-content a{
+    display:block;
+    color:#1f2a44;
+    padding:12px 15px;
+    text-decoration:none;
+    font-weight:bold;
+    white-space:nowrap;
+  }
+
+  .dropdown-content a:hover{
+    background:#f4f8ff;
+    text-decoration:none;
+    opacity:1;
+  }
+
+  .dropdown:hover .dropdown-content{
+    display:block;
+  }
+
+  @media (max-width:700px){
+    .navbar{
+      gap:4px;
+    }
+
+    .dropdown-content{
+      min-width:200px;
+    }
+  }
+</style>
+
 <div class="navbar">
   <a href="index.html">Home</a>
   <a href="automation-calculators.html">All Calculators</a>
@@ -37,6 +126,7 @@
     <div class="dropdown-content">
       <a href="plc-communication-troubleshooting.html">PLC Communication Troubleshooter</a>
       <a href="analog-scaling.html">Analog Scaling</a>
+      <a href="plc-pulse-capture.html">PLC Scan Time & Pulse Capture</a>
       <a href="voltage-drop.html">Voltage Drop</a>
       <a href="safety-distance.html">Safety Distance</a>
     </div>
