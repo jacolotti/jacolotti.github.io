@@ -30,18 +30,75 @@
       padding:15px;
       margin-bottom:40px;
       text-align:left;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
     }
 
     .navbar a{
       color:white;
-      margin:0 15px;
       text-decoration:none;
       font-weight:bold;
+      padding:8px 10px;
+      display:inline-block;
     }
 
     .navbar a:hover{
       text-decoration:underline;
       opacity:0.8;
+    }
+
+    .dropdown{
+      position:relative;
+      display:inline-block;
+    }
+
+    .dropbtn{
+      background:none;
+      border:none;
+      color:white;
+      font-weight:bold;
+      font-size:16px;
+      cursor:pointer;
+      padding:8px 10px;
+      font-family:Arial;
+    }
+
+    .dropbtn:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .dropdown-content{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      background:white;
+      min-width:220px;
+      box-shadow:0px 4px 12px rgba(0,0,0,.15);
+      border-radius:8px;
+      z-index:1000;
+      overflow:hidden;
+    }
+
+    .dropdown-content a{
+      display:block;
+      color:#1f2a44;
+      padding:12px 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .dropdown-content a:hover{
+      background:#f4f8ff;
+      text-decoration:none;
+      opacity:1;
+    }
+
+    .dropdown:hover .dropdown-content{
+      display:block;
     }
 
     .container{
@@ -55,6 +112,7 @@
 
     .container h2{
       margin-bottom:10px;
+      color:#1f2a44;
     }
 
     .description{
@@ -83,7 +141,11 @@
       border-radius:5px;
     }
 
-    button{
+    .button-row{
+      margin-top:15px;
+    }
+
+    .button-row button{
       padding:12px 26px;
       font-size:16px;
       background:#1e6bd6;
@@ -91,11 +153,11 @@
       border:none;
       border-radius:6px;
       cursor:pointer;
-      margin-top:15px;
+      margin:6px;
       transition:background .2s;
     }
 
-    button:hover{
+    .button-row button:hover{
       background:#1555ad;
     }
 
@@ -108,6 +170,7 @@
       font-size:18px;
       line-height:1.6;
       font-weight:500;
+      text-align:left;
     }
 
     .note{
@@ -123,69 +186,83 @@
       color:#666;
       font-size:14px;
     }
+
+    @media (max-width:700px){
+      .container{
+        padding:20px;
+      }
+
+      .button-row button{
+        width:100%;
+        margin:6px 0;
+      }
+    }
   </style>
 </head>
 <body>
 
 <div id="navbar"></div>
-  <div class="container">
-    <h2>PLC Analog Scaling Calculator</h2>
 
-    <p class="description">
-      Convert analog input values into engineering units using the standard PLC linear scaling formula.
-    </p>
+<div class="container">
+  <h2>PLC Analog Scaling Calculator</h2>
 
-    <p class="description">
-      This calculator is useful for 4-20mA transmitters, 0-10V sensors, analog cards, HMI values, PLC raw counts, and general automation signal scaling.
-    </p>
+  <p class="description">
+    Convert analog input values into engineering units using the standard PLC linear scaling formula.
+  </p>
 
-    <p>Preset Signal Type</p>
-    <select id="preset" onchange="applyPreset()">
-      <option value="custom">Custom</option>
-      <option value="4-20mA">4-20 mA</option>
-      <option value="0-10V">0-10 V</option>
-      <option value="abRaw">Allen-Bradley Raw Counts (0-32767)</option>
-      <option value="siemensRaw">Siemens Raw Counts (0-27648)</option>
-    </select>
+  <p class="description">
+    This calculator is useful for 4-20mA transmitters, 0-10V sensors, analog cards, HMI values, PLC raw counts, and general automation signal scaling.
+  </p>
 
-    <p>Input Value</p>
-    <input id="rawInput" type="number" value="12" step="0.001">
+  <p>Preset Signal Type</p>
+  <select id="preset" onchange="applyPreset()">
+    <option value="custom">Custom</option>
+    <option value="4-20mA">4-20 mA</option>
+    <option value="0-10V">0-10 V</option>
+    <option value="abRaw">Allen-Bradley Raw Counts (0-32767)</option>
+    <option value="siemensRaw">Siemens Raw Counts (0-27648)</option>
+  </select>
 
-    <p>Raw Minimum</p>
-    <input id="rawMin" type="number" value="4" step="0.001">
+  <p>Input Value</p>
+  <input id="rawInput" type="number" value="12" step="0.001">
 
-    <p>Raw Maximum</p>
-    <input id="rawMax" type="number" value="20" step="0.001">
+  <p>Raw Minimum</p>
+  <input id="rawMin" type="number" value="4" step="0.001">
 
-    <p>Engineering Minimum</p>
-    <input id="engMin" type="number" value="0" step="0.001">
+  <p>Raw Maximum</p>
+  <input id="rawMax" type="number" value="20" step="0.001">
 
-    <p>Engineering Maximum</p>
-    <input id="engMax" type="number" value="300" step="0.001">
+  <p>Engineering Minimum</p>
+  <input id="engMin" type="number" value="0" step="0.001">
 
-    <p>Engineering Units Label</p>
-    <input id="engUnits" type="text" value="PSI">
+  <p>Engineering Maximum</p>
+  <input id="engMax" type="number" value="300" step="0.001">
 
+  <p>Engineering Units Label</p>
+  <input id="engUnits" type="text" value="PSI">
+
+  <div class="button-row">
     <button onclick="calculateAnalogScaling(); gtag('event','analog_scaling_calculation');">Calculate</button>
-
-    <div class="result" id="output">
-      Enter values and press Calculate
-    </div>
-
-    <p class="note">
-      This calculator uses standard linear interpolation:
-      <br><br>
-      Scaled Value = ((Input - Raw Min) / (Raw Max - Raw Min)) × (Engineering Max - Engineering Min) + Engineering Min
-      <br><br>
-      It is intended for normal analog scaling applications and does not include filtering, sensor non-linearity, card calibration offsets, or fault handling logic.
-    </p>
-
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators for real automation work
-    </div>
   </div>
 
-  <script>
+  <div class="result" id="output">
+    Enter values and press Calculate
+  </div>
+
+  <p class="note">
+    This calculator uses standard linear interpolation:
+    <br><br>
+    Scaled Value = ((Input - Raw Min) / (Raw Max - Raw Min)) × (Engineering Max - Engineering Min) + Engineering Min
+    <br><br>
+    It is intended for normal analog scaling applications and does not include filtering, sensor non-linearity, card calibration offsets, or fault handling logic.
+  </p>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
+  </div>
+</div>
+
+<script>
   function applyPreset(){
     let preset = document.getElementById("preset").value;
 
