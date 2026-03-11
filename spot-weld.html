@@ -13,9 +13,9 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>Spot Weld Calculator | Automation Calculators</title>
+  <title>Resistance Spot Weld Starting Parameter Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free spot weld calculator for automation and manufacturing engineers. Estimate starting current, weld time, electrode force, squeeze time, hold time, tip diameter, and nugget target for resistance spot welding by material and thickness.">
+  <meta name="description" content="Free spot weld starting parameter calculator for automation and manufacturing engineers. Estimate conservative starting current, force, weld time, squeeze time, hold time, tip diameter, and nugget target for resistance spot welding by material and sheet thickness.">
 
   <style>
     body{
@@ -207,18 +207,18 @@
 <div id="navbar"></div>
 
 <div class="container">
-  <h2>Resistance Spot Weld Calculator</h2>
+  <h2>Resistance Spot Weld Starting Parameter Calculator</h2>
 
   <p class="description">
-    Estimate a starting weld schedule for resistance spot welding using material type, sheet thickness, and weld quality target.
+    Estimate conservative starting parameters for resistance spot welding using material type, sheet thickness, weld quality target, and machine type.
   </p>
 
   <p class="description">
-    This is a first-pass estimator for setup and planning. Final weld schedules should always be validated with destructive testing, nugget checks, peel tests, and real machine capability.
+    This tool is intended for first-pass setup and planning only. Final weld schedules should always be validated with destructive testing, nugget checks, peel tests, button pull results, and actual machine capability.
   </p>
 
   <p class="description">
-    This free spot weld calculator helps estimate weld current, force, weld time, squeeze time, hold time, tip diameter, and nugget target for common sheet metal spot welding applications.
+    Use this free spot weld calculator to estimate starting current range, force range, weld time range, squeeze time, hold time, tip diameter, and nugget target for common sheet metal spot welding applications.
   </p>
 
   <div class="grid">
@@ -270,11 +270,11 @@
   </div>
 
   <p class="note">
-    Galvanized and galvaneal steels usually require more current and tighter process control because the coating affects contact resistance and electrode life.
+    Coated steels such as galvanized and galvaneal usually require tighter process control because coating affects contact resistance, heat balance, and electrode life.
   </p>
 
   <p class="note">
-    Weld time shown in cycles assumes a standard 60 Hz timing reference. The millisecond value is included as a quick cross-reference, especially useful when comparing AC and MFDC timing discussions.
+    Weld time shown in cycles assumes a 60 Hz timing reference. Milliseconds are included as a practical cross-reference when comparing AC and MFDC discussions.
   </p>
 
   <div class="footer">
@@ -308,64 +308,66 @@
     const totalThickness = t1 + t2;
     const minThickness = Math.min(t1, t2);
 
-    let currentFactor = 8.5;
-    let forceFactor = 0.55;
-    let cycleFactor = 12;
+    let currentFactor = 7.2;
+    let forceFactor = 0.45;
+    let cycleFactor = 10;
     let materialNote = "";
     let machineNote = "";
 
     if(material === "mild"){
-      currentFactor = 8.5;
-      forceFactor = 0.55;
-      cycleFactor = 12;
-      materialNote = "Bare mild steel is usually the easiest starting point for schedule development.";
-    } else if(material === "galvanized"){
-      currentFactor = 9.5;
-      forceFactor = 0.60;
-      cycleFactor = 13;
-      materialNote = "Galvanized steel usually needs slightly higher current and careful electrode maintenance.";
-    } else if(material === "galvaneal"){
-      currentFactor = 9.2;
-      forceFactor = 0.60;
-      cycleFactor = 13;
-      materialNote = "Galvaneal often behaves a little more consistently than galvanized but still needs coating-aware setup.";
-    } else if(material === "stainless"){
       currentFactor = 7.2;
-      forceFactor = 0.50;
+      forceFactor = 0.45;
       cycleFactor = 10;
-      materialNote = "Stainless often uses lower current than coated carbon steels but still requires validation.";
+      materialNote = "Bare mild steel is usually the most forgiving starting point for schedule development.";
+    } else if(material === "galvanized"){
+      currentFactor = 7.8;
+      forceFactor = 0.48;
+      cycleFactor = 11;
+      materialNote = "Galvanized steel usually needs somewhat higher current and careful electrode maintenance because the coating affects contact resistance.";
+    } else if(material === "galvaneal"){
+      currentFactor = 7.6;
+      forceFactor = 0.48;
+      cycleFactor = 11;
+      materialNote = "Galvaneal often behaves more consistently than galvanized, but still needs coating-aware validation.";
+    } else if(material === "stainless"){
+      currentFactor = 6.3;
+      forceFactor = 0.42;
+      cycleFactor = 9;
+      materialNote = "Stainless often uses different starting conditions than carbon steel and should always be validated with testing.";
     }
 
     if(quality === "high"){
-      currentFactor *= 1.05;
-      forceFactor *= 1.08;
-      cycleFactor *= 1.10;
+      currentFactor *= 1.03;
+      forceFactor *= 1.05;
+      cycleFactor *= 1.05;
     }
 
     if(machine === "mfdc"){
-      cycleFactor *= 0.70;
+      cycleFactor *= 0.78;
       machineNote = "MFDC welders often allow shorter effective weld times and tighter process control than AC systems.";
     } else {
-      machineNote = "AC welders often use cycle-based timing directly, so cycle estimates can be a convenient starting reference.";
+      machineNote = "AC welders often use cycle-based timing directly, so cycle estimates can be a practical starting reference.";
     }
 
     const weldCurrentKA = currentFactor * totalThickness;
     const electrodeForceKN = forceFactor * totalThickness;
     const weldTimeCycles = cycleFactor * totalThickness;
     const weldTimeMs = weldTimeCycles * (1000 / 60);
+
     const tipDiameterMM = 5 * Math.sqrt(minThickness);
     const nuggetDiameterMM = 4 * Math.sqrt(minThickness);
-    const squeezeTimeCycles = Math.max(8, Math.round(6 + totalThickness * 4));
-    const holdTimeCycles = Math.max(6, Math.round(4 + totalThickness * 3));
+
+    const squeezeTimeCycles = Math.max(8, Math.round(6 + totalThickness * 3.5));
+    const holdTimeCycles = Math.max(6, Math.round(4 + totalThickness * 2.5));
     const squeezeTimeMs = squeezeTimeCycles * (1000 / 60);
     const holdTimeMs = holdTimeCycles * (1000 / 60);
 
-    const currentLow = weldCurrentKA * 0.9;
-    const currentHigh = weldCurrentKA * 1.1;
-    const forceLow = electrodeForceKN * 0.9;
-    const forceHigh = electrodeForceKN * 1.1;
-    const timeLow = weldTimeCycles * 0.9;
-    const timeHigh = weldTimeCycles * 1.1;
+    const currentLow = weldCurrentKA * 0.85;
+    const currentHigh = weldCurrentKA * 1.05;
+    const forceLow = electrodeForceKN * 0.90;
+    const forceHigh = electrodeForceKN * 1.10;
+    const timeLow = weldTimeCycles * 0.90;
+    const timeHigh = weldTimeCycles * 1.10;
     const timeLowMs = timeLow * (1000 / 60);
     const timeHighMs = timeHigh * (1000 / 60);
 
@@ -380,13 +382,13 @@
       "<strong>Total Thickness</strong><br>" +
       totalThickness.toFixed(2) + " mm<br><br>" +
 
-      "<strong>Suggested Weld Current Range</strong><br>" +
+      "<strong>Conservative Starting Weld Current Range</strong><br>" +
       currentLow.toFixed(1) + " to " + currentHigh.toFixed(1) + " kA<br><br>" +
 
-      "<strong>Suggested Electrode Force Range</strong><br>" +
+      "<strong>Starting Electrode Force Range</strong><br>" +
       forceLow.toFixed(2) + " to " + forceHigh.toFixed(2) + " kN<br><br>" +
 
-      "<strong>Suggested Weld Time Range</strong><br>" +
+      "<strong>Starting Weld Time Range</strong><br>" +
       timeLow.toFixed(0) + " to " + timeHigh.toFixed(0) + " cycles<br>" +
       timeLowMs.toFixed(0) + " to " + timeHighMs.toFixed(0) + " ms<br><br>" +
 
@@ -408,7 +410,10 @@
       materialNote + "<br><br>" +
 
       "<strong>Machine Note</strong><br>" +
-      machineNote;
+      machineNote + "<br><br>" +
+
+      "<strong>Important</strong><br>" +
+      "These are conservative first-pass starting values only. Validate with destructive testing, nugget checks, peel tests, and actual machine behavior.";
   }
 
   function clearCalculator(){
