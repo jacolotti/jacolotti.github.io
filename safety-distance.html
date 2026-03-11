@@ -34,18 +34,75 @@ background:#1f2a44;
 padding:15px;
 margin-bottom:40px;
 text-align:left;
+display:flex;
+flex-wrap:wrap;
+align-items:center;
+gap:10px;
 }
 
 .navbar a{
 color:white;
-margin:0 15px;
 text-decoration:none;
 font-weight:bold;
+padding:8px 10px;
+display:inline-block;
 }
 
 .navbar a:hover{
 text-decoration:underline;
 opacity:0.8;
+}
+
+.dropdown{
+position:relative;
+display:inline-block;
+}
+
+.dropbtn{
+background:none;
+border:none;
+color:white;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+padding:8px 10px;
+font-family:Arial;
+}
+
+.dropbtn:hover{
+text-decoration:underline;
+opacity:0.8;
+}
+
+.dropdown-content{
+display:none;
+position:absolute;
+top:100%;
+left:0;
+background:white;
+min-width:220px;
+box-shadow:0px 4px 12px rgba(0,0,0,.15);
+border-radius:8px;
+z-index:1000;
+overflow:hidden;
+}
+
+.dropdown-content a{
+display:block;
+color:#1f2a44;
+padding:12px 15px;
+text-decoration:none;
+font-weight:bold;
+}
+
+.dropdown-content a:hover{
+background:#f4f8ff;
+text-decoration:none;
+opacity:1;
+}
+
+.dropdown:hover .dropdown-content{
+display:block;
 }
 
 .container{
@@ -59,6 +116,7 @@ box-shadow:0px 0px 10px rgba(0,0,0,.1);
 
 .container h2{
 margin-bottom:10px;
+color:#1f2a44;
 }
 
 .description{
@@ -112,6 +170,7 @@ border-radius:8px;
 font-size:18px;
 line-height:1.6;
 font-weight:500;
+text-align:left;
 }
 
 .note{
@@ -119,12 +178,24 @@ margin-top:20px;
 color:#666;
 font-size:14px;
 line-height:1.5;
+text-align:left;
 }
 
 .footer{
 margin-top:40px;
 color:#666;
 font-size:14px;
+}
+
+@media (max-width:700px){
+.container{
+padding:20px;
+}
+
+button{
+width:100%;
+margin:6px 0;
+}
 }
 
 </style>
@@ -181,7 +252,6 @@ Automation Engineering Tools • Practical calculators for real automation work
 </div>
 
 <script>
-
 function calculateSafetyDistance(){
 
 let machineStop = parseFloat(document.getElementById("machineStop").value) || 0;
@@ -205,14 +275,12 @@ output.innerHTML =
 "<strong>Total Stop Time</strong><br>" +
 totalTimeMs.toFixed(1) + " ms<br><br>" +
 
-"<strong>Total Stop Time</strong><br>" +
+"<strong>Total Stop Time (seconds)</strong><br>" +
 totalTimeSec.toFixed(3) + " s<br><br>" +
 
 "<strong>Required Safety Distance</strong><br>" +
 safetyDistance.toFixed(1) + " mm";
-
 }
-
 </script>
 
 <script>
