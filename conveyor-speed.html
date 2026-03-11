@@ -30,18 +30,75 @@
       padding:15px;
       margin-bottom:40px;
       text-align:left;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
     }
 
     .navbar a{
       color:white;
-      margin:0 15px;
       text-decoration:none;
       font-weight:bold;
+      padding:8px 10px;
+      display:inline-block;
     }
 
     .navbar a:hover{
       text-decoration:underline;
       opacity:0.8;
+    }
+
+    .dropdown{
+      position:relative;
+      display:inline-block;
+    }
+
+    .dropbtn{
+      background:none;
+      border:none;
+      color:white;
+      font-weight:bold;
+      font-size:16px;
+      cursor:pointer;
+      padding:8px 10px;
+      font-family:Arial;
+    }
+
+    .dropbtn:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .dropdown-content{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      background:white;
+      min-width:220px;
+      box-shadow:0px 4px 12px rgba(0,0,0,.15);
+      border-radius:8px;
+      z-index:1000;
+      overflow:hidden;
+    }
+
+    .dropdown-content a{
+      display:block;
+      color:#1f2a44;
+      padding:12px 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .dropdown-content a:hover{
+      background:#f4f8ff;
+      text-decoration:none;
+      opacity:1;
+    }
+
+    .dropdown:hover .dropdown-content{
+      display:block;
     }
 
     .container{
@@ -55,6 +112,7 @@
 
     .container h2{
       margin-bottom:10px;
+      color:#1f2a44;
     }
 
     .description{
@@ -107,6 +165,7 @@
       font-size:18px;
       line-height:1.6;
       font-weight:500;
+      text-align:left;
     }
 
     .note{
@@ -114,12 +173,23 @@
       color:#666;
       font-size:14px;
       line-height:1.5;
+      text-align:left;
     }
 
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+    }
+
+    @media (max-width:700px){
+      .container{
+        padding:20px;
+      }
+
+      button{
+        width:100%;
+      }
     }
   </style>
 </head>
@@ -185,7 +255,7 @@
         return;
       }
 
-        let speedIPM = spacing * ppm;
+      let speedIPM = spacing * ppm;
       let speedFPM = speedIPM / 12;
       let travelTimeMin = travelDistance / speedFPM;
       let travelTimeSec = travelTimeMin * 60;
@@ -201,21 +271,21 @@
         "<strong>Throughput</strong><br>" +
         ppm.toFixed(2) + " parts/min";
     }
-</script>
+  </script>
 
-<script>
-  fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      const nav = document.getElementById("navbar");
-      if(nav){
-        nav.innerHTML = data;
-      }
-    })
-    .catch(error => {
-      console.error("Navbar failed to load:", error);
-    });
-</script>
+  <script>
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        const nav = document.getElementById("navbar");
+        if(nav){
+          nav.innerHTML = data;
+        }
+      })
+      .catch(error => {
+        console.error("Navbar failed to load:", error);
+      });
+  </script>
 
 </body>
 </html>
