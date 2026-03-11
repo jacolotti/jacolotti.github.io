@@ -4,7 +4,6 @@
   <link rel="canonical" href="https://automationcalculators.net/air-consumption.html">
   <meta name="robots" content="index, follow">
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,11 +14,11 @@
 
   <title>Pneumatic Air Consumption Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free pneumatic air consumption calculator for automation engineers. Estimate cylinder air use, cubic inches per cycle, and SCFM using bore, rod diameter, stroke, pressure, and cycles per minute.">
+  <meta name="description" content="Free pneumatic air consumption calculator for automation engineers. Estimate cylinder swept volume, standard free air per cycle, SCFM, and practical design air demand using bore, rod diameter, stroke, pressure, and cycles per minute.">
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
       text-align:center;
       margin:0;
@@ -49,65 +48,13 @@
       opacity:0.8;
     }
 
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
-      color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
-    }
-
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
     .container{
       background:white;
       padding:30px;
-      max-width:700px;
+      max-width:760px;
       margin:auto;
       border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+      box-shadow:0 0 10px rgba(0,0,0,.1);
     }
 
     .container h2{
@@ -124,31 +71,37 @@
       font-weight:normal;
     }
 
-    .container p{
-      margin-top:20px;
-      margin-bottom:5px;
-      font-weight:500;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      gap:18px;
       text-align:left;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
     }
 
     input, select{
       width:100%;
       padding:10px;
-      margin:10px 0;
       font-size:16px;
       box-sizing:border-box;
       border:1px solid #ccc;
       border-radius:5px;
+      background:white;
     }
 
     .button-row{
-      margin-top:15px;
+      margin-top:18px;
     }
 
     .button-row button{
       padding:12px 26px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
       border-radius:6px;
@@ -158,7 +111,7 @@
     }
 
     .button-row button:hover{
-      background:#1555ad;
+      background:#2d3d63;
     }
 
     .result{
@@ -167,9 +120,8 @@
       background:#e9f1ff;
       border:1px solid #c8d9ff;
       border-radius:8px;
-      font-size:18px;
+      font-size:17px;
       line-height:1.6;
-      font-weight:500;
       text-align:left;
     }
 
@@ -201,139 +153,187 @@
 </head>
 <body>
 
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h2>Pneumatic Air Consumption Calculator</h2>
+<div class="container">
+  <h2>Pneumatic Air Consumption Calculator</h2>
 
-    <p class="description">
-      Estimate pneumatic cylinder air usage per cycle and SCFM using bore diameter, rod diameter, stroke length, operating pressure, and cycle rate.
-    </p>
+  <p class="description">
+    Estimate pneumatic cylinder swept volume, standard free air usage per cycle, and SCFM using bore diameter, rod diameter, stroke length, operating pressure, and cycle rate.
+  </p>
 
-    <p class="description">
-      This calculator is useful for pneumatic cylinder sizing, compressed air demand checks, valve selection, and estimating air usage in industrial automation systems.
-    </p>
+  <p class="description">
+    This calculator is useful for pneumatic cylinder sizing, compressed air demand checks, valve selection, and estimating practical air usage in industrial automation systems.
+  </p>
 
-    <p>Bore Diameter (in)</p>
-    <input id="bore" type="number" value="2" min="0.01" step="0.01">
-
-    <p>Rod Diameter (in)</p>
-    <input id="rod" type="number" value="0.625" min="0" step="0.01">
-
-    <p>Stroke Length (in)</p>
-    <input id="stroke" type="number" value="6" min="0.01" step="0.01">
-
-    <p>Operating Pressure (PSI)</p>
-    <input id="pressure" type="number" value="80" min="0.01" step="0.01">
-
-    <p>Cycles Per Minute</p>
-    <input id="cpm" type="number" value="20" min="0" step="0.01">
-
-    <p>Double Acting Cylinder?</p>
-    <select id="doubleActing">
-      <option value="yes">Yes</option>
-      <option value="no">No</option>
-    </select>
-
-    <div class="button-row">
-      <button onclick="calculateAirConsumption(); gtag('event','air_consumption_calculation');">Calculate</button>
+  <div class="grid">
+    <div class="field">
+      <label for="bore">Bore Diameter (in)</label>
+      <input id="bore" type="number" value="2.0" min="0.01" step="0.01">
     </div>
 
-    <div class="result" id="output">
-      Enter values and press Calculate
+    <div class="field">
+      <label for="rod">Rod Diameter (in)</label>
+      <input id="rod" type="number" value="0.625" min="0" step="0.01">
     </div>
 
-    <p class="note">
-      For double-acting cylinders, extend air volume uses full bore area and retract air volume uses bore area minus rod area. This is a practical engineering estimate and does not account for leakage, cushioning losses, compressibility effects beyond standard free-air conversion, or valve timing.
-    </p>
+    <div class="field">
+      <label for="stroke">Stroke Length (in)</label>
+      <input id="stroke" type="number" value="6.0" min="0.01" step="0.01">
+    </div>
 
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators for real automation work
+    <div class="field">
+      <label for="pressure">Operating Pressure (PSIG)</label>
+      <input id="pressure" type="number" value="80" min="0.01" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="cpm">Cycles Per Minute</label>
+      <input id="cpm" type="number" value="20" min="0" step="0.01">
+    </div>
+
+    <div class="field">
+      <label for="doubleActing">Cylinder Type</label>
+      <select id="doubleActing">
+        <option value="yes">Double Acting</option>
+        <option value="no">Single Acting</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="usageFactor">Usage Factor</label>
+      <select id="usageFactor">
+        <option value="1.00">Ideal Estimate</option>
+        <option value="1.15" selected>Practical Estimate (+15%)</option>
+        <option value="1.25">Conservative Estimate (+25%)</option>
+      </select>
     </div>
   </div>
 
-  <script>
-    function calculateAirConsumption(){
-      let bore = parseFloat(document.getElementById("bore").value) || 0;
-      let rod = parseFloat(document.getElementById("rod").value) || 0;
-      let stroke = parseFloat(document.getElementById("stroke").value) || 0;
-      let pressure = parseFloat(document.getElementById("pressure").value) || 0;
-      let cpm = parseFloat(document.getElementById("cpm").value) || 0;
-      let doubleActing = document.getElementById("doubleActing").value;
+  <div class="button-row">
+    <button onclick="calculateAirConsumption(); gtag('event','air_consumption_calculation');">Calculate</button>
+  </div>
 
-      const output = document.getElementById("output");
+  <div class="result" id="output">
+    Enter values and press Calculate
+  </div>
 
-      if(bore <= 0){
-        output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
-        return;
-      }
+  <p class="note">
+    Standard free air conversion uses absolute pressure ratio based on PSIG input. This is a practical engineering estimate and does not account for tubing dead volume, leakage, valve timing losses, cushioning losses, or unusual motion profiles.
+  </p>
 
-      if(rod < 0){
-        output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
-        return;
-      }
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
+  </div>
+</div>
 
-      if(rod >= bore){
-        output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
-        return;
-      }
+<script>
+  function roundTo(value, decimals){
+    return Number(value.toFixed(decimals));
+  }
 
-      if(stroke <= 0){
-        output.innerHTML = "<strong>Please enter a stroke length greater than 0.</strong>";
-        return;
-      }
+  function calculateAirConsumption(){
+    const bore = parseFloat(document.getElementById("bore").value) || 0;
+    const rod = parseFloat(document.getElementById("rod").value) || 0;
+    const stroke = parseFloat(document.getElementById("stroke").value) || 0;
+    const pressure = parseFloat(document.getElementById("pressure").value) || 0;
+    const cpm = parseFloat(document.getElementById("cpm").value) || 0;
+    const doubleActing = document.getElementById("doubleActing").value;
+    const usageFactor = parseFloat(document.getElementById("usageFactor").value) || 1;
+    const output = document.getElementById("output");
 
-      if(pressure <= 0){
-        output.innerHTML = "<strong>Please enter an operating pressure greater than 0.</strong>";
-        return;
-      }
-
-      if(cpm < 0){
-        output.innerHTML = "<strong>Please enter cycles per minute of 0 or greater.</strong>";
-        return;
-      }
-
-      let boreArea = Math.PI * Math.pow(bore / 2, 2);
-      let rodArea = Math.PI * Math.pow(rod / 2, 2);
-      let retractArea = boreArea - rodArea;
-
-      let extendVolume = boreArea * stroke;
-      let retractVolume = (doubleActing === "yes") ? retractArea * stroke : 0;
-      let totalCylinderVolumePerCycle = extendVolume + retractVolume;
-
-      let compressionRatio = (pressure + 14.7) / 14.7;
-      let freeAirPerCycle = totalCylinderVolumePerCycle * compressionRatio;
-
-      let scfm = (freeAirPerCycle * cpm) / 1728;
-
-      output.innerHTML =
-        "<strong>Extend Volume</strong><br>" +
-        extendVolume.toFixed(2) + " in³<br><br>" +
-
-        "<strong>Retract Volume</strong><br>" +
-        retractVolume.toFixed(2) + " in³<br><br>" +
-
-        "<strong>Total Air Per Cycle</strong><br>" +
-        totalCylinderVolumePerCycle.toFixed(2) + " in³<br><br>" +
-
-        "<strong>Free Air Equivalent Per Cycle</strong><br>" +
-        freeAirPerCycle.toFixed(2) + " in³<br><br>" +
-
-        "<strong>Estimated SCFM</strong><br>" +
-        scfm.toFixed(3) + " SCFM";
+    if(bore <= 0){
+      output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
+      return;
     }
-  </script>
 
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
+    if(rod < 0){
+      output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
+      return;
+    }
+
+    if(rod >= bore){
+      output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
+      return;
+    }
+
+    if(stroke <= 0){
+      output.innerHTML = "<strong>Please enter a stroke length greater than 0.</strong>";
+      return;
+    }
+
+    if(pressure <= 0){
+      output.innerHTML = "<strong>Please enter an operating pressure greater than 0.</strong>";
+      return;
+    }
+
+    if(cpm < 0){
+      output.innerHTML = "<strong>Please enter cycles per minute of 0 or greater.</strong>";
+      return;
+    }
+
+    const boreArea = Math.PI * Math.pow(bore / 2, 2);
+    const rodArea = Math.PI * Math.pow(rod / 2, 2);
+    const retractArea = boreArea - rodArea;
+
+    const extendVolumeIn3 = boreArea * stroke;
+    const retractVolumeIn3 = (doubleActing === "yes") ? retractArea * stroke : 0;
+    const sweptVolumePerCycleIn3 = extendVolumeIn3 + retractVolumeIn3;
+
+    const absolutePressureRatio = (pressure + 14.7) / 14.7;
+    const standardFreeAirPerCycleIn3 = sweptVolumePerCycleIn3 * absolutePressureRatio;
+    const practicalFreeAirPerCycleIn3 = standardFreeAirPerCycleIn3 * usageFactor;
+
+    const scfmIdeal = (standardFreeAirPerCycleIn3 * cpm) / 1728;
+    const scfmPractical = (practicalFreeAirPerCycleIn3 * cpm) / 1728;
+
+    const standardFt3PerHour = scfmPractical * 60;
+
+    let cylinderNote = "";
+    if(doubleActing === "yes"){
+      cylinderNote = "Double-acting estimate includes both extend and retract chamber consumption.";
+    } else {
+      cylinderNote = "Single-acting estimate includes powered stroke volume only and does not model spring-return losses separately.";
+    }
+
+    output.innerHTML =
+      "<strong>Extend Swept Volume</strong><br>" +
+      roundTo(extendVolumeIn3, 2) + " in³<br><br>" +
+
+      "<strong>Retract Swept Volume</strong><br>" +
+      roundTo(retractVolumeIn3, 2) + " in³<br><br>" +
+
+      "<strong>Cylinder Swept Volume Per Cycle</strong><br>" +
+      roundTo(sweptVolumePerCycleIn3, 2) + " in³<br><br>" +
+
+      "<strong>Standard Free Air Per Cycle</strong><br>" +
+      roundTo(standardFreeAirPerCycleIn3, 2) + " in³<br><br>" +
+
+      "<strong>Practical Design Free Air Per Cycle</strong><br>" +
+      roundTo(practicalFreeAirPerCycleIn3, 2) + " in³<br><br>" +
+
+      "<strong>Estimated SCFM</strong><br>" +
+      roundTo(scfmIdeal, 3) + " SCFM ideal<br>" +
+      roundTo(scfmPractical, 3) + " SCFM practical<br><br>" +
+
+      "<strong>Estimated Standard Air Per Hour</strong><br>" +
+      roundTo(standardFt3PerHour, 2) + " ft³/hr<br><br>" +
+
+      "<strong>Note</strong><br>" +
+      cylinderNote;
+  }
+</script>
+
+<script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
 
 </body>
 </html>
