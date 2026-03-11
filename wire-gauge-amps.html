@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/wire-gauge-amps.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Wire Gauge vs Amps Chart | AWG Ampacity Reference</title>
+  <meta name="description" content="Free AWG wire gauge vs amps reference chart for automation and electrical design. Quickly look up common copper wire sizes, ampacity, and resistance, plus estimate a recommended wire gauge by current and distance.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      text-align:center;
+      color:#222;
+    }
+
+    .navbar{
+      background:#1f2a44;
+      padding:15px;
+      margin-bottom:30px;
+    }
+
+    .container{
+      max-width:1000px;
+      margin:auto;
+      background:white;
+      padding:30px 20px 40px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+      margin-bottom:40px;
+    }
+
+    h1{
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    h2{
+      color:#1f2a44;
+      margin-top:35px;
+      margin-bottom:15px;
+    }
+
+    p{
+      line-height:1.6;
+      max-width:850px;
+      margin:10px auto;
+    }
+
+    .note{
+      font-size:14px;
+      color:#555;
+      max-width:850px;
+      margin:10px auto 20px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:15px;
+      max-width:850px;
+      margin:25px auto;
+    }
+
+    .card{
+      background:#f8f9fb;
+      border:1px solid #d9dfeb;
+      border-radius:8px;
+      padding:18px;
+    }
+
+    label{
+      display:block;
+      font-weight:bold;
+      margin-bottom:6px;
+      color:#1f2a44;
+      text-align:left;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      border:1px solid #bbb;
+      border-radius:6px;
+      box-sizing:border-box;
+    }
+
+    button{
+      background:#1f2a44;
+      color:white;
+      border:none;
+      padding:12px 24px;
+      font-size:16px;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    button:hover{
+      background:#2d3b5f;
+    }
+
+    .result{
+      margin-top:25px;
+      font-size:18px;
+      font-weight:bold;
+      color:#1f2a44;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:20px auto;
+      max-width:900px;
+      background:white;
+    }
+
+    th, td{
+      border:1px solid #ccc;
+      padding:12px 10px;
+      text-align:center;
+    }
+
+    th{
+      background:#1f2a44;
+      color:white;
+    }
+
+    tr:nth-child(even){
+      background:#f7f7f7;
+    }
+
+    .warning{
+      margin-top:12px;
+      color:#b00020;
+      font-weight:bold;
+    }
+
+    .success{
+      margin-top:12px;
+      color:#1b6e1b;
+      font-weight:bold;
+    }
+
+    .link-box{
+      margin-top:30px;
+      padding:20px;
+      background:#eef3ff;
+      border-radius:8px;
+      border:1px solid #cfdaf5;
+    }
+
+    a{
+      color:#1f2a44;
+      font-weight:bold;
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    .footer-note{
+      font-size:13px;
+      color:#666;
+      margin-top:20px;
+    }
+
+    @media (max-width:600px){
+      .container{
+        margin:0 10px 30px;
+        padding:20px 15px 30px;
+      }
+
+      th, td{
+        font-size:14px;
+        padding:10px 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="navbar"></div>
+
+  <div class="container">
+    <h1>Wire Gauge vs Amps Chart</h1>
+    <p>
+      Use this AWG wire gauge reference chart to quickly compare common copper wire sizes, ampacity, and resistance.
+      This page is intended as a fast engineering reference for automation, controls, and electrical design work.
+    </p>
+    <p class="note">
+      Note: Actual allowable ampacity depends on insulation type, conductor count, ambient temperature, installation method, and code requirements.
+      Always verify final conductor sizing against NEC, local code, and your application conditions.
+    </p>
+
+    <h2>Common AWG Wire Gauge Reference</h2>
+    <table>
+      <tr>
+        <th>AWG</th>
+        <th>Typical Amp Rating</th>
+        <th>Ohms / 1000 ft</th>
+        <th>Area (mm²)</th>
+      </tr>
+      <tr><td>14</td><td>15A</td><td>2.525</td><td>2.08</td></tr>
+      <tr><td>12</td><td>20A</td><td>1.588</td><td>3.31</td></tr>
+      <tr><td>10</td><td>30A</td><td>0.999</td><td>5.26</td></tr>
+      <tr><td>8</td><td>40A</td><td>0.628</td><td>8.37</td></tr>
+      <tr><td>6</td><td>55A</td><td>0.395</td><td>13.3</td></tr>
+      <tr><td>4</td><td>70A</td><td>0.248</td><td>21.1</td></tr>
+      <tr><td>2</td><td>95A</td><td>0.156</td><td>33.6</td></tr>
+      <tr><td>1/0</td><td>125A</td><td>0.098</td><td>53.5</td></tr>
+    </table>
+
+    <h2>Recommended Wire Gauge Estimator</h2>
+    <p>
+      Enter current and one-way distance to get a quick wire gauge recommendation based on a simple ampacity and voltage drop check.
+      This is a practical estimation tool, not a code replacement.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <label for="amps">Current (A)</label>
+        <input type="number" id="amps" placeholder="e.g. 24">
+      </div>
+
+      <div class="card">
+        <label for="distance">One-Way Distance (ft)</label>
+        <input type="number" id="distance" placeholder="e.g. 50">
+      </div>
+
+      <div class="card">
+        <label for="voltage">System Voltage</label>
+        <select id="voltage">
+          <option value="24">24 VDC</option>
+          <option value="48">48 VDC</option>
+          <option value="120">120 VAC</option>
+          <option value="240">240 VAC</option>
+          <option value="480">480 VAC</option>
+        </select>
+      </div>
+
+      <div class="card">
+        <label for="material">Conductor Material</label>
+        <select id="material">
+          <option value="copper">Copper</option>
+          <option value="aluminum">Aluminum</option>
+        </select>
+      </div>
+    </div>
+
+    <button onclick="calculateWireGauge()">Calculate</button>
+
+    <div class="result" id="result"></div>
+    <div id="statusMessage"></div>
+
+    <div class="link-box">
+      Need a more exact result? Use the
+      <a href="voltage-drop.html">Voltage Drop Calculator</a>
+      for a more detailed calculation.
+    </div>
+
+    <p class="footer-note">
+      This estimator assumes a simple round-trip conductor length and uses a conservative voltage drop screening approach.
+    </p>
+  </div>
+
+  <script>
+    const wireDataCopper = [
+      { awg: "14", amps: 15, ohms: 2.525 },
+      { awg: "12", amps: 20, ohms: 1.588 },
+      { awg: "10", amps: 30, ohms: 0.999 },
+      { awg: "8",  amps: 40, ohms: 0.628 },
+      { awg: "6",  amps: 55, ohms: 0.395 },
+      { awg: "4",  amps: 70, ohms: 0.248 },
+      { awg: "2",  amps: 95, ohms: 0.156 },
+      { awg: "1/0", amps: 125, ohms: 0.098 }
+    ];
+
+    function calculateWireGauge(){
+      const amps = parseFloat(document.getElementById("amps").value);
+      const distance = parseFloat(document.getElementById("distance").value);
+      const voltage = parseFloat(document.getElementById("voltage").value);
+      const material = document.getElementById("material").value;
+
+      const result = document.getElementById("result");
+      const statusMessage = document.getElementById("statusMessage");
+
+      result.innerHTML = "";
+      statusMessage.innerHTML = "";
+
+      if(isNaN(amps) || isNaN(distance) || amps <= 0 || distance <= 0){
+        result.innerHTML = "Please enter valid current and distance values.";
+        return;
+      }
+
+      let wireData = JSON.parse(JSON.stringify(wireDataCopper));
+
+      if(material === "aluminum"){
+        wireData.forEach(w => {
+          w.ohms *= 1.64;   // approximate higher resistance than copper
+          w.amps *= 0.85;   // simple conservative derating
+        });
+      }
+
+      let selectedWire = null;
+      let selectedDrop = null;
+      let selectedPercent = null;
+
+      for(let i = 0; i < wireData.length; i++){
+        const wire = wireData[i];
+
+        if(amps <= wire.amps){
+          const roundTripFeet = distance * 2;
+          const resistance = wire.ohms * (roundTripFeet / 1000);
+          const voltageDrop = amps * resistance;
+          const percentDrop = (voltageDrop / voltage) * 100;
+
+          if(percentDrop <= 3){
+            selectedWire = wire;
+            selectedDrop = voltageDrop;
+            selectedPercent = percentDrop;
+            break;
+          }
+        }
+      }
+
+      if(selectedWire){
+        result.innerHTML = `
+          Recommended Wire Gauge: ${selectedWire.awg} AWG<br>
+          Estimated Voltage Drop: ${selectedDrop.toFixed(2)} V<br>
+          Estimated Voltage Drop: ${selectedPercent.toFixed(2)}%
+        `;
+
+        if(selectedPercent <= 3){
+          statusMessage.innerHTML = `<div class="success">Estimated voltage drop is within a common 3% design target.</div>`;
+        } else {
+          statusMessage.innerHTML = `<div class="warning">Voltage drop may be higher than preferred for many applications.</div>`;
+        }
+      } else {
+        result.innerHTML = `
+          No size in the quick reference table meets both the ampacity and 3% voltage drop check.<br>
+          Try a larger conductor than 1/0 AWG or use the detailed voltage drop calculator.
+        `;
+        statusMessage.innerHTML = `<div class="warning">Your load or distance likely requires a larger cable size than this quick table covers.</div>`;
+      }
+    }
+
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar").innerHTML = data;
+      })
+      .catch(error => {
+        console.error("Navbar failed to load:", error);
+      });
+  </script>
+</body>
+</html>
