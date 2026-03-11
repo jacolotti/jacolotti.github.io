@@ -19,7 +19,7 @@
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
       text-align:center;
       margin:0;
@@ -62,7 +62,7 @@
       font-size:16px;
       cursor:pointer;
       padding:8px 10px;
-      font-family:Arial;
+      font-family:Arial, sans-serif;
     }
 
     .dropbtn:hover{
@@ -77,7 +77,7 @@
       left:0;
       background:white;
       min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
+      box-shadow:0 4px 12px rgba(0,0,0,.15);
       border-radius:8px;
       z-index:1000;
       overflow:hidden;
@@ -107,7 +107,7 @@
       max-width:1100px;
       margin:auto;
       border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+      box-shadow:0 0 10px rgba(0,0,0,.1);
     }
 
     .container h2{
@@ -145,6 +145,13 @@
       box-sizing:border-box;
       border:1px solid #ccc;
       border-radius:5px;
+      background:white;
+    }
+
+    .control-group input:disabled{
+      background:#efefef;
+      color:#777;
+      cursor:not-allowed;
     }
 
     .button-row{
@@ -154,7 +161,7 @@
     .button-row button{
       padding:12px 26px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
       border-radius:6px;
@@ -164,7 +171,7 @@
     }
 
     .button-row button:hover{
-      background:#1555ad;
+      background:#2d3d63;
     }
 
     #sim-wrapper{
@@ -188,9 +195,8 @@
       background:#e9f1ff;
       border:1px solid #c8d9ff;
       border-radius:8px;
-      font-size:18px;
+      font-size:17px;
       line-height:1.6;
-      font-weight:500;
       max-width:900px;
       margin-left:auto;
       margin-right:auto;
@@ -248,7 +254,7 @@
   <div class="controls">
     <div class="control-group">
       <label for="partShape">Part Shape</label>
-      <select id="partShape">
+      <select id="partShape" onchange="handleShapeChange()">
         <option value="rectangle">Rectangle</option>
         <option value="circle">Circle</option>
       </select>
@@ -260,7 +266,7 @@
     </div>
 
     <div class="control-group">
-      <label for="partHeight">Part Height (px, rectangles only)</label>
+      <label for="partHeight" id="partHeightLabel">Part Height (px, rectangles only)</label>
       <input id="partHeight" type="number" value="30" step="1" min="1">
     </div>
 
@@ -281,22 +287,22 @@
 
     <div class="control-group">
       <label for="partCount">Number of Parts</label>
-      <input id="partCount" type="number" value="20" step="1" min="1">
+      <input id="partCount" type="number" value="20" step="1" min="1" max="300">
     </div>
 
     <div class="control-group">
       <label for="friction">Friction (0 to 1)</label>
-      <input id="friction" type="number" value="0.5" step="0.05" min="0" max="1">
+      <input id="friction" type="number" value="0.65" step="0.05" min="0" max="1">
     </div>
 
     <div class="control-group">
       <label for="bounce">Bounce / Restitution (0 to 1)</label>
-      <input id="bounce" type="number" value="0.15" step="0.05" min="0" max="1">
+      <input id="bounce" type="number" value="0.08" step="0.05" min="0" max="1">
     </div>
 
     <div class="control-group">
       <label for="rotationRandomness">Rotation Randomness (0 to 1)</label>
-      <input id="rotationRandomness" type="number" value="0.4" step="0.05" min="0" max="1">
+      <input id="rotationRandomness" type="number" value="0.30" step="0.05" min="0" max="1">
     </div>
 
     <div class="control-group">
@@ -320,7 +326,7 @@
   </div>
 
   <p class="note">
-    This is a simple 2D physics preview, not a final engineering validation tool. Fill result is an area-based estimate only and does not represent true 3D packing density or validated physical behavior.
+    This is a simple 2D physics preview, not a final engineering validation tool. Area ratio, pile height, and overflow are rough estimates only and do not represent true 3D packing density or validated physical behavior.
   </p>
 
   <div class="footer">
@@ -342,6 +348,7 @@
   const canvasWidth = 900;
   const canvasHeight = 600;
   const wallThickness = 30;
+  const bottomOffset = 40;
 
   function showMessage(message){
     document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
@@ -353,8 +360,22 @@
   }
 
   function safeParseInt(id, fallback){
-    const value = parseInt(document.getElementById(id).value);
+    const value = parseInt(document.getElementById(id).value, 10);
     return isNaN(value) ? fallback : value;
+  }
+
+  function handleShapeChange(){
+    const shape = document.getElementById("partShape").value;
+    const heightInput = document.getElementById("partHeight");
+    const heightLabel = document.getElementById("partHeightLabel");
+
+    if(shape === "circle"){
+      heightInput.disabled = true;
+      heightLabel.textContent = "Part Height (not used for circles)";
+    } else {
+      heightInput.disabled = false;
+      heightLabel.textContent = "Part Height (px, rectangles only)";
+    }
   }
 
   function getInputs(){
@@ -366,9 +387,9 @@
       binHeight: safeParseFloat("binHeight", 0),
       dropHeight: safeParseFloat("dropHeight", 0),
       partCount: safeParseInt("partCount", 0),
-      friction: safeParseFloat("friction", 0.5),
-      bounce: safeParseFloat("bounce", 0.15),
-      rotationRandomness: safeParseFloat("rotationRandomness", 0.4),
+      friction: safeParseFloat("friction", 0.65),
+      bounce: safeParseFloat("bounce", 0.08),
+      rotationRandomness: safeParseFloat("rotationRandomness", 0.30),
       dropSpread: safeParseFloat("dropSpread", 70)
     };
   }
@@ -416,6 +437,11 @@
       return false;
     }
 
+    if(i.partCount > 300){
+      showMessage("Please keep the number of parts at 300 or less for browser performance.");
+      return false;
+    }
+
     if(i.friction < 0 || i.friction > 1){
       showMessage("Friction must be between 0 and 1.");
       return false;
@@ -434,6 +460,23 @@
     if(i.dropSpread < 1 || i.dropSpread > 100){
       showMessage("Drop spread must be between 1 and 100.");
       return false;
+    }
+
+    if(i.partShape === "circle"){
+      if(i.partWidth >= i.binWidth - 40){
+        showMessage("Part diameter is too large for the selected bin width.");
+        return false;
+      }
+    } else {
+      if(i.partWidth >= i.binWidth - 40){
+        showMessage("Part width is too large for the selected bin width.");
+        return false;
+      }
+
+      if(i.partHeight >= i.binHeight - 20){
+        showMessage("Part height is too large for the selected bin height.");
+        return false;
+      }
     }
 
     return true;
@@ -478,13 +521,19 @@
     updateResults();
   }
 
-  function createBin(){
+  function getBinGeometry(){
     const { binWidth, binHeight } = getInputs();
 
     const binLeft = (canvasWidth - binWidth) / 2;
     const binRight = binLeft + binWidth;
-    const binBottom = canvasHeight - 40;
+    const binBottom = canvasHeight - bottomOffset;
     const binTop = binBottom - binHeight;
+
+    return { binLeft, binRight, binBottom, binTop, binWidth, binHeight };
+  }
+
+  function createBin(){
+    const { binLeft, binRight, binBottom, binTop, binWidth, binHeight } = getBinGeometry();
 
     if(binWalls.length > 0){
       World.remove(engine.world, binWalls);
@@ -519,11 +568,13 @@
   }
 
   function clearParts(){
-    if(droppedParts.length > 0){
+    if(engine && droppedParts.length > 0){
       World.remove(engine.world, droppedParts);
-      droppedParts = [];
     }
-    createBin();
+    droppedParts = [];
+    if(engine){
+      createBin();
+    }
     updateResults();
   }
 
@@ -540,15 +591,16 @@
     const shape = document.getElementById("partShape").value;
     const partWidth = safeParseFloat("partWidth", 50);
     const partHeight = safeParseFloat("partHeight", 30);
-    const friction = safeParseFloat("friction", 0.5);
-    const bounce = safeParseFloat("bounce", 0.15);
-    const rotationRandomness = safeParseFloat("rotationRandomness", 0.4);
+    const friction = safeParseFloat("friction", 0.65);
+    const bounce = safeParseFloat("bounce", 0.08);
+    const rotationRandomness = safeParseFloat("rotationRandomness", 0.30);
 
     const commonOptions = {
       restitution: bounce,
       friction: friction,
-      frictionAir: 0.01,
-      density: 0.0015,
+      frictionStatic: Math.min(1, friction + 0.15),
+      frictionAir: 0.02,
+      density: 0.0018,
       angle: (Math.random() - 0.5) * rotationRandomness,
       render: {
         fillStyle: "#1e6bd6"
@@ -569,12 +621,8 @@
 
     if(!validateInputs(false)) return;
 
-    const { binWidth, binHeight, dropHeight } = getInputs();
-
-    const binLeft = (canvasWidth - binWidth) / 2;
-    const binRight = binLeft + binWidth;
-    const binBottom = canvasHeight - 40;
-    const binTop = binBottom - binHeight;
+    const { binLeft, binRight, binTop } = getBinGeometry();
+    const { dropHeight } = getInputs();
 
     const x = getDropX(binLeft + 40, binRight - 40);
     const y = binTop - dropHeight;
@@ -583,7 +631,41 @@
     droppedParts.push(part);
     World.add(engine.world, part);
 
-    setTimeout(updateResults, 150);
+    setTimeout(updateResults, 250);
+  }
+
+  function isSimulationSettled(){
+    if(droppedParts.length === 0) return true;
+
+    let movingCount = 0;
+
+    for(const part of droppedParts){
+      const speed = Math.sqrt(
+        (part.velocity.x * part.velocity.x) +
+        (part.velocity.y * part.velocity.y)
+      );
+      const angularSpeed = Math.abs(part.angularVelocity);
+
+      if(speed > 0.15 || angularSpeed > 0.05){
+        movingCount++;
+      }
+    }
+
+    return movingCount === 0;
+  }
+
+  function waitForSettlement(callback, maxWaitMs = 7000){
+    const start = Date.now();
+
+    function check(){
+      if(isSimulationSettled() || (Date.now() - start) > maxWaitMs){
+        callback();
+        return;
+      }
+      setTimeout(check, 200);
+    }
+
+    check();
   }
 
   function runSimulation(){
@@ -609,26 +691,94 @@
     for(let i = 0; i < partCount; i++){
       setTimeout(() => {
         dropOnePart();
-      }, i * 220);
+      }, i * 180);
     }
 
-    setTimeout(updateResults, partCount * 220 + 1200);
+    setTimeout(() => {
+      waitForSettlement(updateResults);
+    }, partCount * 180 + 400);
+  }
+
+  function getSinglePartArea(){
+    const { partShape, partWidth, partHeight } = getInputs();
+
+    if(partShape === "circle"){
+      return Math.PI * Math.pow(partWidth / 2, 2);
+    }
+
+    return partWidth * partHeight;
+  }
+
+  function getPileMetrics(){
+    const { binTop, binBottom, binLeft, binRight, binWidth, binHeight } = getBinGeometry();
+
+    if(droppedParts.length === 0){
+      return {
+        pileHeight: 0,
+        usedHeightPercent: 0,
+        overflowCount: 0,
+        leftBiasPercent: 50
+      };
+    }
+
+    let highestPoint = binBottom;
+    let overflowCount = 0;
+    let centerSum = 0;
+    let counted = 0;
+
+    for(const part of droppedParts){
+      const topY = part.bounds.min.y;
+      const centerX = part.position.x;
+
+      if(topY < highestPoint){
+        highestPoint = topY;
+      }
+
+      if(topY < binTop){
+        overflowCount++;
+      }
+
+      if(centerX >= binLeft && centerX <= binRight){
+        centerSum += centerX;
+        counted++;
+      }
+    }
+
+    const pileHeight = Math.max(0, binBottom - highestPoint);
+    const usedHeightPercent = binHeight > 0 ? (pileHeight / binHeight) * 100 : 0;
+
+    let leftBiasPercent = 50;
+    if(counted > 0){
+      const avgCenterX = centerSum / counted;
+      leftBiasPercent = ((avgCenterX - binLeft) / binWidth) * 100;
+    }
+
+    return {
+      pileHeight,
+      usedHeightPercent,
+      overflowCount,
+      leftBiasPercent
+    };
   }
 
   function updateResults(){
-    const { binWidth, binHeight, partShape, partWidth, partHeight } = getInputs();
+    const { binWidth, binHeight } = getInputs();
 
     const binArea = binWidth * binHeight;
-    let singlePartArea = 0;
-
-    if(partShape === "circle"){
-      singlePartArea = Math.PI * Math.pow(partWidth / 2, 2);
-    } else {
-      singlePartArea = partWidth * partHeight;
-    }
-
+    const singlePartArea = getSinglePartArea();
     const totalPartArea = singlePartArea * droppedParts.length;
-    const fillPercent = binArea > 0 ? (totalPartArea / binArea) * 100 : 0;
+    const areaRatio = binArea > 0 ? (totalPartArea / binArea) * 100 : 0;
+
+    const metrics = getPileMetrics();
+
+    let balanceNote = "";
+    if(metrics.leftBiasPercent < 42){
+      balanceNote = "Pile is biased toward the left side of the bin.";
+    } else if(metrics.leftBiasPercent > 58){
+      balanceNote = "Pile is biased toward the right side of the bin.";
+    } else {
+      balanceNote = "Pile is roughly centered in the bin.";
+    }
 
     document.getElementById("output").innerHTML =
       "<strong>Parts In Bin</strong><br>" +
@@ -640,13 +790,26 @@
       "<strong>Total Part Area</strong><br>" +
       totalPartArea.toFixed(1) + " px²<br><br>" +
 
-      "<strong>Approximate 2D Area Fill</strong><br>" +
-      fillPercent.toFixed(1) + "%<br><br>" +
+      "<strong>Theoretical 2D Area Ratio</strong><br>" +
+      areaRatio.toFixed(1) + "%<br><br>" +
+
+      "<strong>Estimated Settled Pile Height</strong><br>" +
+      metrics.pileHeight.toFixed(1) + " px<br><br>" +
+
+      "<strong>Approximate Bin Height Used</strong><br>" +
+      metrics.usedHeightPercent.toFixed(1) + "%<br><br>" +
+
+      "<strong>Parts Above Bin Rim</strong><br>" +
+      metrics.overflowCount + "<br><br>" +
+
+      "<strong>Distribution Note</strong><br>" +
+      balanceNote + "<br><br>" +
 
       "<strong>Note</strong><br>" +
-      "Area-based estimate only, not true packing density.";
+      "Area ratio and pile height are rough 2D estimates only, not validated 3D packing or physical process results.";
   }
 
+  handleShapeChange();
   initSimulation();
 </script>
 
