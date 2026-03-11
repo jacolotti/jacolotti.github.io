@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link rel="canonical" href="https://automationcalculators.net/awg-wire-gauge-chart.html">
+<meta name="robots" content="index, follow">
+<meta name="author" content="AutomationCalculators.net">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-G4TY96JHNH');
+</script>
+
+<title>AWG Wire Gauge Chart (Complete) | Diameter, Resistance, Ampacity</title>
+
+<meta name="description" content="Complete AWG wire gauge chart showing diameter, resistance, and ampacity values for common copper conductors used in electrical and automation systems.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+text-align:center;
+margin:0;
+}
+
+.container{
+background:white;
+padding:40px;
+max-width:1100px;
+margin:auto;
+border-radius:10px;
+box-shadow:0px 0px 10px rgba(0,0,0,.1);
+}
+
+h1,h2{
+color:#1f2a44;
+}
+
+.subtitle{
+color:#555;
+margin-bottom:20px;
+line-height:1.6;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:25px;
+}
+
+th, td{
+border:1px solid #ddd;
+padding:10px;
+text-align:center;
+}
+
+th{
+background:#1f2a44;
+color:white;
+}
+
+tr:nth-child(even){
+background:#f7f7f7;
+}
+
+.tools{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:35px;
+}
+
+.tool{
+background:#f8fbff;
+border:1px solid #d7e6ff;
+border-radius:10px;
+padding:20px;
+text-decoration:none;
+color:#1f2a44;
+display:block;
+transition:.2s;
+}
+
+.tool:hover{
+transform:translateY(-4px);
+box-shadow:0 4px 12px rgba(0,0,0,.12);
+}
+
+.footer{
+margin-top:40px;
+color:#666;
+font-size:14px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+<h1>AWG Wire Gauge Chart (Complete)</h1>
+
+<p class="subtitle">
+This reference chart shows common American Wire Gauge (AWG) sizes including conductor diameter, resistance, and approximate ampacity values. 
+It is useful for electrical design, automation systems, motor wiring, and voltage drop calculations.
+</p>
+
+<h2>AWG Copper Wire Reference Chart</h2>
+
+<table>
+
+<tr>
+<th>AWG</th>
+<th>Diameter (mm)</th>
+<th>Area (mm²)</th>
+<th>Resistance (Ω / 1000 ft)</th>
+<th>Typical Ampacity</th>
+</tr>
+
+<tr><td>20</td><td>0.81</td><td>0.52</td><td>10.15</td><td>5 A</td></tr>
+<tr><td>18</td><td>1.02</td><td>0.82</td><td>6.39</td><td>7 A</td></tr>
+<tr><td>16</td><td>1.29</td><td>1.31</td><td>4.02</td><td>10 A</td></tr>
+<tr><td>14</td><td>1.63</td><td>2.08</td><td>2.53</td><td>15 A</td></tr>
+<tr><td>12</td><td>2.05</td><td>3.31</td><td>1.59</td><td>20 A</td></tr>
+<tr><td>10</td><td>2.59</td><td>5.26</td><td>1.00</td><td>30 A</td></tr>
+<tr><td>8</td><td>3.26</td><td>8.37</td><td>0.63</td><td>40 A</td></tr>
+<tr><td>6</td><td>4.11</td><td>13.3</td><td>0.40</td><td>55 A</td></tr>
+<tr><td>4</td><td>5.19</td><td>21.1</td><td>0.25</td><td>70 A</td></tr>
+<tr><td>2</td><td>6.54</td><td>33.6</td><td>0.16</td><td>95 A</td></tr>
+<tr><td>1</td><td>7.35</td><td>42.4</td><td>0.13</td><td>110 A</td></tr>
+<tr><td>1/0</td><td>8.25</td><td>53.5</td><td>0.10</td><td>125 A</td></tr>
+<tr><td>2/0</td><td>9.27</td><td>67.4</td><td>0.08</td><td>145 A</td></tr>
+<tr><td>3/0</td><td>10.4</td><td>85.0</td><td>0.06</td><td>165 A</td></tr>
+<tr><td>4/0</td><td>11.7</td><td>107</td><td>0.05</td><td>195 A</td></tr>
+
+</table>
+
+<h2>Related Electrical Calculators</h2>
+
+<div class="tools">
+
+<a class="tool" href="wire-gauge-amps.html">
+<h3>Wire Gauge vs Amps</h3>
+<p>Quick ampacity lookup and calculator for conductor sizing.</p>
+</a>
+
+<a class="tool" href="voltage-drop.html">
+<h3>Voltage Drop Calculator</h3>
+<p>Estimate voltage drop for electrical circuits and automation systems.</p>
+</a>
+
+<a class="tool" href="motor-fla-calculator.html">
+<h3>Motor Full Load Current</h3>
+<p>Calculate motor current using horsepower, voltage, efficiency, and power factor.</p>
+</a>
+
+</div>
+
+<div class="footer">
+Automation Engineering Tools • Practical electrical reference data
+</div>
+
+</div>
+
+<script>
+fetch("navbar.html?v=20260311")
+.then(response => response.text())
+.then(data => {
+document.getElementById("navbar").innerHTML = data;
+})
+.catch(error => {
+console.error("Navbar failed to load:", error);
+});
+</script>
+
+</body>
+</html>
