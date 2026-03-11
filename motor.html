@@ -30,18 +30,75 @@
       padding:15px;
       margin-bottom:40px;
       text-align:left;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
     }
 
     .navbar a{
       color:white;
-      margin:0 15px;
       text-decoration:none;
       font-weight:bold;
+      padding:8px 10px;
+      display:inline-block;
     }
 
     .navbar a:hover{
       text-decoration:underline;
       opacity:0.8;
+    }
+
+    .dropdown{
+      position:relative;
+      display:inline-block;
+    }
+
+    .dropbtn{
+      background:none;
+      border:none;
+      color:white;
+      font-weight:bold;
+      font-size:16px;
+      cursor:pointer;
+      padding:8px 10px;
+      font-family:Arial;
+    }
+
+    .dropbtn:hover{
+      text-decoration:underline;
+      opacity:0.8;
+    }
+
+    .dropdown-content{
+      display:none;
+      position:absolute;
+      top:100%;
+      left:0;
+      background:white;
+      min-width:220px;
+      box-shadow:0px 4px 12px rgba(0,0,0,.15);
+      border-radius:8px;
+      z-index:1000;
+      overflow:hidden;
+    }
+
+    .dropdown-content a{
+      display:block;
+      color:#1f2a44;
+      padding:12px 15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .dropdown-content a:hover{
+      background:#f4f8ff;
+      text-decoration:none;
+      opacity:1;
+    }
+
+    .dropdown:hover .dropdown-content{
+      display:block;
     }
 
     .container{
@@ -55,6 +112,7 @@
 
     .container h2{
       margin-bottom:10px;
+      color:#1f2a44;
     }
 
     .description{
@@ -132,6 +190,7 @@
       color:#666;
       font-size:14px;
       line-height:1.5;
+      text-align:left;
     }
 
     .footer{
@@ -140,7 +199,7 @@
       font-size:14px;
     }
 
-    @media (max-width: 640px){
+    @media (max-width:640px){
       .input-group{
         flex-direction:column;
         align-items:stretch;
@@ -161,7 +220,7 @@
 </head>
 <body>
 
-<div id="navbar"></div>
+  <div id="navbar"></div>
 
   <div class="container">
     <h2>Conveyor Motor Sizing Calculator</h2>
@@ -228,112 +287,114 @@
   </div>
 
   <script>
-    <script>
-  function showMessage(message){
-    document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
-  }
-
-  function calculate(){
-    let weight = parseFloat(document.getElementById("weight").value) || 0;
-    let speed = parseFloat(document.getElementById("speed").value) || 0;
-    let diameter = parseFloat(document.getElementById("diameter").value) || 0;
-    let friction = parseFloat(document.getElementById("friction").value) || 0;
-    let efficiencyPercent = parseFloat(document.getElementById("efficiency").value) || 0;
-    let safety = parseFloat(document.getElementById("safety").value) || 0;
-
-    const output = document.getElementById("output");
-
-    if(weight < 0){
-      showMessage("Please enter a load weight of 0 or greater.");
-      return;
+    function showMessage(message){
+      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
     }
 
-    if(speed < 0){
-      showMessage("Please enter a conveyor speed of 0 or greater.");
-      return;
+    function calculate(){
+      let weight = parseFloat(document.getElementById("weight").value) || 0;
+      let speed = parseFloat(document.getElementById("speed").value) || 0;
+      let diameter = parseFloat(document.getElementById("diameter").value) || 0;
+      let friction = parseFloat(document.getElementById("friction").value) || 0;
+      let efficiencyPercent = parseFloat(document.getElementById("efficiency").value) || 0;
+      let safety = parseFloat(document.getElementById("safety").value) || 0;
+
+      const output = document.getElementById("output");
+
+      if(weight < 0){
+        showMessage("Please enter a load weight of 0 or greater.");
+        return;
+      }
+
+      if(speed < 0){
+        showMessage("Please enter a conveyor speed of 0 or greater.");
+        return;
+      }
+
+      if(diameter <= 0){
+        showMessage("Please enter a drive roller diameter greater than 0.");
+        return;
+      }
+
+      if(friction < 0){
+        showMessage("Please enter a friction factor of 0 or greater.");
+        return;
+      }
+
+      if(efficiencyPercent <= 0 || efficiencyPercent > 100){
+        showMessage("Please enter a mechanical efficiency greater than 0 and up to 100%.");
+        return;
+      }
+
+      if(safety <= 0){
+        showMessage("Please enter a safety factor greater than 0.");
+        return;
+      }
+
+      let efficiency = efficiencyPercent / 100;
+      let g = 9.81;
+
+      let force = weight * g * friction * safety;
+      let radius = (diameter / 1000) / 2;
+      let torque = force * radius;
+
+      let speedMps = speed / 60;
+      let rollerCircumference = Math.PI * (diameter / 1000);
+      let rollerRPM = rollerCircumference > 0 ? (speedMps / rollerCircumference) * 60 : 0;
+
+      let powerWatts = speedMps > 0 ? (force * speedMps) / efficiency : 0;
+      let powerKw = powerWatts / 1000;
+      let horsepower = powerWatts / 745.7;
+
+      output.innerHTML =
+        "<strong>Required Force</strong><br>" +
+        force.toFixed(2) + " N<br><br>" +
+
+        "<strong>Required Torque</strong><br>" +
+        torque.toFixed(2) + " N·m<br><br>" +
+
+        "<strong>Drive Roller Speed</strong><br>" +
+        rollerRPM.toFixed(2) + " RPM<br><br>" +
+
+        "<strong>Required Power</strong><br>" +
+        powerWatts.toFixed(2) + " W<br>" +
+        powerKw.toFixed(3) + " kW<br>" +
+        horsepower.toFixed(3) + " hp";
     }
 
-    if(diameter <= 0){
-      showMessage("Please enter a drive roller diameter greater than 0.");
-      return;
+    function clearCalculator(){
+      document.getElementById("weight").value = "50";
+      document.getElementById("speed").value = "20";
+      document.getElementById("diameter").value = "100";
+      document.getElementById("friction").value = "0.05";
+      document.getElementById("efficiency").value = "85";
+      document.getElementById("safety").value = "1.5";
+
+      showMessage("Enter values and press Calculate");
     }
 
-    if(friction < 0){
-      showMessage("Please enter a friction factor of 0 or greater.");
-      return;
+    function loadExample(){
+      document.getElementById("weight").value = "50";
+      document.getElementById("speed").value = "20";
+      document.getElementById("diameter").value = "100";
+      document.getElementById("friction").value = "0.05";
+      document.getElementById("efficiency").value = "85";
+      document.getElementById("safety").value = "1.5";
+
+      calculate();
     }
+  </script>
 
-    if(efficiencyPercent <= 0 || efficiencyPercent > 100){
-      showMessage("Please enter a mechanical efficiency greater than 0 and up to 100%.");
-      return;
-    }
+  <script>
+    fetch("navbar.html")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar").innerHTML = data;
+      })
+      .catch(error => {
+        console.error("Navbar failed to load:", error);
+      });
+  </script>
 
-    if(safety <= 0){
-      showMessage("Please enter a safety factor greater than 0.");
-      return;
-    }
-
-    let efficiency = efficiencyPercent / 100;
-    let g = 9.81;
-
-    let force = weight * g * friction * safety;
-    let radius = (diameter / 1000) / 2;
-    let torque = force * radius;
-
-    let speedMps = speed / 60;
-    let rollerCircumference = Math.PI * (diameter / 1000);
-    let rollerRPM = rollerCircumference > 0 ? speedMps / rollerCircumference * 60 : 0;
-
-    let powerWatts = speedMps > 0 ? (force * speedMps) / efficiency : 0;
-    let powerKw = powerWatts / 1000;
-    let horsepower = powerWatts / 745.7;
-
-    output.innerHTML =
-      "<strong>Required Force</strong><br>" +
-      force.toFixed(2) + " N<br><br>" +
-
-      "<strong>Required Torque</strong><br>" +
-      torque.toFixed(2) + " N·m<br><br>" +
-
-      "<strong>Drive Roller Speed</strong><br>" +
-      rollerRPM.toFixed(2) + " RPM<br><br>" +
-
-      "<strong>Required Power</strong><br>" +
-      powerWatts.toFixed(2) + " W<br>" +
-      powerKw.toFixed(3) + " kW<br>" +
-      horsepower.toFixed(3) + " hp";
-  }
-
-  function clearCalculator(){
-    document.getElementById("weight").value = "50";
-    document.getElementById("speed").value = "20";
-    document.getElementById("diameter").value = "100";
-    document.getElementById("friction").value = "0.05";
-    document.getElementById("efficiency").value = "85";
-    document.getElementById("safety").value = "1.5";
-
-    showMessage("Enter values and press Calculate");
-  }
-
-  function loadExample(){
-    document.getElementById("weight").value = "50";
-    document.getElementById("speed").value = "20";
-    document.getElementById("diameter").value = "100";
-    document.getElementById("friction").value = "0.05";
-    document.getElementById("efficiency").value = "85";
-    document.getElementById("safety").value = "1.5";
-
-    calculate();
-  }
-</script>
-
-<script>
-  fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar").innerHTML = data;
-    })
-    .catch(error => {
-      console.error("Navbar failed to load:", error);
-    });
-</script>
+</body>
+</html>
