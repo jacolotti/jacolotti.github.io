@@ -115,6 +115,10 @@ border-radius:10px;
 box-shadow:0px 0px 10px rgba(0,0,0,.1);
 }
 
+h1, h2, h3{
+color:#1f2a44;
+}
+
 .subtitle{
 color:#555;
 margin-bottom:20px;
@@ -154,6 +158,24 @@ box-shadow:0px 4px 12px rgba(0,0,0,.12);
 
 .tool h3{
 margin-top:0;
+margin-bottom:10px;
+}
+
+.tool p{
+margin:0;
+color:#555;
+line-height:1.5;
+}
+
+.library-link{
+color:#1e6bd6;
+font-weight:bold;
+text-decoration:none;
+font-size:18px;
+}
+
+.library-link:hover{
+text-decoration:underline;
 }
 
 .footer{
@@ -181,21 +203,21 @@ padding:20px;
 <h1>Automation Engineering Tools</h1>
 
 <p class="subtitle">
-Free calculators for engineers, automation specialists, controls engineers, machine designers, and manufacturing teams.
+Free calculators and troubleshooting tools for automation engineers, controls engineers, machine builders, technicians, and manufacturing teams.
 </p>
 
 <p class="seo-text">
-AutomationCalculators.net provides free engineering calculators for machine design, robotics, motion control, industrial automation, pneumatics, conveyors, motor sizing, resistance welding, machine safety, PLC signal scaling, and PLC communication troubleshooting. Use these tools to estimate safety distance, servo torque, gear ratio, PLC analog scaling, robot reach, robot payload, robot cycle time, conveyor speed, gearbox output torque, pneumatic cylinder force, pneumatic cylinder speed, voltage drop, air consumption, spot weld schedules, projection weld settings, PLC communication faults, and automation ROI.
+AutomationCalculators.net provides free engineering calculators for robotics, motion control, industrial automation, pneumatics, conveyors, motor sizing, resistance welding, machine safety, PLC analog scaling, electrical design, and PLC communication troubleshooting. Use these tools to estimate servo torque, safety distance, gear ratio, robot reach, robot payload, robot cycle time, conveyor speed, gearbox output torque, pneumatic cylinder force, pneumatic speed, voltage drop, air consumption, spot weld settings, projection weld settings, fastening values, and automation ROI.
 </p>
 
 <p class="seo-text">
-These calculators are built for practical shop-floor and engineering use, helping with early design estimates, equipment sizing, motion calculations, welding process setup, pneumatic timing checks, analog input scaling, machine safety layout, PLC network troubleshooting, and automation concept evaluation.
+These calculators are built for practical shop-floor and engineering work, helping with early design estimates, equipment sizing, motion calculations, welding setup, pneumatic timing checks, analog input scaling, machine safety layout, PLC network troubleshooting, and automation concept review.
 </p>
 
 <h2>Automation Engineering Calculators</h2>
 
 <p class="seo-text">
-These free engineering calculators support real-world automation design and troubleshooting including PLC programming, robotics, pneumatic systems, conveyors, industrial motors, resistance welding, and machine safety systems.
+Browse calculators for pneumatics, robotics, motors and motion, PLC and electrical design, welding, fastening, and automation project planning.
 </p>
 
 <h3>Pneumatic Calculators</h3>
@@ -205,7 +227,7 @@ Calculate pneumatic cylinder force, air consumption, and cylinder speed using bo
 
 <h3>Robot and Automation Calculators</h3>
 <p class="seo-text">
-Estimate robot cycle time, robot reach limits, robot payload capacity, and part handling behavior for automation cells and robotic material handling systems.
+Estimate robot cycle time, robot reach, robot payload capacity, and basic part handling behavior for automation cells and robotic material handling systems.
 </p>
 
 <h3>Motion and Motor Calculators</h3>
@@ -215,7 +237,7 @@ Calculate servo torque requirements, gear ratios, gearbox output torque, conveyo
 
 <h3>PLC and Electrical Calculators</h3>
 <p class="seo-text">
-Tools for PLC analog signal scaling, industrial voltage drop calculations, machine safety distance calculations, and PLC communication troubleshooting.
+Tools for PLC analog scaling, industrial voltage drop calculations, safety distance calculations, and PLC communication troubleshooting.
 </p>
 
 <h3>Welding and Fastening Calculators</h3>
@@ -342,6 +364,18 @@ Estimate resistance spot weld settings, projection weld parameters, bolt tighten
 
 </div>
 
+<h2>Browse the Full Calculator Library</h2>
+
+<p class="seo-text">
+Browse our complete library of automation engineering calculators including robotics, pneumatics, servo sizing, PLC troubleshooting, welding, fastening, and electrical tools.
+</p>
+
+<p style="margin-top:10px;">
+  <a class="library-link" href="automation-calculators.html" onclick="gtag('event','tool_open',{tool:'calculator_index'});">
+    Browse All Calculators →
+  </a>
+</p>
+
 <div class="footer">
 Automation Engineering Tools • Practical calculators for real automation work
 </div>
@@ -352,10 +386,10 @@ Automation Engineering Tools • Practical calculators for real automation work
 fetch("navbar.html")
 .then(response => response.text())
 .then(data => {
-document.getElementById("navbar").innerHTML = data;
+  document.getElementById("navbar").innerHTML = data;
 })
 .catch(error => {
-console.error("Navbar failed to load:", error);
+  console.error("Navbar failed to load:", error);
 });
 </script>
 
