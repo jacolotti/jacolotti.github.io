@@ -13,9 +13,9 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>Gearbox Output Torque Calculator | Automation Calculators</title>
+  <title>Gearbox Output Torque Calculator | Gear Ratio Torque & Speed</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free gearbox output torque calculator for automation engineers. Calculate output torque and output speed using motor torque, motor RPM, gear ratio, and gearbox efficiency.">
+  <meta name="description" content="Free gearbox output torque calculator. Calculate reducer output torque, output RPM, and horsepower using motor torque, motor speed, gear ratio, and gearbox efficiency. Useful for automation, conveyors, and machine design.">
 
   <style>
     body{
@@ -208,6 +208,10 @@
       This calculator is useful for motor and reducer selection, conveyor drives, rotary mechanisms, servo systems, and torque multiplication estimates.
     </p>
 
+    <p class="description">
+      This gearbox torque calculator helps estimate reducer output torque, output speed, and transmitted horsepower for motors driving gear reducers. It is useful for conveyor design, rotary indexing tables, automation machinery, servo drives, and industrial power transmission systems.
+    </p>
+
     <p>Motor Torque (lb-in)</p>
     <input id="motorTorque" type="number" value="50" min="0.01" step="0.01">
 
@@ -266,12 +270,14 @@
 
       let efficiencyDecimal = efficiency / 100;
       let outputTorque = motorTorque * gearRatio * efficiencyDecimal;
+      let torqueLbFt = outputTorque / 12;
       let outputRPM = motorRPM / gearRatio;
       let horsepower = (outputTorque * outputRPM) / 63025;
 
       output.innerHTML =
         "<strong>Output Torque</strong><br>" +
-        outputTorque.toFixed(2) + " lb-in<br><br>" +
+        outputTorque.toFixed(2) + " lb-in<br>" +
+        torqueLbFt.toFixed(2) + " lb-ft<br><br>" +
 
         "<strong>Output Speed</strong><br>" +
         outputRPM.toFixed(2) + " RPM<br><br>" +
