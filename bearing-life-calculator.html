@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="canonical" href="https://automationcalculators.net/bearing-life-calculator.html">
+<meta name="robots" content="index, follow">
+
+<title>Bearing Life Calculator | L10 Bearing Life</title>
+
+<meta name="description" content="Calculate bearing life using the L10 bearing life formula. Estimate bearing life hours using load, dynamic rating, and RPM.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+text-align:center;
+margin:0;
+}
+
+.container{
+background:white;
+padding:40px;
+max-width:900px;
+margin:auto;
+border-radius:10px;
+box-shadow:0px 0px 10px rgba(0,0,0,.1);
+}
+
+input,select{
+padding:10px;
+font-size:16px;
+margin:8px;
+width:220px;
+}
+
+button{
+padding:12px 20px;
+font-size:16px;
+background:#1f2a44;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#2c3c66;
+}
+
+.result{
+margin-top:20px;
+font-size:18px;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+<h1>Bearing Life Calculator</h1>
+
+<p>Estimate bearing L10 life using dynamic load rating, applied load, and RPM.</p>
+
+<select id="bearingType">
+<option value="3">Ball Bearing</option>
+<option value="3.333">Roller Bearing</option>
+</select>
+
+<br>
+
+<input id="dynamicRating" placeholder="Dynamic Load Rating C">
+
+<input id="appliedLoad" placeholder="Applied Load P">
+
+<input id="rpm" placeholder="RPM">
+
+<br>
+
+<button onclick="calculateBearingLife()">Calculate</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+function calculateBearingLife(){
+
+let C=parseFloat(document.getElementById("dynamicRating").value);
+let P=parseFloat(document.getElementById("appliedLoad").value);
+let rpm=parseFloat(document.getElementById("rpm").value);
+let p=parseFloat(document.getElementById("bearingType").value);
+
+let L10=Math.pow((C/P),p);
+
+let hours=(L10*1000000)/(60*rpm);
+
+document.getElementById("result").innerHTML=
+
+"L10 Life: "+L10.toFixed(2)+" million revolutions<br><br>"+
+"Estimated Life: "+hours.toFixed(1)+" hours";
+
+}
+
+fetch("navbar.html")
+.then(response=>response.text())
+.then(data=>{
+document.getElementById("navbar").innerHTML=data;
+});
+
+</script>
+
+</body>
+</html>
