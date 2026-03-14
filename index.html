@@ -30,8 +30,6 @@ text-align:center;
 margin:0;
 }
 
-
-
 .dropdown{
 position:relative;
 display:inline-block;
@@ -185,7 +183,7 @@ Free calculators and troubleshooting tools for automation engineers, controls en
 </p>
 
 <p class="seo-text">
-AutomationCalculators.net provides free engineering calculators for robotics, motion control, industrial automation, pneumatics, conveyors, motor sizing, resistance welding, machine safety, PLC analog scaling, electrical design, and PLC communication troubleshooting. Use these tools to estimate servo torque, safety distance, gear ratio, robot reach, robot payload, robot cycle time, conveyor speed, gearbox output torque, pneumatic cylinder force, pneumatic speed, voltage drop, air consumption, spot weld settings, projection weld settings, fastening values, and automation ROI.
+AutomationCalculators.net provides free engineering calculators and reference charts for robotics, motion control, industrial automation, pneumatics, conveyors, motor sizing, resistance welding, machine safety, PLC analog scaling, electrical design, fastening, and machine design. Use these tools to estimate servo torque, safety distance, gear ratio, robot reach, robot payload, robot cycle time, conveyor speed, gearbox output torque, pneumatic cylinder force, pneumatic speed, voltage drop, wire size, motor full load current, bearing life, air line size, spot weld settings, projection weld settings, tap drill sizes, bolt torque, and automation ROI.
 </p>
 
 <p class="seo-text">
@@ -210,17 +208,22 @@ Estimate robot cycle time, robot reach, robot payload capacity, and basic part h
 
 <h3>Motion and Motor Calculators</h3>
 <p class="seo-text">
-Calculate servo torque requirements, gear ratios, gearbox output torque, conveyor motor sizing, and conveyor speed for motion systems.
+Calculate servo torque requirements, gear ratios, gearbox output torque, conveyor motor sizing, conveyor speed, motor full load current, bearing life, and NEMA motor frame references for motion systems and machine design.
 </p>
 
 <h3>PLC and Electrical Calculators</h3>
 <p class="seo-text">
-Tools for PLC analog scaling, industrial voltage drop calculations, wire gauge ampacity references, safety distance calculations, and PLC communication troubleshooting.
+Tools for PLC analog scaling, industrial voltage drop calculations, wire gauge ampacity references, wire size selection, safety distance calculations, and PLC communication troubleshooting.
 </p>
 
 <h3>Welding and Fastening Calculators</h3>
 <p class="seo-text">
-Estimate resistance spot weld settings, projection weld parameters, bolt tightening torque, clamp load, torque-angle relationships, and multi-stage torque sequences.
+Estimate resistance spot weld settings, projection weld parameters, bolt tightening torque, clamp load, torque-angle relationships, multi-stage torque sequences, and tap drill sizes.
+</p>
+
+<h3>Reference Charts and Engineering Tables</h3>
+<p class="seo-text">
+Browse quick engineering reference charts including wire gauge ampacity, AWG conductor data, metric tap drill sizes, bolt torque values, motor full load current, bearing life, and NEMA motor frame sizes.
 </p>
 
 <div class="tools">
@@ -245,6 +248,11 @@ Estimate resistance spot weld settings, projection weld parameters, bolt tighten
 <p>Estimate cylinder extend and retract speed using bore, rod diameter, stroke, and available SCFM.</p>
 </a>
 
+<a class="tool" href="air-line-size-calculator.html" onclick="gtag('event','tool_open',{tool:'air_line_size_calculator'});">
+<h3>Air Line Size Calculator</h3>
+<p>Estimate compressed air pipe size from airflow.</p>
+</a>
+
 <a class="tool" href="robot.html" onclick="gtag('event','tool_open',{tool:'robot_cycle'});">
 <h3>Robot Cycle Time</h3>
 <p>Estimate robot cycle time using distance, speed, payload, and motion settings.</p>
@@ -258,6 +266,11 @@ Estimate resistance spot weld settings, projection weld parameters, bolt tighten
 <a class="tool" href="robot-payload.html" onclick="gtag('event','tool_open',{tool:'robot_payload'});">
 <h3>Robot Payload Calculator</h3>
 <p>Estimate required robot payload using part weight, gripper weight, tooling weight, and safety factor.</p>
+</a>
+
+<a class="tool" href="bin-simulator.html" onclick="gtag('event','tool_open',{tool:'bin_simulator'});">
+<h3>Bin Loading Simulator</h3>
+<p>Preview free-fall part stacking behavior.</p>
 </a>
 
 <a class="tool" href="motor.html" onclick="gtag('event','tool_open',{tool:'conveyor_motor'});">
@@ -285,6 +298,21 @@ Estimate resistance spot weld settings, projection weld parameters, bolt tighten
 <p>Calculate gearbox output torque and speed.</p>
 </a>
 
+<a class="tool" href="motor-fla-calculator.html" onclick="gtag('event','tool_open',{tool:'motor_fla_calculator'});">
+<h3>Motor Full Load Current</h3>
+<p>Estimate single-phase and three-phase motor amps using HP or kW, voltage, efficiency, and power factor.</p>
+</a>
+
+<a class="tool" href="bearing-life-calculator.html" onclick="gtag('event','tool_open',{tool:'bearing_life_calculator'});">
+<h3>Bearing Life Calculator</h3>
+<p>Estimate L10 bearing life using load and RPM.</p>
+</a>
+
+<a class="tool" href="nema-motor-frame-chart.html" onclick="gtag('event','tool_open',{tool:'nema_motor_frame_chart'});">
+<h3>NEMA Motor Frame Chart</h3>
+<p>Reference NEMA motor frame sizes.</p>
+</a>
+
 <a class="tool" href="analog-scaling.html" onclick="gtag('event','tool_open',{tool:'analog_scaling'});">
 <h3>PLC Analog Scaling Calculator</h3>
 <p>Convert 4-20mA, 0-10V, or PLC raw counts into engineering units.</p>
@@ -300,19 +328,19 @@ Estimate resistance spot weld settings, projection weld parameters, bolt tighten
 <p>Calculate voltage drop and final voltage.</p>
 </a>
 
- <a class="tool" href="wire-gauge-amps.html" onclick="gtag('event','tool_open',{tool:'wire_gauge_chart'});">
-<h3>Wire Gauge vs Amps Chart</h3>
-<p>Quick AWG wire gauge chart showing ampacity and resistance for common copper conductors.</p>
-</a> 
-
-<a class="tool" href="roi.html" onclick="gtag('event','tool_open',{tool:'automation_roi'});">
-<h3>Automation ROI Calculator</h3>
-<p>Estimate payback period and return on investment.</p>
+<a class="tool" href="wire-size-calculator.html" onclick="gtag('event','tool_open',{tool:'wire_size_calculator'});">
+<h3>Wire Size Calculator</h3>
+<p>Estimate recommended AWG wire size using amps, voltage, distance, conductor material, and allowable voltage drop.</p>
 </a>
 
-<a class="tool" href="bin-simulator.html" onclick="gtag('event','tool_open',{tool:'bin_simulator'});">
-<h3>Bin Loading Simulator</h3>
-<p>Preview free-fall part stacking behavior.</p>
+<a class="tool" href="wire-gauge-amps.html" onclick="gtag('event','tool_open',{tool:'wire_gauge_chart'});">
+<h3>Wire Gauge vs Amps Chart</h3>
+<p>Quick AWG wire gauge chart showing ampacity and resistance for common copper conductors.</p>
+</a>
+
+<a class="tool" href="awg-wire-gauge-chart.html" onclick="gtag('event','tool_open',{tool:'awg_wire_gauge_chart'});">
+<h3>AWG Wire Gauge Chart</h3>
+<p>Complete AWG wire chart with conductor diameter, resistance, area, and ampacity values.</p>
 </a>
 
 <a class="tool" href="spot-weld.html" onclick="gtag('event','tool_open',{tool:'spot_weld'});">
@@ -345,39 +373,24 @@ Estimate resistance spot weld settings, projection weld parameters, bolt tighten
 <p>Estimate clamp load change from angle tightening.</p>
 </a>
 
- <a class="tool" href="metric-tap-drill-chart.html" onclick="gtag('event','tool_open',{tool:'metric_tap_drill_chart'});">
+<a class="tool" href="metric-tap-drill-chart.html" onclick="gtag('event','tool_open',{tool:'metric_tap_drill_chart'});">
 <h3>Metric Tap Drill Chart</h3>
 <p>Quick reference chart and calculator for common metric tap drill sizes from M3 to M20.</p>
 </a>
 
- <a class="tool" href="bolt-torque-chart.html">
+<a class="tool" href="bolt-torque-chart.html" onclick="gtag('event','tool_open',{tool:'bolt_torque_chart'});">
 <h3>Bolt Torque Chart</h3>
 <p>Quick reference torque values for metric and SAE bolts.</p>
 </a>
 
- <a class="tool" href="motor-fla-calculator.html" onclick="gtag('event','tool_open',{tool:'motor_fla_calculator'});">
-<h3>Motor Full Load Current</h3>
-<p>Estimate single-phase and three-phase motor amps using HP or kW, voltage, efficiency, and power factor.</p>
+<a class="tool" href="roi.html" onclick="gtag('event','tool_open',{tool:'automation_roi'});">
+<h3>Automation ROI Calculator</h3>
+<p>Estimate payback period and return on investment.</p>
 </a>
 
- <a class="tool" href="wire-size-calculator.html" onclick="gtag('event','tool_open',{tool:'wire_size_calculator'});">
-<h3>Wire Size Calculator</h3>
-<p>Estimate recommended AWG wire size using amps, voltage, distance, conductor material, and allowable voltage drop.</p>
-</a>
-
- <a class="tool" href="bearing-life-calculator.html">
-<h3>Bearing Life Calculator</h3>
-<p>Estimate L10 bearing life using load and RPM.</p>
-</a>
-
-<a class="tool" href="air-line-size-calculator.html">
-<h3>Air Line Size Calculator</h3>
-<p>Estimate compressed air pipe size from airflow.</p>
-</a>
-
-<a class="tool" href="nema-motor-frame-chart.html">
-<h3>NEMA Motor Frame Chart</h3>
-<p>Reference NEMA motor frame sizes.</p>
+<a class="tool" href="reference-charts.html" onclick="gtag('event','tool_open',{tool:'reference_charts'});">
+<h3>Engineering Reference Charts</h3>
+<p>Browse electrical, machining, fastening, and motor reference charts in one place.</p>
 </a>
 
 </div>
@@ -385,7 +398,7 @@ Estimate resistance spot weld settings, projection weld parameters, bolt tighten
 <h2>Browse the Full Calculator Library</h2>
 
 <p class="seo-text">
-Browse our complete library of automation engineering calculators including robotics, pneumatics, servo sizing, PLC troubleshooting, welding, fastening, and electrical tools.
+Browse our complete library of automation engineering calculators including robotics, pneumatics, servo sizing, PLC troubleshooting, welding, fastening, electrical design, wire sizing, motor references, and engineering reference charts.
 </p>
 
 <p style="margin-top:10px;">
@@ -401,7 +414,7 @@ Automation Engineering Tools • Practical calculators for real automation work
 </div>
 
 <script>
-fetch("navbar.html")
+fetch("navbar.html?v=20260314")
 .then(response => response.text())
 .then(data => {
   document.getElementById("navbar").innerHTML = data;
