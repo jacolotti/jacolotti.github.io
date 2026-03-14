@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/beam-deflection-calculator.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Beam Deflection Calculator | Cantilever & Simply Supported Beam</title>
+  <meta name="description" content="Free beam deflection calculator for cantilever and simply supported beams. Estimate beam deflection using load, length, material, and moment of inertia.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      text-align:center;
+      color:#222;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto 40px auto;
+      background:white;
+      padding:30px 20px 40px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1,h2,h3{
+      color:#1f2a44;
+    }
+
+    p{
+      line-height:1.6;
+      max-width:900px;
+      margin:10px auto;
+    }
+
+    .note{
+      font-size:14px;
+      color:#555;
+      max-width:900px;
+      margin:10px auto 20px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:15px;
+      max-width:950px;
+      margin:25px auto;
+    }
+
+    .card{
+      background:#f8f9fb;
+      border:1px solid #d9dfeb;
+      border-radius:8px;
+      padding:18px;
+    }
+
+    label{
+      display:block;
+      font-weight:bold;
+      margin-bottom:6px;
+      color:#1f2a44;
+      text-align:left;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      border:1px solid #bbb;
+      border-radius:6px;
+      box-sizing:border-box;
+    }
+
+    button{
+      background:#1f2a44;
+      color:white;
+      border:none;
+      padding:12px 24px;
+      font-size:16px;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    button:hover{
+      background:#2d3b5f;
+    }
+
+    .result{
+      margin-top:25px;
+      font-size:18px;
+      font-weight:bold;
+      color:#1f2a44;
+      line-height:1.8;
+    }
+
+    .subresult{
+      font-size:15px;
+      font-weight:normal;
+      color:#444;
+      margin-top:12px;
+      line-height:1.7;
+    }
+
+    .formula-box{
+      max-width:900px;
+      margin:20px auto;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:8px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+    }
+
+    table{
+      width:100%;
+      max-width:900px;
+      border-collapse:collapse;
+      margin:20px auto;
+      background:white;
+    }
+
+    th, td{
+      border:1px solid #ccc;
+      padding:12px 10px;
+      text-align:center;
+    }
+
+    th{
+      background:#1f2a44;
+      color:white;
+    }
+
+    tr:nth-child(even){
+      background:#f7f7f7;
+    }
+
+    .link-box{
+      margin-top:30px;
+      padding:20px;
+      background:#eef3ff;
+      border-radius:8px;
+      border:1px solid #cfdaf5;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    a{
+      color:#1f2a44;
+      font-weight:bold;
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    .footer-note{
+      font-size:13px;
+      color:#666;
+      margin-top:20px;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    @media (max-width:700px){
+      .container{
+        margin:0 10px 30px;
+        padding:20px 15px 30px;
+      }
+
+      th, td{
+        font-size:14px;
+        padding:10px 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+  <h1>Beam Deflection Calculator</h1>
+
+  <p>
+    Use this beam deflection calculator to estimate deflection for cantilever and simply supported beams under a center or end point load.
+    This is useful for machine frames, tooling supports, structural members, brackets, and general mechanical design.
+  </p>
+
+  <p class="note">
+    This calculator gives a practical engineering estimate using linear elastic beam theory.
+    It does not replace full structural analysis for dynamic loading, distributed loads, stress concentrations, local buckling, or safety-critical design.
+  </p>
+
+  <h2>Beam Deflection Calculator</h2>
+
+  <div class="formula-box">
+    Cantilever Beam with End Load: δ = (F × L³) / (3 × E × I)<br>
+    Simply Supported Beam with Center Load: δ = (F × L³) / (48 × E × I)
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <label for="beamType">Beam Type</label>
+      <select id="beamType">
+        <option value="cantilever">Cantilever Beam (End Load)</option>
+        <option value="simply_supported">Simply Supported Beam (Center Load)</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label for="load">Load (lb)</label>
+      <input type="number" id="load" step="0.01" placeholder="e.g. 250">
+    </div>
+
+    <div class="card">
+      <label for="length">Beam Length (in)</label>
+      <input type="number" id="length" step="0.01" placeholder="e.g. 36">
+    </div>
+
+    <div class="card">
+      <label for="material">Material</label>
+      <select id="material" onchange="setMaterialE()">
+        <option value="29000000">Steel (29,000,000 psi)</option>
+        <option value="28000000">Stainless Steel (28,000,000 psi)</option>
+        <option value="10000000">Aluminum (10,000,000 psi)</option>
+        <option value="4500000">Wood (4,500,000 psi approx.)</option>
+        <option value="custom">Custom E Value</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label for="elasticModulus">Young's Modulus E (psi)</label>
+      <input type="number" id="elasticModulus" step="1" value="29000000" placeholder="e.g. 29000000">
+    </div>
+
+    <div class="card">
+      <label for="inertia">Moment of Inertia I (in⁴)</label>
+      <input type="number" id="inertia" step="0.0001" placeholder="e.g. 2.85">
+    </div>
+  </div>
+
+  <button onclick="calculateDeflection()">Calculate</button>
+
+  <div class="result" id="result"></div>
+
+  <h2>Typical Young's Modulus Values</h2>
+
+  <table>
+    <tr>
+      <th>Material</th>
+      <th>Young's Modulus (psi)</th>
+      <th>Young's Modulus (GPa approx.)</th>
+    </tr>
+    <tr><td>Steel</td><td>29,000,000</td><td>200</td></tr>
+    <tr><td>Stainless Steel</td><td>28,000,000</td><td>193</td></tr>
+    <tr><td>Aluminum</td><td>10,000,000</td><td>69</td></tr>
+    <tr><td>Concrete</td><td>3,600,000 to 4,400,000</td><td>25 to 30</td></tr>
+    <tr><td>Wood</td><td>1,000,000 to 4,500,000</td><td>7 to 31</td></tr>
+  </table>
+
+  <h2>What This Beam Deflection Calculator Solves</h2>
+
+  <p>
+    Engineers often search for tools like beam deflection calculator, cantilever beam deflection, simply supported beam calculator, steel beam deflection, aluminum beam stiffness, and Young's modulus beam formula.
+    This page helps estimate beam stiffness quickly for brackets, machine bases, supports, fixtures, and structural members.
+  </p>
+
+  <div class="link-box">
+    Related tools:
+    <a href="bearing-life-calculator.html">Bearing Life Calculator</a>
+    &nbsp;|&nbsp;
+    <a href="servo-torque.html">Servo Torque Calculator</a>
+    &nbsp;|&nbsp;
+    <a href="gearbox-torque.html">Gearbox Output Torque</a>
+    &nbsp;|&nbsp;
+    <a href="reference-charts.html">Engineering Reference Charts</a>
+  </div>
+
+  <p class="footer-note">
+    For more accurate results, use the correct section moment of inertia, exact support conditions, real loading location, and applicable safety factors.
+  </p>
+
+</div>
+
+<script>
+  function setMaterialE(){
+    const material = document.getElementById("material").value;
+    const eInput = document.getElementById("elasticModulus");
+
+    if(material === "custom"){
+      eInput.value = "";
+      eInput.focus();
+    } else {
+      eInput.value = material;
+    }
+  }
+
+  function calculateDeflection(){
+    const beamType = document.getElementById("beamType").value;
+    const load = parseFloat(document.getElementById("load").value);
+    const length = parseFloat(document.getElementById("length").value);
+    const elasticModulus = parseFloat(document.getElementById("elasticModulus").value);
+    const inertia = parseFloat(document.getElementById("inertia").value);
+    const result = document.getElementById("result");
+
+    if(
+      isNaN(load) || load <= 0 ||
+      isNaN(length) || length <= 0 ||
+      isNaN(elasticModulus) || elasticModulus <= 0 ||
+      isNaN(inertia) || inertia <= 0
+    ){
+      result.innerHTML = "Please enter valid load, length, Young's modulus, and moment of inertia values.";
+      return;
+    }
+
+    let deflection;
+    let formulaText;
+
+    if(beamType === "cantilever"){
+      deflection = (load * Math.pow(length, 3)) / (3 * elasticModulus * inertia);
+      formulaText = "Cantilever Beam with End Load";
+    } else {
+      deflection = (load * Math.pow(length, 3)) / (48 * elasticModulus * inertia);
+      formulaText = "Simply Supported Beam with Center Load";
+    }
+
+    result.innerHTML = `
+      Estimated Deflection: ${deflection.toFixed(4)} in
+      <div class="subresult">
+        Beam Type: ${formulaText}<br>
+        Load: ${load.toFixed(2)} lb<br>
+        Length: ${length.toFixed(2)} in<br>
+        Young's Modulus: ${elasticModulus.toLocaleString()} psi<br>
+        Moment of Inertia: ${inertia.toFixed(4)} in⁴
+      </div>
+    `;
+  }
+
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
