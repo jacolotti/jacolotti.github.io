@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Compressed Air Line Size Calculator</title>
+
+<meta name="description" content="Estimate compressed air pipe diameter based on SCFM and line length.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+text-align:center;
+}
+
+.container{
+background:white;
+padding:40px;
+max-width:900px;
+margin:auto;
+border-radius:10px;
+box-shadow:0px 0px 10px rgba(0,0,0,.1);
+}
+
+input{
+padding:10px;
+font-size:16px;
+margin:8px;
+width:200px;
+}
+
+button{
+padding:12px 20px;
+background:#1f2a44;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+.result{
+margin-top:20px;
+font-weight:bold;
+font-size:18px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+<h1>Compressed Air Line Size Calculator</h1>
+
+<p>Estimate air pipe diameter using airflow and pipe length.</p>
+
+<input id="scfm" placeholder="Air Flow (SCFM)">
+<input id="length" placeholder="Pipe Length (ft)">
+
+<br>
+
+<button onclick="calculateAirLine()">Calculate</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<script>
+
+function calculateAirLine(){
+
+let scfm=parseFloat(document.getElementById("scfm").value);
+
+let size;
+
+if(scfm<10) size="1/4 in";
+else if(scfm<25) size="3/8 in";
+else if(scfm<60) size="1/2 in";
+else if(scfm<150) size="3/4 in";
+else if(scfm<300) size="1 in";
+else size="1.5 in";
+
+document.getElementById("result").innerHTML="Recommended Line Size: "+size;
+
+}
+
+fetch("navbar.html")
+.then(response=>response.text())
+.then(data=>{
+document.getElementById("navbar").innerHTML=data;
+});
+
+</script>
+
+</body>
+</html>
