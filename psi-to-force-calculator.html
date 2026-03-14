@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/psi-to-force-calculator.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>PSI to Force Calculator | Pressure to Force by Diameter</title>
+  <meta name="description" content="Free PSI to force calculator. Convert pressure and diameter into force using piston area. Estimate force in pounds or newtons for pneumatic and hydraulic applications.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      text-align:center;
+      color:#222;
+    }
+
+    .container{
+      max-width:1100px;
+      margin:0 auto 40px auto;
+      background:white;
+      padding:30px 20px 40px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1,h2,h3{
+      color:#1f2a44;
+    }
+
+    p{
+      line-height:1.6;
+      max-width:900px;
+      margin:10px auto;
+    }
+
+    .note{
+      font-size:14px;
+      color:#555;
+      max-width:900px;
+      margin:10px auto 20px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:15px;
+      max-width:950px;
+      margin:25px auto;
+    }
+
+    .card{
+      background:#f8f9fb;
+      border:1px solid #d9dfeb;
+      border-radius:8px;
+      padding:18px;
+    }
+
+    label{
+      display:block;
+      font-weight:bold;
+      margin-bottom:6px;
+      color:#1f2a44;
+      text-align:left;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      border:1px solid #bbb;
+      border-radius:6px;
+      box-sizing:border-box;
+    }
+
+    button{
+      background:#1f2a44;
+      color:white;
+      border:none;
+      padding:12px 24px;
+      font-size:16px;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    button:hover{
+      background:#2d3b5f;
+    }
+
+    .result{
+      margin-top:25px;
+      font-size:18px;
+      font-weight:bold;
+      color:#1f2a44;
+      line-height:1.8;
+    }
+
+    .subresult{
+      font-size:15px;
+      font-weight:normal;
+      color:#444;
+      margin-top:12px;
+      line-height:1.7;
+    }
+
+    .formula-box{
+      max-width:900px;
+      margin:20px auto;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:8px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+    }
+
+    table{
+      width:100%;
+      max-width:900px;
+      border-collapse:collapse;
+      margin:20px auto;
+      background:white;
+    }
+
+    th, td{
+      border:1px solid #ccc;
+      padding:12px 10px;
+      text-align:center;
+    }
+
+    th{
+      background:#1f2a44;
+      color:white;
+    }
+
+    tr:nth-child(even){
+      background:#f7f7f7;
+    }
+
+    .link-box{
+      margin-top:30px;
+      padding:20px;
+      background:#eef3ff;
+      border-radius:8px;
+      border:1px solid #cfdaf5;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    a{
+      color:#1f2a44;
+      font-weight:bold;
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    .footer-note{
+      font-size:13px;
+      color:#666;
+      margin-top:20px;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    @media (max-width:700px){
+      .container{
+        margin:0 10px 30px;
+        padding:20px 15px 30px;
+      }
+
+      th, td{
+        font-size:14px;
+        padding:10px 6px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+  <h1>PSI to Force Calculator</h1>
+
+  <p>
+    Use this PSI to force calculator to convert pressure and diameter into force using piston area.
+    This is useful for pneumatic cylinders, hydraulic cylinders, presses, clamps, tooling, and general pressure-to-force calculations.
+  </p>
+
+  <p class="note">
+    This calculator estimates theoretical force from pressure and area.
+    Real-world output force can be lower due to friction, seal drag, pressure loss, rod area, and mechanical inefficiencies.
+  </p>
+
+  <h2>Pressure to Force Calculator</h2>
+
+  <div class="formula-box">
+    Force = Pressure × Area<br>
+    Area = π × Diameter² / 4
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <label for="pressure">Pressure (psi)</label>
+      <input type="number" id="pressure" step="0.01" placeholder="e.g. 100">
+    </div>
+
+    <div class="card">
+      <label for="diameter">Diameter (in)</label>
+      <input type="number" id="diameter" step="0.01" placeholder="e.g. 2.5">
+    </div>
+
+    <div class="card">
+      <label for="mode">Calculation Type</label>
+      <select id="mode">
+        <option value="solid">Solid Piston / Full Area</option>
+        <option value="rod">Rod Side / Annular Area</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <label for="rodDiameter">Rod Diameter (in) for Rod Side</label>
+      <input type="number" id="rodDiameter" step="0.01" placeholder="e.g. 1.0">
+    </div>
+  </div>
+
+  <button onclick="calculateForce()">Calculate</button>
+
+  <div class="result" id="result"></div>
+
+  <h2>Quick PSI to Force Examples</h2>
+
+  <table>
+    <tr>
+      <th>Pressure</th>
+      <th>Diameter</th>
+      <th>Area</th>
+      <th>Force</th>
+    </tr>
+    <tr><td>80 psi</td><td>1.0 in</td><td>0.785 in²</td><td>62.8 lb</td></tr>
+    <tr><td>100 psi</td><td>2.0 in</td><td>3.142 in²</td><td>314.2 lb</td></tr>
+    <tr><td>100 psi</td><td>3.0 in</td><td>7.069 in²</td><td>706.9 lb</td></tr>
+    <tr><td>150 psi</td><td>2.5 in</td><td>4.909 in²</td><td>736.3 lb</td></tr>
+    <tr><td>3000 psi</td><td>2.0 in</td><td>3.142 in²</td><td>9424.8 lb</td></tr>
+  </table>
+
+  <h2>What This PSI to Force Calculator Solves</h2>
+
+  <p>
+    Engineers and technicians often search for terms like psi to force calculator, pressure to force calculator, hydraulic force calculator, cylinder force by diameter, and how much force does 100 psi make.
+    This page helps estimate output force quickly for clamps, cylinders, tooling, and machine design.
+  </p>
+
+  <div class="link-box">
+    Related tools:
+    <a href="pneumatic.html">Pneumatic Force Calculator</a>
+    &nbsp;|&nbsp;
+    <a href="air-line-size-calculator.html">Air Line Size Calculator</a>
+    &nbsp;|&nbsp;
+    <a href="wire-size-calculator.html">Wire Size Calculator</a>
+    &nbsp;|&nbsp;
+    <a href="reference-charts.html">Reference Charts</a>
+  </div>
+
+  <p class="footer-note">
+    For cylinder retract force, use the rod-side area by entering the rod diameter and selecting the rod-side mode.
+  </p>
+
+</div>
+
+<script>
+  function calculateForce(){
+    const pressure = parseFloat(document.getElementById("pressure").value);
+    const diameter = parseFloat(document.getElementById("diameter").value);
+    const mode = document.getElementById("mode").value;
+    const rodDiameter = parseFloat(document.getElementById("rodDiameter").value);
+    const result = document.getElementById("result");
+
+    if(isNaN(pressure) || pressure <= 0 || isNaN(diameter) || diameter <= 0){
+      result.innerHTML = "Please enter valid pressure and diameter values.";
+      return;
+    }
+
+    let area;
+    let calcLabel;
+
+    if(mode === "rod"){
+      if(isNaN(rodDiameter) || rodDiameter <= 0 || rodDiameter >= diameter){
+        result.innerHTML = "For rod-side calculations, enter a valid rod diameter smaller than the piston diameter.";
+        return;
+      }
+
+      const pistonArea = Math.PI * Math.pow(diameter, 2) / 4;
+      const rodArea = Math.PI * Math.pow(rodDiameter, 2) / 4;
+      area = pistonArea - rodArea;
+      calcLabel = "Rod Side / Annular Area";
+    } else {
+      area = Math.PI * Math.pow(diameter, 2) / 4;
+      calcLabel = "Solid Piston / Full Area";
+    }
+
+    const forceLb = pressure * area;
+    const forceN = forceLb * 4.44822;
+    const forceKip = forceLb / 1000;
+
+    result.innerHTML = `
+      Estimated Force: ${forceLb.toFixed(2)} lb
+      <div class="subresult">
+        Force: ${forceN.toFixed(2)} N<br>
+        Force: ${forceKip.toFixed(3)} kip<br>
+        Effective Area: ${area.toFixed(4)} in²<br>
+        Calculation Type: ${calcLabel}
+      </div>
+    `;
+  }
+
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
