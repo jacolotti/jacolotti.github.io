@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link rel="canonical" href="https://automationcalculators.net/hp-torque-rpm-calculator.html">
+<meta name="robots" content="index, follow">
+<meta name="author" content="AutomationCalculators.net">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-G4TY96JHNH');
+</script>
+
+<title>HP Torque RPM Calculator | Horsepower Torque Formula</title>
+
+<meta name="description" content="Free horsepower torque RPM calculator. Calculate torque from horsepower and RPM, or horsepower from torque. Useful for motors, engines, conveyors, robotics, and mechanical design.">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f4;
+margin:0;
+text-align:center;
+}
+
+.container{
+background:white;
+padding:40px;
+max-width:900px;
+margin:auto;
+border-radius:10px;
+box-shadow:0px 0px 10px rgba(0,0,0,.1);
+}
+
+h1,h2{
+color:#1f2a44;
+}
+
+.subtitle{
+color:#555;
+margin-bottom:25px;
+line-height:1.6;
+}
+
+.calc-box{
+background:#f8fbff;
+border:1px solid #d7e6ff;
+padding:25px;
+border-radius:10px;
+margin-top:20px;
+}
+
+label{
+display:block;
+margin-top:15px;
+font-weight:bold;
+}
+
+input{
+padding:10px;
+width:220px;
+margin-top:6px;
+font-size:16px;
+}
+
+button{
+margin-top:20px;
+padding:12px 20px;
+font-size:16px;
+background:#1f2a44;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#2c3a63;
+}
+
+.result{
+margin-top:20px;
+font-size:20px;
+font-weight:bold;
+color:#1f2a44;
+}
+
+.formula{
+margin-top:30px;
+background:#eef3ff;
+padding:15px;
+border-radius:8px;
+font-size:16px;
+}
+
+table{
+margin-top:30px;
+border-collapse:collapse;
+width:100%;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:10px;
+}
+
+th{
+background:#1f2a44;
+color:white;
+}
+
+.footer{
+margin-top:40px;
+font-size:14px;
+color:#666;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+<h1>HP Torque RPM Calculator</h1>
+
+<p class="subtitle">
+Calculate torque from horsepower and RPM or horsepower from torque.
+This calculator is commonly used for electric motors, engines, conveyors,
+robotics, pumps, and mechanical power transmission systems.
+</p>
+
+<div class="calc-box">
+
+<label>Horsepower (HP)</label>
+<input type="number" id="hp">
+
+<label>Torque (lb-ft)</label>
+<input type="number" id="torque">
+
+<label>RPM</label>
+<input type="number" id="rpm">
+
+<br>
+
+<button onclick="calculate()">Calculate</button>
+
+<div class="result" id="result"></div>
+
+</div>
+
+<div class="formula">
+
+<b>Key Mechanical Power Formula</b>
+
+<br><br>
+
+Torque (lb-ft) = (HP × 5252) / RPM
+
+<br><br>
+
+HP = (Torque × RPM) / 5252
+
+<br><br>
+
+The constant <b>5252</b> comes from converting rotational power into horsepower units.
+
+</div>
+
+<h2>Example Torque Values</h2>
+
+<table>
+
+<tr>
+<th>Horsepower</th>
+<th>RPM</th>
+<th>Torque (lb-ft)</th>
+</tr>
+
+<tr>
+<td>1 HP</td>
+<td>1750</td>
+<td>3.0</td>
+</tr>
+
+<tr>
+<td>5 HP</td>
+<td>1750</td>
+<td>15.0</td>
+</tr>
+
+<tr>
+<td>10 HP</td>
+<td>1750</td>
+<td>30.0</td>
+</tr>
+
+<tr>
+<td>20 HP</td>
+<td>1750</td>
+<td>60.0</td>
+</tr>
+
+<tr>
+<td>50 HP</td>
+<td>1750</td>
+<td>150.0</td>
+</tr>
+
+</table>
+
+<p class="footer">
+This horsepower torque calculator helps engineers estimate motor torque,
+mechanical power transmission, and drive system requirements.
+</p>
+
+</div>
+
+<script>
+
+function calculate(){
+
+let hp = parseFloat(document.getElementById("hp").value);
+let torque = parseFloat(document.getElementById("torque").value);
+let rpm = parseFloat(document.getElementById("rpm").value);
+
+let result = document.getElementById("result");
+
+if(hp && rpm && !torque){
+
+let t = (hp * 5252) / rpm;
+
+result.innerHTML = "Torque = " + t.toFixed(2) + " lb-ft";
+
+}
+
+else if(torque && rpm && !hp){
+
+let h = (torque * rpm) / 5252;
+
+result.innerHTML = "Horsepower = " + h.toFixed(2) + " HP";
+
+}
+
+else if(hp && torque && !rpm){
+
+let r = (hp * 5252) / torque;
+
+result.innerHTML = "RPM = " + r.toFixed(0);
+
+}
+
+else{
+
+result.innerHTML = "Enter any two values to calculate the third.";
+
+}
+
+}
+
+fetch("navbar.html?v=20260314")
+.then(response => response.text())
+.then(data => {
+document.getElementById("navbar").innerHTML = data;
+})
+.catch(error => {
+console.error("Navbar failed to load:", error);
+});
+
+</script>
+
+</body>
+</html>
