@@ -26,8 +26,6 @@
       margin:0;
     }
 
-    
-
     .dropdown{
       position:relative;
       display:inline-block;
@@ -166,6 +164,125 @@
       font-size:14px;
     }
 
+    .pneumatic-monetization{
+      background:white;
+      padding:30px;
+      max-width:760px;
+      margin:30px auto 0;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+      text-align:left;
+    }
+
+    .pneumatic-monetization h2{
+      margin-top:0;
+      margin-bottom:12px;
+      color:#1f2a44;
+      text-align:center;
+    }
+
+    .pneumatic-intro{
+      margin-top:0;
+      margin-bottom:22px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      text-align:center;
+    }
+
+    .recommendation-box{
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+      padding:18px;
+      margin-bottom:22px;
+    }
+
+    .recommendation-box h3{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .pneumatic-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px,1fr));
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .pneumatic-card{
+      background:#f8fafe;
+      border:1px solid #d9e5ff;
+      border-radius:8px;
+      padding:18px;
+    }
+
+    .pneumatic-card h3{
+      margin-top:0;
+      color:#1f2a44;
+      font-size:18px;
+    }
+
+    .pneumatic-card p{
+      margin:0 0 14px 0;
+      color:#555;
+      line-height:1.5;
+      font-weight:normal;
+      text-align:left;
+    }
+
+    .pneumatic-card a,
+    .pneumatic-btn{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:6px;
+      font-weight:bold;
+      transition:background .2s;
+    }
+
+    .pneumatic-card a:hover,
+    .pneumatic-btn:hover{
+      background:#2d3d63;
+    }
+
+    .pneumatic-consulting{
+      margin-top:24px;
+      padding:20px;
+      background:#f4f8ff;
+      border:1px solid #d9e5ff;
+      border-radius:8px;
+    }
+
+    .pneumatic-consulting h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .pneumatic-consulting ul{
+      margin:12px 0 18px 20px;
+      padding:0;
+    }
+
+    .pneumatic-consulting li{
+      margin-bottom:8px;
+      color:#444;
+    }
+
+    .disclosure-box{
+      margin-top:20px;
+      padding:14px 16px;
+      background:#f4f4f4;
+      border-left:4px solid #1f2a44;
+      border-radius:6px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+    }
+
     @media (max-width:700px){
       .container{
         padding:20px;
@@ -178,6 +295,10 @@
 
       .result{
         font-size:16px;
+      }
+
+      .pneumatic-monetization{
+        padding:20px;
       }
     }
   </style>
@@ -254,6 +375,80 @@
 
     <div class="footer">
       Automation Engineering Tools • Practical calculators for real automation work
+    </div>
+  </div>
+
+  <div class="pneumatic-monetization">
+    <h2>Next Step: Select the Right Pneumatic Components</h2>
+
+    <p class="pneumatic-intro">
+      After estimating cylinder force, the next step is choosing a practical cylinder size,
+      regulator setup, and motion control hardware for the real application.
+    </p>
+
+    <div class="recommendation-box" id="recommendationBox">
+      <h3>Suggested Starting Point</h3>
+      <div id="recommendationText">
+        Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.
+      </div>
+    </div>
+
+    <div class="pneumatic-grid">
+      <div class="pneumatic-card">
+        <h3>Air Cylinders</h3>
+        <p>
+          Review bore size, stroke length, mounting style, and cylinder type for your application.
+        </p>
+        <a href="https://www.mcmaster.com/air-cylinders/" target="_blank" rel="noopener noreferrer sponsored">
+          View Air Cylinders
+        </a>
+      </div>
+
+      <div class="pneumatic-card">
+        <h3>Regulators & Air Prep</h3>
+        <p>
+          Stable pressure matters. Good regulators and air prep improve consistency and usable force.
+        </p>
+        <a href="https://www.mcmaster.com/pneumatic-regulators/" target="_blank" rel="noopener noreferrer sponsored">
+          View Regulators
+        </a>
+      </div>
+
+      <div class="pneumatic-card">
+        <h3>Valves & Flow Controls</h3>
+        <p>
+          Choose the right valve and speed control components to match response time and cylinder behavior.
+        </p>
+        <a href="https://www.festo.com/us/en/" target="_blank" rel="noopener noreferrer sponsored">
+          Explore Pneumatic Components
+        </a>
+      </div>
+    </div>
+
+    <div class="pneumatic-consulting">
+      <h3>Need Help Validating a Real Application?</h3>
+      <p>
+        I offer practical automation support for pneumatic sizing, tooling force checks,
+        actuator review, and real-world troubleshooting.
+      </p>
+
+      <ul>
+        <li>Cylinder force and bore validation</li>
+        <li>Rod loading and application review</li>
+        <li>Derating and pressure-drop reality check</li>
+        <li>General automation design support</li>
+      </ul>
+
+      <p><strong>Email:</strong> <a href="mailto:colottijon@gmail.com">colottijon@gmail.com</a></p>
+
+      <a class="pneumatic-btn" href="mailto:colottijon@gmail.com?subject=Pneumatic%20Cylinder%20Sizing%20Help">
+        Request Design Help
+      </a>
+    </div>
+
+    <div class="disclosure-box">
+      Disclosure: Some links on this page may be referral links. If you purchase through them,
+      I may earn a commission at no extra cost to you.
     </div>
   </div>
 
@@ -374,6 +569,22 @@
         retractWorkTitle = "Approx. Retract-Side Work Reference";
       }
 
+      let recommendation = "";
+
+      if(deratedExtendForceLbf < 50){
+        recommendation = "Your derated extend force is relatively light. This usually points toward smaller pneumatic cylinders for light clamping, positioning, ejecting, or simple actuator tasks. Still confirm friction, alignment, and any shock loads before final selection.";
+      } else if(deratedExtendForceLbf < 200){
+        recommendation = "Your derated extend force is in a moderate range. This is common for general automation tasks like part stops, moderate clamps, slides, and tooling motion. Check mounting rigidity, speed requirements, and pressure stability before ordering.";
+      } else if(deratedExtendForceLbf < 500){
+        recommendation = "Your derated extend force is fairly strong. This suggests a more substantial cylinder setup may be needed. Make sure your structure, tooling, and mounting can handle the reaction loads, not just the cylinder output.";
+      } else {
+        recommendation = "Your derated extend force is high. This kind of application deserves a careful review of frame strength, side loading, pressure drop, safety factor, and whether pneumatics are still the best fit compared with hydraulic or servo-driven alternatives.";
+      }
+
+      document.getElementById("recommendationText").innerHTML =
+        "<strong>Derated Extend Force:</strong> " + deratedExtendForceLbf.toFixed(2) + " lbf<br><br>" +
+        recommendation;
+
       output.innerHTML =
         "<strong>Cylinder Type</strong><br>" +
         cylinderTypeText + "<br><br>" +
@@ -425,6 +636,8 @@
       document.getElementById("derating").value = "100";
       updateLabels();
       showMessage("Enter values and press Calculate");
+      document.getElementById("recommendationText").innerHTML =
+        "Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.";
     }
 
     function loadExample(){
