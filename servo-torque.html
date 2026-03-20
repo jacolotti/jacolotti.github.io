@@ -25,8 +25,6 @@
       margin:0;
     }
 
-    
-
     .dropdown{
       position:relative;
       display:inline-block;
@@ -115,13 +113,14 @@
       font-weight:600;
     }
 
-    input, select{
+    input, select, textarea{
       width:100%;
       padding:10px;
       font-size:16px;
       box-sizing:border-box;
       border:1px solid #ccc;
       border-radius:5px;
+      font-family:Arial, sans-serif;
     }
 
     .button-row{
@@ -173,12 +172,115 @@
       display:none;
     }
 
+    .servo-help{
+      background:white;
+      padding:30px;
+      max-width:850px;
+      margin:30px auto 0;
+      border-radius:10px;
+      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+      text-align:left;
+    }
+
+    .servo-help h2{
+      margin-top:0;
+      margin-bottom:12px;
+      color:#1f2a44;
+      text-align:center;
+    }
+
+    .servo-help-intro{
+      margin-top:0;
+      margin-bottom:22px;
+      color:#555;
+      font-size:16px;
+      line-height:1.5;
+      text-align:center;
+    }
+
+    .servo-help-box{
+      background:#f4f8ff;
+      border:1px solid #d9e5ff;
+      border-radius:8px;
+      padding:22px;
+    }
+
+    .servo-help-box h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .servo-help-box p{
+      color:#444;
+      line-height:1.5;
+    }
+
+    .servo-help-box ul{
+      margin:12px 0 18px 20px;
+      padding:0;
+    }
+
+    .servo-help-box li{
+      margin-bottom:8px;
+      color:#444;
+    }
+
+    .servo-form{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .servo-form label{
+      text-align:left;
+      font-weight:bold;
+      font-size:14px;
+      color:#1f2a44;
+    }
+
+    .servo-btn{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      padding:12px 18px;
+      border-radius:6px;
+      font-weight:bold;
+      transition:background .2s;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
+      width:auto;
+      margin-top:8px;
+    }
+
+    .servo-btn:hover{
+      background:#2d3d63;
+    }
+
+    .servo-disclosure{
+      margin-top:18px;
+      padding:14px 16px;
+      background:#f4f4f4;
+      border-left:4px solid #1f2a44;
+      border-radius:6px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+    }
+
     @media (max-width:700px){
       .container{
         padding:20px;
       }
 
-      button{
+      .servo-help{
+        padding:20px;
+      }
+
+      button,
+      .servo-btn{
         width:100%;
         margin:6px 0;
       }
@@ -289,6 +391,59 @@
 
   <div class="footer">
     Automation Engineering Tools • Practical calculators for real automation work
+  </div>
+</div>
+
+<div class="servo-help">
+  <h2>Need Help With a Servo Application?</h2>
+
+  <p class="servo-help-intro">
+    Submit your application details and I can review the request, help point you in the right direction,
+    or connect you with someone better suited for deeper servo sizing support.
+  </p>
+
+  <div class="servo-help-box">
+    <h3>Submit a Servo Question</h3>
+    <p>
+      This works best for early concept questions, application context, and getting a second look on assumptions.
+    </p>
+
+    <ul>
+      <li>Motor sizing questions</li>
+      <li>Torque and acceleration review</li>
+      <li>Gear ratio questions</li>
+      <li>General motion application questions</li>
+    </ul>
+
+    <form action="https://formspree.io/f/mwvrzywp" method="POST" class="servo-form">
+      <label for="helpName">Name</label>
+      <input id="helpName" type="text" name="name" required>
+
+      <label for="helpEmail">Email</label>
+      <input id="helpEmail" type="email" name="email" required>
+
+      <label for="helpCompany">Company (optional)</label>
+      <input id="helpCompany" type="text" name="company">
+
+      <label for="helpApplication">Application Description</label>
+      <textarea id="helpApplication" name="details" rows="5" required placeholder="Describe the application, motion type, load, speed, and what kind of help you need."></textarea>
+
+      <label for="helpTorque">Estimated Torque From Calculator (optional)</label>
+      <input id="helpTorque" type="text" name="estimated_torque" placeholder="Example: 4.25 N·m">
+
+      <label for="helpPhone">Phone (optional)</label>
+      <input id="helpPhone" type="text" name="phone">
+
+      <input type="hidden" name="_subject" value="Servo Help Request from AutomationCalculators.net">
+
+      <button type="submit" class="servo-btn" onclick="gtag('event','servo_help_form_submit_click');">
+        Submit Request
+      </button>
+    </form>
+
+    <div class="servo-disclosure">
+      This form is for application questions and general help requests. Final motor selection should still be confirmed with manufacturer tools and application-specific review.
+    </div>
   </div>
 </div>
 
@@ -471,6 +626,11 @@
     const powerHP = (motorTorqueLbFt * motorRPM) / 5252;
     const powerKW = powerHP * 0.7457;
 
+    const helpTorque = document.getElementById("helpTorque");
+    if(helpTorque){
+      helpTorque.value = recommendedMotorTorqueNm.toFixed(2) + " N·m recommended torque";
+    }
+
     gtag('event', 'servo_torque_calculation', {
       mode: mode,
       gear_ratio: gearRatio,
@@ -555,6 +715,7 @@
     document.getElementById("moveDistance").value = "12";
     document.getElementById("moveAngle").value = "180";
     document.getElementById("externalInertia").value = "0";
+    document.getElementById("helpTorque").value = "";
     toggleModeFields();
     showMessage("Enter values and press Calculate");
   }
