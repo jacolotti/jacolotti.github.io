@@ -108,7 +108,7 @@
       text-align:left;
     }
 
-    input, select{
+    input, select, textarea{
       width:100%;
       padding:10px;
       margin:10px 0;
@@ -116,6 +116,7 @@
       box-sizing:border-box;
       border:1px solid #ccc;
       border-radius:5px;
+      font-family:Arial, sans-serif;
     }
 
     .button-row{
@@ -242,6 +243,9 @@
       border-radius:6px;
       font-weight:bold;
       transition:background .2s;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
     }
 
     .pneumatic-card a:hover,
@@ -272,6 +276,20 @@
       color:#444;
     }
 
+    .pneumatic-form{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .pneumatic-form label{
+      text-align:left;
+      font-weight:bold;
+      font-size:14px;
+      color:#1f2a44;
+    }
+
     .disclosure-box{
       margin-top:20px;
       padding:14px 16px;
@@ -288,7 +306,8 @@
         padding:20px;
       }
 
-      button{
+      button,
+      .pneumatic-btn{
         width:100%;
         margin:6px 0;
       }
@@ -399,7 +418,7 @@
         <p>
           Review bore size, stroke length, mounting style, and cylinder type for your application.
         </p>
-         <a href="https://www.automationdirect.com/" target="_blank" rel="noopener noreferrer sponsored">
+        <a href="https://www.automationdirect.com/" target="_blank" rel="noopener noreferrer sponsored">
           View Air Cylinders
         </a>
       </div>
@@ -428,8 +447,7 @@
     <div class="pneumatic-consulting">
       <h3>Need Help Validating a Real Application?</h3>
       <p>
-        I offer practical automation support for pneumatic sizing, tooling force checks,
-        actuator review, and real-world troubleshooting.
+        Submit your application details and I can review the request and respond with practical input on force checks, cylinder sizing direction, and general pneumatic setup questions.
       </p>
 
       <ul>
@@ -439,11 +457,32 @@
         <li>General automation design support</li>
       </ul>
 
-      <p><strong>Email:</strong> <a href="mailto:colottijon@gmail.com">colottijon@gmail.com</a></p>
+      <form action="https://formspree.io/f/mwvrzywp" method="POST" class="pneumatic-form">
+        <label for="helpName">Name</label>
+        <input id="helpName" type="text" name="name" required>
 
-      <a class="pneumatic-btn" href="mailto:colottijon@gmail.com?subject=Pneumatic%20Cylinder%20Sizing%20Help">
-        Request Design Help
-      </a>
+        <label for="helpEmail">Email</label>
+        <input id="helpEmail" type="email" name="email" required>
+
+        <label for="helpCompany">Company (optional)</label>
+        <input id="helpCompany" type="text" name="company">
+
+        <label for="helpApplication">Application Description</label>
+        <textarea id="helpApplication" name="details" rows="5" required placeholder="Describe the application, load, pressure, cylinder use, and what kind of help you need."></textarea>
+
+        <label for="helpForce">Estimated Derated Extend Force (optional)</label>
+        <input id="helpForce" type="text" name="estimated_force" placeholder="Example: 238.50 lbf">
+
+        <label for="helpPhone">Phone (optional)</label>
+        <input id="helpPhone" type="text" name="phone">
+
+        <input type="hidden" name="_subject" value="Pneumatic Help Request from AutomationCalculators.net">
+        <input type="hidden" name="calculator_page" value="pneumatic.html">
+
+        <button type="submit" class="pneumatic-btn" onclick="gtag('event','pneumatic_help_form_submit_click');">
+          Submit Request
+        </button>
+      </form>
     </div>
 
     <div class="disclosure-box">
@@ -585,6 +624,11 @@
         "<strong>Derated Extend Force:</strong> " + deratedExtendForceLbf.toFixed(2) + " lbf<br><br>" +
         recommendation;
 
+      const helpForce = document.getElementById("helpForce");
+      if(helpForce){
+        helpForce.value = deratedExtendForceLbf.toFixed(2) + " lbf";
+      }
+
       output.innerHTML =
         "<strong>Cylinder Type</strong><br>" +
         cylinderTypeText + "<br><br>" +
@@ -638,6 +682,7 @@
       showMessage("Enter values and press Calculate");
       document.getElementById("recommendationText").innerHTML =
         "Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.";
+      document.getElementById("helpForce").value = "";
     }
 
     function loadExample(){
