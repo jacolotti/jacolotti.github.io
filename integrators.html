@@ -62,6 +62,31 @@
       padding:18px;
     }
 
+    .featured-card{
+      border:2px solid #1f2a44;
+      background:#eef4ff;
+    }
+
+    .spot-open{
+      border:2px dashed #b8c8e8;
+      background:#fbfcff;
+    }
+
+    .badge{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      font-size:12px;
+      font-weight:bold;
+      padding:6px 10px;
+      border-radius:999px;
+      margin-bottom:10px;
+    }
+
+    .open-badge{
+      background:#7a8cab;
+    }
+
     .card h3{
       margin-top:0;
       color:#1f2a44;
@@ -86,6 +111,13 @@
 
     .card a:hover{
       background:#2d3d63;
+    }
+
+    .card-buttons{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
     }
 
     .cta-box{
@@ -178,6 +210,10 @@
       .integrator-btn{
         width:100%;
       }
+
+      .card-buttons{
+        flex-direction:column;
+      }
     }
   </style>
 </head>
@@ -193,50 +229,147 @@
   </p>
 
   <div class="category">
-    <h2>Motion & Servo Specialists</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Your Future Partner</h3>
-        <p>Specializes in servo systems, motion control, and precision automation.</p>
-        <p><strong>Region:</strong> US</p>
-        <a href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="category">
-    <h2>Pneumatic & Tooling Specialists</h2>
-    <div class="grid">
-      <div class="card">
-        <h3>Pneumatic Specialist</h3>
-        <p>Cylinder sizing, tooling design, air systems, and production automation support.</p>
-        <p><strong>Region:</strong> Midwest</p>
-        <a href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="category">
     <h2>General Automation Integrators</h2>
     <div class="grid">
-      <div class="card">
-        <h3>Automation Integrator</h3>
-        <p>Full system integration including PLC programming, robotics, and manufacturing systems.</p>
-        <p><strong>Region:</strong> US</p>
-        <a href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
+
+      <div class="card featured-card">
+        <div class="badge">Preferred Integrator</div>
+
+        <h3>R&amp;D Controls</h3>
+
+        <p>
+          Industrial automation and controls support specializing in PLC programming,
+          system integration, and manufacturing process improvement.
+        </p>
+
+        <p><strong>Region:</strong> North Adams, MI / Midwest</p>
+
+        <p><strong>Services:</strong></p>
+        <ul style="margin:8px 0 12px 18px; padding:0; color:#444;">
+          <li>PLC Programming &amp; Controls Integration</li>
+          <li>Machine Automation &amp; System Upgrades</li>
+          <li>Troubleshooting &amp; Production Support</li>
+        </ul>
+
+        <div class="card-buttons">
+          <a href="https://www.rdcontrolsllc.com/" target="_blank" rel="noopener noreferrer">
+            Visit Website
+          </a>
+          <a href="#integrator-form" onclick="setIntegrator('R&amp;D Controls')" rel="noopener noreferrer">
+            Request Help
+          </a>
+        </div>
       </div>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Reserved for another preferred automation integrator or controls specialist.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> General automation integration</p>
+        <a href="mailto:colottijon@gmail.com?subject=Preferred%20Integrator%20Spot%20Inquiry" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Reserved for another preferred automation integrator or controls specialist.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> General automation integration</p>
+        <a href="mailto:colottijon@gmail.com?subject=Preferred%20Integrator%20Spot%20Inquiry" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
     </div>
   </div>
 
   <div class="category">
-    <h2>Controls & Panel Shops</h2>
+    <h2>Motion &amp; Servo Specialists</h2>
     <div class="grid">
-      <div class="card">
-        <h3>Panel Shop</h3>
-        <p>Control panel design, UL panels, wiring, and electrical integration.</p>
-        <p><strong>Region:</strong> US</p>
-        <a href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Reserved for a motion control, servo, or precision automation specialist.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Motion and servo applications</p>
+        <a href="mailto:colottijon@gmail.com?subject=Motion%20Integrator%20Spot%20Inquiry" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
       </div>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Reserved for a motion control, servo, or precision automation specialist.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Motion and servo applications</p>
+        <a href="mailto:colottijon@gmail.com?subject=Motion%20Integrator%20Spot%20Inquiry" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="category">
+    <h2>Pneumatic &amp; Tooling Specialists</h2>
+    <div class="grid">
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Reserved for a pneumatic, tooling, or air systems specialist.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Pneumatics, tooling, and air systems</p>
+        <a href="mailto:colottijon@gmail.com?subject=Pneumatic%20Integrator%20Spot%20Inquiry" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Reserved for a pneumatic, tooling, or air systems specialist.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Pneumatics, tooling, and air systems</p>
+        <a href="mailto:colottijon@gmail.com?subject=Pneumatic%20Integrator%20Spot%20Inquiry" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="category">
+    <h2>Controls &amp; Panel Shops</h2>
+    <div class="grid">
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Reserved for a controls house, UL panel shop, or electrical integration company.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Controls panels and electrical integration</p>
+        <a href="mailto:colottijon@gmail.com?subject=Panel%20Shop%20Spot%20Inquiry" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Reserved for a controls house, UL panel shop, or electrical integration company.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Controls panels and electrical integration</p>
+        <a href="mailto:colottijon@gmail.com?subject=Panel%20Shop%20Spot%20Inquiry" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
     </div>
   </div>
 
@@ -246,48 +379,51 @@
       Submit your project details and I can help point you toward a qualified integrator based on your application.
     </p>
 
-    <form action="https://formspree.io/f/mzdjqzqe" method="POST" class="integrator-form">
-      <label for="intName">Name</label>
-      <input id="intName" type="text" name="name" required>
+    <div id="integrator-form">
+      <form action="https://formspree.io/f/mzdjqzqe" method="POST" class="integrator-form">
+        <label for="intName">Name</label>
+        <input id="intName" type="text" name="name" required>
 
-      <label for="intEmail">Email</label>
-      <input id="intEmail" type="email" name="email" required>
+        <label for="intEmail">Email</label>
+        <input id="intEmail" type="email" name="email" required>
 
-      <label for="intCompany">Company (optional)</label>
-      <input id="intCompany" type="text" name="company">
+        <label for="intCompany">Company (optional)</label>
+        <input id="intCompany" type="text" name="company">
 
-      <label for="intRegion">Preferred Region</label>
-      <select id="intRegion" name="region" required>
-        <option value="">Select a region</option>
-        <option value="Midwest">Midwest</option>
-        <option value="US">US</option>
-        <option value="Remote / Anywhere">Remote / Anywhere</option>
-        <option value="Other">Other</option>
-      </select>
+        <label for="intRegion">Preferred Region</label>
+        <select id="intRegion" name="region" required>
+          <option value="">Select a region</option>
+          <option value="Midwest">Midwest</option>
+          <option value="US">US</option>
+          <option value="Remote / Anywhere">Remote / Anywhere</option>
+          <option value="Other">Other</option>
+        </select>
 
-      <label for="intCategory">Type of Help Needed</label>
-      <select id="intCategory" name="help_type" required>
-        <option value="">Select one</option>
-        <option value="Motion / Servo">Motion / Servo</option>
-        <option value="Pneumatic / Tooling">Pneumatic / Tooling</option>
-        <option value="General Automation Integration">General Automation Integration</option>
-        <option value="Controls / Panel Shop">Controls / Panel Shop</option>
-        <option value="Not Sure Yet">Not Sure Yet</option>
-      </select>
+        <label for="intCategory">Type of Help Needed</label>
+        <select id="intCategory" name="help_type" required>
+          <option value="">Select one</option>
+          <option value="Motion / Servo">Motion / Servo</option>
+          <option value="Pneumatic / Tooling">Pneumatic / Tooling</option>
+          <option value="General Automation Integration">General Automation Integration</option>
+          <option value="Controls / Panel Shop">Controls / Panel Shop</option>
+          <option value="Not Sure Yet">Not Sure Yet</option>
+        </select>
 
-      <label for="intDetails">Project Description</label>
-      <textarea id="intDetails" name="details" rows="6" required placeholder="Describe the machine, process, or project and what kind of support you need."></textarea>
+        <label for="intDetails">Project Description</label>
+        <textarea id="intDetails" name="details" rows="6" required placeholder="Describe the machine, process, or project and what kind of support you need."></textarea>
 
-      <label for="intTimeline">Project Timing (optional)</label>
-      <input id="intTimeline" type="text" name="timeline" placeholder="Example: quoting now, urgent, next quarter">
+        <label for="intTimeline">Project Timing (optional)</label>
+        <input id="intTimeline" type="text" name="timeline" placeholder="Example: quoting now, urgent, next quarter">
 
-      <input type="hidden" name="_subject" value="Integrator Request from AutomationCalculators.net">
-      <input type="hidden" name="calculator_page" value="integrators.html">
+        <input type="hidden" name="_subject" value="Integrator Request from AutomationCalculators.net">
+        <input type="hidden" name="calculator_page" value="integrators.html">
+        <input type="hidden" id="integratorName" name="integrator" value="General Request">
 
-      <button type="submit" class="integrator-btn">
-        Submit Integrator Request
-      </button>
-    </form>
+        <button type="submit" class="integrator-btn">
+          Submit Integrator Request
+        </button>
+      </form>
+    </div>
 
     <div class="disclosure">
       Requests submitted here are used to help route you toward an appropriate integrator or specialist. Final fit, pricing, and project scope should always be confirmed directly with the provider.
@@ -300,6 +436,10 @@
 </div>
 
 <script>
+  function setIntegrator(name){
+    document.getElementById("integratorName").value = name;
+  }
+
   fetch("navbar.html")
     .then(res => res.text())
     .then(data => {
