@@ -5,117 +5,492 @@
   <meta name="robots" content="index, follow">
 
   <title>Preferred Automation Integrators | Automation Calculators</title>
+  <meta name="description" content="Find trusted automation integrators, motion specialists, pneumatic experts, and controls engineers for industrial automation projects.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    body{font-family:Arial;background:#f4f4f4;margin:0;text-align:center;}
-    .container{background:white;max-width:900px;margin:30px auto;padding:30px;border-radius:10px;box-shadow:0 0 10px rgba(0,0,0,.1);text-align:left;}
-    h1{text-align:center;color:#1f2a44;}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:15px;}
-    .card{background:#f8fafe;border:1px solid #d9e5ff;border-radius:8px;padding:18px;}
-    .featured-card{border:2px solid #1f2a44;background:#eef4ff;}
-    .spot-open{border:2px dashed #b8c8e8;background:#fbfcff;}
-    .badge{display:inline-block;background:#1f2a44;color:white;font-size:12px;font-weight:bold;padding:6px 10px;border-radius:999px;margin-bottom:10px;}
-    .open-badge{background:#7a8cab;}
-    .card a{display:inline-block;margin-top:10px;background:#1f2a44;color:white;text-decoration:none;padding:8px 12px;border-radius:6px;font-weight:bold;}
-    .cta-box{margin-top:40px;padding:20px;background:#e9f1ff;border:1px solid #c8d9ff;border-radius:8px;}
-    .integrator-form{display:flex;flex-direction:column;gap:12px;margin-top:18px;}
-    .integrator-form input,.integrator-form textarea,.integrator-form select{padding:10px;font-size:16px;border:1px solid #ccc;border-radius:5px;}
-    .integrator-btn{background:#1f2a44;color:white;padding:12px;border:none;border-radius:6px;font-weight:bold;cursor:pointer;}
+    body{
+      font-family:Arial;
+      background:#f4f4f4;
+      margin:0;
+      text-align:center;
+    }
+
+    .container{
+      background:white;
+      max-width:900px;
+      margin:30px auto;
+      padding:30px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,.1);
+      text-align:left;
+    }
+
+    h1{
+      text-align:center;
+      color:#1f2a44;
+    }
+
+    .intro{
+      text-align:center;
+      color:#555;
+      margin-bottom:25px;
+      line-height:1.5;
+    }
+
+    .category{
+      margin-top:30px;
+    }
+
+    .category h2{
+      color:#1f2a44;
+      border-bottom:2px solid #e9f1ff;
+      padding-bottom:5px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+      gap:18px;
+      margin-top:15px;
+    }
+
+    .card{
+      background:#f8fafe;
+      border:1px solid #d9e5ff;
+      border-radius:8px;
+      padding:18px;
+    }
+
+    .featured-card{
+      border:2px solid #1f2a44;
+      background:#eef4ff;
+    }
+
+    .spot-open{
+      border:2px dashed #b8c8e8;
+      background:#fbfcff;
+    }
+
+    .badge{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      font-size:12px;
+      font-weight:bold;
+      padding:6px 10px;
+      border-radius:999px;
+      margin-bottom:10px;
+    }
+
+    .open-badge{
+      background:#7a8cab;
+    }
+
+    .card h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .card p{
+      color:#555;
+      margin:8px 0;
+      line-height:1.4;
+    }
+
+    .card a{
+      display:inline-block;
+      margin-top:10px;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      padding:8px 12px;
+      border-radius:6px;
+      font-weight:bold;
+    }
+
+    .card a:hover{
+      background:#2d3d63;
+    }
+
+    .card-buttons{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .cta-box{
+      margin-top:40px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:8px;
+    }
+
+    .cta-box h3{
+      margin-top:0;
+      color:#1f2a44;
+      text-align:center;
+    }
+
+    .cta-box p{
+      color:#444;
+      line-height:1.5;
+      text-align:center;
+    }
+
+    .integrator-form{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .integrator-form label{
+      text-align:left;
+      font-weight:bold;
+      font-size:14px;
+      color:#1f2a44;
+    }
+
+    .integrator-form input,
+    .integrator-form textarea,
+    .integrator-form select{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+      font-family:Arial, sans-serif;
+    }
+
+    .integrator-btn{
+      display:inline-block;
+      margin-top:8px;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      padding:12px 16px;
+      border-radius:6px;
+      font-weight:bold;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
+    }
+
+    .integrator-btn:hover{
+      background:#2d3d63;
+    }
+
+    .disclosure{
+      margin-top:18px;
+      padding:14px 16px;
+      background:#f4f4f4;
+      border-left:4px solid #1f2a44;
+      border-radius:6px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .footer{
+      margin-top:30px;
+      text-align:center;
+      color:#666;
+      font-size:14px;
+    }
+
+    @media (max-width:700px){
+      .container{
+        padding:20px;
+      }
+
+      .integrator-btn{
+        width:100%;
+      }
+
+      .card-buttons{
+        flex-direction:column;
+      }
+    }
   </style>
 </head>
-
 <body>
 
+<div id="navbar"></div>
+
 <div class="container">
+  <h1>Preferred Automation Integrators</h1>
 
-<h1>Preferred Automation Integrators</h1>
+  <p class="intro">
+    Looking for help beyond calculators? These integrators and specialists can assist with real-world automation projects including controls, motion systems, pneumatic tooling, and full system integration.
+  </p>
 
-<!-- FEATURED -->
-<div class="grid">
-  <div class="card featured-card">
-    <div class="badge">Preferred Integrator</div>
-    <h3>R&D Controls</h3>
-    <p>Industrial automation and controls support in Michigan.</p>
+  <div class="category">
+    <h2>General Automation Integrators</h2>
+    <div class="grid">
 
-    <a href="https://www.rdcontrolsllc.com/" target="_blank">Visit Website</a>
-    <a href="#integrator-form" onclick="setIntegrator('R&D Controls')">Request Help</a>
+      <div class="card featured-card">
+        <div class="badge">Preferred Integrator</div>
+
+        <h3>R&amp;D Controls</h3>
+
+        <p>
+          Industrial automation and controls support specializing in PLC programming,
+          system integration, and manufacturing process improvement.
+        </p>
+
+        <p><strong>Region:</strong> North Adams, MI / Midwest</p>
+
+        <p><strong>Services:</strong></p>
+        <ul style="margin:8px 0 12px 18px; padding:0; color:#444;">
+          <li>PLC Programming &amp; Controls Integration</li>
+          <li>Machine Automation &amp; System Upgrades</li>
+          <li>Troubleshooting &amp; Production Support</li>
+        </ul>
+
+        <div class="card-buttons">
+          <a href="https://www.rdcontrolsllc.com/" target="_blank" rel="noopener noreferrer">
+            Visit Website
+          </a>
+          <a href="#integrator-form" onclick="setIntegrator('R&amp;D Controls')" rel="noopener noreferrer">
+            Request Help
+          </a>
+        </div>
+      </div>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Get listed here and receive qualified automation project leads.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> General automation integration</p>
+        <a href="#apply-form" onclick="setApplyType('General Automation Integration')" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Get listed here and receive qualified automation project leads.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> General automation integration</p>
+        <a href="#apply-form" onclick="setApplyType('General Automation Integration')" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+    </div>
   </div>
 
-  <!-- OPEN SPOT -->
-  <div class="card spot-open">
-    <div class="badge open-badge">Open Spot</div>
-    <h3>This Spot Is Available</h3>
-    <p>Get listed here and receive qualified automation project leads.</p>
+  <div class="category">
+    <h2>Motion &amp; Servo Specialists</h2>
+    <div class="grid">
 
-    <a href="#apply-form" onclick="setApplyType('General Automation Integration')">
-      Get Listed Here
-    </a>
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Get listed here and receive qualified automation project leads.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Motion and servo applications</p>
+        <a href="#apply-form" onclick="setApplyType('Motion / Servo Specialist')" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Get listed here and receive qualified automation project leads.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Motion and servo applications</p>
+        <a href="#apply-form" onclick="setApplyType('Motion / Servo Specialist')" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+    </div>
   </div>
-</div>
 
-<!-- LEAD FORM -->
-<div class="cta-box">
-  <h3>Need Help Finding the Right Integrator?</h3>
+  <div class="category">
+    <h2>Pneumatic &amp; Tooling Specialists</h2>
+    <div class="grid">
 
-  <div id="integrator-form">
-    <form action="https://formspree.io/f/mzdjqzqe" method="POST" class="integrator-form">
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Get listed here and receive qualified automation project leads.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Pneumatics, tooling, and air systems</p>
+        <a href="#apply-form" onclick="setApplyType('Pneumatic / Tooling Specialist')" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
 
-      <input type="text" name="name" placeholder="Name" required>
-      <input type="email" name="email" placeholder="Email" required>
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Get listed here and receive qualified automation project leads.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Pneumatics, tooling, and air systems</p>
+        <a href="#apply-form" onclick="setApplyType('Pneumatic / Tooling Specialist')" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
 
-      <select name="region" required>
-        <option value="">Region</option>
-        <option>Midwest</option>
-        <option>US</option>
-      </select>
+    </div>
+  </div>
 
-      <textarea name="details" placeholder="Project details" required></textarea>
+  <div class="category">
+    <h2>Controls &amp; Panel Shops</h2>
+    <div class="grid">
 
-      <input type="hidden" id="integratorName" name="integrator" value="General Request">
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Get listed here and receive qualified automation project leads.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Controls panels and electrical integration</p>
+        <a href="#apply-form" onclick="setApplyType('Controls / Panel Shop')" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Get listed here and receive qualified automation project leads.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Controls panels and electrical integration</p>
+        <a href="#apply-form" onclick="setApplyType('Controls / Panel Shop')" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h3>Need Help Finding the Right Integrator?</h3>
+    <p>
+      Submit your project details and I can help point you toward a qualified integrator based on your application.
+    </p>
+
+    <div id="integrator-form">
+      <form action="https://formspree.io/f/mzdjqzqe" method="POST" class="integrator-form">
+        <label for="intName">Name</label>
+        <input id="intName" type="text" name="name" required>
+
+        <label for="intEmail">Email</label>
+        <input id="intEmail" type="email" name="email" required>
+
+        <label for="intCompany">Company (optional)</label>
+        <input id="intCompany" type="text" name="company">
+
+        <label for="intRegion">Preferred Region</label>
+        <select id="intRegion" name="region" required>
+          <option value="">Select a region</option>
+          <option value="Midwest">Midwest</option>
+          <option value="US">US</option>
+          <option value="Remote / Anywhere">Remote / Anywhere</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label for="intCategory">Type of Help Needed</label>
+        <select id="intCategory" name="help_type" required>
+          <option value="">Select one</option>
+          <option value="Motion / Servo">Motion / Servo</option>
+          <option value="Pneumatic / Tooling">Pneumatic / Tooling</option>
+          <option value="General Automation Integration">General Automation Integration</option>
+          <option value="Controls / Panel Shop">Controls / Panel Shop</option>
+          <option value="Not Sure Yet">Not Sure Yet</option>
+        </select>
+
+        <label for="intDetails">Project Description</label>
+        <textarea id="intDetails" name="details" rows="6" required placeholder="Describe the machine, process, or project and what kind of support you need."></textarea>
+
+        <label for="intTimeline">Project Timing (optional)</label>
+        <input id="intTimeline" type="text" name="timeline" placeholder="Example: quoting now, urgent, next quarter">
+
+        <input type="hidden" name="_subject" value="Integrator Request from AutomationCalculators.net">
+        <input type="hidden" name="calculator_page" value="integrators.html">
+        <input type="hidden" id="integratorName" name="integrator" value="General Request">
+
+        <button type="submit" class="integrator-btn">
+          Submit Integrator Request
+        </button>
+      </form>
+    </div>
+
+    <div class="disclosure">
+      Requests submitted here are used to help route you toward an appropriate integrator or specialist. Final fit, pricing, and project scope should always be confirmed directly with the provider.
+    </div>
+  </div>
+
+  <div class="cta-box" id="apply-form">
+    <h3>Are You an Automation Integrator?</h3>
+    <p>
+      Apply to be listed as a preferred integrator and get connected with real project leads.
+    </p>
+
+    <form action="https://formspree.io/f/mvzwnzar" method="POST" class="integrator-form">
+
+      <label for="applyCompany">Company Name</label>
+      <input id="applyCompany" type="text" name="company" required>
+
+      <label for="applyName">Contact Name</label>
+      <input id="applyName" type="text" name="name" required>
+
+      <label for="applyEmail">Email</label>
+      <input id="applyEmail" type="email" name="email" required>
+
+      <label for="applyWebsite">Website</label>
+      <input id="applyWebsite" type="text" name="website">
+
+      <label for="applyServices">Primary Services</label>
+      <textarea id="applyServices" name="services" rows="4" required></textarea>
+
+      <label for="applyRegion">Region Served</label>
+      <input id="applyRegion" type="text" name="region" required>
+
+      <label for="applyDetails">Why should you be listed?</label>
+      <textarea id="applyDetails" name="details" rows="5" required></textarea>
+
+      <input type="hidden" name="_subject" value="New Integrator Listing Application">
+      <input type="hidden" id="applyType" name="listing_type" value="General Inquiry">
 
       <button type="submit" class="integrator-btn">
-        Submit Request
+        Apply to Be Listed
       </button>
 
     </form>
   </div>
-</div>
 
-<!-- APPLY FORM -->
-<div class="cta-box" id="apply-form">
-  <h3>Are You an Automation Integrator?</h3>
-
-  <form action="https://formspree.io/f/mvzwnzar" method="POST" class="integrator-form">
-
-    <input type="text" name="company" placeholder="Company Name" required>
-    <input type="text" name="name" placeholder="Contact Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-
-    <textarea name="services" placeholder="Services" required></textarea>
-    <input type="text" name="region" placeholder="Region" required>
-
-    <textarea name="details" placeholder="Why should you be listed?" required></textarea>
-
-    <input type="hidden" id="applyType" name="listing_type" value="General Inquiry">
-
-    <button type="submit" class="integrator-btn">
-      Apply to Be Listed
-    </button>
-
-  </form>
-</div>
-
+  <div class="footer">
+    Automation Calculators • Connecting engineering tools with real-world solutions
+  </div>
 </div>
 
 <script>
-function setIntegrator(name){
-  document.getElementById("integratorName").value = name;
-}
+  function setIntegrator(name){
+    document.getElementById("integratorName").value = name;
+  }
 
-function setApplyType(type){
-  document.getElementById("applyType").value = type;
-}
+  function setApplyType(type){
+    document.getElementById("applyType").value = type;
+  }
+
+  fetch("navbar.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
 </script>
 
 </body>
