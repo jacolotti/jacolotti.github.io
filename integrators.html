@@ -6,7 +6,6 @@
 
   <title>Preferred Automation Integrators | Automation Calculators</title>
   <meta name="description" content="Find trusted automation integrators, motion specialists, pneumatic experts, and controls engineers for industrial automation projects.">
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -95,27 +94,73 @@
       background:#e9f1ff;
       border:1px solid #c8d9ff;
       border-radius:8px;
-      text-align:center;
     }
 
     .cta-box h3{
       margin-top:0;
       color:#1f2a44;
+      text-align:center;
     }
 
-    .cta-box a{
+    .cta-box p{
+      color:#444;
+      line-height:1.5;
+      text-align:center;
+    }
+
+    .integrator-form{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .integrator-form label{
+      text-align:left;
+      font-weight:bold;
+      font-size:14px;
+      color:#1f2a44;
+    }
+
+    .integrator-form input,
+    .integrator-form textarea,
+    .integrator-form select{
+      width:100%;
+      padding:10px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #ccc;
+      border-radius:5px;
+      font-family:Arial, sans-serif;
+    }
+
+    .integrator-btn{
       display:inline-block;
-      margin-top:10px;
+      margin-top:8px;
       background:#1f2a44;
       color:white;
       text-decoration:none;
-      padding:10px 16px;
+      padding:12px 16px;
       border-radius:6px;
       font-weight:bold;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
     }
 
-    .cta-box a:hover{
+    .integrator-btn:hover{
       background:#2d3d63;
+    }
+
+    .disclosure{
+      margin-top:18px;
+      padding:14px 16px;
+      background:#f4f4f4;
+      border-left:4px solid #1f2a44;
+      border-radius:6px;
+      color:#666;
+      font-size:14px;
+      line-height:1.5;
     }
 
     .footer{
@@ -128,6 +173,10 @@
     @media (max-width:700px){
       .container{
         padding:20px;
+      }
+
+      .integrator-btn{
+        width:100%;
       }
     }
   </style>
@@ -143,76 +192,106 @@
     Looking for help beyond calculators? These integrators and specialists can assist with real-world automation projects including controls, motion systems, pneumatic tooling, and full system integration.
   </p>
 
-  <!-- MOTION -->
   <div class="category">
     <h2>Motion & Servo Specialists</h2>
     <div class="grid">
-
       <div class="card">
         <h3>Your Future Partner</h3>
         <p>Specializes in servo systems, motion control, and precision automation.</p>
         <p><strong>Region:</strong> US</p>
-        <a href="#" target="_blank">Visit Website</a>
+        <a href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
       </div>
-
     </div>
   </div>
 
-  <!-- PNEUMATIC -->
   <div class="category">
     <h2>Pneumatic & Tooling Specialists</h2>
     <div class="grid">
-
       <div class="card">
         <h3>Pneumatic Specialist</h3>
         <p>Cylinder sizing, tooling design, air systems, and production automation support.</p>
         <p><strong>Region:</strong> Midwest</p>
-        <a href="#" target="_blank">Visit Website</a>
+        <a href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
       </div>
-
     </div>
   </div>
 
-  <!-- GENERAL -->
   <div class="category">
     <h2>General Automation Integrators</h2>
     <div class="grid">
-
       <div class="card">
         <h3>Automation Integrator</h3>
         <p>Full system integration including PLC programming, robotics, and manufacturing systems.</p>
         <p><strong>Region:</strong> US</p>
-        <a href="#" target="_blank">Visit Website</a>
+        <a href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
       </div>
-
     </div>
   </div>
 
-  <!-- PANEL -->
   <div class="category">
     <h2>Controls & Panel Shops</h2>
     <div class="grid">
-
       <div class="card">
         <h3>Panel Shop</h3>
         <p>Control panel design, UL panels, wiring, and electrical integration.</p>
         <p><strong>Region:</strong> US</p>
-        <a href="#" target="_blank">Visit Website</a>
+        <a href="#" target="_blank" rel="noopener noreferrer">Visit Website</a>
       </div>
-
     </div>
   </div>
 
-  <!-- CTA -->
   <div class="cta-box">
     <h3>Need Help Finding the Right Integrator?</h3>
     <p>
-      Submit your application details and I can help connect you with a qualified integrator based on your needs.
+      Submit your project details and I can help point you toward a qualified integrator based on your application.
     </p>
 
-    <a href="mailto:colottijon@gmail.com?subject=Automation%20Integrator%20Request">
-      Request a Connection
-    </a>
+    <form action="https://formspree.io/f/mwvrzywp" method="POST" class="integrator-form">
+      <label for="intName">Name</label>
+      <input id="intName" type="text" name="name" required>
+
+      <label for="intEmail">Email</label>
+      <input id="intEmail" type="email" name="email" required>
+
+      <label for="intCompany">Company (optional)</label>
+      <input id="intCompany" type="text" name="company">
+
+      <label for="intRegion">Preferred Region</label>
+      <select id="intRegion" name="region" required>
+        <option value="">Select a region</option>
+        <option value="Midwest">Midwest</option>
+        <option value="US">US</option>
+        <option value="Remote / Anywhere">Remote / Anywhere</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label for="intCategory">Type of Help Needed</label>
+      <select id="intCategory" name="help_type" required>
+        <option value="">Select one</option>
+        <option value="Motion / Servo">Motion / Servo</option>
+        <option value="Pneumatic / Tooling">Pneumatic / Tooling</option>
+        <option value="General Automation Integration">General Automation Integration</option>
+        <option value="Controls / Panel Shop">Controls / Panel Shop</option>
+        <option value="Not Sure Yet">Not Sure Yet</option>
+      </select>
+
+      <label for="intDetails">Project Description</label>
+      <textarea id="intDetails" name="details" rows="6" required placeholder="Describe the machine, process, or project and what kind of support you need."></textarea>
+
+      <label for="intTimeline">Project Timing (optional)</label>
+      <input id="intTimeline" type="text" name="timeline" placeholder="Example: quoting now, urgent, next quarter">
+
+      <input type="hidden" name="_subject" value="Integrator Request from AutomationCalculators.net">
+      <input type="hidden" name="calculator_page" value="integrators.html">
+
+      <button type="submit" class="integrator-btn">
+        Submit Integrator Request
+      </button>
+    </form>
+
+    <div class="disclosure">
+      Requests submitted here are used to help route you toward an appropriate integrator or specialist. Final fit, pricing, and project scope should always be confirmed directly with the provider.
+    </div>
   </div>
 
   <div class="footer">
@@ -225,6 +304,9 @@
     .then(res => res.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
     });
 </script>
 
