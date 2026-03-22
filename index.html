@@ -350,11 +350,15 @@
     }
 
     .email-box{
-      margin-top:40px;
-      padding:28px;
+      margin-top:50px;
+      padding:32px;
       background:#f7faff;
       border:1px solid var(--border);
-      border-radius:12px;
+      border-radius:14px;
+      max-width:720px;
+      margin-left:auto;
+      margin-right:auto;
+      box-shadow:0 8px 24px rgba(0,0,0,.06);
     }
 
     .library-link{
@@ -376,69 +380,78 @@
     }
 
     /* Brevo form styling */
-    .sib-form,
-    .sib-form *{
+    .email-box .sib-form,
+    .email-box .sib-form *{
       font-family:Arial, sans-serif !important;
     }
 
-    .sib-form{
-      text-align:left !important;
+    .email-box .sib-form{
       background:transparent !important;
+      text-align:center !important;
+      width:100% !important;
     }
 
-    #sib-form-container,
-    .sib-form-container{
+    .email-box #sib-form-container,
+    .email-box .sib-form-container{
       padding:0 !important;
     }
 
-    #sib-container{
+    .email-box #sib-container{
       max-width:100% !important;
       width:100% !important;
-      border:0 !important;
-      border-radius:0 !important;
       background:transparent !important;
+      border:none !important;
+      border-radius:0 !important;
+      box-shadow:none !important;
+      margin:0 auto !important;
     }
 
-    .sib-form .sib-form-block{
-      text-align:left !important;
+    .email-box .sib-form-block{
+      text-align:center !important;
     }
 
-    .sib-form .sib-form-message-panel{
+    .email-box .sib-form-message-panel{
       max-width:100% !important;
       border-radius:10px !important;
       margin-bottom:16px !important;
     }
 
-    .sib-form input{
+    .email-box .sib-input input,
+    .email-box .sib-form input{
       width:100% !important;
-      padding:12px 14px !important;
+      max-width:100% !important;
+      padding:14px !important;
       border-radius:10px !important;
       border:1px solid #c7d8f8 !important;
       font-size:16px !important;
       box-shadow:none !important;
+      box-sizing:border-box !important;
     }
 
-    .sib-form input::placeholder{
+    .email-box .sib-form input::placeholder{
       color:#9aa8b8 !important;
       font-family:Arial, sans-serif !important;
     }
 
-    .sib-form button{
-      padding:12px 20px !important;
+    .email-box .sib-form button,
+    .email-box .sib-form-block__button{
+      padding:14px 22px !important;
       border:none !important;
       border-radius:10px !important;
       background:var(--accent) !important;
       color:white !important;
       font-weight:bold !important;
+      font-size:16px !important;
       cursor:pointer !important;
       box-shadow:0 6px 18px rgba(30,107,214,.22) !important;
     }
 
-    .sib-form button:hover{
+    .email-box .sib-form button:hover,
+    .email-box .sib-form-block__button:hover{
       opacity:.95;
     }
 
-    .sib-form .entry__error{
+    .email-box .entry__error{
       margin-top:8px !important;
       border-radius:8px !important;
       padding:8px 10px !important;
@@ -456,6 +469,10 @@
 
       .subtitle{
         font-size:17px;
+      }
+
+      .email-box{
+        padding:22px;
       }
     }
   </style>
@@ -797,7 +814,7 @@
 
             <div style="padding:8px 0;">
               <div class="sib-form-block" style="font-size:32px; text-align:center; font-weight:700; color:#1f2a44; background-color:transparent;">
-                <p>Get Free Automation Engineering Tools</p>
+                <p>Get New Automation Calculators Before Anyone Else</p>
               </div>
             </div>
 
@@ -809,6 +826,10 @@
                   </p>
                 </div>
               </div>
+            </div>
+
+            <div style="margin-top:10px; font-size:14px; color:#666; text-align:center;">
+              Used by automation engineers at real manufacturing companies.
             </div>
 
             <div style="padding:8px 0;">
