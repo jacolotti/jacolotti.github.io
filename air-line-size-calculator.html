@@ -4,49 +4,51 @@
 
 <title>Compressed Air Line Size Calculator</title>
 
-<meta name="description" content="Estimate compressed air pipe diameter based on SCFM and line length.">
+<meta name="description" content="Estimate compressed air pipe diameter based on SCFM, pipe length, and pressure.">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-
 body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
+  font-family:Arial;
+  background:#f4f4f4;
+  text-align:center;
+  margin:0;
 }
 
 .container{
-background:white;
-padding:40px;
-max-width:900px;
-margin:auto;
-border-radius:10px;
-box-shadow:0px 0px 10px rgba(0,0,0,.1);
+  background:white;
+  padding:40px;
+  max-width:900px;
+  margin:30px auto;
+  border-radius:10px;
+  box-shadow:0px 0px 10px rgba(0,0,0,.1);
 }
 
 input{
-padding:10px;
-font-size:16px;
-margin:8px;
-width:200px;
+  padding:10px;
+  font-size:16px;
+  margin:8px;
+  width:200px;
 }
 
 button{
-padding:12px 20px;
-background:#1f2a44;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
+  padding:12px 20px;
+  background:#1f2a44;
+  color:white;
+  border:none;
+  border-radius:5px;
+  cursor:pointer;
 }
 
 .result{
-margin-top:20px;
-font-weight:bold;
-font-size:18px;
+  margin-top:20px;
+  font-size:16px;
+  text-align:left;
+  padding:20px;
+  background:#e9f1ff;
+  border-radius:8px;
 }
-
 </style>
 
 </head>
@@ -59,16 +61,17 @@ font-size:18px;
 
 <h1>Compressed Air Line Size Calculator</h1>
 
-<p>Estimate air pipe diameter using airflow and pipe length.</p>
+<p>Estimate air pipe diameter using airflow, pipe length, and pressure.</p>
 
 <input id="scfm" placeholder="Air Flow (SCFM)">
 <input id="length" placeholder="Pipe Length (ft)">
+<input id="pressure" placeholder="Pressure (PSIG)">
 
 <br>
 
 <button onclick="calculateAirLine()">Calculate</button>
 
-<div class="result" id="result"></div>
+<div class="result" id="result">Enter values and calculate</div>
 
 </div>
 
@@ -76,25 +79,54 @@ font-size:18px;
 
 function calculateAirLine(){
 
-let scfm=parseFloat(document.getElementById("scfm").value);
+let scfm = parseFloat(document.getElementById("scfm").value);
+let length = parseFloat(document.getElementById("length").value);
+let pressure = parseFloat(document.getElementById("pressure").value);
 
-let size;
+if(!scfm || !length || !pressure){
+  document.getElementById("result").innerHTML = "Enter all values.";
+  return;
+}
 
-if(scfm<10) size="1/4 in";
-else if(scfm<25) size="3/8 in";
-else if(scfm<60) size="1/2 in";
-else if(scfm<150) size="3/4 in";
-else if(scfm<300) size="1 in";
-else size="1.5 in";
+// simplified diameter guesses (inches)
+let sizes = [0.25, 0.375, 0.5, 0.75, 1, 1.5, 2];
 
-document.getElementById("result").innerHTML="Recommended Line Size: "+size;
+let bestSize = null;
+let velocity = 0;
+
+for(let d of sizes){
+
+  let area = Math.PI * Math.pow(d/12/2,2); // ft²
+  let actualCFM = scfm * (14.7/(pressure+14.7));
+  let vel = actualCFM / area / 60; // ft/s
+
+  if(vel < 30){
+    bestSize = d;
+    velocity = vel;
+    break;
+  }
+}
+
+if(!bestSize){
+  bestSize = 2;
+}
+
+document.getElementById("result").innerHTML = `
+<b>Recommended Line Size:</b> ${bestSize} in<br><br>
+<b>Estimated Velocity:</b> ${velocity.toFixed(1)} ft/s<br><br>
+<b>Assumptions:</b><br>
+- Max velocity target ≈ 30 ft/s<br>
+- Simplified pressure correction<br>
+- Does not include fittings or drops<br><br>
+<b>Note:</b> Increase size for long runs, multiple drops, or critical pressure applications.
+`;
 
 }
 
-fetch("navbar.html")
-.then(response=>response.text())
-.then(data=>{
-document.getElementById("navbar").innerHTML=data;
+fetch("navbar.html?v=20260314")
+.then(r=>r.text())
+.then(d=>{
+  document.getElementById("navbar").innerHTML=d;
 });
 
 </script>
