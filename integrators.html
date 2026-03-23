@@ -412,12 +412,19 @@
         <label for="intDetails">Project Description</label>
         <textarea id="intDetails" name="details" rows="6" required placeholder="Describe the machine, process, or project and what kind of support you need."></textarea>
 
-        <label for="intTimeline">Project Timing (optional)</label>
-        <input id="intTimeline" type="text" name="timeline" placeholder="Example: quoting now, urgent, next quarter">
-
+        <label for="urgency">Project Timing</label>
+        <select id="urgency" name="project_timing" required>
+        <option value="">Select timing</option>
+        <option value="asap">ASAP</option>
+        <option value="1-3 months">1–3 months</option>
+        <option value="3-6 months">3–6 months</option>
+        <option value="exploring">Just exploring</option>
+      </select>
+        
         <input type="hidden" name="_subject" value="Integrator Request from AutomationCalculators.net">
         <input type="hidden" name="calculator_page" value="integrators.html">
         <input type="hidden" id="integratorName" name="integrator" value="General Request">
+        <input type="hidden" name="source" value="integrator_request_page">
 
         <button type="submit" class="integrator-btn">
           Submit Integrator Request
@@ -483,7 +490,7 @@
     document.getElementById("applyType").value = type;
   }
 
-  fetch("navbar.html")
+  fetch("navbar.html?v=20260314")
     .then(res => res.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
