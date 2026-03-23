@@ -384,15 +384,25 @@
       Enter values and press Calculate
     </div>
 
-    <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>
+    <div style="margin-top:25px;padding:18px;background:#fff7e6;border:1px solid #ffd27a;border-radius:8px;text-align:center;">
+
+    <strong>Not confident in your cylinder sizing?</strong>
+    <br><br>
+
+    Real systems lose force due to friction, pressure drop, and setup details. A quick review can prevent undersized cylinders, slow motion, or failed tooling.
+
+    <br><br>
+
+    I help engineers quickly sanity-check cylinder sizing, force assumptions, and real-world behavior.
+
+    <br><br>
+
+    <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
+      Get Help From an Integrator
+    </a>
+
+  </div>
+
 
     <p class="note">
       This calculator estimates theoretical cylinder force from pressure and area, then applies the entered derating percentage. It does not account for seal drag, friction losses, pressure drop, cushioning, side loading, spring force in single-acting cylinders, mounting effects, or other real-world losses.
@@ -505,6 +515,7 @@
 
         <input type="hidden" name="_subject" value="Pneumatic Cylinder Help Request from AutomationCalculators.net">
         <input type="hidden" name="calculator_page" value="pneumatic.html">
+        <input type="hidden" name="source" value="pneumatic_force_calculator">
 
         <button type="submit" class="pneumatic-btn" onclick="gtag('event','pneumatic_help_form_submit_click');">
           Submit Request
@@ -729,7 +740,7 @@
   </script>
 
   <script>
-    fetch("navbar.html")
+    fetch("navbar.html?v=20260314")
       .then(response => response.text())
       .then(data => {
         document.getElementById("navbar").innerHTML = data;
