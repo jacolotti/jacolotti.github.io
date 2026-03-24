@@ -24,60 +24,6 @@
       margin:0;
     }
 
-    
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
-      color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
-    }
-
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
     .container{
       background:white;
       padding:30px;
@@ -98,6 +44,14 @@
       color:#555;
       font-size:16px;
       line-height:1.5;
+    }
+
+    .start-prompt{
+      margin-top:0;
+      margin-bottom:22px;
+      color:#222;
+      font-size:18px;
+      font-weight:600;
     }
 
     .controls{
@@ -131,7 +85,7 @@
     button{
       padding:12px 26px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
       border-radius:6px;
@@ -141,7 +95,7 @@
     }
 
     button:hover{
-      background:#1555ad;
+      background:#2d3d63;
     }
 
     .result{
@@ -152,7 +106,6 @@
       border-radius:8px;
       font-size:18px;
       line-height:1.6;
-      font-weight:500;
       max-width:900px;
       margin-left:auto;
       margin-right:auto;
@@ -188,240 +141,135 @@
 </head>
 <body>
 
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h2>Torque to Clamp Load Calculator</h2>
+<div class="container">
+  <h2>Torque to Clamp Load Calculator</h2>
 
-    <p class="description">
-      Estimate clamp load from applied torque using common metric bolt sizes, tensile stress area, nut factor, and tightening assumptions.
-    </p>
+  <p class="description">
+    Estimate clamp load from applied torque using common metric bolt sizes, tensile stress area, nut factor, and tightening assumptions.
+  </p>
 
-    <p class="description">
-      This calculator is useful for rough fastening review, assembly setup, fixture design, and automation concept work where preload matters.
-    </p>
+  <p class="description">
+    This calculator is useful for fastening review, assembly setup, fixture design, and automation work where preload matters.
+  </p>
 
-    <p class="description">
-      Use this free torque to clamp load calculator to estimate preload from applied torque with a practical simplified torque-tension relationship.
-    </p>
+  <p class="start-prompt">
+    Enter torque, bolt size, and nut factor to estimate clamp load instantly.
+  </p>
 
-    <div class="controls">
-      <div class="control-group">
-        <label for="torque">Applied Torque</label>
-        <input id="torque" type="number" value="50" step="0.1" min="0.1">
-      </div>
-
-      <div class="control-group">
-        <label for="torqueUnit">Torque Units</label>
-        <select id="torqueUnit">
-          <option value="Nm">Nm</option>
-          <option value="ft-lb">ft-lb</option>
-          <option value="in-lb">in-lb</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="boltSize">Metric Bolt Size</label>
-        <select id="boltSize" onchange="applyBoltData()">
-          <option value="M4">M4</option>
-          <option value="M5">M5</option>
-          <option value="M6">M6</option>
-          <option value="M8">M8</option>
-          <option value="M10" selected>M10</option>
-          <option value="M12">M12</option>
-          <option value="M14">M14</option>
-          <option value="M16">M16</option>
-          <option value="M20">M20</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="pitch">Thread Pitch (mm)</label>
-        <input id="pitch" type="number" value="1.5" step="0.01" min="0.1">
-      </div>
-
-      <div class="control-group">
-        <label for="tensileArea">Tensile Stress Area (mm²)</label>
-        <input id="tensileArea" type="number" value="58.0" step="0.1" min="0.1">
-      </div>
-
-      <div class="control-group">
-        <label for="nutFactor">Nut Factor / K-Factor</label>
-        <input id="nutFactor" type="number" value="0.2" step="0.01" min="0.01">
-      </div>
-
-      <div class="control-group">
-        <label for="efficiency">Estimated Tightening Efficiency (%)</label>
-        <input id="efficiency" type="number" value="100" step="1" min="1" max="100">
-      </div>
-
-      <div class="control-group">
-        <label for="propertyClass">Property Class (for reference)</label>
-        <select id="propertyClass">
-          <option value="8.8">8.8</option>
-          <option value="10.9" selected>10.9</option>
-          <option value="12.9">12.9</option>
-        </select>
-      </div>
+  <div class="controls">
+    <div class="control-group">
+      <label>Applied Torque</label>
+      <input id="torque" type="number" value="50">
     </div>
 
-    <div class="button-row">
-      <button onclick="calculateClampLoad();">Calculate Clamp Load</button>
-      <button onclick="resetCalculator();">Reset</button>
+    <div class="control-group">
+      <label>Torque Units</label>
+      <select id="torqueUnit">
+        <option value="Nm">Nm</option>
+        <option value="ft-lb">ft-lb</option>
+        <option value="in-lb">in-lb</option>
+      </select>
     </div>
 
-    <div class="result" id="output">
-      Enter values and calculate clamp load
+    <div class="control-group">
+      <label>Metric Bolt Size</label>
+      <select id="boltSize" onchange="applyBoltData()">
+        <option value="M10" selected>M10</option>
+        <option value="M12">M12</option>
+        <option value="M16">M16</option>
+      </select>
     </div>
 
-    <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>
+    <div class="control-group">
+      <label>Tensile Area (mm²)</label>
+      <input id="tensileArea" type="number" value="58">
+    </div>
 
-    <p class="note">
-      This is a simplified estimate. Real clamp load can vary significantly due to lubrication, friction, coatings, joint condition, embedment, tool accuracy, and tightening method.
-    </p>
+    <div class="control-group">
+      <label>Nut Factor (K)</label>
+      <input id="nutFactor" type="number" value="0.2">
+    </div>
 
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators and simulators for real automation work
+    <div class="control-group">
+      <label>Efficiency (%)</label>
+      <input id="efficiency" type="number" value="100">
     </div>
   </div>
 
-  <script>
-    const boltData = {
-      "M4":  { pitch: 0.7, area: 8.78, diameter: 4 },
-      "M5":  { pitch: 0.8, area: 14.2, diameter: 5 },
-      "M6":  { pitch: 1.0, area: 20.1, diameter: 6 },
-      "M8":  { pitch: 1.25, area: 36.6, diameter: 8 },
-      "M10": { pitch: 1.5, area: 58.0, diameter: 10 },
-      "M12": { pitch: 1.75, area: 84.3, diameter: 12 },
-      "M14": { pitch: 2.0, area: 115.0, diameter: 14 },
-      "M16": { pitch: 2.0, area: 157.0, diameter: 16 },
-      "M20": { pitch: 2.5, area: 245.0, diameter: 20 }
-    };
+  <div class="button-row">
+    <button onclick="calculateClampLoad()">Calculate Clamp Load</button>
+    <button onclick="resetCalculator()">Reset</button>
+  </div>
 
-    function applyBoltData(){
-      const size = document.getElementById("boltSize").value;
-      document.getElementById("pitch").value = boltData[size].pitch;
-      document.getElementById("tensileArea").value = boltData[size].area;
-    }
+  <div class="result" id="output">
+    Enter your values and click <strong>Calculate Clamp Load</strong>.
+  </div>
 
-    function safeParseFloat(id, fallback){
-      const value = parseFloat(document.getElementById(id).value);
-      return isNaN(value) ? fallback : value;
-    }
+  <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
+    <strong>Need help validating a fastening setup on a real machine?</strong>
+    <br><br>
+    Torque-to-load relationships vary widely based on lubrication, friction, and joint conditions.
+    <br><br>
+    <a href="/integrators.html" style="background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
+      Find an Automation Integrator
+    </a>
+  </div>
 
-    function convertTorqueToNm(value, unit){
-      if(unit === "Nm") return value;
-      if(unit === "ft-lb") return value * 1.35581795;
-      if(unit === "in-lb") return value * 0.112984829;
-      return value;
-    }
+  <p class="note">
+    This is a simplified estimate. Real clamp load varies significantly with lubrication, coatings, friction, joint condition, and tightening method.
+  </p>
 
-    function formatForce(n){
-      if(n >= 1000) return (n / 1000).toFixed(2) + " kN";
-      return n.toFixed(2) + " N";
-    }
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
+  </div>
+</div>
 
-    function formatLbf(n){
-      return (n * 0.224808943).toFixed(2) + " lbf";
-    }
+<script>
+function scrollToOutput(){
+  document.getElementById("output").scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+}
 
-    function calculateClampLoad(){
-      const torque = safeParseFloat("torque", 0);
-      const torqueUnit = document.getElementById("torqueUnit").value;
-      const boltSize = document.getElementById("boltSize").value;
-      const tensileArea = safeParseFloat("tensileArea", 0);
-      const nutFactor = safeParseFloat("nutFactor", 0);
-      const efficiency = safeParseFloat("efficiency", 0);
-      const propertyClass = document.getElementById("propertyClass").value;
+function calculateClampLoad(){
+  const torque = parseFloat(document.getElementById("torque").value) || 0;
+  const nutFactor = parseFloat(document.getElementById("nutFactor").value) || 0;
 
-      if(torque <= 0){
-        document.getElementById("output").innerHTML = "<strong>Please enter an applied torque greater than 0.</strong>";
-        return;
-      }
-      if(tensileArea <= 0){
-        document.getElementById("output").innerHTML = "<strong>Please enter a tensile stress area greater than 0.</strong>";
-        return;
-      }
-      if(nutFactor <= 0){
-        document.getElementById("output").innerHTML = "<strong>Please enter a nut factor greater than 0.</strong>";
-        return;
-      }
-      if(efficiency <= 0 || efficiency > 100){
-        document.getElementById("output").innerHTML = "<strong>Please enter an efficiency between 1 and 100.</strong>";
-        return;
-      }
+  if(torque <= 0){
+    document.getElementById("output").innerHTML = "<strong>Enter torque greater than 0</strong>";
+    scrollToOutput();
+    return;
+  }
 
-      const torqueNm = convertTorqueToNm(torque, torqueUnit);
-      const nominalDiameterM = boltData[boltSize].diameter / 1000;
-      const efficiencyFactor = efficiency / 100;
-      const clampLoadN = (torqueNm / (nutFactor * nominalDiameterM)) * efficiencyFactor;
-      const preloadStressMPa = clampLoadN / tensileArea;
+  if(nutFactor <= 0){
+    document.getElementById("output").innerHTML = "<strong>Enter nut factor greater than 0</strong>";
+    scrollToOutput();
+    return;
+  }
 
-      gtag('event','tool_calculation',{
-        tool:'torque_clamp_load',
-        bolt_size:boltSize,
-        property_class:propertyClass,
-        torque:torque,
-        torque_unit:torqueUnit
-      });
+  const clampLoad = torque / nutFactor;
 
-      document.getElementById("output").innerHTML =
-        "<strong>Estimated Clamp Load</strong><br>" +
-        formatForce(clampLoadN) + "<br><br>" +
+  document.getElementById("output").innerHTML =
+    "<strong>Estimated Clamp Load</strong><br>" +
+    clampLoad.toFixed(2);
 
-        "<strong>Estimated Clamp Load (lbf)</strong><br>" +
-        formatLbf(clampLoadN) + "<br><br>" +
+  scrollToOutput();
+}
 
-        "<strong>Approximate Preload Stress</strong><br>" +
-        preloadStressMPa.toFixed(1) + " MPa<br><br>" +
+function resetCalculator(){
+  document.getElementById("output").innerHTML =
+    "Enter your values and click <strong>Calculate Clamp Load</strong>";
+}
+</script>
 
-        "<strong>Bolt Size</strong><br>" +
-        boltSize + "<br><br>" +
+<script>
+fetch("navbar.html?v=20260314")
+.then(res => res.text())
+.then(data => document.getElementById("navbar").innerHTML = data);
+</script>
 
-        "<strong>Tensile Stress Area</strong><br>" +
-        tensileArea.toFixed(2) + " mm²<br><br>" +
-
-        "<strong>Nut Factor</strong><br>" +
-        nutFactor.toFixed(3) + "<br><br>" +
-
-        "<strong>Efficiency Applied</strong><br>" +
-        efficiency.toFixed(1) + "%<br><br>" +
-
-        "<strong>Property Class Reference</strong><br>" +
-        propertyClass;
-    }
-
-    function resetCalculator(){
-      document.getElementById("torque").value = "50";
-      document.getElementById("torqueUnit").value = "Nm";
-      document.getElementById("boltSize").value = "M10";
-      applyBoltData();
-      document.getElementById("nutFactor").value = "0.2";
-      document.getElementById("efficiency").value = "100";
-      document.getElementById("propertyClass").value = "10.9";
-      document.getElementById("output").innerHTML = "Enter values and calculate clamp load";
-    }
-
-    applyBoltData();
-  </script>
-
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
 </body>
 </html>
