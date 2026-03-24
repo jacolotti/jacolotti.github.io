@@ -47,6 +47,15 @@
       font-weight:normal;
     }
 
+    .start-prompt{
+      margin-top:0;
+      margin-bottom:22px;
+      color:#222;
+      font-size:18px;
+      line-height:1.5;
+      font-weight:600;
+    }
+
     .grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
@@ -109,6 +118,15 @@
       text-align:left;
     }
 
+    .cta-box{
+      margin-top:25px;
+      padding:18px;
+      background:#e9f1ff;
+      border-radius:8px;
+      text-align:center;
+      line-height:1.6;
+    }
+
     .footer{
       margin-top:40px;
       color:#666;
@@ -139,7 +157,11 @@
   </p>
 
   <p class="description">
-   This calculator is useful for pneumatic cylinder sizing, compressed air demand checks, valve selection, and estimating practical air usage in industrial automation systems. If you are still choosing the actuator, start with the <a href="/pneumatic.html" onclick="gtag('event','inline_link_click',{from:'air_consumption',to:'pneumatic_force'});">pneumatic force calculator</a> first.
+    This calculator is useful for pneumatic cylinder sizing, compressed air demand checks, valve selection, and estimating practical air usage in industrial automation systems. If you are still choosing the actuator, start with the <a href="/pneumatic.html" onclick="gtag('event','inline_link_click',{from:'air_consumption',to:'pneumatic_force'});">pneumatic force calculator</a> first.
+  </p>
+
+  <p class="start-prompt">
+    Enter bore, rod size, stroke, pressure, and cycle rate to estimate cylinder air usage instantly.
   </p>
 
   <div class="grid">
@@ -187,19 +209,17 @@
   </div>
 
   <div class="button-row">
-    <button onclick="calculateAirConsumption(); gtag('event','air_consumption_calculation');">Calculate</button>
+    <button onclick="calculateAirConsumption(); gtag('event','air_consumption_calculation');">Calculate Air Usage</button>
   </div>
 
   <div class="result" id="output">
-    Enter values and press Calculate
+    Enter your values above and click <strong>Calculate Air Usage</strong>.
   </div>
 
-  <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-    <strong>Need help applying this to a real machine?</strong>
+  <div class="cta-box">
+    <strong>Need help sizing valves, cylinders, or air supply for a real machine?</strong>
     <br><br>
-    Get connected with a qualified automation integrator for your project.
-    <br><br>
-    <a href="/integrators.html">Find an automation integrator</a>
+    <a href="/integrators.html" onclick="gtag('event','cta_click',{from:'air_consumption',to:'integrators'});">Find an automation integrator</a>
   </div>
 
   <p class="note">
@@ -208,21 +228,14 @@
   </p>
 
   <div style="margin-top:30px;padding:20px;background:#f4f8ff;border-radius:8px;text-align:left;">
-
-  <strong>Continue Your Pneumatic Design</strong>
-  <br><br>
-
-  After estimating air usage, use these tools to complete your system:
-
-  <br><br>
-
-  ➤ <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{from:'air_consumption',to:'pneumatic_force'});">Pneumatic Force Calculator</a><br>
-
-  ➤ <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{from:'air_consumption',to:'pneumatic_speed'});">Pneumatic Cylinder Speed</a><br>
-
-  ➤ <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{from:'air_consumption',to:'air_line_size'});">Air Line Size Calculator</a><br>
-
-</div>
+    <strong>Continue Your Pneumatic Design</strong>
+    <br><br>
+    After estimating air usage, use these tools to complete your system:
+    <br><br>
+    ➤ <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{from:'air_consumption',to:'pneumatic_force'});">Pneumatic Force Calculator</a><br>
+    ➤ <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{from:'air_consumption',to:'pneumatic_speed'});">Pneumatic Cylinder Speed</a><br>
+    ➤ <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{from:'air_consumption',to:'air_line_size'});">Air Line Size Calculator</a><br>
+  </div>
 
   <div class="footer">
     Automation Engineering Tools • Practical calculators for real automation work
@@ -232,6 +245,13 @@
 <script>
   function roundTo(value, decimals){
     return Number(value.toFixed(decimals));
+  }
+
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "center"
+    });
   }
 
   function calculateAirConsumption(){
@@ -246,31 +266,37 @@
 
     if(bore <= 0){
       output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(rod < 0){
       output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(rod >= bore){
       output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(stroke <= 0){
       output.innerHTML = "<strong>Please enter a stroke length greater than 0.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(pressure <= 0){
       output.innerHTML = "<strong>Please enter an operating pressure greater than 0.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(cpm < 0){
       output.innerHTML = "<strong>Please enter cycles per minute of 0 or greater.</strong>";
+      scrollToOutput();
       return;
     }
 
@@ -323,6 +349,8 @@
 
       "<strong>Note</strong><br>" +
       cylinderNote;
+
+    scrollToOutput();
   }
 </script>
 
