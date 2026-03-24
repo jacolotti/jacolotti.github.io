@@ -101,6 +101,15 @@
       font-weight:normal;
     }
 
+    .start-prompt{
+      margin-top:0;
+      margin-bottom:22px;
+      color:#222;
+      font-size:18px;
+      line-height:1.5;
+      font-weight:600;
+    }
+
     .container p{
       margin-top:20px;
       margin-bottom:5px;
@@ -341,6 +350,10 @@
       This free pneumatic force calculator helps estimate piston area, rod-side area, theoretical output force, derated force, and approximate work per stroke for common air cylinder applications.
     </p>
 
+    <p class="start-prompt">
+      Enter bore, rod size, pressure, and stroke to calculate cylinder force instantly.
+    </p>
+
     <p>Length Units</p>
     <select id="lengthUnit" onchange="updateLabels()">
       <option value="mm">Millimeters</option>
@@ -375,34 +388,27 @@
     <input id="derating" type="number" value="100" min="1" max="100" step="0.1">
 
     <div class="button-row">
-      <button onclick="calculate(); gtag('event','pneumatic_force_calculation');">Calculate</button>
+      <button onclick="calculate(); gtag('event','pneumatic_force_calculation');">Calculate Force</button>
       <button onclick="loadExample(); gtag('event','pneumatic_force_example');">Load Example</button>
       <button onclick="clearCalculator(); gtag('event','pneumatic_force_clear');">Clear</button>
     </div>
 
     <div class="result" id="output">
-      Enter values and press Calculate
+      Enter your values above and click <strong>Calculate Force</strong>.
     </div>
 
     <div style="margin-top:25px;padding:18px;background:#fff7e6;border:1px solid #ffd27a;border-radius:8px;text-align:center;">
+      <strong>Need help validating a real cylinder application?</strong>
+      <br><br>
 
-    <strong>Not confident in your cylinder sizing?</strong>
-    <br><br>
+      Real systems lose force due to friction, pressure drop, and setup details. A quick review can prevent undersized cylinders, slow motion, or failed tooling.
 
-    Real systems lose force due to friction, pressure drop, and setup details. A quick review can prevent undersized cylinders, slow motion, or failed tooling.
+      <br><br>
 
-    <br><br>
-
-    I help engineers quickly sanity-check cylinder sizing, force assumptions, and real-world behavior.
-
-    <br><br>
-
-    <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-      Get Help From an Integrator
-    </a>
-
-  </div>
-
+      <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
+        Find an Automation Integrator
+      </a>
+    </div>
 
     <p class="note">
       This calculator estimates theoretical cylinder force from pressure and area, then applies the entered derating percentage. It does not account for seal drag, friction losses, pressure drop, cushioning, side loading, spring force in single-acting cylinders, mounting effects, or other real-world losses.
@@ -413,21 +419,17 @@
     </p>
 
     <div style="margin-top:30px;padding:20px;background:#f4f8ff;border-radius:8px;text-align:left;">
+      <strong>Build Your Pneumatic System</strong>
+      <br><br>
 
-    <strong>Build Your Pneumatic System</strong>
-    <br><br>
+      After determining cylinder force, complete your design with these tools:
 
-    After determining cylinder force, complete your design with these tools:
+      <br><br>
 
-    <br><br>
-
-    ➤ <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{from:'pneumatic_force',to:'air_consumption'});">Air Consumption Calculator</a><br>
-
-    ➤ <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{from:'pneumatic_force',to:'pneumatic_speed'});">Pneumatic Cylinder Speed</a><br>
-
-    ➤ <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{from:'pneumatic_force',to:'air_line_size'});">Air Line Size Calculator</a><br>
-
-  </div>
+      ➤ <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{from:'pneumatic_force',to:'air_consumption'});">Air Consumption Calculator</a><br>
+      ➤ <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{from:'pneumatic_force',to:'pneumatic_speed'});">Pneumatic Cylinder Speed</a><br>
+      ➤ <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{from:'pneumatic_force',to:'air_line_size'});">Air Line Size Calculator</a><br>
+    </div>
 
     <div class="footer">
       Automation Engineering Tools • Practical calculators for real automation work
@@ -551,6 +553,13 @@
       document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
     }
 
+    function scrollToOutput(){
+      document.getElementById("output").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
+
     function calculate(){
       let bore = parseFloat(document.getElementById("bore").value) || 0;
       let rod = parseFloat(document.getElementById("rod").value) || 0;
@@ -565,31 +574,37 @@
 
       if(bore <= 0){
         output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
+        scrollToOutput();
         return;
       }
 
       if(rod < 0){
         output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
+        scrollToOutput();
         return;
       }
 
       if(rod >= bore){
         output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
+        scrollToOutput();
         return;
       }
 
       if(pressure <= 0){
         output.innerHTML = "<strong>Please enter an air pressure greater than 0.</strong>";
+        scrollToOutput();
         return;
       }
 
       if(stroke < 0){
         output.innerHTML = "<strong>Please enter a stroke length of 0 or greater.</strong>";
+        scrollToOutput();
         return;
       }
 
       if(derating <= 0 || derating > 100){
         output.innerHTML = "<strong>Please enter a force derating percentage greater than 0 and up to 100.</strong>";
+        scrollToOutput();
         return;
       }
 
@@ -705,6 +720,8 @@
 
         "<strong>" + retractWorkTitle + "</strong><br>" +
         retractWorkJ.toFixed(3) + " J";
+
+      scrollToOutput();
     }
 
     function clearCalculator(){
@@ -717,7 +734,7 @@
       document.getElementById("stroke").value = "100";
       document.getElementById("derating").value = "100";
       updateLabels();
-      showMessage("Enter values and press Calculate");
+      showMessage("Enter your values and click Calculate Force");
       document.getElementById("recommendationText").innerHTML =
         "Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.";
       document.getElementById("helpForce").value = "";
