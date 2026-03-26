@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/automation-calculators.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -15,377 +16,205 @@
   </script>
 
   <title>Automation Calculators Index | Robotics, PLC, Pneumatics, Motion, Welding</title>
-  <meta name="description" content="Browse all free automation engineering calculators from AutomationCalculators.net including robotics, PLC, electrical, pneumatics, welding, fastening, conveyor, and motion control tools.">
+  <meta name="description" content="Browse all free automation engineering calculators for robotics, PLCs, pneumatics, electrical systems, welding, motion, fastening, and automation ROI. Practical tools for engineers and manufacturing teams.">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     body{
       font-family:Arial;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
+      color:#222;
     }
 
-   
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
+      padding:50px 20px 40px;
+      text-align:center;
     }
 
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
     }
 
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 16px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      padding:12px 18px;
       border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
       text-decoration:none;
       font-weight:bold;
     }
 
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
     }
 
-    .dropdown:hover .dropdown-content{
-      display:block;
+    .hero-cta .secondary{
+      border:1px solid rgba(255,255,255,.4);
+      color:white;
     }
 
     .container{
-      background:white;
-      padding:40px;
       max-width:1100px;
-      margin:auto;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .intro{
+      background:white;
+      padding:25px;
       border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+      box-shadow:0 0 10px rgba(0,0,0,.08);
+      margin-bottom:25px;
+      text-align:left;
     }
 
-    .subtitle{
+    .intro p{
+      margin:0 0 12px;
       color:#555;
-      margin-bottom:20px;
-      line-height:1.5;
-    }
-
-    .seo-text{
-      color:#555;
-      max-width:850px;
-      margin:0 auto 25px auto;
-      line-height:1.6;
-      font-size:16px;
+      line-height:1.7;
     }
 
     .category{
       margin-top:35px;
-      text-align:left;
     }
 
     .category h2{
       color:#1f2a44;
-      margin-bottom:10px;
       border-bottom:2px solid #d7e6ff;
       padding-bottom:8px;
     }
 
     .category p{
       color:#555;
-      line-height:1.6;
-      margin-top:0;
       margin-bottom:18px;
+      line-height:1.6;
     }
 
     .tools{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:20px;
-      margin-top:20px;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
     }
 
     .tool{
-      background:#f8fbff;
+      background:white;
       border:1px solid #d7e6ff;
       border-radius:10px;
-      padding:22px;
+      padding:20px;
       text-decoration:none;
       color:#1f2a44;
-      transition:transform .2s, box-shadow .2s;
+      transition:.2s;
       display:block;
-      text-align:left;
     }
 
     .tool:hover{
       transform:translateY(-4px);
-      box-shadow:0px 4px 12px rgba(0,0,0,.12);
+      box-shadow:0 4px 12px rgba(0,0,0,.12);
     }
 
     .tool h3{
-      margin-top:0;
-      margin-bottom:10px;
-      font-size:18px;
+      margin:0 0 8px;
+      font-size:17px;
     }
 
     .tool p{
       margin:0;
       color:#555;
+      font-size:14px;
       line-height:1.5;
-      font-size:15px;
+    }
+
+    .cta-box{
+      margin-top:40px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      padding:25px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      color:#555;
+      margin-bottom:15px;
+    }
+
+    .cta-box a{
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .footer{
       margin-top:40px;
+      text-align:center;
       color:#666;
       font-size:14px;
     }
-
-    @media (max-width:700px){
-      .container{
-        padding:20px;
-      }
-    }
   </style>
 </head>
+
 <body>
 
 <div id="navbar"></div>
 
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Automation Engineering Calculators</h1>
+    <p>
+      Free practical calculators for automation engineers, controls engineers, and manufacturing teams. 
+      Quickly estimate real-world values for robotics, PLCs, pneumatics, electrical systems, motion control, welding, and more.
+    </p>
+
+    <div class="hero-cta">
+      <a href="/automation-calculators.html" class="primary">Browse All Tools</a>
+      <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'index_hero'});">Find an Integrator</a>
+    </div>
+  </div>
+</section>
+
 <div class="container">
 
-  <h1>Automation Calculators Index</h1>
-
-  <p class="subtitle">
-    Browse all free automation engineering calculators and troubleshooting tools in one place.
-  </p>
-
-  <p class="seo-text">
-    AutomationCalculators.net provides free calculators for robotics, PLC troubleshooting, electrical design, pneumatics, conveyors, motor sizing, welding, fastening, machine safety, and automation ROI. This page organizes every tool into one searchable-style index for engineers, controls specialists, machine builders, and manufacturing teams.
-  </p>
-
-  <p class="seo-text">
-    Use this automation calculators index to quickly find tools for servo torque, robot cycle time, robot reach, robot payload, conveyor speed, gearbox torque, pneumatic cylinder force, air consumption, voltage drop, analog scaling, PLC communication troubleshooting, safety distance, resistance welding, and fastening calculations.
-  </p>
-
-  <div class="category">
-    <h2>Robotics Calculators</h2>
+  <div class="intro">
     <p>
-      Tools for estimating robot cycle time, payload, reach, and basic part handling behavior during automation concept development and cell layout.
+      This page organizes all automation calculators into one place so you can quickly find the right tool during machine design, troubleshooting, or system upgrades.
     </p>
 
-    <div class="tools">
-      <a class="tool" href="robot.html" onclick="gtag('event','tool_open',{tool:'robot_cycle',source:'calculator_index'});">
-        <h3>Robot Cycle Time Calculator</h3>
-        <p>Estimate robot cycle time, throughput per minute, hourly output, and shift output.</p>
-      </a>
-
-      <a class="tool" href="robot-reach.html" onclick="gtag('event','tool_open',{tool:'robot_reach',source:'calculator_index'});">
-        <h3>Robot Reach Calculator</h3>
-        <p>Check whether a robot can physically reach a target point with a safety margin.</p>
-      </a>
-
-      <a class="tool" href="robot-payload.html" onclick="gtag('event','tool_open',{tool:'robot_payload',source:'calculator_index'});">
-        <h3>Robot Payload Calculator</h3>
-        <p>Estimate required robot payload using part, gripper, tooling weight, and safety factor.</p>
-      </a>
-
-      <a class="tool" href="bin-simulator.html" onclick="gtag('event','tool_open',{tool:'bin_simulator',source:'calculator_index'});">
-        <h3>Bin Loading Simulator</h3>
-        <p>Preview free-fall part stacking behavior for basic bin loading concepts.</p>
-      </a>
-    </div>
-  </div>
-
-  <div class="category">
-    <h2>Motors and Motion Calculators</h2>
     <p>
-      Tools for servo sizing, gear ratio planning, gearbox output estimates, conveyor motion, and basic drive system calculations.
+      Whether you're sizing a cylinder, debugging a PLC signal, estimating robot throughput, or reviewing air consumption, these tools are designed for real-world use — not textbook theory.
     </p>
-
-    <div class="tools">
-      <a class="tool" href="servo-torque.html" onclick="gtag('event','tool_open',{tool:'servo_torque',source:'calculator_index'});">
-        <h3>Servo Torque Calculator</h3>
-        <p>Estimate running torque, acceleration torque, power, and recommended servo torque.</p>
-      </a>
-
-      <a class="tool" href="gear-ratio.html" onclick="gtag('event','tool_open',{tool:'gear_ratio',source:'calculator_index'});">
-        <h3>Gear Ratio Calculator</h3>
-        <p>Calculate gear ratio, output speed, output torque, and direction change.</p>
-      </a>
-
-      <a class="tool" href="gearbox-torque.html" onclick="gtag('event','tool_open',{tool:'gearbox_torque',source:'calculator_index'});">
-        <h3>Gearbox Output Torque Calculator</h3>
-        <p>Estimate gearbox output torque, output speed, and power from motor inputs.</p>
-      </a>
-
-      <a class="tool" href="motor.html" onclick="gtag('event','tool_open',{tool:'conveyor_motor',source:'calculator_index'});">
-        <h3>Conveyor Motor Sizing Calculator</h3>
-        <p>Estimate required conveyor force, torque, roller RPM, and drive power.</p>
-      </a>
-
-      <a class="tool" href="conveyor-speed.html" onclick="gtag('event','tool_open',{tool:'conveyor_speed',source:'calculator_index'});">
-        <h3>Conveyor Speed Calculator</h3>
-        <p>Calculate conveyor speed, travel time, and throughput from spacing and rate.</p>
-      </a>
-    </div>
   </div>
 
-  <div class="category">
-    <h2>Pneumatic Calculators</h2>
-    <p>
-      Tools for cylinder force, speed, and air usage estimation in pneumatic automation systems.
-    </p>
-
-    <div class="tools">
-      <a class="tool" href="pneumatic.html" onclick="gtag('event','tool_open',{tool:'pneumatic_force',source:'calculator_index'});">
-        <h3>Pneumatic Force Calculator</h3>
-        <p>Estimate cylinder extend force, retract force, derated force, and work per stroke.</p>
-      </a>
-
-      <a class="tool" href="pneumatic-speed.html" onclick="gtag('event','tool_open',{tool:'pneumatic_speed',source:'calculator_index'});">
-        <h3>Pneumatic Cylinder Speed Calculator</h3>
-        <p>Estimate extend and retract speed using flow rate, cylinder size, and stroke.</p>
-      </a>
-
-      <a class="tool" href="air-consumption.html" onclick="gtag('event','tool_open',{tool:'air_consumption',source:'calculator_index'});">
-        <h3>Pneumatic Air Consumption Calculator</h3>
-        <p>Estimate cylinder air use per cycle and required SCFM for production rates.</p>
-      </a>
-    </div>
-  </div>
-
-  <div class="category">
-    <h2>PLC and Electrical Tools</h2>
-    <p>
-      Tools for control voltage, analog scaling, machine safety distance, and PLC communication troubleshooting.
-    </p>
-
-    <div class="tools">
-      <a class="tool" href="plc-communication-troubleshooting.html" onclick="gtag('event','tool_open',{tool:'plc_communication_troubleshooting',source:'calculator_index'});">
-        <h3>PLC Communication Troubleshooter</h3>
-        <p>Troubleshoot common PLC, HMI, remote I/O, Ethernet/IP, Profinet, and field device issues.</p>
-      </a>
-
-      <a class="tool" href="analog-scaling.html" onclick="gtag('event','tool_open',{tool:'analog_scaling',source:'calculator_index'});">
-        <h3>PLC Analog Scaling Calculator</h3>
-        <p>Convert raw counts, current signals, or voltage signals into engineering units.</p>
-      </a>
-
-      <a class="tool" href="voltage-drop.html" onclick="gtag('event','tool_open',{tool:'voltage_drop',source:'calculator_index'});">
-        <h3>Voltage Drop Calculator</h3>
-        <p>Calculate circuit resistance, voltage drop, percent drop, and final load voltage.</p>
-      </a>
-
-      <a class="tool" href="safety-distance.html" onclick="gtag('event','tool_open',{tool:'safety_distance',source:'calculator_index'});">
-        <h3>Safety Distance Calculator</h3>
-        <p>Estimate safety distance for light curtains, scanners, and safeguarding devices.</p>
-      </a>
-    </div>
-  </div>
-
-  <div class="category">
-    <h2>Welding Calculators</h2>
-    <p>
-      Tools for first-pass resistance welding setup estimates for spot welding and projection welding.
-    </p>
-
-    <div class="tools">
-      <a class="tool" href="spot-weld.html" onclick="gtag('event','tool_open',{tool:'spot_weld',source:'calculator_index'});">
-        <h3>Spot Weld Calculator</h3>
-        <p>Estimate weld current, force, weld time, squeeze time, hold time, and tip diameter.</p>
-      </a>
-
-      <a class="tool" href="projection-weld.html" onclick="gtag('event','tool_open',{tool:'projection_weld',source:'calculator_index'});">
-        <h3>Projection Weld Calculator</h3>
-        <p>Estimate current, force, time, and per-projection starting values.</p>
-      </a>
-    </div>
-  </div>
-
-  <div class="category">
-    <h2>Fastening Calculators</h2>
-    <p>
-      Tools for torque strategy review, clamp load estimation, bolt torque, and torque-angle movement calculations.
-    </p>
-
-    <div class="tools">
-      <a class="tool" href="multi-stage-torque-sequence.html" onclick="gtag('event','tool_open',{tool:'torque_sequence',source:'calculator_index'});">
-        <h3>Multi-Stage Torque Sequence Calculator</h3>
-        <p>Build multi-stage tightening setups for Cleco, Atlas Copco, and DC nut runner strategies.</p>
-      </a>
-
-      <a class="tool" href="torque-clamp-load.html" onclick="gtag('event','tool_open',{tool:'torque_clamp_load',source:'calculator_index'});">
-        <h3>Torque to Clamp Load Calculator</h3>
-        <p>Estimate clamp load from applied torque, nut factor, bolt size, and efficiency assumptions.</p>
-      </a>
-
-      <a class="tool" href="bolt-tightening-torque.html" onclick="gtag('event','tool_open',{tool:'bolt_tightening_torque',source:'calculator_index'});">
-        <h3>Bolt Tightening Torque Calculator</h3>
-        <p>Estimate recommended bolt torque from metric size, proof load percentage, and nut factor.</p>
-      </a>
-
-      <a class="tool" href="torque-angle.html" onclick="gtag('event','tool_open',{tool:'torque_angle',source:'calculator_index'});">
-        <h3>Torque-Angle Calculator</h3>
-        <p>Estimate thread advance, effective movement, and approximate clamp load increase from angle.</p>
-      </a>
-    </div>
-  </div>
-
-  <div class="category">
-    <h2>Business and Project Planning</h2>
-    <p>
-      Tools for early financial review of automation investments and payback expectations.
-    </p>
-
-    <div class="tools">
-      <a class="tool" href="roi.html" onclick="gtag('event','tool_open',{tool:'automation_roi',source:'calculator_index'});">
-        <h3>Automation ROI Calculator</h3>
-        <p>Estimate annual savings, net annual benefit, payback period, and multi-year ROI.</p>
-      </a>
-    </div>
-  </div>
-
-  <div class="footer">
-    Automation Engineering Tools • Practical calculators for real automation work
-  </div>
-
-</div>
-
-<script>
-fetch("navbar.html")
-.then(response => response.text())
-.then(data => {
-  document.getElementById("navbar").innerHTML = data;
-})
-.catch(error => {
-  console.error("Navbar failed to load:", error);
-});
-</script>
-
-</body>
-</html>
+  <!-- KEEP YOUR EXISTING CATEGORY BLOCKS EXACTLY AS THEY ARE BELOW -->
