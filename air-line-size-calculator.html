@@ -21,160 +21,365 @@
     body{
       font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
       color:#222;
     }
 
-    .container{
-      background:white;
-      padding:35px;
-      max-width:900px;
-      margin:30px auto;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,.1);
+    .hero{
+      background:linear-gradient(135deg, #1f2a44, #2d3d63);
+      color:white;
+      padding:40px 20px 30px;
+      text-align:center;
     }
 
-    h1,h2{
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      margin:0 auto 14px;
+      max-width:780px;
+      font-size:17px;
+      line-height:1.6;
+      color:#e7ecf7;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:0.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:#ffffff;
       color:#1f2a44;
     }
 
+    .hero-cta .secondary{
+      background:transparent;
+      color:#ffffff;
+      border:1px solid rgba(255,255,255,0.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:0.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:900px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,0.08);
+      padding:28px;
+    }
+
+    .card h2{
+      margin-top:0;
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
     .description{
-      max-width:760px;
-      margin:0 auto 18px auto;
+      margin-top:0;
+      margin-bottom:18px;
       color:#555;
       line-height:1.6;
       font-size:16px;
     }
 
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
     .grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-      gap:16px;
+      gap:18px;
       text-align:left;
-      margin-top:25px;
+      margin-top:18px;
     }
 
     .field label{
       display:block;
       margin-bottom:6px;
-      font-weight:bold;
-      color:#1f2a44;
+      font-weight:600;
+      color:#23314f;
     }
 
     input, select{
-      padding:12px;
+      padding:11px 12px;
       font-size:16px;
       width:100%;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:6px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
       background:white;
     }
 
-    .button-row{
-      margin-top:20px;
+    input:focus, select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
-    button{
-      padding:12px 24px;
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .button-row{
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      padding:13px 22px;
       background:#1f2a44;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
       font-size:16px;
-      margin:6px;
+      font-weight:bold;
+      transition:background .2s ease, transform .2s ease;
     }
 
-    button:hover{
-      background:#2a395c;
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      transform:translateY(-1px);
     }
 
     .result{
-      margin-top:25px;
+      margin-top:26px;
       padding:22px;
       background:#e9f1ff;
       border:1px solid #c9dcff;
-      border-radius:8px;
+      border-radius:10px;
       text-align:left;
       font-size:16px;
+      line-height:1.7;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg, #edf4ff, #e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
       line-height:1.6;
     }
 
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      padding:12px 18px;
+      border-radius:8px;
+      font-weight:bold;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#f2f5fb;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
     .note{
-      margin-top:20px;
+      margin-top:22px;
       color:#666;
       font-size:14px;
       line-height:1.6;
       text-align:left;
     }
 
-    .cta-box{
-      margin-top:28px;
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,0.08);
       padding:22px;
-      background:#eef7ee;
-      border:1px solid #cfe6cf;
-      border-radius:8px;
-      text-align:center;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      margin-top:12px;
-      background:#1f2a44;
-      color:white;
-      text-decoration:none;
-      padding:12px 20px;
-      border-radius:6px;
-      font-weight:bold;
-    }
-
-    .product-box{
-      margin-top:24px;
-      padding:20px;
-      background:#fff8e8;
-      border:1px solid #f0dfac;
-      border-radius:8px;
+      margin-bottom:20px;
       text-align:left;
     }
 
-    .product-box h3{
+    .sidebar-card h3{
       margin-top:0;
+      margin-bottom:10px;
       color:#1f2a44;
     }
 
-    .product-box p{
+    .sidebar-card p{
       color:#555;
       line-height:1.6;
-      margin-bottom:10px;
+      font-size:15px;
+      margin:0 0 12px;
     }
 
-    .product-box a{
-      color:#1e6bd6;
-      font-weight:bold;
-      text-decoration:none;
-    }
-
-    .product-box a:hover{
-      text-decoration:underline;
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
     }
 
     .footer{
       margin-top:35px;
       color:#666;
       font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:700px){
-      .container{
-        padding:20px;
-        margin:15px;
+      .hero h1{
+        font-size:28px;
       }
 
-      button{
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
         width:100%;
-        margin:6px 0;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
       }
     }
   </style>
@@ -183,106 +388,148 @@
 
 <div id="navbar"></div>
 
-<div class="container">
-
-  <h1>Compressed Air Line Size Calculator</h1>
-
-  <p class="description">
-    Estimate recommended compressed air pipe size using SCFM, line length, operating pressure, and a target air velocity. This is a practical starting-point tool for pneumatic system design, machine drops, valve supply checks, and early automation layout work.
-  </p>
-
-  <p class="description">
-    In general, undersized air lines cause pressure loss, poor cylinder performance, slow actuators, unstable tooling, and wasted debug time. Before sizing the line, estimate expected demand with the <a href="/air-consumption.html" onclick="gtag('event','inline_link_click',{from:'air_line_size',to:'air_consumption'});">air consumption calculator</a>.
-  </p>
-
-  <div class="grid">
-    <div class="field">
-      <label for="scfm">Air Flow (SCFM)</label>
-      <input id="scfm" type="number" min="0.1" step="0.1" value="40">
-    </div>
-
-    <div class="field">
-      <label for="length">Equivalent Line Length (ft)</label>
-      <input id="length" type="number" min="1" step="1" value="50">
-    </div>
-
-    <div class="field">
-      <label for="pressure">Operating Pressure (PSIG)</label>
-      <input id="pressure" type="number" min="1" step="1" value="80">
-    </div>
-
-    <div class="field">
-      <label for="velocityTarget">Velocity Target</label>
-      <select id="velocityTarget">
-        <option value="20">Conservative (20 ft/s)</option>
-        <option value="30" selected>Practical (30 ft/s)</option>
-        <option value="40">Aggressive (40 ft/s)</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="button-row">
-    <button onclick="calculateAirLine(); gtag('event','tool_calculation',{tool:'air_line_size'});">Calculate</button>
-    <button onclick="loadExample(); gtag('event','tool_example',{tool:'air_line_size'});">Example</button>
-    <button onclick="clearForm(); gtag('event','tool_clear',{tool:'air_line_size'});">Clear</button>
-  </div>
-
-  <div class="result" id="result">
-    Enter values and press Calculate.
-  </div>
-
-  <p class="note">
-    This calculator uses a practical sizing method based on air velocity and a simple line-length penalty. It is intended for early design and troubleshooting. Final sizing should also consider fittings, quick disconnects, regulators, filters, hose restrictions, branch drops, simultaneous demand, and allowable pressure drop at peak flow.
-  </p>
-
-  <div class="product-box">
-    <h3>Typical Components That Affect Real Air Performance</h3>
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Compressed Air Line Size Calculator</h1>
     <p>
-      Real-world pneumatic performance is not just about pipe diameter. Regulators, filter assemblies, push-to-connect fittings, solenoid valves, manifolds, and flexible hose sections can all choke flow long before the main pipe does.
+      Estimate a practical compressed air line size using SCFM, line length, operating pressure, and target velocity for pneumatic machine design, troubleshooting, and plant air distribution decisions.
     </p>
-    <p>
-      This makes good line sizing even more important on machines with fast cylinders, vacuum generation, blow-off circuits, or multiple devices firing at the same time.
-    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'air_line_size_hero'});">Find an Integrator</a>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> enter estimated SCFM, equivalent line length, and pressure, then choose how conservative you want to be on air velocity. Lower target velocity usually means larger pipe and better pressure stability.
   </div>
 
-  <div class="cta-box">
-    <strong>Need help sizing the full pneumatic system?</strong>
-    <br>
-    Use this as a starting point, then work with an integrator if the machine has high flow demand, long runs, multiple drops, or critical pressure requirements.
-    <br>
-    <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{location:'air_line_size'});">Find an Automation Integrator</a>
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Recommended Air Line Size</h2>
+
+      <p class="description">
+        Estimate a recommended compressed air pipe size using SCFM, equivalent line length, operating pressure, and a target air velocity. This is a practical starting-point tool for pneumatic system design, machine drops, valve supply checks, and early automation layout work.
+      </p>
+
+      <p class="description">
+        In general, undersized air lines cause pressure loss, poor cylinder performance, slow actuators, unstable tooling, and wasted debug time. Before sizing the line, estimate expected demand with the <a href="/air-consumption.html" onclick="gtag('event','inline_link_click',{from:'air_line_size',to:'air_consumption'});">air consumption calculator</a>.
+      </p>
+
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample(); gtag('event','tool_example',{tool:'air_line_size',type:'standard'});">Standard Example</button>
+        <button type="button" onclick="loadLongRunExample(); gtag('event','tool_example',{tool:'air_line_size',type:'long_run'});">Long Run Example</button>
+        <button type="button" onclick="loadHighFlowExample(); gtag('event','tool_example',{tool:'air_line_size',type:'high_flow'});">High Flow Example</button>
+      </div>
+
+      <div class="grid">
+        <div class="field">
+          <label for="scfm">Air Flow (SCFM)</label>
+          <input id="scfm" type="number" min="0.1" step="0.1" value="40">
+        </div>
+
+        <div class="field">
+          <label for="length">Equivalent Line Length (ft)</label>
+          <input id="length" type="number" min="1" step="1" value="50">
+        </div>
+
+        <div class="field">
+          <label for="pressure">Operating Pressure (PSIG)</label>
+          <input id="pressure" type="number" min="1" step="1" value="80">
+        </div>
+
+        <div class="field">
+          <label for="velocityTarget">Velocity Target</label>
+          <select id="velocityTarget">
+            <option value="20">Conservative (20 ft/s)</option>
+            <option value="30" selected>Practical (30 ft/s)</option>
+            <option value="40">Aggressive (40 ft/s)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateAirLine(); gtag('event','tool_calculation',{tool:'air_line_size'});">Calculate Line Size</button>
+        <button class="secondary" onclick="loadExample(); gtag('event','tool_example',{tool:'air_line_size'});">Load Example</button>
+        <button class="ghost" onclick="clearForm(); gtag('event','tool_clear',{tool:'air_line_size'});">Reset Fields</button>
+      </div>
+
+      <div class="result" id="result">
+        Enter your values above and click <strong>Calculate Line Size</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help sizing the full pneumatic system?</h3>
+        <p>
+          Use this as a starting point, then work with an integrator if the machine has high flow demand, long runs, multiple drops, or critical pressure requirements.
+        </p>
+        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{location:'air_line_size'});">Find an Automation Integrator</a>
+      </div>
+
+      <div class="learn-more">
+        <h3>Build your full pneumatic system</h3>
+        <p>
+          Most pneumatic designs follow this workflow: calculate force, size the cylinder, estimate air usage, then size your air lines. Line sizing is more reliable when it is based on actual machine demand instead of guesses.
+        </p>
+
+        <p>
+          For longer runs, future machine expansion, or sensitive tooling, it is usually smart to lean one size larger if pressure stability matters more than material cost.
+        </p>
+
+        <div class="internal-links">
+          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'pneumatic_force'});">Pneumatic Force Calculator</a>
+          <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'air_consumption'});">Air Consumption Calculator</a>
+          <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'pneumatic_speed'});">Pneumatic Cylinder Speed</a>
+        </div>
+      </div>
+
+      <p class="note">
+        This calculator uses a practical sizing method based on air velocity and a simple line-length penalty. It is intended for early design and troubleshooting. Final sizing should also consider fittings, quick disconnects, regulators, filters, hose restrictions, branch drops, simultaneous demand, and allowable pressure drop at peak flow.
+      </p>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Recommended line size</li>
+          <li>Estimated actual flow in the line</li>
+          <li>Length-adjusted flow for sizing</li>
+          <li>Estimated air velocity</li>
+          <li>Next size up for extra margin</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Typical restrictions that hurt performance</h3>
+        <p>
+          Real-world pneumatic performance is not just about pipe diameter. Regulators, filter assemblies, push-to-connect fittings, solenoid valves, manifolds, and flexible hose sections can all choke flow long before the main pipe does.
+        </p>
+        <p>
+          This matters even more on machines with fast cylinders, blow-off circuits, vacuum generators, or several devices firing at the same time.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>When to size more conservatively</h3>
+        <ul>
+          <li>Long supply runs</li>
+          <li>High peak airflow demand</li>
+          <li>Sensitive tooling or clamps</li>
+          <li>Machines with future expansion planned</li>
+          <li>Applications where pressure stability matters</li>
+        </ul>
+      </div>
+    </div>
   </div>
-
-  <h2>How to Use This Air Line Size Calculator</h2>
-  <p class="description">
-    Enter your expected airflow in SCFM, the equivalent line length, and the operating pressure. Then choose how conservative you want to be on air velocity. Lower velocity targets usually mean larger pipe, lower pressure loss, and better pneumatic response.
-  </p>
-
-  <p class="description">
-    For short machine drops with modest flow, a practical velocity target may be enough. For longer runs, future machine expansion, or sensitive tooling, choose a more conservative target.
-  </p>
-
-  <div style="margin-top:30px;padding:20px;background:#f4f8ff;border-radius:8px;text-align:left;">
-
-  <strong>Build Your Full Pneumatic System</strong>
-  <br><br>
-
- Most pneumatic designs follow this workflow: calculate force → size the cylinder → estimate air usage → then size your air lines:
-
-  <br><br>
-
-  ➤ <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'pneumatic_force'});">Pneumatic Force Calculator</a><br>
-
-  ➤ <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'air_consumption'});">Air Consumption Calculator</a><br>
-
-  ➤ <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'pneumatic_speed'});">Pneumatic Cylinder Speed</a><br>
-
-</div>
-
-  <div class="footer">
-    Automation Engineering Tools • Practical calculators for real automation work
-  </div>
-
 </div>
 
 <script>
@@ -304,6 +551,13 @@
     return Number(value.toFixed(decimals));
   }
 
+  function scrollToResult(){
+    document.getElementById("result").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
   function calculateAirLine(){
     const scfm = parseFloat(document.getElementById("scfm").value);
     const length = parseFloat(document.getElementById("length").value);
@@ -313,16 +567,19 @@
 
     if(!scfm || scfm <= 0){
       result.innerHTML = "<strong>Please enter an air flow greater than 0 SCFM.</strong>";
+      scrollToResult();
       return;
     }
 
     if(!length || length <= 0){
       result.innerHTML = "<strong>Please enter an equivalent line length greater than 0 ft.</strong>";
+      scrollToResult();
       return;
     }
 
     if(!pressure || pressure <= 0){
       result.innerHTML = "<strong>Please enter an operating pressure greater than 0 PSIG.</strong>";
+      scrollToResult();
       return;
     }
 
@@ -399,6 +656,8 @@
 
       "<strong>Design Note</strong><br>" +
       "Check regulators, fittings, valves, hose, and branch drops also. These often create more restriction than the main pipe.";
+
+    scrollToResult();
   }
 
   function loadExample(){
@@ -409,12 +668,28 @@
     calculateAirLine();
   }
 
+  function loadLongRunExample(){
+    document.getElementById("scfm").value = 35;
+    document.getElementById("length").value = 180;
+    document.getElementById("pressure").value = 85;
+    document.getElementById("velocityTarget").value = 20;
+    calculateAirLine();
+  }
+
+  function loadHighFlowExample(){
+    document.getElementById("scfm").value = 140;
+    document.getElementById("length").value = 60;
+    document.getElementById("pressure").value = 90;
+    document.getElementById("velocityTarget").value = 30;
+    calculateAirLine();
+  }
+
   function clearForm(){
     document.getElementById("scfm").value = "";
     document.getElementById("length").value = "";
     document.getElementById("pressure").value = "";
     document.getElementById("velocityTarget").value = 30;
-    document.getElementById("result").innerHTML = "Enter values and press Calculate.";
+    document.getElementById("result").innerHTML = "Enter your values above and click <strong>Calculate Line Size</strong>.";
   }
 </script>
 
