@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/air-consumption.html">
   <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
 
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -12,7 +14,7 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>Pneumatic Air Consumption Calculator | Automation Calculators</title>
+  <title>Pneumatic Air Consumption Calculator | SCFM, Cylinder Volume, Free Air</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Free pneumatic air consumption calculator for automation engineers. Estimate cylinder swept volume, standard free air per cycle, SCFM, and practical design air demand using bore, rod diameter, stroke, pressure, and cycles per minute.">
 
@@ -20,22 +22,106 @@
     body{
       font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
+      color:#222;
     }
 
-    .container{
-      background:white;
-      padding:30px;
-      max-width:760px;
+    .hero{
+      background:linear-gradient(135deg, #1f2a44, #2d3d63);
+      color:white;
+      padding:40px 20px 30px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:950px;
       margin:auto;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,0.1);
     }
 
-    .container h2{
-      margin-bottom:10px;
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      margin:0 auto 14px;
+      max-width:780px;
+      font-size:17px;
+      line-height:1.6;
+      color:#e7ecf7;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:0.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:#ffffff;
       color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      background:transparent;
+      color:#ffffff;
+      border:1px solid rgba(255,255,255,0.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:0.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:900px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,0.08);
+      padding:28px;
+    }
+
+    .card h2{
+      margin-top:0;
+      color:#1f2a44;
+      margin-bottom:10px;
     }
 
     .description{
@@ -43,22 +129,21 @@
       margin-bottom:18px;
       color:#555;
       font-size:16px;
-      line-height:1.5;
-      font-weight:normal;
+      line-height:1.6;
     }
 
-    .start-prompt{
-      margin-top:0;
-      margin-bottom:22px;
-      color:#222;
-      font-size:18px;
-      line-height:1.5;
-      font-weight:600;
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+      color:#5e7197;
+      margin-bottom:10px;
     }
 
     .grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
       gap:18px;
       text-align:left;
     }
@@ -67,80 +152,248 @@
       display:block;
       margin-bottom:6px;
       font-weight:600;
+      color:#23314f;
     }
 
     input, select{
       width:100%;
-      padding:10px;
+      padding:11px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
       background:white;
     }
 
+    input:focus, select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
     .button-row{
-      margin-top:18px;
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
     .button-row button{
-      padding:12px 26px;
+      padding:13px 22px;
       font-size:16px;
       background:#1f2a44;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin:6px;
-      transition:background .2s;
+      transition:background .2s ease, transform .2s ease;
+      font-weight:bold;
+    }
+
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
     }
 
     .button-row button:hover{
-      background:#2d3d63;
+      transform:translateY(-1px);
     }
 
     .result{
-      margin-top:25px;
-      padding:20px;
+      margin-top:26px;
+      padding:22px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:8px;
+      border-radius:10px;
       font-size:17px;
-      line-height:1.6;
+      line-height:1.7;
       text-align:left;
+      scroll-margin-top:100px;
     }
 
-    .note{
-      margin-top:20px;
-      color:#666;
-      font-size:14px;
-      line-height:1.5;
-      text-align:left;
+    .result strong{
+      color:#1f2a44;
     }
 
     .cta-box{
-      margin-top:25px;
-      padding:18px;
-      background:#e9f1ff;
-      border-radius:8px;
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg, #edf4ff, #e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
       text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
       line-height:1.6;
     }
 
-    .footer{
-      margin-top:40px;
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#f2f5fb;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .note{
+      margin-top:22px;
       color:#666;
       font-size:14px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,0.08);
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .sidebar-card h3{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .sidebar-card a{
+      color:#1f2a44;
+      font-weight:bold;
+      text-decoration:none;
+    }
+
+    .sidebar-card a:hover{
+      text-decoration:underline;
+    }
+
+    .footer{
+      margin-top:36px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:700px){
-      .container{
+      .hero h1{
+        font-size:28px;
+      }
+
+      .card,
+      .sidebar-card{
         padding:20px;
+      }
+
+      .button-row{
+        flex-direction:column;
       }
 
       .button-row button{
         width:100%;
-        margin:6px 0;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
       }
     }
   </style>
@@ -149,96 +402,166 @@
 
 <div id="navbar"></div>
 
-<div class="container">
-  <h2>Pneumatic Air Consumption Calculator</h2>
-
-  <p class="description">
-    Estimate pneumatic cylinder swept volume, standard free air usage per cycle, and SCFM using bore diameter, rod diameter, stroke length, operating pressure, and cycle rate.
-  </p>
-
-  <p class="description">
-    This calculator is useful for pneumatic cylinder sizing, compressed air demand checks, valve selection, and estimating practical air usage in industrial automation systems. If you are still choosing the actuator, start with the <a href="/pneumatic.html" onclick="gtag('event','inline_link_click',{from:'air_consumption',to:'pneumatic_force'});">pneumatic force calculator</a> first.
-  </p>
-
-  <p class="start-prompt">
-    Enter bore, rod size, stroke, pressure, and cycle rate to estimate cylinder air usage instantly.
-  </p>
-
-  <div class="grid">
-    <div class="field">
-      <label for="bore">Bore Diameter (in)</label>
-      <input id="bore" type="number" value="2.0" min="0.01" step="0.01">
-    </div>
-
-    <div class="field">
-      <label for="rod">Rod Diameter (in)</label>
-      <input id="rod" type="number" value="0.625" min="0" step="0.01">
-    </div>
-
-    <div class="field">
-      <label for="stroke">Stroke Length (in)</label>
-      <input id="stroke" type="number" value="6.0" min="0.01" step="0.01">
-    </div>
-
-    <div class="field">
-      <label for="pressure">Operating Pressure (PSIG)</label>
-      <input id="pressure" type="number" value="80" min="0.01" step="0.01">
-    </div>
-
-    <div class="field">
-      <label for="cpm">Cycles Per Minute</label>
-      <input id="cpm" type="number" value="20" min="0" step="0.01">
-    </div>
-
-    <div class="field">
-      <label for="doubleActing">Cylinder Type</label>
-      <select id="doubleActing">
-        <option value="yes">Double Acting</option>
-        <option value="no">Single Acting</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="usageFactor">Usage Factor</label>
-      <select id="usageFactor">
-        <option value="1.00">Ideal Estimate</option>
-        <option value="1.15" selected>Practical Estimate (+15%)</option>
-        <option value="1.25">Conservative Estimate (+25%)</option>
-      </select>
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Pneumatic Air Consumption Calculator</h1>
+    <p>
+      Estimate cylinder swept volume, standard free air per cycle, SCFM, and practical air demand using bore size, rod size, stroke, pressure, and cycle rate.
+    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'air_consumption_hero'});">Find an Integrator</a>
     </div>
   </div>
+</section>
 
-  <div class="button-row">
-    <button onclick="calculateAirConsumption(); gtag('event','air_consumption_calculation');">Calculate Air Usage</button>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> enter cylinder bore, rod diameter, stroke, operating pressure, and cycles per minute to estimate practical compressed air demand for machine design, troubleshooting, or air supply checks.
   </div>
 
-  <div class="result" id="output">
-    Enter your values above and click <strong>Calculate Air Usage</strong>.
-  </div>
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Pneumatic Cylinder Air Usage</h2>
 
-  <div class="cta-box">
-    <strong>Need help sizing valves, cylinders, or air supply for a real machine?</strong>
-    <br><br>
-    <a href="/integrators.html" onclick="gtag('event','cta_click',{from:'air_consumption',to:'integrators'});">Find an automation integrator</a>
-  </div>
+      <p class="description">
+        Estimate pneumatic cylinder swept volume, standard free air usage per cycle, and SCFM using bore diameter, rod diameter, stroke length, operating pressure, and cycle rate.
+      </p>
 
-  <p class="note">
-    Standard free air conversion uses absolute pressure ratio based on PSIG input.
-    This is a practical engineering estimate and does not account for tubing dead volume, leakage, valve timing losses, cushioning losses, or unusual motion profiles.
-  </p>
+      <p class="description">
+        This calculator is useful for pneumatic cylinder sizing, compressed air demand checks, valve selection, and estimating practical air usage in industrial automation systems. If you are still choosing the actuator, start with the <a href="/pneumatic.html" onclick="gtag('event','inline_link_click',{'from':'air_consumption','to':'pneumatic_force'});">pneumatic force calculator</a>.
+      </p>
 
-  <div style="margin-top:30px;padding:20px;background:#f4f8ff;border-radius:8px;text-align:left;">
-    <strong>Continue Your Pneumatic Design</strong>
-    <br><br>
-    After estimating air usage, use these tools to complete your system:
-    <br><br>
-    ➤ <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{from:'air_consumption',to:'pneumatic_force'});">Pneumatic Force Calculator</a><br>
-    ➤ <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{from:'air_consumption',to:'pneumatic_speed'});">Pneumatic Cylinder Speed</a><br>
-    ➤ <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{from:'air_consumption',to:'air_line_size'});">Air Line Size Calculator</a><br>
-  </div>
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadStandardExample(); gtag('event','air_consumption_quick_example',{'type':'standard_double_acting'});">Standard Example</button>
+        <button type="button" onclick="loadHighCycleExample(); gtag('event','air_consumption_quick_example',{'type':'high_cycle'});">High Cycle Example</button>
+        <button type="button" onclick="loadSingleActingExample(); gtag('event','air_consumption_quick_example',{'type':'single_acting'});">Single Acting Example</button>
+      </div>
 
-  <div class="footer">
-    Automation Engineering Tools • Practical calculators for real automation work
+      <div class="grid">
+        <div class="field">
+          <label for="bore">Bore Diameter (in)</label>
+          <input id="bore" type="number" value="2.0" min="0.01" step="0.01">
+        </div>
+
+        <div class="field">
+          <label for="rod">Rod Diameter (in)</label>
+          <input id="rod" type="number" value="0.625" min="0" step="0.01">
+        </div>
+
+        <div class="field">
+          <label for="stroke">Stroke Length (in)</label>
+          <input id="stroke" type="number" value="6.0" min="0.01" step="0.01">
+        </div>
+
+        <div class="field">
+          <label for="pressure">Operating Pressure (PSIG)</label>
+          <input id="pressure" type="number" value="80" min="0.01" step="0.01">
+        </div>
+
+        <div class="field">
+          <label for="cpm">Cycles Per Minute</label>
+          <input id="cpm" type="number" value="20" min="0" step="0.01">
+        </div>
+
+        <div class="field">
+          <label for="doubleActing">Cylinder Type</label>
+          <select id="doubleActing">
+            <option value="yes">Double Acting</option>
+            <option value="no">Single Acting</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="usageFactor">Usage Factor</label>
+          <select id="usageFactor">
+            <option value="1.00">Ideal Estimate</option>
+            <option value="1.15" selected>Practical Estimate (+15%)</option>
+            <option value="1.25">Conservative Estimate (+25%)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateAirConsumption(); gtag('event','air_consumption_calculation');">Calculate Air Usage</button>
+        <button class="secondary" onclick="loadStandardExample(); gtag('event','air_consumption_example');">Load Example</button>
+        <button class="ghost" onclick="clearCalculator(); gtag('event','air_consumption_clear');">Reset Fields</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter your values above and click <strong>Calculate Air Usage</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help sizing valves, cylinders, or air supply for a real machine?</h3>
+        <p>
+          If you are working through a pneumatic design problem, controls upgrade, or machine air demand issue, connect with an automation integrator.
+        </p>
+        <a href="/integrators.html" onclick="gtag('event','cta_click',{'from':'air_consumption','to':'integrators'});">Find an Automation Integrator</a>
+      </div>
+
+      <div class="learn-more">
+        <h3>Continue your pneumatic design</h3>
+        <p>
+          Air consumption is only one part of a good pneumatic design. After estimating demand, you usually still need to verify cylinder force, expected actuator speed, valve sizing, tubing pressure loss, and plant air capacity.
+        </p>
+        <p>
+          This is especially important when cylinders run fast, cycle often, or several actuators fire at the same time on the same machine.
+        </p>
+
+        <div class="internal-links">
+          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'air_consumption','to':'pneumatic_force'});">Pneumatic Force Calculator</a>
+          <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{'from':'air_consumption','to':'pneumatic_speed'});">Pneumatic Cylinder Speed</a>
+          <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'air_consumption','to':'air_line_size'});">Air Line Size Calculator</a>
+        </div>
+      </div>
+
+      <p class="note">
+        Standard free air conversion uses absolute pressure ratio based on PSIG input. This is a practical engineering estimate and does not account for tubing dead volume, leakage, valve timing losses, cushioning losses, unusual motion profiles, or dynamic pressure drop through undersized valves and air lines.
+      </p>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Extend swept volume</li>
+          <li>Retract swept volume</li>
+          <li>Total swept volume per cycle</li>
+          <li>Standard free air per cycle</li>
+          <li>Estimated SCFM and hourly air demand</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Where this helps</h3>
+        <ul>
+          <li>Cylinder sizing checks</li>
+          <li>Compressed air demand estimates</li>
+          <li>Valve and FRL planning</li>
+          <li>Machine air capacity reviews</li>
+          <li>Troubleshooting low-pressure conditions</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Quick design reminders</h3>
+        <p>Real usage is often higher than textbook volume because of:</p>
+        <ul>
+          <li>Leakage and fittings</li>
+          <li>Dead volume in tubing and valves</li>
+          <li>Cushioning and timing losses</li>
+          <li>Pressure drop under high demand</li>
+          <li>Multiple actuators cycling together</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -250,7 +573,7 @@
   function scrollToOutput(){
     document.getElementById("output").scrollIntoView({
       behavior: "smooth",
-      block: "center"
+      block: "start"
     });
   }
 
@@ -314,7 +637,6 @@
 
     const scfmIdeal = (standardFreeAirPerCycleIn3 * cpm) / 1728;
     const scfmPractical = (practicalFreeAirPerCycleIn3 * cpm) / 1728;
-
     const standardFt3PerHour = scfmPractical * 60;
 
     let cylinderNote = "";
@@ -351,6 +673,50 @@
       cylinderNote;
 
     scrollToOutput();
+  }
+
+  function clearCalculator(){
+    document.getElementById("bore").value = "2.0";
+    document.getElementById("rod").value = "0.625";
+    document.getElementById("stroke").value = "6.0";
+    document.getElementById("pressure").value = "80";
+    document.getElementById("cpm").value = "20";
+    document.getElementById("doubleActing").value = "yes";
+    document.getElementById("usageFactor").value = "1.15";
+    document.getElementById("output").innerHTML = 'Enter your values above and click <strong>Calculate Air Usage</strong>.';
+  }
+
+  function loadStandardExample(){
+    document.getElementById("bore").value = "2.0";
+    document.getElementById("rod").value = "0.625";
+    document.getElementById("stroke").value = "6.0";
+    document.getElementById("pressure").value = "80";
+    document.getElementById("cpm").value = "20";
+    document.getElementById("doubleActing").value = "yes";
+    document.getElementById("usageFactor").value = "1.15";
+    calculateAirConsumption();
+  }
+
+  function loadHighCycleExample(){
+    document.getElementById("bore").value = "1.5";
+    document.getElementById("rod").value = "0.5";
+    document.getElementById("stroke").value = "4.0";
+    document.getElementById("pressure").value = "90";
+    document.getElementById("cpm").value = "45";
+    document.getElementById("doubleActing").value = "yes";
+    document.getElementById("usageFactor").value = "1.25";
+    calculateAirConsumption();
+  }
+
+  function loadSingleActingExample(){
+    document.getElementById("bore").value = "1.25";
+    document.getElementById("rod").value = "0.375";
+    document.getElementById("stroke").value = "3.0";
+    document.getElementById("pressure").value = "70";
+    document.getElementById("cpm").value = "18";
+    document.getElementById("doubleActing").value = "no";
+    document.getElementById("usageFactor").value = "1.15";
+    calculateAirConsumption();
   }
 </script>
 
