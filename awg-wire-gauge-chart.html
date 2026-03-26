@@ -1,186 +1,458 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="canonical" href="https://automationcalculators.net/awg-wire-gauge-chart.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
-<link rel="canonical" href="https://automationcalculators.net/awg-wire-gauge-chart.html">
-<meta name="robots" content="index, follow">
-<meta name="author" content="AutomationCalculators.net">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-G4TY96JHNH');
-</script>
+  <title>AWG Wire Gauge Chart (Complete) | Diameter, Resistance, Ampacity</title>
+  <meta name="description" content="Complete AWG wire gauge chart showing diameter, cross-sectional area, resistance, and typical ampacity values for common copper conductors used in electrical and automation systems.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>AWG Wire Gauge Chart (Complete) | Diameter, Resistance, Ampacity</title>
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      color:#222;
+    }
 
-<meta name="description" content="Complete AWG wire gauge chart showing diameter, resistance, and ampacity values for common copper conductors used in electrical and automation systems.">
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
 
-<style>
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
 
-body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
-margin:0;
-}
+    .hero p{
+      max-width:780px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
 
-.container{
-background:white;
-padding:40px;
-max-width:1100px;
-margin:auto;
-border-radius:10px;
-box-shadow:0px 0px 10px rgba(0,0,0,.1);
-}
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
 
-h1,h2{
-color:#1f2a44;
-}
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
 
-.subtitle{
-color:#555;
-margin-bottom:20px;
-line-height:1.6;
-}
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
 
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:25px;
-}
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
 
-th, td{
-border:1px solid #ddd;
-padding:10px;
-text-align:center;
-}
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
 
-th{
-background:#1f2a44;
-color:white;
-}
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
 
-tr:nth-child(even){
-background:#f7f7f7;
-}
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:900px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
 
-.tools{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-top:35px;
-}
+    .main-card{
+      background:white;
+      padding:30px;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
 
-.tool{
-background:#f8fbff;
-border:1px solid #d7e6ff;
-border-radius:10px;
-padding:20px;
-text-decoration:none;
-color:#1f2a44;
-display:block;
-transition:.2s;
-}
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
 
-.tool:hover{
-transform:translateY(-4px);
-box-shadow:0 4px 12px rgba(0,0,0,.12);
-}
+    h2{
+      color:#1f2a44;
+      margin-top:0;
+    }
 
-.footer{
-margin-top:40px;
-color:#666;
-font-size:14px;
-}
+    .intro-text{
+      color:#555;
+      line-height:1.7;
+      font-size:16px;
+      margin-bottom:14px;
+    }
 
-</style>
+    .table-wrap{
+      overflow-x:auto;
+      margin-top:22px;
+      border:1px solid #d8e3f5;
+      border-radius:10px;
+    }
 
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:760px;
+      background:white;
+    }
+
+    th, td{
+      border-bottom:1px solid #e6ebf3;
+      padding:11px 10px;
+      text-align:center;
+      font-size:15px;
+    }
+
+    th{
+      background:#1f2a44;
+      color:white;
+      position:sticky;
+      top:0;
+    }
+
+    tr:nth-child(even){
+      background:#f8fbff;
+    }
+
+    tr:hover{
+      background:#eef4ff;
+    }
+
+    .info-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
+      margin-top:28px;
+    }
+
+    .info-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:20px;
+      text-align:left;
+    }
+
+    .info-card h3{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f2a44;
+      font-size:18px;
+    }
+
+    .info-card p,
+    .info-card ul{
+      margin:0;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .info-card ul{
+      padding-left:18px;
+    }
+
+    .related{
+      margin-top:34px;
+    }
+
+    .related h2{
+      margin-bottom:10px;
+    }
+
+    .tools{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:20px;
+      margin-top:20px;
+    }
+
+    .tool{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:20px;
+      text-decoration:none;
+      color:#1f2a44;
+      display:block;
+      transition:.2s;
+      text-align:left;
+    }
+
+    .tool:hover{
+      transform:translateY(-4px);
+      box-shadow:0 4px 12px rgba(0,0,0,.12);
+    }
+
+    .tool h3{
+      margin:0 0 8px;
+      font-size:18px;
+    }
+
+    .tool p{
+      margin:0;
+      color:#555;
+      line-height:1.5;
+      font-size:15px;
+    }
+
+    .cta-box{
+      margin-top:28px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .note{
+      margin-top:22px;
+      color:#666;
+      font-size:14px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .footer{
+      margin-top:38px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:700px){
+      .hero h1{
+        font-size:28px;
+      }
+
+      .main-card{
+        padding:20px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <div id="navbar"></div>
 
-<div class="container">
+<section class="hero">
+  <div class="hero-inner">
+    <h1>AWG Wire Gauge Chart (Complete)</h1>
+    <p>
+      Reference common American Wire Gauge sizes with conductor diameter, cross-sectional area, resistance, and typical ampacity values for copper wire used in electrical panels, controls, machinery, and automation systems.
+    </p>
+    <div class="hero-cta">
+      <a href="#awg-chart" class="primary">Jump to Chart</a>
+      <a href="/voltage-drop.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'awg_chart_hero','to':'voltage_drop'});">Voltage Drop Calculator</a>
+    </div>
+  </div>
+</section>
 
-<h1>AWG Wire Gauge Chart (Complete)</h1>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Use this chart as a quick reference:</strong> diameter and resistance help with voltage drop and conductor comparison, while ampacity is only a starting point and still depends on insulation type, temperature rating, installation method, and code requirements.
+  </div>
 
-<p class="subtitle">
-This reference chart shows common American Wire Gauge (AWG) sizes including conductor diameter, resistance, and approximate ampacity values. 
-It is useful for electrical design, automation systems, motor wiring, and voltage drop calculations.
-</p>
+  <div class="main-card">
+    <div class="section-label">Reference Chart</div>
+    <h2 id="awg-chart">AWG Copper Wire Reference Chart</h2>
 
-<h2>AWG Copper Wire Reference Chart</h2>
+    <p class="intro-text">
+      This AWG wire gauge chart is useful for control panel work, machine wiring, field devices, power distribution, motor circuits, and general electrical troubleshooting. It gives a practical side-by-side reference for common copper conductor sizes.
+    </p>
 
-<table>
+    <p class="intro-text">
+      Resistance values are especially helpful when estimating voltage drop over longer runs, while diameter and area are useful when comparing conductor size or checking fitment in terminals, wireways, and cable assemblies.
+    </p>
 
-<tr>
-<th>AWG</th>
-<th>Diameter (mm)</th>
-<th>Area (mm²)</th>
-<th>Resistance (Ω / 1000 ft)</th>
-<th>Typical Ampacity</th>
-</tr>
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>AWG</th>
+          <th>Diameter (mm)</th>
+          <th>Area (mm²)</th>
+          <th>Resistance (Ω / 1000 ft)</th>
+          <th>Typical Ampacity</th>
+        </tr>
 
-<tr><td>20</td><td>0.81</td><td>0.52</td><td>10.15</td><td>5 A</td></tr>
-<tr><td>18</td><td>1.02</td><td>0.82</td><td>6.39</td><td>7 A</td></tr>
-<tr><td>16</td><td>1.29</td><td>1.31</td><td>4.02</td><td>10 A</td></tr>
-<tr><td>14</td><td>1.63</td><td>2.08</td><td>2.53</td><td>15 A</td></tr>
-<tr><td>12</td><td>2.05</td><td>3.31</td><td>1.59</td><td>20 A</td></tr>
-<tr><td>10</td><td>2.59</td><td>5.26</td><td>1.00</td><td>30 A</td></tr>
-<tr><td>8</td><td>3.26</td><td>8.37</td><td>0.63</td><td>40 A</td></tr>
-<tr><td>6</td><td>4.11</td><td>13.3</td><td>0.40</td><td>55 A</td></tr>
-<tr><td>4</td><td>5.19</td><td>21.1</td><td>0.25</td><td>70 A</td></tr>
-<tr><td>2</td><td>6.54</td><td>33.6</td><td>0.16</td><td>95 A</td></tr>
-<tr><td>1</td><td>7.35</td><td>42.4</td><td>0.13</td><td>110 A</td></tr>
-<tr><td>1/0</td><td>8.25</td><td>53.5</td><td>0.10</td><td>125 A</td></tr>
-<tr><td>2/0</td><td>9.27</td><td>67.4</td><td>0.08</td><td>145 A</td></tr>
-<tr><td>3/0</td><td>10.4</td><td>85.0</td><td>0.06</td><td>165 A</td></tr>
-<tr><td>4/0</td><td>11.7</td><td>107</td><td>0.05</td><td>195 A</td></tr>
+        <tr><td>20</td><td>0.81</td><td>0.52</td><td>10.15</td><td>5 A</td></tr>
+        <tr><td>18</td><td>1.02</td><td>0.82</td><td>6.39</td><td>7 A</td></tr>
+        <tr><td>16</td><td>1.29</td><td>1.31</td><td>4.02</td><td>10 A</td></tr>
+        <tr><td>14</td><td>1.63</td><td>2.08</td><td>2.53</td><td>15 A</td></tr>
+        <tr><td>12</td><td>2.05</td><td>3.31</td><td>1.59</td><td>20 A</td></tr>
+        <tr><td>10</td><td>2.59</td><td>5.26</td><td>1.00</td><td>30 A</td></tr>
+        <tr><td>8</td><td>3.26</td><td>8.37</td><td>0.63</td><td>40 A</td></tr>
+        <tr><td>6</td><td>4.11</td><td>13.3</td><td>0.40</td><td>55 A</td></tr>
+        <tr><td>4</td><td>5.19</td><td>21.1</td><td>0.25</td><td>70 A</td></tr>
+        <tr><td>2</td><td>6.54</td><td>33.6</td><td>0.16</td><td>95 A</td></tr>
+        <tr><td>1</td><td>7.35</td><td>42.4</td><td>0.13</td><td>110 A</td></tr>
+        <tr><td>1/0</td><td>8.25</td><td>53.5</td><td>0.10</td><td>125 A</td></tr>
+        <tr><td>2/0</td><td>9.27</td><td>67.4</td><td>0.08</td><td>145 A</td></tr>
+        <tr><td>3/0</td><td>10.4</td><td>85.0</td><td>0.06</td><td>165 A</td></tr>
+        <tr><td>4/0</td><td>11.7</td><td>107</td><td>0.05</td><td>195 A</td></tr>
+      </table>
+    </div>
 
-</table>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>What this chart is good for</h3>
+        <ul>
+          <li>Quick conductor size comparison</li>
+          <li>Checking wire resistance for voltage drop work</li>
+          <li>Panel and machine wiring reference</li>
+          <li>Motor and device feed planning</li>
+          <li>Cross-checking rough ampacity assumptions</li>
+        </ul>
+      </div>
 
-<h2>Related Electrical Calculators</h2>
+      <div class="info-card">
+        <h3>Important ampacity reminder</h3>
+        <p>
+          Ampacity is not one fixed number. Real allowable current depends on conductor material, insulation temperature rating, ambient temperature, bundling, conduit fill, installation method, and code rules. Treat the values above as practical reference values, not final code approval.
+        </p>
+      </div>
 
-<div class="tools">
+      <div class="info-card">
+        <h3>Common automation use cases</h3>
+        <p>
+          This chart is especially helpful when selecting wire for sensors, valves, motors, control transformers, DC power distribution, panel wiring, and longer field runs where voltage drop starts to matter.
+        </p>
+      </div>
+    </div>
 
-<a class="tool" href="wire-gauge-amps.html">
-<h3>Wire Gauge vs Amps</h3>
-<p>Quick ampacity lookup and calculator for conductor sizing.</p>
-</a>
+    <div class="related">
+      <h2>Related Electrical Calculators</h2>
+      <div class="tools">
+        <a class="tool" href="wire-gauge-amps.html" onclick="gtag('event','tool_open',{tool:'wire_gauge_amps',source:'awg_chart'});">
+          <h3>Wire Gauge vs Amps</h3>
+          <p>Quick ampacity lookup and calculator for conductor sizing.</p>
+        </a>
 
-<a class="tool" href="voltage-drop.html">
-<h3>Voltage Drop Calculator</h3>
-<p>Estimate voltage drop for electrical circuits and automation systems.</p>
-</a>
+        <a class="tool" href="voltage-drop.html" onclick="gtag('event','tool_open',{tool:'voltage_drop',source:'awg_chart'});">
+          <h3>Voltage Drop Calculator</h3>
+          <p>Estimate voltage drop for electrical circuits and automation systems.</p>
+        </a>
 
-<a class="tool" href="motor-fla-calculator.html">
-<h3>Motor Full Load Current</h3>
-<p>Calculate motor current using horsepower, voltage, efficiency, and power factor.</p>
-</a>
+        <a class="tool" href="analog-scaling.html" onclick="gtag('event','tool_open',{tool:'analog_scaling',source:'awg_chart'});">
+          <h3>PLC Analog Scaling Calculator</h3>
+          <p>Convert raw counts, voltage, or current signals into engineering units.</p>
+        </a>
 
-</div>
+        <a class="tool" href="motor-fla-calculator.html" onclick="gtag('event','tool_open',{tool:'motor_fla',source:'awg_chart'});">
+          <h3>Motor Full Load Current</h3>
+          <p>Calculate motor current using horsepower, voltage, efficiency, and power factor.</p>
+        </a>
+      </div>
+    </div>
 
-<div class="footer">
-Automation Engineering Tools • Practical electrical reference data
-</div>
+    <div class="cta-box">
+      <h3>Need help with electrical sizing on a real machine?</h3>
+      <p>
+        Use these tools as a fast starting point, then work with an integrator or electrical engineer when the design has long runs, high current, code constraints, or multiple load scenarios.
+      </p>
+      <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'awg_chart_midpage'});">Find an Integrator</a>
+    </div>
 
+    <p class="note">
+      This page is intended as a practical engineering reference for common copper conductors. Always verify final conductor sizing, insulation type, overcurrent protection, and installation requirements against applicable standards, equipment documentation, and electrical code requirements.
+    </p>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical electrical reference data
+    </div>
+  </div>
 </div>
 
 <script>
 fetch("navbar.html?v=20260311")
 .then(response => response.text())
 .then(data => {
-document.getElementById("navbar").innerHTML = data;
+  document.getElementById("navbar").innerHTML = data;
 })
 .catch(error => {
-console.error("Navbar failed to load:", error);
+  console.error("Navbar failed to load:", error);
 });
 </script>
 
