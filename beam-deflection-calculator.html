@@ -15,8 +15,8 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>Beam Deflection Calculator | Cantilever & Simply Supported</title>
-  <meta name="description" content="Free beam deflection calculator for cantilever and simply supported beams. Quickly estimate deflection using load, length, material, and moment of inertia.">
+  <title>Beam Deflection Calculator | Cantilever & Simply Supported Beam</title>
+  <meta name="description" content="Free beam deflection calculator for cantilever and simply supported beams. Estimate beam deflection using load, length, material, and moment of inertia.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -34,152 +34,416 @@
       text-align:center;
     }
 
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
+
     .hero h1{
-      margin:0 0 10px;
+      margin:0 0 12px;
       font-size:34px;
+      line-height:1.2;
     }
 
     .hero p{
       max-width:800px;
-      margin:auto;
+      margin:0 auto 14px;
       color:#e7ecf7;
-      line-height:1.6;
       font-size:17px;
+      line-height:1.6;
     }
 
-    .container{
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
       max-width:1100px;
       margin:30px auto;
       padding:0 18px 40px;
     }
 
-    .main-card{
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card{
       background:white;
-      padding:30px;
       border-radius:12px;
       box-shadow:0 0 12px rgba(0,0,0,.08);
-      text-align:center;
+      padding:28px;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .card h2{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.6;
+      text-align:left;
     }
 
     .formula-box{
-      margin:20px auto;
+      margin:20px 0 24px;
       padding:18px;
       background:#eef3ff;
-      border-radius:10px;
       border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
       font-weight:bold;
+      font-size:17px;
       line-height:1.7;
+      text-align:left;
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
     }
 
     .grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:15px;
-      margin-top:20px;
-    }
-
-    .card{
-      background:#f8fbff;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
-      padding:18px;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
       text-align:left;
     }
 
-    label{
-      font-weight:bold;
+    .input-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
+    .input-card label{
       display:block;
+      font-weight:600;
       margin-bottom:6px;
+      color:#23314f;
     }
 
     input, select{
       width:100%;
-      padding:10px;
-      border-radius:6px;
-      border:1px solid #bbb;
+      padding:10px 12px;
+      font-size:16px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      box-sizing:border-box;
+      background:white;
     }
 
-    button{
-      margin-top:20px;
-      padding:14px 26px;
-      font-size:17px;
+    input:focus, select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .button-row{
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      padding:13px 22px;
+      font-size:16px;
       background:#1f2a44;
       color:white;
       border:none;
       border-radius:8px;
       cursor:pointer;
+      transition:background .2s ease, transform .2s ease;
+      font-weight:bold;
     }
 
-    button:hover{
-      background:#2d3b5f;
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      transform:translateY(-1px);
     }
 
     .result{
       margin-top:25px;
       padding:20px;
-      background:#edf4ff;
-      border:1px solid #cadcff;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
       border-radius:10px;
-      font-size:20px;
-      font-weight:bold;
+      font-size:18px;
+      line-height:1.7;
+      color:#1f2a44;
+      text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .result strong{
+      color:#1f2a44;
     }
 
     .subresult{
       font-size:15px;
       font-weight:normal;
-      margin-top:10px;
       color:#444;
+      margin-top:12px;
+      line-height:1.7;
     }
 
     .cta-box{
-      margin-top:25px;
-      padding:20px;
-      background:#e9f1ff;
-      border-radius:10px;
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
     }
 
     .cta-box a{
       display:inline-block;
-      margin-top:10px;
       background:#1f2a44;
       color:white;
-      padding:12px 16px;
-      border-radius:6px;
+      padding:12px 18px;
+      border-radius:8px;
       text-decoration:none;
       font-weight:bold;
     }
 
-    .info{
-      margin-top:30px;
+    .table-wrap{
+      overflow-x:auto;
+      margin-top:18px;
+      border:1px solid #d8e3f5;
+      border-radius:10px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:650px;
+      background:white;
+    }
+
+    th, td{
+      border-bottom:1px solid #e6ebf3;
+      padding:12px 10px;
+      text-align:center;
+    }
+
+    th{
+      background:#1f2a44;
+      color:white;
+    }
+
+    tr:nth-child(even){
+      background:#f8fbff;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
       color:#555;
       line-height:1.7;
+      margin-bottom:12px;
     }
 
-    .tools{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:18px;
-      margin-top:25px;
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
     }
 
-    .tool{
-      background:#f8fbff;
-      border:1px solid #d7e6ff;
-      padding:18px;
-      border-radius:10px;
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#f2f5fb;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
       text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .sidebar-card h3{
+      margin-top:0;
+      margin-bottom:10px;
       color:#1f2a44;
     }
 
-    .tool:hover{
-      transform:translateY(-4px);
-      box-shadow:0 4px 12px rgba(0,0,0,.12);
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .note{
+      margin-top:22px;
+      color:#666;
+      font-size:14px;
+      line-height:1.6;
+      text-align:left;
     }
 
     .footer{
-      margin-top:30px;
+      margin-top:36px;
       color:#666;
       font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .hero h1{
+        font-size:28px;
+      }
+
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
     }
   </style>
 </head>
@@ -188,119 +452,305 @@
 
 <div id="navbar"></div>
 
-<div class="hero">
-  <h1>Beam Deflection Calculator</h1>
-  <p>
-    Quickly estimate deflection for cantilever and simply supported beams using real engineering inputs. 
-    Ideal for machine frames, brackets, tooling, and structural supports.
-  </p>
-</div>
-
-<div class="container">
-  <div class="main-card">
-
-    <div class="formula-box">
-      Cantilever: δ = (F × L³) / (3 × E × I)<br>
-      Simply Supported: δ = (F × L³) / (48 × E × I)
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Beam Deflection Calculator</h1>
+    <p>
+      Estimate beam deflection for cantilever and simply supported beams using load, span, material stiffness, and moment of inertia. Useful for machine frames, tooling supports, brackets, and structural members.
+    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'beam_deflection_hero'});">Find an Integrator</a>
     </div>
+  </div>
+</section>
 
-    <div class="grid">
-      <div class="card">
-        <label>Beam Type</label>
-        <select id="beamType">
-          <option value="cantilever">Cantilever (End Load)</option>
-          <option value="simply_supported">Simply Supported (Center Load)</option>
-        </select>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> enter beam type, applied load, beam length, material, and moment of inertia to get a fast first-pass deflection estimate before deeper structural review.
+  </div>
+
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Calculate Beam Deflection</h2>
+
+      <p class="description">
+        Use this beam deflection calculator to estimate deflection for cantilever and simply supported beams under a center or end point load. This is useful for machine frames, tooling supports, structural members, brackets, and general mechanical design.
+      </p>
+
+      <p class="description">
+        This calculator gives a practical engineering estimate using linear elastic beam theory. It does not replace full structural analysis for dynamic loading, distributed loads, stress concentrations, local buckling, or safety-critical design.
+      </p>
+
+      <div class="formula-box">
+        Cantilever Beam with End Load: δ = (F × L³) / (3 × E × I)<br>
+        Simply Supported Beam with Center Load: δ = (F × L³) / (48 × E × I)
       </div>
 
-      <div class="card">
-        <label>Load (lb)</label>
-        <input id="load" type="number">
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadCantileverSteelExample(); gtag('event','beam_deflection_quick_example',{'type':'cantilever_steel'});">Cantilever Steel</button>
+        <button type="button" onclick="loadSimplySupportedAluminumExample(); gtag('event','beam_deflection_quick_example',{'type':'simply_supported_aluminum'});">Simply Supported Aluminum</button>
+        <button type="button" onclick="loadBracketExample(); gtag('event','beam_deflection_quick_example',{'type':'bracket'});">Bracket Example</button>
       </div>
 
-      <div class="card">
-        <label>Length (in)</label>
-        <input id="length" type="number">
+      <div class="grid">
+        <div class="input-card">
+          <label for="beamType">Beam Type</label>
+          <select id="beamType">
+            <option value="cantilever">Cantilever Beam (End Load)</option>
+            <option value="simply_supported">Simply Supported Beam (Center Load)</option>
+          </select>
+        </div>
+
+        <div class="input-card">
+          <label for="load">Load (lb)</label>
+          <input type="number" id="load" step="0.01" placeholder="e.g. 250">
+        </div>
+
+        <div class="input-card">
+          <label for="length">Beam Length (in)</label>
+          <input type="number" id="length" step="0.01" placeholder="e.g. 36">
+        </div>
+
+        <div class="input-card">
+          <label for="material">Material</label>
+          <select id="material" onchange="setMaterialE()">
+            <option value="29000000">Steel (29,000,000 psi)</option>
+            <option value="28000000">Stainless Steel (28,000,000 psi)</option>
+            <option value="10000000">Aluminum (10,000,000 psi)</option>
+            <option value="4500000">Wood (4,500,000 psi approx.)</option>
+            <option value="custom">Custom E Value</option>
+          </select>
+        </div>
+
+        <div class="input-card">
+          <label for="elasticModulus">Young's Modulus E (psi)</label>
+          <input type="number" id="elasticModulus" step="1" value="29000000" placeholder="e.g. 29000000">
+        </div>
+
+        <div class="input-card">
+          <label for="inertia">Moment of Inertia I (in⁴)</label>
+          <input type="number" id="inertia" step="0.0001" placeholder="e.g. 2.85">
+        </div>
       </div>
 
-      <div class="card">
-        <label>Material</label>
-        <select id="material" onchange="setMaterialE()">
-          <option value="29000000">Steel</option>
-          <option value="28000000">Stainless</option>
-          <option value="10000000">Aluminum</option>
-          <option value="custom">Custom</option>
-        </select>
+      <div class="button-row">
+        <button onclick="calculateDeflection(); gtag('event','beam_deflection_calculation');">Calculate Deflection</button>
+        <button class="secondary" onclick="loadCantileverSteelExample(); gtag('event','beam_deflection_example');">Load Example</button>
+        <button class="ghost" onclick="clearCalculator(); gtag('event','beam_deflection_clear');">Reset Fields</button>
       </div>
 
-      <div class="card">
-        <label>Young’s Modulus (psi)</label>
-        <input id="elasticModulus" value="29000000">
+      <div class="result" id="result">
+        Enter values above and click <strong>Calculate Deflection</strong>.
       </div>
 
-      <div class="card">
-        <label>Moment of Inertia (in⁴)</label>
-        <input id="inertia" type="number">
+      <div class="cta-box">
+        <h3>Need help applying this to a real machine?</h3>
+        <p>
+          Get connected with a qualified automation integrator for your project if you are reviewing machine frame stiffness, brackets, support members, or tooling deflection.
+        </p>
+        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'beam_deflection_midpage'});">Find an Integrator</a>
+      </div>
+
+      <div class="learn-more">
+        <h3>Typical Young's Modulus Values</h3>
+        <div class="table-wrap">
+          <table>
+            <tr>
+              <th>Material</th>
+              <th>Young's Modulus (psi)</th>
+              <th>Young's Modulus (GPa approx.)</th>
+            </tr>
+            <tr><td>Steel</td><td>29,000,000</td><td>200</td></tr>
+            <tr><td>Stainless Steel</td><td>28,000,000</td><td>193</td></tr>
+            <tr><td>Aluminum</td><td>10,000,000</td><td>69</td></tr>
+            <tr><td>Concrete</td><td>3,600,000 to 4,400,000</td><td>25 to 30</td></tr>
+            <tr><td>Wood</td><td>1,000,000 to 4,500,000</td><td>7 to 31</td></tr>
+          </table>
+        </div>
+
+        <h3>What This Beam Deflection Calculator Solves</h3>
+        <p>
+          Engineers often search for tools like beam deflection calculator, cantilever beam deflection, simply supported beam calculator, steel beam deflection, aluminum beam stiffness, and Young's modulus beam formula. This page helps estimate beam stiffness quickly for brackets, machine bases, supports, fixtures, and structural members.
+        </p>
+
+        <div class="internal-links">
+          <a href="bearing-life-calculator.html" onclick="gtag('event','internal_link_click',{'from':'beam_deflection','to':'bearing_life'});">Bearing Life Calculator</a>
+          <a href="servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'beam_deflection','to':'servo_torque'});">Servo Torque Calculator</a>
+          <a href="gearbox-torque.html" onclick="gtag('event','internal_link_click',{'from':'beam_deflection','to':'gearbox_torque'});">Gearbox Output Torque</a>
+          <a href="reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'beam_deflection','to':'reference_charts'});">Engineering Reference Charts</a>
+        </div>
+      </div>
+
+      <p class="note">
+        For more accurate results, use the correct section moment of inertia, exact support conditions, real loading location, and applicable safety factors.
+      </p>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical mechanical design tools
       </div>
     </div>
 
-    <button onclick="calculateDeflection()">Calculate Deflection</button>
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Estimated beam deflection</li>
+          <li>Cantilever or simply supported mode</li>
+          <li>Material stiffness via E value</li>
+          <li>Fast comparison of geometry changes</li>
+        </ul>
+      </div>
 
-    <div id="result" class="result"></div>
+      <div class="sidebar-card">
+        <h3>When deflection matters</h3>
+        <p>
+          Small movement can cause real problems in machine structures, tooling, automation brackets, sensor mounts, and robot peripheral hardware. This is often a stiffness problem before it becomes a strength problem.
+        </p>
+      </div>
 
-    <div class="cta-box">
-      <strong>Applying this to a real machine?</strong><br>
-      Get help from an experienced automation integrator.
-      <br>
-      <a href="/integrators.html">Find an Integrator</a>
+      <div class="sidebar-card">
+        <h3>Common causes of excessive deflection</h3>
+        <ul>
+          <li>Long unsupported spans</li>
+          <li>Low moment of inertia</li>
+          <li>Using aluminum instead of steel</li>
+          <li>Unexpected end loads</li>
+          <li>Underestimating real applied force</li>
+        </ul>
+      </div>
     </div>
-
-    <div class="info">
-      This calculator uses linear elastic beam theory. Results are most accurate for small deflections and simple loading cases. 
-      For dynamic loading, multiple supports, or safety-critical applications, further analysis is required.
-    </div>
-
-    <h2 style="margin-top:30px;">Related Tools</h2>
-
-    <div class="tools">
-      <a class="tool" href="servo-torque.html">Servo Torque Calculator</a>
-      <a class="tool" href="gearbox-torque.html">Gearbox Output Torque</a>
-      <a class="tool" href="bearing-life-calculator.html">Bearing Life Calculator</a>
-      <a class="tool" href="reference-charts.html">Engineering Reference Charts</a>
-    </div>
-
-    <div class="footer">
-      Automation Engineering Tools • Practical mechanical design tools
-    </div>
-
   </div>
 </div>
 
 <script>
-function setMaterialE(){
-  const material = document.getElementById("material").value;
-  const eInput = document.getElementById("elasticModulus");
-  if(material !== "custom") eInput.value = material;
-}
+  function setMaterialE(){
+    const material = document.getElementById("material").value;
+    const eInput = document.getElementById("elasticModulus");
 
-function calculateDeflection(){
-  const beamType = document.getElementById("beamType").value;
-  const F = parseFloat(load.value);
-  const L = parseFloat(length.value);
-  const E = parseFloat(elasticModulus.value);
-  const I = parseFloat(inertia.value);
-
-  if(!F || !L || !E || !I){
-    result.innerHTML = "Enter valid inputs";
-    return;
+    if(material === "custom"){
+      eInput.value = "";
+      eInput.focus();
+    } else {
+      eInput.value = material;
+    }
   }
 
-  let deflection = beamType === "cantilever"
-    ? (F * Math.pow(L,3)) / (3*E*I)
-    : (F * Math.pow(L,3)) / (48*E*I);
+  function scrollToResult(){
+    document.getElementById("result").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
 
-  result.innerHTML = `Deflection: ${deflection.toFixed(4)} in`;
-}
+  function calculateDeflection(){
+    const beamType = document.getElementById("beamType").value;
+    const load = parseFloat(document.getElementById("load").value);
+    const length = parseFloat(document.getElementById("length").value);
+    const elasticModulus = parseFloat(document.getElementById("elasticModulus").value);
+    const inertia = parseFloat(document.getElementById("inertia").value);
+    const result = document.getElementById("result");
+
+    if(
+      isNaN(load) || load <= 0 ||
+      isNaN(length) || length <= 0 ||
+      isNaN(elasticModulus) || elasticModulus <= 0 ||
+      isNaN(inertia) || inertia <= 0
+    ){
+      result.innerHTML = "<strong>Please enter valid load, length, Young's modulus, and moment of inertia values.</strong>";
+      scrollToResult();
+      return;
+    }
+
+    let deflection;
+    let formulaText;
+
+    if(beamType === "cantilever"){
+      deflection = (load * Math.pow(length, 3)) / (3 * elasticModulus * inertia);
+      formulaText = "Cantilever Beam with End Load";
+    } else {
+      deflection = (load * Math.pow(length, 3)) / (48 * elasticModulus * inertia);
+      formulaText = "Simply Supported Beam with Center Load";
+    }
+
+    let stiffnessComment = "";
+    if(deflection < 0.01){
+      stiffnessComment = "Very stiff result under the entered assumptions.";
+    } else if(deflection < 0.05){
+      stiffnessComment = "Relatively stiff result, though application tolerance still matters.";
+    } else if(deflection < 0.125){
+      stiffnessComment = "Moderate deflection. Review whether this is acceptable for your application.";
+    } else {
+      stiffnessComment = "Higher deflection result. Consider reducing span, increasing section stiffness, or changing material.";
+    }
+
+    result.innerHTML =
+      "<strong>Estimated Deflection</strong><br>" +
+      deflection.toFixed(4) + " in" +
+      "<div class='subresult'>" +
+      "Beam Type: " + formulaText + "<br>" +
+      "Load: " + load.toFixed(2) + " lb<br>" +
+      "Length: " + length.toFixed(2) + " in<br>" +
+      "Young's Modulus: " + elasticModulus.toLocaleString() + " psi<br>" +
+      "Moment of Inertia: " + inertia.toFixed(4) + " in⁴<br><br>" +
+      "<strong>Interpretation:</strong> " + stiffnessComment +
+      "</div>";
+
+    scrollToResult();
+  }
+
+  function clearCalculator(){
+    document.getElementById("beamType").value = "cantilever";
+    document.getElementById("load").value = "";
+    document.getElementById("length").value = "";
+    document.getElementById("material").value = "29000000";
+    document.getElementById("elasticModulus").value = "29000000";
+    document.getElementById("inertia").value = "";
+    document.getElementById("result").innerHTML = 'Enter values above and click <strong>Calculate Deflection</strong>.';
+  }
+
+  function loadCantileverSteelExample(){
+    document.getElementById("beamType").value = "cantilever";
+    document.getElementById("load").value = "250";
+    document.getElementById("length").value = "36";
+    document.getElementById("material").value = "29000000";
+    document.getElementById("elasticModulus").value = "29000000";
+    document.getElementById("inertia").value = "2.85";
+    calculateDeflection();
+  }
+
+  function loadSimplySupportedAluminumExample(){
+    document.getElementById("beamType").value = "simply_supported";
+    document.getElementById("load").value = "120";
+    document.getElementById("length").value = "24";
+    document.getElementById("material").value = "10000000";
+    document.getElementById("elasticModulus").value = "10000000";
+    document.getElementById("inertia").value = "1.25";
+    calculateDeflection();
+  }
+
+  function loadBracketExample(){
+    document.getElementById("beamType").value = "cantilever";
+    document.getElementById("load").value = "80";
+    document.getElementById("length").value = "12";
+    document.getElementById("material").value = "29000000";
+    document.getElementById("elasticModulus").value = "29000000";
+    document.getElementById("inertia").value = "0.45";
+    calculateDeflection();
+  }
+</script>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
 </script>
 
 </body>
