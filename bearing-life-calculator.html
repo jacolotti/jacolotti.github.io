@@ -1,132 +1,656 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <link rel="canonical" href="https://automationcalculators.net/bearing-life-calculator.html">
+  <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
 
-<link rel="canonical" href="https://automationcalculators.net/bearing-life-calculator.html">
-<meta name="robots" content="index, follow">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
 
-<title>Bearing Life Calculator | L10 Bearing Life</title>
+  <title>Bearing Life Calculator | L10 Bearing Life</title>
+  <meta name="description" content="Calculate bearing life using the L10 bearing life formula. Estimate bearing life in million revolutions and operating hours using dynamic load rating, applied load, and RPM.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="description" content="Calculate bearing life using the L10 bearing life formula. Estimate bearing life hours using load, dynamic rating, and RPM.">
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      color:#222;
+    }
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
 
-<style>
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
 
-body{
-font-family:Arial;
-background:#f4f4f4;
-text-align:center;
-margin:0;
-}
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
 
-.container{
-background:white;
-padding:40px;
-max-width:900px;
-margin:auto;
-border-radius:10px;
-box-shadow:0px 0px 10px rgba(0,0,0,.1);
-}
+    .hero p{
+      max-width:780px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
 
-input,select{
-padding:10px;
-font-size:16px;
-margin:8px;
-width:220px;
-}
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
 
-button{
-padding:12px 20px;
-font-size:16px;
-background:#1f2a44;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
 
-button:hover{
-background:#2c3c66;
-}
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
 
-.result{
-margin-top:20px;
-font-size:18px;
-font-weight:bold;
-}
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
 
-</style>
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
 
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:900px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:28px;
+    }
+
+    .card h2{
+      margin-top:0;
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.6;
+    }
+
+    .formula-box{
+      margin:20px 0 24px;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-size:17px;
+      font-weight:bold;
+      line-height:1.7;
+      text-align:left;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
+      text-align:left;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
+      color:#23314f;
+    }
+
+    input, select{
+      width:100%;
+      padding:11px 12px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+    }
+
+    input:focus, select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .button-row{
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      padding:13px 22px;
+      font-size:16px;
+      background:#1f2a44;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      transition:background .2s ease, transform .2s ease;
+      font-weight:bold;
+    }
+
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      transform:translateY(-1px);
+    }
+
+    .result{
+      margin-top:26px;
+      padding:22px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .result strong{
+      color:#1f2a44;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#f2f5fb;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .sidebar-card h3{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .note{
+      margin-top:22px;
+      color:#666;
+      font-size:14px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .footer{
+      margin-top:36px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .hero h1{
+        font-size:28px;
+      }
+
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <div id="navbar"></div>
 
-<div class="container">
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Bearing Life Calculator</h1>
+    <p>
+      Estimate L10 bearing life in million revolutions and operating hours using dynamic load rating, applied load, and shaft speed. Useful for machine design, motion systems, tooling, and rotating equipment.
+    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'bearing_life_hero'});">Find an Integrator</a>
+    </div>
+  </div>
+</section>
 
-<h1>Bearing Life Calculator</h1>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> enter bearing dynamic load rating <strong>C</strong>, equivalent applied load <strong>P</strong>, and shaft speed in RPM. The calculator will estimate basic L10 life for either ball or roller bearings.
+  </div>
 
-<p>Estimate bearing L10 life using dynamic load rating, applied load, and RPM.</p>
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Calculate L10 Bearing Life</h2>
 
-<select id="bearingType">
-<option value="3">Ball Bearing</option>
-<option value="3.333">Roller Bearing</option>
-</select>
+      <p class="description">
+        This calculator uses the standard L10 bearing life relationship to estimate basic rating life. It is a useful first-pass tool for comparing load conditions, reviewing design changes, and checking how bearing life changes as applied load increases.
+      </p>
 
-<br>
+      <div class="formula-box">
+        L10 = (C / P)<sup>p</sup><br>
+        Life Hours = (L10 × 1,000,000) / (60 × RPM)
+      </div>
 
-<input id="dynamicRating" placeholder="Dynamic Load Rating C">
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadBallBearingExample(); gtag('event','bearing_life_quick_example',{'type':'ball_bearing'});">Ball Bearing Example</button>
+        <button type="button" onclick="loadRollerBearingExample(); gtag('event','bearing_life_quick_example',{'type':'roller_bearing'});">Roller Bearing Example</button>
+        <button type="button" onclick="loadHighSpeedExample(); gtag('event','bearing_life_quick_example',{'type':'high_speed'});">High Speed Example</button>
+      </div>
 
-<input id="appliedLoad" placeholder="Applied Load P">
+      <div class="grid">
+        <div class="field">
+          <label for="bearingType">Bearing Type</label>
+          <select id="bearingType">
+            <option value="3">Ball Bearing (p = 3)</option>
+            <option value="3.333">Roller Bearing (p = 10/3)</option>
+          </select>
+        </div>
 
-<input id="rpm" placeholder="RPM">
+        <div class="field">
+          <label for="dynamicRating">Dynamic Load Rating C</label>
+          <input id="dynamicRating" type="number" step="0.01" placeholder="e.g. 5000">
+        </div>
 
-<br>
+        <div class="field">
+          <label for="appliedLoad">Equivalent Applied Load P</label>
+          <input id="appliedLoad" type="number" step="0.01" placeholder="e.g. 1800">
+        </div>
 
-<button onclick="calculateBearingLife()">Calculate</button>
+        <div class="field">
+          <label for="rpm">Speed (RPM)</label>
+          <input id="rpm" type="number" step="0.01" placeholder="e.g. 1200">
+        </div>
+      </div>
 
-<div class="result" id="result"></div>
+      <div class="button-row">
+        <button onclick="calculateBearingLife(); gtag('event','bearing_life_calculation');">Calculate Bearing Life</button>
+        <button class="secondary" onclick="loadBallBearingExample(); gtag('event','bearing_life_example');">Load Example</button>
+        <button class="ghost" onclick="clearCalculator(); gtag('event','bearing_life_clear');">Reset Fields</button>
+      </div>
 
-<div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>  
+      <div class="result" id="result">
+        Enter your values above and click <strong>Calculate Bearing Life</strong>.
+      </div>
 
+      <div class="cta-box">
+        <h3>Need help applying this to a real machine?</h3>
+        <p>
+          If you are reviewing bearing selection, motion loads, mechanical layout, or reliability issues on equipment, connect with an automation integrator or machine design resource.
+        </p>
+        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'bearing_life_midpage'});">Find an Integrator</a>
+      </div>
+
+      <div class="learn-more">
+        <h3>What L10 life means</h3>
+        <p>
+          L10 life is the basic rating life at which 90% of a sufficiently large group of identical bearings are expected to still be operating under the stated conditions. It is a comparison and selection tool, not a guarantee of actual field life.
+        </p>
+
+        <p>
+          Real bearing life can be heavily affected by lubrication, contamination, misalignment, shock loading, mounting quality, preload, temperature, and duty cycle. That means two applications with the same calculated L10 value can perform very differently in the real world.
+        </p>
+
+        <div class="internal-links">
+          <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'bearing_life','to':'servo_torque'});">Servo Torque Calculator</a>
+          <a href="/gearbox-torque.html" onclick="gtag('event','internal_link_click',{'from':'bearing_life','to':'gearbox_torque'});">Gearbox Output Torque</a>
+          <a href="/beam-deflection-calculator.html" onclick="gtag('event','internal_link_click',{'from':'bearing_life','to':'beam_deflection'});">Beam Deflection Calculator</a>
+        </div>
+      </div>
+
+      <p class="note">
+        This calculator provides a basic L10 life estimate only. It does not include equivalent dynamic load factor derivation, axial/radial combined loading details, lubrication correction factors, contamination factors, temperature effects, reliability adjustments beyond standard L10, or manufacturer-specific bearing life methods.
+      </p>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical mechanical design tools
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>L10 life in million revolutions</li>
+          <li>Estimated operating life in hours</li>
+          <li>Ball vs roller bearing exponent handling</li>
+          <li>Quick comparison of load sensitivity</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Why load matters so much</h3>
+        <p>
+          Bearing life drops fast as applied load rises. Even a modest increase in equivalent load can cause a major reduction in calculated life, which makes proper sizing and load path review extremely important.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common real-world life reducers</h3>
+        <ul>
+          <li>Poor lubrication</li>
+          <li>Contamination and debris</li>
+          <li>Misalignment</li>
+          <li>Shock loading</li>
+          <li>Improper mounting or preload</li>
+          <li>Heat and duty cycle effects</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
+  function scrollToResult(){
+    document.getElementById("result").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
 
-function calculateBearingLife(){
+  function calculateBearingLife(){
+    const C = parseFloat(document.getElementById("dynamicRating").value);
+    const P = parseFloat(document.getElementById("appliedLoad").value);
+    const rpm = parseFloat(document.getElementById("rpm").value);
+    const p = parseFloat(document.getElementById("bearingType").value);
+    const result = document.getElementById("result");
 
-let C=parseFloat(document.getElementById("dynamicRating").value);
-let P=parseFloat(document.getElementById("appliedLoad").value);
-let rpm=parseFloat(document.getElementById("rpm").value);
-let p=parseFloat(document.getElementById("bearingType").value);
+    if(isNaN(C) || C <= 0){
+      result.innerHTML = "<strong>Please enter a dynamic load rating C greater than 0.</strong>";
+      scrollToResult();
+      return;
+    }
 
-let L10=Math.pow((C/P),p);
+    if(isNaN(P) || P <= 0){
+      result.innerHTML = "<strong>Please enter an applied load P greater than 0.</strong>";
+      scrollToResult();
+      return;
+    }
 
-let hours=(L10*1000000)/(60*rpm);
+    if(isNaN(rpm) || rpm <= 0){
+      result.innerHTML = "<strong>Please enter an RPM greater than 0.</strong>";
+      scrollToResult();
+      return;
+    }
 
-document.getElementById("result").innerHTML=
+    const L10 = Math.pow((C / P), p);
+    const hours = (L10 * 1000000) / (60 * rpm);
 
-"L10 Life: "+L10.toFixed(2)+" million revolutions<br><br>"+
-"Estimated Life: "+hours.toFixed(1)+" hours";
+    let lifeComment = "";
+    if(hours < 1000){
+      lifeComment = "This is a relatively short estimated life and may indicate overload, undersizing, or a harsh duty cycle.";
+    } else if(hours < 10000){
+      lifeComment = "This is a moderate estimated life. Review the application if long-term durability is important.";
+    } else {
+      lifeComment = "This is a stronger estimated life under the entered assumptions, though real-world conditions still matter.";
+    }
 
-}
+    result.innerHTML =
+      "<strong>L10 Life</strong><br>" +
+      L10.toFixed(2) + " million revolutions<br><br>" +
 
-fetch("navbar.html")
-.then(response=>response.text())
-.then(data=>{
-document.getElementById("navbar").innerHTML=data;
-});
+      "<strong>Estimated Operating Life</strong><br>" +
+      hours.toFixed(1) + " hours<br><br>" +
 
+      "<strong>Entered Values</strong><br>" +
+      "Dynamic Rating C: " + C.toFixed(2) + "<br>" +
+      "Applied Load P: " + P.toFixed(2) + "<br>" +
+      "Speed: " + rpm.toFixed(2) + " RPM<br><br>" +
+
+      "<strong>Note</strong><br>" +
+      lifeComment;
+
+    scrollToResult();
+  }
+
+  function clearCalculator(){
+    document.getElementById("bearingType").value = "3";
+    document.getElementById("dynamicRating").value = "";
+    document.getElementById("appliedLoad").value = "";
+    document.getElementById("rpm").value = "";
+    document.getElementById("result").innerHTML = 'Enter your values above and click <strong>Calculate Bearing Life</strong>.';
+  }
+
+  function loadBallBearingExample(){
+    document.getElementById("bearingType").value = "3";
+    document.getElementById("dynamicRating").value = "5000";
+    document.getElementById("appliedLoad").value = "1800";
+    document.getElementById("rpm").value = "1200";
+    calculateBearingLife();
+  }
+
+  function loadRollerBearingExample(){
+    document.getElementById("bearingType").value = "3.333";
+    document.getElementById("dynamicRating").value = "9000";
+    document.getElementById("appliedLoad").value = "3200";
+    document.getElementById("rpm").value = "900";
+    calculateBearingLife();
+  }
+
+  function loadHighSpeedExample(){
+    document.getElementById("bearingType").value = "3";
+    document.getElementById("dynamicRating").value = "4200";
+    document.getElementById("appliedLoad").value = "1500";
+    document.getElementById("rpm").value = "3600";
+    calculateBearingLife();
+  }
+</script>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
 </script>
 
 </body>
