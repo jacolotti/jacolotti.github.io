@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/spot-weld.html">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -21,128 +23,248 @@
     body{
       font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
       color:#222;
     }
 
-    
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial, sans-serif;
+      padding:42px 20px 32px;
+      text-align:center;
     }
 
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.85;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
-    .container{
-      background:white;
-      padding:30px;
-      max-width:780px;
+    .hero-inner{
+      max-width:950px;
       margin:auto;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,.1);
     }
 
-    .container h2{
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
       margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
       color:#1f2a44;
     }
 
     .description{
-      margin-top:0;
-      margin-bottom:18px;
+      margin:0 0 18px;
       color:#555;
       font-size:16px;
-      line-height:1.5;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-      gap:18px;
+      line-height:1.6;
       text-align:left;
     }
 
-    .field label{
-      display:block;
-      margin-bottom:6px;
-      font-weight:600;
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
     }
 
-    input, select{
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:25px 0 20px;
+      text-align:left;
+    }
+
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
+    }
+
+    .control-group input,
+    .control-group select{
       width:100%;
-      padding:10px;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
       background:white;
+      font-family:Arial, sans-serif;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
     .button-row{
-      margin-top:18px;
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
-    button{
-      padding:12px 26px;
+    .button-row button{
+      padding:13px 22px;
       font-size:16px;
-      background:#1f2a44;
+      background:#1e6bd6;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin:6px;
-      transition:background .2s;
+      font-weight:bold;
+      transition:.2s ease;
     }
 
-    button:hover{
-      background:#2d3d63;
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#1555ad;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
@@ -150,43 +272,148 @@
       padding:20px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:8px;
-      font-size:17px;
-      line-height:1.7;
+      border-radius:10px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
       text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .note{
       margin-top:20px;
       color:#666;
       font-size:14px;
-      line-height:1.5;
+      line-height:1.6;
       text-align:left;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
     }
 
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:700px){
-      .container{
+      .card,
+      .sidebar-card{
         padding:20px;
-        margin:0 12px;
       }
 
-      button{
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
         width:100%;
-        margin:6px 0;
+        max-width:320px;
       }
 
-      .navbar{
-        gap:4px;
+      .button-row{
+        flex-direction:column;
       }
 
-      .dropdown-content{
-        min-width:200px;
+      .button-row button{
+        width:100%;
       }
     }
   </style>
@@ -195,102 +422,195 @@
 
 <div id="navbar"></div>
 
-<div class="container">
-  <h2>Resistance Spot Weld Starting Parameter Calculator</h2>
-
-  <p class="description">
-    Estimate conservative starting parameters for resistance spot welding using material type, sheet thickness, stack condition, weld quality target, and machine type.
-  </p>
-
-  <p class="description">
-    This tool is intended for first-pass setup and planning only. Final weld schedules should always be validated with destructive testing, nugget checks, peel tests, button pull results, and actual machine capability.
-  </p>
-
-  <p class="description">
-    Use this free spot weld calculator to estimate starting current range, force range in kN and lbf, weld time range, squeeze time, hold time, tip diameter, and nugget target for common sheet metal spot welding applications.
-  </p>
-
-  <div class="grid">
-    <div class="field">
-      <label for="material">Material</label>
-      <select id="material">
-        <option value="mild">Bare Mild Steel</option>
-        <option value="galvanized">Galvanized Steel</option>
-        <option value="galvaneal">Galvaneal Steel</option>
-        <option value="stainless">Stainless Steel</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="thickness1">Sheet 1 Thickness (mm)</label>
-      <input id="thickness1" type="number" value="1.0" min="0.1" max="6" step="0.01">
-    </div>
-
-    <div class="field">
-      <label for="thickness2">Sheet 2 Thickness (mm)</label>
-      <input id="thickness2" type="number" value="1.0" min="0.1" max="6" step="0.01">
-    </div>
-
-    <div class="field">
-      <label for="stackType">Sheet Stack Type</label>
-      <select id="stackType">
-        <option value="equal">Equal Thickness / Balanced Stack</option>
-        <option value="thin_to_thick">Thin to Thick</option>
-        <option value="thick_to_thin">Thick to Thin</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="quality">Weld Quality Target</label>
-      <select id="quality">
-        <option value="standard">Standard Production</option>
-        <option value="high">High Strength / Cosmetic Focus</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="machine">Machine Type</label>
-      <select id="machine">
-        <option value="ac">AC Welder</option>
-        <option value="mfdc">MFDC Welder</option>
-      </select>
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Resistance Spot Weld Starting Parameter Calculator</h1>
+    <p>
+      Estimate conservative starting current, force, weld time, squeeze time, hold time, tip diameter, and nugget target for common resistance spot welding applications using material, thickness, stack condition, quality target, and machine type.
+    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/projection-weld.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'spot_weld_hero','to':'projection_weld'});">Projection Weld Calculator</a>
     </div>
   </div>
+</section>
 
-  <div class="button-row">
-    <button onclick="calculateSpotWeld();">Calculate</button>
-    <button onclick="loadExample(); gtag('event','spot_weld_example');">Load Example</button>
-    <button onclick="clearCalculator(); gtag('event','spot_weld_clear');">Clear</button>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> use this for first-pass weld schedule direction before full validation. Final production values still need destructive testing, nugget verification, peel tests, button pull review, and confirmation of actual machine capability.
   </div>
 
-  <div class="result" id="output">
-    Enter values and press Calculate
-  </div>
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Spot Weld Starting Parameters</h2>
 
-  <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>
+      <p class="description">
+        Estimate conservative starting parameters for resistance spot welding using material type, sheet thickness, stack condition, weld quality target, and machine type.
+      </p>
 
-  <p class="note">
-    Coated steels such as galvanized and galvaneal usually require tighter process control because coating affects contact resistance, heat balance, and electrode life.
-  </p>
+      <p class="description">
+        This tool is intended for first-pass setup and planning only. Final weld schedules should always be validated with destructive testing, nugget checks, peel tests, button pull results, and actual machine capability.
+      </p>
 
-  <p class="note">
-    Weld time shown in cycles assumes a 60 Hz timing reference. Milliseconds are included as a practical cross-reference when comparing AC and MFDC discussions.
-  </p>
+      <div class="formula-box">
+        Starting Current, Force, and Time scale primarily with total sheet thickness, material behavior, stack condition, and machine type.<br><br>
+        Final schedule approval always requires testing.
+      </div>
 
-  <div class="footer">
-    Automation Engineering Tools • Practical calculators for real automation work
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample1(); gtag('event','spot_weld_example',{'type':'galvanized_equal'});">Galvanized Equal Stack</button>
+        <button type="button" onclick="loadExample2(); gtag('event','spot_weld_example',{'type':'mild_uneven'});">Mild Uneven Stack</button>
+        <button type="button" onclick="loadExample3(); gtag('event','spot_weld_example',{'type':'stainless'});">Stainless Example</button>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="material">Material</label>
+          <select id="material">
+            <option value="mild">Bare Mild Steel</option>
+            <option value="galvanized">Galvanized Steel</option>
+            <option value="galvaneal">Galvaneal Steel</option>
+            <option value="stainless">Stainless Steel</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="thickness1">Sheet 1 Thickness (mm)</label>
+          <input id="thickness1" type="number" value="1.0" min="0.1" max="6" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="thickness2">Sheet 2 Thickness (mm)</label>
+          <input id="thickness2" type="number" value="1.0" min="0.1" max="6" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="stackType">Sheet Stack Type</label>
+          <select id="stackType">
+            <option value="equal">Equal Thickness / Balanced Stack</option>
+            <option value="thin_to_thick">Thin to Thick</option>
+            <option value="thick_to_thin">Thick to Thin</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="quality">Weld Quality Target</label>
+          <select id="quality">
+            <option value="standard">Standard Production</option>
+            <option value="high">High Strength / Cosmetic Focus</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="machine">Machine Type</label>
+          <select id="machine">
+            <option value="ac">AC Welder</option>
+            <option value="mfdc">MFDC Welder</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateSpotWeld();">Calculate</button>
+        <button class="secondary" onclick="loadExample1();">Load Example</button>
+        <button class="ghost" onclick="clearCalculator(); gtag('event','spot_weld_clear');">Reset</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter values and press <strong>Calculate</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this to a real machine?</h3>
+        <p>
+          Get connected with a qualified automation integrator if you need help with weld setup direction, equipment review, controls integration, or production validation planning.
+        </p>
+        <a href="/integrators.html">Find an Integrator</a>
+      </div>
+
+      <p class="note">
+        Coated steels such as galvanized and galvaneal usually require tighter process control because coating affects contact resistance, heat balance, and electrode life.
+      </p>
+
+      <p class="note">
+        Weld time shown in cycles assumes a 60 Hz timing reference. Milliseconds are included as a practical cross-reference when comparing AC and MFDC discussions.
+      </p>
+
+      <div class="learn-more">
+        <h3>What to check next</h3>
+
+        <p>
+          This tool gives a first-pass schedule direction, but real spot welding depends heavily on electrode condition, contact resistance, stack balance, machine stiffness, cooling, coating behavior, and actual dynamic current delivery. A schedule that looks reasonable on paper can still fail in production.
+        </p>
+
+        <p>
+          For real process development, use these values only as a starting range, then confirm with destructive testing, nugget checks, peel testing, button pull review, expulsion monitoring, and confirmation that the machine can actually deliver the required force and current consistently.
+        </p>
+
+        <div class="internal-links">
+          <a href="/projection-weld.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'projection_weld'});">Projection Weld Calculator</a>
+          <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'robot_cycle_time'});">Robot Cycle Time</a>
+          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'pneumatic_force'});">Pneumatic Force</a>
+          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'automation_roi'});">Automation ROI</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Starting current range</li>
+          <li>Starting force range in kN and lbf</li>
+          <li>Starting weld time range</li>
+          <li>Suggested squeeze and hold time</li>
+          <li>Suggested tip diameter</li>
+          <li>Suggested nugget target</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Where this helps</h3>
+        <p>
+          Useful for early weld schedule setup, sheet metal process development, equipment review, and first-pass production trials for common resistance spot welding applications.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Destructive testing and nugget size</li>
+          <li>Peel test and button pull results</li>
+          <li>Electrode condition and cooling</li>
+          <li>Expulsion behavior and splash control</li>
+          <li>Actual machine force and current capability</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Process reminder</h3>
+        <p>
+          Spot weld setup is not finished when the calculator looks good. Real approval needs verified weld quality, repeatability, and machine performance under actual production conditions.
+        </p>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
   function showMessage(message){
     document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
   }
@@ -310,11 +630,13 @@
 
     if(t1 <= 0 || t2 <= 0){
       output.innerHTML = "<strong>Please enter sheet thickness values greater than 0.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(t1 > 6 || t2 > 6){
       output.innerHTML = "<strong>This calculator is intended for light to moderate sheet thicknesses up to about 6 mm.</strong>";
+      scrollToOutput();
       return;
     }
 
@@ -465,6 +787,8 @@
 
       "<strong>Important</strong><br>" +
       "These are conservative first-pass starting values only. Validate with destructive testing, nugget checks, peel tests, and actual machine behavior.";
+
+    scrollToOutput();
   }
 
   function clearCalculator(){
@@ -474,10 +798,10 @@
     document.getElementById("stackType").value = "equal";
     document.getElementById("quality").value = "standard";
     document.getElementById("machine").value = "ac";
-    showMessage("Enter values and press Calculate");
+    showMessage("Enter values and press Calculate.");
   }
 
-  function loadExample(){
+  function loadExample1(){
     document.getElementById("material").value = "galvanized";
     document.getElementById("thickness1").value = "1.2";
     document.getElementById("thickness2").value = "1.2";
@@ -486,10 +810,30 @@
     document.getElementById("machine").value = "mfdc";
     calculateSpotWeld();
   }
+
+  function loadExample2(){
+    document.getElementById("material").value = "mild";
+    document.getElementById("thickness1").value = "0.8";
+    document.getElementById("thickness2").value = "1.6";
+    document.getElementById("stackType").value = "thin_to_thick";
+    document.getElementById("quality").value = "standard";
+    document.getElementById("machine").value = "ac";
+    calculateSpotWeld();
+  }
+
+  function loadExample3(){
+    document.getElementById("material").value = "stainless";
+    document.getElementById("thickness1").value = "1.0";
+    document.getElementById("thickness2").value = "1.0";
+    document.getElementById("stackType").value = "equal";
+    document.getElementById("quality").value = "high";
+    document.getElementById("machine").value = "mfdc";
+    calculateSpotWeld();
+  }
 </script>
 
 <script>
-  fetch("navbar.html")
+  fetch("navbar.html?v=20260314")
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
