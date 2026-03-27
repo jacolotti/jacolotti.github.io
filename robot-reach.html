@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/robot-reach.html">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -15,123 +17,252 @@
 
   <title>Robot Reach Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free robot reach calculator for automation engineers. Estimate whether a robot can reach a target point based on horizontal distance, vertical distance, and robot reach.">
+  <meta name="description" content="Free robot reach calculator for automation engineers. Estimate whether a robot can physically reach a target point using horizontal distance, vertical distance, robot reach, and safety margin.">
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
+      color:#222;
     }
 
-    
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
+      padding:42px 20px 32px;
+      text-align:center;
     }
 
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
-    .container{
-      background:white;
-      padding:30px;
-      max-width:700px;
+    .hero-inner{
+      max-width:950px;
       margin:auto;
-      border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
     }
 
-    .container h2{
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
       margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
       color:#1f2a44;
     }
 
     .description{
-      margin-top:0;
-      margin-bottom:18px;
+      margin:0 0 18px;
       color:#555;
       font-size:16px;
-      line-height:1.5;
-      font-weight:normal;
+      line-height:1.6;
+      text-align:left;
     }
 
-    .container p{
-      margin-top:20px;
-      margin-bottom:5px;
-      font-weight:500;
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
     }
 
-    input, select{
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:25px 0 20px;
+      text-align:left;
+    }
+
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
+    }
+
+    .control-group input{
       width:100%;
-      padding:10px;
-      margin:10px 0;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+      font-family:Arial, sans-serif;
     }
 
-    button{
-      padding:12px 26px;
+    .control-group input:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .button-row{
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      padding:13px 22px;
       font-size:16px;
       background:#1e6bd6;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin-top:15px;
-      transition:background .2s;
+      font-weight:bold;
+      transition:.2s ease;
     }
 
-    button:hover{
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
       background:#1555ad;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
@@ -139,33 +270,147 @@
       padding:20px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:8px;
+      border-radius:10px;
       font-size:18px;
       line-height:1.6;
       font-weight:500;
       text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .note{
       margin-top:20px;
       color:#666;
       font-size:14px;
-      line-height:1.5;
+      line-height:1.6;
       text-align:left;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
     }
 
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:700px){
-      .container{
+      .card,
+      .sidebar-card{
         padding:20px;
       }
 
-      button{
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
         width:100%;
       }
     }
@@ -173,108 +418,258 @@
 </head>
 <body>
 
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h2>Robot Reach Calculator</h2>
-
-    <p class="description">
-      Estimate whether a robot can physically reach a target point using horizontal distance, vertical distance, and available robot reach.
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Robot Reach Calculator</h1>
+    <p>
+      Estimate whether a robot can physically reach a target point using horizontal distance, vertical distance, available robot reach, and a safety margin. Useful for early layout studies, fixture planning, and accessibility checks.
     </p>
-
-    <p class="description">
-      This calculator is useful for checking robot accessibility during automation layout, EOAT planning, fixture design, and preliminary reach studies.
-    </p>
-
-    <p>Robot Reach (in)</p>
-    <input id="robotReach" type="number" value="60" min="0.01" step="0.01">
-
-    <p>Horizontal Distance to Target (in)</p>
-    <input id="horizontalDistance" type="number" value="40" min="0" step="0.01">
-
-    <p>Vertical Distance to Target (in)</p>
-    <input id="verticalDistance" type="number" value="20" min="0" step="0.01">
-
-    <p>Safety Margin (in)</p>
-    <input id="safetyMargin" type="number" value="4" min="0" step="0.01">
-
-    <button onclick="calculateRobotReach(); gtag('event','robot_reach_calculation');">Calculate</button>
-
-    <div class="result" id="output">
-      Enter values and press Calculate
-    </div>
-
-    <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>
-
-    <p class="note">
-      This is a straight-line reach estimate from the robot mounting point to the target point. It does not account for joint limits, wrist orientation, interference, tooling length, singularities, or safe working envelope restrictions.
-    </p>
-
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators for real automation work
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/robot-payload.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'robot_reach_hero','to':'robot_payload'});">Robot Payload Calculator</a>
     </div>
   </div>
+</section>
 
-  <script>
-    function calculateRobotReach(){
-      let robotReach = parseFloat(document.getElementById("robotReach").value) || 0;
-      let horizontalDistance = parseFloat(document.getElementById("horizontalDistance").value) || 0;
-      let verticalDistance = parseFloat(document.getElementById("verticalDistance").value) || 0;
-      let safetyMargin = parseFloat(document.getElementById("safetyMargin").value) || 0;
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> use this for first-pass reach checks before you spend time on full robot simulation. It helps screen whether a target is even in range before you evaluate wrist orientation, joint limits, EOAT length, and interference.
+  </div>
 
-      const output = document.getElementById("output");
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Robot Reach to a Target Point</h2>
 
-      if(robotReach <= 0){
-        output.innerHTML = "<strong>Please enter a robot reach greater than 0.</strong>";
-        return;
-      }
+      <p class="description">
+        Estimate whether a robot can physically reach a target point using horizontal distance, vertical distance, available robot reach, and a safety margin.
+      </p>
 
-      if(horizontalDistance < 0 || verticalDistance < 0 || safetyMargin < 0){
-        output.innerHTML = "<strong>Please enter values of 0 or greater.</strong>";
-        return;
-      }
+      <p class="description">
+        This calculator is useful for robot accessibility checks during automation layout, EOAT planning, fixture design, and preliminary reach studies.
+      </p>
 
-      let requiredReach = Math.sqrt(Math.pow(horizontalDistance, 2) + Math.pow(verticalDistance, 2));
-      let availableReach = robotReach - safetyMargin;
-      let remainingMargin = availableReach - requiredReach;
+      <div class="formula-box">
+        Required Reach = √(Horizontal Distance² + Vertical Distance²)<br><br>
+        Available Reach = Robot Reach − Safety Margin
+      </div>
 
-      let status = remainingMargin >= 0
-        ? "Target is within estimated reach."
-        : "Target is outside estimated reach.";
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample1(); gtag('event','robot_reach_example',{'type':'standard'});">Standard Reach</button>
+        <button type="button" onclick="loadExample2(); gtag('event','robot_reach_example',{'type':'near_limit'});">Near Limit</button>
+        <button type="button" onclick="loadExample3(); gtag('event','robot_reach_example',{'type':'out_of_range'});">Out of Range</button>
+      </div>
 
-      output.innerHTML =
-        "<strong>Required Straight-Line Reach</strong><br>" +
-        requiredReach.toFixed(2) + " in<br><br>" +
+      <div class="controls">
+        <div class="control-group">
+          <label for="robotReach">Robot Reach (in)</label>
+          <input id="robotReach" type="number" value="60" min="0.01" step="0.01">
+        </div>
 
-        "<strong>Available Reach After Safety Margin</strong><br>" +
-        availableReach.toFixed(2) + " in<br><br>" +
+        <div class="control-group">
+          <label for="horizontalDistance">Horizontal Distance to Target (in)</label>
+          <input id="horizontalDistance" type="number" value="40" min="0" step="0.01">
+        </div>
 
-        "<strong>Remaining Reach Margin</strong><br>" +
-        remainingMargin.toFixed(2) + " in<br><br>" +
+        <div class="control-group">
+          <label for="verticalDistance">Vertical Distance to Target (in)</label>
+          <input id="verticalDistance" type="number" value="20" min="0" step="0.01">
+        </div>
 
-        "<strong>Result</strong><br>" +
-        status;
+        <div class="control-group">
+          <label for="safetyMargin">Safety Margin (in)</label>
+          <input id="safetyMargin" type="number" value="4" min="0" step="0.01">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateRobotReach(); gtag('event','robot_reach_calculation');">Calculate</button>
+        <button class="secondary" onclick="loadExample1();">Load Example</button>
+        <button class="ghost" onclick="resetCalculator(); gtag('event','robot_reach_clear');">Reset</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter values and press <strong>Calculate</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this to a real cell?</h3>
+        <p>
+          Get connected with a qualified automation integrator if you need help with robot layout, fixture placement, EOAT planning, or full work envelope review.
+        </p>
+        <a href="/integrators.html">Find an Integrator</a>
+      </div>
+
+      <p class="note">
+        This is a straight-line reach estimate from the robot mounting point to the target point. It does not account for joint limits, wrist orientation, interference, tooling length, singularities, dress pack constraints, or real safe working envelope restrictions.
+      </p>
+
+      <div class="learn-more">
+        <h3>What to check next</h3>
+
+        <p>
+          This tool is good for quick layout direction, but real robot access depends on much more than straight-line distance. A point can fall inside the robot’s nominal reach and still be impractical because of wrist angle limits, fixture interference, EOAT length, or poor approach direction.
+        </p>
+
+        <p>
+          For real robot layout work, this page usually works best alongside payload, cycle time, and tooling checks so you can confirm the robot can both reach the point and perform the task safely and reliably.
+        </p>
+
+        <div class="internal-links">
+          <a href="/robot-payload.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'robot_payload'});">Robot Payload</a>
+          <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'robot_cycle_time'});">Robot Cycle Time</a>
+          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'pneumatic_force'});">Pneumatic Force</a>
+          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'automation_roi'});">Automation ROI</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Required straight-line reach</li>
+          <li>Available reach after safety margin</li>
+          <li>Remaining reach margin</li>
+          <li>Basic reach feasibility result</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Where this helps</h3>
+        <p>
+          Useful for layout planning, fixture positioning, part presentation review, EOAT concept checks, and deciding whether a robot family is even in the right range before deeper simulation.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Joint limits and wrist orientation</li>
+          <li>Tool length and center of gravity</li>
+          <li>Fixture and guarding interference</li>
+          <li>Approach angle and process direction</li>
+          <li>Robot mounting height and base location</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Selection reminder</h3>
+        <p>
+          Do not treat catalog reach as guaranteed usable reach everywhere in the cell. Real working envelope can shrink fast once tooling, part geometry, cable routing, and approach direction are considered.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  function calculateRobotReach(){
+    let robotReach = parseFloat(document.getElementById("robotReach").value) || 0;
+    let horizontalDistance = parseFloat(document.getElementById("horizontalDistance").value) || 0;
+    let verticalDistance = parseFloat(document.getElementById("verticalDistance").value) || 0;
+    let safetyMargin = parseFloat(document.getElementById("safetyMargin").value) || 0;
+
+    const output = document.getElementById("output");
+
+    if(robotReach <= 0){
+      output.innerHTML = "<strong>Please enter a robot reach greater than 0.</strong>";
+      scrollToOutput();
+      return;
     }
-  </script>
 
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
+    if(horizontalDistance < 0 || verticalDistance < 0 || safetyMargin < 0){
+      output.innerHTML = "<strong>Please enter values of 0 or greater.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    let requiredReach = Math.sqrt(Math.pow(horizontalDistance, 2) + Math.pow(verticalDistance, 2));
+    let availableReach = robotReach - safetyMargin;
+    let remainingMargin = availableReach - requiredReach;
+
+    let status = "";
+    if(remainingMargin >= 6){
+      status = "Target is within estimated reach with a comfortable basic margin.";
+    } else if(remainingMargin >= 0){
+      status = "Target is within estimated reach, but margin is tight. Review tooling, wrist orientation, and real working envelope carefully.";
+    } else {
+      status = "Target is outside estimated reach using the entered safety margin.";
+    }
+
+    output.innerHTML =
+      "<strong>Required Straight-Line Reach</strong><br>" +
+      requiredReach.toFixed(2) + " in<br><br>" +
+
+      "<strong>Available Reach After Safety Margin</strong><br>" +
+      availableReach.toFixed(2) + " in<br><br>" +
+
+      "<strong>Remaining Reach Margin</strong><br>" +
+      remainingMargin.toFixed(2) + " in<br><br>" +
+
+      "<strong>Result</strong><br>" +
+      status;
+
+    scrollToOutput();
+  }
+
+  function resetCalculator(){
+    document.getElementById("robotReach").value = "60";
+    document.getElementById("horizontalDistance").value = "40";
+    document.getElementById("verticalDistance").value = "20";
+    document.getElementById("safetyMargin").value = "4";
+    document.getElementById("output").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
+  }
+
+  function loadExample1(){
+    document.getElementById("robotReach").value = "60";
+    document.getElementById("horizontalDistance").value = "40";
+    document.getElementById("verticalDistance").value = "20";
+    document.getElementById("safetyMargin").value = "4";
+    calculateRobotReach();
+  }
+
+  function loadExample2(){
+    document.getElementById("robotReach").value = "55";
+    document.getElementById("horizontalDistance").value = "45";
+    document.getElementById("verticalDistance").value = "25";
+    document.getElementById("safetyMargin").value = "3";
+    calculateRobotReach();
+  }
+
+  function loadExample3(){
+    document.getElementById("robotReach").value = "50";
+    document.getElementById("horizontalDistance").value = "48";
+    document.getElementById("verticalDistance").value = "22";
+    document.getElementById("safetyMargin").value = "4";
+    calculateRobotReach();
+  }
+</script>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
 
 </body>
 </html>
