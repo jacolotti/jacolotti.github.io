@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/multi-stage-torque-sequence.html">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -19,77 +21,124 @@
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
+      color:#222;
     }
 
-    
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
+      padding:42px 20px 32px;
+      text-align:center;
     }
 
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
-    .container{
-      background:white;
-      padding:30px;
-      max-width:1100px;
+    .hero-inner{
+      max-width:980px;
       margin:auto;
-      border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
     }
 
-    .container h2{
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:820px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1150px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1080px;
+      font-size:15px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:28px;
+    }
+
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
       margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
       color:#1f2a44;
     }
 
@@ -98,7 +147,29 @@
       margin-bottom:18px;
       color:#555;
       font-size:16px;
-      line-height:1.5;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
     }
 
     .controls{
@@ -109,41 +180,74 @@
       text-align:left;
     }
 
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
     .control-group label{
       display:block;
-      font-weight:500;
+      font-weight:600;
       margin-bottom:6px;
-      color:#1f2a44;
+      color:#23314f;
     }
 
     .control-group input,
     .control-group select{
       width:100%;
-      padding:10px;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
     .button-row{
       margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
-    button{
-      padding:12px 26px;
+    .button-row button{
+      padding:13px 22px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin:6px;
-      transition:background .2s;
+      margin:0;
+      transition:background .2s, transform .2s;
+      font-weight:bold;
     }
 
-    button:hover{
-      background:#1555ad;
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#2d3d63;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
@@ -151,7 +255,7 @@
       padding:20px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:8px;
+      border-radius:10px;
       font-size:17px;
       line-height:1.6;
       font-weight:500;
@@ -159,6 +263,8 @@
       margin-left:auto;
       margin-right:auto;
       text-align:left;
+      scroll-margin-top:100px;
+      overflow-x:auto;
     }
 
     .table-wrap{
@@ -171,6 +277,7 @@
       border-collapse:collapse;
       background:white;
       margin-top:10px;
+      min-width:760px;
     }
 
     th, td{
@@ -185,54 +292,177 @@
       color:white;
     }
 
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
     .note{
       margin-top:20px;
       color:#666;
       font-size:14px;
-      line-height:1.5;
+      line-height:1.6;
       max-width:1000px;
       margin-left:auto;
       margin-right:auto;
       text-align:left;
     }
 
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+      text-align:center;
     }
 
     .print-only{
       display:none;
     }
 
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
     @media (max-width:700px){
-      .container{
+      .card,
+      .sidebar-card{
         padding:20px;
       }
 
-      button{
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
         width:100%;
-        margin:6px 0;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
       }
     }
 
     @media print{
-      .navbar,
+      .hero,
+      #navbar,
       .button-row,
-      .footer{
-        display:none;
+      .footer,
+      .top-note,
+      .sidebar-card,
+      .cta-box,
+      .learn-more{
+        display:none !important;
       }
 
       body{
         background:white;
       }
 
-      .container{
-        box-shadow:none;
+      .page-wrap,
+      .card{
         max-width:100%;
         margin:0;
         padding:0;
+        box-shadow:none;
+        border:none;
+      }
+
+      .main-grid{
+        display:block;
       }
 
       .print-only{
@@ -244,515 +474,619 @@
 </head>
 <body>
 
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h2>Multi-Stage Torque Sequence Calculator</h2>
-
-    <p class="description">
-      Calculate multi-stage tightening values for Cleco, Atlas Copco, and other DC nut runners. Build snug, intermediate, final torque, and torque-angle sequences for production setup planning.
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Multi-Stage Torque Sequence Calculator</h1>
+    <p>
+      Build practical tightening sequences for Cleco, Atlas Copco, and other DC nut runners using snug torque, intermediate stages, final torque, torque-angle stages, prevailing torque compensation, and tolerance windows.
     </p>
-
-    <p class="description">
-      This calculator is useful for tightening strategy planning, rundown and snug setup, final torque stage review, torque-angle sequence planning, and rough process documentation for assembly and automation applications.
-    </p>
-
-    <p class="description">
-      Use this free multi-stage torque sequence calculator to estimate stage torque values, tolerance windows, torque-angle targets, prevailing torque compensation, and printable setup values for common tightening strategies.
-    </p>
-
-    <div class="controls">
-      <div class="control-group">
-        <label for="brand">Tool Brand / Controller Style</label>
-        <select id="brand">
-          <option value="Cleco">Cleco</option>
-          <option value="Atlas Copco">Atlas Copco</option>
-          <option value="Generic DC Nut Runner">Generic DC Nut Runner</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="units">Torque Units</label>
-        <select id="units">
-          <option value="Nm">Nm</option>
-          <option value="ft-lb">ft-lb</option>
-          <option value="in-lb">in-lb</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="jointPreset">Joint Type Preset</label>
-        <select id="jointPreset" onchange="applyJointPreset()">
-          <option value="custom">Custom</option>
-          <option value="hard">Hard Joint</option>
-          <option value="medium">Medium Joint</option>
-          <option value="soft">Soft Joint</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="sequenceMode">Sequence Mode</label>
-        <select id="sequenceMode" onchange="toggleInputs()">
-          <option value="snug_final">Snug + Final Torque</option>
-          <option value="multi_torque" selected>Multi-Stage Torque</option>
-          <option value="torque_angle">Torque + Angle Final</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="stageCount">Number of Stages</label>
-        <select id="stageCount" onchange="toggleInputs()">
-          <option value="2">2 Stages</option>
-          <option value="3" selected>3 Stages</option>
-          <option value="4">4 Stages</option>
-          <option value="5">5 Stages</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="finalTorque">Final Target Torque</label>
-        <input id="finalTorque" type="number" value="50" step="0.1" min="0.1">
-      </div>
-
-      <div class="control-group">
-        <label for="snugTorque">Snug Torque (optional)</label>
-        <input id="snugTorque" type="number" value="15" step="0.1" min="0">
-      </div>
-
-      <div class="control-group">
-        <label for="prevailingTorque">Prevailing Torque (optional)</label>
-        <input id="prevailingTorque" type="number" value="0" step="0.1" min="0">
-      </div>
-
-      <div class="control-group">
-        <label for="finalAngle">Final Angle After Torque (deg)</label>
-        <input id="finalAngle" type="number" value="60" step="1" min="0">
-      </div>
-
-      <div class="control-group">
-        <label for="tolerance">Torque Tolerance (± %)</label>
-        <input id="tolerance" type="number" value="5" step="0.1" min="0">
-      </div>
-
-      <div class="control-group">
-        <label for="customStagePercentages">Custom Stage Percentages (%)</label>
-        <input id="customStagePercentages" type="text" value="" placeholder="Example: 30,60,85,100">
-      </div>
-
-      <div class="control-group">
-        <label for="customStageAngles">Custom Stage Angles (deg)</label>
-        <input id="customStageAngles" type="text" value="" placeholder="Example: 0,0,0,45">
-      </div>
-
-      <div class="control-group">
-        <label for="boltNotes">Bolt / Joint Notes (optional)</label>
-        <input id="boltNotes" type="text" value="" placeholder="Example: M10 class 10.9 hard joint">
-      </div>
-    </div>
-
-    <div class="button-row">
-      <button onclick="calculateSequence();">Calculate Sequence</button>
-      <button onclick="loadRecommendedStages();">Load Recommended Stages</button>
-      <button onclick="window.print(); gtag('event','torque_sequence_print');">Print Setup Sheet</button>
-      <button onclick="resetCalculator();">Reset</button>
-    </div>
-
-    <div class="result" id="output">
-      Enter values and calculate the torque sequence
-    </div>
-
-    <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>
-
-    <p class="note">
-      This tool is intended as a planning and setup aid only. Actual production values should be validated against joint behavior, fastener condition, clamp requirements, controller capability, and tool manufacturer recommendations.
-    </p>
-
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators and simulators for real automation work
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/bolt-tightening-torque.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'torque_sequence_hero','to':'bolt_tightening_torque'});">Bolt Tightening Torque</a>
     </div>
   </div>
+</section>
 
-  <script>
-    function safeParseFloat(id, fallback){
-      const value = parseFloat(document.getElementById(id).value);
-      return isNaN(value) ? fallback : value;
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> choose the sequence type, enter final torque, stage count, tolerance, and any prevailing torque, then print the setup sheet for controller programming or process review.
+  </div>
+
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Plan Multi-Stage Tightening Sequences</h2>
+
+      <p class="description">
+        This calculator is useful for tightening strategy planning, rundown and snug setup, final torque stage review, torque-angle sequence planning, and rough process documentation for assembly and automation applications.
+      </p>
+
+      <p class="description">
+        Use it as a setup aid for production tightening tools and DC nut runners. It is best suited for early planning and controller setup review, not final validation of joint performance.
+      </p>
+
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadRecommendedStages(); gtag('event','torque_sequence_example',{'type':'recommended'});">Recommended Stages</button>
+        <button type="button" onclick="loadHardJointExample(); gtag('event','torque_sequence_example',{'type':'hard_joint'});">Hard Joint Example</button>
+        <button type="button" onclick="loadTorqueAngleExample(); gtag('event','torque_sequence_example',{'type':'torque_angle'});">Torque + Angle Example</button>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="brand">Tool Brand / Controller Style</label>
+          <select id="brand">
+            <option value="Cleco">Cleco</option>
+            <option value="Atlas Copco">Atlas Copco</option>
+            <option value="Generic DC Nut Runner">Generic DC Nut Runner</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="units">Torque Units</label>
+          <select id="units">
+            <option value="Nm">Nm</option>
+            <option value="ft-lb">ft-lb</option>
+            <option value="in-lb">in-lb</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="jointPreset">Joint Type Preset</label>
+          <select id="jointPreset" onchange="applyJointPreset()">
+            <option value="custom">Custom</option>
+            <option value="hard">Hard Joint</option>
+            <option value="medium">Medium Joint</option>
+            <option value="soft">Soft Joint</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="sequenceMode">Sequence Mode</label>
+          <select id="sequenceMode" onchange="toggleInputs()">
+            <option value="snug_final">Snug + Final Torque</option>
+            <option value="multi_torque" selected>Multi-Stage Torque</option>
+            <option value="torque_angle">Torque + Angle Final</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="stageCount">Number of Stages</label>
+          <select id="stageCount" onchange="toggleInputs()">
+            <option value="2">2 Stages</option>
+            <option value="3" selected>3 Stages</option>
+            <option value="4">4 Stages</option>
+            <option value="5">5 Stages</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="finalTorque">Final Target Torque</label>
+          <input id="finalTorque" type="number" value="50" step="0.1" min="0.1">
+        </div>
+
+        <div class="control-group">
+          <label for="snugTorque">Snug Torque (optional)</label>
+          <input id="snugTorque" type="number" value="15" step="0.1" min="0">
+        </div>
+
+        <div class="control-group">
+          <label for="prevailingTorque">Prevailing Torque (optional)</label>
+          <input id="prevailingTorque" type="number" value="0" step="0.1" min="0">
+        </div>
+
+        <div class="control-group">
+          <label for="finalAngle">Final Angle After Torque (deg)</label>
+          <input id="finalAngle" type="number" value="60" step="1" min="0">
+        </div>
+
+        <div class="control-group">
+          <label for="tolerance">Torque Tolerance (± %)</label>
+          <input id="tolerance" type="number" value="5" step="0.1" min="0">
+        </div>
+
+        <div class="control-group">
+          <label for="customStagePercentages">Custom Stage Percentages (%)</label>
+          <input id="customStagePercentages" type="text" value="" placeholder="Example: 30,60,85,100">
+        </div>
+
+        <div class="control-group">
+          <label for="customStageAngles">Custom Stage Angles (deg)</label>
+          <input id="customStageAngles" type="text" value="" placeholder="Example: 0,0,0,45">
+        </div>
+
+        <div class="control-group">
+          <label for="boltNotes">Bolt / Joint Notes (optional)</label>
+          <input id="boltNotes" type="text" value="" placeholder="Example: M10 class 10.9 hard joint">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateSequence();">Calculate Sequence</button>
+        <button class="secondary" onclick="loadRecommendedStages();">Load Recommended Stages</button>
+        <button class="secondary" onclick="window.print(); gtag('event','torque_sequence_print');">Print Setup Sheet</button>
+        <button class="ghost" onclick="resetCalculator();">Reset</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter values and calculate the torque sequence.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this to a real tightening process?</h3>
+        <p>
+          Get connected with a qualified automation integrator if you need help with DC tool setup, fastening strategy, torque validation, or production process tuning.
+        </p>
+        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'torque_sequence_midpage'});">
+          Find an Integrator
+        </a>
+      </div>
+
+      <p class="note">
+        This tool is intended as a planning and setup aid only. Actual production values should be validated against joint behavior, fastener condition, clamp requirements, controller capability, and tool manufacturer recommendations.
+      </p>
+
+      <div class="learn-more">
+        <h3>Why stage strategy matters</h3>
+        <p>
+          Multi-stage tightening helps control seating, reduce variation, and improve final joint consistency. In harder joints it can stabilize final torque control, while in softer or more variable joints it can help manage rundown behavior before the final stage.
+        </p>
+
+        <p>
+          Torque-only values do not guarantee clamp load. Real results still depend on friction, joint condition, prevailing torque, fastener quality, seating behavior, and how the tool and controller respond during rundown.
+        </p>
+
+        <div class="internal-links">
+          <a href="/bolt-tightening-torque.html" onclick="gtag('event','internal_link_click',{'from':'torque_sequence','to':'bolt_tightening_torque'});">Bolt Tightening Torque</a>
+          <a href="/torque-angle.html" onclick="gtag('event','internal_link_click',{'from':'torque_sequence','to':'torque_angle'});">Torque-Angle Calculator</a>
+          <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link_click',{'from':'torque_sequence','to':'torque_clamp_load'});">Torque to Clamp Load</a>
+          <a href="/bolt-torque-chart.html" onclick="gtag('event','internal_link_click',{'from':'torque_sequence','to':'bolt_torque_chart'});">Bolt Torque Chart</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators and simulators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Stage-by-stage torque plan</li>
+          <li>Low and high torque limits</li>
+          <li>Torque-angle final stage planning</li>
+          <li>Prevailing torque compensation</li>
+          <li>Printable setup sheet</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common uses</h3>
+        <p>
+          Useful for production tightening setup, DC tool programming, fastening process planning, controller review, and initial process documentation.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Joint rate and seating behavior</li>
+          <li>Prevailing torque consistency</li>
+          <li>Final clamp load validation</li>
+          <li>Tool/controller capability</li>
+          <li>Production repeatability</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function safeParseFloat(id, fallback){
+    const value = parseFloat(document.getElementById(id).value);
+    return isNaN(value) ? fallback : value;
+  }
+
+  function safeParseInt(id, fallback){
+    const value = parseInt(document.getElementById(id).value);
+    return isNaN(value) ? fallback : value;
+  }
+
+  function escapeHtml(text){
+    if(text === null || text === undefined) return "";
+    return String(text)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  function toggleInputs(){
+    const sequenceMode = document.getElementById("sequenceMode").value;
+    const finalAngleInput = document.getElementById("finalAngle");
+
+    if(sequenceMode === "torque_angle"){
+      finalAngleInput.disabled = false;
+    } else {
+      finalAngleInput.disabled = true;
     }
+  }
 
-    function safeParseInt(id, fallback){
-      const value = parseInt(document.getElementById(id).value);
-      return isNaN(value) ? fallback : value;
-    }
+  function applyJointPreset(){
+    const preset = document.getElementById("jointPreset").value;
 
-    function escapeHtml(text){
-      if(text === null || text === undefined) return "";
-      return String(text)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-
-    function toggleInputs(){
-      const sequenceMode = document.getElementById("sequenceMode").value;
-      const finalAngleInput = document.getElementById("finalAngle");
-      const snugInput = document.getElementById("snugTorque");
-
-      if(sequenceMode === "torque_angle"){
-        finalAngleInput.disabled = false;
+    if(preset === "hard"){
+      document.getElementById("tolerance").value = 3;
+      if(document.getElementById("sequenceMode").value === "torque_angle"){
+        document.getElementById("finalAngle").value = 30;
       } else {
-        finalAngleInput.disabled = true;
+        document.getElementById("finalAngle").value = 0;
       }
-
-      snugInput.disabled = false;
-    }
-
-    function applyJointPreset(){
-      const preset = document.getElementById("jointPreset").value;
-
-      if(preset === "hard"){
-        document.getElementById("tolerance").value = 3;
-        if(document.getElementById("sequenceMode").value === "torque_angle"){
-          document.getElementById("finalAngle").value = 30;
-        } else {
-          document.getElementById("finalAngle").value = 0;
-        }
-      } else if(preset === "medium"){
-        document.getElementById("tolerance").value = 5;
-        if(document.getElementById("sequenceMode").value === "torque_angle"){
-          document.getElementById("finalAngle").value = 60;
-        } else {
-          document.getElementById("finalAngle").value = 0;
-        }
-      } else if(preset === "soft"){
-        document.getElementById("tolerance").value = 7;
-        if(document.getElementById("sequenceMode").value === "torque_angle"){
-          document.getElementById("finalAngle").value = 90;
-        } else {
-          document.getElementById("finalAngle").value = 0;
-        }
+    } else if(preset === "medium"){
+      document.getElementById("tolerance").value = 5;
+      if(document.getElementById("sequenceMode").value === "torque_angle"){
+        document.getElementById("finalAngle").value = 60;
+      } else {
+        document.getElementById("finalAngle").value = 0;
       }
-
-      loadRecommendedStages(false);
-    }
-
-    function getRecommendedPercentages(stageCount, sequenceMode){
-      if(sequenceMode === "snug_final"){
-        if(stageCount === 2) return [35, 100];
-        if(stageCount === 3) return [30, 60, 100];
-        if(stageCount === 4) return [25, 45, 70, 100];
-        if(stageCount === 5) return [20, 35, 55, 75, 100];
-      }
-
-      if(sequenceMode === "multi_torque"){
-        if(stageCount === 2) return [60, 100];
-        if(stageCount === 3) return [40, 75, 100];
-        if(stageCount === 4) return [30, 60, 85, 100];
-        if(stageCount === 5) return [20, 40, 65, 85, 100];
-      }
-
-      if(sequenceMode === "torque_angle"){
-        if(stageCount === 2) return [70, 100];
-        if(stageCount === 3) return [35, 70, 100];
-        if(stageCount === 4) return [25, 50, 75, 100];
-        if(stageCount === 5) return [20, 40, 60, 80, 100];
-      }
-
-      return [40, 75, 100];
-    }
-
-    function getRecommendedAngles(stageCount, sequenceMode, finalAngle){
-      const arr = new Array(stageCount).fill(0);
-      if(sequenceMode === "torque_angle" && stageCount > 0){
-        arr[stageCount - 1] = finalAngle;
-      }
-      return arr;
-    }
-
-    function loadRecommendedStages(trackEvent = true){
-      const stageCount = safeParseInt("stageCount", 3);
-      const sequenceMode = document.getElementById("sequenceMode").value;
-      const finalAngle = safeParseFloat("finalAngle", 0);
-
-      const pcts = getRecommendedPercentages(stageCount, sequenceMode);
-      const angles = getRecommendedAngles(stageCount, sequenceMode, finalAngle);
-
-      document.getElementById("customStagePercentages").value = pcts.join(",");
-      document.getElementById("customStageAngles").value = angles.join(",");
-
-      if(trackEvent){
-        gtag('event', 'torque_sequence_load_recommended', {
-          stage_count: stageCount,
-          sequence_mode: sequenceMode
-        });
+    } else if(preset === "soft"){
+      document.getElementById("tolerance").value = 7;
+      if(document.getElementById("sequenceMode").value === "torque_angle"){
+        document.getElementById("finalAngle").value = 90;
+      } else {
+        document.getElementById("finalAngle").value = 0;
       }
     }
 
-    function parseNumberList(text){
-      if(!text.trim()) return [];
-      return text.split(",").map(item => parseFloat(item.trim()));
+    loadRecommendedStages(false);
+  }
+
+  function getRecommendedPercentages(stageCount, sequenceMode){
+    if(sequenceMode === "snug_final"){
+      if(stageCount === 2) return [35, 100];
+      if(stageCount === 3) return [30, 60, 100];
+      if(stageCount === 4) return [25, 45, 70, 100];
+      if(stageCount === 5) return [20, 35, 55, 75, 100];
     }
 
-    function validateInputs(){
-      const finalTorque = safeParseFloat("finalTorque", 0);
-      const snugTorque = safeParseFloat("snugTorque", 0);
-      const prevailingTorque = safeParseFloat("prevailingTorque", 0);
-      const tolerance = safeParseFloat("tolerance", -1);
-      const stageCount = safeParseInt("stageCount", 0);
-      const finalAngle = safeParseFloat("finalAngle", 0);
-      const sequenceMode = document.getElementById("sequenceMode").value;
+    if(sequenceMode === "multi_torque"){
+      if(stageCount === 2) return [60, 100];
+      if(stageCount === 3) return [40, 75, 100];
+      if(stageCount === 4) return [30, 60, 85, 100];
+      if(stageCount === 5) return [20, 40, 65, 85, 100];
+    }
 
-      if(finalTorque <= 0){
-        showMessage("Please enter a final target torque greater than 0.");
+    if(sequenceMode === "torque_angle"){
+      if(stageCount === 2) return [70, 100];
+      if(stageCount === 3) return [35, 70, 100];
+      if(stageCount === 4) return [25, 50, 75, 100];
+      if(stageCount === 5) return [20, 40, 60, 80, 100];
+    }
+
+    return [40, 75, 100];
+  }
+
+  function getRecommendedAngles(stageCount, sequenceMode, finalAngle){
+    const arr = new Array(stageCount).fill(0);
+    if(sequenceMode === "torque_angle" && stageCount > 0){
+      arr[stageCount - 1] = finalAngle;
+    }
+    return arr;
+  }
+
+  function loadRecommendedStages(trackEvent = true){
+    const stageCount = safeParseInt("stageCount", 3);
+    const sequenceMode = document.getElementById("sequenceMode").value;
+    const finalAngle = safeParseFloat("finalAngle", 0);
+
+    const pcts = getRecommendedPercentages(stageCount, sequenceMode);
+    const angles = getRecommendedAngles(stageCount, sequenceMode, finalAngle);
+
+    document.getElementById("customStagePercentages").value = pcts.join(",");
+    document.getElementById("customStageAngles").value = angles.join(",");
+
+    if(trackEvent){
+      gtag('event', 'torque_sequence_load_recommended', {
+        stage_count: stageCount,
+        sequence_mode: sequenceMode
+      });
+    }
+  }
+
+  function loadHardJointExample(){
+    document.getElementById("jointPreset").value = "hard";
+    document.getElementById("sequenceMode").value = "multi_torque";
+    document.getElementById("stageCount").value = "3";
+    document.getElementById("finalTorque").value = "45";
+    document.getElementById("snugTorque").value = "12";
+    document.getElementById("prevailingTorque").value = "0";
+    applyJointPreset();
+    toggleInputs();
+    calculateSequence();
+  }
+
+  function loadTorqueAngleExample(){
+    document.getElementById("jointPreset").value = "medium";
+    document.getElementById("sequenceMode").value = "torque_angle";
+    document.getElementById("stageCount").value = "3";
+    document.getElementById("finalTorque").value = "50";
+    document.getElementById("snugTorque").value = "15";
+    document.getElementById("prevailingTorque").value = "2";
+    applyJointPreset();
+    toggleInputs();
+    calculateSequence();
+  }
+
+  function parseNumberList(text){
+    if(!text.trim()) return [];
+    return text.split(",").map(item => parseFloat(item.trim()));
+  }
+
+  function validateInputs(){
+    const finalTorque = safeParseFloat("finalTorque", 0);
+    const snugTorque = safeParseFloat("snugTorque", 0);
+    const prevailingTorque = safeParseFloat("prevailingTorque", 0);
+    const tolerance = safeParseFloat("tolerance", -1);
+    const stageCount = safeParseInt("stageCount", 0);
+    const finalAngle = safeParseFloat("finalAngle", 0);
+    const sequenceMode = document.getElementById("sequenceMode").value;
+
+    if(finalTorque <= 0){
+      showMessage("Please enter a final target torque greater than 0.");
+      return false;
+    }
+
+    if(snugTorque < 0){
+      showMessage("Please enter a snug torque of 0 or greater.");
+      return false;
+    }
+
+    if(prevailingTorque < 0){
+      showMessage("Please enter a prevailing torque of 0 or greater.");
+      return false;
+    }
+
+    if(tolerance < 0){
+      showMessage("Please enter a torque tolerance of 0 or greater.");
+      return false;
+    }
+
+    if(stageCount < 2 || stageCount > 5){
+      showMessage("Please use a stage count between 2 and 5.");
+      return false;
+    }
+
+    if(sequenceMode === "torque_angle" && finalAngle < 0){
+      showMessage("Please enter a final angle of 0 or greater.");
+      return false;
+    }
+
+    const stagePercentages = parseNumberList(document.getElementById("customStagePercentages").value);
+    if(stagePercentages.length !== stageCount){
+      showMessage("Please enter exactly " + stageCount + " stage percentages separated by commas.");
+      return false;
+    }
+
+    for(let i = 0; i < stagePercentages.length; i++){
+      if(isNaN(stagePercentages[i]) || stagePercentages[i] <= 0 || stagePercentages[i] > 100){
+        showMessage("All stage percentages must be greater than 0 and no more than 100.");
+        return false;
+      }
+    }
+
+    for(let i = 1; i < stagePercentages.length; i++){
+      if(stagePercentages[i] < stagePercentages[i - 1]){
+        showMessage("Stage percentages must increase from one stage to the next.");
+        return false;
+      }
+    }
+
+    if(stagePercentages[stagePercentages.length - 1] !== 100){
+      showMessage("The final stage percentage must be 100.");
+      return false;
+    }
+
+    const stageAnglesRaw = document.getElementById("customStageAngles").value.trim();
+    if(stageAnglesRaw){
+      const stageAngles = parseNumberList(stageAnglesRaw);
+      if(stageAngles.length !== stageCount){
+        showMessage("Please enter exactly " + stageCount + " stage angles separated by commas, or leave it blank.");
         return false;
       }
 
-      if(snugTorque < 0){
-        showMessage("Please enter a snug torque of 0 or greater.");
-        return false;
-      }
-
-      if(prevailingTorque < 0){
-        showMessage("Please enter a prevailing torque of 0 or greater.");
-        return false;
-      }
-
-      if(tolerance < 0){
-        showMessage("Please enter a torque tolerance of 0 or greater.");
-        return false;
-      }
-
-      if(stageCount < 2 || stageCount > 5){
-        showMessage("Please use a stage count between 2 and 5.");
-        return false;
-      }
-
-      if(sequenceMode === "torque_angle" && finalAngle < 0){
-        showMessage("Please enter a final angle of 0 or greater.");
-        return false;
-      }
-
-      const stagePercentages = parseNumberList(document.getElementById("customStagePercentages").value);
-      if(stagePercentages.length !== stageCount){
-        showMessage("Please enter exactly " + stageCount + " stage percentages separated by commas.");
-        return false;
-      }
-
-      for(let i = 0; i < stagePercentages.length; i++){
-        if(isNaN(stagePercentages[i]) || stagePercentages[i] <= 0 || stagePercentages[i] > 100){
-          showMessage("All stage percentages must be greater than 0 and no more than 100.");
+      for(let i = 0; i < stageAngles.length; i++){
+        if(isNaN(stageAngles[i]) || stageAngles[i] < 0){
+          showMessage("All stage angles must be 0 or greater.");
           return false;
         }
       }
-
-      for(let i = 1; i < stagePercentages.length; i++){
-        if(stagePercentages[i] < stagePercentages[i - 1]){
-          showMessage("Stage percentages must increase from one stage to the next.");
-          return false;
-        }
-      }
-
-      if(stagePercentages[stagePercentages.length - 1] !== 100){
-        showMessage("The final stage percentage must be 100.");
-        return false;
-      }
-
-      const stageAnglesRaw = document.getElementById("customStageAngles").value.trim();
-      if(stageAnglesRaw){
-        const stageAngles = parseNumberList(stageAnglesRaw);
-        if(stageAngles.length !== stageCount){
-          showMessage("Please enter exactly " + stageCount + " stage angles separated by commas, or leave it blank.");
-          return false;
-        }
-
-        for(let i = 0; i < stageAngles.length; i++){
-          if(isNaN(stageAngles[i]) || stageAngles[i] < 0){
-            showMessage("All stage angles must be 0 or greater.");
-            return false;
-          }
-        }
-      }
-
-      return true;
     }
 
-    function showMessage(message){
-      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
-    }
+    return true;
+  }
 
-    function getStageName(index, totalStages, sequenceMode){
-      if(sequenceMode === "snug_final"){
-        if(index === 0) return "Snug";
-        if(index === totalStages - 1) return "Final Torque";
-        return "Intermediate " + index;
-      }
+  function showMessage(message){
+    document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+    scrollToOutput();
+  }
 
-      if(sequenceMode === "torque_angle"){
-        if(index === 0) return "Rundown";
-        if(index === totalStages - 1) return "Torque + Angle Final";
-        return "Intermediate " + index;
-      }
-
-      if(index === 0) return "Rundown";
+  function getStageName(index, totalStages, sequenceMode){
+    if(sequenceMode === "snug_final"){
+      if(index === 0) return "Snug";
       if(index === totalStages - 1) return "Final Torque";
       return "Intermediate " + index;
     }
 
-    function formatSequenceMode(value){
-      if(value === "snug_final") return "Snug + Final Torque";
-      if(value === "multi_torque") return "Multi-Stage Torque";
-      if(value === "torque_angle") return "Torque + Angle Final";
-      return value;
+    if(sequenceMode === "torque_angle"){
+      if(index === 0) return "Rundown";
+      if(index === totalStages - 1) return "Torque + Angle Final";
+      return "Intermediate " + index;
     }
 
-    function formatJointPreset(value){
-      if(value === "hard") return "Hard Joint";
-      if(value === "medium") return "Medium Joint";
-      if(value === "soft") return "Soft Joint";
-      return "Custom";
+    if(index === 0) return "Rundown";
+    if(index === totalStages - 1) return "Final Torque";
+    return "Intermediate " + index;
+  }
+
+  function formatSequenceMode(value){
+    if(value === "snug_final") return "Snug + Final Torque";
+    if(value === "multi_torque") return "Multi-Stage Torque";
+    if(value === "torque_angle") return "Torque + Angle Final";
+    return value;
+  }
+
+  function formatJointPreset(value){
+    if(value === "hard") return "Hard Joint";
+    if(value === "medium") return "Medium Joint";
+    if(value === "soft") return "Soft Joint";
+    return "Custom";
+  }
+
+  function calculateSequence(){
+    if(!validateInputs()) return;
+
+    const brand = document.getElementById("brand").value;
+    const units = document.getElementById("units").value;
+    const jointPreset = document.getElementById("jointPreset").value;
+    const sequenceMode = document.getElementById("sequenceMode").value;
+    const stageCount = safeParseInt("stageCount", 3);
+    const finalTorque = safeParseFloat("finalTorque", 0);
+    const snugTorque = safeParseFloat("snugTorque", 0);
+    const prevailingTorque = safeParseFloat("prevailingTorque", 0);
+    const finalAngle = safeParseFloat("finalAngle", 0);
+    const tolerance = safeParseFloat("tolerance", 0);
+    const boltNotes = document.getElementById("boltNotes").value.trim();
+    const stagePercentages = parseNumberList(document.getElementById("customStagePercentages").value);
+    let stageAngles = parseNumberList(document.getElementById("customStageAngles").value);
+
+    if(stageAngles.length === 0){
+      stageAngles = getRecommendedAngles(stageCount, sequenceMode, finalAngle);
     }
 
-    function calculateSequence(){
-      if(!validateInputs()) return;
+    let html = "";
+    html += '<div class="print-only"><h2>Multi-Stage Torque Sequence Setup Sheet</h2></div>';
 
-      const brand = document.getElementById("brand").value;
-      const units = document.getElementById("units").value;
-      const jointPreset = document.getElementById("jointPreset").value;
-      const sequenceMode = document.getElementById("sequenceMode").value;
-      const stageCount = safeParseInt("stageCount", 3);
-      const finalTorque = safeParseFloat("finalTorque", 0);
-      const snugTorque = safeParseFloat("snugTorque", 0);
-      const prevailingTorque = safeParseFloat("prevailingTorque", 0);
-      const finalAngle = safeParseFloat("finalAngle", 0);
-      const tolerance = safeParseFloat("tolerance", 0);
-      const boltNotes = document.getElementById("boltNotes").value.trim();
-      const stagePercentages = parseNumberList(document.getElementById("customStagePercentages").value);
-      let stageAngles = parseNumberList(document.getElementById("customStageAngles").value);
+    html += "<strong>Brand / Controller Style</strong><br>" + escapeHtml(brand) + "<br><br>";
+    html += "<strong>Sequence Mode</strong><br>" + escapeHtml(formatSequenceMode(sequenceMode)) + "<br><br>";
+    html += "<strong>Joint Preset</strong><br>" + escapeHtml(formatJointPreset(jointPreset)) + "<br><br>";
+    html += "<strong>Final Target Torque</strong><br>" + finalTorque.toFixed(2) + " " + units + "<br><br>";
+    html += "<strong>Snug Torque</strong><br>" + snugTorque.toFixed(2) + " " + units + "<br><br>";
+    html += "<strong>Prevailing Torque</strong><br>" + prevailingTorque.toFixed(2) + " " + units + "<br><br>";
+    html += "<strong>Torque Tolerance</strong><br>±" + tolerance.toFixed(1) + "%<br><br>";
 
-      if(stageAngles.length === 0){
-        stageAngles = getRecommendedAngles(stageCount, sequenceMode, finalAngle);
-      }
-
-      let html = "";
-      html += '<div class="print-only"><h2>Multi-Stage Torque Sequence Setup Sheet</h2></div>';
-
-      html += "<strong>Brand / Controller Style</strong><br>" + escapeHtml(brand) + "<br><br>";
-      html += "<strong>Sequence Mode</strong><br>" + escapeHtml(formatSequenceMode(sequenceMode)) + "<br><br>";
-      html += "<strong>Joint Preset</strong><br>" + escapeHtml(formatJointPreset(jointPreset)) + "<br><br>";
-      html += "<strong>Final Target Torque</strong><br>" + finalTorque.toFixed(2) + " " + units + "<br><br>";
-      html += "<strong>Snug Torque</strong><br>" + snugTorque.toFixed(2) + " " + units + "<br><br>";
-      html += "<strong>Prevailing Torque</strong><br>" + prevailingTorque.toFixed(2) + " " + units + "<br><br>";
-      html += "<strong>Torque Tolerance</strong><br>±" + tolerance.toFixed(1) + "%<br><br>";
-
-      if(sequenceMode === "torque_angle"){
-        html += "<strong>Final Angle After Torque</strong><br>" + finalAngle.toFixed(0) + "°<br><br>";
-      }
-
-      if(boltNotes){
-        html += "<strong>Bolt / Joint Notes</strong><br>" + escapeHtml(boltNotes) + "<br><br>";
-      }
-
-      html += "<div class='table-wrap'><table>";
-      html += "<thead><tr>";
-      html += "<th>Stage</th>";
-      html += "<th>Name</th>";
-      html += "<th>% of Final</th>";
-      html += "<th>Program Torque</th>";
-      html += "<th>Low Limit</th>";
-      html += "<th>High Limit</th>";
-      html += "<th>Angle</th>";
-      html += "</tr></thead><tbody>";
-
-      let totalAngle = 0;
-
-      for(let i = 0; i < stageCount; i++){
-        const pct = stagePercentages[i];
-        let stageTorque;
-
-        if(sequenceMode === "snug_final" && i === 0 && snugTorque > 0){
-          stageTorque = snugTorque + prevailingTorque;
-        } else {
-          stageTorque = (finalTorque * (pct / 100)) + prevailingTorque;
-        }
-
-        const lowLimit = stageTorque * (1 - tolerance / 100);
-        const highLimit = stageTorque * (1 + tolerance / 100);
-        const angle = stageAngles[i] || 0;
-        totalAngle += angle;
-
-        html += "<tr>";
-        html += "<td>" + (i + 1) + "</td>";
-        html += "<td>" + escapeHtml(getStageName(i, stageCount, sequenceMode)) + "</td>";
-        html += "<td>" + pct.toFixed(1) + "%</td>";
-        html += "<td>" + stageTorque.toFixed(2) + " " + units + "</td>";
-        html += "<td>" + lowLimit.toFixed(2) + " " + units + "</td>";
-        html += "<td>" + highLimit.toFixed(2) + " " + units + "</td>";
-        html += "<td>" + angle.toFixed(0) + "°</td>";
-        html += "</tr>";
-      }
-
-      html += "</tbody></table></div>";
-
-      html += "<br><strong>Recommended Setup Notes</strong><br>";
-      html += "Use this as a setup planning reference only. Validate actual joint performance on production hardware. ";
-      html += "Final strategy may differ based on joint rate, seating behavior, prevailing torque, controller capability, and tool manufacturer recommendations.";
-
-      if(sequenceMode === "torque_angle"){
-        html += "<br><br><strong>Total Programmed Angle</strong><br>" + totalAngle.toFixed(0) + "°";
-      }
-
-      gtag('event', 'torque_sequence_calculate', {
-        brand: brand,
-        sequence_mode: sequenceMode,
-        stage_count: stageCount,
-        final_torque: finalTorque,
-        joint_preset: jointPreset
-      });
-
-      document.getElementById("output").innerHTML = html;
+    if(sequenceMode === "torque_angle"){
+      html += "<strong>Final Angle After Torque</strong><br>" + finalAngle.toFixed(0) + "°<br><br>";
     }
 
-    function resetCalculator(){
-      document.getElementById("brand").value = "Cleco";
-      document.getElementById("units").value = "Nm";
-      document.getElementById("jointPreset").value = "custom";
-      document.getElementById("sequenceMode").value = "multi_torque";
-      document.getElementById("stageCount").value = "3";
-      document.getElementById("finalTorque").value = "50";
-      document.getElementById("snugTorque").value = "15";
-      document.getElementById("prevailingTorque").value = "0";
-      document.getElementById("finalAngle").value = "60";
-      document.getElementById("tolerance").value = "5";
-      document.getElementById("customStagePercentages").value = "";
-      document.getElementById("customStageAngles").value = "";
-      document.getElementById("boltNotes").value = "";
-      toggleInputs();
-      loadRecommendedStages(false);
-      showMessage("Enter values and calculate the torque sequence");
-      gtag('event','torque_sequence_reset');
+    if(boltNotes){
+      html += "<strong>Bolt / Joint Notes</strong><br>" + escapeHtml(boltNotes) + "<br><br>";
     }
 
+    html += "<div class='table-wrap'><table>";
+    html += "<thead><tr>";
+    html += "<th>Stage</th>";
+    html += "<th>Name</th>";
+    html += "<th>% of Final</th>";
+    html += "<th>Program Torque</th>";
+    html += "<th>Low Limit</th>";
+    html += "<th>High Limit</th>";
+    html += "<th>Angle</th>";
+    html += "</tr></thead><tbody>";
+
+    let totalAngle = 0;
+
+    for(let i = 0; i < stageCount; i++){
+      const pct = stagePercentages[i];
+      let stageTorque;
+
+      if(sequenceMode === "snug_final" && i === 0 && snugTorque > 0){
+        stageTorque = snugTorque + prevailingTorque;
+      } else {
+        stageTorque = (finalTorque * (pct / 100)) + prevailingTorque;
+      }
+
+      const lowLimit = stageTorque * (1 - tolerance / 100);
+      const highLimit = stageTorque * (1 + tolerance / 100);
+      const angle = stageAngles[i] || 0;
+      totalAngle += angle;
+
+      html += "<tr>";
+      html += "<td>" + (i + 1) + "</td>";
+      html += "<td>" + escapeHtml(getStageName(i, stageCount, sequenceMode)) + "</td>";
+      html += "<td>" + pct.toFixed(1) + "%</td>";
+      html += "<td>" + stageTorque.toFixed(2) + " " + units + "</td>";
+      html += "<td>" + lowLimit.toFixed(2) + " " + units + "</td>";
+      html += "<td>" + highLimit.toFixed(2) + " " + units + "</td>";
+      html += "<td>" + angle.toFixed(0) + "°</td>";
+      html += "</tr>";
+    }
+
+    html += "</tbody></table></div>";
+
+    html += "<br><strong>Recommended Setup Notes</strong><br>";
+    html += "Use this as a setup planning reference only. Validate actual joint performance on production hardware. ";
+    html += "Final strategy may differ based on joint rate, seating behavior, prevailing torque, controller capability, and tool manufacturer recommendations.";
+
+    if(sequenceMode === "torque_angle"){
+      html += "<br><br><strong>Total Programmed Angle</strong><br>" + totalAngle.toFixed(0) + "°";
+    }
+
+    gtag('event', 'torque_sequence_calculate', {
+      brand: brand,
+      sequence_mode: sequenceMode,
+      stage_count: stageCount,
+      final_torque: finalTorque,
+      joint_preset: jointPreset
+    });
+
+    document.getElementById("output").innerHTML = html;
+    scrollToOutput();
+  }
+
+  function resetCalculator(){
+    document.getElementById("brand").value = "Cleco";
+    document.getElementById("units").value = "Nm";
+    document.getElementById("jointPreset").value = "custom";
+    document.getElementById("sequenceMode").value = "multi_torque";
+    document.getElementById("stageCount").value = "3";
+    document.getElementById("finalTorque").value = "50";
+    document.getElementById("snugTorque").value = "15";
+    document.getElementById("prevailingTorque").value = "0";
+    document.getElementById("finalAngle").value = "60";
+    document.getElementById("tolerance").value = "5";
+    document.getElementById("customStagePercentages").value = "";
+    document.getElementById("customStageAngles").value = "";
+    document.getElementById("boltNotes").value = "";
     toggleInputs();
     loadRecommendedStages(false);
-  </script>
+    showMessage("Enter values and calculate the torque sequence.");
+    gtag('event','torque_sequence_reset');
+  }
 
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
+  toggleInputs();
+  loadRecommendedStages(false);
+</script>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
 </body>
 </html>
