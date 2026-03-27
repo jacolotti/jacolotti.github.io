@@ -1,292 +1,678 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="canonical" href="https://automationcalculators.net/hp-torque-rpm-calculator.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
-<link rel="canonical" href="https://automationcalculators.net/hp-torque-rpm-calculator.html">
-<meta name="robots" content="index, follow">
-<meta name="author" content="AutomationCalculators.net">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
 
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-G4TY96JHNH');
-</script>
+  <title>HP Torque RPM Calculator | Horsepower Torque Formula</title>
+  <meta name="description" content="Free horsepower torque RPM calculator. Calculate torque from horsepower and RPM, horsepower from torque, or RPM from power and torque. Useful for motors, conveyors, robotics, and mechanical design.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>HP Torque RPM Calculator | Horsepower Torque Formula</title>
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      color:#222;
+    }
 
-<meta name="description" content="Free horsepower torque RPM calculator. Calculate torque from horsepower and RPM, or horsepower from torque. Useful for motors, engines, conveyors, robotics, and mechanical design.">
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
 
-<style>
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
 
-body{
-font-family:Arial;
-background:#f4f4f4;
-margin:0;
-text-align:center;
-}
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
 
-.container{
-background:white;
-padding:40px;
-max-width:900px;
-margin:auto;
-border-radius:10px;
-box-shadow:0px 0px 10px rgba(0,0,0,.1);
-}
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
 
-h1,h2{
-color:#1f2a44;
-}
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
 
-.subtitle{
-color:#555;
-margin-bottom:25px;
-line-height:1.6;
-}
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
 
-.calc-box{
-background:#f8fbff;
-border:1px solid #d7e6ff;
-padding:25px;
-border-radius:10px;
-margin-top:20px;
-}
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
 
-label{
-display:block;
-margin-top:15px;
-font-weight:bold;
-}
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
 
-input{
-padding:10px;
-width:220px;
-margin-top:6px;
-font-size:16px;
-}
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
 
-button{
-margin-top:20px;
-padding:12px 20px;
-font-size:16px;
-background:#1f2a44;
-color:white;
-border:none;
-border-radius:6px;
-cursor:pointer;
-}
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
 
-button:hover{
-background:#2c3a63;
-}
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
 
-.result{
-margin-top:20px;
-font-size:20px;
-font-weight:bold;
-color:#1f2a44;
-}
+    .card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:28px;
+    }
 
-.formula{
-margin-top:30px;
-background:#eef3ff;
-padding:15px;
-border-radius:8px;
-font-size:16px;
-}
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
 
-table{
-margin-top:30px;
-border-collapse:collapse;
-width:100%;
-}
+    .card h2,
+    .sidebar-card h3{
+      color:#1f2a44;
+      margin-top:0;
+    }
 
-th,td{
-border:1px solid #ccc;
-padding:10px;
-}
+    .description{
+      margin-top:0;
+      margin-bottom:18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.6;
+      text-align:left;
+    }
 
-th{
-background:#1f2a44;
-color:white;
-}
+    .calc-box{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      padding:24px;
+      border-radius:12px;
+      margin-top:20px;
+    }
 
-.footer{
-margin-top:40px;
-font-size:14px;
-color:#666;
-}
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
 
-</style>
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
 
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+      margin-top:20px;
+    }
+
+    .input-card{
+      background:white;
+      border:1px solid #d9dfeb;
+      border-radius:10px;
+      padding:18px;
+      text-align:left;
+    }
+
+    label{
+      display:block;
+      margin-bottom:6px;
+      font-weight:600;
+      color:#23314f;
+    }
+
+    input{
+      padding:10px 12px;
+      width:100%;
+      margin-top:0;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+    }
+
+    input:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .button-row{
+      margin-top:20px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      padding:13px 22px;
+      font-size:16px;
+      background:#1f2a44;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#2c3a63;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
+    }
+
+    .result{
+      margin-top:20px;
+      padding:20px;
+      font-size:18px;
+      font-weight:bold;
+      color:#1f2a44;
+      line-height:1.7;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .formula{
+      margin-top:30px;
+      background:#eef3ff;
+      padding:18px;
+      border-radius:10px;
+      border:1px solid #cfdaf5;
+      font-size:16px;
+      line-height:1.8;
+      text-align:left;
+      color:#1f2a44;
+    }
+
+    .table-wrap{
+      overflow-x:auto;
+      margin-top:20px;
+      border:1px solid #d8e3f5;
+      border-radius:10px;
+    }
+
+    table{
+      margin-top:0;
+      border-collapse:collapse;
+      width:100%;
+      min-width:620px;
+      background:white;
+    }
+
+    th,td{
+      border:1px solid #ccc;
+      padding:10px;
+      text-align:center;
+    }
+
+    th{
+      background:#1f2a44;
+      color:white;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#f2f5fb;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .footer{
+      margin-top:40px;
+      font-size:14px;
+      color:#666;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <div id="navbar"></div>
 
-<div class="container">
+<section class="hero">
+  <div class="hero-inner">
+    <h1>HP Torque RPM Calculator</h1>
+    <p>
+      Calculate torque from horsepower and RPM, horsepower from torque, or RPM from known power and torque. Useful for motors, conveyors, robotics, reducers, and general mechanical design.
+    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/gearbox-torque.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'hp_torque_rpm_hero','to':'gearbox_torque'});">Gearbox Output Torque</a>
+    </div>
+  </div>
+</section>
 
-<h1>HP Torque RPM Calculator</h1>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> enter any two values — horsepower, torque, or RPM — and calculate the third. This is a quick way to estimate motor or drive requirements before deeper sizing work.
+  </div>
 
-<p class="subtitle">
-Calculate torque from horsepower and RPM or horsepower from torque.
-This calculator is commonly used for electric motors, engines, conveyors,
-robotics, pumps, and mechanical power transmission systems.
-</p>
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Calculate Horsepower, Torque, or RPM</h2>
 
-<div class="calc-box">
+      <p class="description">
+        This calculator is commonly used for electric motors, engines, conveyors, robotics, pumps, and mechanical power transmission systems. Enter any two values to calculate the third.
+      </p>
 
-<label>Horsepower (HP)</label>
-<input type="number" id="hp">
+      <div class="calc-box">
+        <div class="section-label">Quick examples</div>
+        <div class="quick-row">
+          <button type="button" onclick="loadExampleTorque(); gtag('event','hp_torque_rpm_example',{'type':'torque_from_hp'});">Torque from HP</button>
+          <button type="button" onclick="loadExampleHP(); gtag('event','hp_torque_rpm_example',{'type':'hp_from_torque'});">HP from Torque</button>
+          <button type="button" onclick="loadExampleRPM(); gtag('event','hp_torque_rpm_example',{'type':'rpm_from_hp_torque'});">RPM from HP & Torque</button>
+        </div>
 
-<label>Torque (lb-ft)</label>
-<input type="number" id="torque">
+        <div class="grid">
+          <div class="input-card">
+            <label for="hp">Horsepower (HP)</label>
+            <input type="number" id="hp" step="0.01" placeholder="e.g. 5">
+          </div>
 
-<label>RPM</label>
-<input type="number" id="rpm">
+          <div class="input-card">
+            <label for="torque">Torque (lb-ft)</label>
+            <input type="number" id="torque" step="0.01" placeholder="e.g. 15">
+          </div>
 
-<br>
+          <div class="input-card">
+            <label for="rpm">RPM</label>
+            <input type="number" id="rpm" step="0.01" placeholder="e.g. 1750">
+          </div>
+        </div>
 
-<button onclick="calculate()">Calculate</button>
+        <div class="button-row">
+          <button onclick="calculate()">Calculate</button>
+          <button class="secondary" onclick="loadExampleTorque()">Load Example</button>
+          <button class="ghost" onclick="resetCalculator()">Reset</button>
+        </div>
 
-<div class="result" id="result"></div>
+        <div class="result" id="result">
+          Enter any two values and click <strong>Calculate</strong>.
+        </div>
 
-<div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>  
+        <div class="cta-box">
+          <h3>Need help applying this to a real machine?</h3>
+          <p>
+            Get connected with a qualified automation integrator if you are sizing a drive, checking motor capability, or estimating real torque demand in a machine.
+          </p>
+          <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'hp_torque_rpm_midpage'});">Find an Integrator</a>
+        </div>
+      </div>
 
-</div>
+      <div class="formula">
+        <b>Key Mechanical Power Formula</b><br><br>
+        Torque (lb-ft) = (HP × 5252) / RPM<br><br>
+        HP = (Torque × RPM) / 5252<br><br>
+        RPM = (HP × 5252) / Torque<br><br>
+        The constant <b>5252</b> comes from converting rotational power into horsepower units.
+      </div>
 
-<div class="formula">
+      <h3 style="margin-top:30px;">Example Torque Values</h3>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Horsepower</th>
+            <th>RPM</th>
+            <th>Torque (lb-ft)</th>
+          </tr>
+          <tr><td>1 HP</td><td>1750</td><td>3.0</td></tr>
+          <tr><td>5 HP</td><td>1750</td><td>15.0</td></tr>
+          <tr><td>10 HP</td><td>1750</td><td>30.0</td></tr>
+          <tr><td>20 HP</td><td>1750</td><td>60.0</td></tr>
+          <tr><td>50 HP</td><td>1750</td><td>150.0</td></tr>
+        </table>
+      </div>
 
-<b>Key Mechanical Power Formula</b>
+      <div class="learn-more">
+        <h3>Where this calculator helps</h3>
 
-<br><br>
+        <p>
+          This page is useful when checking whether a motor has enough torque at a given speed, estimating power for a conveyor or gearbox, or comparing different drive options during concept work.
+        </p>
 
-Torque (lb-ft) = (HP × 5252) / RPM
+        <p>
+          It is especially handy when someone gives you only two of the three values and you need the missing one quickly. After this, the next step is usually checking service factor, reducer ratio, startup loads, and real efficiency losses.
+        </p>
 
-<br><br>
+        <div class="internal-links">
+          <a href="/gearbox-torque.html" onclick="gtag('event','internal_link_click',{'from':'hp_torque_rpm','to':'gearbox_torque'});">Gearbox Output Torque</a>
+          <a href="/gear-ratio.html" onclick="gtag('event','internal_link_click',{'from':'hp_torque_rpm','to':'gear_ratio'});">Gear Ratio Calculator</a>
+          <a href="/motor.html" onclick="gtag('event','internal_link_click',{'from':'hp_torque_rpm','to':'conveyor_motor'});">Conveyor Motor Sizing</a>
+          <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'hp_torque_rpm','to':'servo_torque'});">Servo Torque Calculator</a>
+        </div>
+      </div>
 
-HP = (Torque × RPM) / 5252
+      <div class="footer">
+        This horsepower torque calculator helps engineers estimate motor torque, mechanical power transmission, and drive system requirements.
+      </div>
+    </div>
 
-<br><br>
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Torque from HP and RPM</li>
+          <li>Horsepower from torque and RPM</li>
+          <li>RPM from horsepower and torque</li>
+          <li>Quick motor power checks</li>
+        </ul>
+      </div>
 
-The constant <b>5252</b> comes from converting rotational power into horsepower units.
+      <div class="sidebar-card">
+        <h3>Common uses</h3>
+        <p>
+          Useful for motors, conveyors, gear reducers, robotics, rotating tooling, pumps, and general mechanical design reviews.
+        </p>
+      </div>
 
-</div>
-
-<h2>Example Torque Values</h2>
-
-<table>
-
-<tr>
-<th>Horsepower</th>
-<th>RPM</th>
-<th>Torque (lb-ft)</th>
-</tr>
-
-<tr>
-<td>1 HP</td>
-<td>1750</td>
-<td>3.0</td>
-</tr>
-
-<tr>
-<td>5 HP</td>
-<td>1750</td>
-<td>15.0</td>
-</tr>
-
-<tr>
-<td>10 HP</td>
-<td>1750</td>
-<td>30.0</td>
-</tr>
-
-<tr>
-<td>20 HP</td>
-<td>1750</td>
-<td>60.0</td>
-</tr>
-
-<tr>
-<td>50 HP</td>
-<td>1750</td>
-<td>150.0</td>
-</tr>
-
-</table>
-
-<p class="footer">
-This horsepower torque calculator helps engineers estimate motor torque,
-mechanical power transmission, and drive system requirements.
-</p>
-
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Gear ratio or reducer selection</li>
+          <li>Service factor and overload margin</li>
+          <li>Startup and acceleration torque</li>
+          <li>Mechanical efficiency losses</li>
+          <li>Duty cycle and heat</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
+function scrollToResult(){
+  document.getElementById("result").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
 
 function calculate(){
+  let hp = parseFloat(document.getElementById("hp").value);
+  let torque = parseFloat(document.getElementById("torque").value);
+  let rpm = parseFloat(document.getElementById("rpm").value);
 
-let hp = parseFloat(document.getElementById("hp").value);
-let torque = parseFloat(document.getElementById("torque").value);
-let rpm = parseFloat(document.getElementById("rpm").value);
+  let result = document.getElementById("result");
 
-let result = document.getElementById("result");
+  const hpValid = !isNaN(hp) && hp > 0;
+  const torqueValid = !isNaN(torque) && torque > 0;
+  const rpmValid = !isNaN(rpm) && rpm > 0;
 
-if(hp && rpm && !torque){
-
-let t = (hp * 5252) / rpm;
-
-result.innerHTML = "Torque = " + t.toFixed(2) + " lb-ft";
-
+  if(hpValid && rpmValid && !torqueValid){
+    let t = (hp * 5252) / rpm;
+    result.innerHTML =
+      "<strong>Calculated Torque</strong><br>" +
+      t.toFixed(2) + " lb-ft";
+    scrollToResult();
+  }
+  else if(torqueValid && rpmValid && !hpValid){
+    let h = (torque * rpm) / 5252;
+    result.innerHTML =
+      "<strong>Calculated Horsepower</strong><br>" +
+      h.toFixed(2) + " HP";
+    scrollToResult();
+  }
+  else if(hpValid && torqueValid && !rpmValid){
+    let r = (hp * 5252) / torque;
+    result.innerHTML =
+      "<strong>Calculated RPM</strong><br>" +
+      r.toFixed(0) + " RPM";
+    scrollToResult();
+  }
+  else{
+    result.innerHTML = "<strong>Enter any two values greater than 0 to calculate the third.</strong>";
+    scrollToResult();
+  }
 }
 
-else if(torque && rpm && !hp){
-
-let h = (torque * rpm) / 5252;
-
-result.innerHTML = "Horsepower = " + h.toFixed(2) + " HP";
-
+function resetCalculator(){
+  document.getElementById("hp").value = "";
+  document.getElementById("torque").value = "";
+  document.getElementById("rpm").value = "";
+  document.getElementById("result").innerHTML = 'Enter any two values and click <strong>Calculate</strong>.';
 }
 
-else if(hp && torque && !rpm){
-
-let r = (hp * 5252) / torque;
-
-result.innerHTML = "RPM = " + r.toFixed(0);
-
+function loadExampleTorque(){
+  document.getElementById("hp").value = "5";
+  document.getElementById("torque").value = "";
+  document.getElementById("rpm").value = "1750";
+  calculate();
 }
 
-else{
-
-result.innerHTML = "Enter any two values to calculate the third.";
-
+function loadExampleHP(){
+  document.getElementById("hp").value = "";
+  document.getElementById("torque").value = "30";
+  document.getElementById("rpm").value = "1750";
+  calculate();
 }
 
+function loadExampleRPM(){
+  document.getElementById("hp").value = "10";
+  document.getElementById("torque").value = "30";
+  document.getElementById("rpm").value = "";
+  calculate();
 }
+</script>
 
+<script>
 fetch("navbar.html?v=20260314")
 .then(response => response.text())
 .then(data => {
-document.getElementById("navbar").innerHTML = data;
+  document.getElementById("navbar").innerHTML = data;
 })
 .catch(error => {
-console.error("Navbar failed to load:", error);
+  console.error("Navbar failed to load:", error);
 });
-
 </script>
 
 </body>
