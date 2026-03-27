@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/feedback.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -22,26 +23,117 @@
     body{
       font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
       color:#222;
     }
 
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:900px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:760px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
     #navbar{
-      margin-bottom:40px;
+      margin-bottom:0;
+    }
+
+    .page-wrap{
+      max-width:1000px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:900px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
     }
 
     .container{
       background:white;
       padding:30px;
-      max-width:760px;
-      margin:auto;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,.1);
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
     }
 
-    .container h1{
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
       margin-bottom:10px;
+    }
+
+    .container h2,
+    .sidebar-card h3{
+      margin-top:0;
       color:#1f2a44;
     }
 
@@ -50,7 +142,8 @@
       margin-bottom:18px;
       color:#555;
       font-size:16px;
-      line-height:1.5;
+      line-height:1.6;
+      text-align:left;
     }
 
     .form-wrap{
@@ -58,52 +151,148 @@
       text-align:left;
     }
 
+    .form-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+      gap:16px;
+    }
+
+    .field{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
+    .field.full{
+      grid-column:1 / -1;
+    }
+
     .form-wrap label{
       display:block;
-      margin:14px 0 6px 0;
+      margin:0 0 6px 0;
       font-weight:600;
+      color:#23314f;
     }
 
     .form-wrap input,
     .form-wrap select,
     .form-wrap textarea{
       width:100%;
-      padding:10px;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
       background:white;
+    }
+
+    .form-wrap input:focus,
+    .form-wrap select:focus,
+    .form-wrap textarea:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
     .form-wrap textarea{
       resize:vertical;
+      min-height:160px;
     }
 
     .button-row{
       margin-top:20px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
     .button-row button{
-      padding:12px 26px;
+      padding:13px 22px;
       font-size:16px;
       background:#1f2a44;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      transition:background .2s;
+      font-weight:bold;
+      transition:.2s ease;
     }
 
     .button-row button:hover{
       background:#2d3d63;
+      transform:translateY(-1px);
+    }
+
+    .help-box{
+      margin-top:24px;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      text-align:left;
+      color:#334;
+      line-height:1.7;
+    }
+
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .cta-box{
+      margin-top:24px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .note{
       margin-top:20px;
       color:#666;
       font-size:14px;
-      line-height:1.5;
+      line-height:1.6;
       text-align:left;
     }
 
@@ -111,16 +300,41 @@
       margin-top:40px;
       color:#666;
       font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:700px){
-      .container{
+      .container,
+      .sidebar-card{
         padding:20px;
-        margin:0 12px;
+      }
+
+      .button-row{
+        flex-direction:column;
       }
 
       .button-row button{
         width:100%;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
       }
     }
   </style>
@@ -129,56 +343,127 @@
 
 <div id="navbar"></div>
 
-<div class="container">
-  <h1>Feedback</h1>
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Feedback</h1>
+    <p>
+      Found a bug, want a new calculator, or have an idea to improve the site? Send it here. Feedback from real engineers, technicians, and builders helps make these tools more useful.
+    </p>
+    <div class="hero-cta">
+      <a href="#feedback-form" class="primary">Open Feedback Form</a>
+      <a href="/automation-calculators.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'feedback_hero','to':'calculator_index'});">Browse Tools</a>
+    </div>
+  </div>
+</section>
 
-  <p class="description">
-    Found a bug, want a new calculator, or have an idea to improve the site? Send it here.
-  </p>
-
-  <p class="description">
-    Feedback from real engineers and technicians is what makes these tools better.
-  </p>
-
-  <div class="form-wrap">
-    <form action="https://formspree.io/f/mzdjrada" method="POST">
-      <label for="name">Name</label>
-      <input id="name" type="text" name="name" placeholder="Your name">
-
-      <label for="email">Email</label>
-      <input id="email" type="email" name="email" placeholder="Your email">
-
-      <label for="feedbackType">Feedback Type</label>
-      <select id="feedbackType" name="feedback_type">
-        <option value="general">General Feedback</option>
-        <option value="bug">Bug Report</option>
-        <option value="calculator_request">Calculator Request</option>
-        <option value="improvement">Improvement Idea</option>
-      </select>
-
-      <label for="page">Related Page</label>
-      <input id="page" type="text" name="page" placeholder="Example: spot-weld.html">
-
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="7" placeholder="Tell me what you found, what seems wrong, or what calculator you want added." required></textarea>
-
-      <div class="button-row">
-        <button type="submit" onclick="gtag('event','feedback_submit_click');">Send Feedback</button>
-      </div>
-    </form>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Best feedback:</strong> include the page name, what you expected to happen, what actually happened, and any values or steps that reproduce the issue.
   </div>
 
-  <p class="note">
-    This page is intended for calculator feedback, bug reports, and tool requests. Do not include confidential company information, passwords, or sensitive production data.
-  </p>
+  <div class="main-grid">
+    <div class="container" id="feedback-form">
+      <div class="section-label">Form</div>
+      <h2>Send Site Feedback</h2>
 
-  <div class="footer">
-    Automation Engineering Tools • Practical calculators for real automation work
+      <p class="description">
+        Use this form to report bugs, request new calculators, suggest feature improvements, or share general feedback about the site.
+      </p>
+
+      <p class="description">
+        Direct, specific feedback is the most useful. If something looks wrong on a calculator, mention the page, the inputs you used, and what result seemed off.
+      </p>
+
+      <div class="form-wrap">
+        <form action="https://formspree.io/f/mzdjrada" method="POST">
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" type="text" name="name" placeholder="Your name">
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" name="email" placeholder="Your email">
+            </div>
+
+            <div class="field">
+              <label for="feedbackType">Feedback Type</label>
+              <select id="feedbackType" name="feedback_type">
+                <option value="general">General Feedback</option>
+                <option value="bug">Bug Report</option>
+                <option value="calculator_request">Calculator Request</option>
+                <option value="improvement">Improvement Idea</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="page">Related Page</label>
+              <input id="page" type="text" name="page" placeholder="Example: spot-weld.html">
+            </div>
+
+            <div class="field full">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="7" placeholder="Tell me what you found, what seems wrong, or what calculator you want added." required></textarea>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button type="submit" onclick="gtag('event','feedback_submit_click');">Send Feedback</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="help-box">
+        <strong>Helpful bug report format:</strong><br><br>
+        • Page name or URL<br>
+        • Inputs used<br>
+        • Result shown<br>
+        • What you expected instead<br>
+        • Any browser or device detail if relevant
+      </div>
+
+      <p class="note">
+        This page is intended for calculator feedback, bug reports, and tool requests. Do not include confidential company information, passwords, drawings, customer names, or sensitive production data.
+      </p>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>Best things to send</h3>
+        <ul>
+          <li>Bug reports with exact inputs</li>
+          <li>Calculator ideas you would actually use</li>
+          <li>Feature improvements that save time</li>
+          <li>Pages that need clearer explanations</li>
+          <li>Broken links or layout issues</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>What helps most</h3>
+        <p>
+          Specific feedback beats vague feedback. “This page feels off” is less useful than “On the torque calculator, M10 class 10.9 with these values gives a result that looks too low.”
+        </p>
+      </div>
+
+      <div class="cta-box">
+        <h3>Want a new calculator added?</h3>
+        <p>
+          Submit the request here and include the type of calculation, who would use it, and what inputs and outputs would matter most.
+        </p>
+        <a href="/automation-calculators.html" onclick="gtag('event','related_tool_click',{'from':'feedback_sidebar','to':'calculator_index'});">View Current Tools</a>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-  fetch("navbar.html")
+  fetch("navbar.html?v=20260314")
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
