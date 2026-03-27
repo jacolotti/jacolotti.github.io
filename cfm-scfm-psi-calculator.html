@@ -5,6 +5,7 @@
 <link rel="canonical" href="https://automationcalculators.net/cfm-scfm-psi-calculator.html">
 <meta name="robots" content="index, follow">
 <meta name="author" content="AutomationCalculators.net">
+<meta charset="UTF-8">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -22,182 +23,445 @@ gtag('config', 'G-G4TY96JHNH');
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-
 body{
-font-family:Arial, sans-serif;
-background:#f4f4f4;
-margin:0;
-text-align:center;
-color:#222;
+  font-family:Arial, sans-serif;
+  background:#f4f4f4;
+  margin:0;
+  color:#222;
 }
 
-.container{
-max-width:1100px;
-margin:0 auto 40px auto;
-background:white;
-padding:30px 20px 40px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
+.hero{
+  background:linear-gradient(135deg,#1f2a44,#2d3d63);
+  color:white;
+  padding:42px 20px 32px;
+  text-align:center;
 }
 
-h1,h2,h3{
-color:#1f2a44;
+.hero-inner{
+  max-width:950px;
+  margin:auto;
 }
 
-p{
-line-height:1.6;
-max-width:900px;
-margin:10px auto;
+.hero h1{
+  margin:0 0 12px;
+  font-size:34px;
+  line-height:1.2;
 }
 
-.note{
-font-size:14px;
-color:#555;
-max-width:900px;
-margin:10px auto 20px;
+.hero p{
+  max-width:800px;
+  margin:0 auto 14px;
+  color:#e7ecf7;
+  font-size:17px;
+  line-height:1.6;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-gap:15px;
-max-width:950px;
-margin:25px auto;
+.hero-cta{
+  margin-top:18px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.hero-cta a{
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.2s ease;
+}
+
+.hero-cta .primary{
+  background:white;
+  color:#1f2a44;
+}
+
+.hero-cta .secondary{
+  color:white;
+  border:1px solid rgba(255,255,255,.35);
+}
+
+.hero-cta a:hover{
+  transform:translateY(-1px);
+  opacity:.95;
+}
+
+.page-wrap{
+  max-width:1100px;
+  margin:30px auto;
+  padding:0 18px 40px;
+}
+
+.top-note{
+  background:#fff7df;
+  border:1px solid #f1d98a;
+  color:#5c4a12;
+  padding:14px 16px;
+  border-radius:10px;
+  margin:0 auto 22px;
+  max-width:1000px;
+  font-size:15px;
+  line-height:1.5;
+  text-align:left;
+}
+
+.main-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:24px;
+  align-items:start;
 }
 
 .card{
-background:#f8f9fb;
-border:1px solid #d9dfeb;
-border-radius:8px;
-padding:18px;
+  background:white;
+  border-radius:12px;
+  box-shadow:0 0 12px rgba(0,0,0,.08);
+  padding:28px;
 }
 
-label{
-display:block;
-font-weight:bold;
-margin-bottom:6px;
-color:#1f2a44;
-text-align:left;
+.section-label{
+  font-size:13px;
+  font-weight:bold;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  color:#5e7197;
+  margin-bottom:10px;
 }
 
-input, select{
-width:100%;
-padding:10px;
-font-size:16px;
-border:1px solid #bbb;
-border-radius:6px;
-box-sizing:border-box;
+.card h2,h3{
+  color:#1f2a44;
+  margin-top:0;
 }
 
-button{
-background:#1f2a44;
-color:white;
-border:none;
-padding:12px 24px;
-font-size:16px;
-border-radius:6px;
-cursor:pointer;
-margin-top:10px;
+.description{
+  margin-top:0;
+  margin-bottom:18px;
+  color:#555;
+  font-size:16px;
+  line-height:1.6;
+  text-align:left;
 }
 
-button:hover{
-background:#2d3b5f;
-}
-
-.result{
-margin-top:25px;
-font-size:18px;
-font-weight:bold;
-color:#1f2a44;
-line-height:1.8;
-}
-
-.subresult{
-font-size:15px;
-font-weight:normal;
-color:#444;
-margin-top:12px;
-line-height:1.7;
+.note{
+  font-size:14px;
+  color:#555;
+  line-height:1.6;
+  text-align:left;
 }
 
 .formula-box{
-max-width:900px;
-margin:20px auto;
-padding:18px;
-background:#eef3ff;
-border:1px solid #cfdaf5;
-border-radius:8px;
-color:#1f2a44;
-font-weight:bold;
-font-size:17px;
-line-height:1.7;
+  margin:20px 0;
+  padding:18px;
+  background:#eef3ff;
+  border:1px solid #cfdaf5;
+  border-radius:10px;
+  color:#1f2a44;
+  font-weight:bold;
+  font-size:17px;
+  line-height:1.7;
+  text-align:left;
+}
+
+.quick-row{
+  margin:8px 0 22px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.quick-row button{
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid #cdd8ee;
+  background:#f7f9fd;
+  cursor:pointer;
+  font-weight:600;
+  color:#1f2a44;
+}
+
+.quick-row button:hover{
+  background:#eef3fc;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:16px;
+  margin:25px 0;
+}
+
+.input-card{
+  background:#f8f9fb;
+  border:1px solid #d9dfeb;
+  border-radius:10px;
+  padding:18px;
+  text-align:left;
+}
+
+label{
+  display:block;
+  font-weight:600;
+  margin-bottom:6px;
+  color:#1f2a44;
+}
+
+input, select{
+  width:100%;
+  padding:10px 12px;
+  font-size:16px;
+  border:1px solid #bbb;
+  border-radius:8px;
+  box-sizing:border-box;
+  background:white;
+}
+
+input:focus, select:focus{
+  outline:none;
+  border-color:#5a78b5;
+  box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+}
+
+.button-row{
+  margin:20px 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.button-row button{
+  background:#1f2a44;
+  color:white;
+  border:none;
+  padding:13px 22px;
+  font-size:16px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:.2s ease;
+}
+
+.button-row button.secondary{
+  background:#5a6a85;
+}
+
+.button-row button.ghost{
+  background:#e9eef8;
+  color:#1f2a44;
+}
+
+.button-row button:hover{
+  background:#2d3b5f;
+  transform:translateY(-1px);
+}
+
+.button-row button.ghost:hover{
+  background:#dde7f8;
+}
+
+.result{
+  margin-top:25px;
+  padding:20px;
+  font-size:18px;
+  font-weight:bold;
+  color:#1f2a44;
+  line-height:1.8;
+  background:#e9f1ff;
+  border:1px solid #c8d9ff;
+  border-radius:10px;
+  text-align:left;
+  scroll-margin-top:100px;
+}
+
+.subresult{
+  font-size:15px;
+  font-weight:normal;
+  color:#444;
+  margin-top:12px;
+  line-height:1.7;
+}
+
+.cta-box{
+  margin-top:26px;
+  padding:22px;
+  background:linear-gradient(135deg,#edf4ff,#e3edff);
+  border:1px solid #cadcff;
+  border-radius:12px;
+  text-align:center;
+}
+
+.cta-box h3{
+  margin:0 0 10px;
+  color:#1f2a44;
+}
+
+.cta-box p{
+  margin:0 0 16px;
+  color:#4d5a74;
+  line-height:1.6;
+}
+
+.cta-box a{
+  display:inline-block;
+  background:#1f2a44;
+  color:white;
+  padding:12px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.table-wrap{
+  overflow-x:auto;
+  margin:20px 0;
+  border:1px solid #d8e3f5;
+  border-radius:10px;
 }
 
 table{
-width:100%;
-max-width:900px;
-border-collapse:collapse;
-margin:20px auto;
-background:white;
+  width:100%;
+  min-width:700px;
+  border-collapse:collapse;
+  background:white;
 }
 
 th, td{
-border:1px solid #ccc;
-padding:12px 10px;
-text-align:center;
+  border:1px solid #ccc;
+  padding:12px 10px;
+  text-align:center;
 }
 
 th{
-background:#1f2a44;
-color:white;
+  background:#1f2a44;
+  color:white;
 }
 
 tr:nth-child(even){
-background:#f7f7f7;
+  background:#f7f7f7;
 }
 
-.link-box{
-margin-top:30px;
-padding:20px;
-background:#eef3ff;
-border-radius:8px;
-border:1px solid #cfdaf5;
-max-width:900px;
-margin-left:auto;
-margin-right:auto;
+.learn-more{
+  margin-top:28px;
+  text-align:left;
 }
 
-a{
-color:#1f2a44;
-font-weight:bold;
-text-decoration:none;
+.learn-more h3{
+  color:#1f2a44;
+  margin-bottom:10px;
 }
 
-a:hover{
-text-decoration:underline;
+.learn-more p{
+  color:#555;
+  line-height:1.7;
+  margin-bottom:12px;
+}
+
+.internal-links{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:10px;
+}
+
+.internal-links a{
+  display:inline-block;
+  padding:10px 12px;
+  background:#f2f5fb;
+  border:1px solid #d6e0f1;
+  border-radius:8px;
+  color:#1f2a44;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.internal-links a:hover{
+  background:#e9eef8;
+}
+
+.sidebar-card{
+  background:white;
+  border-radius:12px;
+  box-shadow:0 0 12px rgba(0,0,0,.08);
+  padding:22px;
+  margin-bottom:20px;
+  text-align:left;
+}
+
+.sidebar-card h3{
+  margin-top:0;
+  margin-bottom:10px;
+  color:#1f2a44;
+}
+
+.sidebar-card p{
+  margin:0 0 14px;
+  color:#555;
+  line-height:1.6;
+  font-size:15px;
+}
+
+.sidebar-card ul{
+  padding-left:18px;
+  margin:0;
+  color:#444;
+  line-height:1.7;
 }
 
 .footer-note{
-font-size:13px;
-color:#666;
-margin-top:20px;
-max-width:900px;
-margin-left:auto;
-margin-right:auto;
+  font-size:13px;
+  color:#666;
+  margin-top:20px;
+  line-height:1.6;
+  text-align:left;
+}
+
+.footer{
+  margin-top:30px;
+  color:#666;
+  font-size:14px;
+  text-align:center;
+}
+
+@media (max-width:900px){
+  .main-grid{
+    grid-template-columns:1fr;
+  }
 }
 
 @media (max-width:700px){
-.container{
-margin:0 10px 30px;
-padding:20px 15px 30px;
-}
+  .card,
+  .sidebar-card{
+    padding:20px;
+  }
 
-th, td{
-font-size:14px;
-padding:10px 6px;
-}
-}
+  .hero h1{
+    font-size:28px;
+  }
 
+  .hero-cta{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .hero-cta a{
+    width:100%;
+    max-width:320px;
+  }
+
+  .button-row{
+    flex-direction:column;
+  }
+
+  .button-row button{
+    width:100%;
+  }
+
+  th, td{
+    font-size:14px;
+    padding:10px 6px;
+  }
+}
 </style>
 
 </head>
@@ -206,173 +470,285 @@ padding:10px 6px;
 
 <div id="navbar"></div>
 
-<div class="container">
+<section class="hero">
+  <div class="hero-inner">
+    <h1>CFM SCFM PSI Calculator</h1>
+    <p>
+      Convert between actual CFM and standard SCFM using pressure and temperature so you can compare compressor capacity, pneumatic demand, and compressed air flow under real operating conditions.
+    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'cfm_scfm_hero'});">Find an Integrator</a>
+    </div>
+  </div>
+</section>
 
-<h1>CFM SCFM PSI Calculator</h1>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> if you know actual CFM at plant pressure, convert it to SCFM before comparing it to compressor ratings, air audit data, or equipment demand estimates.
+  </div>
 
-<p>
-Use this compressed air flow calculator to convert between actual CFM and standard SCFM using pressure and temperature.
-This is useful for compressor sizing, pneumatic system design, air audits, and flow troubleshooting.
-</p>
+  <div class="main-grid">
+    <div class="card" id="calculator">
 
-<p class="note">
-SCFM is standardized flow, while CFM is actual flow at operating conditions.
-This calculator uses a simple ideal gas relationship and is intended for practical engineering estimates.
-</p>
+      <div class="section-label">Calculator</div>
+      <h2>Compressed Air Flow Conversion</h2>
 
-<h2>Compressed Air Flow Conversion</h2>
+      <p class="description">
+        Use this compressed air flow calculator to convert between actual CFM and standard SCFM using pressure and temperature. This is useful for compressor sizing, pneumatic system design, air audits, and flow troubleshooting.
+      </p>
 
-<div class="formula-box">
-SCFM = CFM × (P<sub>actual absolute</sub> / P<sub>standard absolute</sub>) × (T<sub>standard absolute</sub> / T<sub>actual absolute</sub>)<br><br>
-CFM = SCFM × (P<sub>standard absolute</sub> / P<sub>actual absolute</sub>) × (T<sub>actual absolute</sub> / T<sub>standard absolute</sub>)
-</div>
+      <p class="note">
+        SCFM is standardized flow, while CFM is actual flow at operating conditions. This calculator uses a simple ideal gas relationship and is intended for practical engineering estimates.
+      </p>
 
-<div class="grid">
+      <div class="formula-box">
+        SCFM = CFM × (P<sub>actual absolute</sub> / P<sub>standard absolute</sub>) × (T<sub>standard absolute</sub> / T<sub>actual absolute</sub>)<br><br>
+        CFM = SCFM × (P<sub>standard absolute</sub> / P<sub>actual absolute</sub>) × (T<sub>actual absolute</sub> / T<sub>standard absolute</sub>)
+      </div>
 
-<div class="card">
-<label for="calcMode">Calculation Mode</label>
-<select id="calcMode">
-<option value="cfm_to_scfm">Convert CFM to SCFM</option>
-<option value="scfm_to_cfm">Convert SCFM to CFM</option>
-</select>
-</div>
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample1(); gtag('event','cfm_scfm_example',{'type':'10cfm_90psi'});">10 CFM @ 90 psig</button>
+        <button type="button" onclick="loadExample2(); gtag('event','cfm_scfm_example',{'type':'25cfm_90psi'});">25 CFM @ 90 psig</button>
+        <button type="button" onclick="loadExample3(); gtag('event','cfm_scfm_example',{'type':'100scfm_to_cfm'});">100 SCFM to CFM</button>
+      </div>
 
-<div class="card">
-<label for="flowValue">Flow Value</label>
-<input type="number" id="flowValue" step="0.01" placeholder="e.g. 100">
-</div>
+      <div class="grid">
+        <div class="input-card">
+          <label for="calcMode">Calculation Mode</label>
+          <select id="calcMode">
+            <option value="cfm_to_scfm">Convert CFM to SCFM</option>
+            <option value="scfm_to_cfm">Convert SCFM to CFM</option>
+          </select>
+        </div>
 
-<div class="card">
-<label for="gaugePressure">Operating Pressure (psig)</label>
-<input type="number" id="gaugePressure" step="0.01" placeholder="e.g. 90">
-</div>
+        <div class="input-card">
+          <label for="flowValue">Flow Value</label>
+          <input type="number" id="flowValue" step="0.01" placeholder="e.g. 100">
+        </div>
 
-<div class="card">
-<label for="airTempF">Operating Air Temperature (°F)</label>
-<input type="number" id="airTempF" step="0.01" value="68">
-</div>
+        <div class="input-card">
+          <label for="gaugePressure">Operating Pressure (psig)</label>
+          <input type="number" id="gaugePressure" step="0.01" placeholder="e.g. 90">
+        </div>
 
-<div class="card">
-<label for="stdPressure">Standard Pressure (psia)</label>
-<input type="number" id="stdPressure" step="0.01" value="14.7">
-</div>
+        <div class="input-card">
+          <label for="airTempF">Operating Air Temperature (°F)</label>
+          <input type="number" id="airTempF" step="0.01" value="68">
+        </div>
 
-<div class="card">
-<label for="stdTempF">Standard Temperature (°F)</label>
-<input type="number" id="stdTempF" step="0.01" value="68">
-</div>
+        <div class="input-card">
+          <label for="stdPressure">Standard Pressure (psia)</label>
+          <input type="number" id="stdPressure" step="0.01" value="14.7">
+        </div>
 
-</div>
+        <div class="input-card">
+          <label for="stdTempF">Standard Temperature (°F)</label>
+          <input type="number" id="stdTempF" step="0.01" value="68">
+        </div>
+      </div>
 
-<button onclick="calculateAirFlow()">Calculate</button>
+      <div class="button-row">
+        <button onclick="calculateAirFlow(); gtag('event','cfm_scfm_calculation');">Calculate Conversion</button>
+        <button class="secondary" onclick="loadExample1();">Load Example</button>
+        <button class="ghost" onclick="resetCalculator();">Reset</button>
+      </div>
 
-<div class="result" id="result"></div>
+      <div class="result" id="result">
+        Enter values above and click <strong>Calculate Conversion</strong>.
+      </div>
 
-<div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>  
+      <div class="cta-box">
+        <h3>Need help applying this to a real pneumatic system?</h3>
+        <p>
+          If you are comparing compressor supply, machine demand, or pressure-corrected flow in a plant air system, connect with an automation integrator for help with the real-world design.
+        </p>
+        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'cfm_scfm_midpage'});">Find an Integrator</a>
+      </div>
 
-<h2>Quick Air Flow Examples</h2>
+      <h3 style="margin-top:30px;">Quick Air Flow Examples</h3>
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Actual Flow</th>
+            <th>Pressure</th>
+            <th>Temperature</th>
+            <th>Approx. SCFM</th>
+          </tr>
+          <tr><td>10 CFM</td><td>90 psig</td><td>68°F</td><td>71.2 SCFM</td></tr>
+          <tr><td>25 CFM</td><td>90 psig</td><td>68°F</td><td>177.9 SCFM</td></tr>
+          <tr><td>50 CFM</td><td>100 psig</td><td>68°F</td><td>390.1 SCFM</td></tr>
+          <tr><td>100 CFM</td><td>125 psig</td><td>68°F</td><td>950.3 SCFM</td></tr>
+        </table>
+      </div>
 
-<table>
-<tr>
-<th>Actual Flow</th>
-<th>Pressure</th>
-<th>Temperature</th>
-<th>Approx. SCFM</th>
-</tr>
-<tr><td>10 CFM</td><td>90 psig</td><td>68°F</td><td>71.2 SCFM</td></tr>
-<tr><td>25 CFM</td><td>90 psig</td><td>68°F</td><td>177.9 SCFM</td></tr>
-<tr><td>50 CFM</td><td>100 psig</td><td>68°F</td><td>390.1 SCFM</td></tr>
-<tr><td>100 CFM</td><td>125 psig</td><td>68°F</td><td>950.3 SCFM</td></tr>
-</table>
+      <div class="learn-more">
+        <h3>What This CFM SCFM PSI Calculator Solves</h3>
 
-<h2>What This CFM SCFM PSI Calculator Solves</h2>
+        <p>
+          Engineers and technicians often search for terms like CFM to SCFM calculator, SCFM to CFM conversion, compressed air flow pressure correction, and how pressure affects CFM. This page helps estimate air flow under actual operating conditions for compressors, cylinders, regulators, nozzles, and plant air systems.
+        </p>
 
-<p>
-Engineers and technicians often search for terms like CFM to SCFM calculator, SCFM to CFM conversion, compressed air flow pressure correction, and how pressure affects CFM.
-This page helps estimate air flow under actual operating conditions for compressors, cylinders, regulators, nozzles, and plant air systems.
-</p>
+        <p>
+          This is especially useful when one source quotes compressor capacity in SCFM while another source describes device demand in actual CFM at pressure. Without correcting for pressure and temperature, those numbers can look comparable when they are not.
+        </p>
 
-<div class="link-box">
-Related tools:
-<a href="air-line-size-calculator.html">Air Line Size Calculator</a>
-&nbsp;|&nbsp;
-<a href="air-consumption.html">Pneumatic Air Consumption</a>
-&nbsp;|&nbsp;
-<a href="pneumatic-speed.html">Pneumatic Cylinder Speed</a>
-&nbsp;|&nbsp;
-<a href="reference-charts.html">Reference Charts</a>
-</div>
+        <div class="internal-links">
+          <a href="air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'cfm_scfm','to':'air_line_size'});">Air Line Size Calculator</a>
+          <a href="air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'cfm_scfm','to':'air_consumption'});">Pneumatic Air Consumption</a>
+          <a href="pneumatic-speed.html" onclick="gtag('event','internal_link_click',{'from':'cfm_scfm','to':'pneumatic_speed'});">Pneumatic Cylinder Speed</a>
+          <a href="reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'cfm_scfm','to':'reference_charts'});">Reference Charts</a>
+        </div>
+      </div>
 
-<p class="footer-note">
-This calculator assumes ideal gas behavior and does not account for humidity, compressibility factor, pressure drop through fittings, or transient flow effects.
-</p>
+      <p class="footer-note">
+        This calculator assumes ideal gas behavior and does not account for humidity, compressibility factor, pressure drop through fittings, or transient flow effects.
+      </p>
 
+      <div class="footer">
+        Automation Engineering Tools • Practical pneumatic design tools
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>CFM to SCFM conversion</li>
+          <li>SCFM to CFM conversion</li>
+          <li>Pressure-corrected absolute pressure</li>
+          <li>Temperature-corrected flow estimate</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>When this matters most</h3>
+        <p>
+          This matters when comparing compressor ratings, machine demand, air audit numbers, nozzle flow, regulator sizing, and pneumatic equipment capacity under different operating pressures.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common confusion points</h3>
+        <ul>
+          <li>Using gauge pressure instead of absolute pressure</li>
+          <li>Comparing CFM directly to SCFM</li>
+          <li>Ignoring temperature differences</li>
+          <li>Assuming flow ratings are all stated the same way</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
+function scrollToResult(){
+  document.getElementById("result").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
 function calculateAirFlow(){
+  const calcMode = document.getElementById("calcMode").value;
+  const flowValue = parseFloat(document.getElementById("flowValue").value);
+  const gaugePressure = parseFloat(document.getElementById("gaugePressure").value);
+  const airTempF = parseFloat(document.getElementById("airTempF").value);
+  const stdPressure = parseFloat(document.getElementById("stdPressure").value);
+  const stdTempF = parseFloat(document.getElementById("stdTempF").value);
+  const result = document.getElementById("result");
 
-const calcMode = document.getElementById("calcMode").value;
-const flowValue = parseFloat(document.getElementById("flowValue").value);
-const gaugePressure = parseFloat(document.getElementById("gaugePressure").value);
-const airTempF = parseFloat(document.getElementById("airTempF").value);
-const stdPressure = parseFloat(document.getElementById("stdPressure").value);
-const stdTempF = parseFloat(document.getElementById("stdTempF").value);
-const result = document.getElementById("result");
+  if(
+    isNaN(flowValue) || flowValue <= 0 ||
+    isNaN(gaugePressure) ||
+    isNaN(airTempF) ||
+    isNaN(stdPressure) || stdPressure <= 0 ||
+    isNaN(stdTempF)
+  ){
+    result.innerHTML = "<strong>Please enter valid flow, pressure, and temperature values.</strong>";
+    scrollToResult();
+    return;
+  }
 
-if(
-  isNaN(flowValue) || flowValue <= 0 ||
-  isNaN(gaugePressure) ||
-  isNaN(airTempF) ||
-  isNaN(stdPressure) || stdPressure <= 0 ||
-  isNaN(stdTempF)
-){
-  result.innerHTML = "Please enter valid flow, pressure, and temperature values.";
-  return;
+  const actualPressureAbs = gaugePressure + 14.7;
+  const actualTempR = airTempF + 459.67;
+  const stdTempR = stdTempF + 459.67;
+
+  let convertedFlow;
+  let modeText;
+
+  if(calcMode === "cfm_to_scfm"){
+    convertedFlow = flowValue * (actualPressureAbs / stdPressure) * (stdTempR / actualTempR);
+    modeText = "Converted Standard Flow";
+    result.innerHTML = `
+      <strong>${modeText}</strong><br>
+      ${convertedFlow.toFixed(2)} SCFM
+      <div class="subresult">
+        Input Actual Flow: ${flowValue.toFixed(2)} CFM<br>
+        Actual Pressure: ${actualPressureAbs.toFixed(2)} psia<br>
+        Actual Temperature: ${airTempF.toFixed(2)} °F<br>
+        Standard Pressure: ${stdPressure.toFixed(2)} psia<br>
+        Standard Temperature: ${stdTempF.toFixed(2)} °F
+      </div>
+    `;
+  } else {
+    convertedFlow = flowValue * (stdPressure / actualPressureAbs) * (actualTempR / stdTempR);
+    modeText = "Converted Actual Flow";
+    result.innerHTML = `
+      <strong>${modeText}</strong><br>
+      ${convertedFlow.toFixed(2)} CFM
+      <div class="subresult">
+        Input Standard Flow: ${flowValue.toFixed(2)} SCFM<br>
+        Actual Pressure: ${actualPressureAbs.toFixed(2)} psia<br>
+        Actual Temperature: ${airTempF.toFixed(2)} °F<br>
+        Standard Pressure: ${stdPressure.toFixed(2)} psia<br>
+        Standard Temperature: ${stdTempF.toFixed(2)} °F
+      </div>
+    `;
+  }
+
+  scrollToResult();
 }
 
-const actualPressureAbs = gaugePressure + 14.7;
-const actualTempR = airTempF + 459.67;
-const stdTempR = stdTempF + 459.67;
-
-let convertedFlow;
-let modeText;
-
-if(calcMode === "cfm_to_scfm"){
-  convertedFlow = flowValue * (actualPressureAbs / stdPressure) * (stdTempR / actualTempR);
-  modeText = "Converted Standard Flow";
-  result.innerHTML = `
-    ${modeText}: ${convertedFlow.toFixed(2)} SCFM
-    <div class="subresult">
-      Input Actual Flow: ${flowValue.toFixed(2)} CFM<br>
-      Actual Pressure: ${actualPressureAbs.toFixed(2)} psia<br>
-      Actual Temperature: ${airTempF.toFixed(2)} °F<br>
-      Standard Pressure: ${stdPressure.toFixed(2)} psia<br>
-      Standard Temperature: ${stdTempF.toFixed(2)} °F
-    </div>
-  `;
-} else {
-  convertedFlow = flowValue * (stdPressure / actualPressureAbs) * (actualTempR / stdTempR);
-  modeText = "Converted Actual Flow";
-  result.innerHTML = `
-    ${modeText}: ${convertedFlow.toFixed(2)} CFM
-    <div class="subresult">
-      Input Standard Flow: ${flowValue.toFixed(2)} SCFM<br>
-      Actual Pressure: ${actualPressureAbs.toFixed(2)} psia<br>
-      Actual Temperature: ${airTempF.toFixed(2)} °F<br>
-      Standard Pressure: ${stdPressure.toFixed(2)} psia<br>
-      Standard Temperature: ${stdTempF.toFixed(2)} °F
-    </div>
-  `;
+function resetCalculator(){
+  document.getElementById("calcMode").value = "cfm_to_scfm";
+  document.getElementById("flowValue").value = "";
+  document.getElementById("gaugePressure").value = "";
+  document.getElementById("airTempF").value = "68";
+  document.getElementById("stdPressure").value = "14.7";
+  document.getElementById("stdTempF").value = "68";
+  document.getElementById("result").innerHTML = 'Enter values above and click <strong>Calculate Conversion</strong>.';
 }
+
+function loadExample1(){
+  document.getElementById("calcMode").value = "cfm_to_scfm";
+  document.getElementById("flowValue").value = "10";
+  document.getElementById("gaugePressure").value = "90";
+  document.getElementById("airTempF").value = "68";
+  document.getElementById("stdPressure").value = "14.7";
+  document.getElementById("stdTempF").value = "68";
+  calculateAirFlow();
+}
+
+function loadExample2(){
+  document.getElementById("calcMode").value = "cfm_to_scfm";
+  document.getElementById("flowValue").value = "25";
+  document.getElementById("gaugePressure").value = "90";
+  document.getElementById("airTempF").value = "68";
+  document.getElementById("stdPressure").value = "14.7";
+  document.getElementById("stdTempF").value = "68";
+  calculateAirFlow();
+}
+
+function loadExample3(){
+  document.getElementById("calcMode").value = "scfm_to_cfm";
+  document.getElementById("flowValue").value = "100";
+  document.getElementById("gaugePressure").value = "90";
+  document.getElementById("airTempF").value = "68";
+  document.getElementById("stdPressure").value = "14.7";
+  document.getElementById("stdTempF").value = "68";
+  calculateAirFlow();
 }
 
 fetch("navbar.html?v=20260314")
