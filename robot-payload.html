@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/robot-payload.html">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -15,123 +17,252 @@
 
   <title>Robot Payload Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free robot payload calculator for automation engineers. Estimate required robot payload using part weight, gripper weight, tooling weight, and safety factor.">
+  <meta name="description" content="Free robot payload calculator for automation engineers. Estimate required robot payload using part weight, gripper weight, additional tooling weight, and safety factor.">
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
+      color:#222;
     }
 
-    
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
+      padding:42px 20px 32px;
+      text-align:center;
     }
 
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
-    .container{
-      background:white;
-      padding:30px;
-      max-width:700px;
+    .hero-inner{
+      max-width:950px;
       margin:auto;
-      border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
     }
 
-    .container h2{
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
       margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
       color:#1f2a44;
     }
 
     .description{
-      margin-top:0;
-      margin-bottom:18px;
+      margin:0 0 18px;
       color:#555;
       font-size:16px;
-      line-height:1.5;
-      font-weight:normal;
+      line-height:1.6;
+      text-align:left;
     }
 
-    .container p{
-      margin-top:20px;
-      margin-bottom:5px;
-      font-weight:500;
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
     }
 
-    input, select{
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:25px 0 20px;
+      text-align:left;
+    }
+
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
+    }
+
+    .control-group input{
       width:100%;
-      padding:10px;
-      margin:10px 0;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+      font-family:Arial, sans-serif;
     }
 
-    button{
-      padding:12px 26px;
+    .control-group input:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .button-row{
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      padding:13px 22px;
       font-size:16px;
       background:#1e6bd6;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin-top:15px;
-      transition:background .2s;
+      font-weight:bold;
+      transition:.2s ease;
     }
 
-    button:hover{
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
       background:#1555ad;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
@@ -139,33 +270,147 @@
       padding:20px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:8px;
+      border-radius:10px;
       font-size:18px;
       line-height:1.6;
       font-weight:500;
       text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .note{
       margin-top:20px;
       color:#666;
       font-size:14px;
-      line-height:1.5;
+      line-height:1.6;
       text-align:left;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
     }
 
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:700px){
-      .container{
+      .card,
+      .sidebar-card{
         padding:20px;
       }
 
-      button{
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
         width:100%;
       }
     }
@@ -173,95 +418,251 @@
 </head>
 <body>
 
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h2>Robot Payload Calculator</h2>
-
-    <p class="description">
-      Estimate required robot payload using part weight, gripper weight, additional tooling weight, and a safety factor.
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Robot Payload Calculator</h1>
+    <p>
+      Estimate required robot payload using part weight, gripper weight, additional tooling weight, and a safety factor. Useful for early robot selection, EOAT budgeting, and concept development.
     </p>
-
-    <p class="description">
-      This calculator is useful for preliminary robot selection, EOAT budgeting, gripper sizing, and payload planning during automation concept development.
-    </p>
-
-    <p>Part Weight (lb)</p>
-    <input id="partWeight" type="number" value="8" min="0" step="0.01">
-
-    <p>Gripper Weight (lb)</p>
-    <input id="gripperWeight" type="number" value="12" min="0" step="0.01">
-
-    <p>Additional Tooling Weight (lb)</p>
-    <input id="toolingWeight" type="number" value="3" min="0" step="0.01">
-
-    <p>Safety Factor (%)</p>
-    <input id="safetyFactor" type="number" value="20" min="0" step="0.01">
-
-    <button onclick="calculateRobotPayload(); gtag('event','robot_payload_calculation');">Calculate</button>
-
-    <div class="result" id="output">
-      Enter values and press Calculate
-    </div>
-
-    <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>
-
-    <p class="note">
-      This is a simple payload estimate based on total carried weight plus safety factor. Actual robot selection must also consider wrist moments, inertia, tooling center of gravity, reach, mounting orientation, dynamic motion, and manufacturer derating rules.
-    </p>
-
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators for real automation work
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/robot.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'robot_payload_hero','to':'robot_cycle_time'});">Robot Cycle Time Calculator</a>
     </div>
   </div>
+</section>
 
-  <script>
-    function calculateRobotPayload(){
-      let partWeight = parseFloat(document.getElementById("partWeight").value) || 0;
-      let gripperWeight = parseFloat(document.getElementById("gripperWeight").value) || 0;
-      let toolingWeight = parseFloat(document.getElementById("toolingWeight").value) || 0;
-      let safetyFactor = parseFloat(document.getElementById("safetyFactor").value) || 0;
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> use this for first-pass robot selection before you dig into wrist moments, inertia, center of gravity, dynamic motion, mounting orientation, and manufacturer derating limits.
+  </div>
 
-      const output = document.getElementById("output");
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Required Robot Payload</h2>
 
-      if(partWeight < 0 || gripperWeight < 0 || toolingWeight < 0 || safetyFactor < 0){
-        output.innerHTML = "<strong>Please enter values of 0 or greater.</strong>";
-        return;
-      }
+      <p class="description">
+        Estimate required robot payload using part weight, gripper weight, additional tooling weight, and a safety factor.
+      </p>
 
-      let totalWeight = partWeight + gripperWeight + toolingWeight;
-      let requiredPayload = totalWeight * (1 + safetyFactor / 100);
+      <p class="description">
+        This calculator is useful for preliminary robot selection, EOAT budgeting, gripper sizing, and payload planning during automation concept development.
+      </p>
 
-      output.innerHTML =
-        "<strong>Total Carried Weight</strong><br>" +
-        totalWeight.toFixed(2) + " lb<br><br>" +
+      <div class="formula-box">
+        Total Carried Weight = Part Weight + Gripper Weight + Tooling Weight<br><br>
+        Required Payload = Total Carried Weight × (1 + Safety Factor)
+      </div>
 
-        "<strong>Recommended Payload With Safety Factor</strong><br>" +
-        requiredPayload.toFixed(2) + " lb<br><br>" +
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample1(); gtag('event','robot_payload_example',{'type':'standard'});">Standard Cell</button>
+        <button type="button" onclick="loadExample2(); gtag('event','robot_payload_example',{'type':'heavier_eoat'});">Heavier EOAT</button>
+        <button type="button" onclick="loadExample3(); gtag('event','robot_payload_example',{'type':'larger_part'});">Larger Part</button>
+      </div>
 
-        "<strong>Safety Factor Applied</strong><br>" +
-        safetyFactor.toFixed(2) + "%";
+      <div class="controls">
+        <div class="control-group">
+          <label for="partWeight">Part Weight (lb)</label>
+          <input id="partWeight" type="number" value="8" min="0" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="gripperWeight">Gripper Weight (lb)</label>
+          <input id="gripperWeight" type="number" value="12" min="0" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="toolingWeight">Additional Tooling Weight (lb)</label>
+          <input id="toolingWeight" type="number" value="3" min="0" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="safetyFactor">Safety Factor (%)</label>
+          <input id="safetyFactor" type="number" value="20" min="0" step="0.01">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateRobotPayload(); gtag('event','robot_payload_calculation');">Calculate</button>
+        <button class="secondary" onclick="loadExample1();">Load Example</button>
+        <button class="ghost" onclick="resetCalculator(); gtag('event','robot_payload_clear');">Reset</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter values and press <strong>Calculate</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this to a real cell?</h3>
+        <p>
+          Get connected with a qualified automation integrator if you need help with robot selection, tooling weight review, EOAT design, or full cell concept development.
+        </p>
+        <a href="/integrators.html">Find an Integrator</a>
+      </div>
+
+      <p class="note">
+        This is a simple payload estimate based on total carried weight plus safety factor. Actual robot selection must also consider wrist moments, inertia, tooling center of gravity, reach, mounting orientation, dynamic motion, and manufacturer derating rules.
+      </p>
+
+      <div class="learn-more">
+        <h3>What to check next</h3>
+
+        <p>
+          This tool is useful for quick robot sizing direction, but payload alone does not decide whether a robot is a good fit. A robot can technically carry the weight and still fail the application because of poor reach, wrist moment overload, excessive tooling offset, or dynamic motion limits.
+        </p>
+
+        <p>
+          For real robot selection, this page usually works best alongside reach, cycle time, and tooling design checks so you can confirm the robot has enough capacity in the actual position and motion envelope.
+        </p>
+
+        <div class="internal-links">
+          <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'robot_cycle_time'});">Robot Cycle Time</a>
+          <a href="/robot-reach.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'robot_reach'});">Robot Reach</a>
+          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'pneumatic_force'});">Pneumatic Force</a>
+          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'automation_roi'});">Automation ROI</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Total carried weight</li>
+          <li>Recommended robot payload</li>
+          <li>Safety factor applied</li>
+          <li>Basic robot sizing direction</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Where this helps</h3>
+        <p>
+          Useful for preliminary robot selection, end-of-arm tooling planning, gripper budgeting, automation concept development, and screening whether a robot family is even in the right range.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Wrist moment and inertia limits</li>
+          <li>Tooling center of gravity offset</li>
+          <li>Reach at the actual pick and place points</li>
+          <li>Dynamic motion and acceleration profile</li>
+          <li>Robot mounting orientation derating</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Selection reminder</h3>
+        <p>
+          Do not choose a robot purely because the catalog payload is slightly above your calculated number. Real applications often need more margin once tooling offsets, motion profile, and wrist loading are considered.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  function calculateRobotPayload(){
+    let partWeight = parseFloat(document.getElementById("partWeight").value) || 0;
+    let gripperWeight = parseFloat(document.getElementById("gripperWeight").value) || 0;
+    let toolingWeight = parseFloat(document.getElementById("toolingWeight").value) || 0;
+    let safetyFactor = parseFloat(document.getElementById("safetyFactor").value) || 0;
+
+    const output = document.getElementById("output");
+
+    if(partWeight < 0 || gripperWeight < 0 || toolingWeight < 0 || safetyFactor < 0){
+      output.innerHTML = "<strong>Please enter values of 0 or greater.</strong>";
+      scrollToOutput();
+      return;
     }
-  </script>
 
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
+    let totalWeight = partWeight + gripperWeight + toolingWeight;
+    let requiredPayload = totalWeight * (1 + safetyFactor / 100);
+
+    let interpretation = "";
+    if(requiredPayload < 20){
+      interpretation = "This is a relatively light robot payload requirement. Smaller industrial robots or collaborative robots may be worth reviewing, but only after checking reach, inertia, and tooling offset.";
+    } else if(requiredPayload < 80){
+      interpretation = "This is a moderate robot payload requirement. Many common industrial robot families fall in this range, but EOAT center of gravity and wrist moment still matter a lot.";
+    } else {
+      interpretation = "This is a higher robot payload requirement. Robot selection should be checked carefully against wrist moment, arm reach, mounting orientation, dynamic motion, and manufacturer derating rules.";
+    }
+
+    output.innerHTML =
+      "<strong>Total Carried Weight</strong><br>" +
+      totalWeight.toFixed(2) + " lb<br><br>" +
+
+      "<strong>Recommended Payload With Safety Factor</strong><br>" +
+      requiredPayload.toFixed(2) + " lb<br><br>" +
+
+      "<strong>Safety Factor Applied</strong><br>" +
+      safetyFactor.toFixed(2) + "%<br><br>" +
+
+      "<strong>Interpretation</strong><br>" +
+      interpretation;
+
+    scrollToOutput();
+  }
+
+  function resetCalculator(){
+    document.getElementById("partWeight").value = "8";
+    document.getElementById("gripperWeight").value = "12";
+    document.getElementById("toolingWeight").value = "3";
+    document.getElementById("safetyFactor").value = "20";
+    document.getElementById("output").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
+  }
+
+  function loadExample1(){
+    document.getElementById("partWeight").value = "8";
+    document.getElementById("gripperWeight").value = "12";
+    document.getElementById("toolingWeight").value = "3";
+    document.getElementById("safetyFactor").value = "20";
+    calculateRobotPayload();
+  }
+
+  function loadExample2(){
+    document.getElementById("partWeight").value = "6";
+    document.getElementById("gripperWeight").value = "22";
+    document.getElementById("toolingWeight").value = "8";
+    document.getElementById("safetyFactor").value = "25";
+    calculateRobotPayload();
+  }
+
+  function loadExample3(){
+    document.getElementById("partWeight").value = "28";
+    document.getElementById("gripperWeight").value = "18";
+    document.getElementById("toolingWeight").value = "6";
+    document.getElementById("safetyFactor").value = "20";
+    calculateRobotPayload();
+  }
+</script>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
 
 </body>
 </html>
