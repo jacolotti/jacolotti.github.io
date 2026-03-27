@@ -4,6 +4,7 @@
   <link rel="canonical" href="https://automationcalculators.net/metric-tap-drill-chart.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -23,108 +24,169 @@
       font-family:Arial, sans-serif;
       background:#f4f4f4;
       margin:0;
-      text-align:center;
       color:#222;
     }
 
-    .container{
-      max-width:1000px;
-      margin:0 auto 40px auto;
-      background:white;
-      padding:30px 20px 40px;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,0.1);
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
     }
 
-    h1{
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
       color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:28px;
+    }
+
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
       margin-bottom:10px;
     }
 
-    h2{
+    h2, h3{
       color:#1f2a44;
-      margin-top:35px;
-      margin-bottom:15px;
+      margin-top:0;
     }
 
-    p{
-      line-height:1.6;
-      max-width:850px;
-      margin:10px auto;
+    .description{
+      color:#555;
+      line-height:1.7;
+      font-size:16px;
+      text-align:left;
+      margin:0 0 14px;
     }
 
     .note{
       font-size:14px;
       color:#555;
-      max-width:850px;
-      margin:10px auto 20px;
+      line-height:1.6;
+      text-align:left;
+      margin:0 0 16px;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-      gap:15px;
-      max-width:700px;
-      margin:25px auto;
-    }
-
-    .card{
-      background:#f8f9fb;
-      border:1px solid #d9dfeb;
-      border-radius:8px;
+    .formula-box{
+      max-width:760px;
+      margin:20px 0;
       padding:18px;
-    }
-
-    label{
-      display:block;
-      font-weight:bold;
-      margin-bottom:6px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
       color:#1f2a44;
+      font-weight:bold;
+      font-size:18px;
+      line-height:1.7;
       text-align:left;
     }
 
-    input, select{
-      width:100%;
-      padding:10px;
-      font-size:16px;
-      border:1px solid #bbb;
-      border-radius:6px;
-      box-sizing:border-box;
-    }
-
-    button{
-      background:#1f2a44;
-      color:white;
-      border:none;
-      padding:12px 24px;
-      font-size:16px;
-      border-radius:6px;
-      cursor:pointer;
-      margin-top:10px;
-    }
-
-    button:hover{
-      background:#2d3b5f;
-    }
-
-    .result{
-      margin-top:25px;
-      font-size:18px;
-      font-weight:bold;
-      color:#1f2a44;
-      line-height:1.6;
+    .table-wrap{
+      overflow-x:auto;
+      margin:20px 0;
+      border:1px solid #d8e3f5;
+      border-radius:10px;
     }
 
     table{
       width:100%;
-      max-width:900px;
+      min-width:620px;
       border-collapse:collapse;
-      margin:20px auto;
       background:white;
     }
 
     th, td{
-      border:1px solid #ccc;
+      border-bottom:1px solid #e6ebf3;
       padding:12px 10px;
       text-align:center;
     }
@@ -135,41 +197,248 @@
     }
 
     tr:nth-child(even){
-      background:#f7f7f7;
+      background:#f8fbff;
     }
 
-    .formula-box{
-      max-width:700px;
-      margin:20px auto;
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:25px 0;
+    }
+
+    .input-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
       padding:18px;
-      background:#eef3ff;
-      border:1px solid #cfdaf5;
+      text-align:left;
+    }
+
+    label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
+    }
+
+    input, select{
+      width:100%;
+      padding:10px 12px;
+      font-size:16px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      box-sizing:border-box;
+      background:white;
+    }
+
+    input:focus, select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .button-row{
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      background:#1f2a44;
+      color:white;
+      border:none;
+      padding:13px 22px;
+      font-size:16px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#2d3b5f;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      font-size:18px;
+      font-weight:bold;
+      color:#1f2a44;
+      line-height:1.7;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#f2f5fb;
+      border:1px solid #d6e0f1;
       border-radius:8px;
       color:#1f2a44;
-      font-weight:bold;
-      font-size:18px;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
     }
 
     .footer-note{
       font-size:13px;
       color:#666;
       margin-top:20px;
+      line-height:1.6;
+      text-align:left;
     }
 
-    a{
-      color:#1f2a44;
-      font-weight:bold;
-      text-decoration:none;
+    .footer{
+      margin-top:32px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
     }
 
-    a:hover{
-      text-decoration:underline;
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:700px){
-      .container{
-        margin:0 10px 30px;
-        padding:20px 15px 30px;
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
       }
 
       th, td{
@@ -184,104 +453,244 @@
 
 <div id="navbar"></div>
 
-<div class="container">
-  <h1>Metric Tap Drill Chart (M3–M20)</h1>
-
-  <p>
-    Use this metric tap drill chart to quickly look up common drill sizes for metric threads from M3 through M20.
-    This page is intended as a fast shop-floor and engineering reference for machining, fixture building, maintenance, and machine design.
-  </p>
-
-  <p class="note">
-    Standard metric tap drill size is commonly estimated as:
-    <strong>Tap Drill = Major Diameter − Pitch</strong>.
-    Final drill selection may vary depending on thread percentage, material, tolerance, and tapping method.
-  </p>
-
-  <h2>Metric Tap Drill Reference Chart</h2>
-
-  <table>
-    <tr>
-      <th>Thread Size</th>
-      <th>Pitch (mm)</th>
-      <th>Tap Drill (mm)</th>
-    </tr>
-    <tr><td>M3 × 0.5</td><td>0.5</td><td>2.5</td></tr>
-    <tr><td>M4 × 0.7</td><td>0.7</td><td>3.3</td></tr>
-    <tr><td>M5 × 0.8</td><td>0.8</td><td>4.2</td></tr>
-    <tr><td>M6 × 1.0</td><td>1.0</td><td>5.0</td></tr>
-    <tr><td>M8 × 1.25</td><td>1.25</td><td>6.8</td></tr>
-    <tr><td>M10 × 1.5</td><td>1.5</td><td>8.5</td></tr>
-    <tr><td>M12 × 1.75</td><td>1.75</td><td>10.2</td></tr>
-    <tr><td>M14 × 2.0</td><td>2.0</td><td>12.0</td></tr>
-    <tr><td>M16 × 2.0</td><td>2.0</td><td>14.0</td></tr>
-    <tr><td>M18 × 2.5</td><td>2.5</td><td>15.5</td></tr>
-    <tr><td>M20 × 2.5</td><td>2.5</td><td>17.5</td></tr>
-  </table>
-
-  <h2>Metric Tap Drill Calculator</h2>
-
-  <p>
-    Select a thread size and pitch to estimate the recommended tap drill diameter.
-  </p>
-
-  <div class="formula-box">
-    Tap Drill = Major Diameter − Pitch
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <label for="majorDiameter">Major Diameter (mm)</label>
-      <select id="majorDiameter">
-        <option value="3">M3</option>
-        <option value="4">M4</option>
-        <option value="5">M5</option>
-        <option value="6">M6</option>
-        <option value="8">M8</option>
-        <option value="10">M10</option>
-        <option value="12">M12</option>
-        <option value="14">M14</option>
-        <option value="16">M16</option>
-        <option value="18">M18</option>
-        <option value="20">M20</option>
-      </select>
-    </div>
-
-    <div class="card">
-      <label for="pitch">Pitch (mm)</label>
-      <input type="number" id="pitch" step="0.01" placeholder="e.g. 1.5">
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Metric Tap Drill Chart (M3–M20)</h1>
+    <p>
+      Quickly look up common metric tap drill sizes and estimate drill diameter using thread major diameter and pitch. Useful for machining, fixture building, maintenance, and design work.
+    </p>
+    <div class="hero-cta">
+      <a href="#tap-chart" class="primary">Jump to Chart</a>
+      <a href="/metric-tap-drill-chart.html#calculator" class="secondary">Open Calculator</a>
     </div>
   </div>
+</section>
 
-  <button onclick="calculateTapDrill()">Calculate</button>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Quick rule of thumb:</strong> a standard metric tap drill is often estimated as <strong>major diameter minus pitch</strong>. That is a good starting point, but final drill choice can vary with thread percentage, material, tolerance, and tapping method.
+  </div>
 
-  <div class="result" id="result"></div>
+  <div class="main-grid">
+    <div class="card">
+      <div class="section-label">Reference Chart</div>
 
-  <p class="footer-note">
-    For standard coarse metric threads, the calculator result should match the common chart values above.
-  </p>
+      <h2 id="tap-chart">Metric Tap Drill Chart</h2>
+
+      <p class="description">
+        Use this metric tap drill chart to quickly look up common drill sizes for metric threads from M3 through M20. This page is intended as a fast shop-floor and engineering reference for machining, fixture building, maintenance, and machine design.
+      </p>
+
+      <p class="note">
+        This chart is most useful as a practical starting reference. Real drill selection can change depending on whether you want easier tapping, higher thread percentage, form tapping, tough materials, or production repeatability.
+      </p>
+
+      <div class="table-wrap">
+        <table>
+          <tr>
+            <th>Thread Size</th>
+            <th>Pitch (mm)</th>
+            <th>Tap Drill (mm)</th>
+          </tr>
+          <tr><td>M3 × 0.5</td><td>0.5</td><td>2.5</td></tr>
+          <tr><td>M4 × 0.7</td><td>0.7</td><td>3.3</td></tr>
+          <tr><td>M5 × 0.8</td><td>0.8</td><td>4.2</td></tr>
+          <tr><td>M6 × 1.0</td><td>1.0</td><td>5.0</td></tr>
+          <tr><td>M8 × 1.25</td><td>1.25</td><td>6.8</td></tr>
+          <tr><td>M10 × 1.5</td><td>1.5</td><td>8.5</td></tr>
+          <tr><td>M12 × 1.75</td><td>1.75</td><td>10.2</td></tr>
+          <tr><td>M14 × 2.0</td><td>2.0</td><td>12.0</td></tr>
+          <tr><td>M16 × 2.0</td><td>2.0</td><td>14.0</td></tr>
+          <tr><td>M18 × 2.5</td><td>2.5</td><td>15.5</td></tr>
+          <tr><td>M20 × 2.5</td><td>2.5</td><td>17.5</td></tr>
+        </table>
+      </div>
+
+      <h2 id="calculator">Metric Tap Drill Calculator</h2>
+
+      <p class="description">
+        Select a thread size and pitch to estimate the recommended tap drill diameter using the common major diameter minus pitch method.
+      </p>
+
+      <div class="formula-box">
+        Tap Drill = Major Diameter − Pitch
+      </div>
+
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadM6Example(); gtag('event','tap_drill_example',{'type':'m6'});">M6 × 1.0</button>
+        <button type="button" onclick="loadM10Example(); gtag('event','tap_drill_example',{'type':'m10'});">M10 × 1.5</button>
+        <button type="button" onclick="loadM12FineExample(); gtag('event','tap_drill_example',{'type':'m12_fine'});">M12 × 1.5</button>
+      </div>
+
+      <div class="grid">
+        <div class="input-card">
+          <label for="majorDiameter">Major Diameter (mm)</label>
+          <select id="majorDiameter">
+            <option value="3">M3</option>
+            <option value="4">M4</option>
+            <option value="5">M5</option>
+            <option value="6">M6</option>
+            <option value="8">M8</option>
+            <option value="10">M10</option>
+            <option value="12">M12</option>
+            <option value="14">M14</option>
+            <option value="16">M16</option>
+            <option value="18">M18</option>
+            <option value="20">M20</option>
+          </select>
+        </div>
+
+        <div class="input-card">
+          <label for="pitch">Pitch (mm)</label>
+          <input type="number" id="pitch" step="0.01" placeholder="e.g. 1.5">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateTapDrill()">Calculate</button>
+        <button class="secondary" onclick="loadM10Example()">Load Example</button>
+        <button class="ghost" onclick="resetCalculator()">Reset</button>
+      </div>
+
+      <div class="result" id="result">
+        Enter a major diameter and pitch, then click <strong>Calculate</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need more fastening and machining references?</h3>
+        <p>
+          Use the related charts and calculators to move from drilled hole size into torque, clamp load, and fastening setup decisions.
+        </p>
+        <a href="/reference-charts.html" onclick="gtag('event','related_tool_click',{'from':'metric_tap_drill','to':'reference_charts'});">Browse Reference Charts</a>
+      </div>
+
+      <div class="learn-more">
+        <h3>What affects final tap drill choice?</h3>
+
+        <p>
+          Major diameter minus pitch is a great quick estimate, but final drill selection can change depending on material, desired thread percentage, tap style, and process stability. Harder materials or tougher tapping conditions may benefit from a slightly larger drill if reduced tap load matters more than maximum thread engagement.
+        </p>
+
+        <p>
+          Production work also depends on tool wear, hole quality, tolerance, cutting fluid, and whether the thread is cut or formed. So this page is best used as a practical starting point, not as the only decision for critical parts.
+        </p>
+
+        <div class="internal-links">
+          <a href="/bolt-torque-chart.html" onclick="gtag('event','internal_link_click',{'from':'metric_tap_drill','to':'bolt_torque_chart'});">Bolt Torque Chart</a>
+          <a href="/bolt-tightening-torque.html" onclick="gtag('event','internal_link_click',{'from':'metric_tap_drill','to':'bolt_tightening_torque'});">Bolt Tightening Torque Calculator</a>
+          <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link_click',{'from':'metric_tap_drill','to':'torque_clamp_load'});">Torque to Clamp Load</a>
+          <a href="/reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'metric_tap_drill','to':'reference_charts'});">Engineering Reference Charts</a>
+        </div>
+      </div>
+
+      <p class="footer-note">
+        For standard coarse metric threads, the calculator result should usually match the common chart values above. Final drill choice may vary with application and shop practice.
+      </p>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical machining and fastening reference data
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this page gives you</h3>
+        <ul>
+          <li>Quick metric tap drill lookup</li>
+          <li>Calculator for custom diameter and pitch</li>
+          <li>M3 through M20 common references</li>
+          <li>Fast shop-floor starting values</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common uses</h3>
+        <p>
+          Useful for fixture plates, maintenance work, tapped brackets, machine build details, and general machining prep where you need a drill size quickly.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>When to review deeper</h3>
+        <ul>
+          <li>High thread percentage targets</li>
+          <li>Difficult materials</li>
+          <li>Form tapping applications</li>
+          <li>Tight tolerance work</li>
+          <li>Critical or high-cycle assemblies</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
+  function scrollToResult(){
+    document.getElementById("result").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
   function calculateTapDrill(){
     const majorDiameter = parseFloat(document.getElementById("majorDiameter").value);
     const pitch = parseFloat(document.getElementById("pitch").value);
     const result = document.getElementById("result");
 
     if(isNaN(majorDiameter) || isNaN(pitch) || majorDiameter <= 0 || pitch <= 0){
-      result.innerHTML = "Please enter a valid major diameter and pitch.";
+      result.innerHTML = "<strong>Please enter a valid major diameter and pitch greater than 0.</strong>";
+      scrollToResult();
       return;
     }
 
     const tapDrill = majorDiameter - pitch;
 
-    result.innerHTML = `
-      Recommended Tap Drill: ${tapDrill.toFixed(2)} mm<br>
-      Calculation: ${majorDiameter.toFixed(2)} − ${pitch.toFixed(2)} = ${tapDrill.toFixed(2)} mm
-    `;
+    let note = "";
+    if(pitch >= 2.0){
+      note = "Coarser pitch selected. Verify tool load and thread engagement for the material you are tapping.";
+    } else if(pitch <= 0.6){
+      note = "Fine/small thread selected. Watch drill accuracy and tap alignment closely.";
+    } else {
+      note = "This is a practical starting drill size for standard metric tapping work.";
+    }
+
+    result.innerHTML =
+      "<strong>Recommended Tap Drill</strong><br>" +
+      tapDrill.toFixed(2) + " mm<br><br>" +
+      "<strong>Calculation</strong><br>" +
+      majorDiameter.toFixed(2) + " − " + pitch.toFixed(2) + " = " + tapDrill.toFixed(2) + " mm<br><br>" +
+      "<strong>Note</strong><br>" +
+      note;
+
+    scrollToResult();
   }
 
-  fetch("navbar.html?v=20260311")
+  function resetCalculator(){
+    document.getElementById("majorDiameter").value = "3";
+    document.getElementById("pitch").value = "";
+    document.getElementById("result").innerHTML = 'Enter a major diameter and pitch, then click <strong>Calculate</strong>.';
+  }
+
+  function loadM6Example(){
+    document.getElementById("majorDiameter").value = "6";
+    document.getElementById("pitch").value = "1.0";
+    calculateTapDrill();
+  }
+
+  function loadM10Example(){
+    document.getElementById("majorDiameter").value = "10";
+    document.getElementById("pitch").value = "1.5";
+    calculateTapDrill();
+  }
+
+  function loadM12FineExample(){
+    document.getElementById("majorDiameter").value = "12";
+    document.getElementById("pitch").value = "1.5";
+    calculateTapDrill();
+  }
+
+  fetch("navbar.html?v=20260314")
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
