@@ -168,10 +168,112 @@
   <div class="card">
 
     <div class="top-note">
-      <strong>How to use:</strong> Select your symptom and conditions, then run the diagnosis.  
+      <strong>How to use:</strong> Select your symptom and conditions, then run the diagnosis.
       Start with power and physical layer — then move to addressing and configuration.
     </div>
 
-    <!-- CONTROLS (UNCHANGED) -->
     <div class="controls">
-      <!-- (keeping your exact controls here, unchanged) -->
+
+      <div class="control-group">
+        <label>Communication Protocol</label>
+        <select id="protocol">
+          <option value="ethernetip">EtherNet/IP</option>
+          <option value="profinet">PROFINET</option>
+          <option value="modbustcp">Modbus TCP</option>
+          <option value="modbusrtu">Modbus RTU</option>
+          <option value="devicenet">DeviceNet</option>
+          <option value="profibus">Profibus</option>
+          <option value="serial">Serial</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>Primary Symptom</label>
+        <select id="symptom">
+          <option value="offline">Device Offline</option>
+          <option value="intermittent">Intermittent</option>
+          <option value="timeout">Timeout</option>
+          <option value="noComm">No Communication</option>
+          <option value="wrongData">Wrong Data</option>
+          <option value="duplicate">Duplicate Address</option>
+          <option value="faulted">Bus Fault</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>Power Condition</label>
+        <select id="powerCondition">
+          <option value="good">Good</option>
+          <option value="unstable">Unstable</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>Physical Link</label>
+        <select id="linkCondition">
+          <option value="normal">Normal</option>
+          <option value="bad">Bad</option>
+          <option value="unknown">Unknown</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>Recent Changes</label>
+        <select id="recentChanges">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label>Node Count</label>
+        <input id="nodeCount" type="number" value="8">
+      </div>
+
+    </div>
+
+    <div class="button-row">
+      <button onclick="diagnoseCommIssue()">Run Diagnosis</button>
+      <button class="secondary" onclick="resetCalculator()">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Select conditions and run diagnosis
+    </div>
+
+    <div class="cta">
+      <strong>Need help fixing this in the real world?</strong><br>
+      Get connected with an automation integrator.
+      <br>
+      <a href="/integrators.html">Find an Integrator</a>
+    </div>
+
+    <div class="footer">
+      Automation Engineering Tools • Real troubleshooting tools for real systems
+    </div>
+
+  </div>
+</div>
+
+<script>
+function diagnoseCommIssue(){
+  document.getElementById("output").innerHTML =
+    "<strong>Likely Issue:</strong><br>Check power, cabling, and addressing first.<br><br>" +
+    "<strong>Next Steps:</strong><br>Verify IP, inspect wiring, check PLC diagnostics.";
+}
+
+function resetCalculator(){
+  document.getElementById("output").innerHTML =
+    "Select conditions and run diagnosis";
+}
+</script>
+
+<script>
+fetch("navbar.html")
+.then(r=>r.text())
+.then(d=>document.getElementById("navbar").innerHTML=d);
+</script>
+
+</body>
+</html>
