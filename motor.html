@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/motor.html">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -19,77 +21,124 @@
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
+      color:#222;
     }
 
-   
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
+      padding:42px 20px 32px;
+      text-align:center;
     }
 
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
-    .container{
-      background:white;
-      padding:30px;
-      max-width:760px;
+    .hero-inner{
+      max-width:950px;
       margin:auto;
-      border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
     }
 
-    .container h2{
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:28px;
+    }
+
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
       margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
       color:#1f2a44;
     }
 
@@ -98,57 +147,105 @@
       margin-bottom:18px;
       color:#555;
       font-size:16px;
-      line-height:1.5;
-      font-weight:normal;
-    }
-
-    .input-group{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:20px;
-      margin:14px 0;
-    }
-
-    .input-group label{
-      width:50%;
+      line-height:1.6;
       text-align:left;
-      font-weight:500;
     }
 
-    .input-group input{
-      width:50%;
-      margin:0;
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:25px 0;
+    }
+
+    .input-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:18px;
+      text-align:left;
+    }
+
+    label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
     }
 
     input{
       width:100%;
-      padding:10px;
-      margin:10px 0;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+    }
+
+    input:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
     .button-row{
-      margin-top:18px;
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
-    button{
-      padding:12px 26px;
+    .button-row button{
+      padding:13px 22px;
       font-size:16px;
       background:#1f2a44;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin:6px;
-      transition:background .2s;
+      margin:0;
+      transition:background .2s, transform .2s;
+      font-weight:bold;
     }
 
-    button:hover{
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
       background:#2d3d63;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
@@ -156,254 +253,455 @@
       padding:20px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:8px;
+      border-radius:10px;
       font-size:18px;
-      line-height:1.6;
+      line-height:1.7;
       font-weight:500;
       text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .note{
       margin-top:20px;
       color:#666;
       font-size:14px;
-      line-height:1.5;
+      line-height:1.6;
       text-align:left;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
     }
 
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:640px){
-      .input-group{
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
         flex-direction:column;
-        align-items:stretch;
-        gap:8px;
+        align-items:center;
       }
 
-      .input-group label,
-      .input-group input{
+      .hero-cta a{
         width:100%;
+        max-width:320px;
       }
 
-      button{
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
         width:100%;
-        margin:6px 0;
       }
     }
   </style>
 </head>
 <body>
 
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h2>Conveyor Motor Sizing Calculator</h2>
-
-    <p class="description">
-      Estimate conveyor drive force, torque, roller RPM, and motor power for basic horizontal conveyor applications. If you are still determining throughput or required line rate, start with the <a href="/conveyor-speed.html" onclick="gtag('event','inline_link_click',{from:'conveyor_motor',to:'conveyor_speed'});">conveyor speed calculator</a> before sizing the motor.
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Conveyor Motor Sizing Calculator</h1>
+    <p>
+      Estimate conveyor drive force, roller torque, roller RPM, and motor power for basic horizontal conveyor applications using load, speed, roller diameter, friction, efficiency, and safety factor.
     </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/conveyor-speed.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'conveyor_motor_hero','to':'conveyor_speed'});">Conveyor Speed Calculator</a>
+    </div>
+  </div>
+</section>
 
-    <p class="description">
-      This calculator is useful for early conveyor sizing in automation systems, material handling equipment, transfer conveyors, and basic machine design.
-    </p>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> estimate a first-pass conveyor motor requirement for a simple horizontal application before moving into gearbox ratio, service factor, acceleration, and detailed mechanical review.
+  </div>
 
-    <p class="description">
-      This free conveyor motor sizing calculator helps estimate required drive force, torque, and power for simple horizontal conveyors using load weight, conveyor speed, roller diameter, friction factor, efficiency, and safety factor.
-    </p>
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Conveyor Force, Torque, and Power</h2>
 
-    <p class="description">
-      For pneumatic-driven conveyors or hybrid systems, verify available actuator force using the <a href="/pneumatic.html" onclick="gtag('event','inline_link_click',{from:'conveyor_motor',to:'pneumatic_force'});">pneumatic force calculator</a>.
-    </p>
+      <p class="description">
+        Estimate conveyor drive force, torque, roller RPM, and motor power for basic horizontal conveyor applications. If you are still determining throughput or required line rate, start with the <a href="/conveyor-speed.html" onclick="gtag('event','inline_link_click',{from:'conveyor_motor',to:'conveyor_speed'});">conveyor speed calculator</a> before sizing the motor.
+      </p>
 
-    <div class="input-group">
-      <label for="weight">Load Weight (kg)</label>
-      <input id="weight" type="number" value="50" min="0" step="any">
+      <p class="description">
+        This calculator is useful for early conveyor sizing in automation systems, material handling equipment, transfer conveyors, and basic machine design.
+      </p>
+
+      <p class="description">
+        This free conveyor motor sizing calculator helps estimate required drive force, torque, and power for simple horizontal conveyors using load weight, conveyor speed, roller diameter, friction factor, efficiency, and safety factor.
+      </p>
+
+      <p class="description">
+        For pneumatic-driven conveyors or hybrid systems, verify available actuator force using the <a href="/pneumatic.html" onclick="gtag('event','inline_link_click',{from:'conveyor_motor',to:'pneumatic_force'});">pneumatic force calculator</a>.
+      </p>
+
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample(); gtag('event','conveyor_motor_example',{'type':'standard'});">Standard Example</button>
+        <button type="button" onclick="loadHeavierExample(); gtag('event','conveyor_motor_example',{'type':'heavier_load'});">Heavier Load</button>
+        <button type="button" onclick="loadFasterExample(); gtag('event','conveyor_motor_example',{'type':'faster_line'});">Faster Line</button>
+      </div>
+
+      <div class="grid">
+        <div class="input-card">
+          <label for="weight">Load Weight (kg)</label>
+          <input id="weight" type="number" value="50" min="0" step="any">
+        </div>
+
+        <div class="input-card">
+          <label for="speed">Conveyor Speed (m/min)</label>
+          <input id="speed" type="number" value="20" min="0" step="any">
+        </div>
+
+        <div class="input-card">
+          <label for="diameter">Drive Roller Diameter (mm)</label>
+          <input id="diameter" type="number" value="100" min="0.01" step="any">
+        </div>
+
+        <div class="input-card">
+          <label for="friction">Friction Factor</label>
+          <input id="friction" type="number" value="0.05" min="0" step="any">
+        </div>
+
+        <div class="input-card">
+          <label for="efficiency">Mechanical Efficiency (%)</label>
+          <input id="efficiency" type="number" value="85" min="0.01" max="100" step="any">
+        </div>
+
+        <div class="input-card">
+          <label for="safety">Safety Factor</label>
+          <input id="safety" type="number" value="1.5" min="0.01" step="any">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculate(); gtag('event','conveyor_motor_calculation');">Calculate</button>
+        <button class="secondary" onclick="loadExample();">Load Example</button>
+        <button class="ghost" onclick="clearCalculator(); gtag('event','conveyor_motor_clear');">Reset</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter values and press <strong>Calculate</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this to a real machine?</h3>
+        <p>
+          Get connected with a qualified automation integrator for your project if you need help with conveyor sizing, reducer selection, controls, or full machine design.
+        </p>
+        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'conveyor_motor_midpage'});">
+          Find an Integrator
+        </a>
+      </div>
+
+      <p class="note">
+        This calculator is intended for basic horizontal conveyor estimates. It does not account for incline angle, belt type, start-up surge, multiple rollers, belt mass, acceleration requirements, or detailed bearing and drive losses.
+      </p>
+
+      <div class="learn-more">
+        <h3>Continue Your Conveyor Drive Design</h3>
+
+        <p>
+          After sizing motor requirements, the next step is usually checking conveyor speed targets, gearbox ratio, actual motor torque margin, and whether startup or acceleration loads are significantly higher than steady-state demand.
+        </p>
+
+        <p>
+          This matters even more on heavier conveyors, longer lines, index conveyors, and systems with variable speed control or repeated starts and stops.
+        </p>
+
+        <div class="internal-links">
+          <a href="/conveyor-speed.html" onclick="gtag('event','internal_link_click',{from:'conveyor_motor',to:'conveyor_speed'});">Conveyor Speed Calculator</a>
+          <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{from:'conveyor_motor',to:'servo_torque'});">Servo Torque Calculator</a>
+          <a href="/gear-ratio.html" onclick="gtag('event','internal_link_click',{from:'conveyor_motor',to:'gear_ratio'});">Gear Ratio Calculator</a>
+          <a href="/gearbox-torque.html" onclick="gtag('event','internal_link_click',{from:'conveyor_motor',to:'gearbox_torque'});">Gearbox Output Torque</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
     </div>
 
-    <div class="input-group">
-      <label for="speed">Conveyor Speed (m/min)</label>
-      <input id="speed" type="number" value="20" min="0" step="any">
-    </div>
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Required conveyor force</li>
+          <li>Required roller torque</li>
+          <li>Drive roller RPM</li>
+          <li>Power in W, kW, and hp</li>
+        </ul>
+      </div>
 
-    <div class="input-group">
-      <label for="diameter">Drive Roller Diameter (mm)</label>
-      <input id="diameter" type="number" value="100" min="0.01" step="any">
-    </div>
+      <div class="sidebar-card">
+        <h3>Where this helps</h3>
+        <p>
+          Useful for early conveyor drive sizing, transfer system concepts, machine build review, and checking whether a proposed motor and reducer are even in the right range.
+        </p>
+      </div>
 
-    <div class="input-group">
-      <label for="friction">Friction Factor</label>
-      <input id="friction" type="number" value="0.05" min="0" step="any">
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Gearbox ratio selection</li>
+          <li>Motor torque margin</li>
+          <li>Startup and acceleration loads</li>
+          <li>Incline or side-load effects</li>
+          <li>Service factor and thermal limits</li>
+        </ul>
+      </div>
     </div>
-
-    <div class="input-group">
-      <label for="efficiency">Mechanical Efficiency (%)</label>
-      <input id="efficiency" type="number" value="85" min="0.01" max="100" step="any">
-    </div>
-
-    <div class="input-group">
-      <label for="safety">Safety Factor</label>
-      <input id="safety" type="number" value="1.5" min="0.01" step="any">
-    </div>
-
-    <div class="button-row">
-      <button onclick="calculate(); gtag('event','conveyor_motor_calculation');">Calculate</button>
-      <button onclick="loadExample(); gtag('event','conveyor_motor_example');">Load Example</button>
-      <button onclick="clearCalculator(); gtag('event','conveyor_motor_clear');">Clear</button>
-    </div>
-
-    <div class="result" id="output">
-      Enter values and press Calculate
-    </div>
-
-    <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
+  </div>
 </div>
 
-    <p class="note">
-      This calculator is intended for basic horizontal conveyor estimates. It does not account for incline angle, belt type, start-up surge, multiple rollers, belt mass, acceleration requirements, or detailed bearing and drive losses.
-    </p>
+<script>
+  function showMessage(message){
+    document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+    document.getElementById("output").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
-    <div style="margin-top:30px;padding:20px;background:#f4f8ff;border-radius:8px;text-align:left;">
+  function calculate(){
+    let weight = parseFloat(document.getElementById("weight").value) || 0;
+    let speed = parseFloat(document.getElementById("speed").value) || 0;
+    let diameter = parseFloat(document.getElementById("diameter").value) || 0;
+    let friction = parseFloat(document.getElementById("friction").value) || 0;
+    let efficiencyPercent = parseFloat(document.getElementById("efficiency").value) || 0;
+    let safety = parseFloat(document.getElementById("safety").value) || 0;
 
-    <strong>Continue Your Conveyor Drive Design</strong>
-    <br><br>
+    const output = document.getElementById("output");
 
-    After sizing motor requirements, use these tools to continue the system:
-
-    <br><br>
-
-    ➤ <a href="/conveyor-speed.html" onclick="gtag('event','internal_link_click',{from:'conveyor_motor',to:'conveyor_speed'});">Conveyor Speed Calculator</a><br>
-
-    ➤ <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{from:'conveyor_motor',to:'servo_torque'});">Servo Torque Calculator</a><br>
-
-    ➤ <a href="/gear-ratio.html" onclick="gtag('event','internal_link_click',{from:'conveyor_motor',to:'gear_ratio'});">Gear Ratio Calculator</a><br>
-
-  </div>
-
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators for real automation work
-    </div>
-  </div>
-
-  <script>
-    function showMessage(message){
-      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+    if(weight < 0){
+      showMessage("Please enter a load weight of 0 or greater.");
+      return;
     }
 
-    function calculate(){
-      let weight = parseFloat(document.getElementById("weight").value) || 0;
-      let speed = parseFloat(document.getElementById("speed").value) || 0;
-      let diameter = parseFloat(document.getElementById("diameter").value) || 0;
-      let friction = parseFloat(document.getElementById("friction").value) || 0;
-      let efficiencyPercent = parseFloat(document.getElementById("efficiency").value) || 0;
-      let safety = parseFloat(document.getElementById("safety").value) || 0;
-
-      const output = document.getElementById("output");
-
-      if(weight < 0){
-        showMessage("Please enter a load weight of 0 or greater.");
-        return;
-      }
-
-      if(speed < 0){
-        showMessage("Please enter a conveyor speed of 0 or greater.");
-        return;
-      }
-
-      if(diameter <= 0){
-        showMessage("Please enter a drive roller diameter greater than 0.");
-        return;
-      }
-
-      if(friction < 0){
-        showMessage("Please enter a friction factor of 0 or greater.");
-        return;
-      }
-
-      if(efficiencyPercent <= 0 || efficiencyPercent > 100){
-        showMessage("Please enter a mechanical efficiency greater than 0 and up to 100%.");
-        return;
-      }
-
-      if(safety <= 0){
-        showMessage("Please enter a safety factor greater than 0.");
-        return;
-      }
-
-      let efficiency = efficiencyPercent / 100;
-      let g = 9.81;
-
-      let force = weight * g * friction * safety;
-      let radius = (diameter / 1000) / 2;
-      let torque = force * radius;
-
-      let speedMps = speed / 60;
-      let rollerCircumference = Math.PI * (diameter / 1000);
-      let rollerRPM = rollerCircumference > 0 ? (speedMps / rollerCircumference) * 60 : 0;
-
-      let powerWatts = speedMps > 0 ? (force * speedMps) / efficiency : 0;
-      let powerKw = powerWatts / 1000;
-      let horsepower = powerWatts / 745.7;
-
-      output.innerHTML =
-        "<strong>Required Force</strong><br>" +
-        force.toFixed(2) + " N<br><br>" +
-
-        "<strong>Required Torque</strong><br>" +
-        torque.toFixed(2) + " N·m<br><br>" +
-
-        "<strong>Drive Roller Speed</strong><br>" +
-        rollerRPM.toFixed(2) + " RPM<br><br>" +
-
-        "<strong>Required Power</strong><br>" +
-        powerWatts.toFixed(2) + " W<br>" +
-        powerKw.toFixed(3) + " kW<br>" +
-        horsepower.toFixed(3) + " hp";
+    if(speed < 0){
+      showMessage("Please enter a conveyor speed of 0 or greater.");
+      return;
     }
 
-    function clearCalculator(){
-      document.getElementById("weight").value = "50";
-      document.getElementById("speed").value = "20";
-      document.getElementById("diameter").value = "100";
-      document.getElementById("friction").value = "0.05";
-      document.getElementById("efficiency").value = "85";
-      document.getElementById("safety").value = "1.5";
-
-      showMessage("Enter values and press Calculate");
+    if(diameter <= 0){
+      showMessage("Please enter a drive roller diameter greater than 0.");
+      return;
     }
 
-    function loadExample(){
-      document.getElementById("weight").value = "50";
-      document.getElementById("speed").value = "20";
-      document.getElementById("diameter").value = "100";
-      document.getElementById("friction").value = "0.05";
-      document.getElementById("efficiency").value = "85";
-      document.getElementById("safety").value = "1.5";
-
-      calculate();
+    if(friction < 0){
+      showMessage("Please enter a friction factor of 0 or greater.");
+      return;
     }
-  </script>
 
-  <script>
-    fetch("navbar.html?v=20260314")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
+    if(efficiencyPercent <= 0 || efficiencyPercent > 100){
+      showMessage("Please enter a mechanical efficiency greater than 0 and up to 100%.");
+      return;
+    }
+
+    if(safety <= 0){
+      showMessage("Please enter a safety factor greater than 0.");
+      return;
+    }
+
+    let efficiency = efficiencyPercent / 100;
+    let g = 9.81;
+
+    let force = weight * g * friction * safety;
+    let radius = (diameter / 1000) / 2;
+    let torque = force * radius;
+
+    let speedMps = speed / 60;
+    let rollerCircumference = Math.PI * (diameter / 1000);
+    let rollerRPM = rollerCircumference > 0 ? (speedMps / rollerCircumference) * 60 : 0;
+
+    let powerWatts = speedMps > 0 ? (force * speedMps) / efficiency : 0;
+    let powerKw = powerWatts / 1000;
+    let horsepower = powerWatts / 745.7;
+
+    let comment = "";
+    if(powerKw < 0.25){
+      comment = "This is a relatively small power requirement, but still verify starting torque and reducer sizing.";
+    } else if(powerKw < 2){
+      comment = "This is a moderate conveyor power requirement. Check gearbox ratio, motor torque, and startup conditions.";
+    } else {
+      comment = "This is a larger conveyor power requirement. Review service factor, acceleration load, and mechanical losses carefully.";
+    }
+
+    output.innerHTML =
+      "<strong>Required Force</strong><br>" +
+      force.toFixed(2) + " N<br><br>" +
+
+      "<strong>Required Torque</strong><br>" +
+      torque.toFixed(2) + " N·m<br><br>" +
+
+      "<strong>Drive Roller Speed</strong><br>" +
+      rollerRPM.toFixed(2) + " RPM<br><br>" +
+
+      "<strong>Required Power</strong><br>" +
+      powerWatts.toFixed(2) + " W<br>" +
+      powerKw.toFixed(3) + " kW<br>" +
+      horsepower.toFixed(3) + " hp<br><br>" +
+
+      "<strong>Interpretation</strong><br>" +
+      comment;
+  }
+
+  function clearCalculator(){
+    document.getElementById("weight").value = "50";
+    document.getElementById("speed").value = "20";
+    document.getElementById("diameter").value = "100";
+    document.getElementById("friction").value = "0.05";
+    document.getElementById("efficiency").value = "85";
+    document.getElementById("safety").value = "1.5";
+
+    showMessage("Enter values and press Calculate.");
+  }
+
+  function loadExample(){
+    document.getElementById("weight").value = "50";
+    document.getElementById("speed").value = "20";
+    document.getElementById("diameter").value = "100";
+    document.getElementById("friction").value = "0.05";
+    document.getElementById("efficiency").value = "85";
+    document.getElementById("safety").value = "1.5";
+    calculate();
+  }
+
+  function loadHeavierExample(){
+    document.getElementById("weight").value = "180";
+    document.getElementById("speed").value = "18";
+    document.getElementById("diameter").value = "120";
+    document.getElementById("friction").value = "0.06";
+    document.getElementById("efficiency").value = "82";
+    document.getElementById("safety").value = "1.75";
+    calculate();
+  }
+
+  function loadFasterExample(){
+    document.getElementById("weight").value = "60";
+    document.getElementById("speed").value = "45";
+    document.getElementById("diameter").value = "90";
+    document.getElementById("friction").value = "0.05";
+    document.getElementById("efficiency").value = "88";
+    document.getElementById("safety").value = "1.5";
+    calculate();
+  }
+</script>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
 
 </body>
 </html>
