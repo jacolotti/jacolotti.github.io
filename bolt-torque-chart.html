@@ -4,6 +4,7 @@
   <link rel="canonical" href="https://automationcalculators.net/bolt-torque-chart.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -15,7 +16,7 @@
   </script>
 
   <title>Bolt Torque Chart | Metric & SAE Torque Values</title>
-  <meta name="description" content="Free bolt torque chart for common metric and SAE bolts. Quickly look up recommended torque values or estimate tightening torque using bolt diameter, grade, and friction factor.">
+  <meta name="description" content="Free bolt torque chart for common metric and SAE bolts. Quickly look up practical starting torque values or estimate tightening torque using bolt diameter, clamp load, and friction factor.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -23,45 +24,137 @@
       font-family:Arial, sans-serif;
       background:#f4f4f4;
       margin:0;
-      text-align:center;
       color:#222;
     }
 
-    .container{
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-card{
       max-width:1000px;
       margin:0 auto 40px auto;
       background:white;
-      padding:30px 20px 40px;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,0.1);
+      padding:30px 24px 40px;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,0.08);
     }
 
-    h1{
-      color:#1f2a44;
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
       margin-bottom:10px;
+      text-align:left;
     }
 
     h2{
       color:#1f2a44;
       margin-top:35px;
-      margin-bottom:15px;
+      margin-bottom:12px;
+      text-align:left;
     }
 
-    p{
-      line-height:1.6;
-      max-width:850px;
-      margin:10px auto;
+    .intro-text{
+      line-height:1.7;
+      max-width:900px;
+      margin:10px 0 14px;
+      color:#555;
+      text-align:left;
+      font-size:16px;
+    }
+
+    .table-wrap{
+      overflow-x:auto;
+      margin:20px 0;
+      border:1px solid #d8e3f5;
+      border-radius:10px;
     }
 
     table{
       width:100%;
-      max-width:900px;
+      min-width:650px;
       border-collapse:collapse;
-      margin:20px auto;
+      background:white;
     }
 
     th, td{
-      border:1px solid #ccc;
+      border-bottom:1px solid #e6ebf3;
       padding:12px 10px;
       text-align:center;
     }
@@ -72,79 +165,257 @@
     }
 
     tr:nth-child(even){
-      background:#f7f7f7;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
-      gap:15px;
-      max-width:700px;
-      margin:25px auto;
-    }
-
-    .card{
-      background:#f8f9fb;
-      border:1px solid #d9dfeb;
-      border-radius:8px;
-      padding:18px;
-    }
-
-    label{
-      display:block;
-      font-weight:bold;
-      margin-bottom:6px;
-      text-align:left;
-      color:#1f2a44;
-    }
-
-    input{
-      width:100%;
-      padding:10px;
-      border:1px solid #bbb;
-      border-radius:6px;
-      font-size:16px;
-      box-sizing:border-box;
-    }
-
-    button{
-      background:#1f2a44;
-      color:white;
-      border:none;
-      padding:12px 24px;
-      font-size:16px;
-      border-radius:6px;
-      cursor:pointer;
-      margin-top:10px;
-    }
-
-    button:hover{
-      background:#2d3b5f;
-    }
-
-    .result{
-      margin-top:25px;
-      font-size:18px;
-      font-weight:bold;
-      color:#1f2a44;
-      line-height:1.6;
+      background:#f8fbff;
     }
 
     .formula{
       background:#eef3ff;
       border:1px solid #cfdaf5;
-      border-radius:8px;
+      border-radius:10px;
       padding:18px;
       margin:20px auto;
-      max-width:600px;
+      max-width:700px;
       font-weight:bold;
+      font-size:20px;
+      color:#1f2a44;
+    }
+
+    .formula-note{
+      line-height:1.7;
+      color:#555;
+      text-align:left;
+      max-width:850px;
+      margin:0 auto 18px;
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:flex-start;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+      gap:16px;
+      max-width:850px;
+      margin:25px auto 0;
+    }
+
+    .card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:18px;
+      text-align:left;
+    }
+
+    label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
+    }
+
+    input{
+      width:100%;
+      padding:10px 12px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      font-size:16px;
+      box-sizing:border-box;
+      background:white;
+    }
+
+    input:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .button-row{
+      margin-top:22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:center;
+    }
+
+    .button-row button{
+      background:#1f2a44;
+      color:white;
+      border:none;
+      padding:13px 22px;
+      font-size:16px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      transform:translateY(-1px);
+      background:#2d3b5f;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
       font-size:18px;
+      font-weight:bold;
+      color:#1f2a44;
+      line-height:1.7;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      text-align:left;
+      max-width:850px;
+      margin-left:auto;
+      margin-right:auto;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:28px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+      max-width:850px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .learn-more{
+      margin-top:30px;
+      text-align:left;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#f2f5fb;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
     }
 
     .footer-note{
       font-size:13px;
       color:#666;
       margin-top:20px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .footer{
+      margin-top:30px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:700px){
+      .main-card{
+        padding:20px 16px 30px;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
+      }
     }
   </style>
 </head>
@@ -153,125 +424,240 @@
 
 <div id="navbar"></div>
 
-<div class="container">
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Bolt Torque Chart</h1>
+    <p>
+      Use this page as a quick reference for common metric and SAE bolt torque values, then estimate starting torque with a simple clamp load and friction-based formula.
+    </p>
+    <div class="hero-cta">
+      <a href="#torque-chart" class="primary">Jump to Chart</a>
+      <a href="/bolt-tightening-torque.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'bolt_torque_chart_hero','to':'bolt_tightening_torque'});">Open Full Calculator</a>
+    </div>
+  </div>
+</section>
 
-<h1>Bolt Torque Chart</h1>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Important:</strong> these values are practical starting references only. Actual torque requirements depend heavily on bolt grade, lubrication, coatings, joint stiffness, under-head friction, and application criticality.
+  </div>
 
-<p>
-Use this bolt torque chart as a quick reference for common metric and SAE bolt sizes.
-Torque values vary depending on bolt grade, lubrication, and joint conditions.
-Always verify torque specifications for critical applications.
-</p>
+  <div class="main-card">
+    <div class="section-label">Reference Chart</div>
 
-<h2>Metric Bolt Torque Chart (Class 8.8)</h2>
+    <p class="intro-text">
+      Use this bolt torque chart as a quick reference for common metric and SAE bolt sizes. It is useful for maintenance, early design work, fixture assembly, machine build review, and fastener planning when you need a practical starting point.
+    </p>
 
-<table>
-<tr>
-<th>Bolt Size</th>
-<th>Torque (Nm)</th>
-<th>Torque (ft-lb)</th>
-</tr>
-<tr><td>M5</td><td>5</td><td>4</td></tr>
-<tr><td>M6</td><td>10</td><td>7</td></tr>
-<tr><td>M8</td><td>25</td><td>18</td></tr>
-<tr><td>M10</td><td>49</td><td>36</td></tr>
-<tr><td>M12</td><td>85</td><td>63</td></tr>
-<tr><td>M14</td><td>135</td><td>100</td></tr>
-<tr><td>M16</td><td>210</td><td>155</td></tr>
-<tr><td>M20</td><td>410</td><td>302</td></tr>
-</table>
+    <p class="intro-text">
+      For critical joints, always validate against manufacturer recommendations, engineering standards, or tested tightening methods. Torque-only tightening can easily mislead you if friction conditions change.
+    </p>
 
-<h2>SAE Bolt Torque Chart (Grade 8)</h2>
+    <h2 id="torque-chart">Metric Bolt Torque Chart (Class 8.8)</h2>
 
-<table>
-<tr>
-<th>Bolt Size</th>
-<th>Torque (ft-lb)</th>
-<th>Torque (Nm)</th>
-</tr>
-<tr><td>1/4"</td><td>12</td><td>16</td></tr>
-<tr><td>5/16"</td><td>25</td><td>34</td></tr>
-<tr><td>3/8"</td><td>45</td><td>61</td></tr>
-<tr><td>7/16"</td><td>70</td><td>95</td></tr>
-<tr><td>1/2"</td><td>110</td><td>149</td></tr>
-<tr><td>5/8"</td><td>215</td><td>291</td></tr>
-<tr><td>3/4"</td><td>380</td><td>515</td></tr>
-</table>
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Bolt Size</th>
+          <th>Torque (Nm)</th>
+          <th>Torque (ft-lb)</th>
+        </tr>
+        <tr><td>M5</td><td>5</td><td>4</td></tr>
+        <tr><td>M6</td><td>10</td><td>7</td></tr>
+        <tr><td>M8</td><td>25</td><td>18</td></tr>
+        <tr><td>M10</td><td>49</td><td>36</td></tr>
+        <tr><td>M12</td><td>85</td><td>63</td></tr>
+        <tr><td>M14</td><td>135</td><td>100</td></tr>
+        <tr><td>M16</td><td>210</td><td>155</td></tr>
+        <tr><td>M20</td><td>410</td><td>302</td></tr>
+      </table>
+    </div>
 
-<h2>Bolt Torque Calculator</h2>
+    <h2>SAE Bolt Torque Chart (Grade 8)</h2>
 
-<p>
-Estimate tightening torque using a simplified engineering formula.
-</p>
+    <div class="table-wrap">
+      <table>
+        <tr>
+          <th>Bolt Size</th>
+          <th>Torque (ft-lb)</th>
+          <th>Torque (Nm)</th>
+        </tr>
+        <tr><td>1/4"</td><td>12</td><td>16</td></tr>
+        <tr><td>5/16"</td><td>25</td><td>34</td></tr>
+        <tr><td>3/8"</td><td>45</td><td>61</td></tr>
+        <tr><td>7/16"</td><td>70</td><td>95</td></tr>
+        <tr><td>1/2"</td><td>110</td><td>149</td></tr>
+        <tr><td>5/8"</td><td>215</td><td>291</td></tr>
+        <tr><td>3/4"</td><td>380</td><td>515</td></tr>
+      </table>
+    </div>
 
-<div class="formula">
-Torque = K × F × D
-</div>
+    <h2>Bolt Torque Calculator</h2>
 
-<p>
-Where:<br>
-K = friction factor (~0.18–0.22 typical)<br>
-F = clamp load (N)<br>
-D = bolt diameter (m)
-</p>
+    <p class="intro-text">
+      Use the simplified formula below to estimate tightening torque from bolt diameter, clamp load, and friction factor.
+    </p>
 
-<div class="grid">
+    <div class="formula">
+      Torque = K × F × D
+    </div>
 
-<div class="card">
-<label>Bolt Diameter (mm)</label>
-<input id="diameter" type="number" placeholder="e.g. 10">
-</div>
+    <p class="formula-note">
+      <strong>K</strong> = friction factor, typically around 0.18 to 0.22 for many common conditions<br>
+      <strong>F</strong> = clamp load (N)<br>
+      <strong>D</strong> = bolt diameter (m)
+    </p>
 
-<div class="card">
-<label>Clamp Load (N)</label>
-<input id="force" type="number" placeholder="e.g. 20000">
-</div>
+    <div class="section-label">Quick examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadM10Example(); gtag('event','bolt_torque_chart_example',{'type':'m10'});">M10 Example</button>
+      <button type="button" onclick="loadM12Example(); gtag('event','bolt_torque_chart_example',{'type':'m12'});">M12 Example</button>
+      <button type="button" onclick="loadLowFrictionExample(); gtag('event','bolt_torque_chart_example',{'type':'low_friction'});">Low Friction Example</button>
+    </div>
 
-<div class="card">
-<label>Friction Factor (K)</label>
-<input id="kfactor" type="number" step="0.01" value="0.20">
-</div>
+    <div class="grid">
+      <div class="card">
+        <label for="diameter">Bolt Diameter (mm)</label>
+        <input id="diameter" type="number" placeholder="e.g. 10">
+      </div>
 
-</div>
+      <div class="card">
+        <label for="force">Clamp Load (N)</label>
+        <input id="force" type="number" placeholder="e.g. 20000">
+      </div>
 
-<button onclick="calcTorque()">Calculate Torque</button>
+      <div class="card">
+        <label for="kfactor">Friction Factor (K)</label>
+        <input id="kfactor" type="number" step="0.01" value="0.20">
+      </div>
+    </div>
 
-<div class="result" id="result"></div>
+    <div class="button-row">
+      <button onclick="calcTorque()">Calculate Torque</button>
+      <button class="secondary" onclick="loadM10Example()">Load Example</button>
+      <button class="ghost" onclick="resetCalculator()">Reset</button>
+    </div>
 
-<p class="footer-note">
-Actual torque requirements depend on lubrication, thread condition, joint stiffness, and bolt grade.
-</p>
+    <div class="result" id="result">
+      Enter values above and click <strong>Calculate Torque</strong>.
+    </div>
 
+    <div class="cta-box">
+      <h3>Need a more complete fastening calculator?</h3>
+      <p>
+        Use the full bolt tightening torque calculator if you want preload-based estimates using property class, stress area, proof load percentage, and assembly condition assumptions.
+      </p>
+      <a href="/bolt-tightening-torque.html" onclick="gtag('event','related_tool_click',{'from':'bolt_torque_chart_midpage','to':'bolt_tightening_torque'});">Open Full Bolt Tightening Calculator</a>
+    </div>
+
+    <div class="learn-more">
+      <h3>Why chart torque can be dangerous</h3>
+      <p>
+        Chart values are fast and convenient, but they assume a lot. If lubrication, coating, washer condition, or surface finish changes, the clamp load from the same torque can move a lot. That is why a chart is best for quick reference and starting points, not blind final specs.
+      </p>
+
+      <p>
+        The more important the joint is, the less you should rely on a single torque value without validation. Critical or safety-related joints should be reviewed with tested tightening methods, manufacturer data, or a more controlled fastening strategy.
+      </p>
+
+      <div class="internal-links">
+        <a href="/bolt-tightening-torque.html" onclick="gtag('event','internal_link_click',{'from':'bolt_torque_chart','to':'bolt_tightening_torque'});">Bolt Tightening Torque Calculator</a>
+        <a href="/torque-angle.html" onclick="gtag('event','internal_link_click',{'from':'bolt_torque_chart','to':'torque_angle'});">Torque-Angle Calculator</a>
+        <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link_click',{'from':'bolt_torque_chart','to':'torque_clamp_load'});">Torque to Clamp Load</a>
+      </div>
+    </div>
+
+    <p class="footer-note">
+      Actual torque requirements depend on lubrication, thread condition, joint stiffness, under-head friction, and bolt grade. Use this page as a practical engineering reference, not as a final validated torque specification for critical joints.
+    </p>
+
+    <div class="footer">
+      Automation Engineering Tools • Practical fastening reference data
+    </div>
+  </div>
 </div>
 
 <script>
+function scrollToResult(){
+  document.getElementById("result").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
 
 function calcTorque(){
+  let d = parseFloat(document.getElementById("diameter").value) / 1000;
+  let f = parseFloat(document.getElementById("force").value);
+  let k = parseFloat(document.getElementById("kfactor").value);
 
-let d = parseFloat(document.getElementById("diameter").value)/1000;
-let f = parseFloat(document.getElementById("force").value);
-let k = parseFloat(document.getElementById("kfactor").value);
+  if(isNaN(d) || d <= 0 || isNaN(f) || f <= 0 || isNaN(k) || k <= 0){
+    document.getElementById("result").innerHTML = "<strong>Enter valid diameter, clamp load, and friction factor values greater than 0.</strong>";
+    scrollToResult();
+    return;
+  }
 
-if(isNaN(d)||isNaN(f)||isNaN(k)){
-document.getElementById("result").innerHTML="Enter valid values.";
-return;
+  let torqueNm = k * f * d;
+  let torqueFt = torqueNm * 0.737562;
+  let torqueIn = torqueNm * 8.85075;
+
+  let comment = "";
+  if(k < 0.16){
+    comment = "Low friction factor selected. Double-check lubrication assumptions to avoid over-tightening.";
+  } else if(k > 0.22){
+    comment = "Higher friction factor selected. Real clamp load may be lower than expected for a given torque.";
+  } else {
+    comment = "This is a reasonable starting estimate for common friction assumptions.";
+  }
+
+  document.getElementById("result").innerHTML =
+    "<strong>Estimated Torque</strong><br>" +
+    torqueNm.toFixed(1) + " Nm<br>" +
+    torqueFt.toFixed(1) + " ft-lb<br>" +
+    torqueIn.toFixed(1) + " in-lb<br><br>" +
+    "<strong>Interpretation</strong><br>" +
+    comment;
+
+  scrollToResult();
 }
 
-let torqueNm = k*f*d;
-let torqueFt = torqueNm*0.737562;
-
-document.getElementById("result").innerHTML =
-"Estimated Torque: "+torqueNm.toFixed(1)+" Nm<br>"+
-torqueFt.toFixed(1)+" ft-lb";
-
+function resetCalculator(){
+  document.getElementById("diameter").value = "";
+  document.getElementById("force").value = "";
+  document.getElementById("kfactor").value = "0.20";
+  document.getElementById("result").innerHTML = 'Enter values above and click <strong>Calculate Torque</strong>.';
 }
 
-fetch("navbar.html?v=20260311")
+function loadM10Example(){
+  document.getElementById("diameter").value = "10";
+  document.getElementById("force").value = "20000";
+  document.getElementById("kfactor").value = "0.20";
+  calcTorque();
+}
+
+function loadM12Example(){
+  document.getElementById("diameter").value = "12";
+  document.getElementById("force").value = "32000";
+  document.getElementById("kfactor").value = "0.20";
+  calcTorque();
+}
+
+function loadLowFrictionExample(){
+  document.getElementById("diameter").value = "10";
+  document.getElementById("force").value = "20000";
+  document.getElementById("kfactor").value = "0.15";
+  calcTorque();
+}
+</script>
+
+<script>
+fetch("navbar.html?v=20260314")
 .then(response => response.text())
 .then(data => {
-document.getElementById("navbar").innerHTML = data;
+  document.getElementById("navbar").innerHTML = data;
+})
+.catch(error => {
+  console.error("Navbar failed to load:", error);
 });
-
 </script>
 
 </body>
