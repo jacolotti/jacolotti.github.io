@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/servo-torque.html">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -21,126 +23,252 @@
     body{
       font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
+      color:#222;
     }
 
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
+      padding:42px 20px 32px;
+      text-align:center;
     }
 
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
-    .container{
-      background:white;
-      padding:30px;
-      max-width:850px;
+    .hero-inner{
+      max-width:950px;
       margin:auto;
-      border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
     }
 
-    .container h2{
-      margin-bottom:10px;
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
       color:#1f2a44;
     }
 
-    .description{
-      margin-top:0;
-      margin-bottom:18px;
-      color:#555;
-      font-size:16px;
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
       line-height:1.5;
       text-align:left;
     }
 
-    .grid{
+    .main-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-      gap:18px;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
       text-align:left;
     }
 
-    .field label{
-      display:block;
-      margin-bottom:6px;
-      font-weight:600;
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
     }
 
-    input, select, textarea{
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .description{
+      margin:0 0 18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:25px 0 20px;
+      text-align:left;
+    }
+
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
+    }
+
+    .control-group input,
+    .control-group select,
+    .servo-form input,
+    .servo-form textarea{
       width:100%;
-      padding:10px;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
       font-family:Arial, sans-serif;
     }
 
-    .button-row{
-      margin-top:18px;
+    .control-group input:focus,
+    .control-group select:focus,
+    .servo-form input:focus,
+    .servo-form textarea:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
-    button{
-      padding:12px 26px;
+    .button-row{
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      padding:13px 22px;
       font-size:16px;
-      background:#1f2a44;
+      background:#1e6bd6;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin:6px;
-      transition:background .2s;
+      font-weight:bold;
+      transition:.2s ease;
     }
 
-    button:hover{
-      background:#2d3d63;
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#1555ad;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
@@ -148,61 +276,100 @@
       padding:20px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:8px;
-      font-size:17px;
-      line-height:1.7;
+      border-radius:10px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
       text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .note{
       margin-top:20px;
       color:#666;
       font-size:14px;
-      line-height:1.5;
+      line-height:1.6;
       text-align:left;
     }
 
-    .footer{
-      margin-top:40px;
-      color:#666;
-      font-size:14px;
-    }
-
-    .hidden{
-      display:none;
-    }
-
-    .servo-help{
-      background:white;
-      padding:30px;
-      max-width:850px;
-      margin:30px auto 0;
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
       border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
-      text-align:left;
+      border:1px solid #d7e6ff;
     }
 
-    .servo-help h2{
-      margin-top:0;
-      margin-bottom:12px;
+    .learn-more h3{
       color:#1f2a44;
-      text-align:center;
+      margin-top:0;
+      margin-bottom:10px;
     }
 
-    .servo-help-intro{
-      margin-top:0;
-      margin-bottom:22px;
+    .learn-more p{
       color:#555;
-      font-size:16px;
-      line-height:1.5;
-      text-align:center;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
     }
 
     .servo-help-box{
       background:#f4f8ff;
-      border:1px solid #d9e5ff;
-      border-radius:8px;
-      padding:22px;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:20px;
     }
 
     .servo-help-box h3{
@@ -211,30 +378,28 @@
     }
 
     .servo-help-box p{
-      color:#444;
-      line-height:1.5;
+      color:#555;
+      line-height:1.6;
+      margin-bottom:14px;
     }
 
     .servo-help-box ul{
-      margin:12px 0 18px 20px;
-      padding:0;
-    }
-
-    .servo-help-box li{
-      margin-bottom:8px;
+      padding-left:18px;
+      margin:0 0 18px;
       color:#444;
+      line-height:1.7;
     }
 
     .servo-form{
       display:flex;
       flex-direction:column;
       gap:12px;
-      margin-top:18px;
+      margin-top:12px;
     }
 
     .servo-form label{
       text-align:left;
-      font-weight:bold;
+      font-weight:600;
       font-size:14px;
       color:#1f2a44;
     }
@@ -244,19 +409,17 @@
       background:#1f2a44;
       color:white;
       text-decoration:none;
-      padding:12px 18px;
-      border-radius:6px;
+      padding:12px 16px;
+      border-radius:8px;
       font-weight:bold;
-      transition:background .2s;
       border:none;
       cursor:pointer;
       font-size:16px;
-      width:auto;
-      margin-top:8px;
+      margin-top:6px;
     }
 
     .servo-btn:hover{
-      background:#2d3d63;
+      opacity:.95;
     }
 
     .servo-disclosure{
@@ -267,22 +430,67 @@
       border-radius:6px;
       color:#666;
       font-size:14px;
-      line-height:1.5;
+      line-height:1.6;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:700px){
-      .container{
+      .card,
+      .sidebar-card{
         padding:20px;
       }
 
-      .servo-help{
-        padding:20px;
+      .hero h1{
+        font-size:28px;
       }
 
-      button,
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button,
       .servo-btn{
         width:100%;
-        margin:6px 0;
       }
     }
   </style>
@@ -291,168 +499,242 @@
 
 <div id="navbar"></div>
 
-<div class="container">
-  <h2>Advanced Servo Motor Torque Calculator</h2>
-
-  <p class="description">
-    Estimate servo motor torque for rotary or linear motion systems using load, pulley or wheel radius, target speed, acceleration time, gear ratio, efficiency, and safety factor.
-  </p>
-
-  <p class="description">
-    This calculator is useful for early servo sizing, motion system concept design, pulley-driven axes, conveyor-style drives, rotary indexers, and rough motor selection in industrial automation equipment.
-  </p>
-
-  <p class="description">
-    This free servo torque calculator helps estimate running torque, acceleration torque, total motor torque, recommended torque with safety factor, reflected inertia, and motor power for practical first-pass sizing.
-  </p>
-
-  <div class="grid">
-    <div class="field">
-      <label for="mode">Application Mode</label>
-      <select id="mode" onchange="toggleModeFields()">
-        <option value="linear">Linear Travel</option>
-        <option value="rotary">Rotary Load</option>
-      </select>
-    </div>
-
-    <div class="field">
-      <label for="mass" id="massLabel">Load / Force Equivalent (lb)</label>
-      <input id="mass" type="number" value="50" min="0.01" step="0.1">
-    </div>
-
-    <div class="field">
-      <label for="radius">Pulley / Wheel Radius (in)</label>
-      <input id="radius" type="number" value="2" min="0.01" step="0.1">
-    </div>
-
-    <div class="field">
-      <label for="gearRatio">Gear Ratio (load : motor)</label>
-      <input id="gearRatio" type="number" value="1" min="0.01" step="0.1">
-    </div>
-
-    <div class="field">
-      <label for="efficiency">Mechanical Efficiency (%)</label>
-      <input id="efficiency" type="number" value="90" min="0.01" max="100" step="1">
-    </div>
-
-    <div class="field">
-      <label for="safetyFactor">Safety Factor</label>
-      <input id="safetyFactor" type="number" value="1.5" min="0.01" step="0.1">
-    </div>
-
-    <div class="field" id="linearSpeedField">
-      <label for="linearSpeed">Target Linear Speed (in/sec)</label>
-      <input id="linearSpeed" type="number" value="20" min="0.01" step="0.1">
-    </div>
-
-    <div class="field hidden" id="rotarySpeedField">
-      <label for="targetRPM">Target Load Speed (RPM)</label>
-      <input id="targetRPM" type="number" value="120" min="0.01" step="1">
-    </div>
-
-    <div class="field">
-      <label for="accelTime">Acceleration Time (sec)</label>
-      <input id="accelTime" type="number" value="0.4" min="0.01" step="0.01">
-    </div>
-
-    <div class="field" id="linearMoveField">
-      <label for="moveDistance">Move Distance (in, optional)</label>
-      <input id="moveDistance" type="number" value="12" min="0" step="0.1">
-    </div>
-
-    <div class="field hidden" id="rotaryMoveField">
-      <label for="moveAngle">Move Angle (deg, optional)</label>
-      <input id="moveAngle" type="number" value="180" min="0" step="0.1">
-    </div>
-
-    <div class="field hidden" id="externalInertiaField">
-      <label for="externalInertia">External Rotary Inertia at Load (lb-in², optional)</label>
-      <input id="externalInertia" type="number" value="0" min="0" step="0.01">
-    </div>
-  </div>
-
-  <div class="button-row">
-    <button onclick="calculateServoTorque();">Calculate</button>
-    <button onclick="loadExample(); gtag('event','servo_torque_example');">Load Example</button>
-    <button onclick="clearCalculator(); gtag('event','servo_torque_clear');">Clear</button>
-  </div>
-
-  <div class="result" id="output">
-    Enter values and press Calculate
-  </div>
-
-  <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>
-
-  <p class="note">
-    This is a practical first-pass sizing calculator. Final servo selection should still consider true reflected inertia from all rotating components, move profile shape, gravity loads, gearbox backlash, duty cycle, shock loading, regenerative effects, and vendor torque-speed curves.
-  </p>
-
-  <p class="note">
-    For this simplified model, the main load input is treated as a force-equivalent load in pounds. Use it for early estimating, not as a final motor sizing calculation.
-  </p>
-
-  <div class="footer">
-    Automation Engineering Tools • Practical calculators for real automation work
-  </div>
-</div>
-
-<div class="servo-help">
-  <h2>Need Help With a Servo Application?</h2>
-
-  <p class="servo-help-intro">
-    Submit your application details and I can review the request, help point you in the right direction,
-    or connect you with someone better suited for deeper servo sizing support.
-  </p>
-
-  <div class="servo-help-box">
-    <h3>Submit a Servo Question</h3>
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Servo Motor Torque Calculator</h1>
     <p>
-      This works best for early concept questions, application context, and getting a second look on assumptions.
+      Estimate running torque, acceleration torque, recommended motor torque, reflected inertia, and motor power for linear or rotary motion systems using load, radius, speed, acceleration time, gear ratio, efficiency, and safety factor.
     </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/gear-ratio.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'servo_torque_hero','to':'gear_ratio'});">Gear Ratio Calculator</a>
+    </div>
+  </div>
+</section>
 
-    <ul>
-      <li>Motor sizing questions</li>
-      <li>Torque and acceleration review</li>
-      <li>Gear ratio questions</li>
-      <li>General motion application questions</li>
-    </ul>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> use this for early servo sizing, concept design, and motion system screening before you dig into full reflected inertia models, detailed move profiles, gearbox backlash, gravity loading, regeneration, and vendor torque-speed curves.
+  </div>
 
-    <form action="https://formspree.io/f/mwvrzywp" method="POST" class="servo-form">
-      <label for="helpName">Name</label>
-      <input id="helpName" type="text" name="name" required>
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Servo Motor Torque</h2>
 
-      <label for="helpEmail">Email</label>
-      <input id="helpEmail" type="email" name="email" required>
+      <p class="description">
+        Estimate servo motor torque for rotary or linear motion systems using load, pulley or wheel radius, target speed, acceleration time, gear ratio, efficiency, and safety factor.
+      </p>
 
-      <label for="helpCompany">Company (optional)</label>
-      <input id="helpCompany" type="text" name="company">
+      <p class="description">
+        This calculator is useful for early servo sizing, motion system concept design, pulley-driven axes, conveyor-style drives, rotary indexers, and rough motor selection in industrial automation equipment.
+      </p>
 
-      <label for="helpApplication">Application Description</label>
-      <textarea id="helpApplication" name="details" rows="5" required placeholder="Describe the application, motion type, load, speed, and what kind of help you need."></textarea>
+      <div class="formula-box">
+        Total Motor Torque = Running Torque + Acceleration Torque<br><br>
+        Recommended Torque = Total Motor Torque × Safety Factor
+      </div>
 
-      <label for="helpTorque">Estimated Torque From Calculator (optional)</label>
-      <input id="helpTorque" type="text" name="estimated_torque" placeholder="Example: 4.25 N·m">
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample1(); gtag('event','servo_torque_example',{'type':'linear_geared'});">Linear Geared Axis</button>
+        <button type="button" onclick="loadExample2(); gtag('event','servo_torque_example',{'type':'rotary_indexer'});">Rotary Indexer</button>
+        <button type="button" onclick="loadExample3(); gtag('event','servo_torque_example',{'type':'direct_drive'});">Direct Drive</button>
+      </div>
 
-      <label for="helpPhone">Phone (optional)</label>
-      <input id="helpPhone" type="text" name="phone">
+      <div class="controls">
+        <div class="control-group">
+          <label for="mode">Application Mode</label>
+          <select id="mode" onchange="toggleModeFields()">
+            <option value="linear">Linear Travel</option>
+            <option value="rotary">Rotary Load</option>
+          </select>
+        </div>
 
-      <input type="hidden" name="_subject" value="Servo Help Request from AutomationCalculators.net">
+        <div class="control-group">
+          <label id="massLabel" for="mass">Load / Force Equivalent (lb)</label>
+          <input id="mass" type="number" value="50" min="0.01" step="0.1">
+        </div>
 
-      <button type="submit" class="servo-btn" onclick="gtag('event','servo_help_form_submit_click');">
-        Submit Request
-      </button>
-    </form>
+        <div class="control-group">
+          <label for="radius">Pulley / Wheel Radius (in)</label>
+          <input id="radius" type="number" value="2" min="0.01" step="0.1">
+        </div>
 
-    <div class="servo-disclosure">
-      This form is for application questions and general help requests. Final motor selection should still be confirmed with manufacturer tools and application-specific review.
+        <div class="control-group">
+          <label for="gearRatio">Gear Ratio (load : motor)</label>
+          <input id="gearRatio" type="number" value="1" min="0.01" step="0.1">
+        </div>
+
+        <div class="control-group">
+          <label for="efficiency">Mechanical Efficiency (%)</label>
+          <input id="efficiency" type="number" value="90" min="0.01" max="100" step="1">
+        </div>
+
+        <div class="control-group">
+          <label for="safetyFactor">Safety Factor</label>
+          <input id="safetyFactor" type="number" value="1.5" min="0.01" step="0.1">
+        </div>
+
+        <div class="control-group" id="linearSpeedField">
+          <label for="linearSpeed">Target Linear Speed (in/sec)</label>
+          <input id="linearSpeed" type="number" value="20" min="0.01" step="0.1">
+        </div>
+
+        <div class="control-group hidden" id="rotarySpeedField">
+          <label for="targetRPM">Target Load Speed (RPM)</label>
+          <input id="targetRPM" type="number" value="120" min="0.01" step="1">
+        </div>
+
+        <div class="control-group">
+          <label for="accelTime">Acceleration Time (sec)</label>
+          <input id="accelTime" type="number" value="0.4" min="0.01" step="0.01">
+        </div>
+
+        <div class="control-group" id="linearMoveField">
+          <label for="moveDistance">Move Distance (in, optional)</label>
+          <input id="moveDistance" type="number" value="12" min="0" step="0.1">
+        </div>
+
+        <div class="control-group hidden" id="rotaryMoveField">
+          <label for="moveAngle">Move Angle (deg, optional)</label>
+          <input id="moveAngle" type="number" value="180" min="0" step="0.1">
+        </div>
+
+        <div class="control-group hidden" id="externalInertiaField">
+          <label for="externalInertia">External Rotary Inertia at Load (lb-in², optional)</label>
+          <input id="externalInertia" type="number" value="0" min="0" step="0.01">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateServoTorque();">Calculate</button>
+        <button class="secondary" onclick="loadExample1();">Load Example</button>
+        <button class="ghost" onclick="clearCalculator(); gtag('event','servo_torque_clear');">Reset</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter values and press <strong>Calculate</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this to a real machine?</h3>
+        <p>
+          Get connected with a qualified automation integrator if you need help with servo sizing, motion system review, gear ratio decisions, or full machine concept development.
+        </p>
+        <a href="/integrators.html">Find an Integrator</a>
+      </div>
+
+      <p class="note">
+        This is a practical first-pass sizing calculator. Final servo selection should still consider true reflected inertia from all rotating components, move profile shape, gravity loads, gearbox backlash, duty cycle, shock loading, regenerative effects, and vendor torque-speed curves.
+      </p>
+
+      <p class="note">
+        For this simplified model, the main load input is treated as a force-equivalent load in pounds. Use it for early estimating, not as a final motor sizing calculation.
+      </p>
+
+      <div class="learn-more">
+        <h3>What to check next</h3>
+
+        <p>
+          This tool gives a strong first-pass servo estimate, but real motor selection changes quickly once you include full inertia modeling, move profile shape, gravity effects, transmission stiffness, backlash, dwell pattern, and actual duty cycle at speed.
+        </p>
+
+        <p>
+          For real motion system design, this page usually works best alongside gear ratio, reflected load review, power checks, and vendor motor curves so you can confirm the chosen motor can survive the actual application.
+        </p>
+
+        <div class="internal-links">
+          <a href="/gear-ratio.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'gear_ratio'});">Gear Ratio</a>
+          <a href="/gearbox-torque.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'gearbox_torque'});">Gearbox Output Torque</a>
+          <a href="/motor.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'motor_sizing'});">Motor Sizing</a>
+          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'automation_roi'});">Automation ROI</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Motor running torque</li>
+          <li>Motor acceleration torque</li>
+          <li>Total estimated motor torque</li>
+          <li>Recommended torque with safety factor</li>
+          <li>Reflected inertia at load and motor</li>
+          <li>Estimated motor power</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Where this helps</h3>
+        <p>
+          Useful for early servo sizing, rotary indexer concepts, belt or pulley-driven axes, conveyors, direct-drive review, and screening whether a motion concept is even in the right range before detailed vendor sizing.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Full reflected inertia model</li>
+          <li>Move profile shape and duty cycle</li>
+          <li>Gravity load and holding torque needs</li>
+          <li>Gearbox backlash and stiffness</li>
+          <li>Vendor torque-speed curve limits</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Need help with a servo application?</h3>
+        <div class="servo-help-box">
+          <p>
+            Submit your application details and I can review the request, help point you in the right direction, or connect you with someone better suited for deeper servo sizing support.
+          </p>
+
+          <ul>
+            <li>Motor sizing questions</li>
+            <li>Torque and acceleration review</li>
+            <li>Gear ratio questions</li>
+            <li>General motion application questions</li>
+          </ul>
+
+          <form action="https://formspree.io/f/mwvrzywp" method="POST" class="servo-form">
+            <label for="helpName">Name</label>
+            <input id="helpName" type="text" name="name" required>
+
+            <label for="helpEmail">Email</label>
+            <input id="helpEmail" type="email" name="email" required>
+
+            <label for="helpCompany">Company (optional)</label>
+            <input id="helpCompany" type="text" name="company">
+
+            <label for="helpApplication">Application Description</label>
+            <textarea id="helpApplication" name="details" rows="5" required placeholder="Describe the application, motion type, load, speed, and what kind of help you need."></textarea>
+
+            <label for="helpTorque">Estimated Torque From Calculator (optional)</label>
+            <input id="helpTorque" type="text" name="estimated_torque" placeholder="Example: 4.25 N·m">
+
+            <label for="helpPhone">Phone (optional)</label>
+            <input id="helpPhone" type="text" name="phone">
+
+            <input type="hidden" name="_subject" value="Servo Help Request from AutomationCalculators.net">
+            <input type="hidden" name="calculator_page" value="servo-torque.html">
+            <input type="hidden" name="source" value="servo_torque_calculator">
+
+            <button type="submit" class="servo-btn" onclick="gtag('event','servo_help_form_submit_click');">
+              Submit Request
+            </button>
+          </form>
+
+          <div class="servo-disclosure">
+            This form is for application questions and general help requests. Final motor selection should still be confirmed with manufacturer tools and application-specific review.
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -484,6 +766,13 @@
     }
   }
 
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
   function showMessage(message){
     document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
   }
@@ -506,46 +795,55 @@
 
     if(massLb <= 0){
       output.innerHTML = "<strong>Please enter a load value greater than 0.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(radiusIn <= 0){
       output.innerHTML = "<strong>Please enter a radius greater than 0.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(gearRatio <= 0){
       output.innerHTML = "<strong>Please enter a gear ratio greater than 0.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(efficiencyPercent <= 0 || efficiencyPercent > 100){
       output.innerHTML = "<strong>Please enter an efficiency greater than 0% and up to 100%.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(safetyFactor <= 0){
       output.innerHTML = "<strong>Please enter a safety factor greater than 0.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(accelTime <= 0){
       output.innerHTML = "<strong>Please enter an acceleration time greater than 0.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(moveDistance < 0){
       output.innerHTML = "<strong>Please enter a move distance of 0 or greater.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(moveAngle < 0){
       output.innerHTML = "<strong>Please enter a move angle of 0 or greater.</strong>";
+      scrollToOutput();
       return;
     }
 
     if(externalInertiaLbIn2 < 0){
       output.innerHTML = "<strong>Please enter an external inertia of 0 or greater.</strong>";
+      scrollToOutput();
       return;
     }
 
@@ -571,6 +869,7 @@
     if(mode === "linear"){
       if(linearSpeedInSec <= 0){
         output.innerHTML = "<strong>Please enter a linear speed greater than 0.</strong>";
+        scrollToOutput();
         return;
       }
 
@@ -597,6 +896,7 @@
     } else {
       if(targetRPM <= 0){
         output.innerHTML = "<strong>Please enter a target RPM greater than 0.</strong>";
+        scrollToOutput();
         return;
       }
 
@@ -710,6 +1010,8 @@
 
       "<strong>Safety Factor Used</strong><br>" +
       safetyFactor.toFixed(2);
+
+    scrollToOutput();
   }
 
   function clearCalculator(){
@@ -727,10 +1029,10 @@
     document.getElementById("externalInertia").value = "0";
     document.getElementById("helpTorque").value = "";
     toggleModeFields();
-    showMessage("Enter values and press Calculate");
+    showMessage("Enter values and press Calculate.");
   }
 
-  function loadExample(){
+  function loadExample1(){
     document.getElementById("mode").value = "linear";
     document.getElementById("mass").value = "50";
     document.getElementById("radius").value = "2";
@@ -738,9 +1040,43 @@
     document.getElementById("efficiency").value = "90";
     document.getElementById("safetyFactor").value = "1.5";
     document.getElementById("linearSpeed").value = "20";
-    document.getElementById("targetRPM").value = "120";
     document.getElementById("accelTime").value = "0.4";
     document.getElementById("moveDistance").value = "12";
+    document.getElementById("targetRPM").value = "120";
+    document.getElementById("moveAngle").value = "180";
+    document.getElementById("externalInertia").value = "0";
+    toggleModeFields();
+    calculateServoTorque();
+  }
+
+  function loadExample2(){
+    document.getElementById("mode").value = "rotary";
+    document.getElementById("mass").value = "35";
+    document.getElementById("radius").value = "3";
+    document.getElementById("gearRatio").value = "5";
+    document.getElementById("efficiency").value = "88";
+    document.getElementById("safetyFactor").value = "1.6";
+    document.getElementById("targetRPM").value = "90";
+    document.getElementById("accelTime").value = "0.35";
+    document.getElementById("moveAngle").value = "180";
+    document.getElementById("externalInertia").value = "45";
+    document.getElementById("linearSpeed").value = "20";
+    document.getElementById("moveDistance").value = "12";
+    toggleModeFields();
+    calculateServoTorque();
+  }
+
+  function loadExample3(){
+    document.getElementById("mode").value = "linear";
+    document.getElementById("mass").value = "30";
+    document.getElementById("radius").value = "1.5";
+    document.getElementById("gearRatio").value = "1";
+    document.getElementById("efficiency").value = "92";
+    document.getElementById("safetyFactor").value = "1.4";
+    document.getElementById("linearSpeed").value = "30";
+    document.getElementById("accelTime").value = "0.25";
+    document.getElementById("moveDistance").value = "18";
+    document.getElementById("targetRPM").value = "120";
     document.getElementById("moveAngle").value = "180";
     document.getElementById("externalInertia").value = "0";
     toggleModeFields();
@@ -751,7 +1087,7 @@
 </script>
 
 <script>
-  fetch("navbar.html")
+  fetch("navbar.html?v=20260314")
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
