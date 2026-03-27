@@ -7,9 +7,10 @@
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>You're In | Automation Calculators</title>
-  <meta name="description" content="Subscription confirmed. Start using the most practical automation engineering calculators and tools.">
+  <title>You’re In | Automation Calculators</title>
+  <meta name="description" content="Subscription confirmed. Start using practical automation engineering calculators and tools.">
 
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -19,225 +20,381 @@
   </script>
 
   <style>
-    :root{
-      --primary:#1f2a44;
-      --primary-dark:#162033;
-      --accent:#1e6bd6;
-      --bg:#f4f4f4;
-      --card:#ffffff;
-      --soft:#f8fbff;
-      --border:#d7e6ff;
-      --text:#222;
-      --muted:#555;
-      --success-bg:#eaf7ea;
-      --success-border:#b9dfb9;
-      --info-bg:#e9f1ff;
-      --shadow:0 8px 24px rgba(0,0,0,.08);
-      --radius:12px;
-    }
-
-    *{
-      box-sizing:border-box;
-    }
-
     body{
-      margin:0;
       font-family:Arial, sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      text-align:center;
-    }
-
-    a{
-      color:var(--accent);
-    }
-
-    .container{
-      background:var(--card);
-      max-width:980px;
-      margin:30px auto;
-      padding:40px;
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-    }
-
-    h1,h2,h3{
-      color:var(--primary);
-      margin-top:0;
-    }
-
-    h1{
-      font-size:40px;
-      margin-bottom:12px;
-    }
-
-    h2{
-      margin-top:42px;
-      margin-bottom:14px;
-      font-size:28px;
-    }
-
-    .subtitle{
-      max-width:760px;
-      margin:0 auto 22px auto;
-      color:var(--muted);
-      line-height:1.7;
-      font-size:18px;
+      background:#f4f4f4;
+      margin:0;
+      color:#222;
     }
 
     .hero{
-      background:linear-gradient(135deg, #f8fbff 0%, #eef5ff 100%);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:38px 28px;
-      margin-bottom:28px;
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#eaf7ea;
+      border:1px solid #b9dfb9;
+      color:#245f2a;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+      font-weight:600;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .description{
+      margin:0 0 18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .success-box{
+      margin:20px 0;
+      padding:24px;
+      background:#f4f8ff;
+      border:1px solid #d7e6ff;
+      border-radius:12px;
+      text-align:center;
     }
 
     .check-wrap{
-      width:84px;
-      height:84px;
-      margin:0 auto 18px auto;
+      width:82px;
+      height:82px;
+      margin:0 auto 16px auto;
       border-radius:50%;
-      background:var(--success-bg);
-      border:1px solid var(--success-border);
+      background:#eaf7ea;
+      border:1px solid #b9dfb9;
       display:flex;
       align-items:center;
       justify-content:center;
-      font-size:42px;
+      font-size:40px;
       color:#14833b;
       font-weight:bold;
     }
 
-    .hero-note{
-      max-width:700px;
-      margin:18px auto 0 auto;
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:18px;
-      color:var(--primary);
-      line-height:1.6;
-      font-weight:bold;
-    }
-
-    .button-row{
-      margin-top:24px;
-      display:flex;
-      justify-content:center;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      display:inline-block;
-      padding:13px 22px;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:bold;
-      transition:transform .15s ease, opacity .15s ease, box-shadow .15s ease;
-    }
-
-    .btn:hover{
-      transform:translateY(-2px);
-      opacity:.96;
-    }
-
-    .btn-primary{
-      background:var(--accent);
-      color:#fff;
-      box-shadow:0 6px 18px rgba(30,107,214,.22);
-    }
-
-    .btn-secondary{
-      background:#fff;
-      color:var(--primary);
-      border:1px solid var(--border);
-    }
-
-    .tool-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:18px;
-      margin-top:24px;
-    }
-
-    .tool-card{
-      display:block;
-      text-align:left;
-      text-decoration:none;
-      color:var(--primary);
-      background:var(--soft);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:22px;
-      transition:transform .2s, box-shadow .2s;
-    }
-
-    .tool-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 8px 20px rgba(0,0,0,.10);
-    }
-
-    .tool-card h3{
-      font-size:20px;
+    .success-box h2{
       margin-bottom:10px;
     }
 
-    .tool-card p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.6;
-    }
-
-    .next-step-box{
-      margin-top:34px;
-      background:var(--info-bg);
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:24px;
-    }
-
-    .next-step-box p{
-      max-width:760px;
+    .success-box p{
+      max-width:720px;
       margin:0 auto;
+      color:#555;
       line-height:1.7;
-      color:#345;
+      font-size:16px;
+    }
+
+    .button-row{
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      justify-content:center;
+    }
+
+    .button-row a,
+    .button-row button{
+      display:inline-block;
+      padding:13px 22px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.2s ease;
+      text-decoration:none;
+    }
+
+    .button-row .secondary{
+      background:#5a6a85;
+    }
+
+    .button-row .ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row a:hover,
+    .button-row button:hover{
+      background:#1555ad;
+      transform:translateY(-1px);
+    }
+
+    .button-row .secondary:hover{
+      background:#485772;
+    }
+
+    .button-row .ghost:hover{
+      background:#dde7f8;
+    }
+
+    .tools{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:18px;
+      margin-top:18px;
+    }
+
+    .tool{
+      display:block;
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:20px;
+      text-decoration:none;
+      color:#1f2a44;
+      transition:transform .2s, box-shadow .2s, background .2s;
+    }
+
+    .tool:hover{
+      transform:translateY(-2px);
+      box-shadow:0 6px 16px rgba(0,0,0,.08);
+      background:#f4f8ff;
+    }
+
+    .tool h4{
+      margin:0 0 10px;
+      color:#1f2a44;
+      font-size:18px;
+    }
+
+    .tool p{
+      margin:0;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
     }
 
     .cta-box{
-      margin-top:34px;
-      background:#fff8e8;
-      border:1px solid #f0dfac;
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
       border-radius:12px;
-      padding:24px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
     }
 
     .cta-box p{
-      max-width:760px;
-      margin:0 auto 16px auto;
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
       line-height:1.7;
-      color:#4b4b4b;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
     }
 
     .footer{
-      margin-top:42px;
+      margin-top:40px;
       color:#666;
       font-size:14px;
-      line-height:1.7;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:700px){
-      .container{
-        margin:15px;
-        padding:22px;
+      .card,
+      .sidebar-card{
+        padding:20px;
       }
 
-      h1{
-        font-size:30px;
+      .hero h1{
+        font-size:28px;
       }
 
-      .subtitle{
-        font-size:17px;
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a,
+      .button-row a{
+        width:100%;
+        max-width:320px;
+        text-align:center;
+      }
+
+      .tools{
+        grid-template-columns:1fr;
       }
     }
   </style>
@@ -246,89 +403,149 @@
 
 <div id="navbar"></div>
 
-<div class="container">
-
-  <section class="hero">
-    <div class="check-wrap">✓</div>
-
+<section class="hero">
+  <div class="hero-inner">
     <h1>You’re In — Check Your Email</h1>
-
-    <p class="subtitle">
+    <p>
       Your subscription is confirmed. I just sent you a welcome email with a few of the most useful automation calculators to start with.
     </p>
-
-    <div class="hero-note">
-      While you’re here, jump straight into the tools engineers use most.
-    </div>
-
-    <div class="button-row">
-      <a class="btn btn-primary" href="automation-calculators.html" onclick="gtag('event','thank_you_click',{target:'browse_all'});">
-        Browse All Calculators
-      </a>
-      <a class="btn btn-secondary" href="/" onclick="gtag('event','thank_you_click',{target:'home'});">
-        Back to Home
-      </a>
-    </div>
-  </section>
-
-  <h2>Start With These Popular Tools</h2>
-
-  <div class="tool-grid">
-    <a class="tool-card" href="pneumatic.html" onclick="gtag('event','thank_you_tool_click',{tool:'pneumatic_force'});">
-      <h3>Pneumatic Force Calculator</h3>
-      <p>Calculate cylinder extend and retract force using bore, rod diameter, and pressure.</p>
-    </a>
-
-    <a class="tool-card" href="air-consumption.html" onclick="gtag('event','thank_you_tool_click',{tool:'air_consumption'});">
-      <h3>Air Consumption Calculator</h3>
-      <p>Estimate cylinder air use per cycle and SCFM using bore, stroke, pressure, and cycle rate.</p>
-    </a>
-
-    <a class="tool-card" href="servo-torque.html" onclick="gtag('event','thank_you_tool_click',{tool:'servo_torque'});">
-      <h3>Servo Torque Calculator</h3>
-      <p>Estimate required servo torque and motor power for real machine applications.</p>
-    </a>
-
-    <a class="tool-card" href="voltage-drop.html" onclick="gtag('event','thank_you_tool_click',{tool:'voltage_drop'});">
-      <h3>Voltage Drop Calculator</h3>
-      <p>Calculate voltage drop and final voltage for electrical design and troubleshooting.</p>
-    </a>
-
-    <a class="tool-card" href="robot.html" onclick="gtag('event','thank_you_tool_click',{tool:'robot_cycle'});">
-      <h3>Robot Cycle Time</h3>
-      <p>Estimate robot cycle time using distance, speed, payload, and motion settings.</p>
-    </a>
-
-    <a class="tool-card" href="roi.html" onclick="gtag('event','thank_you_tool_click',{tool:'automation_roi'});">
-      <h3>Automation ROI Calculator</h3>
-      <p>Estimate payback period and return on investment for automation projects.</p>
-    </a>
-  </div>
-
-  <div class="next-step-box">
-    <h2 style="margin-top:0;">What Happens Next</h2>
-    <p>
-      I’m actively building more calculators, simulators, and reference tools for automation engineers. When new tools go live, you’ll be one of the first to know.
-    </p>
-  </div>
-
-  <div class="cta-box">
-    <h2 style="margin-top:0;">Need Help With a Real Project?</h2>
-    <p>
-      Calculators help you move faster, but some projects need a real controls engineer or automation integrator. If you need help applying this to an actual machine or process, start here.
-    </p>
-    <div class="button-row" style="margin-top:10px;">
-      <a class="btn btn-primary" href="integrators.html" onclick="gtag('event','thank_you_click',{target:'integrators'});">
-        Find an Integrator
-      </a>
+    <div class="hero-cta">
+      <a href="#tools" class="primary" onclick="gtag('event','thank_you_click',{target:'browse_tools_anchor'});">Start With Popular Tools</a>
+      <a href="automation-calculators.html" class="secondary" onclick="gtag('event','thank_you_click',{target:'browse_all'});">Browse All Calculators</a>
     </div>
   </div>
+</section>
 
-  <div class="footer">
-    <strong>Automation Engineering Tools</strong><br>
-    Practical calculators for real automation work
+<div class="page-wrap">
+  <div class="top-note">
+    Subscription confirmed. While you’re here, jump straight into the tools automation engineers use most.
   </div>
 
+  <div class="main-grid">
+    <div class="card">
+      <div class="section-label">Welcome</div>
+
+      <div class="success-box">
+        <div class="check-wrap">✓</div>
+        <h2>You’re officially subscribed</h2>
+        <p>
+          You’ll get updates when new calculators, simulators, and reference tools go live. This is built for practical automation work, not fluff.
+        </p>
+      </div>
+
+      <div class="button-row">
+        <a href="/" class="ghost" onclick="gtag('event','thank_you_click',{target:'home'});">Back to Home</a>
+        <a href="automation-calculators.html" onclick="gtag('event','thank_you_click',{target:'browse_all_main'});">Browse All Calculators</a>
+      </div>
+
+      <div class="section-label" id="tools">Popular Tools</div>
+      <h2>Start With These Popular Calculators</h2>
+
+      <p class="description">
+        These are some of the most practical tools on the site for real automation, controls, pneumatics, motion, and project planning work.
+      </p>
+
+      <div class="tools">
+        <a class="tool" href="pneumatic.html" onclick="gtag('event','thank_you_tool_click',{tool:'pneumatic_force'});">
+          <h4>Pneumatic Force Calculator</h4>
+          <p>Calculate cylinder extend and retract force using bore, rod diameter, and pressure.</p>
+        </a>
+
+        <a class="tool" href="air-consumption.html" onclick="gtag('event','thank_you_tool_click',{tool:'air_consumption'});">
+          <h4>Air Consumption Calculator</h4>
+          <p>Estimate cylinder air use per cycle and SCFM using bore, stroke, pressure, and cycle rate.</p>
+        </a>
+
+        <a class="tool" href="servo-torque.html" onclick="gtag('event','thank_you_tool_click',{tool:'servo_torque'});">
+          <h4>Servo Torque Calculator</h4>
+          <p>Estimate required servo torque and motor power for real machine applications.</p>
+        </a>
+
+        <a class="tool" href="voltage-drop.html" onclick="gtag('event','thank_you_tool_click',{tool:'voltage_drop'});">
+          <h4>Voltage Drop Calculator</h4>
+          <p>Calculate voltage drop and final voltage for electrical design and troubleshooting.</p>
+        </a>
+
+        <a class="tool" href="robot.html" onclick="gtag('event','thank_you_tool_click',{tool:'robot_cycle'});">
+          <h4>Robot Cycle Time</h4>
+          <p>Estimate robot cycle time using distance, speed, payload, and motion settings.</p>
+        </a>
+
+        <a class="tool" href="roi.html" onclick="gtag('event','thank_you_tool_click',{tool:'automation_roi'});">
+          <h4>Automation ROI Calculator</h4>
+          <p>Estimate payback period and return on investment for automation projects.</p>
+        </a>
+      </div>
+
+      <div class="learn-more">
+        <h3>What happens next</h3>
+
+        <p>
+          More calculators, simulators, and reference tools are being added over time. Since you subscribed, you’ll be among the first to know when something new goes live.
+        </p>
+
+        <p>
+          The best way to use the site is to start with a quick calculator, then move into related tools to sanity-check the full application.
+        </p>
+
+        <div class="internal-links">
+          <a href="pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'thank_you','to':'pneumatic_force'});">Pneumatic Force</a>
+          <a href="servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'thank_you','to':'servo_torque'});">Servo Torque</a>
+          <a href="robot.html" onclick="gtag('event','internal_link_click',{'from':'thank_you','to':'robot_cycle'});">Robot Cycle Time</a>
+          <a href="reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'thank_you','to':'reference_charts'});">Reference Charts</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        <strong>Automation Engineering Tools</strong><br>
+        Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this page does</h3>
+        <ul>
+          <li>Confirms subscription success</li>
+          <li>Pushes users into core tools fast</li>
+          <li>Keeps people on-site after signup</li>
+          <li>Creates a cleaner first impression</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Best next click</h3>
+        <p>
+          Most users should go straight into a practical calculator instead of leaving the page. That is why this page should act like a strong next-step hub, not a dead-end confirmation screen.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Strong starting tools</h3>
+        <ul>
+          <li>Pneumatic Force</li>
+          <li>Air Consumption</li>
+          <li>Servo Torque</li>
+          <li>Voltage Drop</li>
+          <li>Robot Cycle Time</li>
+          <li>Automation ROI</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Need help with a real project?</h3>
+        <div class="cta-box" style="margin-top:0;">
+          <h3 style="margin-top:0;">Real projects need more than calculators sometimes</h3>
+          <p>
+            Calculators help you move faster, but some jobs need a real controls engineer or automation integrator to review the full machine or process.
+          </p>
+          <a href="integrators.html" onclick="gtag('event','thank_you_click',{target:'integrators'});">
+            Find an Integrator
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
