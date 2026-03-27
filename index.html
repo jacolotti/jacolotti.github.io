@@ -33,6 +33,9 @@
       --success-bg:#eaf7ea;
       --success-border:#b9dfb9;
       --info-bg:#e9f1ff;
+      --warning-bg:#fff7df;
+      --warning-border:#f1d98a;
+      --warning-text:#5c4a12;
       --shadow:0 8px 24px rgba(0,0,0,.08);
       --radius:12px;
     }
@@ -45,8 +48,8 @@
       font-family:Arial, sans-serif;
       background:var(--bg);
       color:var(--text);
-      text-align:center;
       margin:0;
+      text-align:center;
     }
 
     a{
@@ -120,12 +123,13 @@
     }
 
     h1{
-      font-size:38px;
-      margin-bottom:12px;
+      font-size:40px;
+      margin:0 0 14px;
+      line-height:1.15;
     }
 
     h2{
-      margin-top:50px;
+      margin-top:48px;
       margin-bottom:12px;
     }
 
@@ -141,7 +145,7 @@
 
     .seo-text{
       color:var(--muted);
-      max-width:820px;
+      max-width:840px;
       margin:0 auto 22px auto;
       line-height:1.7;
       font-size:16px;
@@ -151,8 +155,8 @@
       background:linear-gradient(135deg, #f8fbff 0%, #eef5ff 100%);
       border:1px solid var(--border);
       border-radius:14px;
-      padding:36px 28px;
-      margin-bottom:30px;
+      padding:38px 28px;
+      margin-bottom:24px;
     }
 
     .hero p{
@@ -193,6 +197,19 @@
       background:white;
       color:var(--primary);
       border:1px solid var(--border);
+    }
+
+    .top-note{
+      background:var(--warning-bg);
+      border:1px solid var(--warning-border);
+      color:var(--warning-text);
+      padding:14px 16px;
+      border-radius:10px;
+      max-width:980px;
+      margin:0 auto 26px auto;
+      text-align:left;
+      line-height:1.6;
+      font-size:15px;
     }
 
     .quick-points{
@@ -236,6 +253,12 @@
       border-radius:12px;
       padding:22px;
       text-align:left;
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+
+    .category-card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 20px rgba(0,0,0,.07);
     }
 
     .category-card h3{
@@ -252,10 +275,11 @@
 
     .featured-strip{
       margin-top:32px;
-      padding:20px;
+      padding:22px;
       background:var(--info-bg);
       border-radius:12px;
       text-align:left;
+      border:1px solid #c8d9ff;
     }
 
     .featured-strip h3{
@@ -267,7 +291,7 @@
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .featured-links a{
@@ -278,10 +302,12 @@
       text-decoration:none;
       font-weight:bold;
       color:var(--primary);
+      transition:background .15s ease, transform .15s ease;
     }
 
     .featured-links a:hover{
       background:#f4f8ff;
+      transform:translateY(-1px);
     }
 
     .tools{
@@ -331,6 +357,7 @@
 
     .trust-box h3{
       margin-top:0;
+      margin-bottom:10px;
     }
 
     .cta-box{
@@ -519,7 +546,6 @@
       display:none !important;
     }
 
-    /* Hide Brevo honeypot field */
     input[name="email_address_check"]{
       display:none !important;
     }
@@ -535,7 +561,7 @@
       }
 
       h1{
-        font-size:30px;
+        font-size:31px;
       }
 
       .subtitle{
@@ -571,6 +597,10 @@
       <a class="btn btn-secondary" href="integrators.html" onclick="gtag('event','integrator_cta_click',{location:'hero'});">Find an Integrator</a>
     </div>
   </section>
+
+  <div class="top-note">
+    <strong>Best place to start:</strong> if this is your first visit, open the full calculator index or use one of the featured tools below. These pages usually solve the most common automation sizing and troubleshooting questions fastest.
+  </div>
 
   <div class="quick-points">
     <div class="point-card">
@@ -634,7 +664,7 @@
   <div class="featured-strip">
     <h3>Start with Popular Tools</h3>
     <p class="seo-text" style="margin:0;max-width:none;">
-      New visitors should not have to hunt around. Give them strong starting points.
+      New visitors should not have to hunt around. These are strong starting points for everyday automation work.
     </p>
 
     <div class="featured-links">
