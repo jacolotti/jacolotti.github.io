@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/projection-weld.html">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -21,128 +23,248 @@
     body{
       font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
       color:#222;
     }
 
-   
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial, sans-serif;
+      padding:42px 20px 32px;
+      text-align:center;
     }
 
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
-    .container{
-      background:white;
-      padding:30px;
-      max-width:900px;
+    .hero-inner{
+      max-width:950px;
       margin:auto;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,.1);
     }
 
-    .container h2{
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
       margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
       color:#1f2a44;
     }
 
     .description{
-      margin-top:0;
-      margin-bottom:18px;
+      margin:0 0 18px;
       color:#555;
       font-size:16px;
-      line-height:1.5;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-      gap:18px;
+      line-height:1.6;
       text-align:left;
     }
 
-    .field label{
-      display:block;
-      margin-bottom:6px;
-      font-weight:600;
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
     }
 
-    input, select{
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:25px 0 20px;
+      text-align:left;
+    }
+
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
+    }
+
+    .control-group input,
+    .control-group select{
       width:100%;
-      padding:10px;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
       background:white;
+      font-family:Arial, sans-serif;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
     .button-row{
-      margin-top:18px;
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
-    button{
-      padding:12px 26px;
+    .button-row button{
+      padding:13px 22px;
       font-size:16px;
-      background:#1f2a44;
+      background:#1e6bd6;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin:6px;
-      transition:background .2s;
+      font-weight:bold;
+      transition:.2s ease;
     }
 
-    button:hover{
-      background:#2d3d63;
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#1555ad;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
@@ -150,491 +272,723 @@
       padding:20px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:8px;
-      font-size:17px;
-      line-height:1.7;
+      border-radius:10px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
       text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .note{
       margin-top:20px;
       color:#666;
       font-size:14px;
-      line-height:1.5;
+      line-height:1.6;
       text-align:left;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
     }
 
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+      text-align:center;
     }
 
     .hidden{
       display:none;
     }
 
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
     @media (max-width:700px){
-      .container{
+      .card,
+      .sidebar-card{
         padding:20px;
       }
 
-      button{
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
         width:100%;
-        margin:6px 0;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
       }
     }
   </style>
 </head>
 <body>
 
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h2>Projection Weld Starting Parameter Calculator</h2>
-
-    <p class="description">
-      Estimate conservative starting projection weld parameters for weld nuts, weld studs, weld bolts, and stamped multi-projection parts using fastener type, size, base metal thickness, material, and machine type.
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Projection Weld Starting Parameter Calculator</h1>
+    <p>
+      Estimate conservative starting current, force, and weld time for weld nuts, weld studs, weld bolts, and multi-projection stamped parts using fastener size, base material, thickness, and machine type.
     </p>
-
-    <p class="description">
-      This tool is intended for first-pass setup only. Final production values should always be validated with projection collapse checks, destructive testing, thread quality verification, and actual machine capability.
-    </p>
-
-    <p class="description">
-      Use this free projection weld calculator to estimate projection count, total weld current range, current per projection, force range in kN and lbf, and weld time range for common projection welding applications.
-    </p>
-
-    <div class="grid">
-      <div class="field">
-        <label for="partType">Fastener / Part Type</label>
-        <select id="partType" onchange="applyPreset()">
-          <option value="weldNut">Weld Nut</option>
-          <option value="weldStud">Weld Stud</option>
-          <option value="weldBolt">Weld Bolt</option>
-          <option value="stampedPart">Multi-Projection Stamped Part</option>
-          <option value="custom">Custom Projection Part</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="size">Fastener Size / Part Size</label>
-        <select id="size" onchange="applyPreset()">
-          <option value="M5">M5</option>
-          <option value="M6" selected>M6</option>
-          <option value="M8">M8</option>
-          <option value="M10">M10</option>
-          <option value="M12">M12</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="material">Base Material</label>
-        <select id="material" onchange="applyPreset()">
-          <option value="mild">Bare Mild Steel</option>
-          <option value="galvanized">Galvanized Steel</option>
-          <option value="galvaneal">Galvaneal Steel</option>
-          <option value="stainless">Stainless Steel</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="baseThickness">Base Material Thickness (mm)</label>
-        <input id="baseThickness" type="number" value="2.0" min="0.3" max="8" step="0.01">
-      </div>
-
-      <div class="field">
-        <label for="projections">Number of Projections</label>
-        <input id="projections" type="number" value="3" min="1" max="12" step="1">
-      </div>
-
-      <div class="field">
-        <label for="quality">Weld Quality Target</label>
-        <select id="quality">
-          <option value="standard">Standard Production</option>
-          <option value="high">High Strength / Cosmetic Focus</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="machine">Machine Type</label>
-        <select id="machine">
-          <option value="ac">AC Welder</option>
-          <option value="mfdc">MFDC Welder</option>
-        </select>
-      </div>
-
-      <div class="field hidden" id="customCurrentField">
-        <label for="customCurrentPerProjection">Custom Current per Projection (kA)</label>
-        <input id="customCurrentPerProjection" type="number" value="4.5" min="0.1" max="50" step="0.1">
-      </div>
-
-      <div class="field hidden" id="customForceField">
-        <label for="customForcePerProjection">Custom Force per Projection (kN)</label>
-        <input id="customForcePerProjection" type="number" value="1.0" min="0.1" max="20" step="0.1">
-      </div>
-    </div>
-
-    <div class="button-row">
-      <button onclick="calculateProjectionWeld();">Calculate</button>
-      <button onclick="loadExample(); gtag('event','projection_weld_example');">Load Example</button>
-      <button onclick="clearCalculator(); gtag('event','projection_weld_clear');">Clear</button>
-    </div>
-
-    <div class="result" id="output">
-      Enter values and press Calculate
-    </div>
-
-    <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>
-
-    <p class="note">
-      Projection welding is highly sensitive to projection geometry, fastener design, coating, machine stiffness, force follow-up, electrode face condition, and secondary impedance. These values are conservative starting ranges, not guaranteed production settings.
-    </p>
-
-    <p class="note">
-      Weld time shown in cycles assumes a 60 Hz timing reference. Milliseconds are included as a practical cross-reference, especially when comparing AC and MFDC discussions.
-    </p>
-
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators for real automation work
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/spot-weld.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'projection_weld_hero','to':'spot_weld'});">Spot Weld Calculator</a>
     </div>
   </div>
+</section>
 
-  <script>
-    const LBF_PER_KN = 224.809;
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> use this for first-pass setup direction before full weld development. Final production values still need collapse checks, destructive testing, thread quality checks, and confirmation of actual machine capability.
+  </div>
 
-    const presetData = {
-      weldNut: {
-        M5:  { projections: 3, current: 3.8, force: 0.8, time: 7, note: "Small weld nuts usually start with moderate current and stable collapse control." },
-        M6:  { projections: 3, current: 4.2, force: 0.9, time: 8, note: "M6 weld nuts are common in production and often use 3 projections." },
-        M8:  { projections: 3, current: 4.8, force: 1.1, time: 9, note: "M8 weld nuts typically need balanced force and consistent collapse." },
-        M10: { projections: 4, current: 5.5, force: 1.4, time: 10, note: "Larger weld nuts usually need stronger force control and better setup stability." },
-        M12: { projections: 4, current: 6.2, force: 1.8, time: 11, note: "Large weld nuts should be validated carefully for collapse and thread quality." }
-      },
-      weldStud: {
-        M5:  { projections: 1, current: 3.6, force: 0.8, time: 6, note: "Projection stud setups are sensitive to fastener design and base sheet condition." },
-        M6:  { projections: 1, current: 4.0, force: 0.9, time: 7, note: "M6 studs often need controlled force and careful validation against expulsion." },
-        M8:  { projections: 1, current: 4.8, force: 1.1, time: 8, note: "Larger studs typically need more stable squeeze and base metal support." },
-        M10: { projections: 1, current: 5.6, force: 1.4, time: 9, note: "M10 studs can quickly become limited by base thickness and machine rigidity." },
-        M12: { projections: 1, current: 6.3, force: 1.7, time: 10, note: "Large stud welding should be confirmed with destructive testing and thread protection checks." }
-      },
-      weldBolt: {
-        M5:  { projections: 1, current: 3.6, force: 0.8, time: 6, note: "Projection bolts often behave similarly to studs, but head design matters." },
-        M6:  { projections: 1, current: 4.1, force: 0.9, time: 7, note: "Bolt head projection design strongly affects usable starting parameters." },
-        M8:  { projections: 1, current: 4.9, force: 1.1, time: 8, note: "M8 projection bolts commonly need stable force and clean tooling conditions." },
-        M10: { projections: 1, current: 5.7, force: 1.4, time: 9, note: "Heavier bolts usually need more consistent squeeze and hold behavior." },
-        M12: { projections: 1, current: 6.4, force: 1.7, time: 10, note: "Large projection bolts should be confirmed against machine and tooling capability." }
-      },
-      stampedPart: {
-        M5:  { projections: 2, current: 3.6, force: 0.7, time: 7, note: "Stamped parts vary widely; projection shape matters as much as nominal size." },
-        M6:  { projections: 3, current: 4.0, force: 0.8, time: 8, note: "Multi-projection stamped parts often need more force balance than threaded fasteners." },
-        M8:  { projections: 4, current: 4.4, force: 0.9, time: 9, note: "More projections increase the need for current balance and even collapse." },
-        M10: { projections: 4, current: 5.0, force: 1.2, time: 10, note: "Large stamped multi-projection parts should be checked for uniform collapse." },
-        M12: { projections: 4, current: 5.8, force: 1.4, time: 11, note: "Heavy projection stamped parts often become highly tooling-dependent." }
-      }
-    };
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Projection Weld Starting Parameters</h2>
 
-    function showMessage(message){
-      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+      <p class="description">
+        Estimate conservative starting projection weld parameters for weld nuts, weld studs, weld bolts, and stamped multi-projection parts using fastener type, size, base metal thickness, material, and machine type.
+      </p>
+
+      <p class="description">
+        This tool is intended for first-pass setup only. Final production values should always be validated with projection collapse checks, destructive testing, thread quality verification, and actual machine capability.
+      </p>
+
+      <div class="formula-box">
+        Total Current = Current per Projection × Number of Projections<br><br>
+        Total Force = Force per Projection × Number of Projections
+      </div>
+
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample1(); gtag('event','projection_weld_example',{'type':'weld_nut'});">Weld Nut Example</button>
+        <button type="button" onclick="loadExample2(); gtag('event','projection_weld_example',{'type':'weld_stud'});">Weld Stud Example</button>
+        <button type="button" onclick="loadExample3(); gtag('event','projection_weld_example',{'type':'custom'});">Custom Example</button>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="partType">Fastener / Part Type</label>
+          <select id="partType" onchange="applyPreset()">
+            <option value="weldNut">Weld Nut</option>
+            <option value="weldStud">Weld Stud</option>
+            <option value="weldBolt">Weld Bolt</option>
+            <option value="stampedPart">Multi-Projection Stamped Part</option>
+            <option value="custom">Custom Projection Part</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="size">Fastener Size / Part Size</label>
+          <select id="size" onchange="applyPreset()">
+            <option value="M5">M5</option>
+            <option value="M6" selected>M6</option>
+            <option value="M8">M8</option>
+            <option value="M10">M10</option>
+            <option value="M12">M12</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="material">Base Material</label>
+          <select id="material" onchange="applyPreset()">
+            <option value="mild">Bare Mild Steel</option>
+            <option value="galvanized">Galvanized Steel</option>
+            <option value="galvaneal">Galvaneal Steel</option>
+            <option value="stainless">Stainless Steel</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="baseThickness">Base Material Thickness (mm)</label>
+          <input id="baseThickness" type="number" value="2.0" min="0.3" max="8" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="projections">Number of Projections</label>
+          <input id="projections" type="number" value="3" min="1" max="12" step="1">
+        </div>
+
+        <div class="control-group">
+          <label for="quality">Weld Quality Target</label>
+          <select id="quality">
+            <option value="standard">Standard Production</option>
+            <option value="high">High Strength / Cosmetic Focus</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="machine">Machine Type</label>
+          <select id="machine">
+            <option value="ac">AC Welder</option>
+            <option value="mfdc">MFDC Welder</option>
+          </select>
+        </div>
+
+        <div class="control-group hidden" id="customCurrentField">
+          <label for="customCurrentPerProjection">Custom Current per Projection (kA)</label>
+          <input id="customCurrentPerProjection" type="number" value="4.5" min="0.1" max="50" step="0.1">
+        </div>
+
+        <div class="control-group hidden" id="customForceField">
+          <label for="customForcePerProjection">Custom Force per Projection (kN)</label>
+          <input id="customForcePerProjection" type="number" value="1.0" min="0.1" max="20" step="0.1">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateProjectionWeld();">Calculate</button>
+        <button class="secondary" onclick="loadExample1();">Load Example</button>
+        <button class="ghost" onclick="resetCalculator(); gtag('event','projection_weld_clear');">Reset</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter values and press <strong>Calculate</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this to a real machine?</h3>
+        <p>
+          Get connected with a qualified automation integrator if you need help with weld setup direction, tooling review, controls integration, or production validation planning.
+        </p>
+        <a href="/integrators.html">Find an Integrator</a>
+      </div>
+
+      <p class="note">
+        Projection welding is highly sensitive to projection geometry, fastener design, coating, machine stiffness, force follow-up, electrode face condition, and secondary impedance. These values are conservative starting ranges, not guaranteed production settings.
+      </p>
+
+      <p class="note">
+        Weld time shown in cycles assumes a 60 Hz timing reference. Milliseconds are included as a practical cross-reference, especially when comparing AC and MFDC discussions.
+      </p>
+
+      <div class="learn-more">
+        <h3>What to check next</h3>
+
+        <p>
+          This tool gives a first-pass setup direction, but real projection welding depends heavily on collapse behavior, force distribution, current balance, part rigidity, coating behavior, and actual machine follow-up. A setup that looks correct on paper can still fail in production if the projections do not collapse evenly.
+        </p>
+
+        <p>
+          For real process development, use these values as a starting range only, then confirm with destructive testing, collapse observation, thread quality checks, and confirmation that the machine can actually deliver the required current and force at the part.
+        </p>
+
+        <div class="internal-links">
+          <a href="/spot-weld.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'spot_weld'});">Spot Weld Calculator</a>
+          <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'robot_cycle_time'});">Robot Cycle Time</a>
+          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'pneumatic_force'});">Pneumatic Force</a>
+          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'automation_roi'});">Automation ROI</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Total starting current range</li>
+          <li>Current per projection</li>
+          <li>Total force range in kN and lbf</li>
+          <li>Force per projection</li>
+          <li>Starting weld time range</li>
+          <li>Application and process notes</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Where this helps</h3>
+        <p>
+          Useful for first-pass weld nut setup, projection stud and bolt setup, stamped part process development, equipment review, and early production trials.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Projection collapse consistency</li>
+          <li>Thread quality after welding</li>
+          <li>Expulsion and splash control</li>
+          <li>Machine current delivery capability</li>
+          <li>Force follow-up and tooling flatness</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const LBF_PER_KN = 224.809;
+
+  const presetData = {
+    weldNut: {
+      M5:  { projections: 3, current: 3.8, force: 0.8, time: 7, note: "Small weld nuts usually start with moderate current and stable collapse control." },
+      M6:  { projections: 3, current: 4.2, force: 0.9, time: 8, note: "M6 weld nuts are common in production and often use 3 projections." },
+      M8:  { projections: 3, current: 4.8, force: 1.1, time: 9, note: "M8 weld nuts typically need balanced force and consistent collapse." },
+      M10: { projections: 4, current: 5.5, force: 1.4, time: 10, note: "Larger weld nuts usually need stronger force control and better setup stability." },
+      M12: { projections: 4, current: 6.2, force: 1.8, time: 11, note: "Large weld nuts should be validated carefully for collapse and thread quality." }
+    },
+    weldStud: {
+      M5:  { projections: 1, current: 3.6, force: 0.8, time: 6, note: "Projection stud setups are sensitive to fastener design and base sheet condition." },
+      M6:  { projections: 1, current: 4.0, force: 0.9, time: 7, note: "M6 studs often need controlled force and careful validation against expulsion." },
+      M8:  { projections: 1, current: 4.8, force: 1.1, time: 8, note: "Larger studs typically need more stable squeeze and base metal support." },
+      M10: { projections: 1, current: 5.6, force: 1.4, time: 9, note: "M10 studs can quickly become limited by base thickness and machine rigidity." },
+      M12: { projections: 1, current: 6.3, force: 1.7, time: 10, note: "Large stud welding should be confirmed with destructive testing and thread protection checks." }
+    },
+    weldBolt: {
+      M5:  { projections: 1, current: 3.6, force: 0.8, time: 6, note: "Projection bolts often behave similarly to studs, but head design matters." },
+      M6:  { projections: 1, current: 4.1, force: 0.9, time: 7, note: "Bolt head projection design strongly affects usable starting parameters." },
+      M8:  { projections: 1, current: 4.9, force: 1.1, time: 8, note: "M8 projection bolts commonly need stable force and clean tooling conditions." },
+      M10: { projections: 1, current: 5.7, force: 1.4, time: 9, note: "Heavier bolts usually need more consistent squeeze and hold behavior." },
+      M12: { projections: 1, current: 6.4, force: 1.7, time: 10, note: "Large projection bolts should be confirmed against machine and tooling capability." }
+    },
+    stampedPart: {
+      M5:  { projections: 2, current: 3.6, force: 0.7, time: 7, note: "Stamped parts vary widely; projection shape matters as much as nominal size." },
+      M6:  { projections: 3, current: 4.0, force: 0.8, time: 8, note: "Multi-projection stamped parts often need more force balance than threaded fasteners." },
+      M8:  { projections: 4, current: 4.4, force: 0.9, time: 9, note: "More projections increase the need for current balance and even collapse." },
+      M10: { projections: 4, current: 5.0, force: 1.2, time: 10, note: "Large stamped multi-projection parts should be checked for uniform collapse." },
+      M12: { projections: 4, current: 5.8, force: 1.4, time: 11, note: "Heavy projection stamped parts often become highly tooling-dependent." }
+    }
+  };
+
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  function showMessage(message){
+    document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+  }
+
+  function roundTo(value, decimals){
+    return Number(value.toFixed(decimals));
+  }
+
+  function toggleCustomFields(){
+    const isCustom = document.getElementById("partType").value === "custom";
+    document.getElementById("customCurrentField").classList.toggle("hidden", !isCustom);
+    document.getElementById("customForceField").classList.toggle("hidden", !isCustom);
+  }
+
+  function applyPreset(){
+    const partType = document.getElementById("partType").value;
+    const size = document.getElementById("size").value;
+    const material = document.getElementById("material").value;
+
+    toggleCustomFields();
+
+    if(partType === "custom"){
+      return;
     }
 
-    function roundTo(value, decimals){
-      return Number(value.toFixed(decimals));
+    const presetGroup = presetData[partType];
+    if(!presetGroup || !presetGroup[size]){
+      return;
     }
 
-    function toggleCustomFields(){
-      const isCustom = document.getElementById("partType").value === "custom";
-      document.getElementById("customCurrentField").classList.toggle("hidden", !isCustom);
-      document.getElementById("customForceField").classList.toggle("hidden", !isCustom);
+    const preset = presetGroup[size];
+    document.getElementById("projections").value = preset.projections;
+
+    let baseThickness = parseFloat(document.getElementById("baseThickness").value) || 2.0;
+
+    if(baseThickness < 0.8 && (size === "M10" || size === "M12")){
+      document.getElementById("baseThickness").value = "1.5";
+      baseThickness = 1.5;
     }
 
-    function applyPreset(){
-      const partType = document.getElementById("partType").value;
-      const size = document.getElementById("size").value;
-      const material = document.getElementById("material").value;
+    if(material === "stainless" && baseThickness < 1.0){
+      document.getElementById("baseThickness").value = "1.0";
+    }
+  }
 
-      toggleCustomFields();
+  function calculateProjectionWeld(){
+    const partType = document.getElementById("partType").value;
+    const size = document.getElementById("size").value;
+    const material = document.getElementById("material").value;
+    const baseThickness = parseFloat(document.getElementById("baseThickness").value) || 0;
+    const projections = parseInt(document.getElementById("projections").value, 10) || 0;
+    const quality = document.getElementById("quality").value;
+    const machine = document.getElementById("machine").value;
+    const output = document.getElementById("output");
 
-      if(partType === "custom"){
+    if(baseThickness <= 0){
+      output.innerHTML = "<strong>Please enter a base material thickness greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(baseThickness > 8){
+      output.innerHTML = "<strong>This calculator is intended for common light to moderate projection welding applications up to about 8 mm base thickness.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(projections <= 0){
+      output.innerHTML = "<strong>Please enter at least 1 projection.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(projections > 12){
+      output.innerHTML = "<strong>Please keep projection count at 12 or less for this starting calculator.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    let currentPerProjection = 0;
+    let forcePerProjection = 0;
+    let baseCycles = 0;
+    let applicationNote = "";
+    let materialNote = "";
+    let machineNote = "";
+    let thicknessNote = "";
+    let loadingNote = "";
+
+    if(partType === "custom"){
+      currentPerProjection = parseFloat(document.getElementById("customCurrentPerProjection").value) || 0;
+      forcePerProjection = parseFloat(document.getElementById("customForcePerProjection").value) || 0;
+      baseCycles = 8;
+
+      if(currentPerProjection <= 0 || forcePerProjection <= 0){
+        output.innerHTML = "<strong>Please enter valid custom current and force values greater than 0.</strong>";
+        scrollToOutput();
         return;
       }
 
-      const presetGroup = presetData[partType];
-      if(!presetGroup || !presetGroup[size]){
-        return;
-      }
-
-      const preset = presetGroup[size];
-      document.getElementById("projections").value = preset.projections;
-
-      let baseThickness = parseFloat(document.getElementById("baseThickness").value) || 2.0;
-
-      if(baseThickness < 0.8 && (size === "M10" || size === "M12")){
-        document.getElementById("baseThickness").value = "1.5";
-        baseThickness = 1.5;
-      }
-
-      if(material === "stainless" && baseThickness < 1.0){
-        document.getElementById("baseThickness").value = "1.0";
-      }
+      applicationNote = "Custom projection parts vary significantly with projection geometry, contact area, part rigidity, and tooling setup.";
+    } else {
+      const preset = presetData[partType][size];
+      currentPerProjection = preset.current;
+      forcePerProjection = preset.force;
+      baseCycles = preset.time;
+      applicationNote = preset.note;
     }
 
-    function calculateProjectionWeld(){
-      const partType = document.getElementById("partType").value;
-      const size = document.getElementById("size").value;
-      const material = document.getElementById("material").value;
-      const baseThickness = parseFloat(document.getElementById("baseThickness").value) || 0;
-      const projections = parseInt(document.getElementById("projections").value, 10) || 0;
-      const quality = document.getElementById("quality").value;
-      const machine = document.getElementById("machine").value;
-      const output = document.getElementById("output");
+    let thicknessCurrentFactor = 1 + ((baseThickness - 2.0) * 0.05);
+    let thicknessForceFactor = 1 + ((baseThickness - 2.0) * 0.05);
+    let thicknessTimeFactor = 1 + ((baseThickness - 2.0) * 0.04);
 
-      if(baseThickness <= 0){
-        output.innerHTML = "<strong>Please enter a base material thickness greater than 0.</strong>";
-        return;
-      }
+    if(thicknessCurrentFactor < 0.80) thicknessCurrentFactor = 0.80;
+    if(thicknessForceFactor < 0.80) thicknessForceFactor = 0.80;
+    if(thicknessTimeFactor < 0.85) thicknessTimeFactor = 0.85;
 
-      if(baseThickness > 8){
-        output.innerHTML = "<strong>This calculator is intended for common light to moderate projection welding applications up to about 8 mm base thickness.</strong>";
-        return;
-      }
+    if(thicknessCurrentFactor > 1.30) thicknessCurrentFactor = 1.30;
+    if(thicknessForceFactor > 1.30) thicknessForceFactor = 1.30;
+    if(thicknessTimeFactor > 1.25) thicknessTimeFactor = 1.25;
 
-      if(projections <= 0){
-        output.innerHTML = "<strong>Please enter at least 1 projection.</strong>";
-        return;
-      }
+    currentPerProjection *= thicknessCurrentFactor;
+    forcePerProjection *= thicknessForceFactor;
+    baseCycles *= thicknessTimeFactor;
 
-      if(projections > 12){
-        output.innerHTML = "<strong>Please keep projection count at 12 or less for this starting calculator.</strong>";
-        return;
-      }
-
-      let currentPerProjection = 0;
-      let forcePerProjection = 0;
-      let baseCycles = 0;
-      let applicationNote = "";
-      let materialNote = "";
-      let machineNote = "";
-      let thicknessNote = "";
-      let loadingNote = "";
-
-      if(partType === "custom"){
-        currentPerProjection = parseFloat(document.getElementById("customCurrentPerProjection").value) || 0;
-        forcePerProjection = parseFloat(document.getElementById("customForcePerProjection").value) || 0;
-        baseCycles = 8;
-
-        if(currentPerProjection <= 0 || forcePerProjection <= 0){
-          output.innerHTML = "<strong>Please enter valid custom current and force values greater than 0.</strong>";
-          return;
-        }
-
-        applicationNote = "Custom projection parts vary significantly with projection geometry, contact area, part rigidity, and tooling setup.";
-      } else {
-        const preset = presetData[partType][size];
-        currentPerProjection = preset.current;
-        forcePerProjection = preset.force;
-        baseCycles = preset.time;
-        applicationNote = preset.note;
-      }
-
-      let thicknessCurrentFactor = 1 + ((baseThickness - 2.0) * 0.05);
-      let thicknessForceFactor = 1 + ((baseThickness - 2.0) * 0.05);
-      let thicknessTimeFactor = 1 + ((baseThickness - 2.0) * 0.04);
-
-      if(thicknessCurrentFactor < 0.80) thicknessCurrentFactor = 0.80;
-      if(thicknessForceFactor < 0.80) thicknessForceFactor = 0.80;
-      if(thicknessTimeFactor < 0.85) thicknessTimeFactor = 0.85;
-
-      if(thicknessCurrentFactor > 1.30) thicknessCurrentFactor = 1.30;
-      if(thicknessForceFactor > 1.30) thicknessForceFactor = 1.30;
-      if(thicknessTimeFactor > 1.25) thicknessTimeFactor = 1.25;
-
-      currentPerProjection *= thicknessCurrentFactor;
-      forcePerProjection *= thicknessForceFactor;
-      baseCycles *= thicknessTimeFactor;
-
-      if(baseThickness < 1.0){
-        thicknessNote = "Thin base material detected. Watch for push-through, expulsion, distortion, and thread damage risk.";
-      } else if(baseThickness >= 3.5){
-        thicknessNote = "Heavier base material detected. Expect greater heat sink effect and make sure machine current delivery is actually available.";
-      } else {
-        thicknessNote = "Base thickness is in a common working range for many standard projection welding applications.";
-      }
-
-      if(material === "galvanized"){
-        currentPerProjection *= 1.08;
-        forcePerProjection *= 1.03;
-        materialNote = "Galvanized steel often needs somewhat more current and careful electrode maintenance because coating affects contact resistance.";
-      } else if(material === "galvaneal"){
-        currentPerProjection *= 1.05;
-        forcePerProjection *= 1.03;
-        materialNote = "Galvaneal often behaves more consistently than galvanized, but still needs coating-aware validation.";
-      } else if(material === "stainless"){
-        currentPerProjection *= 0.92;
-        forcePerProjection *= 0.92;
-        baseCycles *= 0.95;
-        materialNote = "Stainless often responds differently than carbon steel and should be verified by testing.";
-      } else {
-        materialNote = "Bare mild steel is often the most forgiving starting point for projection welding setup.";
-      }
-
-      if(quality === "high"){
-        currentPerProjection *= 1.03;
-        forcePerProjection *= 1.05;
-        baseCycles *= 1.05;
-      }
-
-      if(machine === "mfdc"){
-        baseCycles *= 0.78;
-        machineNote = "MFDC welders often allow shorter effective weld times and tighter process control than AC machines.";
-      } else {
-        machineNote = "AC welders often use cycle-based timing directly, making cycle estimates a practical starting reference.";
-      }
-
-      const totalCurrent = currentPerProjection * projections;
-      const totalForceKN = forcePerProjection * projections;
-      const totalForceLbf = totalForceKN * LBF_PER_KN;
-      const forcePerProjectionLbf = forcePerProjection * LBF_PER_KN;
-
-      const timeCycles = baseCycles;
-      const timeMs = timeCycles * (1000 / 60);
-
-      const currentLow = totalCurrent * 0.85;
-      const currentHigh = totalCurrent * 1.05;
-
-      const forceLowKN = totalForceKN * 0.90;
-      const forceHighKN = totalForceKN * 1.10;
-      const forceLowLbf = forceLowKN * LBF_PER_KN;
-      const forceHighLbf = forceHighKN * LBF_PER_KN;
-
-      const timeLow = timeCycles * 0.90;
-      const timeHigh = timeCycles * 1.10;
-      const timeLowMs = timeLow * (1000 / 60);
-      const timeHighMs = timeHigh * (1000 / 60);
-
-      const currentPerProjectionLow = currentPerProjection * 0.90;
-      const currentPerProjectionHigh = currentPerProjection * 1.10;
-
-      if(projections === 1){
-        loadingNote = "Single-projection loading is simpler to balance, but collapse and expulsion can happen quickly if force follow-up is weak.";
-      } else if(projections <= 4){
-        loadingNote = "Moderate projection count usually remains manageable if tooling flatness and force distribution are good.";
-      } else {
-        loadingNote = "Higher projection count increases the need for even force distribution, flat tooling, and clean current balance across all projections.";
-      }
-
-      let typeLabel = "";
-      if(partType === "weldNut") typeLabel = "Weld Nut";
-      else if(partType === "weldStud") typeLabel = "Weld Stud";
-      else if(partType === "weldBolt") typeLabel = "Weld Bolt";
-      else if(partType === "stampedPart") typeLabel = "Multi-Projection Stamped Part";
-      else typeLabel = "Custom Projection Part";
-
-      gtag('event', 'projection_weld_calculation', {
-        part_type: partType,
-        size: size,
-        projections: projections,
-        machine_type: machine,
-        material: material,
-        base_thickness_mm: baseThickness
-      });
-
-      output.innerHTML =
-        "<strong>Application Type</strong><br>" +
-        typeLabel + "<br><br>" +
-
-        "<strong>Fastener / Part Size</strong><br>" +
-        size + "<br><br>" +
-
-        "<strong>Projection Count Used</strong><br>" +
-        projections + "<br><br>" +
-
-        "<strong>Conservative Starting Total Current Range</strong><br>" +
-        roundTo(currentLow, 1) + " to " + roundTo(currentHigh, 1) + " kA<br><br>" +
-
-        "<strong>Starting Current per Projection</strong><br>" +
-        roundTo(currentPerProjectionLow, 1) + " to " + roundTo(currentPerProjectionHigh, 1) + " kA<br><br>" +
-
-        "<strong>Starting Total Force Range</strong><br>" +
-        roundTo(forceLowKN, 2) + " to " + roundTo(forceHighKN, 2) + " kN<br>" +
-        roundTo(forceLowLbf, 0) + " to " + roundTo(forceHighLbf, 0) + " lbf<br><br>" +
-
-        "<strong>Starting Force per Projection</strong><br>" +
-        roundTo(forcePerProjection, 2) + " kN<br>" +
-        roundTo(forcePerProjectionLbf, 0) + " lbf<br><br>" +
-
-        "<strong>Nominal Total Force</strong><br>" +
-        roundTo(totalForceKN, 2) + " kN<br>" +
-        roundTo(totalForceLbf, 0) + " lbf<br><br>" +
-
-        "<strong>Starting Weld Time Range</strong><br>" +
-        roundTo(timeLow, 0) + " to " + roundTo(timeHigh, 0) + " cycles<br>" +
-        roundTo(timeLowMs, 0) + " to " + roundTo(timeHighMs, 0) + " ms<br><br>" +
-
-        "<strong>Application Note</strong><br>" +
-        applicationNote + "<br><br>" +
-
-        "<strong>Thickness Note</strong><br>" +
-        thicknessNote + "<br><br>" +
-
-        "<strong>Projection Loading Note</strong><br>" +
-        loadingNote + "<br><br>" +
-
-        "<strong>Material Note</strong><br>" +
-        materialNote + "<br><br>" +
-
-        "<strong>Machine Note</strong><br>" +
-        machineNote + "<br><br>" +
-
-        "<strong>Important</strong><br>" +
-        "These are conservative first-pass starting values only. Validate using collapse, destructive testing, thread quality checks, and machine capability review.";
+    if(baseThickness < 1.0){
+      thicknessNote = "Thin base material detected. Watch for push-through, expulsion, distortion, and thread damage risk.";
+    } else if(baseThickness >= 3.5){
+      thicknessNote = "Heavier base material detected. Expect greater heat sink effect and make sure machine current delivery is actually available.";
+    } else {
+      thicknessNote = "Base thickness is in a common working range for many standard projection welding applications.";
     }
 
-    function clearCalculator(){
-      document.getElementById("partType").value = "weldNut";
-      document.getElementById("size").value = "M6";
-      document.getElementById("material").value = "mild";
-      document.getElementById("baseThickness").value = "2.0";
-      document.getElementById("projections").value = "3";
-      document.getElementById("quality").value = "standard";
-      document.getElementById("machine").value = "ac";
-      document.getElementById("customCurrentPerProjection").value = "4.5";
-      document.getElementById("customForcePerProjection").value = "1.0";
-      applyPreset();
-      showMessage("Enter values and press Calculate");
+    if(material === "galvanized"){
+      currentPerProjection *= 1.08;
+      forcePerProjection *= 1.03;
+      materialNote = "Galvanized steel often needs somewhat more current and careful electrode maintenance because coating affects contact resistance.";
+    } else if(material === "galvaneal"){
+      currentPerProjection *= 1.05;
+      forcePerProjection *= 1.03;
+      materialNote = "Galvaneal often behaves more consistently than galvanized, but still needs coating-aware validation.";
+    } else if(material === "stainless"){
+      currentPerProjection *= 0.92;
+      forcePerProjection *= 0.92;
+      baseCycles *= 0.95;
+      materialNote = "Stainless often responds differently than carbon steel and should be verified by testing.";
+    } else {
+      materialNote = "Bare mild steel is often the most forgiving starting point for projection welding setup.";
     }
 
-    function loadExample(){
-      document.getElementById("partType").value = "weldNut";
-      document.getElementById("size").value = "M8";
-      document.getElementById("material").value = "galvanized";
-      document.getElementById("baseThickness").value = "2.0";
-      document.getElementById("quality").value = "standard";
-      document.getElementById("machine").value = "mfdc";
-      applyPreset();
-      calculateProjectionWeld();
+    if(quality === "high"){
+      currentPerProjection *= 1.03;
+      forcePerProjection *= 1.05;
+      baseCycles *= 1.05;
     }
 
+    if(machine === "mfdc"){
+      baseCycles *= 0.78;
+      machineNote = "MFDC welders often allow shorter effective weld times and tighter process control than AC machines.";
+    } else {
+      machineNote = "AC welders often use cycle-based timing directly, making cycle estimates a practical starting reference.";
+    }
+
+    const totalCurrent = currentPerProjection * projections;
+    const totalForceKN = forcePerProjection * projections;
+    const totalForceLbf = totalForceKN * LBF_PER_KN;
+    const forcePerProjectionLbf = forcePerProjection * LBF_PER_KN;
+
+    const timeCycles = baseCycles;
+
+    const currentLow = totalCurrent * 0.85;
+    const currentHigh = totalCurrent * 1.05;
+
+    const forceLowKN = totalForceKN * 0.90;
+    const forceHighKN = totalForceKN * 1.10;
+    const forceLowLbf = forceLowKN * LBF_PER_KN;
+    const forceHighLbf = forceHighKN * LBF_PER_KN;
+
+    const timeLow = timeCycles * 0.90;
+    const timeHigh = timeCycles * 1.10;
+    const timeLowMs = timeLow * (1000 / 60);
+    const timeHighMs = timeHigh * (1000 / 60);
+
+    const currentPerProjectionLow = currentPerProjection * 0.90;
+    const currentPerProjectionHigh = currentPerProjection * 1.10;
+
+    if(projections === 1){
+      loadingNote = "Single-projection loading is simpler to balance, but collapse and expulsion can happen quickly if force follow-up is weak.";
+    } else if(projections <= 4){
+      loadingNote = "Moderate projection count usually remains manageable if tooling flatness and force distribution are good.";
+    } else {
+      loadingNote = "Higher projection count increases the need for even force distribution, flat tooling, and clean current balance across all projections.";
+    }
+
+    let typeLabel = "";
+    if(partType === "weldNut") typeLabel = "Weld Nut";
+    else if(partType === "weldStud") typeLabel = "Weld Stud";
+    else if(partType === "weldBolt") typeLabel = "Weld Bolt";
+    else if(partType === "stampedPart") typeLabel = "Multi-Projection Stamped Part";
+    else typeLabel = "Custom Projection Part";
+
+    gtag('event', 'projection_weld_calculation', {
+      part_type: partType,
+      size: size,
+      projections: projections,
+      machine_type: machine,
+      material: material,
+      base_thickness_mm: baseThickness
+    });
+
+    output.innerHTML =
+      "<strong>Application Type</strong><br>" +
+      typeLabel + "<br><br>" +
+
+      "<strong>Fastener / Part Size</strong><br>" +
+      size + "<br><br>" +
+
+      "<strong>Projection Count Used</strong><br>" +
+      projections + "<br><br>" +
+
+      "<strong>Conservative Starting Total Current Range</strong><br>" +
+      roundTo(currentLow, 1) + " to " + roundTo(currentHigh, 1) + " kA<br><br>" +
+
+      "<strong>Starting Current per Projection</strong><br>" +
+      roundTo(currentPerProjectionLow, 1) + " to " + roundTo(currentPerProjectionHigh, 1) + " kA<br><br>" +
+
+      "<strong>Starting Total Force Range</strong><br>" +
+      roundTo(forceLowKN, 2) + " to " + roundTo(forceHighKN, 2) + " kN<br>" +
+      roundTo(forceLowLbf, 0) + " to " + roundTo(forceHighLbf, 0) + " lbf<br><br>" +
+
+      "<strong>Starting Force per Projection</strong><br>" +
+      roundTo(forcePerProjection, 2) + " kN<br>" +
+      roundTo(forcePerProjectionLbf, 0) + " lbf<br><br>" +
+
+      "<strong>Nominal Total Force</strong><br>" +
+      roundTo(totalForceKN, 2) + " kN<br>" +
+      roundTo(totalForceLbf, 0) + " lbf<br><br>" +
+
+      "<strong>Starting Weld Time Range</strong><br>" +
+      roundTo(timeLow, 0) + " to " + roundTo(timeHigh, 0) + " cycles<br>" +
+      roundTo(timeLowMs, 0) + " to " + roundTo(timeHighMs, 0) + " ms<br><br>" +
+
+      "<strong>Application Note</strong><br>" +
+      applicationNote + "<br><br>" +
+
+      "<strong>Thickness Note</strong><br>" +
+      thicknessNote + "<br><br>" +
+
+      "<strong>Projection Loading Note</strong><br>" +
+      loadingNote + "<br><br>" +
+
+      "<strong>Material Note</strong><br>" +
+      materialNote + "<br><br>" +
+
+      "<strong>Machine Note</strong><br>" +
+      machineNote + "<br><br>" +
+
+      "<strong>Important</strong><br>" +
+      "These are conservative first-pass starting values only. Validate using collapse, destructive testing, thread quality checks, and machine capability review.";
+
+    scrollToOutput();
+  }
+
+  function resetCalculator(){
+    document.getElementById("partType").value = "weldNut";
+    document.getElementById("size").value = "M6";
+    document.getElementById("material").value = "mild";
+    document.getElementById("baseThickness").value = "2.0";
+    document.getElementById("projections").value = "3";
+    document.getElementById("quality").value = "standard";
+    document.getElementById("machine").value = "ac";
+    document.getElementById("customCurrentPerProjection").value = "4.5";
+    document.getElementById("customForcePerProjection").value = "1.0";
     applyPreset();
-  </script>
+    showMessage("Enter values and press Calculate.");
+  }
 
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
+  function loadExample1(){
+    document.getElementById("partType").value = "weldNut";
+    document.getElementById("size").value = "M8";
+    document.getElementById("material").value = "galvanized";
+    document.getElementById("baseThickness").value = "2.0";
+    document.getElementById("quality").value = "standard";
+    document.getElementById("machine").value = "mfdc";
+    applyPreset();
+    calculateProjectionWeld();
+  }
+
+  function loadExample2(){
+    document.getElementById("partType").value = "weldStud";
+    document.getElementById("size").value = "M6";
+    document.getElementById("material").value = "mild";
+    document.getElementById("baseThickness").value = "1.5";
+    document.getElementById("quality").value = "high";
+    document.getElementById("machine").value = "ac";
+    applyPreset();
+    calculateProjectionWeld();
+  }
+
+  function loadExample3(){
+    document.getElementById("partType").value = "custom";
+    document.getElementById("size").value = "M8";
+    document.getElementById("material").value = "stainless";
+    document.getElementById("baseThickness").value = "2.5";
+    document.getElementById("projections").value = "4";
+    document.getElementById("quality").value = "standard";
+    document.getElementById("machine").value = "mfdc";
+    document.getElementById("customCurrentPerProjection").value = "5.0";
+    document.getElementById("customForcePerProjection").value = "1.2";
+    applyPreset();
+    calculateProjectionWeld();
+  }
+
+  applyPreset();
+</script>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
 </body>
 </html>
