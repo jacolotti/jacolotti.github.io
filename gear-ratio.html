@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/gear-ratio.html">
   <meta name="robots" content="index, follow">
+  <meta charset="UTF-8">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -19,76 +20,114 @@
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
+      color:#222;
     }
 
-   
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
+      padding:42px 20px 32px;
+      text-align:center;
     }
 
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
-    }
-
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
-    }
-
-    .container{
-      background:white;
-      padding:30px;
-      max-width:1100px;
+    .hero-inner{
+      max-width:950px;
       margin:auto;
-      border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
     }
 
-    .container h2{
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:28px;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .card h2{
+      margin-top:0;
       margin-bottom:10px;
       color:#1f2a44;
     }
@@ -98,10 +137,40 @@
       margin-bottom:18px;
       color:#555;
       font-size:16px;
-      line-height:1.5;
-      max-width:950px;
-      margin-left:auto;
-      margin-right:auto;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .section-title{
+      margin-top:28px;
+      margin-bottom:14px;
+      font-size:20px;
+      font-weight:bold;
+      color:#1f2a44;
+      text-align:left;
+      border-top:1px solid #ddd;
+      padding-top:18px;
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
     }
 
     .controls{
@@ -112,51 +181,74 @@
       text-align:left;
     }
 
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
     .control-group label{
       display:block;
-      font-weight:500;
+      font-weight:600;
       margin-bottom:6px;
+      color:#23314f;
     }
 
     .control-group input,
     .control-group select{
       width:100%;
-      padding:10px;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
     }
 
-    .section-title{
-      margin-top:30px;
-      margin-bottom:14px;
-      font-size:20px;
-      font-weight:bold;
-      color:#1f2a44;
-      text-align:left;
-      border-top:1px solid #ddd;
-      padding-top:18px;
+    .control-group input:focus,
+    .control-group select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
     .button-row{
       margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
-    button{
-      padding:12px 26px;
+    .button-row button{
+      padding:13px 22px;
       font-size:16px;
       background:#1f2a44;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin:6px;
-      transition:background .2s;
+      margin:0;
+      transition:background .2s, transform .2s;
+      font-weight:bold;
     }
 
-    button:hover{
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
       background:#2d3d63;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
@@ -164,7 +256,7 @@
       padding:20px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:8px;
+      border-radius:10px;
       font-size:18px;
       line-height:1.6;
       font-weight:500;
@@ -172,51 +264,178 @@
       margin-left:auto;
       margin-right:auto;
       text-align:left;
+      scroll-margin-top:100px;
+      overflow-x:auto;
     }
 
-    .note{
-      margin-top:20px;
-      color:#666;
-      font-size:14px;
-      line-height:1.5;
-      max-width:900px;
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    .footer{
-      margin-top:40px;
-      color:#666;
-      font-size:14px;
-    }
-
-    table{
+    .result table{
       width:100%;
+      min-width:620px;
       border-collapse:collapse;
       margin-top:18px;
       font-size:15px;
       background:white;
     }
 
-    th, td{
+    .result th,
+    .result td{
       border:1px solid #c8d9ff;
       padding:10px;
       text-align:left;
     }
 
-    th{
+    .result th{
       background:#dce9ff;
       color:#1f2a44;
     }
 
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#f2f5fb;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .sidebar-card h3{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.6;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+      text-align:left;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
     @media (max-width:700px){
-      .container{
+      .card,
+      .sidebar-card{
         padding:20px;
       }
 
-      button{
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
         width:100%;
-        margin:6px 0;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
       }
 
       .result{
@@ -227,387 +446,495 @@
 </head>
 <body>
 
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h2>Gear Ratio Calculator</h2>
-
-    <p class="description">
-      Calculate gear ratio, output speed, output torque, active stages, and direction change for single-stage or multi-stage external gear trains.
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Gear Ratio Calculator</h1>
+    <p>
+      Calculate total gear ratio, output speed, output torque, active stages, and direction change for single-stage or multi-stage external gear trains.
     </p>
-
-    <p class="description">
-      This calculator is useful for machine design, conveyors, automation systems, servo-driven mechanisms, and general power transmission estimates. It is intended for quick engineering calculations, not final validation.
-    </p>
-
-    <p class="description">
-      This free gear ratio calculator helps estimate total gear train ratio, speed reduction, output shaft speed, and torque multiplication for external gear sets. It is useful for reducer sizing, drive design, machine mechanisms, and automation engineering calculations.
-    </p>
-
-    <div class="section-title">General Inputs</div>
-
-    <div class="controls">
-      <div class="control-group">
-        <label for="inputSpeed">Input Speed</label>
-        <input id="inputSpeed" type="number" value="1750" step="any" min="0">
-      </div>
-
-      <div class="control-group">
-        <label for="speedUnit">Speed Unit</label>
-        <select id="speedUnit">
-          <option value="RPM">RPM</option>
-          <option value="rad/s">rad/s</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="inputTorque">Input Torque</label>
-        <input id="inputTorque" type="number" value="50" step="any" min="0">
-      </div>
-
-      <div class="control-group">
-        <label for="torqueUnit">Torque Unit</label>
-        <select id="torqueUnit">
-          <option value="lb-in">lb-in</option>
-          <option value="lb-ft">lb-ft</option>
-          <option value="N·m">N·m</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="efficiency">Overall Efficiency (%)</label>
-        <input id="efficiency" type="number" value="95" step="0.1" min="0.1" max="100">
-      </div>
-
-      <div class="control-group">
-        <label for="decimalPlaces">Decimal Places</label>
-        <select id="decimalPlaces">
-          <option value="2">2</option>
-          <option value="3" selected>3</option>
-          <option value="4">4</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="section-title">Gear Stages</div>
-
-    <div class="controls">
-      <div class="control-group">
-        <label for="driver1">Stage 1 Driver Teeth</label>
-        <input id="driver1" type="number" value="20" step="1" min="1">
-      </div>
-
-      <div class="control-group">
-        <label for="driven1">Stage 1 Driven Teeth</label>
-        <input id="driven1" type="number" value="60" step="1" min="1">
-      </div>
-
-      <div class="control-group">
-        <label for="driver2">Stage 2 Driver Teeth</label>
-        <input id="driver2" type="number" value="" step="1" min="1">
-      </div>
-
-      <div class="control-group">
-        <label for="driven2">Stage 2 Driven Teeth</label>
-        <input id="driven2" type="number" value="" step="1" min="1">
-      </div>
-
-      <div class="control-group">
-        <label for="driver3">Stage 3 Driver Teeth</label>
-        <input id="driver3" type="number" value="" step="1" min="1">
-      </div>
-
-      <div class="control-group">
-        <label for="driven3">Stage 3 Driven Teeth</label>
-        <input id="driven3" type="number" value="" step="1" min="1">
-      </div>
-    </div>
-
-    <div class="button-row">
-      <button onclick="calculateGearRatio(); gtag('event','gear_ratio_calculate');">Calculate</button>
-      <button onclick="loadExample(); gtag('event','gear_ratio_example');">Load Example</button>
-      <button onclick="clearCalculator(); gtag('event','gear_ratio_clear');">Clear</button>
-    </div>
-
-    <div class="result" id="output">
-      Enter values and click Calculate
-    </div>
-
-    <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
-</div>
-
-    <p class="note">
-      Assumes standard external gear meshes. Each external gear mesh reverses rotation direction. Output torque is estimated using entered efficiency. For compound trains, total ratio is the product of all active stage ratios.
-    </p>
-
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators and simulators for real automation work
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/gearbox-torque.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'gear_ratio_hero','to':'gearbox_torque'});">Gearbox Output Torque</a>
     </div>
   </div>
+</section>
 
-  <script>
-    function showMessage(message){
-      document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> enter input speed, input torque, efficiency, and one or more gear stages to estimate total reduction, output shaft speed, torque multiplication, and direction reversal before final mechanical selection.
+  </div>
+
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Gear Train Ratio and Output</h2>
+
+      <p class="description">
+        This calculator is useful for machine design, conveyors, automation systems, servo-driven mechanisms, and general power transmission estimates. It is intended for quick engineering calculations, not final validation.
+      </p>
+
+      <p class="description">
+        It helps estimate total gear train ratio, speed reduction, output shaft speed, and torque multiplication for external gear sets. This is useful for reducer sizing, drive design, machine mechanisms, and automation engineering calculations.
+      </p>
+
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample(); gtag('event','gear_ratio_example',{'type':'two_stage'});">Two Stage Example</button>
+        <button type="button" onclick="loadSingleStageExample(); gtag('event','gear_ratio_example',{'type':'single_stage'});">Single Stage</button>
+        <button type="button" onclick="loadThreeStageExample(); gtag('event','gear_ratio_example',{'type':'three_stage'});">Three Stage</button>
+      </div>
+
+      <div class="section-title">General Inputs</div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="inputSpeed">Input Speed</label>
+          <input id="inputSpeed" type="number" value="1750" step="any" min="0">
+        </div>
+
+        <div class="control-group">
+          <label for="speedUnit">Speed Unit</label>
+          <select id="speedUnit">
+            <option value="RPM">RPM</option>
+            <option value="rad/s">rad/s</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="inputTorque">Input Torque</label>
+          <input id="inputTorque" type="number" value="50" step="any" min="0">
+        </div>
+
+        <div class="control-group">
+          <label for="torqueUnit">Torque Unit</label>
+          <select id="torqueUnit">
+            <option value="lb-in">lb-in</option>
+            <option value="lb-ft">lb-ft</option>
+            <option value="N·m">N·m</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="efficiency">Overall Efficiency (%)</label>
+          <input id="efficiency" type="number" value="95" step="0.1" min="0.1" max="100">
+        </div>
+
+        <div class="control-group">
+          <label for="decimalPlaces">Decimal Places</label>
+          <select id="decimalPlaces">
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section-title">Gear Stages</div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="driver1">Stage 1 Driver Teeth</label>
+          <input id="driver1" type="number" value="20" step="1" min="1">
+        </div>
+
+        <div class="control-group">
+          <label for="driven1">Stage 1 Driven Teeth</label>
+          <input id="driven1" type="number" value="60" step="1" min="1">
+        </div>
+
+        <div class="control-group">
+          <label for="driver2">Stage 2 Driver Teeth</label>
+          <input id="driver2" type="number" value="" step="1" min="1">
+        </div>
+
+        <div class="control-group">
+          <label for="driven2">Stage 2 Driven Teeth</label>
+          <input id="driven2" type="number" value="" step="1" min="1">
+        </div>
+
+        <div class="control-group">
+          <label for="driver3">Stage 3 Driver Teeth</label>
+          <input id="driver3" type="number" value="" step="1" min="1">
+        </div>
+
+        <div class="control-group">
+          <label for="driven3">Stage 3 Driven Teeth</label>
+          <input id="driven3" type="number" value="" step="1" min="1">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateGearRatio(); gtag('event','gear_ratio_calculate');">Calculate</button>
+        <button class="secondary" onclick="loadExample();">Load Example</button>
+        <button class="ghost" onclick="clearCalculator(); gtag('event','gear_ratio_clear');">Clear</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter values and click <strong>Calculate</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this to a real machine?</h3>
+        <p>
+          Get connected with a qualified automation integrator if you are sizing a reducer, designing a transmission, or trying to match motor speed to mechanism speed in a real system.
+        </p>
+        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'gear_ratio_midpage'});">Find an Integrator</a>
+      </div>
+
+      <p class="note">
+        Assumes standard external gear meshes. Each external gear mesh reverses rotation direction. Output torque is estimated using entered efficiency. For compound trains, total ratio is the product of all active stage ratios.
+      </p>
+
+      <div class="learn-more">
+        <h3>Where this calculator helps</h3>
+
+        <p>
+          Gear ratio drives speed reduction and torque multiplication. This is useful for conveyors, servo axes, rotating tooling, fixtures, lift mechanisms, and any machine function where motor speed is too high for the driven load.
+        </p>
+
+        <p>
+          After estimating ratio, you usually still need to check gearbox torque limits, motor torque availability, inertia effects, and whether the selected transmission meets acceleration and duty requirements.
+        </p>
+
+        <div class="internal-links">
+          <a href="/gearbox-torque.html" onclick="gtag('event','internal_link_click',{'from':'gear_ratio','to':'gearbox_torque'});">Gearbox Output Torque</a>
+          <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'gear_ratio','to':'servo_torque'});">Servo Torque Calculator</a>
+          <a href="/motor.html" onclick="gtag('event','internal_link_click',{'from':'gear_ratio','to':'conveyor_motor'});">Conveyor Motor Sizing</a>
+          <a href="/conveyor-speed.html" onclick="gtag('event','internal_link_click',{'from':'gear_ratio','to':'conveyor_speed'});">Conveyor Speed Calculator</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators and simulators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Total gear ratio</li>
+          <li>Output speed</li>
+          <li>Output torque estimate</li>
+          <li>Direction reversal result</li>
+          <li>Per-stage ratio breakdown</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common uses</h3>
+        <p>
+          This helps with reducer selection, mechanism layout, servo-to-load matching, conveyor transmission planning, and early machine concept work.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Things to verify next</h3>
+        <ul>
+          <li>Gearbox torque limits</li>
+          <li>Motor torque and acceleration margin</li>
+          <li>Duty cycle and heat</li>
+          <li>Backlash and positional accuracy</li>
+          <li>Shock load and service factor</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showMessage(message){
+    document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
+    document.getElementById("output").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function getNum(id){
+    const value = document.getElementById(id).value.trim();
+    return value === "" ? null : parseFloat(value);
+  }
+
+  function formatNumber(value, decimals){
+    return Number(value).toFixed(decimals);
+  }
+
+  function convertSpeedToRPM(speed, unit){
+    if(unit === "rad/s"){
+      return speed * 60 / (2 * Math.PI);
+    }
+    return speed;
+  }
+
+  function convertRPMToUnit(rpm, unit){
+    if(unit === "rad/s"){
+      return rpm * (2 * Math.PI) / 60;
+    }
+    return rpm;
+  }
+
+  function ratioType(ratio){
+    if(ratio > 1){
+      return "Reduction";
+    }
+    if(ratio < 1){
+      return "Overdrive";
+    }
+    return "1:1 Direct";
+  }
+
+  function validateInputs(){
+    const inputSpeed = getNum("inputSpeed");
+    const inputTorque = getNum("inputTorque");
+    const efficiency = getNum("efficiency");
+
+    const stages = [
+      { driver: getNum("driver1"), driven: getNum("driven1"), stage: 1 },
+      { driver: getNum("driver2"), driven: getNum("driven2"), stage: 2 },
+      { driver: getNum("driver3"), driven: getNum("driven3"), stage: 3 }
+    ];
+
+    if(inputSpeed === null || inputSpeed <= 0){
+      showMessage("Please enter an input speed greater than 0.");
+      return false;
     }
 
-    function getNum(id){
-      const value = document.getElementById(id).value.trim();
-      return value === "" ? null : parseFloat(value);
+    if(inputTorque !== null && inputTorque < 0){
+      showMessage("Please enter an input torque of 0 or greater.");
+      return false;
     }
 
-    function formatNumber(value, decimals){
-      return Number(value).toFixed(decimals);
+    if(efficiency === null || efficiency <= 0 || efficiency > 100){
+      showMessage("Efficiency must be greater than 0 and less than or equal to 100.");
+      return false;
     }
 
-    function convertSpeedToRPM(speed, unit){
-      if(unit === "rad/s"){
-        return speed * 60 / (2 * Math.PI);
+    let activeStageCount = 0;
+
+    for(let i = 0; i < stages.length; i++){
+      const s = stages[i];
+      const bothBlank = s.driver === null && s.driven === null;
+      const oneBlank = (s.driver === null && s.driven !== null) || (s.driver !== null && s.driven === null);
+
+      if(bothBlank){
+        continue;
       }
-      return speed;
-    }
 
-    function convertRPMToUnit(rpm, unit){
-      if(unit === "rad/s"){
-        return rpm * (2 * Math.PI) / 60;
-      }
-      return rpm;
-    }
-
-    function ratioType(ratio){
-      if(ratio > 1){
-        return "Reduction";
-      }
-      if(ratio < 1){
-        return "Overdrive";
-      }
-      return "1:1 Direct";
-    }
-
-    function validateInputs(){
-      const inputSpeed = getNum("inputSpeed");
-      const inputTorque = getNum("inputTorque");
-      const efficiency = getNum("efficiency");
-
-      const stages = [
-        { driver: getNum("driver1"), driven: getNum("driven1"), stage: 1 },
-        { driver: getNum("driver2"), driven: getNum("driven2"), stage: 2 },
-        { driver: getNum("driver3"), driven: getNum("driven3"), stage: 3 }
-      ];
-
-      if(inputSpeed === null || inputSpeed <= 0){
-        showMessage("Please enter an input speed greater than 0.");
+      if(oneBlank){
+        showMessage("Stage " + s.stage + " is incomplete. Enter both driver and driven teeth or leave both blank.");
         return false;
       }
 
-      if(inputTorque !== null && inputTorque < 0){
-        showMessage("Please enter an input torque of 0 or greater.");
+      if(s.driver <= 0 || s.driven <= 0){
+        showMessage("Stage " + s.stage + " teeth values must be greater than 0.");
         return false;
       }
 
-      if(efficiency === null || efficiency <= 0 || efficiency > 100){
-        showMessage("Efficiency must be greater than 0 and less than or equal to 100.");
+      if(!Number.isInteger(s.driver) || !Number.isInteger(s.driven)){
+        showMessage("Stage " + s.stage + " teeth values must be whole numbers.");
         return false;
       }
 
-      let activeStageCount = 0;
-
-      for(let i = 0; i < stages.length; i++){
-        const s = stages[i];
-        const bothBlank = s.driver === null && s.driven === null;
-        const oneBlank = (s.driver === null && s.driven !== null) || (s.driver !== null && s.driven === null);
-
-        if(bothBlank){
-          continue;
-        }
-
-        if(oneBlank){
-          showMessage("Stage " + s.stage + " is incomplete. Enter both driver and driven teeth or leave both blank.");
-          return false;
-        }
-
-        if(s.driver <= 0 || s.driven <= 0){
-          showMessage("Stage " + s.stage + " teeth values must be greater than 0.");
-          return false;
-        }
-
-        if(!Number.isInteger(s.driver) || !Number.isInteger(s.driven)){
-          showMessage("Stage " + s.stage + " teeth values must be whole numbers.");
-          return false;
-        }
-
-        activeStageCount++;
-      }
-
-      if(activeStageCount === 0){
-        showMessage("Please enter at least one complete gear stage.");
-        return false;
-      }
-
-      return true;
+      activeStageCount++;
     }
 
-    function calculateGearRatio(){
-      if(!validateInputs()) return;
-
-      const inputSpeed = getNum("inputSpeed");
-      const speedUnit = document.getElementById("speedUnit").value;
-      const inputTorque = getNum("inputTorque");
-      const torqueUnit = document.getElementById("torqueUnit").value;
-      const efficiency = getNum("efficiency");
-      const decimalPlaces = parseInt(document.getElementById("decimalPlaces").value);
-
-      const stages = [
-        { driver: getNum("driver1"), driven: getNum("driven1"), stage: 1 },
-        { driver: getNum("driver2"), driven: getNum("driven2"), stage: 2 },
-        { driver: getNum("driver3"), driven: getNum("driven3"), stage: 3 }
-      ];
-
-      let totalRatio = 1;
-      let activeStages = [];
-      let stageRows = "";
-
-      for(let i = 0; i < stages.length; i++){
-        const s = stages[i];
-        if(s.driver === null || s.driven === null){
-          continue;
-        }
-
-        const stageRatio = s.driven / s.driver;
-        totalRatio *= stageRatio;
-        activeStages.push(s);
-
-        stageRows +=
-          "<tr>" +
-            "<td>Stage " + s.stage + "</td>" +
-            "<td>" + s.driver + "</td>" +
-            "<td>" + s.driven + "</td>" +
-            "<td>" + formatNumber(stageRatio, decimalPlaces) + " : 1</td>" +
-            "<td>" + ratioType(stageRatio) + "</td>" +
-          "</tr>";
-      }
-
-      const inputRPM = convertSpeedToRPM(inputSpeed, speedUnit);
-      const outputRPM = inputRPM / totalRatio;
-      const outputSpeed = convertRPMToUnit(outputRPM, speedUnit);
-
-      let directionText = "Same direction as input";
-      if(activeStages.length % 2 === 1){
-        directionText = "Opposite direction from input";
-      }
-
-      let idealOutputTorqueText = "Not entered";
-      let estimatedOutputTorqueText = "Not entered";
-
-      if(inputTorque !== null && inputTorque >= 0){
-        const idealOutputTorque = inputTorque * totalRatio;
-        const estimatedOutputTorque = idealOutputTorque * (efficiency / 100);
-
-        idealOutputTorqueText = formatNumber(idealOutputTorque, decimalPlaces) + " " + torqueUnit;
-        estimatedOutputTorqueText = formatNumber(estimatedOutputTorque, decimalPlaces) + " " + torqueUnit;
-      }
-
-      let rpmReferenceText = "";
-      if(speedUnit === "rad/s"){
-        rpmReferenceText =
-          "<br><br><strong>Input Speed Reference</strong><br>" +
-          formatNumber(inputRPM, decimalPlaces) + " RPM<br><br>" +
-          "<strong>Output Speed Reference</strong><br>" +
-          formatNumber(outputRPM, decimalPlaces) + " RPM";
-      }
-
-      document.getElementById("output").innerHTML =
-        "<strong>Total Gear Ratio</strong><br>" +
-        formatNumber(totalRatio, decimalPlaces) + " : 1<br><br>" +
-
-        "<strong>Ratio Type</strong><br>" +
-        ratioType(totalRatio) + "<br><br>" +
-
-        "<strong>Active Stages</strong><br>" +
-        activeStages.length + "<br><br>" +
-
-        "<strong>Input Speed</strong><br>" +
-        formatNumber(inputSpeed, decimalPlaces) + " " + speedUnit + "<br><br>" +
-
-        "<strong>Output Speed</strong><br>" +
-        formatNumber(outputSpeed, decimalPlaces) + " " + speedUnit + "<br><br>" +
-
-        "<strong>Direction</strong><br>" +
-        directionText + "<br><br>" +
-
-        "<strong>Efficiency Used</strong><br>" +
-        formatNumber(efficiency, 1) + "%<br><br>" +
-
-        "<strong>Ideal Output Torque</strong><br>" +
-        idealOutputTorqueText + "<br><br>" +
-
-        "<strong>Estimated Output Torque</strong><br>" +
-        estimatedOutputTorqueText +
-
-        rpmReferenceText +
-
-        "<table>" +
-          "<tr>" +
-            "<th>Stage</th>" +
-            "<th>Driver Teeth</th>" +
-            "<th>Driven Teeth</th>" +
-            "<th>Stage Ratio</th>" +
-            "<th>Type</th>" +
-          "</tr>" +
-          stageRows +
-        "</table>";
+    if(activeStageCount === 0){
+      showMessage("Please enter at least one complete gear stage.");
+      return false;
     }
 
-    function clearCalculator(){
-      document.getElementById("inputSpeed").value = "1750";
-      document.getElementById("speedUnit").value = "RPM";
-      document.getElementById("inputTorque").value = "50";
-      document.getElementById("torqueUnit").value = "lb-in";
-      document.getElementById("efficiency").value = "95";
-      document.getElementById("decimalPlaces").value = "3";
-      document.getElementById("driver1").value = "20";
-      document.getElementById("driven1").value = "60";
-      document.getElementById("driver2").value = "";
-      document.getElementById("driven2").value = "";
-      document.getElementById("driver3").value = "";
-      document.getElementById("driven3").value = "";
+    return true;
+  }
 
-      showMessage("Enter values and click Calculate");
+  function calculateGearRatio(){
+    if(!validateInputs()) return;
+
+    const inputSpeed = getNum("inputSpeed");
+    const speedUnit = document.getElementById("speedUnit").value;
+    const inputTorque = getNum("inputTorque");
+    const torqueUnit = document.getElementById("torqueUnit").value;
+    const efficiency = getNum("efficiency");
+    const decimalPlaces = parseInt(document.getElementById("decimalPlaces").value);
+
+    const stages = [
+      { driver: getNum("driver1"), driven: getNum("driven1"), stage: 1 },
+      { driver: getNum("driver2"), driven: getNum("driven2"), stage: 2 },
+      { driver: getNum("driver3"), driven: getNum("driven3"), stage: 3 }
+    ];
+
+    let totalRatio = 1;
+    let activeStages = [];
+    let stageRows = "";
+
+    for(let i = 0; i < stages.length; i++){
+      const s = stages[i];
+      if(s.driver === null || s.driven === null){
+        continue;
+      }
+
+      const stageRatio = s.driven / s.driver;
+      totalRatio *= stageRatio;
+      activeStages.push(s);
+
+      stageRows +=
+        "<tr>" +
+          "<td>Stage " + s.stage + "</td>" +
+          "<td>" + s.driver + "</td>" +
+          "<td>" + s.driven + "</td>" +
+          "<td>" + formatNumber(stageRatio, decimalPlaces) + " : 1</td>" +
+          "<td>" + ratioType(stageRatio) + "</td>" +
+        "</tr>";
     }
 
-    function loadExample(){
-      document.getElementById("inputSpeed").value = "1750";
-      document.getElementById("speedUnit").value = "RPM";
-      document.getElementById("inputTorque").value = "50";
-      document.getElementById("torqueUnit").value = "lb-in";
-      document.getElementById("efficiency").value = "95";
-      document.getElementById("decimalPlaces").value = "3";
-      document.getElementById("driver1").value = "20";
-      document.getElementById("driven1").value = "60";
-      document.getElementById("driver2").value = "15";
-      document.getElementById("driven2").value = "45";
-      document.getElementById("driver3").value = "";
-      document.getElementById("driven3").value = "";
+    const inputRPM = convertSpeedToRPM(inputSpeed, speedUnit);
+    const outputRPM = inputRPM / totalRatio;
+    const outputSpeed = convertRPMToUnit(outputRPM, speedUnit);
 
-      calculateGearRatio();
+    let directionText = "Same direction as input";
+    if(activeStages.length % 2 === 1){
+      directionText = "Opposite direction from input";
     }
-  </script>
 
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
+    let idealOutputTorqueText = "Not entered";
+    let estimatedOutputTorqueText = "Not entered";
+
+    if(inputTorque !== null && inputTorque >= 0){
+      const idealOutputTorque = inputTorque * totalRatio;
+      const estimatedOutputTorque = idealOutputTorque * (efficiency / 100);
+
+      idealOutputTorqueText = formatNumber(idealOutputTorque, decimalPlaces) + " " + torqueUnit;
+      estimatedOutputTorqueText = formatNumber(estimatedOutputTorque, decimalPlaces) + " " + torqueUnit;
+    }
+
+    let rpmReferenceText = "";
+    if(speedUnit === "rad/s"){
+      rpmReferenceText =
+        "<br><br><strong>Input Speed Reference</strong><br>" +
+        formatNumber(inputRPM, decimalPlaces) + " RPM<br><br>" +
+        "<strong>Output Speed Reference</strong><br>" +
+        formatNumber(outputRPM, decimalPlaces) + " RPM";
+    }
+
+    document.getElementById("output").innerHTML =
+      "<strong>Total Gear Ratio</strong><br>" +
+      formatNumber(totalRatio, decimalPlaces) + " : 1<br><br>" +
+
+      "<strong>Ratio Type</strong><br>" +
+      ratioType(totalRatio) + "<br><br>" +
+
+      "<strong>Active Stages</strong><br>" +
+      activeStages.length + "<br><br>" +
+
+      "<strong>Input Speed</strong><br>" +
+      formatNumber(inputSpeed, decimalPlaces) + " " + speedUnit + "<br><br>" +
+
+      "<strong>Output Speed</strong><br>" +
+      formatNumber(outputSpeed, decimalPlaces) + " " + speedUnit + "<br><br>" +
+
+      "<strong>Direction</strong><br>" +
+      directionText + "<br><br>" +
+
+      "<strong>Efficiency Used</strong><br>" +
+      formatNumber(efficiency, 1) + "%<br><br>" +
+
+      "<strong>Ideal Output Torque</strong><br>" +
+      idealOutputTorqueText + "<br><br>" +
+
+      "<strong>Estimated Output Torque</strong><br>" +
+      estimatedOutputTorqueText +
+
+      rpmReferenceText +
+
+      "<table>" +
+        "<tr>" +
+          "<th>Stage</th>" +
+          "<th>Driver Teeth</th>" +
+          "<th>Driven Teeth</th>" +
+          "<th>Stage Ratio</th>" +
+          "<th>Type</th>" +
+        "</tr>" +
+        stageRows +
+      "</table>";
+
+    document.getElementById("output").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function clearCalculator(){
+    document.getElementById("inputSpeed").value = "1750";
+    document.getElementById("speedUnit").value = "RPM";
+    document.getElementById("inputTorque").value = "50";
+    document.getElementById("torqueUnit").value = "lb-in";
+    document.getElementById("efficiency").value = "95";
+    document.getElementById("decimalPlaces").value = "3";
+    document.getElementById("driver1").value = "20";
+    document.getElementById("driven1").value = "60";
+    document.getElementById("driver2").value = "";
+    document.getElementById("driven2").value = "";
+    document.getElementById("driver3").value = "";
+    document.getElementById("driven3").value = "";
+
+    showMessage("Enter values and click Calculate.");
+  }
+
+  function loadExample(){
+    document.getElementById("inputSpeed").value = "1750";
+    document.getElementById("speedUnit").value = "RPM";
+    document.getElementById("inputTorque").value = "50";
+    document.getElementById("torqueUnit").value = "lb-in";
+    document.getElementById("efficiency").value = "95";
+    document.getElementById("decimalPlaces").value = "3";
+    document.getElementById("driver1").value = "20";
+    document.getElementById("driven1").value = "60";
+    document.getElementById("driver2").value = "15";
+    document.getElementById("driven2").value = "45";
+    document.getElementById("driver3").value = "";
+    document.getElementById("driven3").value = "";
+
+    calculateGearRatio();
+  }
+
+  function loadSingleStageExample(){
+    document.getElementById("inputSpeed").value = "1750";
+    document.getElementById("speedUnit").value = "RPM";
+    document.getElementById("inputTorque").value = "30";
+    document.getElementById("torqueUnit").value = "lb-in";
+    document.getElementById("efficiency").value = "97";
+    document.getElementById("decimalPlaces").value = "3";
+    document.getElementById("driver1").value = "18";
+    document.getElementById("driven1").value = "54";
+    document.getElementById("driver2").value = "";
+    document.getElementById("driven2").value = "";
+    document.getElementById("driver3").value = "";
+    document.getElementById("driven3").value = "";
+    calculateGearRatio();
+  }
+
+  function loadThreeStageExample(){
+    document.getElementById("inputSpeed").value = "3600";
+    document.getElementById("speedUnit").value = "RPM";
+    document.getElementById("inputTorque").value = "12";
+    document.getElementById("torqueUnit").value = "N·m";
+    document.getElementById("efficiency").value = "90";
+    document.getElementById("decimalPlaces").value = "3";
+    document.getElementById("driver1").value = "16";
+    document.getElementById("driven1").value = "48";
+    document.getElementById("driver2").value = "14";
+    document.getElementById("driven2").value = "42";
+    document.getElementById("driver3").value = "12";
+    document.getElementById("driven3").value = "36";
+    calculateGearRatio();
+  }
+</script>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
 </body>
 </html>
