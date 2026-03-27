@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="canonical" href="https://automationcalculators.net/plc-communication-troubleshooting.html">
+  <link rel="canonical" href="https://automationcalculators.net/plc-pulse-capture.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta charset="UTF-8">
@@ -15,8 +15,8 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>PLC Communication Troubleshooting Tool | Ethernet/IP, Profinet, Modbus</title>
-  <meta name="description" content="Diagnose PLC communication issues fast. Troubleshoot Ethernet/IP, Profinet, Modbus, and industrial networks based on real symptoms.">
+  <title>PLC Scan Time & Pulse Capture Calculator | Detect Missed Inputs</title>
+  <meta name="description" content="Free PLC scan time and pulse capture calculator. Estimate whether a PLC is likely to detect short input pulses using scan time, task period, input update time, and input filter. Useful for counters, sensors, proxes, and fast machine events.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -30,74 +30,210 @@
     .hero{
       background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      padding:40px 20px;
+      padding:42px 20px 32px;
       text-align:center;
     }
 
+    .hero-inner{
+      max-width:980px;
+      margin:auto;
+    }
+
     .hero h1{
-      margin:0 0 10px;
-      font-size:32px;
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
     }
 
     .hero p{
-      max-width:800px;
-      margin:auto;
+      max-width:820px;
+      margin:0 auto 14px;
       color:#e7ecf7;
+      font-size:17px;
       line-height:1.6;
     }
 
-    .container{
-      max-width:1100px;
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1150px;
       margin:30px auto;
       padding:0 18px 40px;
     }
 
-    .card{
-      background:white;
-      padding:30px;
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
       border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1080px;
+      font-size:15px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
       box-shadow:0 0 12px rgba(0,0,0,.08);
     }
 
-    .top-note{
-      background:#fff7df;
-      padding:14px;
-      border-radius:8px;
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
       margin-bottom:20px;
       text-align:left;
-      font-size:15px;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .description{
+      margin:0 0 14px;
+      color:#555;
+      font-size:16px;
+      line-height:1.65;
+      text-align:left;
+    }
+
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
     }
 
     .controls{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
       gap:16px;
+      margin-bottom:20px;
       text-align:left;
     }
 
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
     .control-group label{
-      font-weight:bold;
-      margin-bottom:6px;
       display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
     }
 
     .control-group input,
     .control-group select{
       width:100%;
-      padding:10px;
-      border-radius:6px;
-      border:1px solid #ccc;
+      padding:10px 12px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
     .button-row{
       margin:20px 0;
       display:flex;
-      gap:10px;
       flex-wrap:wrap;
+      gap:12px;
     }
 
-    button{
-      padding:12px 22px;
+    .button-row button{
+      padding:13px 22px;
       font-size:16px;
       background:#1f2a44;
       color:white;
@@ -105,49 +241,215 @@
       border-radius:8px;
       cursor:pointer;
       font-weight:bold;
+      transition:.2s ease;
     }
 
-    button:hover{
-      background:#2d3d63;
-    }
-
-    .secondary{
+    .button-row button.secondary{
       background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#2d3d63;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
       margin-top:25px;
       padding:20px;
       background:#e9f1ff;
+      border:1px solid #c8d9ff;
       border-radius:10px;
+      font-size:17px;
+      line-height:1.65;
       text-align:left;
-      line-height:1.6;
+      scroll-margin-top:100px;
     }
 
-    .cta{
-      margin-top:25px;
-      padding:20px;
-      background:#eef4ff;
-      border-radius:10px;
+    .status-good{
+      color:#1b6b2a;
+      font-weight:bold;
+    }
+
+    .status-warn{
+      color:#8a4b00;
+      font-weight:bold;
+    }
+
+    .status-bad{
+      color:#a12626;
+      font-weight:bold;
+    }
+
+    .table-wrap{
+      overflow-x:auto;
+      margin-top:18px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:white;
+      min-width:760px;
+      margin-top:10px;
+    }
+
+    th, td{
+      border:1px solid #c8d9ff;
+      padding:10px;
+      text-align:left;
+      font-size:15px;
+    }
+
+    th{
+      background:#1f2a44;
+      color:white;
       text-align:center;
     }
 
-    .cta a{
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
       display:inline-block;
-      margin-top:10px;
       background:#1f2a44;
       color:white;
-      padding:10px 16px;
-      border-radius:6px;
+      padding:12px 18px;
+      border-radius:8px;
       text-decoration:none;
       font-weight:bold;
     }
 
-    .footer{
-      margin-top:30px;
-      font-size:14px;
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .note{
+      margin-top:20px;
       color:#666;
+      font-size:14px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
       text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
+      }
     }
   </style>
 </head>
@@ -156,123 +458,412 @@
 
 <div id="navbar"></div>
 
-<div class="hero">
-  <h1>PLC Communication Troubleshooter</h1>
-  <p>
-    Quickly diagnose industrial communication issues across Ethernet/IP, Profinet, Modbus, DeviceNet, and more.
-    Built for real-world troubleshooting — not theory.
-  </p>
-</div>
-
-<div class="container">
-  <div class="card">
-
-    <div class="top-note">
-      <strong>How to use:</strong> Select your symptom and conditions, then run the diagnosis.
-      Start with power and physical layer — then move to addressing and configuration.
+<section class="hero">
+  <div class="hero-inner">
+    <h1>PLC Scan Time &amp; Pulse Capture Calculator</h1>
+    <p>
+      Estimate whether a PLC is likely to detect a short input pulse using task period, scan time, input update time, and input filtering. Useful for sensors, proxes, part counters, reject confirmation, and high-speed events.
+    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/plc-communication-troubleshooting.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'plc_pulse_capture_hero','to':'plc_comm'});">PLC Communication Tool</a>
     </div>
+  </div>
+</section>
 
-    <div class="controls">
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting rule:</strong> if your pulse width is close to or below your PLC task time, input update time, or input filter time, you are in risky territory. That is where high-speed inputs, latches, or event tasks start becoming the right answer.
+  </div>
 
-      <div class="control-group">
-        <label>Communication Protocol</label>
-        <select id="protocol">
-          <option value="ethernetip">EtherNet/IP</option>
-          <option value="profinet">PROFINET</option>
-          <option value="modbustcp">Modbus TCP</option>
-          <option value="modbusrtu">Modbus RTU</option>
-          <option value="devicenet">DeviceNet</option>
-          <option value="profibus">Profibus</option>
-          <option value="serial">Serial</option>
-        </select>
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Pulse Detection Risk</h2>
+
+      <p class="description">
+        This tool gives a practical estimate for whether a standard PLC input and cyclic logic scan are likely to catch an incoming pulse. It is intended for controls engineers, technicians, and automation designers doing first-pass troubleshooting or design review.
+      </p>
+
+      <p class="description">
+        It is most useful when someone says, “the sensor definitely flashed, but the PLC never saw it,” or when you are trying to decide whether regular logic is enough or if you need a hardware latch, event task, or high-speed input.
+      </p>
+
+      <div class="formula-box">
+        Estimated conservative minimum detectable pulse ≈ Input Filter + Input Update Time + Logic Task Time<br><br>
+        Practical recommended pulse width = conservative minimum × safety margin
       </div>
 
-      <div class="control-group">
-        <label>Primary Symptom</label>
-        <select id="symptom">
-          <option value="offline">Device Offline</option>
-          <option value="intermittent">Intermittent</option>
-          <option value="timeout">Timeout</option>
-          <option value="noComm">No Communication</option>
-          <option value="wrongData">Wrong Data</option>
-          <option value="duplicate">Duplicate Address</option>
-          <option value="faulted">Bus Fault</option>
-        </select>
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadSlowPLCExample(); gtag('event','plc_pulse_capture_example',{'type':'slow_plc'});">Slow PLC Example</button>
+        <button type="button" onclick="loadFastPLCExample(); gtag('event','plc_pulse_capture_example',{'type':'fast_plc'});">Fast PLC Example</button>
+        <button type="button" onclick="loadHighSpeedInputExample(); gtag('event','plc_pulse_capture_example',{'type':'high_speed'});">High-Speed Input</button>
       </div>
 
-      <div class="control-group">
-        <label>Power Condition</label>
-        <select id="powerCondition">
-          <option value="good">Good</option>
-          <option value="unstable">Unstable</option>
-          <option value="unknown">Unknown</option>
-        </select>
+      <div class="controls">
+        <div class="control-group">
+          <label for="pulseWidth">Pulse Width (ms)</label>
+          <input id="pulseWidth" type="number" value="8" min="0.01" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="logicTaskTime">Logic Task / PLC Scan Time (ms)</label>
+          <input id="logicTaskTime" type="number" value="10" min="0.01" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="inputUpdateTime">Input Update / RPI Time (ms)</label>
+          <input id="inputUpdateTime" type="number" value="4" min="0" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="inputFilter">Input Filter Time (ms)</label>
+          <input id="inputFilter" type="number" value="3" min="0" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="safetyMargin">Safety Margin (%)</label>
+          <input id="safetyMargin" type="number" value="25" min="0" step="1">
+        </div>
+
+        <div class="control-group">
+          <label for="pulseRate">Pulse Rate (pulses/sec, optional)</label>
+          <input id="pulseRate" type="number" value="0" min="0" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="hardwareLatch">Hardware Latch / High-Speed Input Used?</label>
+          <select id="hardwareLatch">
+            <option value="no" selected>No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="eventTask">Event Task / Immediate Task Used?</label>
+          <select id="eventTask">
+            <option value="no" selected>No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="inputType">Input Type</label>
+          <select id="inputType">
+            <option value="standard" selected>Standard PLC Input</option>
+            <option value="highspeed">High-Speed Counter / Special Input</option>
+            <option value="remoteio">Remote I/O Input</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="applicationNote">Application Note (optional)</label>
+          <input id="applicationNote" type="text" value="" placeholder="Example: prox on gear tooth">
+        </div>
       </div>
 
-      <div class="control-group">
-        <label>Physical Link</label>
-        <select id="linkCondition">
-          <option value="normal">Normal</option>
-          <option value="bad">Bad</option>
-          <option value="unknown">Unknown</option>
-        </select>
+      <div class="button-row">
+        <button onclick="calculatePulseCapture();">Calculate</button>
+        <button class="secondary" onclick="loadSlowPLCExample();">Load Example</button>
+        <button class="ghost" onclick="resetCalculator();">Reset</button>
       </div>
 
-      <div class="control-group">
-        <label>Recent Changes</label>
-        <select id="recentChanges">
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-        </select>
+      <div class="result" id="output">
+        Enter values and click <strong>Calculate</strong>.
       </div>
 
-      <div class="control-group">
-        <label>Node Count</label>
-        <input id="nodeCount" type="number" value="8">
+      <div class="cta-box">
+        <h3>Need help applying this to a real machine?</h3>
+        <p>
+          Get connected with a qualified automation integrator if you are chasing missed counts, unreliable sensor pulses, reject confirmation problems, or fast event capture issues in production equipment.
+        </p>
+        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'plc_pulse_capture_midpage'});">Find an Integrator</a>
       </div>
 
+      <p class="note">
+        This is a practical engineering estimate, not a guaranteed hardware specification. Real capture behavior depends on PLC family, module type, firmware, task priority, debounce/filter settings, network delays, and whether the signal is local, remote, or latched in hardware.
+      </p>
+
+      <div class="learn-more">
+        <h3>What usually causes missed pulses</h3>
+        <p>
+          Most missed input events come from one of five things: the pulse is too short, the input filter is too long, the input is remote and updated too slowly, the logic task is too slow, or the application really needed a hardware latch or high-speed input from the beginning.
+        </p>
+
+        <p>
+          If the pulse width is anywhere near the PLC’s cyclic timing, assume risk. That is exactly when standard logic starts becoming unreliable for counting, edge capture, and fast sensor events.
+        </p>
+
+        <div class="internal-links">
+          <a href="/analog-scaling.html" onclick="gtag('event','internal_link_click',{'from':'plc_pulse_capture','to':'analog_scaling'});">Analog Scaling</a>
+          <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','internal_link_click',{'from':'plc_pulse_capture','to':'plc_comm'});">PLC Communication Troubleshooter</a>
+          <a href="/safety-distance.html" onclick="gtag('event','internal_link_click',{'from':'plc_pulse_capture','to':'safety_distance'});">Safety Distance Calculator</a>
+          <a href="/reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'plc_pulse_capture','to':'reference_charts'});">Reference Charts</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical PLC and controls troubleshooting tools
+      </div>
     </div>
 
-    <div class="button-row">
-      <button onclick="diagnoseCommIssue()">Run Diagnosis</button>
-      <button class="secondary" onclick="resetCalculator()">Reset</button>
-    </div>
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Estimated conservative minimum pulse width</li>
+          <li>Recommended pulse width with safety margin</li>
+          <li>Capture risk rating</li>
+          <li>Rough maximum practical pulse rate</li>
+          <li>When to consider high-speed hardware</li>
+        </ul>
+      </div>
 
-    <div class="result" id="output">
-      Select conditions and run diagnosis
-    </div>
+      <div class="sidebar-card">
+        <h3>Where this helps</h3>
+        <p>
+          Useful for part detect sensors, reject confirmation, gear tooth prox signals, shaft pulses, label gaps, registration marks, and any machine event that happens faster than normal PLC logic comfortably handles.
+        </p>
+      </div>
 
-    <div class="cta">
-      <strong>Need help fixing this in the real world?</strong><br>
-      Get connected with an automation integrator.
-      <br>
-      <a href="/integrators.html">Find an Integrator</a>
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Input module filter/debounce settings</li>
+          <li>Remote I/O update rate or RPI</li>
+          <li>Task priority and periodic rate</li>
+          <li>Hardware latch / high-speed input availability</li>
+          <li>Real oscilloscope or trend verification</li>
+        </ul>
+      </div>
     </div>
-
-    <div class="footer">
-      Automation Engineering Tools • Real troubleshooting tools for real systems
-    </div>
-
   </div>
 </div>
 
 <script>
-function diagnoseCommIssue(){
-  document.getElementById("output").innerHTML =
-    "<strong>Likely Issue:</strong><br>Check power, cabling, and addressing first.<br><br>" +
-    "<strong>Next Steps:</strong><br>Verify IP, inspect wiring, check PLC diagnostics.";
-}
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
 
-function resetCalculator(){
-  document.getElementById("output").innerHTML =
-    "Select conditions and run diagnosis";
-}
+  function safeParseFloat(id, fallback){
+    const v = parseFloat(document.getElementById(id).value);
+    return isNaN(v) ? fallback : v;
+  }
+
+  function calcStatusClass(text){
+    if(text === "Low Risk") return "status-good";
+    if(text === "Moderate Risk") return "status-warn";
+    return "status-bad";
+  }
+
+  function calculatePulseCapture(){
+    const pulseWidth = safeParseFloat("pulseWidth", 0);
+    const logicTaskTime = safeParseFloat("logicTaskTime", 0);
+    const inputUpdateTime = safeParseFloat("inputUpdateTime", 0);
+    const inputFilter = safeParseFloat("inputFilter", 0);
+    const safetyMargin = safeParseFloat("safetyMargin", 0);
+    const pulseRate = safeParseFloat("pulseRate", 0);
+    const hardwareLatch = document.getElementById("hardwareLatch").value;
+    const eventTask = document.getElementById("eventTask").value;
+    const inputType = document.getElementById("inputType").value;
+    const applicationNote = document.getElementById("applicationNote").value.trim();
+    const output = document.getElementById("output");
+
+    if(pulseWidth <= 0){
+      output.innerHTML = "<strong>Please enter a pulse width greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(logicTaskTime <= 0){
+      output.innerHTML = "<strong>Please enter a logic task or scan time greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(inputUpdateTime < 0 || inputFilter < 0 || safetyMargin < 0){
+      output.innerHTML = "<strong>Please enter valid non-negative timing values.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    let effectiveLogicTime = logicTaskTime;
+    let effectiveUpdateTime = inputUpdateTime;
+    let effectiveFilter = inputFilter;
+
+    if(eventTask === "yes"){
+      effectiveLogicTime *= 0.5;
+    }
+
+    let conservativeMinimum = effectiveFilter + effectiveUpdateTime + effectiveLogicTime;
+
+    if(inputType === "remoteio"){
+      conservativeMinimum += effectiveUpdateTime;
+    }
+
+    let hardwareNote = "";
+    if(hardwareLatch === "yes" || inputType === "highspeed"){
+      conservativeMinimum = Math.max(effectiveFilter + 0.25, 0.5);
+      hardwareNote = "Hardware latch / high-speed input selected. PLC-side risk is reduced, but actual minimum pulse width still depends on the specific module and hardware spec.";
+    }
+
+    const recommendedMinimum = conservativeMinimum * (1 + safetyMargin / 100);
+    const ratio = pulseWidth / Math.max(recommendedMinimum, 0.0001);
+
+    let risk = "High Risk";
+    let interpretation = "The pulse is likely too short for reliable standard cyclic capture. Missing events is very possible.";
+    if(ratio >= 1.5){
+      risk = "Low Risk";
+      interpretation = "The pulse width is comfortably above the recommended minimum. Capture is more likely to be reliable.";
+    } else if(ratio >= 1.0){
+      risk = "Moderate Risk";
+      interpretation = "The pulse is in the borderline zone. It may work, but reliability can depend heavily on timing alignment and hardware details.";
+    }
+
+    const maxPracticalPulseRate = recommendedMinimum > 0 ? 1000 / recommendedMinimum : 0;
+
+    let pulseRateComment = "";
+    if(pulseRate > 0){
+      if(pulseRate > maxPracticalPulseRate){
+        pulseRateComment = "Entered pulse rate is above the estimated practical capture rate. This is another warning sign.";
+      } else if(pulseRate > maxPracticalPulseRate * 0.7){
+        pulseRateComment = "Entered pulse rate is approaching the estimated practical capture limit.";
+      } else {
+        pulseRateComment = "Entered pulse rate is below the estimated practical capture limit.";
+      }
+    }
+
+    let recommendationList = [];
+    if(risk !== "Low Risk"){
+      recommendationList.push("Reduce input filter / debounce time if appropriate.");
+      recommendationList.push("Move the signal to a faster local input instead of slower remote I/O if possible.");
+      recommendationList.push("Use a hardware latch, high-speed counter, or dedicated high-speed input.");
+      recommendationList.push("Use an event task or faster periodic task where supported.");
+      recommendationList.push("Verify the real pulse width with an oscilloscope or high-speed trace before trusting software assumptions.");
+    } else {
+      recommendationList.push("Still verify real pulse width and filter settings on the actual hardware.");
+      recommendationList.push("Check whether future speed increases could push the pulse into a higher-risk zone.");
+    }
+
+    let tableHtml = "<div class='table-wrap'><table>";
+    tableHtml += "<tr><th>Item</th><th>Value</th></tr>";
+    tableHtml += "<tr><td>Pulse Width</td><td>" + pulseWidth.toFixed(2) + " ms</td></tr>";
+    tableHtml += "<tr><td>Logic Task / Scan Time</td><td>" + logicTaskTime.toFixed(2) + " ms</td></tr>";
+    tableHtml += "<tr><td>Input Update Time</td><td>" + inputUpdateTime.toFixed(2) + " ms</td></tr>";
+    tableHtml += "<tr><td>Input Filter Time</td><td>" + inputFilter.toFixed(2) + " ms</td></tr>";
+    tableHtml += "<tr><td>Conservative Minimum Detectable Pulse</td><td>" + conservativeMinimum.toFixed(2) + " ms</td></tr>";
+    tableHtml += "<tr><td>Recommended Minimum Pulse with Safety Margin</td><td>" + recommendedMinimum.toFixed(2) + " ms</td></tr>";
+    tableHtml += "<tr><td>Estimated Practical Max Pulse Rate</td><td>" + maxPracticalPulseRate.toFixed(1) + " pulses/sec</td></tr>";
+    tableHtml += "</table></div>";
+
+    let html = "";
+    html += "<strong>Capture Risk</strong><br>";
+    html += "<span class='" + calcStatusClass(risk) + "'>" + risk + "</span><br><br>";
+
+    html += "<strong>Interpretation</strong><br>" + interpretation + "<br><br>";
+
+    html += "<strong>Recommended Actions</strong><br>";
+    for(let i = 0; i < recommendationList.length; i++){
+      html += "• " + recommendationList[i] + "<br>";
+    }
+
+    if(hardwareNote){
+      html += "<br><strong>Hardware Note</strong><br>" + hardwareNote + "<br>";
+    }
+
+    if(pulseRateComment){
+      html += "<br><strong>Pulse Rate Note</strong><br>" + pulseRateComment + "<br>";
+    }
+
+    if(applicationNote){
+      html += "<br><strong>Application Note</strong><br>" + applicationNote + "<br>";
+    }
+
+    html += "<br><strong>Timing Summary</strong><br>";
+    html += tableHtml;
+
+    gtag('event','tool_calculation',{
+      tool:'plc_pulse_capture',
+      risk:risk,
+      input_type:inputType,
+      hardware_latch:hardwareLatch,
+      event_task:eventTask
+    });
+
+    output.innerHTML = html;
+    scrollToOutput();
+  }
+
+  function resetCalculator(){
+    document.getElementById("pulseWidth").value = "8";
+    document.getElementById("logicTaskTime").value = "10";
+    document.getElementById("inputUpdateTime").value = "4";
+    document.getElementById("inputFilter").value = "3";
+    document.getElementById("safetyMargin").value = "25";
+    document.getElementById("pulseRate").value = "0";
+    document.getElementById("hardwareLatch").value = "no";
+    document.getElementById("eventTask").value = "no";
+    document.getElementById("inputType").value = "standard";
+    document.getElementById("applicationNote").value = "";
+    document.getElementById("output").innerHTML = 'Enter values and click <strong>Calculate</strong>.';
+  }
+
+  function loadSlowPLCExample(){
+    document.getElementById("pulseWidth").value = "8";
+    document.getElementById("logicTaskTime").value = "10";
+    document.getElementById("inputUpdateTime").value = "4";
+    document.getElementById("inputFilter").value = "3";
+    document.getElementById("safetyMargin").value = "25";
+    document.getElementById("pulseRate").value = "20";
+    document.getElementById("hardwareLatch").value = "no";
+    document.getElementById("eventTask").value = "no";
+    document.getElementById("inputType").value = "remoteio";
+    document.getElementById("applicationNote").value = "Part present prox through remote rack";
+    calculatePulseCapture();
+  }
+
+  function loadFastPLCExample(){
+    document.getElementById("pulseWidth").value = "8";
+    document.getElementById("logicTaskTime").value = "2";
+    document.getElementById("inputUpdateTime").value = "1";
+    document.getElementById("inputFilter").value = "0.5";
+    document.getElementById("safetyMargin").value = "20";
+    document.getElementById("pulseRate").value = "40";
+    document.getElementById("hardwareLatch").value = "no";
+    document.getElementById("eventTask").value = "yes";
+    document.getElementById("inputType").value = "standard";
+    document.getElementById("applicationNote").value = "Local prox into fast periodic task";
+    calculatePulseCapture();
+  }
+
+  function loadHighSpeedInputExample(){
+    document.getElementById("pulseWidth").value = "1.5";
+    document.getElementById("logicTaskTime").value = "10";
+    document.getElementById("inputUpdateTime").value = "2";
+    document.getElementById("inputFilter").value = "0.5";
+    document.getElementById("safetyMargin").value = "10";
+    document.getElementById("pulseRate").value = "200";
+    document.getElementById("hardwareLatch").value = "yes";
+    document.getElementById("eventTask").value = "yes";
+    document.getElementById("inputType").value = "highspeed";
+    document.getElementById("applicationNote").value = "Gear tooth sensor into high-speed counter";
+    calculatePulseCapture();
+  }
 </script>
 
 <script>
-fetch("navbar.html")
-.then(r=>r.text())
-.then(d=>document.getElementById("navbar").innerHTML=d);
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
 </script>
 
 </body>
