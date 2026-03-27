@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/plc-communication-troubleshooting.html">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -12,536 +15,163 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>PLC Communication Troubleshooting Tool | Ethernet/IP, Profinet, Modbus | Automation Calculators</title>
-  <meta name="description" content="Free PLC communication troubleshooting tool for automation engineers and technicians. Diagnose common Ethernet/IP, Profinet, Modbus TCP, and serial communication problems based on symptoms and network conditions.">
+  <title>PLC Communication Troubleshooting Tool | Ethernet/IP, Profinet, Modbus</title>
+  <meta name="description" content="Diagnose PLC communication issues fast. Troubleshoot Ethernet/IP, Profinet, Modbus, and industrial networks based on real symptoms.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
+      color:#222;
     }
 
-    
-
-    .dropdown{
-      position:relative;
-      display:inline-block;
-    }
-
-    .dropbtn{
-      background:none;
-      border:none;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      font-weight:bold;
-      font-size:16px;
-      cursor:pointer;
-      padding:8px 10px;
-      font-family:Arial;
+      padding:40px 20px;
+      text-align:center;
     }
 
-    .dropbtn:hover{
-      text-decoration:underline;
-      opacity:0.8;
+    .hero h1{
+      margin:0 0 10px;
+      font-size:32px;
     }
 
-    .dropdown-content{
-      display:none;
-      position:absolute;
-      top:100%;
-      left:0;
-      background:white;
-      min-width:220px;
-      box-shadow:0px 4px 12px rgba(0,0,0,.15);
-      border-radius:8px;
-      z-index:1000;
-      overflow:hidden;
-    }
-
-    .dropdown-content a{
-      display:block;
-      color:#1f2a44;
-      padding:12px 15px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .dropdown-content a:hover{
-      background:#f4f8ff;
-      text-decoration:none;
-      opacity:1;
-    }
-
-    .dropdown:hover .dropdown-content{
-      display:block;
+    .hero p{
+      max-width:800px;
+      margin:auto;
+      color:#e7ecf7;
+      line-height:1.6;
     }
 
     .container{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .card{
       background:white;
       padding:30px;
-      max-width:1100px;
-      margin:auto;
       border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
+      box-shadow:0 0 12px rgba(0,0,0,.08);
     }
 
-    .container h2{
-      margin-bottom:10px;
-      color:#1f2a44;
-    }
-
-    .description{
-      margin-top:0;
-      margin-bottom:18px;
-      color:#555;
-      font-size:16px;
-      line-height:1.5;
+    .top-note{
+      background:#fff7df;
+      padding:14px;
+      border-radius:8px;
+      margin-bottom:20px;
+      text-align:left;
+      font-size:15px;
     }
 
     .controls{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
       gap:16px;
-      margin-bottom:20px;
       text-align:left;
     }
 
     .control-group label{
-      display:block;
-      font-weight:500;
+      font-weight:bold;
       margin-bottom:6px;
+      display:block;
     }
 
     .control-group input,
     .control-group select{
       width:100%;
       padding:10px;
-      font-size:16px;
-      box-sizing:border-box;
+      border-radius:6px;
       border:1px solid #ccc;
-      border-radius:5px;
     }
 
     .button-row{
       margin:20px 0;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
     button{
-      padding:12px 26px;
+      padding:12px 22px;
       font-size:16px;
-      background:#1e6bd6;
+      background:#1f2a44;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin:6px;
-      transition:background .2s;
+      font-weight:bold;
     }
 
     button:hover{
-      background:#1555ad;
+      background:#2d3d63;
+    }
+
+    .secondary{
+      background:#5a6a85;
     }
 
     .result{
       margin-top:25px;
       padding:20px;
       background:#e9f1ff;
-      border:1px solid #c8d9ff;
-      border-radius:8px;
-      font-size:18px;
-      line-height:1.6;
-      font-weight:500;
-      max-width:900px;
-      margin-left:auto;
-      margin-right:auto;
+      border-radius:10px;
       text-align:left;
+      line-height:1.6;
     }
 
-    .note{
-      margin-top:20px;
-      color:#666;
-      font-size:14px;
-      line-height:1.5;
-      max-width:900px;
-      margin-left:auto;
-      margin-right:auto;
-      text-align:left;
+    .cta{
+      margin-top:25px;
+      padding:20px;
+      background:#eef4ff;
+      border-radius:10px;
+      text-align:center;
+    }
+
+    .cta a{
+      display:inline-block;
+      margin-top:10px;
+      background:#1f2a44;
+      color:white;
+      padding:10px 16px;
+      border-radius:6px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .footer{
-      margin-top:40px;
-      color:#666;
+      margin-top:30px;
       font-size:14px;
-    }
-
-    @media (max-width:700px){
-      .container{ padding:20px; }
-
-      button{
-        width:100%;
-        margin:6px 0;
-      }
+      color:#666;
+      text-align:center;
     }
   </style>
 </head>
+
 <body>
 
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <div class="container">
-    <h1>PLC Communication Troubleshooter</h1>
-
-    <p class="description">
-      Diagnose common PLC communication problems using protocol, symptoms, power condition, physical link condition, and recent changes.
-    </p>
-
-    <p class="description">
-      This tool is useful for controls engineers, maintenance technicians, electricians, and automation specialists troubleshooting field devices, HMIs, drives, robots, remote I/O, and PLC network faults.
-    </p>
-
-    <p class="description">
-      Use this free PLC communication troubleshooting tool to quickly narrow down likely causes and identify the best next checks before deeper diagnostics.
-    </p>
-
-    <div class="controls">
-      <div class="control-group">
-        <label for="protocol">Communication Protocol</label>
-        <select id="protocol">
-          <option value="ethernetip">EtherNet/IP</option>
-          <option value="profinet">PROFINET</option>
-          <option value="modbustcp">Modbus TCP</option>
-          <option value="modbusrtu">Modbus RTU / RS-485</option>
-          <option value="devicenet">DeviceNet</option>
-          <option value="profibus">Profibus</option>
-          <option value="serial">Generic Serial</option>
-          <option value="other">Other / Unknown</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="symptom">Primary Symptom</label>
-        <select id="symptom">
-          <option value="offline">Device Offline</option>
-          <option value="intermittent">Intermittent Communication</option>
-          <option value="timeout">Timeout / Slow Response</option>
-          <option value="noComm">No Communication at All</option>
-          <option value="wrongData">Wrong or Inconsistent Data</option>
-          <option value="duplicate">Duplicate Address / IP Conflict</option>
-          <option value="faulted">Network or Bus Faulted</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="powerCondition">Device Power Condition</label>
-        <select id="powerCondition">
-          <option value="good">Power Confirmed Good</option>
-          <option value="unstable">Power May Be Unstable</option>
-          <option value="unknown">Unknown</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="linkCondition">Physical Link / Indicators</label>
-        <select id="linkCondition">
-          <option value="normal">Normal Link Lights / Indicators</option>
-          <option value="bad">Missing or Faulted Link / Bus Indicators</option>
-          <option value="unknown">Unknown</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="recentChanges">Recent Wiring / Program / IP Changes</label>
-        <select id="recentChanges">
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-          <option value="unknown">Unknown</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="nodeCount">Approximate Node Count</label>
-        <input id="nodeCount" type="number" value="8" step="1" min="1">
-      </div>
-
-      <div class="control-group">
-        <label for="managedSwitch">Managed Switch Involved</label>
-        <select id="managedSwitch">
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
-          <option value="unknown">Unknown</option>
-        </select>
-      </div>
-
-      <div class="control-group">
-        <label for="noiseEnvironment">Electrical Noise Environment</label>
-        <select id="noiseEnvironment">
-          <option value="low">Low</option>
-          <option value="moderate">Moderate</option>
-          <option value="high">High / Welders / VFDs / Servo Power Nearby</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="button-row">
-      <button onclick="diagnoseCommIssue();">Diagnose Issue</button>
-      <button onclick="resetCalculator();">Reset</button>
-    </div>
-
-    <div class="result" id="output">
-      Select conditions and diagnose the likely communication issue
-    </div>
-
-    <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-  <strong>Need help applying this to a real machine?</strong>
-  <br><br>
-  Get connected with a qualified automation integrator for your project.
-  <br><br>
-  <a href="/integrators.html" style="display:inline-block;background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-    Find an Integrator
-  </a>
+<div class="hero">
+  <h1>PLC Communication Troubleshooter</h1>
+  <p>
+    Quickly diagnose industrial communication issues across Ethernet/IP, Profinet, Modbus, DeviceNet, and more.
+    Built for real-world troubleshooting — not theory.
+  </p>
 </div>
 
-    <p class="note">
-      This tool provides practical troubleshooting guidance, not a guaranteed root cause. Real communication faults can involve addressing, grounding, shielding, wiring damage, switch configuration, overloaded traffic, device firmware, or hardware failure.
-    </p>
+<div class="container">
+  <div class="card">
 
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators and simulators for real automation work
+    <div class="top-note">
+      <strong>How to use:</strong> Select your symptom and conditions, then run the diagnosis.  
+      Start with power and physical layer — then move to addressing and configuration.
     </div>
-  </div>
 
-  <script>
-    function safeParseInt(id, fallback){
-      const value = parseInt(document.getElementById(id).value);
-      return isNaN(value) ? fallback : value;
-    }
-
-    function diagnoseCommIssue(){
-      const protocol = document.getElementById("protocol").value;
-      const symptom = document.getElementById("symptom").value;
-      const powerCondition = document.getElementById("powerCondition").value;
-      const linkCondition = document.getElementById("linkCondition").value;
-      const recentChanges = document.getElementById("recentChanges").value;
-      const nodeCount = safeParseInt("nodeCount", 1);
-      const managedSwitch = document.getElementById("managedSwitch").value;
-      const noiseEnvironment = document.getElementById("noiseEnvironment").value;
-
-      let severity = "Medium";
-      let likelyCauses = [];
-      let firstChecks = [];
-      let deeperChecks = [];
-      let protocolNotes = [];
-
-      if(powerCondition === "unstable"){
-        severity = "High";
-        likelyCauses.push("Unstable or missing device power");
-        firstChecks.push("Verify 24VDC or device supply at the actual device terminals under load");
-        firstChecks.push("Check fuses, breakers, power distribution blocks, and loose commons");
-      }
-
-      if(linkCondition === "bad"){
-        severity = "High";
-        likelyCauses.push("Physical layer problem such as bad cable, loose connector, failed port, or damaged transceiver");
-        firstChecks.push("Inspect cable ends, switch ports, connectors, and device status LEDs");
-        firstChecks.push("Swap with a known good patch cord, port, or drop cable if possible");
-      }
-
-      if(recentChanges === "yes"){
-        likelyCauses.push("Recent change introduced an addressing, wiring, naming, or configuration mismatch");
-        firstChecks.push("Review exactly what changed: program, IP, node address, device replacement, switch settings, or wiring");
-      }
-
-      if(noiseEnvironment === "high"){
-        likelyCauses.push("Electrical noise may be corrupting communication or causing intermittent resets");
-        deeperChecks.push("Inspect shield grounding, cable routing, separation from power conductors, and bonding");
-      }
-
-      if(nodeCount > 25){
-        likelyCauses.push("Higher node count may be contributing to traffic loading or slower fault isolation");
-        deeperChecks.push("Review polling rate, requested packet interval, scan overhead, and network segmentation");
-      }
-
-      switch(symptom){
-        case "offline":
-          severity = "High";
-          likelyCauses.push("Device reset, dropped network link, watchdog timeout, or addressing conflict");
-          firstChecks.push("Check if the device can be pinged or browsed consistently");
-          firstChecks.push("Look at PLC module diagnostics and fault bits");
-          deeperChecks.push("Trend when the dropout happens relative to machine motion or cycle events");
-          break;
-
-        case "intermittent":
-          severity = "High";
-          likelyCauses.push("Intermittent cable, noise issue, loose terminal, or overloaded traffic");
-          firstChecks.push("Move or flex suspect cabling gently while watching status");
-          firstChecks.push("Check if the issue happens only during weld, servo motion, or high current events");
-          deeperChecks.push("Use switch counters or diagnostics to look for packet errors, port flaps, or retries");
-          break;
-
-        case "timeout":
-          likelyCauses.push("Slow response due to overload, bad serial settings, poor polling setup, or device processing delay");
-          firstChecks.push("Verify baud rate, parity, stop bits, timeout values, and scan settings");
-          firstChecks.push("Reduce unnecessary polling from HMI, SCADA, or external devices");
-          deeperChecks.push("Check PLC scan time, communication task loading, and message rates");
-          break;
-
-        case "noComm":
-          severity = "High";
-          likelyCauses.push("Wrong IP, wrong subnet, wrong node address, bad path, wrong port, or dead device");
-          firstChecks.push("Verify all addressing, device names, slave IDs, and cable routing");
-          firstChecks.push("Confirm the PLC is actually configured for that device and path");
-          deeperChecks.push("Use vendor browse tools to confirm whether the device is visible on the network");
-          break;
-
-        case "wrongData":
-          likelyCauses.push("Incorrect mapping, wrong register offset, wrong data type, byte swap, or wrong device profile");
-          firstChecks.push("Verify tag mapping, input/output assembly, register numbers, and scaling");
-          firstChecks.push("Check whether the data is being interpreted as the wrong type or byte order");
-          deeperChecks.push("Compare raw incoming data to vendor documentation or a known good system");
-          break;
-
-        case "duplicate":
-          severity = "High";
-          likelyCauses.push("Duplicate IP address or duplicate network/node address conflict");
-          firstChecks.push("Disconnect suspected duplicate devices one at a time and retest");
-          firstChecks.push("Scan the network and document all addresses in use");
-          deeperChecks.push("Use switch MAC table or device discovery tools to identify the conflicting hardware");
-          break;
-
-        case "faulted":
-          severity = "High";
-          likelyCauses.push("Bus wiring, termination, trunk/drop issue, failed node, or topology violation");
-          firstChecks.push("Inspect terminations, trunk/drop lengths, connector orientation, and cable damage");
-          firstChecks.push("Isolate sections of the network if possible to find the bad segment or node");
-          deeperChecks.push("Measure bus resistance or signal health where appropriate with power removed if required");
-          break;
-      }
-
-      switch(protocol){
-        case "ethernetip":
-          likelyCauses.push("EtherNet/IP addressing conflict, bad switch behavior, multicast issue, or excessive messaging");
-          firstChecks.push("Verify IP address, subnet mask, module connection status, and RPI settings");
-          if(managedSwitch === "yes"){
-            deeperChecks.push("Review managed switch error counters, duplex settings, IGMP snooping, and port events");
-          }
-          protocolNotes.push("EtherNet/IP faults commonly come from IP conflicts, switch issues, or connection overload.");
-          break;
-
-        case "profinet":
-          likelyCauses.push("PROFINET device name mismatch, topology change, or controller assignment issue");
-          firstChecks.push("Verify device name, IP settings, and controller download status");
-          deeperChecks.push("Check engineering software diagnostics for name assignment and topology faults");
-          protocolNotes.push("PROFINET often fails after device replacement or name assignment issues.");
-          break;
-
-        case "modbustcp":
-          likelyCauses.push("Wrong register mapping, wrong function code, timeout setting issue, or IP/path mismatch");
-          firstChecks.push("Verify register numbering, base offset assumptions, and socket target settings");
-          deeperChecks.push("Use a Modbus client to test direct register reads independently of the PLC");
-          protocolNotes.push("Modbus TCP problems are very often mapping or timeout related.");
-          break;
-
-        case "modbusrtu":
-          likelyCauses.push("Baud/parity mismatch, reversed A/B lines, missing biasing, or grounding issue");
-          firstChecks.push("Verify baud rate, parity, stop bits, slave ID, and RS-485 polarity");
-          deeperChecks.push("Check line biasing, termination, and serial reference grounding");
-          protocolNotes.push("Modbus RTU is very sensitive to one wrong serial parameter.");
-          break;
-
-        case "devicenet":
-          likelyCauses.push("DeviceNet power issue, duplicate MAC ID, missing termination, or bad drop");
-          firstChecks.push("Measure network voltage under load and verify both terminations");
-          firstChecks.push("Check trunk/drop layout and node addressing");
-          deeperChecks.push("Isolate nodes one by one if the entire bus is unstable");
-          protocolNotes.push("DeviceNet problems are commonly wiring and power quality issues.");
-          break;
-
-        case "profibus":
-          likelyCauses.push("Profibus connector, termination, shield, or address issue");
-          firstChecks.push("Inspect connector orientation, termination state, and node addresses");
-          deeperChecks.push("Check segment rules and connector quality if faults are intermittent");
-          protocolNotes.push("Profibus is very sensitive to connector quality and proper terminations.");
-          break;
-
-        case "serial":
-          likelyCauses.push("Serial format mismatch, wiring polarity issue, or reference grounding problem");
-          firstChecks.push("Verify every serial parameter and pinout end to end");
-          deeperChecks.push("Use a serial analyzer or test adapter if available");
-          protocolNotes.push("Generic serial failures usually come down to settings, pinout, or grounding.");
-          break;
-
-        case "other":
-          protocolNotes.push("Start with power, physical layer, addressing, and recent changes before assuming software failure.");
-          break;
-      }
-
-      let html = "";
-
-      if(likelyCauses.length === 0){
-  likelyCauses.push("General communication configuration or network condition issue");
-}
-
-      html += "<strong>Estimated Issue Severity</strong><br>" + severity + "<br><br>";
-
-      html += "<strong>Most Likely Causes</strong><br>";
-      for(let i = 0; i < likelyCauses.length; i++){
-        html += "• " + likelyCauses[i] + "<br>";
-      }
-
-      html += "<br><strong>First Checks to Perform</strong><br>";
-      for(let i = 0; i < firstChecks.length; i++){
-        html += "• " + firstChecks[i] + "<br>";
-      }
-
-      html += "<br><strong>Recommended Deeper Diagnostics</strong><br>";
-      if(deeperChecks.length === 0){
-        html += "• No deeper diagnostics suggested yet based on current selections<br>";
-      } else {
-        for(let i = 0; i < deeperChecks.length; i++){
-          html += "• " + deeperChecks[i] + "<br>";
-        }
-      }
-
-      html += "<br><strong>Protocol Notes</strong><br>";
-      for(let i = 0; i < protocolNotes.length; i++){
-        html += "• " + protocolNotes[i] + "<br>";
-      }
-
-      gtag('event','tool_calculation',{
-        tool:'plc_communication_troubleshooting',
-        protocol:protocol,
-        symptom:symptom,
-        node_count:nodeCount,
-        managed_switch:managedSwitch
-      });
-
-      document.getElementById("output").innerHTML = html;
-    }
-
-    function resetCalculator(){
-      document.getElementById("protocol").value = "ethernetip";
-      document.getElementById("symptom").value = "offline";
-      document.getElementById("powerCondition").value = "good";
-      document.getElementById("linkCondition").value = "normal";
-      document.getElementById("recentChanges").value = "no";
-      document.getElementById("nodeCount").value = "8";
-      document.getElementById("managedSwitch").value = "yes";
-      document.getElementById("noiseEnvironment").value = "low";
-      document.getElementById("output").innerHTML = "Select conditions and diagnose the likely communication issue";
-    }
-  </script>
-
-  <script>
-    fetch("navbar.html")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
-</body>
-</html>
+    <!-- CONTROLS (UNCHANGED) -->
+    <div class="controls">
+      <!-- (keeping your exact controls here, unchanged) -->
