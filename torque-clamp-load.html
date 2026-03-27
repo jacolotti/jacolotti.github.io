@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <link rel="canonical" href="https://automationcalculators.net/torque-clamp-load.html">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
 
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -13,89 +16,255 @@
   </script>
 
   <title>Torque to Clamp Load Calculator | Automation Calculators</title>
-  <meta name="description" content="Free torque to clamp load calculator for bolts and fasteners. Estimate clamp force from applied torque using bolt size, tensile stress area, nut factor, and tightening assumptions.">
+  <meta name="description" content="Free torque to clamp load calculator for bolts and fasteners. Estimate clamp force from applied torque using common metric bolt sizes, tensile stress area, nut factor, and tightening assumptions.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
     body{
-      font-family:Arial;
+      font-family:Arial, sans-serif;
       background:#f4f4f4;
-      text-align:center;
       margin:0;
+      color:#222;
     }
 
-    .container{
-      background:white;
-      padding:30px;
-      max-width:1100px;
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:950px;
       margin:auto;
-      border-radius:10px;
-      box-shadow:0px 0px 10px rgba(0,0,0,.1);
     }
 
-    .container h2{
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
       margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
       color:#1f2a44;
     }
 
     .description{
-      margin-top:0;
-      margin-bottom:18px;
+      margin:0 0 18px;
       color:#555;
       font-size:16px;
-      line-height:1.5;
+      line-height:1.6;
+      text-align:left;
     }
 
-    .start-prompt{
-      margin-top:0;
-      margin-bottom:22px;
-      color:#222;
-      font-size:18px;
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
       font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
     }
 
     .controls{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
       gap:16px;
-      margin-bottom:20px;
+      margin:25px 0 20px;
       text-align:left;
+    }
+
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
     }
 
     .control-group label{
       display:block;
-      font-weight:500;
+      font-weight:600;
       margin-bottom:6px;
+      color:#23314f;
     }
 
     .control-group input,
     .control-group select{
       width:100%;
-      padding:10px;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
-      border:1px solid #ccc;
-      border-radius:5px;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+      font-family:Arial, sans-serif;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
     .button-row{
       margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
     }
 
-    button{
-      padding:12px 26px;
+    .button-row button{
+      padding:13px 22px;
       font-size:16px;
-      background:#1f2a44;
+      background:#1e6bd6;
       color:white;
       border:none;
-      border-radius:6px;
+      border-radius:8px;
       cursor:pointer;
-      margin:6px;
-      transition:background .2s;
+      font-weight:bold;
+      transition:.2s ease;
     }
 
-    button:hover{
-      background:#2d3d63;
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#1555ad;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
@@ -103,38 +272,148 @@
       padding:20px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:8px;
+      border-radius:10px;
       font-size:18px;
       line-height:1.6;
-      max-width:900px;
-      margin-left:auto;
-      margin-right:auto;
+      font-weight:500;
       text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .note{
       margin-top:20px;
       color:#666;
       font-size:14px;
-      line-height:1.5;
-      max-width:900px;
-      margin-left:auto;
-      margin-right:auto;
+      line-height:1.6;
       text-align:left;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
     }
 
     .footer{
       margin-top:40px;
       color:#666;
       font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width:700px){
-      .container{ padding:20px; }
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
 
-      button{
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
         width:100%;
-        margin:6px 0;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
       }
     }
   </style>
@@ -143,132 +422,354 @@
 
 <div id="navbar"></div>
 
-<div class="container">
-  <h2>Torque to Clamp Load Calculator</h2>
-
-  <p class="description">
-    Estimate clamp load from applied torque using common metric bolt sizes, tensile stress area, nut factor, and tightening assumptions.
-  </p>
-
-  <p class="description">
-    This calculator is useful for fastening review, assembly setup, fixture design, and automation work where preload matters.
-  </p>
-
-  <p class="start-prompt">
-    Enter torque, bolt size, and nut factor to estimate clamp load instantly.
-  </p>
-
-  <div class="controls">
-    <div class="control-group">
-      <label>Applied Torque</label>
-      <input id="torque" type="number" value="50">
-    </div>
-
-    <div class="control-group">
-      <label>Torque Units</label>
-      <select id="torqueUnit">
-        <option value="Nm">Nm</option>
-        <option value="ft-lb">ft-lb</option>
-        <option value="in-lb">in-lb</option>
-      </select>
-    </div>
-
-    <div class="control-group">
-      <label>Metric Bolt Size</label>
-      <select id="boltSize" onchange="applyBoltData()">
-        <option value="M10" selected>M10</option>
-        <option value="M12">M12</option>
-        <option value="M16">M16</option>
-      </select>
-    </div>
-
-    <div class="control-group">
-      <label>Tensile Area (mm²)</label>
-      <input id="tensileArea" type="number" value="58">
-    </div>
-
-    <div class="control-group">
-      <label>Nut Factor (K)</label>
-      <input id="nutFactor" type="number" value="0.2">
-    </div>
-
-    <div class="control-group">
-      <label>Efficiency (%)</label>
-      <input id="efficiency" type="number" value="100">
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Torque to Clamp Load Calculator</h1>
+    <p>
+      Estimate clamp load from applied torque using common metric bolt sizes, tensile stress area, nut factor, and tightening assumptions. Useful for fastening review, assembly setup, fixture design, and automation work where preload matters.
+    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/torque-angle.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'torque_clamp_load_hero','to':'torque_angle'});">Torque Angle Calculator</a>
     </div>
   </div>
+</section>
 
-  <div class="button-row">
-    <button onclick="calculateClampLoad()">Calculate Clamp Load</button>
-    <button onclick="resetCalculator()">Reset</button>
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> use this for quick preload estimates before deeper fastener validation. Real clamp load can vary significantly because of lubrication, coatings, friction scatter, joint condition, and tightening method.
   </div>
 
-  <div class="result" id="output">
-    Enter your values and click <strong>Calculate Clamp Load</strong>.
-  </div>
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Clamp Load from Applied Torque</h2>
 
-  <div style="margin-top:25px;padding:18px;background:#e9f1ff;border-radius:8px;text-align:center;">
-    <strong>Need help validating a fastening setup on a real machine?</strong>
-    <br><br>
-    Torque-to-load relationships vary widely based on lubrication, friction, and joint conditions.
-    <br><br>
-    <a href="/integrators.html" style="background:#1f2a44;color:white;padding:12px 16px;border-radius:6px;text-decoration:none;font-weight:bold;">
-      Find an Automation Integrator
-    </a>
-  </div>
+      <p class="description">
+        Estimate clamp load from applied torque using common metric bolt sizes, tensile stress area, nut factor, and tightening assumptions.
+      </p>
 
-  <p class="note">
-    This is a simplified estimate. Real clamp load varies significantly with lubrication, coatings, friction, joint condition, and tightening method.
-  </p>
+      <p class="description">
+        This calculator is useful for fastening review, assembly setup, fixture design, and automation work where preload matters.
+      </p>
 
-  <div class="footer">
-    Automation Engineering Tools • Practical calculators for real automation work
+      <div class="formula-box">
+        Clamp Load ≈ Torque ÷ (K × Diameter)<br><br>
+        This page uses a simplified clamp load estimate based on applied torque, nut factor, and nominal fastener diameter.
+      </div>
+
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample1(); gtag('event','torque_clamp_load_example',{'type':'m10_nm'});">M10 at 50 Nm</button>
+        <button type="button" onclick="loadExample2(); gtag('event','torque_clamp_load_example',{'type':'m12_ftlb'});">M12 at 60 ft-lb</button>
+        <button type="button" onclick="loadExample3(); gtag('event','torque_clamp_load_example',{'type':'m16_nm'});">M16 at 140 Nm</button>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="torque">Applied Torque</label>
+          <input id="torque" type="number" value="50" min="0.01" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="torqueUnit">Torque Units</label>
+          <select id="torqueUnit">
+            <option value="Nm">Nm</option>
+            <option value="ft-lb">ft-lb</option>
+            <option value="in-lb">in-lb</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="boltSize">Metric Bolt Size</label>
+          <select id="boltSize" onchange="applyBoltData()">
+            <option value="M10" selected>M10</option>
+            <option value="M12">M12</option>
+            <option value="M16">M16</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="nominalDiameter">Nominal Diameter (mm)</label>
+          <input id="nominalDiameter" type="number" value="10" min="0.1" step="0.1">
+        </div>
+
+        <div class="control-group">
+          <label for="tensileArea">Tensile Stress Area (mm²)</label>
+          <input id="tensileArea" type="number" value="58" min="0.1" step="0.1">
+        </div>
+
+        <div class="control-group">
+          <label for="nutFactor">Nut Factor (K)</label>
+          <input id="nutFactor" type="number" value="0.2" min="0.01" step="0.01">
+        </div>
+
+        <div class="control-group">
+          <label for="efficiency">Efficiency / Transfer (%)</label>
+          <input id="efficiency" type="number" value="100" min="1" max="100" step="1">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculateClampLoad(); gtag('event','torque_clamp_load_calculation');">Calculate</button>
+        <button class="secondary" onclick="loadExample1();">Load Example</button>
+        <button class="ghost" onclick="resetCalculator();">Reset</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter values and press <strong>Calculate</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help validating a fastening setup on a real machine?</h3>
+        <p>
+          Get connected with a qualified automation integrator if you need help with fastening strategy, clamp load review, torque process setup, or assembly equipment development.
+        </p>
+        <a href="/integrators.html">Find an Integrator</a>
+      </div>
+
+      <p class="note">
+        This is a simplified estimate. Real clamp load varies significantly with lubrication, coatings, friction, joint condition, torque tool accuracy, and tightening method.
+      </p>
+
+      <p class="note">
+        The output is best used for quick engineering estimates and process planning, not as a replacement for validated fastener testing or audited production tightening data.
+      </p>
+
+      <div class="learn-more">
+        <h3>What to check next</h3>
+
+        <p>
+          This tool gives a fast first-pass preload estimate, but real clamp load is extremely sensitive to friction and joint behavior. Two fasteners tightened to the same torque can end up with very different preload if lubrication, washer condition, coating, or seating changes.
+        </p>
+
+        <p>
+          For real assembly process development, this page usually works best alongside torque-angle review, joint testing, clamp load validation, and tightening strategy work so the process is based on actual joint behavior rather than torque alone.
+        </p>
+
+        <div class="internal-links">
+          <a href="/torque-angle.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'torque_angle'});">Torque Angle</a>
+          <a href="/bolt-torque-chart.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'bolt_torque_chart'});">Bolt Torque Chart</a>
+          <a href="/multi-stage-torque-sequence.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'multi_stage_torque_sequence'});">Multi-Stage Torque Sequence</a>
+          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'automation_roi'});">Automation ROI</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Estimated clamp load</li>
+          <li>Clamp load in N, kN, and lbf</li>
+          <li>Approximate preload stress</li>
+          <li>Converted torque in Nm</li>
+          <li>Applied nut factor and efficiency</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Where this helps</h3>
+        <p>
+          Useful for fastening review, torque strategy discussions, assembly setup, fixture design, and understanding whether a torque target is in the right general range for the joint.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Lubrication and coating condition</li>
+          <li>Joint stiffness and embedment</li>
+          <li>Torque tool calibration</li>
+          <li>Angle monitoring and rundown behavior</li>
+          <li>Real clamp load validation testing</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Fastener reminder</h3>
+        <p>
+          Torque is a convenient input, not a guarantee of preload. If clamp load matters, the joint should be validated with real testing and a tightening strategy that fits the application.
+        </p>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-function scrollToOutput(){
-  document.getElementById("output").scrollIntoView({
-    behavior: "smooth",
-    block: "center"
-  });
-}
+  const boltData = {
+    "M10": { area: 58, diameter: 10 },
+    "M12": { area: 84.3, diameter: 12 },
+    "M16": { area: 157, diameter: 16 }
+  };
 
-function calculateClampLoad(){
-  const torque = parseFloat(document.getElementById("torque").value) || 0;
-  const nutFactor = parseFloat(document.getElementById("nutFactor").value) || 0;
-
-  if(torque <= 0){
-    document.getElementById("output").innerHTML = "<strong>Enter torque greater than 0</strong>";
-    scrollToOutput();
-    return;
+  function applyBoltData(){
+    const boltSize = document.getElementById("boltSize").value;
+    document.getElementById("tensileArea").value = boltData[boltSize].area;
+    document.getElementById("nominalDiameter").value = boltData[boltSize].diameter;
   }
 
-  if(nutFactor <= 0){
-    document.getElementById("output").innerHTML = "<strong>Enter nut factor greater than 0</strong>";
-    scrollToOutput();
-    return;
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
   }
 
-  const clampLoad = torque / nutFactor;
+  function convertTorqueToNm(value, unit){
+    if(unit === "Nm") return value;
+    if(unit === "ft-lb") return value * 1.35582;
+    if(unit === "in-lb") return value * 0.112985;
+    return value;
+  }
 
-  document.getElementById("output").innerHTML =
-    "<strong>Estimated Clamp Load</strong><br>" +
-    clampLoad.toFixed(2);
+  function calculateClampLoad(){
+    const torque = parseFloat(document.getElementById("torque").value) || 0;
+    const torqueUnit = document.getElementById("torqueUnit").value;
+    const nominalDiameter = parseFloat(document.getElementById("nominalDiameter").value) || 0;
+    const tensileArea = parseFloat(document.getElementById("tensileArea").value) || 0;
+    const nutFactor = parseFloat(document.getElementById("nutFactor").value) || 0;
+    const efficiency = parseFloat(document.getElementById("efficiency").value) || 0;
+    const output = document.getElementById("output");
 
-  scrollToOutput();
-}
+    if(torque <= 0){
+      output.innerHTML = "<strong>Please enter torque greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
 
-function resetCalculator(){
-  document.getElementById("output").innerHTML =
-    "Enter your values and click <strong>Calculate Clamp Load</strong>";
-}
+    if(nominalDiameter <= 0){
+      output.innerHTML = "<strong>Please enter a nominal diameter greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(tensileArea <= 0){
+      output.innerHTML = "<strong>Please enter a tensile area greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(nutFactor <= 0){
+      output.innerHTML = "<strong>Please enter a nut factor greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(efficiency <= 0 || efficiency > 100){
+      output.innerHTML = "<strong>Please enter an efficiency between 1 and 100.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    const torqueNm = convertTorqueToNm(torque, torqueUnit);
+    const diameterM = nominalDiameter / 1000;
+    const adjustedTorqueNm = torqueNm * (efficiency / 100);
+
+    const clampLoadN = adjustedTorqueNm / (nutFactor * diameterM);
+    const clampLoadKN = clampLoadN / 1000;
+    const clampLoadLbf = clampLoadN * 0.224809;
+    const preloadStressMPa = clampLoadN / tensileArea;
+
+    let interpretation = "";
+    if(clampLoadKN < 10){
+      interpretation = "This is a relatively light estimated clamp load. It may be fine for smaller joints or light clamping, but real preload variation can still be significant.";
+    } else if(clampLoadKN < 50){
+      interpretation = "This is a moderate estimated clamp load, which is common across many machine and fixture fastening applications.";
+    } else {
+      interpretation = "This is a higher estimated clamp load. Make sure the joint, fastener grade, lubrication condition, and tightening process are all validated for the real application.";
+    }
+
+    output.innerHTML =
+      "<strong>Converted Torque</strong><br>" +
+      torqueNm.toFixed(2) + " Nm<br><br>" +
+
+      "<strong>Adjusted Torque Used</strong><br>" +
+      adjustedTorqueNm.toFixed(2) + " Nm<br><br>" +
+
+      "<strong>Estimated Clamp Load</strong><br>" +
+      clampLoadN.toFixed(0) + " N<br>" +
+      clampLoadKN.toFixed(2) + " kN<br>" +
+      clampLoadLbf.toFixed(0) + " lbf<br><br>" +
+
+      "<strong>Approximate Preload Stress</strong><br>" +
+      preloadStressMPa.toFixed(1) + " MPa<br><br>" +
+
+      "<strong>Nominal Diameter</strong><br>" +
+      nominalDiameter.toFixed(2) + " mm<br><br>" +
+
+      "<strong>Tensile Stress Area</strong><br>" +
+      tensileArea.toFixed(2) + " mm²<br><br>" +
+
+      "<strong>Nut Factor Used</strong><br>" +
+      nutFactor.toFixed(3) + "<br><br>" +
+
+      "<strong>Efficiency / Transfer Applied</strong><br>" +
+      efficiency.toFixed(1) + "%<br><br>" +
+
+      "<strong>Interpretation</strong><br>" +
+      interpretation;
+
+    scrollToOutput();
+  }
+
+  function resetCalculator(){
+    document.getElementById("torque").value = "50";
+    document.getElementById("torqueUnit").value = "Nm";
+    document.getElementById("boltSize").value = "M10";
+    applyBoltData();
+    document.getElementById("nutFactor").value = "0.2";
+    document.getElementById("efficiency").value = "100";
+    document.getElementById("output").innerHTML =
+      'Enter values and press <strong>Calculate</strong>.';
+  }
+
+  function loadExample1(){
+    document.getElementById("torque").value = "50";
+    document.getElementById("torqueUnit").value = "Nm";
+    document.getElementById("boltSize").value = "M10";
+    applyBoltData();
+    document.getElementById("nutFactor").value = "0.2";
+    document.getElementById("efficiency").value = "100";
+    calculateClampLoad();
+  }
+
+  function loadExample2(){
+    document.getElementById("torque").value = "60";
+    document.getElementById("torqueUnit").value = "ft-lb";
+    document.getElementById("boltSize").value = "M12";
+    applyBoltData();
+    document.getElementById("nutFactor").value = "0.18";
+    document.getElementById("efficiency").value = "95";
+    calculateClampLoad();
+  }
+
+  function loadExample3(){
+    document.getElementById("torque").value = "140";
+    document.getElementById("torqueUnit").value = "Nm";
+    document.getElementById("boltSize").value = "M16";
+    applyBoltData();
+    document.getElementById("nutFactor").value = "0.2";
+    document.getElementById("efficiency").value = "100";
+    calculateClampLoad();
+  }
+
+  applyBoltData();
 </script>
 
 <script>
-fetch("navbar.html?v=20260314")
-.then(res => res.text())
-.then(data => document.getElementById("navbar").innerHTML = data);
+  fetch("navbar.html?v=20260314")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
 </script>
 
 </body>
