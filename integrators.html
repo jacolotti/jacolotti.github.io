@@ -716,6 +716,18 @@
         <form action="https://formspree.io/f/mzdjqzqe" method="POST" class="integrator-form">
           <div class="form-grid">
             <div class="field">
+            <label for="applyPartnerType">Partner Type</label>
+            <select id="applyPartnerType" name="partner_type" required>
+             <option value="">Select one</option>
+             <option value="General Automation Integrator">General Automation Integrator</option>
+             <option value="Motion / Servo Specialist">Motion / Servo Specialist</option>
+             <option value="Pneumatic / Tooling Specialist">Pneumatic / Tooling Specialist</option>
+             <option value="Controls / Panel Shop">Controls / Panel Shop</option>
+             <option value="Fabrication / Machine Shop">Fabrication / Machine Shop</option>
+             <option value="Other Specialized Support">Other Specialized Support</option>
+           </select>
+         </div>
+            <div class="field">
               <label for="intName">Name</label>
               <input id="intName" type="text" name="name" required>
             </div>
