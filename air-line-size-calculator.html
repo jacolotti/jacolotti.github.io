@@ -276,11 +276,15 @@
       margin-bottom:10px;
     }
 
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
-    }
+    .learn-more ul{
+  margin:0 0 12px 20px;
+  color:#555;
+  line-height:1.7;
+}
+
+.learn-more li{
+  margin-bottom:8px;
+}
 
     .internal-links{
       display:flex;
@@ -470,22 +474,47 @@
         <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{location:'air_line_size'});">Find an Automation Integrator</a>
       </div>
 
-      <div class="learn-more">
-        <h3>Build your full pneumatic system</h3>
-        <p>
-          Most pneumatic designs follow this workflow: calculate force, size the cylinder, estimate air usage, then size your air lines. Line sizing is more reliable when it is based on actual machine demand instead of guesses.
-        </p>
+     <div class="learn-more">
+  <h3>How to use this calculator in real applications</h3>
 
-        <p>
-          For longer runs, future machine expansion, or sensitive tooling, it is usually smart to lean one size larger if pressure stability matters more than material cost.
-        </p>
+  <p>
+    This calculator is typically used during machine design or troubleshooting to verify that air lines can support the required flow without causing pressure drop or slow actuator performance.
+    While the calculation is straightforward, real-world performance is heavily affected by fittings, regulators, valves, hose sections, and system layout.
+  </p>
 
-        <div class="internal-links">
-          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'pneumatic_force'});">Pneumatic Force Calculator</a>
-          <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'air_consumption'});">Air Consumption Calculator</a>
-          <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'pneumatic_speed'});">Pneumatic Cylinder Speed</a>
-        </div>
-      </div>
+  <p>
+    A common workflow is to estimate air consumption first, then size air lines based on actual demand, and finally verify that cylinder speed and performance meet the required cycle time.
+  </p>
+
+  <h3>Real-world example</h3>
+
+  <p>
+    A system with multiple cylinders may calculate to require 80 SCFM, but if the supply line is undersized or has long runs with many fittings, pressure can drop significantly at peak demand.
+    This often leads to slow cylinders, inconsistent motion, and extended debug time during startup.
+  </p>
+
+  <h3>Common air line sizing mistakes</h3>
+
+  <ul>
+    <li>Undersizing main supply lines based on average instead of peak demand</li>
+    <li>Ignoring fittings, quick disconnects, and regulator restrictions</li>
+    <li>Using long runs without increasing pipe diameter</li>
+    <li>Not accounting for multiple devices firing simultaneously</li>
+    <li>Choosing aggressive velocity targets with no safety margin</li>
+  </ul>
+
+  <h3>Where this fits in your design process</h3>
+
+  <p>
+    Air line sizing should follow force, cylinder selection, and air consumption calculations. A properly sized line ensures stable pressure and consistent performance across the entire machine.
+  </p>
+
+  <div class="internal-links">
+    <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'pneumatic_force'});">Pneumatic Force Calculator</a>
+    <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'air_consumption'});">Air Consumption Calculator</a>
+    <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{from:'air_line_size',to:'pneumatic_speed'});">Pneumatic Cylinder Speed</a>
+  </div>
+</div>
 
       <p class="note">
         This calculator uses a practical sizing method based on air velocity and a simple line-length penalty. It is intended for early design and troubleshooting. Final sizing should also consider fittings, quick disconnects, regulators, filters, hose restrictions, branch drops, simultaneous demand, and allowable pressure drop at peak flow.
