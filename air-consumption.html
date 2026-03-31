@@ -16,7 +16,7 @@
 
   <title>Pneumatic Air Consumption Calculator | SCFM, Cylinder Volume, Free Air</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free pneumatic air consumption calculator for automation engineers. Estimate cylinder swept volume, standard free air per cycle, SCFM, and practical design air demand using bore, rod diameter, stroke, pressure, and cycles per minute.">
+  <meta name="description" content="Free pneumatic air consumption calculator for automation engineers. Estimate pneumatic cylinder air consumption including swept volume, standard free air per cycle, SCFM, and real-world compressed air demand for automation systems.">
 
   <style>
     body{
@@ -280,11 +280,15 @@
       margin-bottom:10px;
     }
 
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
-    }
+    .learn-more ul{
+  margin:0 0 12px 20px;
+  color:#555;
+  line-height:1.7;
+}
+
+.learn-more li{
+  margin-bottom:8px;
+}
 
     .internal-links{
       display:flex;
@@ -406,7 +410,7 @@
   <div class="hero-inner">
     <h1>Pneumatic Air Consumption Calculator</h1>
     <p>
-      Estimate cylinder swept volume, standard free air per cycle, SCFM, and practical air demand using bore size, rod size, stroke, pressure, and cycle rate.
+      Estimate pneumatic cylinder air consumption including swept volume, standard free air per cycle, SCFM, and real-world compressed air demand for automation systems.
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
@@ -503,20 +507,58 @@
       </div>
 
       <div class="learn-more">
-        <h3>Continue your pneumatic design</h3>
-        <p>
-          Air consumption is only one part of a good pneumatic design. After estimating demand, you usually still need to verify cylinder force, expected actuator speed, valve sizing, tubing pressure loss, and plant air capacity.
-        </p>
-        <p>
-          This is especially important when cylinders run fast, cycle often, or several actuators fire at the same time on the same machine.
-        </p>
+  <h3>How to use this calculator in a real machine</h3>
 
-        <div class="internal-links">
-          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'air_consumption','to':'pneumatic_force'});">Pneumatic Force Calculator</a>
-          <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{'from':'air_consumption','to':'pneumatic_speed'});">Pneumatic Cylinder Speed</a>
-          <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'air_consumption','to':'air_line_size'});">Air Line Size Calculator</a>
-        </div>
-      </div>
+  <p>
+    In real automation systems, air consumption is rarely just a theoretical value. 
+    This calculator is typically used during machine design, troubleshooting low-pressure issues, 
+    or verifying that your plant air system can support a new station or cycle rate.
+  </p>
+
+  <p>
+    A common workflow is to first determine the required force using the 
+    <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'air_consumption','to':'pneumatic_force'});">pneumatic force calculator</a>, 
+    then estimate air usage here, and finally verify that your air lines and valves can support that demand.
+  </p>
+
+  <h3>Real-world example</h3>
+
+  <p>
+    A 2-inch bore cylinder running at 80 PSI with a 6-inch stroke at 20 cycles per minute 
+    may seem small, but when multiple cylinders operate together, total air demand increases quickly. 
+    In high-cycle automation cells, underestimating SCFM can lead to pressure drop, slow actuation, 
+    and inconsistent part quality.
+  </p>
+
+  <h3>Common mistakes in pneumatic air sizing</h3>
+
+  <p>
+    Many designs fail not because of cylinder sizing, but because air consumption is underestimated. 
+    Some of the most common issues include:
+  </p>
+
+  <ul>
+    <li>Ignoring retract side air usage on double-acting cylinders</li>
+    <li>Not accounting for multiple actuators firing simultaneously</li>
+    <li>Undersized valves restricting flow at high cycle rates</li>
+    <li>Pressure drop from long or undersized air lines</li>
+    <li>Assuming ideal conditions instead of using a practical safety factor</li>
+  </ul>
+
+  <h3>Where this fits in your design process</h3>
+
+  <p>
+    Air consumption should be evaluated early in machine design and verified again during commissioning. 
+    If your system shows signs of slow response, inconsistent motion, or pressure fluctuations, 
+    this is one of the first calculations to revisit.
+  </p>
+
+  <div class="internal-links">
+    <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'air_consumption','to':'pneumatic_force'});">Pneumatic Force Calculator</a>
+    <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{'from':'air_consumption','to':'pneumatic_speed'});">Pneumatic Cylinder Speed</a>
+    <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'air_consumption','to':'air_line_size'});">Air Line Size Calculator</a>
+  </div>
+</div>
 
       <p class="note">
         Standard free air conversion uses absolute pressure ratio based on PSIG input. This is a practical engineering estimate and does not account for tubing dead volume, leakage, valve timing losses, cushioning losses, unusual motion profiles, or dynamic pressure drop through undersized valves and air lines.
