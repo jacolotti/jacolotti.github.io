@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/pneumatic-system-sizing-guide.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>How to Size a Pneumatic System | Step-by-Step Guide</title>
+  <meta name="description" content="Step-by-step pneumatic system sizing guide for automation engineers. Learn how to calculate cylinder force, estimate air consumption, check speed, and size compressed air lines for real machine applications.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      color:#222;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .description{
+      margin:0 0 18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .step-box{
+      margin:18px 0;
+      padding:18px;
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+    }
+
+    .step-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+      font-size:21px;
+    }
+
+    .step-number{
+      display:inline-block;
+      margin-bottom:10px;
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#f2f5fb;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .learn-more ul{
+      margin:0 0 12px 20px;
+      color:#555;
+      line-height:1.7;
+    }
+
+    .learn-more li{
+      margin-bottom:8px;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>How to Size a Pneumatic System</h1>
+    <p>
+      A practical step-by-step guide for sizing pneumatic systems in real automation applications, from cylinder force and air consumption to speed and compressed air line sizing.
+    </p>
+    <div class="hero-cta">
+      <a href="/pneumatic.html" class="primary" onclick="gtag('event','guide_hero_click',{'to':'pneumatic_force'});">Start with Force Calculator</a>
+      <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'pneumatic_system_guide_hero'});">Find an Integrator</a>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> use this guide when you need to size a pneumatic cylinder system from scratch or troubleshoot a machine that feels weak, slow, or unstable under real operating conditions.
+  </div>
+
+  <div class="main-grid">
+    <div class="card">
+      <div class="section-label">Guide</div>
+      <h2>Step-by-Step Pneumatic System Sizing</h2>
+
+      <p class="description">
+        Most pneumatic systems do not struggle because of one bad component. They struggle because force, airflow, speed, and line sizing were not checked together. This guide follows a practical system-level process used in real automation work.
+      </p>
+
+      <p class="description">
+        If you size the cylinder but ignore airflow, the machine may still run slow. If you estimate air usage but ignore line size, pressure may collapse at peak demand. The goal is not just to make the math work on paper — it is to make the full system work in the machine.
+      </p>
+
+      <div class="step-box">
+        <div class="step-number">Step 1</div>
+        <h3>Calculate Required Cylinder Force</h3>
+        <p class="description">
+          Start with the actual force required at the tooling or load. This should include application force, friction, and a realistic safety margin. If the force estimate is wrong, every later decision will be wrong too.
+        </p>
+        <div class="internal-links">
+          <a href="/pneumatic.html" onclick="gtag('event','guide_step_click',{'step':'force'});">Use Pneumatic Force Calculator</a>
+        </div>
+      </div>
+
+      <div class="step-box">
+        <div class="step-number">Step 2</div>
+        <h3>Select Cylinder Size and Pressure Strategy</h3>
+        <p class="description">
+          Once force is known, choose a cylinder bore that can produce the required output at your real operating pressure, not just ideal shop pressure. This is also where you decide whether you need more margin because of side loading, tooling drag, or unstable supply conditions.
+        </p>
+      </div>
+
+      <div class="step-box">
+        <div class="step-number">Step 3</div>
+        <h3>Estimate Air Consumption</h3>
+        <p class="description">
+          After cylinder size is known, estimate how much air the machine will actually consume. This matters for compressor demand, local storage, regulator sizing, and whether multiple devices firing together will overwhelm the supply.
+        </p>
+        <div class="internal-links">
+          <a href="/air-consumption.html" onclick="gtag('event','guide_step_click',{'step':'air_consumption'});">Use Air Consumption Calculator</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this to a real machine?</h3>
+        <p>
+          Real systems rarely behave exactly like clean calculations. If the machine has multiple actuators, long runs, or tight timing requirements, get help before problems stack up.
+        </p>
+        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'location':'pneumatic_system_guide_mid'});">Talk to an Integrator</a>
+      </div>
+
+      <div class="step-box">
+        <div class="step-number">Step 4</div>
+        <h3>Check Cylinder Speed</h3>
+        <p class="description">
+          Once air demand is understood, verify whether the cylinder can move fast enough for the required cycle time. A system may have enough theoretical force and still miss timing because the valve, exhaust path, or available flow cannot support the motion rate.
+        </p>
+        <div class="internal-links">
+          <a href="/pneumatic-speed.html" onclick="gtag('event','guide_step_click',{'step':'speed'});">Use Pneumatic Speed Calculator</a>
+        </div>
+      </div>
+
+      <div class="step-box">
+        <div class="step-number">Step 5</div>
+        <h3>Size Compressed Air Lines</h3>
+        <p class="description">
+          After force, air usage, and motion speed are understood, size the air lines to support real demand with stable pressure. This is where many systems fail. Undersized lines can make a good design behave like a bad one.
+        </p>
+        <div class="internal-links">
+          <a href="/air-line-size-calculator.html" onclick="gtag('event','guide_step_click',{'step':'line_size'});">Use Air Line Size Calculator</a>
+        </div>
+      </div>
+
+      <div class="learn-more">
+        <h3>Common pneumatic system sizing mistakes</h3>
+        <ul>
+          <li>Calculating force without a realistic derating factor</li>
+          <li>Choosing cylinders based only on bore without checking speed or airflow</li>
+          <li>Using average air demand instead of peak demand</li>
+          <li>Ignoring pressure drop through valves, regulators, fittings, and hose</li>
+          <li>Undersizing supply lines for long runs or future expansion</li>
+          <li>Assuming one good component can compensate for weak system design</li>
+        </ul>
+
+        <h3>Final takeaway</h3>
+        <p>
+          Pneumatic systems work best when force, consumption, speed, and line sizing are treated as one connected problem. If one part of the system is undersized, the whole machine usually pays for it in lost performance and debug time.
+        </p>
+
+        <div class="internal-links">
+          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_system_guide','to':'pneumatic_force'});">Pneumatic Force Calculator</a>
+          <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_system_guide','to':'air_consumption'});">Air Consumption Calculator</a>
+          <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_system_guide','to':'pneumatic_speed'});">Pneumatic Cylinder Speed</a>
+          <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_system_guide','to':'air_line_size'});">Air Line Size Calculator</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators and guides for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>What this guide helps you do</h3>
+        <ul>
+          <li>Build a full pneumatic sizing workflow</li>
+          <li>Connect force, speed, flow, and line size</li>
+          <li>Reduce pressure-drop related problems</li>
+          <li>Catch design issues earlier</li>
+          <li>Use the calculators in the right order</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Best time to use this guide</h3>
+        <p>
+          Use this before hardware ordering, during concept design, or when a machine is already built but performance does not match expectations.
+        </p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Typical signs your pneumatic system is undersized</h3>
+        <ul>
+          <li>Slow or inconsistent cylinder motion</li>
+          <li>Pressure dropping during peak demand</li>
+          <li>Weak clamps or poor tooling repeatability</li>
+          <li>Stations missing takt time</li>
+          <li>Performance changing when multiple devices fire</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
