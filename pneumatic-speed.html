@@ -419,7 +419,7 @@
   <div class="hero-inner">
     <h1>Pneumatic Cylinder Speed Calculator</h1>
     <p>
-      Estimate pneumatic cylinder extend and retract speed using cylinder size, rod diameter, stroke, and available flow rate. Useful for preliminary timing checks, valve sizing, and automation cycle time planning.
+      Estimate pneumatic cylinder extend and retract speed using cylinder size, flow rate, and real-world airflow limitations for automation systems.
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
@@ -503,28 +503,47 @@
       </p>
 
       <div class="learn-more">
-        <h3>What to check next</h3>
+  <h3>How to use this calculator in real applications</h3>
 
-        <p>
-          This tool gives a fast first-pass estimate, but real cylinder speed can change a lot once the actual valve, pressure setting, tubing length, exhaust path, and load are involved. A cylinder that looks fast on paper can still slow down badly if the valve is undersized or the exhaust is restricted.
-        </p>
+  <p>
+    This calculator is typically used during early design or troubleshooting to estimate whether a cylinder can meet the required cycle time.
+    While the math is straightforward, real cylinder speed is heavily influenced by valve flow capacity, pressure stability, exhaust restriction, and system layout.
+  </p>
 
-        <p>
-          For real machine timing, this page usually works best alongside force, air consumption, and line sizing calculations so you can verify the cylinder has enough force and enough air supply at the required speed.
-        </p>
+  <p>
+    A common workflow is to estimate speed here, then verify air consumption and line sizing to make sure the system can actually deliver the required flow at that speed without pressure drop.
+  </p>
 
-        <div class="internal-links">
-          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'pneumatic_force'});">Pneumatic Force</a>
-          <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'air_consumption'});">Air Consumption</a>
-          <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'air_line_size'});">Air Line Size</a>
-          <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'cfm_scfm_psi'});">CFM SCFM PSI Calculator</a>
-        </div>
-      </div>
+  <h3>Real-world example</h3>
 
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
-    </div>
+  <p>
+    A cylinder may calculate to move in 0.3 seconds based on available SCFM, but if the valve Cv is too low or the exhaust path is restricted, the actual motion can slow significantly.
+    This often shows up as inconsistent cycle times or stations falling behind the required takt time.
+  </p>
+
+  <h3>Common causes of slow pneumatic motion</h3>
+
+  <ul>
+    <li>Undersized valves limiting available flow</li>
+    <li>Long or undersized air lines causing pressure drop</li>
+    <li>Exhaust restriction or improper flow control setup</li>
+    <li>Low or unstable supply pressure under load</li>
+    <li>Cylinder cushioning or mechanical resistance</li>
+  </ul>
+
+  <h3>Where this fits in your design process</h3>
+
+  <p>
+    Cylinder speed should be evaluated alongside force and air consumption. A system that has enough force may still fail to meet cycle time if airflow is limited or poorly distributed.
+  </p>
+
+  <div class="internal-links">
+    <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'pneumatic_force'});">Pneumatic Force</a>
+    <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'air_consumption'});">Air Consumption</a>
+    <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'air_line_size'});">Air Line Size</a>
+    <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'cfm_scfm_psi'});">CFM SCFM PSI Calculator</a>
+  </div>
+</div>
 
     <div>
       <div class="sidebar-card">
