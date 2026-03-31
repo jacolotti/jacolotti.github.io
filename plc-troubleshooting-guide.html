@@ -7,8 +7,8 @@
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>PLC Troubleshooting Guide | Inputs, Signals, and Common Issues</title>
-  <meta name="description" content="Step-by-step PLC troubleshooting guide for real automation issues. Diagnose input problems, analog signal errors, missed pulses, voltage drop, and wiring faults.">
+  <title>PLC Troubleshooting Guide | Analog Inputs, Missed Signals, Voltage Drop</title>
+  <meta name="description" content="Step-by-step PLC troubleshooting guide for analog input problems, missed pulses, voltage drop, wiring faults, and signal scaling errors in real automation systems.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -98,14 +98,21 @@
       gap:24px;
     }
 
-    .card, .sidebar-card{
+    .card,
+    .sidebar-card{
       background:white;
       border-radius:12px;
       box-shadow:0 0 12px rgba(0,0,0,.08);
     }
 
-    .card{ padding:28px; }
-    .sidebar-card{ padding:22px; margin-bottom:20px; }
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+    }
 
     .section-label{
       font-size:13px;
@@ -158,6 +165,17 @@
       text-align:center;
     }
 
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
     .cta-box a{
       display:inline-block;
       margin-top:10px;
@@ -169,6 +187,56 @@
       font-weight:bold;
     }
 
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more p{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:12px;
+    }
+
+    .learn-more ul{
+      margin:0 0 12px 20px;
+      color:#555;
+      line-height:1.7;
+    }
+
+    .learn-more li{
+      margin-bottom:8px;
+    }
+
+    .sidebar-card h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
     .footer{
       text-align:center;
       margin-top:40px;
@@ -176,7 +244,9 @@
     }
 
     @media (max-width:900px){
-      .main-grid{ grid-template-columns:1fr; }
+      .main-grid{
+        grid-template-columns:1fr;
+      }
     }
   </style>
 </head>
@@ -189,7 +259,7 @@
   <div class="hero-inner">
     <h1>PLC Troubleshooting Guide</h1>
     <p>
-      A practical step-by-step guide to diagnosing PLC issues in real automation systems — from inputs and analog signals to scan time, wiring, and voltage problems.
+      A practical PLC troubleshooting guide for real automation issues including analog input scaling errors, missed pulses, voltage drop, wiring faults, and unstable field signals.
     </p>
 
     <div class="hero-cta">
@@ -235,14 +305,24 @@
       </div>
 
       <div class="step-box">
-        <h3>Step 3: Evaluate Scan Time & Missed Signals</h3>
+        <h3>Step 3: Evaluate Scan Time &amp; Missed Signals</h3>
         <p class="description">
           If signals are short or fast, the PLC may not detect them due to scan time limitations.
         </p>
 
         <div class="internal-links">
-          <a href="/plc-pulse-capture.html">Check Scan Time & Pulse Capture</a>
+          <a href="/plc-pulse-capture.html">Check Scan Time &amp; Pulse Capture</a>
         </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Need to troubleshoot a live PLC issue?</h3>
+        <p>
+          Use the PLC troubleshooter to work through communication, signal, and field-device problems step by step.
+        </p>
+        <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','guide_cta_click',{'from':'plc_troubleshooting_guide'});">
+          Use PLC Troubleshooter
+        </a>
       </div>
 
       <div class="step-box">
@@ -269,6 +349,53 @@
           Some problems require deeper system-level troubleshooting. Get help from an experienced automation integrator.
         </p>
         <a href="/integrators.html">Find an Integrator</a>
+      </div>
+
+      <div class="learn-more">
+        <h3>Common PLC problems this guide helps diagnose</h3>
+
+        <p>
+          This guide is most useful when a PLC input is not behaving the way the machine should. In many cases, the PLC is not the real problem. The issue is usually one of four things: bad signal scaling, missed short-duration inputs, voltage loss in the field circuit, or unstable wiring.
+        </p>
+
+        <ul>
+          <li>PLC analog input reading wrong</li>
+          <li>4–20 mA signal scaling wrong</li>
+          <li>PLC missing pulses or short signals</li>
+          <li>Sensor works sometimes but not always</li>
+          <li>Unexpected low voltage at field devices</li>
+        </ul>
+
+        <h3>Analog input troubleshooting</h3>
+
+        <p>
+          If an analog value looks wrong, start by checking whether the raw electrical signal is correct before changing logic. A properly wired 4–20 mA or voltage input can still display the wrong engineering value if the scaling is incorrect.
+        </p>
+
+        <div class="internal-links">
+          <a href="/analog-scaling.html" onclick="gtag('event','internal_link_click',{'from':'plc_guide','to':'analog_scaling'});">Analog Scaling Calculator</a>
+        </div>
+
+        <h3>Missed pulses and scan-time issues</h3>
+
+        <p>
+          Short-duration signals can be lost if the PLC scan or input update behavior is too slow for the event being detected. This becomes more important with high-speed sensors, encoder-style signals, and fast machine cycles.
+        </p>
+
+        <div class="internal-links">
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','internal_link_click',{'from':'plc_guide','to':'plc_pulse_capture'});">PLC Scan Time &amp; Pulse Capture</a>
+        </div>
+
+        <h3>Voltage drop and field wiring issues</h3>
+
+        <p>
+          Inputs and sensors can behave unpredictably when voltage at the device drops under load. Long cable runs, undersized conductors, weak terminations, and overloaded 24 VDC circuits all increase the chance of intermittent faults.
+        </p>
+
+        <div class="internal-links">
+          <a href="/voltage-drop.html" onclick="gtag('event','internal_link_click',{'from':'plc_guide','to':'voltage_drop'});">Voltage Drop Calculator</a>
+          <a href="/wire-gauge-amps.html" onclick="gtag('event','internal_link_click',{'from':'plc_guide','to':'wire_gauge_amps'});">Wire Gauge vs Amps</a>
+        </div>
       </div>
 
       <div class="footer">
@@ -312,6 +439,9 @@
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
     });
 </script>
 
