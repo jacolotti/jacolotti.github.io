@@ -532,7 +532,7 @@
   <div class="hero-inner">
     <h1>Pneumatic Cylinder Force Calculator</h1>
     <p>
-      Estimate extend force, retract force, piston area, rod-side area, and derated output force for pneumatic cylinders using bore size, rod diameter, air pressure, stroke, and unit selection.
+      Estimate pneumatic cylinder force including extend force, retract force, and derated output for real-world automation applications.
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
@@ -648,24 +648,48 @@
         For single-acting cylinders, this tool still shows retract-side area for reference, but actual return behavior may depend on spring force, gravity, or external load.
       </p>
 
-      <div class="learn-more">
-        <h3>What to check next</h3>
+     <div class="learn-more">
+  <h3>How to use this calculator in real applications</h3>
 
-        <p>
-          This tool gives a fast first-pass force estimate, but real cylinder performance changes once pressure losses, side loading, friction, mounting geometry, valve behavior, and real motion conditions are involved. A cylinder that looks strong enough on paper can still struggle in the machine.
-        </p>
+  <p>
+    This calculator is typically used during early machine design, troubleshooting, or validating whether a cylinder has enough usable force before hardware is ordered.
+    While the math is simple, real-world performance depends heavily on pressure stability, friction, mounting conditions, and system losses.
+  </p>
 
-        <p>
-          For real design work, this page usually works best alongside speed, air consumption, and line sizing calculations so you can verify the cylinder has enough usable force and enough flow at the required cycle time.
-        </p>
+  <p>
+    A common workflow is to estimate required force here, then verify cylinder speed, air consumption, and line sizing to ensure the system can actually deliver that force under real operating conditions.
+  </p>
 
-        <div class="internal-links">
-          <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'pneumatic_speed'});">Pneumatic Speed</a>
-          <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_consumption'});">Air Consumption</a>
-          <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_line_size'});">Air Line Size</a>
-          <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'cfm_scfm_psi'});">CFM SCFM PSI Calculator</a>
-        </div>
-      </div>
+  <h3>Real-world example</h3>
+
+  <p>
+    A cylinder that calculates to 250 lbf of force may seem sufficient for a clamping application, but if pressure drops under load or friction increases, the actual usable force can fall significantly.
+    This often leads to parts slipping, inconsistent clamping, or slow cycle times.
+  </p>
+
+  <h3>Common mistakes in cylinder force calculations</h3>
+
+  <ul>
+    <li>Using theoretical force without applying a realistic derating factor</li>
+    <li>Ignoring pressure drop through valves and air lines</li>
+    <li>Overlooking side loading on the cylinder rod</li>
+    <li>Not accounting for friction, seal drag, or tooling resistance</li>
+    <li>Assuming supply pressure remains constant during operation</li>
+  </ul>
+
+  <h3>Where this fits in your design process</h3>
+
+  <p>
+    Cylinder force is usually the starting point in pneumatic design. Once force is verified, the next step is ensuring the system can move at the required speed and sustain the necessary airflow without pressure loss.
+  </p>
+
+  <div class="internal-links">
+    <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'pneumatic_speed'});">Pneumatic Speed</a>
+    <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_consumption'});">Air Consumption</a>
+    <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_line_size'});">Air Line Size</a>
+    <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'cfm_scfm_psi'});">CFM SCFM PSI Calculator</a>
+  </div>
+</div>
 
       <div class="footer">
         Automation Engineering Tools • Practical calculators for real automation work
