@@ -637,6 +637,42 @@
       </div>
 
       <div class="cta-box">
+  <h3>Need help applying this in your system?</h3>
+  <p>
+    If you're working on a real project, I can help point you in the right direction or connect you with an integrator.
+  </p>
+
+  <form action="https://formspree.io/f/mgonbvpn" method="POST" style="margin-top:10px;">
+    
+    <input type="text" name="name" placeholder="Your Name" required style="margin-bottom:10px;">
+
+    <input type="email" name="email" placeholder="Your Email" required style="margin-bottom:10px;">
+
+    <select name="project_timing" required style="margin-bottom:10px;">
+      <option value="">Project Timing</option>
+      <option value="ASAP">ASAP</option>
+      <option value="1-3 months">1–3 months</option>
+      <option value="3-6 months">3–6 months</option>
+      <option value="exploring">Just exploring</option>
+    </select>
+
+    <!-- TRACKING -->
+    <input type="hidden" name="source_page" value="pneumatic_force_calculator">
+    <input type="hidden" name="calculated_force" id="hiddenForce">
+
+    <button type="submit" class="pneumatic-btn"
+  onclick="gtag('event','lead_submit',{
+    'tool':'pneumatic_force',
+    'type':'quick',
+    'value': document.getElementById('hiddenForce')?.value
+  });">
+  Get Help / Connect Me
+</button>
+
+  </form>
+</div>
+
+      <div class="cta-box">
       <h3>Not sure where to start?</h3>
       <p>Follow the full step-by-step pneumatic system sizing process.</p>
       <a href="/pneumatic-system-sizing-guide.html">View Pneumatic System Guide</a>
@@ -912,6 +948,10 @@
     let extendForceLbf = extendForceN * 0.224809;
     let retractForceLbf = retractForceN * 0.224809;
     let deratedExtendForceLbf = deratedExtendForceN * 0.224809;
+    let hiddenForce = document.getElementById("hiddenForce");
+if(hiddenForce){
+  hiddenForce.value = deratedExtendForceLbf.toFixed(2) + " lbf";
+}
     let deratedRetractForceLbf = deratedRetractForceN * 0.224809;
 
     let extendForceKgf = extendForceN / 9.80665;
@@ -1015,6 +1055,10 @@
     document.getElementById("recommendationText").innerHTML =
       "Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.";
     document.getElementById("helpForce").value = "";
+    let hiddenForce = document.getElementById("hiddenForce");
+if(hiddenForce){
+  hiddenForce.value = "";
+}
   }
 
   function loadExample1(){
