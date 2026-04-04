@@ -536,7 +536,7 @@
   <div class="hero-inner">
     <h1>Pneumatic Cylinder Force Calculator</h1>
     <p>
-      Estimate pneumatic cylinder force including extend force, retract force, and derated output for real-world automation applications.
+      Quickly calculate real-world cylinder force and verify if your system will actually work before you order hardware.
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
@@ -636,10 +636,59 @@
         Enter values and press <strong>Calculate</strong>.
       </div>
 
+      <div class="cta-box"> 
+  <h3>Next Step</h3>
+  <p>
+    Now estimate how much air your system will consume so you can verify flow demand and properly size your valves, tubing, and supply.
+  </p>
+
+  <a href="/air-consumption.html"
+     onclick="gtag('event','next_step_click',{'from':'pneumatic_force','to':'air_consumption'});">
+     Go to Air Consumption →
+  </a>
+</div>
+
+      <h3>Continue Your Design</h3>
+
+<div class="internal-links">
+  <a href="/air-consumption.html"
+     onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_consumption'});">
+     → Step 1: Air Consumption
+  </a>
+
+  <a href="/air-line-size-calculator.html"
+     onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_line_size'});">
+     → Step 2: Air Line Size
+  </a>
+
+  <a href="/pneumatic-speed.html"
+     onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'pneumatic_speed'});">
+     → Step 3: Pneumatic Speed
+  </a>
+
+  <a href="/cfm-scfm-psi-calculator.html"
+     onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'cfm_scfm_psi'});">
+     Supporting Tool: CFM / SCFM / PSI
+  </a>
+</div>
       <div class="cta-box">
+      <h3>Not sure where to start?</h3>
+      <p>Follow the full step-by-step pneumatic system sizing process.</p>
+      <a href="/pneumatic-system-sizing-guide.html">View Pneumatic System Guide</a>
+    </div>
+
+      <div class="cta-box">
+        <h3>Not confident in this result? Get help validating your setup</h3>
+        <p>
+          Get connected with a qualified automation integrator if you need help with cylinder sizing, tooling loads, pressure-drop issues, or pneumatic design for a real machine.
+        </p>
+        <a href="/integrators.html">Find an Integrator</a>
+      </div>
+
+       <div class="cta-box" id="help-form">
   <h3>Need help applying this in your system?</h3>
   <p>
-    If you're working on a real project, I can help point you in the right direction or connect you with an integrator.
+    If this force result doesn’t fully answer your question, I can help review your application, check assumptions, and make sure your cylinder selection will actually work in a real system.
   </p>
 
   <form action="https://formspree.io/f/mgonbvpn" method="POST" style="margin-top:10px;">
@@ -672,19 +721,6 @@
   </form>
 </div>
 
-      <div class="cta-box">
-      <h3>Not sure where to start?</h3>
-      <p>Follow the full step-by-step pneumatic system sizing process.</p>
-      <a href="/pneumatic-system-sizing-guide.html">View Pneumatic System Guide</a>
-    </div>
-
-      <div class="cta-box">
-        <h3>Need help validating a real cylinder application?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you need help with cylinder sizing, tooling loads, pressure-drop issues, or pneumatic design for a real machine.
-        </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
 
       <p class="note">
         This calculator estimates theoretical cylinder force from pressure and area, then applies the entered derating percentage. It does not account for seal drag, friction losses, pressure drop, cushioning, side loading, spring force in single-acting cylinders, mounting effects, or other real-world losses.
@@ -728,15 +764,6 @@
   <p>
     Cylinder force is usually the starting point in pneumatic design. Once force is verified, the next step is ensuring the system can move at the required speed and sustain the necessary airflow without pressure loss.
   </p>
-
-  <div class="internal-links">
-    <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'pneumatic_speed'});">Pneumatic Speed</a>
-    <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_consumption'});">Air Consumption</a>
-    <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_line_size'});">Air Line Size</a>
-    <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'cfm_scfm_psi'});">CFM SCFM PSI Calculator</a>
-  </div>
-</div>
-
       <div class="footer">
         Automation Engineering Tools • Practical calculators for real automation work
       </div>
@@ -801,33 +828,10 @@
             <li>General automation design support</li>
           </ul>
 
-          <form action="https://formspree.io/f/mgonbvpn" method="POST" class="pneumatic-form">
-            <label for="helpName">Name</label>
-            <input id="helpName" type="text" name="name" required>
-
-            <label for="helpEmail">Email</label>
-            <input id="helpEmail" type="email" name="email" required>
-
-            <label for="helpCompany">Company (optional)</label>
-            <input id="helpCompany" type="text" name="company">
-
-            <label for="helpApplication">Application Description</label>
-            <textarea id="helpApplication" name="details" rows="5" required placeholder="Describe the application, load, pressure, cylinder use, and what kind of help you need."></textarea>
-
-            <label for="helpForce">Estimated Derated Extend Force (optional)</label>
-            <input id="helpForce" type="text" name="estimated_force" placeholder="Example: 238.50 lbf">
-
-            <label for="helpPhone">Phone (optional)</label>
-            <input id="helpPhone" type="text" name="phone">
-
-            <input type="hidden" name="_subject" value="Pneumatic Cylinder Help Request from AutomationCalculators.net">
-            <input type="hidden" name="calculator_page" value="pneumatic.html">
-            <input type="hidden" name="source" value="pneumatic_force_calculator">
-
-            <button type="submit" class="pneumatic-btn" onclick="gtag('event','pneumatic_help_form_submit_click');">
-              Submit Request
-            </button>
-          </form>
+          <a href="#help-form" class="pneumatic-btn"
+   onclick="gtag('event','sidebar_help_click',{'from':'pneumatic_force'});">
+  Get Help With Your Application →
+</a>
         </div>
       </div>
 
@@ -1036,7 +1040,8 @@ if(hiddenForce){
       retractWorkJ.toFixed(3) + " J<br><br>" +
 
       "<strong>Interpretation</strong><br>" +
-      recommendation;
+      recommendation +
+      "<br><br><strong>Next Step:</strong> Use this force value to estimate air consumption and verify your system can maintain performance under real conditions.";
 
     scrollToOutput();
   }
