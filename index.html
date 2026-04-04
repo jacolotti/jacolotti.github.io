@@ -6,6 +6,11 @@
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+if (window.location.pathname.includes("index.html")) {
+  window.location.replace("/");
+}
+</script>
 
   <title>Automation Engineering Calculators | PLC, Pneumatics, Robotics, Servo, ROI</title>
   <meta name="description" content="Free automation engineering calculators, simulators, and troubleshooting tools for PLCs, robotics, pneumatics, conveyors, servo sizing, welding, electrical design, fastening, machine safety, and automation ROI.">
@@ -585,7 +590,7 @@
     <h1>Automation Engineering Tools That Help You Solve Real Problems Faster</h1>
 
     <p class="subtitle">
-      Free calculators, simulators, and troubleshooting tools for automation engineers, controls engineers, machine builders, technicians, and manufacturing teams.
+      Quickly calculate cylinder force, air usage, robot cycle time, voltage drop, and more — without digging through manuals or spreadsheets.
     </p>
 
     <p class="seo-text">
@@ -595,8 +600,32 @@
     <div class="hero-buttons">
       <a class="btn btn-primary" href="automation-calculators.html" onclick="gtag('event','tool_open',{tool:'calculator_index_top'});">Browse All Calculators</a>
       <a class="btn btn-secondary" href="integrators.html" onclick="gtag('event','integrator_cta_click',{location:'hero'});">Find an Integrator</a>
+      <a class="btn btn-secondary" href="pneumatic.html" onclick="gtag('event','tool_open',{tool:'hero_pneumatic_force'});">Start with Pneumatic Force</a>
     </div>
   </section>
+
+ <div class="cta-box">
+  <h2>Start Here: Pneumatic System Sizing Workflow</h2>
+
+  <p><strong>Most engineers follow this exact process:</strong></p>
+
+  <p style="text-align:left; max-width:500px; margin:20px auto;">
+    1. Calculate required force →  
+    <a href="pneumatic.html"><strong>Pneumatic Force Calculator</strong></a><br><br>
+
+    2. Estimate air consumption →  
+    <a href="air-consumption.html"><strong>Air Consumption Calculator</strong></a><br><br>
+
+    3. Size your air lines →  
+    <a href="air-line-size-calculator.html"><strong>Air Line Size Calculator</strong></a>
+  </p>
+</div>
+
+  <div class="featured-strip">
+    <h3>Start with Popular Tools</h3>
+    <p class="seo-text" style="margin:0;max-width:none;">
+      New visitors should not have to hunt around. These are strong starting points for everyday automation work.
+    </p>
 
   <div class="top-note">
     <strong>Best place to start:</strong> if this is your first visit, open the full calculator index or use one of the featured tools below. These pages usually solve the most common automation sizing and troubleshooting questions fastest.
@@ -661,11 +690,6 @@
     </div>
   </div>
 
-  <div class="featured-strip">
-    <h3>Start with Popular Tools</h3>
-    <p class="seo-text" style="margin:0;max-width:none;">
-      New visitors should not have to hunt around. These are strong starting points for everyday automation work.
-    </p>
 
     <div class="featured-links">
       <a href="pneumatic.html" onclick="gtag('event','featured_tool_click',{tool:'pneumatic_force'});">Pneumatic Force</a>
