@@ -318,12 +318,24 @@
   <div class="container">
 
     <div class="section" id="project-form">
-      <h2>Request Help for Your Project</h2>
+      <h2>Get Help Before This Becomes a Costly Mistake</h2>
       <p class="description">
         Working on a robotics cell, pneumatic circuit, PLC issue, conveyor upgrade, welding application, or general automation project? Submit the basics below and I will review it and help point you in the right direction.
       </p>
 
-      <form action="https://formspree.io/f/mgonbvpn" method="POST" onsubmit="gtag('event','lead_submit',{'page':'automation_help','type':'project_help'});">
+      <p class="description" style="margin-top:-10px;">
+        Quick note: you don’t need perfect details — just enough to understand what you’re working on.
+      </p>
+
+      <form action="https://formspree.io/f/mgonbvpn" method="POST"
+        onsubmit="
+          localStorage.removeItem('calculated_power');
+          localStorage.removeItem('source_page');
+          gtag('event','lead_submit',{'page':'automation_help','type':'project_help'});
+        ">
+        <input type="hidden" name="calculated_power" id="hiddenPower">
+        <input type="hidden" name="source_page" id="sourcePage">
+
         <div class="form-grid">
           <div class="field">
             <label for="name">Name</label>
@@ -381,6 +393,9 @@
         </div>
 
         <button type="submit" class="btn">Submit Project</button>
+        <p class="note" style="margin-top:6px;">
+          Most requests are reviewed within 24 hours.
+        </p>
         <p class="note">
           This page is intended to help engineers and manufacturers find the right next step faster. Submitting this form does not commit you to anything.
         </p>
@@ -530,6 +545,29 @@
     </div>
 
   </div>
+
+  <script>
+    let storedPower = localStorage.getItem('calculated_power');
+    let sourcePage = localStorage.getItem('source_page');
+
+    let powerField = document.getElementById('hiddenPower');
+    let sourceField = document.getElementById('sourcePage');
+    let projectTypeField = document.getElementById('projectType');
+
+    if(storedPower && powerField){
+      powerField.value = storedPower;
+    }
+
+    if(sourcePage && sourceField){
+      sourceField.value = sourcePage;
+    }
+
+    if(sourcePage === 'motor_calculator' && projectTypeField){
+      projectTypeField.value = 'Motors / Motion';
+    } else if(sourcePage === 'pneumatic_force_calculator' && projectTypeField){
+      projectTypeField.value = 'Pneumatics';
+    }
+  </script>
 
   <footer>
     Automation Engineering Tools • Practical calculators and project support for real automation work
