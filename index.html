@@ -253,30 +253,35 @@ if (window.location.pathname.includes("index.html")) {
     }
 
     .category-card{
-      background:#fbfdff;
-      border:1px solid var(--border);
-      border-radius:12px;
-      padding:22px;
-      text-align:left;
-      transition:transform .15s ease, box-shadow .15s ease;
-    }
+  background:#fbfdff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:22px;
+  text-align:left;
+  transition:transform .15s ease, box-shadow .15s ease;
+  display:block;
+  text-decoration:none;
+  color:var(--primary);
+}
 
-    .category-card:hover{
-      transform:translateY(-3px);
-      box-shadow:0 8px 20px rgba(0,0,0,.07);
-    }
+.category-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,.07);
+  text-decoration:none;
+}
 
-    .category-card h3{
-      margin-top:0;
-      margin-bottom:10px;
-      font-size:20px;
-    }
+.category-card h3{
+  margin-top:0;
+  margin-bottom:10px;
+  font-size:20px;
+  color:var(--primary);
+}
 
-    .category-card p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.6;
-    }
+.category-card p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.6;
+}
 
     .featured-strip{
       margin-top:32px;
@@ -632,21 +637,21 @@ if (window.location.pathname.includes("index.html")) {
   </div>
 
   <div class="quick-points">
-    <div class="point-card">
-      <h3>Practical, Not Academic</h3>
-      <p>Built for real machine design, troubleshooting, quoting, process setup, and early concept validation.</p>
-    </div>
-
-    <div class="point-card">
-      <h3>Wide Tool Coverage</h3>
-      <p>From cylinder force and SCFM to robot reach, wire size, weld settings, torque, and automation ROI.</p>
-    </div>
-
-    <div class="point-card">
-      <h3>Designed for Speed</h3>
-      <p>Get fast estimates without digging through spreadsheets, manuals, or disconnected reference charts.</p>
-    </div>
+  <div class="point-card">
+    <h3>Practical, Not Academic</h3>
+    <p>Built for real machine design, troubleshooting, quoting, process setup, and early concept validation.</p>
   </div>
+
+  <div class="point-card">
+    <h3>Wide Tool Coverage</h3>
+    <p>From cylinder force and SCFM to robot reach, wire size, weld settings, torque, and automation ROI.</p>
+  </div>
+
+  <div class="point-card">
+    <h3>Designed for Speed</h3>
+    <p>Get fast estimates without digging through spreadsheets, manuals, or disconnected reference charts.</p>
+  </div>
+</div>
 
   <p class="seo-text">
     AutomationCalculators.net provides free engineering calculators and reference charts for robotics, motion control, industrial automation, pneumatics, conveyors, motor sizing, resistance welding, machine safety, PLC analog scaling, electrical design, fastening, and machine design.
@@ -656,39 +661,41 @@ if (window.location.pathname.includes("index.html")) {
     Use these tools to estimate servo torque, safety distance, gear ratio, robot reach, robot payload, robot cycle time, conveyor speed, gearbox output torque, pneumatic cylinder force, pneumatic speed, voltage drop, wire size, motor full load current, bearing life, air line size, spot weld settings, projection weld settings, tap drill sizes, bolt torque, and automation ROI.
   </p>
 
+  </div>  
+
   <h2>Browse by Engineering Category</h2>
 
-  <div class="category-grid">
-    <div class="category-card">
-      <h3>Pneumatic Calculators</h3>
-      <p>Calculate cylinder force, air consumption, cylinder speed, and compressed air line sizing using bore, rod, pressure, stroke, and cycle rate.</p>
-    </div>
+<div class="category-grid">
+  <a class="category-card" href="pneumatic.html" onclick="gtag('event','category_click',{category:'pneumatics'});">
+    <h3>Pneumatic Calculators</h3>
+    <p>Calculate cylinder force, air consumption, cylinder speed, and compressed air line sizing using bore, rod, pressure, stroke, and cycle rate.</p>
+  </a>
 
-    <div class="category-card">
-      <h3>Robot and Automation Tools</h3>
-      <p>Estimate robot cycle time, robot reach, payload requirements, and part handling behavior for automation cells and robotic systems.</p>
-    </div>
+  <a class="category-card" href="robot.html" onclick="gtag('event','category_click',{category:'robotics'});">
+    <h3>Robot and Automation Tools</h3>
+    <p>Estimate robot cycle time, robot reach, payload requirements, and part handling behavior for automation cells and robotic systems.</p>
+  </a>
 
-    <div class="category-card">
-      <h3>Motion and Motor Calculators</h3>
-      <p>Size servo torque, gear ratios, conveyor drives, motor current, bearing life, and gearbox output performance.</p>
-    </div>
+  <a class="category-card" href="servo-torque.html" onclick="gtag('event','category_click',{category:'motion_motor'});">
+    <h3>Motion and Motor Calculators</h3>
+    <p>Size servo torque, gear ratios, conveyor drives, motor current, bearing life, and gearbox output performance.</p>
+  </a>
 
-    <div class="category-card">
-      <h3>PLC and Electrical Tools</h3>
-      <p>Work through PLC analog scaling, voltage drop, wire size, ampacity references, safety distance, and communication troubleshooting.</p>
-    </div>
+  <a class="category-card" href="analog-scaling.html" onclick="gtag('event','category_click',{category:'plc_electrical'});">
+    <h3>PLC and Electrical Tools</h3>
+    <p>Work through PLC analog scaling, voltage drop, wire size, ampacity references, safety distance, and communication troubleshooting.</p>
+  </a>
 
-    <div class="category-card">
-      <h3>Welding and Fastening</h3>
-      <p>Estimate spot weld settings, projection weld parameters, torque values, clamp load, torque-angle relationships, and tap drill sizes.</p>
-    </div>
+  <a class="category-card" href="spot-weld.html" onclick="gtag('event','category_click',{category:'welding_fastening'});">
+    <h3>Welding and Fastening</h3>
+    <p>Estimate spot weld settings, projection weld parameters, torque values, clamp load, torque-angle relationships, and tap drill sizes.</p>
+  </a>
 
-    <div class="category-card">
-      <h3>Reference Charts</h3>
-      <p>Quick access to AWG data, bolt torque charts, motor frame references, motor current tables, and other engineering lookups.</p>
-    </div>
-  </div>
+  <a class="category-card" href="reference-charts.html" onclick="gtag('event','category_click',{category:'reference_charts'});">
+    <h3>Reference Charts</h3>
+    <p>Quick access to AWG data, bolt torque charts, motor frame references, motor current tables, and other engineering lookups.</p>
+  </a>
+</div>
 
 
     <div class="featured-links">
