@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/pneumatics.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Pneumatic Calculators | Cylinder Force, Air Consumption, Line Size, Speed</title>
+  <meta name="description" content="Browse pneumatic engineering calculators for cylinder force, air consumption, air line sizing, pneumatic speed, and pressure/flow conversions. Practical pneumatic tools for automation engineers, machine builders, and industrial system design.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root{
+      --primary:#1f2a44;
+      --primary-dark:#162033;
+      --accent:#1e6bd6;
+      --bg:#f4f4f4;
+      --card:#ffffff;
+      --soft:#f8fbff;
+      --border:#d7e6ff;
+      --text:#222;
+      --muted:#555;
+      --success-bg:#eaf7ea;
+      --success-border:#b9dfb9;
+      --info-bg:#e9f1ff;
+      --warning-bg:#fff7df;
+      --warning-border:#f1d98a;
+      --warning-text:#5c4a12;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+      --radius:12px;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      font-family:Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      margin:0;
+      text-align:center;
+    }
+
+    a{
+      color:var(--accent);
+    }
+
+    .container{
+      background:var(--card);
+      padding:40px;
+      max-width:1150px;
+      margin:30px auto;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    h1,h2,h3{
+      color:var(--primary);
+    }
+
+    h1{
+      font-size:40px;
+      margin:0 0 14px;
+      line-height:1.15;
+    }
+
+    h2{
+      margin-top:48px;
+      margin-bottom:12px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#f8fbff 0%,#eef5ff 100%);
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:40px 28px;
+      margin-bottom:24px;
+    }
+
+    .hero p{
+      max-width:860px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .subtitle{
+      color:var(--muted);
+      margin-bottom:18px;
+      line-height:1.6;
+      font-size:18px;
+      max-width:850px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .seo-text{
+      color:var(--muted);
+      max-width:860px;
+      margin:0 auto 20px auto;
+      line-height:1.7;
+      font-size:16px;
+    }
+
+    .hero-buttons{
+      margin-top:22px;
+      display:flex;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 22px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:transform .15s ease, opacity .15s ease, box-shadow .15s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      opacity:.95;
+    }
+
+    .btn-primary{
+      background:var(--accent);
+      color:white;
+      box-shadow:0 6px 18px rgba(30,107,214,.22);
+    }
+
+    .btn-secondary{
+      background:white;
+      color:var(--primary);
+      border:1px solid var(--border);
+    }
+
+    .top-note{
+      background:var(--warning-bg);
+      border:1px solid var(--warning-border);
+      color:var(--warning-text);
+      padding:14px 16px;
+      border-radius:10px;
+      max-width:980px;
+      margin:0 auto 28px auto;
+      text-align:left;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .workflow{
+      background:var(--info-bg);
+      border:1px solid #c8d9ff;
+      border-radius:12px;
+      padding:24px;
+      text-align:left;
+      margin-top:28px;
+    }
+
+    .workflow h2{
+      margin-top:0;
+    }
+
+    .workflow p{
+      color:var(--muted);
+      line-height:1.7;
+      margin-bottom:16px;
+    }
+
+    .step-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
+      margin-top:24px;
+    }
+
+    .step-card{
+      background:white;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:22px;
+      text-align:left;
+      box-shadow:0 3px 10px rgba(0,0,0,.04);
+    }
+
+    .step-number{
+      display:inline-block;
+      background:var(--primary);
+      color:white;
+      font-weight:bold;
+      font-size:13px;
+      padding:6px 10px;
+      border-radius:999px;
+      margin-bottom:12px;
+    }
+
+    .step-card h3{
+      margin-top:0;
+      margin-bottom:10px;
+      font-size:21px;
+    }
+
+    .step-card p{
+      margin:0 0 16px 0;
+      color:var(--muted);
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .step-card a{
+      display:inline-block;
+      background:var(--accent);
+      color:white;
+      text-decoration:none;
+      font-weight:bold;
+      padding:10px 14px;
+      border-radius:8px;
+    }
+
+    .step-card a:hover{
+      opacity:.95;
+    }
+
+    .tools-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:18px;
+      margin-top:26px;
+    }
+
+    .tool-card{
+      background:#fbfdff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:22px;
+      text-align:left;
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+
+    .tool-card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 8px 20px rgba(0,0,0,.07);
+    }
+
+    .tool-card h3{
+      margin-top:0;
+      margin-bottom:10px;
+      font-size:20px;
+    }
+
+    .tool-card p{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .tool-card a{
+      display:inline-block;
+      text-decoration:none;
+      font-weight:bold;
+      color:var(--accent);
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1.5fr 1fr;
+      gap:22px;
+      margin-top:34px;
+      align-items:start;
+    }
+
+    .info-box{
+      background:#f8fbff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:24px;
+      text-align:left;
+    }
+
+    .info-box h3{
+      margin-top:0;
+      margin-bottom:12px;
+    }
+
+    .info-box p{
+      color:var(--muted);
+      line-height:1.7;
+      margin-bottom:14px;
+    }
+
+    .info-box ul{
+      margin:0;
+      padding-left:20px;
+      color:var(--muted);
+      line-height:1.8;
+    }
+
+    .cta-box{
+      margin-top:34px;
+      padding:24px;
+      background:var(--success-bg);
+      border:1px solid var(--success-border);
+      border-radius:12px;
+    }
+
+    .cta-box p{
+      max-width:760px;
+      margin-left:auto;
+      margin-right:auto;
+      color:#345;
+      line-height:1.6;
+    }
+
+    .cta-box .btn{
+      margin-top:8px;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    @media (max-width:800px){
+      .container{
+        padding:20px;
+        margin:15px;
+      }
+
+      h1{
+        font-size:31px;
+      }
+
+      .subtitle{
+        font-size:17px;
+      }
+
+      .two-col{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+  <section class="hero">
+    <h1>Pneumatic Calculators for Real Automation Work</h1>
+
+    <p class="subtitle">
+      Use these pneumatic engineering tools to size cylinder force, estimate air consumption, check line sizing, and verify whether your system can actually deliver the performance you need.
+    </p>
+
+    <p class="seo-text">
+      This section is built for automation engineers, machine builders, controls engineers, and industrial designers working on pneumatic actuator sizing, compressed air demand, valve selection, tubing layout, and real-world machine motion.
+    </p>
+
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="/pneumatic.html" onclick="gtag('event','category_hero_click',{category:'pneumatics',target:'pneumatic_force'});">Start with Cylinder Force</a>
+      <a class="btn btn-secondary" href="/air-consumption.html" onclick="gtag('event','category_hero_click',{category:'pneumatics',target:'air_consumption'});">Go to Air Consumption</a>
+      <a class="btn btn-secondary" href="/integrators.html" onclick="gtag('event','category_hero_click',{category:'pneumatics',target:'integrators'});">Need Help With a Real System?</a>
+    </div>
+  </section>
+
+  <div class="top-note">
+    <strong>Best use of this section:</strong> follow the pneumatic workflow from force to airflow to line size. That gives you a much better answer than checking only one calculator in isolation.
+  </div>
+
+  <div class="workflow">
+    <h2>Pneumatic Design Workflow</h2>
+    <p>
+      Most pneumatic issues happen because people only verify one number. A cylinder may look strong enough on paper, but still perform poorly if the air flow is not there, if the lines are undersized, or if the system cannot maintain pressure during motion.
+    </p>
+    <p>
+      The best approach is to work through these steps in order: first confirm force, then estimate air demand, then verify line sizing, and finally check motion speed. That gives you a more realistic view of how the system will behave on the machine.
+    </p>
+
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-number">Step 1</div>
+        <h3>Check Cylinder Force</h3>
+        <p>
+          Verify whether the bore, rod, and pressure give you enough usable force after applying a realistic derating factor.
+        </p>
+        <a href="/pneumatic.html" onclick="gtag('event','workflow_step_click',{category:'pneumatics',step:'force'});">Open Force Calculator</a>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">Step 2</div>
+        <h3>Estimate Air Consumption</h3>
+        <p>
+          Calculate how much air your cylinder setup will actually use per cycle and over time so you can judge system demand.
+        </p>
+        <a href="/air-consumption.html" onclick="gtag('event','workflow_step_click',{category:'pneumatics',step:'air_consumption'});">Open Air Consumption</a>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">Step 3</div>
+        <h3>Size Air Lines</h3>
+        <p>
+          Make sure the tubing and air path can support the required flow without creating unnecessary pressure drop.
+        </p>
+        <a href="/air-line-size-calculator.html" onclick="gtag('event','workflow_step_click',{category:'pneumatics',step:'air_line_size'});">Open Line Size Calculator</a>
+      </div>
+
+      <div class="step-card">
+        <div class="step-number">Step 4</div>
+        <h3>Check Pneumatic Speed</h3>
+        <p>
+          Estimate whether the available flow and cylinder geometry can support the extend and retract speed you need.
+        </p>
+        <a href="/pneumatic-speed.html" onclick="gtag('event','workflow_step_click',{category:'pneumatics',step:'speed'});">Open Speed Calculator</a>
+      </div>
+    </div>
+  </div>
+
+  <h2>Pneumatic Tools in This Section</h2>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <h3>Pneumatic Force Calculator</h3>
+      <p>
+        Calculate extend force, retract force, derated force, and piston area using bore size, rod size, and air pressure.
+      </p>
+      <a href="/pneumatic.html" onclick="gtag('event','category_tool_click',{category:'pneumatics',tool:'pneumatic_force'});">Open Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Air Consumption Calculator</h3>
+      <p>
+        Estimate cylinder air use per cycle and SCFM to understand demand on the plant air system.
+      </p>
+      <a href="/air-consumption.html" onclick="gtag('event','category_tool_click',{category:'pneumatics',tool:'air_consumption'});">Open Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Air Line Size Calculator</h3>
+      <p>
+        Estimate compressed air line sizing based on flow demand so the system is not starved during operation.
+      </p>
+      <a href="/air-line-size-calculator.html" onclick="gtag('event','category_tool_click',{category:'pneumatics',tool:'air_line_size'});">Open Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Pneumatic Speed Calculator</h3>
+      <p>
+        Estimate cylinder speed using bore, rod, stroke, and available airflow for more realistic motion planning.
+      </p>
+      <a href="/pneumatic-speed.html" onclick="gtag('event','category_tool_click',{category:'pneumatics',tool:'pneumatic_speed'});">Open Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>CFM / SCFM / PSI Calculator</h3>
+      <p>
+        Convert between flow and pressure reference values to support compressor, regulator, and demand calculations.
+      </p>
+      <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','category_tool_click',{category:'pneumatics',tool:'cfm_scfm_psi'});">Open Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Pneumatic System Sizing Guide</h3>
+      <p>
+        Follow the broader step-by-step pneumatic design process if you want a more complete engineering workflow.
+      </p>
+      <a href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','category_tool_click',{category:'pneumatics',tool:'pneumatic_sizing_guide'});">Open Guide →</a>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="info-box">
+      <h3>Why pneumatic systems fail even when the math looks right</h3>
+      <p>
+        A cylinder that shows enough theoretical force on paper can still miss the target in the real machine. Pressure losses, flow restrictions, poor air prep, side loading, friction, and inconsistent supply pressure can all reduce usable performance.
+      </p>
+      <p>
+        That is why this category is organized as a sequence instead of a random collection of tools. Force alone is not enough. You need to verify that the system can also maintain airflow and move at the required speed under actual operating conditions.
+      </p>
+      <p>
+        For many applications, the most useful path is: force first, air second, line size third, speed fourth. That catches most practical pneumatic design problems before hardware is ordered.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h3>Common pneumatic checks</h3>
+      <ul>
+        <li>Does the cylinder have enough derated usable force?</li>
+        <li>Will the system consume more air than expected?</li>
+        <li>Are the valves and lines undersized for the demand?</li>
+        <li>Will pressure drop kill speed or force under load?</li>
+        <li>Is friction or tooling resistance being ignored?</li>
+        <li>Does the motion profile match the available airflow?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h2>Need help with a real pneumatic application?</h2>
+    <p>
+      Calculators are a strong starting point, but real systems often need judgment around pressure drop, friction, guiding, cylinder selection, valve sizing, and component layout. If you need help applying this to an actual machine, get connected with an integrator or request support.
+    </p>
+    <a class="btn btn-primary" href="/integrators.html" onclick="gtag('event','pneumatics_cta_click',{location:'bottom',target:'integrators'});">Find an Integrator</a>
+    <a class="btn btn-secondary" href="/automation-help.html" onclick="gtag('event','pneumatics_cta_click',{location:'bottom',target:'automation_help'});">Get Help With My System</a>
+  </div>
+
+  <div class="footer">
+    <strong>Automation Engineering Tools</strong><br>
+    Practical calculators for real automation work
+  </div>
+
+</div>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
