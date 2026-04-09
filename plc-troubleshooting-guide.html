@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="canonical" href="https://automationcalculators.net/plc-troubleshooting-guide.html">
+  <link rel="canonical" href="https://automationcalculators.net/plc-communication-troubleshooting.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>PLC Troubleshooting Guide | Analog Inputs, Missed Signals, Voltage Drop</title>
-  <meta name="description" content="Step-by-step PLC troubleshooting guide for analog input problems, missed pulses, voltage drop, wiring faults, and signal scaling errors in real automation systems.">
-  
+  <title>PLC Communication Troubleshooter | Ethernet/IP, I/O, HMI, Field Device Wizard</title>
+  <meta name="description" content="Interactive PLC communication troubleshooting wizard for Ethernet/IP, HMI communication, remote I/O faults, analog signal problems, field device issues, and intermittent PLC network faults.">
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -19,39 +19,64 @@
   </script>
 
   <style>
+    :root{
+      --primary:#1f2a44;
+      --primary-dark:#162033;
+      --accent:#1e6bd6;
+      --bg:#f4f4f4;
+      --card:#ffffff;
+      --soft:#f8fbff;
+      --border:#d7e6ff;
+      --text:#222;
+      --muted:#555;
+      --info-bg:#e9f1ff;
+      --warn-bg:#fff7df;
+      --warn-border:#f1d98a;
+      --warn-text:#5c4a12;
+      --success-bg:#eaf7ea;
+      --success-border:#b9dfb9;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+      --radius:12px;
+    }
+
+    *{box-sizing:border-box;}
+
     body{
       font-family:Arial, sans-serif;
-      background:#f4f4f4;
+      background:var(--bg);
+      color:var(--text);
       margin:0;
-      color:#222;
     }
+
+    a{color:var(--accent);}
 
     .hero{
       background:linear-gradient(135deg,#1f2a44,#2d3d63);
       color:white;
-      padding:42px 20px 32px;
+      padding:42px 20px 34px;
       text-align:center;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:980px;
       margin:auto;
     }
 
     .hero h1{
       margin:0 0 12px;
-      font-size:34px;
+      font-size:36px;
+      line-height:1.18;
     }
 
     .hero p{
-      max-width:800px;
+      max-width:860px;
       margin:0 auto 14px;
       color:#e7ecf7;
       font-size:17px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
-    .hero-cta{
+    .hero-buttons{
       margin-top:18px;
       display:flex;
       justify-content:center;
@@ -59,50 +84,58 @@
       flex-wrap:wrap;
     }
 
-    .hero-cta a{
+    .btn{
       display:inline-block;
       padding:12px 18px;
       border-radius:8px;
       text-decoration:none;
       font-weight:bold;
+      transition:.18s ease;
     }
 
-    .hero-cta .primary{
+    .btn:hover{
+      transform:translateY(-1px);
+      opacity:.96;
+    }
+
+    .btn-primary{
       background:white;
       color:#1f2a44;
     }
 
-    .hero-cta .secondary{
+    .btn-secondary{
       color:white;
       border:1px solid rgba(255,255,255,.35);
     }
 
     .page-wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:30px auto;
       padding:0 18px 40px;
     }
 
     .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
-      color:#5c4a12;
+      background:var(--warn-bg);
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
       padding:14px 16px;
       border-radius:10px;
       margin-bottom:22px;
+      line-height:1.6;
     }
 
     .main-grid{
       display:grid;
       grid-template-columns:2fr 1fr;
       gap:24px;
+      align-items:start;
     }
 
     .card,
     .sidebar-card{
       background:white;
       border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
+      box-shadow:var(--shadow);
     }
 
     .card{
@@ -118,109 +151,183 @@
       font-size:13px;
       font-weight:bold;
       text-transform:uppercase;
+      letter-spacing:.08em;
       color:#5e7197;
       margin-bottom:10px;
     }
 
+    h2,h3,h4{
+      color:#1f2a44;
+      margin-top:0;
+    }
+
     .description{
-      color:#555;
-      line-height:1.6;
+      color:var(--muted);
+      line-height:1.7;
       margin-bottom:18px;
     }
 
-    .step-box{
-      margin:18px 0;
-      padding:18px;
-      background:#f8fbff;
-      border:1px solid #d7e6ff;
+    .wizard-intro{
+      background:var(--soft);
+      border:1px solid var(--border);
       border-radius:10px;
+      padding:18px;
+      margin-bottom:22px;
     }
 
-    .step-box h3{
-      margin:0 0 10px;
+    .wizard-panel{
+      background:#f8fbff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:22px;
+      margin-bottom:20px;
+    }
+
+    .wizard-panel h3{
+      margin-bottom:10px;
+    }
+
+    .wizard-panel p{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.65;
+    }
+
+    .button-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .wizard-btn{
+      width:100%;
+      text-align:left;
+      padding:14px 14px;
+      background:white;
+      border:1px solid #cfdcf6;
+      border-radius:10px;
       color:#1f2a44;
+      font-size:15px;
+      font-weight:bold;
+      cursor:pointer;
+      transition:.18s ease;
     }
 
-    .internal-links{
-      margin-top:12px;
+    .wizard-btn:hover{
+      background:#eef5ff;
+      transform:translateY(-1px);
+    }
+
+    .wizard-btn.secondary{
+      background:#f5f7fb;
+      font-weight:600;
+    }
+
+    .path-box{
+      margin-top:14px;
+      padding:14px 16px;
+      background:#eef3ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      color:#33425e;
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    .result{
+      margin-top:20px;
+      padding:22px;
+      background:var(--info-bg);
+      border:1px solid #c8d9ff;
+      border-radius:12px;
+      line-height:1.7;
+      color:#24334f;
+    }
+
+    .result h3{
+      margin-bottom:10px;
+    }
+
+    .result ul{
+      margin:10px 0 14px 20px;
+      padding:0;
+    }
+
+    .result li{
+      margin-bottom:8px;
+    }
+
+    .actions{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
+      margin-top:18px;
     }
 
-    .internal-links a{
-      padding:10px 12px;
-      background:#f2f5fb;
-      border-radius:8px;
+    .actions a,
+    .actions button{
+      display:inline-block;
+      padding:11px 14px;
+      background:#1f2a44;
+      color:white;
       text-decoration:none;
+      border:none;
+      border-radius:8px;
+      font-weight:bold;
+      cursor:pointer;
+      font-size:14px;
+    }
+
+    .actions button.alt,
+    .actions a.alt{
+      background:#5d6c88;
+    }
+
+    .actions button.light,
+    .actions a.light{
+      background:#e2e9f7;
       color:#1f2a44;
-      font-weight:600;
+    }
+
+    .checklist{
+      background:#f4f8ff;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:18px;
+      margin-top:20px;
+    }
+
+    .checklist ul{
+      margin:10px 0 0 20px;
+      color:#555;
+      line-height:1.75;
     }
 
     .cta-box{
       margin-top:24px;
       padding:22px;
-      background:#e9f1ff;
+      background:var(--success-bg);
+      border:1px solid var(--success-border);
       border-radius:10px;
       text-align:center;
     }
 
-    .cta-box h3{
-      margin:0 0 10px;
-      color:#1f2a44;
-    }
-
     .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
+      margin:0 0 14px;
+      color:#345;
+      line-height:1.65;
     }
 
     .cta-box a{
       display:inline-block;
-      margin-top:10px;
+      margin:6px 6px 0;
       padding:12px 16px;
       background:#1f2a44;
       color:white;
       text-decoration:none;
       border-radius:8px;
       font-weight:bold;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
-    }
-
-    .learn-more ul{
-      margin:0 0 12px 20px;
-      color:#555;
-      line-height:1.7;
-    }
-
-    .learn-more li{
-      margin-bottom:8px;
-    }
-
-    .sidebar-card h3{
-      margin-top:0;
-      color:#1f2a44;
     }
 
     .sidebar-card p{
@@ -234,18 +341,45 @@
       padding-left:18px;
       margin:0;
       color:#444;
-      line-height:1.7;
+      line-height:1.75;
+    }
+
+    .sidebar-card li{
+      margin-bottom:8px;
+    }
+
+    .link-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .link-list a{
+      display:block;
+      padding:10px 12px;
+      background:#f4f8ff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      text-decoration:none;
+      color:#1f2a44;
+      font-weight:600;
     }
 
     .footer{
       text-align:center;
       margin-top:40px;
       color:#666;
+      font-size:14px;
+      line-height:1.7;
     }
 
     @media (max-width:900px){
       .main-grid{
         grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:30px;
       }
     }
   </style>
@@ -257,160 +391,72 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <h1>PLC Troubleshooting Guide</h1>
+    <h1>PLC Communication Troubleshooting Wizard</h1>
     <p>
-      A practical PLC troubleshooting guide for real automation issues including analog input scaling errors, missed pulses, voltage drop, wiring faults, and unstable field signals.
+      Work through real PLC communication problems step by step instead of getting the same vague answer every time. This wizard helps narrow down likely causes for HMI communication faults, remote I/O issues, Ethernet/IP problems, analog signal confusion, and intermittent field-device behavior.
     </p>
 
-    <div class="hero-cta">
-      <a href="/analog-scaling.html" class="primary">Start with Analog Scaling</a>
-      <a href="/integrators.html" class="secondary">Find an Integrator</a>
+    <div class="hero-buttons">
+      <a href="#wizard" class="btn btn-primary" onclick="gtag('event','wizard_hero_click',{'target':'start'});">Start Troubleshooting</a>
+      <a href="/plc-troubleshooting-guide.html" class="btn btn-secondary" onclick="gtag('event','wizard_hero_click',{'target':'guide'});">Open PLC Guide</a>
     </div>
   </div>
 </section>
-  <div style="max-width:900px;margin:20px auto;padding:14px 16px;background:#f4f8ff;border:1px solid #d7e6ff;border-radius:10px;text-align:center;">
-  Looking for a full structured workflow?
-  <a href="/plc-electrical.html" style="font-weight:bold;">
-    Start with the PLC & Electrical Overview
-  </a>.
-</div>
 
 <div class="page-wrap">
 
   <div class="top-note">
-    <strong>Use this guide when:</strong> Inputs are not behaving correctly, analog values look wrong, signals are missed, or the system works intermittently without a clear cause.
+    <strong>Best use of this wizard:</strong> pick the symptom that most closely matches what you are seeing, then answer each question honestly based on what you have already checked in the real system. This is designed to help isolate root cause faster, not replace safe lockout procedures or device manuals.
   </div>
 
   <div class="main-grid">
 
-    <div class="card">
+    <div class="card" id="wizard">
 
-      <div class="section-label">Guide</div>
-      <h2>Step-by-Step PLC Troubleshooting Process</h2>
+      <div class="section-label">Wizard</div>
+      <h2>Interactive PLC Communication Troubleshooter</h2>
 
-      <p class="description">
-        Most PLC problems are not caused by the PLC itself. They are caused by signal issues, wiring problems, incorrect scaling, or timing limitations. This guide walks through a structured process to isolate the root cause.
-      </p>
-
-      <div class="step-box">
-        <h3>Step 1: Verify Input Signal</h3>
-        <p class="description">
-          Start by confirming that the input device is working and the signal is physically reaching the PLC. Check voltage, wiring, and sensor operation before looking at logic.
+      <div class="wizard-intro">
+        <p class="description" style="margin-bottom:0;">
+          Start with the symptom, then follow the branch. Each answer will narrow the likely cause and point you toward the right next check, calculator, guide, or troubleshooting direction.
         </p>
       </div>
 
-      <div class="step-box">
-        <h3>Step 2: Check Analog Scaling</h3>
-        <p class="description">
-          Incorrect scaling is one of the most common issues. A signal may be correct electrically but displayed incorrectly due to conversion errors.
+      <div class="wizard-panel">
+        <h3 id="questionTitle">What symptom best matches your issue?</h3>
+        <p id="questionDescription">
+          Choose the closest symptom below. You do not need the perfect label — just start with the one that sounds most like what the machine is doing.
         </p>
 
-        <div class="internal-links">
-          <a href="/analog-scaling.html">Use Analog Scaling Calculator</a>
+        <div class="path-box" id="pathBox">
+          <strong>Path:</strong> Start
         </div>
-      </div>
-       
-      <div class="step-box">
-  <h3>Step 3: Evaluate Scan Time &amp; Missed Signals</h3>
-  <p class="description">
-    If signals are short or fast, the PLC may not detect them due to scan time limitations.
-  </p>
 
-  <div class="internal-links">
-    <a href="/plc-pulse-capture.html">Check Scan Time &amp; Pulse Capture</a>
-  </div>
-</div>
-
-<div class="cta-box">
-  <h3>Working on a real issue right now?</h3>
-  <p>
-    If your machine is down or giving inconsistent signals, you can get help applying this directly to your system.
-  </p>
-  <a href="/automation-help.html">Get Help With My System</a>
-</div>
-
-<div class="cta-box">
-  <h3>Need to troubleshoot a live PLC issue?</h3>
-  <p>
-    Use the PLC troubleshooter to work through communication, signal, and field-device problems step by step.
-  </p>
-  <a href="/plc-communication-troubleshooting.html"
-     onclick="gtag('event','guide_cta_click',{'from':'plc_troubleshooting_guide'});">
-    Use PLC Troubleshooter
-  </a>
-</div>
-
-      <div class="step-box">
-        <h3>Step 4: Check Voltage Drop</h3>
-        <p class="description">
-          Low voltage at the device can cause inconsistent behavior, especially on long runs or high loads.
-        </p>
-
-        <div class="internal-links">
-          <a href="/voltage-drop.html">Calculate Voltage Drop</a>
+        <div class="button-grid" id="answerButtons">
+          <!-- buttons inserted by JS -->
         </div>
       </div>
 
-      <div class="step-box">
-        <h3>Step 5: Verify Wiring and Grounding</h3>
-        <p class="description">
-          Loose connections, improper grounding, and electrical noise can create intermittent faults that are difficult to trace.
-        </p>
+      <div class="result" id="resultBox" style="display:none;"></div>
+
+      <div class="checklist">
+        <h3>Before blaming the PLC</h3>
+        <ul>
+          <li>Verify device power is actually present under load, not just with no current draw.</li>
+          <li>Check whether the issue is constant or intermittent.</li>
+          <li>Compare what the device is doing physically versus what the PLC tag says.</li>
+          <li>Look for changes: new hardware, new firmware, rewiring, moved cables, or changed IP settings.</li>
+          <li>Confirm whether one device is failing or an entire segment/network is affected.</li>
+        </ul>
       </div>
 
       <div class="cta-box">
-        <h3>Still having issues?</h3>
+        <h3>Need help with a live machine issue?</h3>
         <p>
-          Some problems require deeper system-level troubleshooting. Get help from an experienced automation integrator.
+          If the machine is down, communication is unstable, or you need real-world help applying this to your system, use the help page or connect with an integrator.
         </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
-
-      <div class="learn-more">
-        <h3>Common PLC problems this guide helps diagnose</h3>
-
-        <p>
-          This guide is most useful when a PLC input is not behaving the way the machine should. In many cases, the PLC is not the real problem. The issue is usually one of four things: bad signal scaling, missed short-duration inputs, voltage loss in the field circuit, or unstable wiring.
-        </p>
-
-        <ul>
-          <li>PLC analog input reading wrong</li>
-          <li>4–20 mA signal scaling wrong</li>
-          <li>PLC missing pulses or short signals</li>
-          <li>Sensor works sometimes but not always</li>
-          <li>Unexpected low voltage at field devices</li>
-        </ul>
-
-        <h3>Analog input troubleshooting</h3>
-
-        <p>
-          If an analog value looks wrong, start by checking whether the raw electrical signal is correct before changing logic. A properly wired 4–20 mA or voltage input can still display the wrong engineering value if the scaling is incorrect.
-        </p>
-
-        <div class="internal-links">
-          <a href="/analog-scaling.html" onclick="gtag('event','internal_link_click',{'from':'plc_guide','to':'analog_scaling'});">Analog Scaling Calculator</a>
-        </div>
-
-        <h3>Missed pulses and scan-time issues</h3>
-
-        <p>
-          Short-duration signals can be lost if the PLC scan or input update behavior is too slow for the event being detected. This becomes more important with high-speed sensors, encoder-style signals, and fast machine cycles.
-        </p>
-
-        <div class="internal-links">
-          <a href="/plc-pulse-capture.html" onclick="gtag('event','internal_link_click',{'from':'plc_guide','to':'plc_pulse_capture'});">PLC Scan Time &amp; Pulse Capture</a>
-        </div>
-
-        <h3>Voltage drop and field wiring issues</h3>
-
-        <p>
-          Inputs and sensors can behave unpredictably when voltage at the device drops under load. Long cable runs, undersized conductors, weak terminations, and overloaded 24 VDC circuits all increase the chance of intermittent faults.
-        </p>
-
-        <div class="internal-links">
-          <a href="/voltage-drop.html" onclick="gtag('event','internal_link_click',{'from':'plc_guide','to':'voltage_drop'});">Voltage Drop Calculator</a>
-          <a href="/wire-gauge-amps.html" onclick="gtag('event','internal_link_click',{'from':'plc_guide','to':'wire_gauge_amps'});">Wire Gauge vs Amps</a>
-        </div>
+        <a href="/automation-help.html" onclick="gtag('event','wizard_cta_click',{'target':'automation_help'});">Get Help With My System</a>
+        <a href="/integrators.html" onclick="gtag('event','wizard_cta_click',{'target':'integrators'});">Find an Integrator</a>
       </div>
 
       <div class="footer">
@@ -422,32 +468,561 @@
     <div>
 
       <div class="sidebar-card">
-        <h3>Common PLC Issues</h3>
+        <h3>Common PLC communication symptoms</h3>
         <ul>
-          <li>Input not turning on</li>
-          <li>Analog value incorrect</li>
-          <li>Missed pulses</li>
-          <li>Intermittent faults</li>
-          <li>Inconsistent sensor behavior</li>
+          <li>HMI says communication lost</li>
+          <li>Remote I/O offline or faulted</li>
+          <li>One field device not responding</li>
+          <li>Analog value wrong but wiring seems okay</li>
+          <li>Intermittent network dropouts</li>
+          <li>PLC is missing short signals or events</li>
         </ul>
       </div>
 
       <div class="sidebar-card">
-        <h3>Typical Root Causes</h3>
+        <h3>Good companion tools</h3>
+        <div class="link-list">
+          <a href="/analog-scaling.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'analog_scaling'});">Analog Scaling Calculator</a>
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'plc_pulse_capture'});">PLC Scan Time & Pulse Capture</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'voltage_drop'});">Voltage Drop Calculator</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'wire_size'});">Wire Size Calculator</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'plc_guide'});">PLC Troubleshooting Guide</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'plc_electrical_overview'});">PLC & Electrical Overview</a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Typical root causes</h3>
         <ul>
-          <li>Incorrect scaling</li>
-          <li>Voltage drop</li>
-          <li>Noise / grounding issues</li>
-          <li>Scan time limitations</li>
-          <li>Wiring faults</li>
+          <li>Wrong IP address, subnet, or duplicate addressing</li>
+          <li>Device powered but not actually communicating</li>
+          <li>Loose or damaged Ethernet cable / connector</li>
+          <li>Managed switch setting mismatch or bad port</li>
+          <li>Scan time too slow for the signal duration</li>
+          <li>Incorrect analog scaling or engineering unit conversion</li>
+          <li>Voltage drop, weak 24V supply, or grounding noise</li>
         </ul>
       </div>
 
     </div>
 
   </div>
-
 </div>
+
+<script>
+  const wizardTree = {
+    start: {
+      title: "What symptom best matches your issue?",
+      description: "Choose the closest symptom below. You do not need the perfect label — just start with the one that sounds most like what the machine is doing.",
+      answers: [
+        { label: "HMI cannot communicate with PLC", next: "hmi_lost" },
+        { label: "Remote I/O or Ethernet/IP node is faulted", next: "remote_io_fault" },
+        { label: "One device or sensor is not responding", next: "one_device_dead" },
+        { label: "Analog value looks wrong", next: "analog_wrong" },
+        { label: "Signals are being missed", next: "missed_signals" },
+        { label: "Communication drops in and out", next: "intermittent" }
+      ]
+    },
+
+    hmi_lost: {
+      title: "HMI cannot communicate with PLC",
+      description: "Determine whether this is a full network problem or a single HMI path problem.",
+      answers: [
+        { label: "PLC is online, but only the HMI is disconnected", next: "hmi_only_disconnected" },
+        { label: "PLC and multiple devices seem offline", next: "network_wide_issue" },
+        { label: "Not sure yet", next: "hmi_basic_checks" }
+      ]
+    },
+
+    hmi_only_disconnected: {
+      title: "Only the HMI is disconnected",
+      description: "That usually points toward addressing, cable path, switch port, HMI runtime, or HMI-side configuration rather than a total PLC failure.",
+      result: `
+        <h3>Likely direction</h3>
+        <ul>
+          <li>Check HMI IP address, subnet, gateway, and target PLC address.</li>
+          <li>Confirm the HMI tag server or driver is pointing to the correct PLC.</li>
+          <li>Check switch link lights and the Ethernet cable to the HMI.</li>
+          <li>Verify the PLC is still reachable from another device on the network.</li>
+          <li>If this started after edits, compare HMI communication settings to a known good backup.</li>
+        </ul>
+
+        <h3>Good next checks</h3>
+        <ul>
+          <li>Ping the PLC and HMI if possible.</li>
+          <li>Swap cable or switch port.</li>
+          <li>Check if the HMI application/runtime is faulted or frozen.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/automation-help.html", text: "Get Help With My System", cls: "" },
+        { href: "/integrators.html", text: "Find an Integrator", cls: "alt" }
+      ]
+    },
+
+    network_wide_issue: {
+      title: "Multiple devices seem offline",
+      description: "That usually means the issue is bigger than one HMI. Treat it like a network path, switch, PLC power, or addressing problem.",
+      result: `
+        <h3>Likely direction</h3>
+        <ul>
+          <li>Check PLC power, controller fault status, and network module status LEDs.</li>
+          <li>Verify the main switch or network segment has power.</li>
+          <li>Check for duplicate IP addresses or recent address changes.</li>
+          <li>Look for failed uplink cables, switch port issues, or disconnected patch cables.</li>
+          <li>If managed switches are used, verify VLAN or port config was not changed.</li>
+        </ul>
+
+        <h3>Best next move</h3>
+        <ul>
+          <li>Start at the switch and controller LEDs first.</li>
+          <li>Confirm whether the PLC itself is in run/fault/offline state.</li>
+          <li>Check one known-good node at a time moving outward from the PLC.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Troubleshooting Guide", cls: "" },
+        { href: "/automation-help.html", text: "Get Help With My System", cls: "alt" }
+      ]
+    },
+
+    hmi_basic_checks: {
+      title: "Basic HMI communication checks",
+      description: "Start with the simplest checks before digging into software.",
+      result: `
+        <h3>Start here</h3>
+        <ul>
+          <li>Is the HMI powered and booted normally?</li>
+          <li>Does the PLC appear healthy and in run mode?</li>
+          <li>Do the Ethernet link/activity lights look normal?</li>
+          <li>Was anything changed recently: IP address, cable routing, switch, HMI project, PLC slot/path?</li>
+        </ul>
+
+        <h3>If the PLC is healthy but HMI is not talking</h3>
+        <ul>
+          <li>Suspect HMI path, driver setup, wrong PLC target, or HMI-side hardware issue.</li>
+        </ul>
+
+        <h3>If multiple nodes are down</h3>
+        <ul>
+          <li>Suspect switch, addressing, controller comms module, or larger network problem.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "" },
+        { href: "/integrators.html", text: "Find an Integrator", cls: "alt" }
+      ]
+    },
+
+    remote_io_fault: {
+      title: "Remote I/O or Ethernet/IP node is faulted",
+      description: "Figure out whether the node is powered and visible, or fully dead.",
+      answers: [
+        { label: "The node has power/status LEDs, but is faulted", next: "node_powered_faulted" },
+        { label: "The node appears completely dead", next: "node_dead" },
+        { label: "The node comes and goes", next: "node_intermittent" }
+      ]
+    },
+
+    node_powered_faulted: {
+      title: "Node has power but is faulted",
+      description: "That usually means power exists, but communication path or configuration is wrong.",
+      result: `
+        <h3>Likely causes</h3>
+        <ul>
+          <li>Wrong IP address or duplicate IP on the network.</li>
+          <li>Module replacement without correct configuration applied.</li>
+          <li>Mismatch between PLC configuration and real hardware.</li>
+          <li>Bad Ethernet cable or marginal port even though power is present.</li>
+          <li>Electronic keying / identity mismatch after hardware swap.</li>
+        </ul>
+
+        <h3>Best checks</h3>
+        <ul>
+          <li>Compare configured module to actual part number and revision.</li>
+          <li>Verify IP and subnet on the device.</li>
+          <li>Swap patch cable and switch port.</li>
+          <li>Review controller fault text or I/O module diagnostics.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/automation-help.html", text: "Get Help With My System", cls: "" },
+        { href: "/integrators.html", text: "Find an Integrator", cls: "alt" }
+      ]
+    },
+
+    node_dead: {
+      title: "Node appears dead",
+      description: "If there are no useful status LEDs, start at power before communication.",
+      result: `
+        <h3>Most likely direction</h3>
+        <ul>
+          <li>Check 24VDC supply at the device under load.</li>
+          <li>Check fusing, disconnects, terminals, and common return.</li>
+          <li>Inspect connector seating and damage at the device.</li>
+          <li>If power is truly absent, do not chase communication settings yet.</li>
+        </ul>
+
+        <h3>Good companion tool</h3>
+        <ul>
+          <li>If distance or conductor size is questionable, check voltage drop and wire sizing.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/voltage-drop.html", text: "Calculate Voltage Drop", cls: "" },
+        { href: "/wire-size-calculator.html", text: "Wire Size Calculator", cls: "alt" }
+      ]
+    },
+
+    node_intermittent: {
+      title: "Node comes and goes",
+      description: "Intermittent nodes usually point toward unstable power, bad cable paths, noise, or network hardware issues.",
+      result: `
+        <h3>Likely causes</h3>
+        <ul>
+          <li>Loose terminals or damaged patch cable.</li>
+          <li>Weak switch port or overloaded power supply.</li>
+          <li>Vibration at connector or M12/RJ45 connection.</li>
+          <li>Electrical noise / grounding issue.</li>
+          <li>Duplicate IP conflict appearing only when another device comes online.</li>
+        </ul>
+
+        <h3>Best next checks</h3>
+        <ul>
+          <li>Wiggle test cable path only when safe and appropriate.</li>
+          <li>Swap cable and switch port first.</li>
+          <li>Trend whether dropout happens during machine motion or load change.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/automation-help.html", text: "Get Help With My System", cls: "" },
+        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "alt" }
+      ]
+    },
+
+    one_device_dead: {
+      title: "One device or sensor is not responding",
+      description: "Determine whether the issue is power/signal at the device, or PLC-side interpretation.",
+      answers: [
+        { label: "Device has no power or obvious status", next: "device_no_power" },
+        { label: "Device appears powered, but PLC does not see it", next: "device_powered_not_seen" },
+        { label: "Device works sometimes", next: "device_intermittent" }
+      ]
+    },
+
+    device_no_power: {
+      title: "Device has no power or obvious status",
+      description: "Start with field power and wiring integrity.",
+      result: `
+        <h3>Most likely direction</h3>
+        <ul>
+          <li>Check supply voltage at the device terminals.</li>
+          <li>Check common/return path, fuse, breaker, and disconnects.</li>
+          <li>Inspect connector pinout and field wiring errors.</li>
+          <li>Look for damaged cable or broken conductor near motion points.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/voltage-drop.html", text: "Calculate Voltage Drop", cls: "" },
+        { href: "/wire-size-calculator.html", text: "Wire Size Calculator", cls: "alt" }
+      ]
+    },
+
+    device_powered_not_seen: {
+      title: "Device is powered, but PLC does not see it",
+      description: "That usually means the problem is signal path, addressing, scaling, or configuration.",
+      answers: [
+        { label: "This is an analog device/value", next: "analog_wrong" },
+        { label: "This is a digital input/output", next: "digital_not_seen" },
+        { label: "This is a networked device", next: "node_powered_faulted" }
+      ]
+    },
+
+    digital_not_seen: {
+      title: "Digital device is powered but PLC does not see it",
+      description: "Now focus on the actual signal state reaching the input card or node.",
+      result: `
+        <h3>Best checks</h3>
+        <ul>
+          <li>Measure the input voltage at the PLC input terminal, not just at the sensor.</li>
+          <li>Verify sourcing/sinking logic matches the hardware design.</li>
+          <li>Check whether the input LED on the PLC or I/O card changes physically.</li>
+          <li>If LED changes but logic does not, check tag mapping, aliasing, or logic usage.</li>
+          <li>If LED does not change, suspect wiring, sensor output type, or field power issue.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/automation-help.html", text: "Get Help With My System", cls: "" },
+        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "alt" }
+      ]
+    },
+
+    device_intermittent: {
+      title: "Device works sometimes",
+      description: "Intermittent field devices are often wiring, vibration, power stability, or timing problems.",
+      answers: [
+        { label: "It fails more during motion or machine cycle", next: "motion_related_intermittent" },
+        { label: "It seems random", next: "random_intermittent" }
+      ]
+    },
+
+    motion_related_intermittent: {
+      title: "Fails more during motion or cycle",
+      description: "That strongly suggests cable flex, connector strain, vibration, or short-duration signal timing.",
+      result: `
+        <h3>Most likely direction</h3>
+        <ul>
+          <li>Check moving cable sections, carriers, and connector strain relief.</li>
+          <li>Look for broken conductors that only open under motion.</li>
+          <li>If signal duration is short, verify the PLC can actually capture it.</li>
+          <li>Check whether machine vibration is loosening connectors.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/plc-pulse-capture.html", text: "Check PLC Scan Time & Pulse Capture", cls: "" },
+        { href: "/automation-help.html", text: "Get Help With My System", cls: "alt" }
+      ]
+    },
+
+    random_intermittent: {
+      title: "Random intermittent behavior",
+      description: "Random faults usually come from unstable supply, noise, loose wiring, or weak hardware.",
+      result: `
+        <h3>Likely causes</h3>
+        <ul>
+          <li>Loose terminals or poor crimping.</li>
+          <li>Voltage dipping under load.</li>
+          <li>Noise coupling or grounding issues.</li>
+          <li>Marginal sensor or device electronics beginning to fail.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/voltage-drop.html", text: "Calculate Voltage Drop", cls: "" },
+        { href: "/integrators.html", text: "Find an Integrator", cls: "alt" }
+      ]
+    },
+
+    analog_wrong: {
+      title: "Analog value looks wrong",
+      description: "Now determine whether the electrical signal is wrong, or the value is being interpreted wrong.",
+      answers: [
+        { label: "Raw signal is correct but displayed value is wrong", next: "scaling_problem" },
+        { label: "Signal itself is unstable or low", next: "analog_signal_problem" },
+        { label: "Not sure which one yet", next: "analog_basic_checks" }
+      ]
+    },
+
+    scaling_problem: {
+      title: "Raw signal is okay, but value is wrong",
+      description: "That is usually a scaling or engineering unit conversion problem.",
+      result: `
+        <h3>Most likely direction</h3>
+        <ul>
+          <li>Check raw input range versus engineering unit range.</li>
+          <li>Verify whether counts are signed/unsigned as expected.</li>
+          <li>Confirm whether the device is 4-20mA, 0-10V, or another range.</li>
+          <li>Make sure the HMI is not scaling a value that is already scaled in PLC logic.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/analog-scaling.html", text: "Use Analog Scaling Calculator", cls: "" },
+        { href: "/automation-help.html", text: "Get Help With My System", cls: "alt" }
+      ]
+    },
+
+    analog_signal_problem: {
+      title: "Analog signal itself is unstable or low",
+      description: "That usually points toward field wiring, transmitter setup, loop power, noise, or supply issues.",
+      result: `
+        <h3>Best checks</h3>
+        <ul>
+          <li>Measure actual loop current or voltage at the PLC input.</li>
+          <li>Check loop power supply and common reference.</li>
+          <li>Inspect shield termination and grounding method.</li>
+          <li>Look for voltage drop or shared commons creating instability.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/voltage-drop.html", text: "Calculate Voltage Drop", cls: "" },
+        { href: "/wire-gauge-amps.html", text: "Wire Gauge vs Amps", cls: "alt" }
+      ]
+    },
+
+    analog_basic_checks: {
+      title: "Basic analog checks",
+      description: "Separate electrical signal problems from conversion problems first.",
+      result: `
+        <h3>Start here</h3>
+        <ul>
+          <li>Is the raw electrical signal correct at the PLC input?</li>
+          <li>If yes, suspect scaling or display conversion.</li>
+          <li>If no, suspect loop power, field wiring, grounding, or device/transmitter issue.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/analog-scaling.html", text: "Use Analog Scaling Calculator", cls: "" },
+        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "alt" }
+      ]
+    },
+
+    missed_signals: {
+      title: "Signals are being missed",
+      description: "Now determine whether the signal is too short for the PLC to reliably detect.",
+      answers: [
+        { label: "Signal is very short / fast", next: "signal_too_fast" },
+        { label: "Signal seems normal, but still gets missed", next: "input_path_problem" },
+        { label: "Not sure", next: "missed_signal_basic" }
+      ]
+    },
+
+    signal_too_fast: {
+      title: "Signal is very short or fast",
+      description: "This often becomes a scan-time or hardware capture problem, not a logic problem.",
+      result: `
+        <h3>Most likely direction</h3>
+        <ul>
+          <li>The pulse width may be shorter than the PLC scan or module update time.</li>
+          <li>Use immediate input, hardware latch, high-speed input, or different capture method if needed.</li>
+          <li>Do not assume normal cyclic logic will catch every fast event.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/plc-pulse-capture.html", text: "Check PLC Scan Time & Pulse Capture", cls: "" },
+        { href: "/automation-help.html", text: "Get Help With My System", cls: "alt" }
+      ]
+    },
+
+    input_path_problem: {
+      title: "Signal seems normal, but still gets missed",
+      description: "That could still be wiring, noise, debounce/filter settings, or input module behavior.",
+      result: `
+        <h3>Best checks</h3>
+        <ul>
+          <li>Verify the input LED on the card is actually changing.</li>
+          <li>Check input filter settings or debounce.</li>
+          <li>Inspect for noise or bounce on the real signal.</li>
+          <li>Trend whether the miss happens at specific machine states.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/plc-pulse-capture.html", text: "Check PLC Scan Time & Pulse Capture", cls: "" },
+        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "alt" }
+      ]
+    },
+
+    missed_signal_basic: {
+      title: "Basic missed-signal checks",
+      description: "Before changing logic, confirm the PLC is truly seeing the event.",
+      result: `
+        <h3>Start here</h3>
+        <ul>
+          <li>Watch the physical input LED.</li>
+          <li>Compare pulse duration to PLC scan time.</li>
+          <li>Check whether filters or debounce are hiding the event.</li>
+          <li>Decide whether you need high-speed capture hardware.</li>
+        </ul>
+      `,
+      links: [
+        { href: "/plc-pulse-capture.html", text: "Check PLC Scan Time & Pulse Capture", cls: "" },
+        { href: "/automation-help.html", text: "Get Help With My System", cls: "alt" }
+      ]
+    },
+
+    intermittent: {
+      title: "Communication drops in and out",
+      description: "Intermittent faults are usually power, cable, switch, grounding, or addressing stability problems.",
+      answers: [
+        { label: "Multiple nodes drop together", next: "network_wide_issue" },
+        { label: "Only one node or one path drops", next: "node_intermittent" },
+        { label: "Issue seems tied to load, motion, or cycle timing", next: "motion_related_intermittent" }
+      ]
+    }
+  };
+
+  let currentNode = "start";
+  let path = ["Start"];
+
+  function renderNode(nodeKey){
+    currentNode = nodeKey;
+    const node = wizardTree[nodeKey];
+    const title = document.getElementById("questionTitle");
+    const desc = document.getElementById("questionDescription");
+    const buttons = document.getElementById("answerButtons");
+    const resultBox = document.getElementById("resultBox");
+    const pathBox = document.getElementById("pathBox");
+
+    title.textContent = node.title;
+    desc.textContent = node.description;
+    pathBox.innerHTML = "<strong>Path:</strong> " + path.join(" → ");
+    buttons.innerHTML = "";
+    resultBox.style.display = "none";
+    resultBox.innerHTML = "";
+
+    if(node.answers){
+      node.answers.forEach(answer => {
+        const btn = document.createElement("button");
+        btn.className = "wizard-btn";
+        btn.textContent = answer.label;
+        btn.onclick = function(){
+          path.push(answer.label);
+          gtag('event','wizard_answer_click',{'node':nodeKey,'answer':answer.label});
+          renderNode(answer.next);
+        };
+        buttons.appendChild(btn);
+      });
+
+      if(nodeKey !== "start"){
+        const backBtn = document.createElement("button");
+        backBtn.className = "wizard-btn secondary";
+        backBtn.textContent = "Start Over";
+        backBtn.onclick = function(){
+          resetWizard();
+        };
+        buttons.appendChild(backBtn);
+      }
+    }
+
+    if(node.result){
+      buttons.innerHTML = "";
+      resultBox.style.display = "block";
+      resultBox.innerHTML = node.result;
+
+      const actions = document.createElement("div");
+      actions.className = "actions";
+
+      if(node.links){
+        node.links.forEach(link => {
+          const a = document.createElement("a");
+          a.href = link.href;
+          a.textContent = link.text;
+          a.className = link.cls || "";
+          a.onclick = function(){
+            gtag('event','wizard_result_link_click',{'node':nodeKey,'target':link.href});
+          };
+          actions.appendChild(a);
+        });
+      }
+
+      const reset = document.createElement("button");
+      reset.textContent = "Start Over";
+      reset.className = "light";
+      reset.onclick = function(){
+        resetWizard();
+      };
+      actions.appendChild(reset);
+
+      resultBox.appendChild(actions);
+    }
+  }
+
+  function resetWizard(){
+    path = ["Start"];
+    gtag('event','wizard_reset',{'from':currentNode});
+    renderNode("start");
+  }
+
+  renderNode("start");
+</script>
 
 <script>
   fetch("navbar.html?v=20260314")
