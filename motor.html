@@ -261,6 +261,14 @@
       scroll-margin-top:100px;
     }
 
+    .result-followup{
+      margin-top:10px;
+      color:#555;
+      font-size:15px;
+      line-height:1.6;
+      text-align:left;
+    }
+
     .cta-box{
       margin-top:26px;
       padding:22px;
@@ -491,8 +499,31 @@
         Enter values and press <strong>Calculate</strong>.
       </div>
 
+      <p class="result-followup">
+        This is a starting estimate — real systems often require adjustment based on startup load, gearbox selection, and duty cycle.
+      </p>
+
       <div class="cta-box">
-        <h3>Need help applying this to a real machine?</h3>
+        <h3>Still unsure if this motor sizing will hold up in the real system?</h3>
+        <p>
+          If you're sizing a real conveyor or trying to avoid undersizing your motor, get help reviewing your setup before you commit to hardware.
+        </p>
+        <a href="/automation-help.html"
+           onclick="
+             let resultText = document.getElementById('output').innerText;
+             localStorage.setItem('calculated_power', resultText);
+             gtag('event','cta_click',{
+               'location':'motor_page',
+               'target':'automation_help',
+               'value': resultText
+             });
+           ">
+          Get Help With My System
+        </a>
+      </div>
+
+      <div class="cta-box">
+        <h3>Need implementation support?</h3>
         <p>
           Get connected with a qualified automation integrator for your project if you need help with conveyor sizing, reducer selection, controls, or full machine design.
         </p>
