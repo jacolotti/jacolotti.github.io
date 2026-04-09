@@ -8,7 +8,14 @@
     <priority>1.0</priority>
   </url>
 
-  url>
+  <url>
+    <loc>https://automationcalculators.net/automation-help.html/</loc>
+    <lastmod>2026-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <url>
     <loc>https://automationcalculators.net/electrical-symbols-reference-chart.html</loc>
     <lastmod>2026-04-8</lastmod>
     <changefreq>weekly</changefreq>
