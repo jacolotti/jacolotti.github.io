@@ -422,6 +422,12 @@
       Convert 4-20 mA, 0-10 V, or PLC raw counts into engineering units using standard linear scaling.
       Great for transmitters, analog cards, HMIs, PLC logic, and troubleshooting bad values on real machines.
     </p>
+    <div style="max-width:900px;margin:20px auto;padding:14px 16px;background:#f4f8ff;border:1px solid #d7e6ff;border-radius:10px;text-align:center;">
+  Looking for the full workflow?
+  <a href="/plc-electrical.html" style="font-weight:bold;">
+    Start with the PLC & Electrical Overview
+  </a>.
+</div>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
       <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'analog_scaling_hero'});">Find an Integrator</a>
@@ -793,14 +799,14 @@ IF ScaledValue > ${engHigh} THEN ScaledValue := ${engHigh}; END_IF;`;
 </script>
 
 <script>
-  fetch("navbar.html")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar").innerHTML = data;
-    })
-    .catch(error => {
-      console.error("Navbar failed to load:", error);
-    });
+  fetch("navbar.html?v=20260314")
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById("navbar").innerHTML = data;
+  })
+  .catch(error => {
+    console.error("Navbar failed to load:", error);
+  });
 </script>
 
 </body>
