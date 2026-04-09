@@ -93,9 +93,10 @@
   }
 
   .navbar .nav-highlight{
-    background:rgba(255,255,255,.08);
-    border-radius:8px;
-  }
+  background:#ffb400;
+  color:#1f2a44;
+  border-radius:8px;
+}
 
   @media (max-width:900px){
     .navbar{
@@ -219,6 +220,13 @@
 
   <a href="/roi.html">ROI</a>
   <a href="/feedback.html">Feedback</a>
+  <a href="/automation-help.html" class="nav-highlight"
+ onclick="gtag('event','nav_click',{
+   'location':'navbar',
+   'item':'get_help'
+ });">
+  Get Help
+</a>
   <a href="/integrators.html">Integrators</a>
 
 </div>
