@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/adhesive-usage-calculator.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Adhesive Usage Calculator | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Free adhesive usage calculator for automation engineers. Estimate adhesive volume, grams per part, grams per minute, kilograms per shift, and pounds per hour using bead dimensions, parts rate, and adhesive density.">
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      color:#222;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .card h3{
+      color:#1f2a44;
+      margin-top:28px;
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin:0 0 18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:25px 0 20px;
+      text-align:left;
+    }
+
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
+    }
+
+    .control-group input,
+    .control-group select{
+      width:100%;
+      padding:10px 12px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+      font-family:Arial, sans-serif;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .button-row{
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      padding:13px 22px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#1555ad;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+      text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more ul{
+      margin:0 0 12px 20px;
+      color:#555;
+      line-height:1.7;
+    }
+
+    .learn-more li{
+      margin-bottom:8px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .recommendation-box{
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      padding:18px;
+      margin-top:0;
+      margin-bottom:20px;
+    }
+
+    .recommendation-box h3{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .pneumatic-btn{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:8px;
+      font-weight:bold;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .pneumatic-btn:hover{
+      opacity:.95;
+    }
+
+    .pneumatic-consulting{
+      margin-top:20px;
+      padding:20px;
+      background:#f4f8ff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      text-align:left;
+    }
+
+    .pneumatic-consulting h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .pneumatic-consulting p{
+      color:#555;
+      line-height:1.6;
+      margin-bottom:14px;
+    }
+
+    .pneumatic-consulting ul{
+      padding-left:18px;
+      margin:0 0 18px;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Adhesive Usage Calculator</h1>
+    <p>
+      Estimate adhesive volume and material usage per part, per minute, per hour, and per shift using bead dimensions, part rate, and adhesive density.
+    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/nordson-parameters-explained.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'adhesive_usage_hero','to':'nordson_parameters'});">Parameter Explanations</a>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> use this calculator when you need a practical estimate of adhesive consumption before selecting tank size, refill frequency, shift usage, or expected material cost direction.
+  </div>
+
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Adhesive Usage</h2>
+
+      <p class="description">
+        This calculator estimates adhesive consumption using a simple rectangular bead approximation. It is useful for early planning, usage estimates, tank refill expectations, and comparing different bead sizes or production rates.
+      </p>
+
+      <p class="description">
+        It is not a precision metrology tool, but it gives a solid starting point for planning and process conversations.
+      </p>
+
+      <div class="formula-box">
+        Volume Per Bead = Width × Height × Length<br><br>
+        Volume Per Part = Volume Per Bead × Beads Per Part<br><br>
+        Mass = Volume × Density
+      </div>
+
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample1(); gtag('event','adhesive_usage_example',{'type':'small_bead'});">Small Bead</button>
+        <button type="button" onclick="loadExample2(); gtag('event','adhesive_usage_example',{'type':'moderate_bead'});">Moderate Bead</button>
+        <button type="button" onclick="loadExample3(); gtag('event','adhesive_usage_example',{'type':'higher_usage'});">Higher Usage</button>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="beadWidth">Bead Width (mm)</label>
+          <input id="beadWidth" type="number" value="3" min="0.001" step="0.001">
+        </div>
+
+        <div class="control-group">
+          <label for="beadHeight">Bead Height / Thickness (mm)</label>
+          <input id="beadHeight" type="number" value="1" min="0.001" step="0.001">
+        </div>
+
+        <div class="control-group">
+          <label for="beadLength">Bead Length Per Part (mm)</label>
+          <input id="beadLength" type="number" value="150" min="0.001" step="0.001">
+        </div>
+
+        <div class="control-group">
+          <label for="beadsPerPart">Beads Per Part</label>
+          <input id="beadsPerPart" type="number" value="1" min="1" step="1">
+        </div>
+
+        <div class="control-group">
+          <label for="partsPerMinute">Parts Per Minute</label>
+          <input id="partsPerMinute" type="number" value="20" min="0.001" step="0.001">
+        </div>
+
+        <div class="control-group">
+          <label for="density">Adhesive Density (g/cm³)</label>
+          <input id="density" type="number" value="1.0" min="0.001" step="0.001">
+        </div>
+
+        <div class="control-group">
+          <label for="shiftHours">Shift Length (hours)</label>
+          <input id="shiftHours" type="number" value="8" min="0.1" step="0.1">
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="calculate(); gtag('event','adhesive_usage_calculation');">Calculate</button>
+        <button class="secondary" onclick="loadExample1();">Load Example</button>
+        <button class="ghost" onclick="resetCalculator(); gtag('event','adhesive_usage_clear');">Reset</button>
+      </div>
+
+      <div class="result" id="output">
+        Enter values and press <strong>Calculate</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this in your system?</h3>
+        <p>
+          If you are trying to estimate real adhesive demand, tank sizing direction, or process changes, get help reviewing the application.
+        </p>
+        <a href="/automation-help.html"
+           onclick="gtag('event','cta_click',{'location':'adhesive_usage_main','target':'automation_help'});">
+           Get Help With My System
+        </a>
+      </div>
+
+      <div class="cta-box">
+        <h3>Next Step</h3>
+        <p>
+          After estimating adhesive usage, the next useful check is converting line speed and placement needs into practical timing.
+        </p>
+        <a href="/pattern-timing-calculator.html"
+           onclick="gtag('event','next_step_click',{'from':'adhesive_usage','to':'pattern_timing'});">
+           Go to Pattern Timing Calculator →
+        </a>
+      </div>
+
+      <h3>Continue This Section</h3>
+
+      <div class="internal-links">
+        <a href="/adhesive-system-setup.html"
+           onclick="gtag('event','internal_link_click',{'from':'adhesive_usage','to':'adhesive_setup'});">
+           → Setup Guide
+        </a>
+
+        <a href="/nordson-parameters-explained.html"
+           onclick="gtag('event','internal_link_click',{'from':'adhesive_usage','to':'nordson_parameters'});">
+           → Parameter Explanations
+        </a>
+
+        <a href="/pattern-timing-calculator.html"
+           onclick="gtag('event','internal_link_click',{'from':'adhesive_usage','to':'pattern_timing'});">
+           → Step 3: Pattern Timing
+        </a>
+
+        <a href="/hot-melt-troubleshooting.html"
+           onclick="gtag('event','internal_link_click',{'from':'adhesive_usage','to':'hot_melt_troubleshooting'});">
+           Troubleshooting Tool
+        </a>
+      </div>
+
+      <div class="learn-more">
+        <h3>How this calculator works</h3>
+        <p>
+          This tool uses a basic rectangular bead assumption to estimate adhesive volume. Real adhesive beads are often rounded or compressed, so actual usage may differ from the result shown here.
+        </p>
+
+        <p>
+          Even with that limitation, this type of estimate is still useful for comparing one setup against another, checking whether a process is likely to be a low-use or high-use application, and building a material planning starting point.
+        </p>
+
+        <h3>Common uses for this calculator</h3>
+        <ul>
+          <li>Estimating grams per part for a new adhesive application</li>
+          <li>Comparing two different bead sizes before changing process settings</li>
+          <li>Checking expected hourly or shift consumption</li>
+          <li>Estimating refill frequency direction for a melter or tank</li>
+          <li>Supporting cost or production planning conversations</li>
+        </ul>
+
+        <h3>Common mistakes in adhesive usage estimates</h3>
+        <ul>
+          <li>Assuming the visible bead shape is perfectly rectangular</li>
+          <li>Ignoring multiple beads per part</li>
+          <li>Forgetting that line speed changes can alter actual deposited shape</li>
+          <li>Using density values that do not match the actual adhesive family</li>
+          <li>Using one result as a final answer instead of a planning estimate</li>
+        </ul>
+      </div>
+
+      <p class="note">
+        This calculator gives a planning estimate, not a lab-grade measurement. Actual adhesive usage depends on nozzle geometry, true bead shape, compression, substrate interaction, adhesive condition, and process settings.
+      </p>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>Suggested starting point</h3>
+        <div class="recommendation-box">
+          <div id="recommendationText">
+            Run the calculator to see a practical usage note based on your estimated hourly adhesive consumption.
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Volume per bead</li>
+          <li>Volume per part</li>
+          <li>Grams per part</li>
+          <li>Grams per minute</li>
+          <li>Kilograms per shift</li>
+          <li>Pounds per hour</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Best inputs to verify</h3>
+        <ul>
+          <li>Actual bead width</li>
+          <li>Actual bead thickness</li>
+          <li>Total adhesive length per part</li>
+          <li>How many beads each part receives</li>
+          <li>Real parts-per-minute rate</li>
+          <li>Approximate adhesive density</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Need help validating a real application?</h3>
+        <div class="pneumatic-consulting">
+          <p>
+            Submit your adhesive application details and I can help review usage assumptions, process direction, and likely next checks.
+          </p>
+
+          <ul>
+            <li>Usage estimate review</li>
+            <li>Bead assumption reality check</li>
+            <li>Tank sizing direction</li>
+            <li>General automation design support</li>
+          </ul>
+
+          <a href="/automation-help.html" class="pneumatic-btn"
+             onclick="gtag('event','sidebar_help_click',{'from':'adhesive_usage'});">
+             Get Help With Your Application →
+          </a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Whether the bead compresses significantly after application</li>
+          <li>Whether the visible bead is wider than the true deposited cross section</li>
+          <li>Whether production speed varies during the shift</li>
+          <li>Whether multiple patterns overlap on the same part</li>
+          <li>Whether actual adhesive density differs from the estimate used</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  function calculate(){
+    let beadWidth = parseFloat(document.getElementById("beadWidth").value) || 0;
+    let beadHeight = parseFloat(document.getElementById("beadHeight").value) || 0;
+    let beadLength = parseFloat(document.getElementById("beadLength").value) || 0;
+    let beadsPerPart = parseFloat(document.getElementById("beadsPerPart").value) || 0;
+    let partsPerMinute = parseFloat(document.getElementById("partsPerMinute").value) || 0;
+    let density = parseFloat(document.getElementById("density").value) || 0;
+    let shiftHours = parseFloat(document.getElementById("shiftHours").value) || 0;
+
+    const output = document.getElementById("output");
+
+    if(beadWidth <= 0){
+      output.innerHTML = "<strong>Please enter a bead width greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(beadHeight <= 0){
+      output.innerHTML = "<strong>Please enter a bead height greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(beadLength <= 0){
+      output.innerHTML = "<strong>Please enter a bead length greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(beadsPerPart <= 0){
+      output.innerHTML = "<strong>Please enter beads per part greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(partsPerMinute <= 0){
+      output.innerHTML = "<strong>Please enter parts per minute greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(density <= 0){
+      output.innerHTML = "<strong>Please enter adhesive density greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    if(shiftHours <= 0){
+      output.innerHTML = "<strong>Please enter shift length greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    let volumePerBeadMm3 = beadWidth * beadHeight * beadLength;
+    let volumePerPartMm3 = volumePerBeadMm3 * beadsPerPart;
+
+    let volumePerBeadCm3 = volumePerBeadMm3 / 1000;
+    let volumePerPartCm3 = volumePerPartMm3 / 1000;
+
+    let gramsPerBead = volumePerBeadCm3 * density;
+    let gramsPerPart = volumePerPartCm3 * density;
+    let gramsPerMinute = gramsPerPart * partsPerMinute;
+    let gramsPerHour = gramsPerMinute * 60;
+    let kgPerHour = gramsPerHour / 1000;
+    let kgPerShift = kgPerHour * shiftHours;
+    let lbPerHour = gramsPerHour / 453.592;
+    let lbPerShift = (kgPerShift * 1000) / 453.592;
+
+    let recommendation = "";
+
+    if(lbPerHour < 1){
+      recommendation = "This looks like a relatively light adhesive usage application. That usually means material demand is modest, but bead consistency and placement may matter more than bulk consumption.";
+    } else if(lbPerHour < 5){
+      recommendation = "This is a moderate adhesive usage rate. It is worth checking refill planning, bead consistency, and whether usage grows noticeably at higher production speeds.";
+    } else if(lbPerHour < 15){
+      recommendation = "This is a fairly strong adhesive usage rate. At this level, material planning, tank refill frequency, and line stability become more important.";
+    } else {
+      recommendation = "This is a high adhesive usage estimate. It deserves a closer review of actual bead geometry, production assumptions, refill strategy, and whether the process is optimized for material efficiency.";
+    }
+
+    document.getElementById("recommendationText").innerHTML =
+      "<strong>Estimated Usage:</strong> " + lbPerHour.toFixed(2) + " lb/hr<br><br>" +
+      recommendation;
+
+    output.innerHTML =
+      "<strong>Volume Per Bead</strong><br>" +
+      volumePerBeadMm3.toFixed(2) + " mm³<br>" +
+      volumePerBeadCm3.toFixed(4) + " cm³<br><br>" +
+
+      "<strong>Volume Per Part</strong><br>" +
+      volumePerPartMm3.toFixed(2) + " mm³<br>" +
+      volumePerPartCm3.toFixed(4) + " cm³<br><br>" +
+
+      "<strong>Adhesive Per Bead</strong><br>" +
+      gramsPerBead.toFixed(4) + " g<br><br>" +
+
+      "<strong>Adhesive Per Part</strong><br>" +
+      gramsPerPart.toFixed(4) + " g<br><br>" +
+
+      "<strong>Adhesive Usage Per Minute</strong><br>" +
+      gramsPerMinute.toFixed(3) + " g/min<br><br>" +
+
+      "<strong>Adhesive Usage Per Hour</strong><br>" +
+      gramsPerHour.toFixed(2) + " g/hr<br>" +
+      kgPerHour.toFixed(3) + " kg/hr<br>" +
+      lbPerHour.toFixed(3) + " lb/hr<br><br>" +
+
+      "<strong>Estimated Usage Per Shift</strong><br>" +
+      kgPerShift.toFixed(3) + " kg/shift<br>" +
+      lbPerShift.toFixed(3) + " lb/shift<br><br>" +
+
+      "<strong>Interpretation</strong><br>" +
+      recommendation +
+      "<br><br><strong>Next Step:</strong> Use this result with your real line speed and placement requirements to review timing and application control.";
+
+    scrollToOutput();
+  }
+
+  function resetCalculator(){
+    document.getElementById("beadWidth").value = "3";
+    document.getElementById("beadHeight").value = "1";
+    document.getElementById("beadLength").value = "150";
+    document.getElementById("beadsPerPart").value = "1";
+    document.getElementById("partsPerMinute").value = "20";
+    document.getElementById("density").value = "1.0";
+    document.getElementById("shiftHours").value = "8";
+    document.getElementById("output").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
+    document.getElementById("recommendationText").innerHTML =
+      "Run the calculator to see a practical usage note based on your estimated hourly adhesive consumption.";
+  }
+
+  function loadExample1(){
+    document.getElementById("beadWidth").value = "2";
+    document.getElementById("beadHeight").value = "0.8";
+    document.getElementById("beadLength").value = "100";
+    document.getElementById("beadsPerPart").value = "1";
+    document.getElementById("partsPerMinute").value = "25";
+    document.getElementById("density").value = "1.0";
+    document.getElementById("shiftHours").value = "8";
+    calculate();
+  }
+
+  function loadExample2(){
+    document.getElementById("beadWidth").value = "3";
+    document.getElementById("beadHeight").value = "1.2";
+    document.getElementById("beadLength").value = "180";
+    document.getElementById("beadsPerPart").value = "2";
+    document.getElementById("partsPerMinute").value = "18";
+    document.getElementById("density").value = "1.02";
+    document.getElementById("shiftHours").value = "8";
+    calculate();
+  }
+
+  function loadExample3(){
+    document.getElementById("beadWidth").value = "5";
+    document.getElementById("beadHeight").value = "2";
+    document.getElementById("beadLength").value = "250";
+    document.getElementById("beadsPerPart").value = "2";
+    document.getElementById("partsPerMinute").value = "30";
+    document.getElementById("density").value = "1.05";
+    document.getElementById("shiftHours").value = "10";
+    calculate();
+  }
+</script>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
