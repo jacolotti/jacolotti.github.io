@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/hot-melt-troubleshooting.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Hot Melt Adhesive Troubleshooting Tool | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Troubleshoot hot melt adhesive application issues in plain English. Work through no adhesive output, stringing, dripping, poor cutoff, oversized beads, weak beads, nozzle plugging, and placement problems with practical checks and likely causes.">
+
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      color:#222;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .card h3{
+      color:#1f2a44;
+      margin-top:28px;
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin:0 0 18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:25px 0 20px;
+      text-align:left;
+    }
+
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
+    }
+
+    .control-group select,
+    .control-group input{
+      width:100%;
+      padding:10px 12px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+      font-family:Arial, sans-serif;
+    }
+
+    .control-group select:focus,
+    .control-group input:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .button-row{
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      padding:13px 22px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#1555ad;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      font-size:17px;
+      line-height:1.65;
+      font-weight:500;
+      text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .result h3{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f2a44;
+      font-size:22px;
+    }
+
+    .result-block{
+      margin:18px 0 0;
+      padding:16px;
+      background:white;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+    }
+
+    .result-block h4{
+      margin:0 0 10px;
+      color:#1f2a44;
+      font-size:17px;
+    }
+
+    .result-block ul{
+      margin:0;
+      padding-left:20px;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more ul{
+      margin:0 0 12px 20px;
+      color:#555;
+      line-height:1.7;
+    }
+
+    .learn-more li{
+      margin-bottom:8px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .recommendation-box{
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      padding:18px;
+      margin-top:0;
+      margin-bottom:20px;
+    }
+
+    .recommendation-box h3{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .pneumatic-btn{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:8px;
+      font-weight:bold;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .pneumatic-btn:hover{
+      opacity:.95;
+    }
+
+    .pneumatic-consulting{
+      margin-top:20px;
+      padding:20px;
+      background:#f4f8ff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      text-align:left;
+    }
+
+    .pneumatic-consulting h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .pneumatic-consulting p{
+      color:#555;
+      line-height:1.6;
+      margin-bottom:14px;
+    }
+
+    .pneumatic-consulting ul{
+      padding-left:18px;
+      margin:0 0 18px;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Hot Melt Adhesive Troubleshooting Tool</h1>
+    <p>
+      Work through common adhesive application problems using practical checks for temperature, pressure, timing, hardware condition, and process stability.
+    </p>
+    <div class="hero-cta">
+      <a href="#troubleshooter" class="primary">Open Troubleshooter</a>
+      <a href="/nordson-parameters-explained.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'hot_melt_troubleshooter_hero','to':'nordson_parameters'});">Parameter Explanations</a>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrap">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> use this tool when the adhesive system is running poorly and you need a structured starting point before randomly changing temperature, pressure, timing, or hardware.
+  </div>
+
+  <div class="main-grid">
+    <div class="card" id="troubleshooter">
+      <div class="section-label">Troubleshooter</div>
+      <h2>Diagnose Common Hot Melt Problems</h2>
+
+      <p class="description">
+        Most adhesive issues are not solved by turning the temperature up and hoping for the best. Real troubleshooting usually comes down to checking the right combination of process variables, hardware condition, and machine timing.
+      </p>
+
+      <p class="description">
+        Choose the main symptom you are seeing, then use the result as a practical starting point for what to verify first.
+      </p>
+
+      <div class="formula-box">
+        Better Troubleshooting Usually Comes From:<br><br>
+        Identifying The Main Symptom → Checking The Most Likely Causes First → Changing One Variable At A Time
+      </div>
+
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadSymptom('no_output'); gtag('event','hot_melt_example',{'type':'no_output'});">No Adhesive Output</button>
+        <button type="button" onclick="loadSymptom('stringing'); gtag('event','hot_melt_example',{'type':'stringing'});">Stringing</button>
+        <button type="button" onclick="loadSymptom('placement'); gtag('event','hot_melt_example',{'type':'placement'});">Bad Placement</button>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="symptom">Main Symptom</label>
+          <select id="symptom">
+            <option value="no_output">No adhesive output</option>
+            <option value="weak_output">Weak or inconsistent adhesive output</option>
+            <option value="stringing">Stringing or tails</option>
+            <option value="dripping">Dripping after shutoff</option>
+            <option value="poor_cutoff">Poor cutoff / messy stop</option>
+            <option value="oversized_bead">Bead too large</option>
+            <option value="undersized_bead">Bead too small</option>
+            <option value="placement">Bead in wrong location</option>
+            <option value="plugging">Nozzle plugging / restriction</option>
+            <option value="bonding">Weak bond / poor adhesion</option>
+            <option value="char">Charring / burnt adhesive</option>
+            <option value="intermittent">Intermittent application / random variation</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="systemTemp">System Warmed Up and Stable?</label>
+          <select id="systemTemp">
+            <option value="yes">Yes</option>
+            <option value="no">No / not sure</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="airStable">Air Pressure Stable?</label>
+          <select id="airStable">
+            <option value="yes">Yes</option>
+            <option value="no">No / not sure</option>
+            <option value="na">Not applicable / not sure</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="speedChanged">Line Speed Changed Recently?</label>
+          <select id="speedChanged">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+            <option value="unknown">Not sure</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="hardwareCondition">Nozzle / Gun Condition</label>
+          <select id="hardwareCondition">
+            <option value="good">Looks good</option>
+            <option value="dirty">Dirty / char / buildup visible</option>
+            <option value="worn">Possibly worn</option>
+            <option value="unknown">Not checked</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="materialCondition">Adhesive Condition</label>
+          <select id="materialCondition">
+            <option value="normal">Seems normal</option>
+            <option value="old">Old / overheated / questionable</option>
+            <option value="changed">Recently changed adhesive</option>
+            <option value="unknown">Not sure</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button onclick="troubleshoot(); gtag('event','hot_melt_troubleshoot_run');">Troubleshoot</button>
+        <button class="secondary" onclick="loadSymptom('no_output');">Load Example</button>
+        <button class="ghost" onclick="resetTroubleshooter(); gtag('event','hot_melt_troubleshoot_clear');">Reset</button>
+      </div>
+
+      <div class="result" id="output">
+        Choose the symptom and press <strong>Troubleshoot</strong>.
+      </div>
+
+      <div class="cta-box">
+        <h3>Need help applying this in your system?</h3>
+        <p>
+          If you are troubleshooting a live adhesive issue and need a better direction than trial and error, get help reviewing the process.
+        </p>
+        <a href="/automation-help.html"
+           onclick="gtag('event','cta_click',{'location':'hot_melt_troubleshooter_main','target':'automation_help'});">
+           Get Help With My System
+        </a>
+      </div>
+
+      <div class="cta-box">
+        <h3>Next Step</h3>
+        <p>
+          If the issue may be related to line speed or product spacing, use the timing page to convert distance into real gun timing.
+        </p>
+        <a href="/pattern-timing-calculator.html"
+           onclick="gtag('event','next_step_click',{'from':'hot_melt_troubleshooting','to':'pattern_timing'});">
+           Go to Pattern Timing Calculator →
+        </a>
+      </div>
+
+      <h3>Continue This Section</h3>
+
+      <div class="internal-links">
+        <a href="/adhesive-system-setup.html"
+           onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'adhesive_setup'});">
+           → Setup Guide
+        </a>
+
+        <a href="/nordson-parameters-explained.html"
+           onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'nordson_parameters'});">
+           → Parameter Explanations
+        </a>
+
+        <a href="/adhesive-usage-calculator.html"
+           onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'adhesive_usage'});">
+           → Adhesive Usage Calculator
+        </a>
+
+        <a href="/pattern-timing-calculator.html"
+           onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'pattern_timing'});">
+           → Pattern Timing Calculator
+        </a>
+      </div>
+
+      <div class="learn-more">
+        <h3>How to use this tool well</h3>
+        <p>
+          This tool is meant to help you choose a better first direction. It does not replace machine knowledge, adhesive supplier guidance, or equipment manuals, but it does help narrow down the most likely checks.
+        </p>
+
+        <h3>Strong troubleshooting habits</h3>
+        <ul>
+          <li>Start with the main visible symptom, not every symptom at once</li>
+          <li>Confirm warmup and stabilization before changing settings</li>
+          <li>Check hardware condition before assuming the process number is wrong</li>
+          <li>Ask whether line speed changed before chasing temperature</li>
+          <li>Change one variable at a time when possible</li>
+        </ul>
+
+        <h3>Weak troubleshooting habits</h3>
+        <ul>
+          <li>Turning all temperatures up first</li>
+          <li>Changing pressure and timing at the same time</li>
+          <li>Ignoring air quality or actuation pressure on pneumatic guns</li>
+          <li>Assuming the nozzle is clean without checking</li>
+          <li>Trying to solve bad alignment or timing with heat alone</li>
+        </ul>
+      </div>
+
+      <p class="note">
+        This troubleshooting page is a practical starting tool. Real root cause depends on adhesive type, substrate, ambient conditions, equipment model, maintenance condition, process speed, and control timing.
+      </p>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
+    </div>
+
+    <div>
+      <div class="sidebar-card">
+        <h3>Suggested starting point</h3>
+        <div class="recommendation-box">
+          <div id="recommendationText">
+            Run the troubleshooter to get a practical starting direction based on the symptom and conditions you selected.
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>What this tool helps with</h3>
+        <ul>
+          <li>No adhesive output</li>
+          <li>Stringing and dripping</li>
+          <li>Poor cutoff</li>
+          <li>Weak or oversized beads</li>
+          <li>Placement problems</li>
+          <li>Nozzle restriction and hardware issues</li>
+          <li>Bond quality issues</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Most common first checks</h3>
+        <ul>
+          <li>Was the system fully warmed up?</li>
+          <li>Did line speed change?</li>
+          <li>Is the nozzle clean and open?</li>
+          <li>Is air pressure stable?</li>
+          <li>Did the adhesive type change?</li>
+          <li>Is the gun actually opening and closing correctly?</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Need help validating a real application?</h3>
+        <div class="pneumatic-consulting">
+          <p>
+            Submit your adhesive application details and I can help review likely causes, next checks, and process direction.
+          </p>
+
+          <ul>
+            <li>Symptom-based troubleshooting review</li>
+            <li>Timing, pressure, and temperature direction</li>
+            <li>Hardware condition reality check</li>
+            <li>General automation design support</li>
+          </ul>
+
+          <a href="/automation-help.html" class="pneumatic-btn"
+             onclick="gtag('event','sidebar_help_click',{'from':'hot_melt_troubleshooting'});">
+             Get Help With Your Application →
+          </a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Watch the gun physically cycle if safe to do so</li>
+          <li>Verify temperature zones are actually stable, not only set correctly</li>
+          <li>Inspect the nozzle for char or partial restriction</li>
+          <li>Confirm product tracking and trigger timing against line motion</li>
+          <li>Check whether adhesive has been overheated too long in the system</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
+  function loadSymptom(symptom){
+    document.getElementById("symptom").value = symptom;
+    troubleshoot();
+  }
+
+  function resetTroubleshooter(){
+    document.getElementById("symptom").value = "no_output";
+    document.getElementById("systemTemp").value = "yes";
+    document.getElementById("airStable").value = "yes";
+    document.getElementById("speedChanged").value = "no";
+    document.getElementById("hardwareCondition").value = "good";
+    document.getElementById("materialCondition").value = "normal";
+    document.getElementById("output").innerHTML = 'Choose the symptom and press <strong>Troubleshoot</strong>.';
+    document.getElementById("recommendationText").innerHTML =
+      "Run the troubleshooter to get a practical starting direction based on the symptom and conditions you selected.";
+  }
+
+  function troubleshoot(){
+    const symptom = document.getElementById("symptom").value;
+    const systemTemp = document.getElementById("systemTemp").value;
+    const airStable = document.getElementById("airStable").value;
+    const speedChanged = document.getElementById("speedChanged").value;
+    const hardwareCondition = document.getElementById("hardwareCondition").value;
+    const materialCondition = document.getElementById("materialCondition").value;
+
+    let title = "";
+    let summary = "";
+    let likelyCauses = [];
+    let firstChecks = [];
+    let practicalDirection = [];
+    let recommendation = "";
+
+    if(symptom === "no_output"){
+      title = "No Adhesive Output";
+      summary = "Start by separating material flow problems from gun actuation problems. Do not assume temperature is the only cause.";
+      likelyCauses = [
+        "System not fully warmed up or adhesive not truly molten",
+        "Nozzle or module fully blocked",
+        "Gun not actuating due to air or control issue",
+        "Material path restricted or pressure unavailable",
+        "Adhesive degraded or badly charred in the system"
+      ];
+      firstChecks = [
+        "Verify the system has fully reached stable operating temperature",
+        "Check whether the gun is receiving a trigger and physically opening",
+        "Inspect the nozzle and module for blockage",
+        "Confirm adhesive pressure / material supply direction",
+        "Check air actuation if the gun is pneumatic"
+      ];
+      practicalDirection = [
+        "If the system is not fully warm, fix that first before changing settings",
+        "If the gun is not cycling, focus on control or air actuation",
+        "If the gun cycles but nothing comes out, focus on blockage or material supply"
+      ];
+    }
+
+    if(symptom === "weak_output"){
+      title = "Weak or Inconsistent Adhesive Output";
+      summary = "This usually points to unstable material condition, partial restriction, marginal pressure, or variation in actuation.";
+      likelyCauses = [
+        "Partial nozzle restriction",
+        "Unstable adhesive temperature at hose or gun",
+        "Marginal adhesive pressure",
+        "Air instability on a pneumatic applicator",
+        "Changing line conditions or inconsistent trigger behavior"
+      ];
+      firstChecks = [
+        "Inspect for partial nozzle plugging or char",
+        "Verify hose and gun zones are actually stable, not just set correctly",
+        "Check whether air or material pressure is drifting",
+        "Watch for line speed variation or irregular product tracking",
+        "Confirm the adhesive is still in good condition"
+      ];
+      practicalDirection = [
+        "Do not jump straight to higher temperature",
+        "A partly restricted nozzle can look like a pressure or temperature problem",
+        "If output varies cycle to cycle, check actuation and process stability before changing recipe values"
+      ];
+    }
+
+    if(symptom === "stringing"){
+      title = "Stringing or Tails";
+      summary = "Stringing usually comes from adhesive condition, temperature, cutoff behavior, or poor stop response.";
+      likelyCauses = [
+        "Adhesive too hot at the point of application",
+        "Poor cutoff due to worn hardware or slow gun closure",
+        "Nozzle contamination or char",
+        "Material over-delivery for the application speed",
+        "Adhesive degraded from prolonged heating"
+      ];
+      firstChecks = [
+        "Inspect nozzle and module condition closely",
+        "Check whether the gun is closing sharply and consistently",
+        "Review gun temperature and not just tank temperature",
+        "Check whether pressure or output is too high for the target bead",
+        "Confirm the adhesive has not been overheated too long"
+      ];
+      practicalDirection = [
+        "Do not just chase stringing by lowering one temperature blindly",
+        "Cutoff problems often involve hardware condition and response time",
+        "If stringing began gradually, suspect contamination, wear, or adhesive degradation"
+      ];
+    }
+
+    if(symptom === "dripping"){
+      title = "Dripping After Shutoff";
+      summary = "Dripping usually points to poor stop control, worn sealing surfaces, excessive heat, or over-delivery.";
+      likelyCauses = [
+        "Worn or contaminated gun / module sealing surfaces",
+        "Adhesive too hot at the gun",
+        "Too much material pressure for the setup",
+        "Gun closure response too slow",
+        "Residue buildup affecting clean shutoff"
+      ];
+      firstChecks = [
+        "Inspect gun and nozzle condition",
+        "Check gun temperature stability",
+        "Review pressure and bead size assumptions",
+        "Verify pneumatic response if air-operated",
+        "Check whether the symptom is continuous or only after long runtime"
+      ];
+      practicalDirection = [
+        "If the gun hardware is worn, setting changes may only mask the problem temporarily",
+        "If dripping grows worse through the shift, inspect for heat-related material breakdown or contamination"
+      ];
+    }
+
+    if(symptom === "poor_cutoff"){
+      title = "Poor Cutoff / Messy Stop";
+      summary = "Poor cutoff often overlaps with stringing and dripping, but it usually shows up as a stop-quality problem more than a total flow problem.";
+      likelyCauses = [
+        "Gun not closing cleanly",
+        "Worn nozzle or module",
+        "Temperature too high at application point",
+        "Air actuation response too slow or inconsistent",
+        "Material supply too aggressive for desired bead stop"
+      ];
+      firstChecks = [
+        "Inspect the applicator for wear, contamination, or mechanical drag",
+        "Check gun actuation speed and repeatability",
+        "Review gun temperature and material pressure",
+        "Look for nozzle mismatch to application target",
+        "Check whether the cutoff issue follows speed changes"
+      ];
+      practicalDirection = [
+        "Poor cutoff is often more about stopping behavior than melting behavior",
+        "A clean sharp stop depends on both hardware condition and process balance"
+      ];
+    }
+
+    if(symptom === "oversized_bead"){
+      title = "Bead Too Large";
+      summary = "An oversized bead usually means too much material is being deposited for the current line speed and target.";
+      likelyCauses = [
+        "Too much adhesive output",
+        "Line speed lower than expected",
+        "Trigger on-time too long",
+        "Nozzle too large for the target application",
+        "Adhesive too hot and spreading more than expected"
+      ];
+      firstChecks = [
+        "Check whether line speed changed recently",
+        "Review trigger timing and pattern length",
+        "Confirm the nozzle is the intended size",
+        "Review pressure or material delivery settings",
+        "Check whether the adhesive is spreading after application"
+      ];
+      practicalDirection = [
+        "Start with timing and speed relationship before changing temperature",
+        "If line speed slowed down, the same timing can create a much larger pattern"
+      ];
+    }
+
+    if(symptom === "undersized_bead"){
+      title = "Bead Too Small";
+      summary = "A small bead can come from under-delivery, higher line speed, partial restriction, or unstable material condition.";
+      likelyCauses = [
+        "Too little adhesive output",
+        "Line speed higher than expected",
+        "Partial nozzle restriction",
+        "Adhesive too cool or too viscous at the gun",
+        "Trigger on-time too short"
+      ];
+      firstChecks = [
+        "Inspect nozzle condition first",
+        "Check whether line speed increased",
+        "Review output pressure and timing",
+        "Verify hose and gun temperature stability",
+        "Check for inconsistent actuation"
+      ];
+      practicalDirection = [
+        "Do not assume the recipe is wrong until restriction and speed change are ruled out",
+        "A bead that gets smaller only sometimes often points to instability, not simply low output"
+      ];
+    }
+
+    if(symptom === "placement"){
+      title = "Bead in Wrong Location";
+      summary = "Placement problems are often timing, tracking, or mechanical alignment problems rather than temperature problems.";
+      likelyCauses = [
+        "Trigger timing mismatch",
+        "Line speed change not reflected in timing",
+        "Product tracking or sensing issue",
+        "Mechanical gun alignment issue",
+        "Delay in pneumatic response"
+      ];
+      firstChecks = [
+        "Check whether line speed changed",
+        "Verify sensor / trigger position and product tracking",
+        "Review start offset and on-time relative to motion",
+        "Inspect physical gun alignment",
+        "Check for delayed actuation due to air or sticky hardware"
+      ];
+      practicalDirection = [
+        "Use distance thinking, not only time thinking",
+        "If the pattern is consistently early or late, timing and tracking come first",
+        "If placement varies randomly, check sensing and product position stability"
+      ];
+    }
+
+    if(symptom === "plugging"){
+      title = "Nozzle Plugging or Restriction";
+      summary = "Restriction is often caused by contamination, char, degraded adhesive, or too much heat exposure over time.";
+      likelyCauses = [
+        "Char buildup in nozzle or module",
+        "Adhesive degradation from extended heating",
+        "Contamination in the material path",
+        "Inadequate preventive cleaning",
+        "Internal restriction building gradually"
+      ];
+      firstChecks = [
+        "Inspect nozzle and accessible adhesive path for visible char",
+        "Check how long adhesive has been heated in the system",
+        "Review maintenance / cleaning history",
+        "Verify adhesive handling and changeover practices",
+        "Compare current flow with a known-clean condition if possible"
+      ];
+      practicalDirection = [
+        "Restriction problems often get worse gradually, not instantly",
+        "If cleaning fixes the issue briefly, the real problem may still be overheating or contamination upstream"
+      ];
+    }
+
+    if(symptom === "bonding"){
+      title = "Weak Bond / Poor Adhesion";
+      summary = "A bead can look acceptable and still fail to bond well. This problem often involves adhesive choice, substrate condition, open time, or insufficient application amount.";
+      likelyCauses = [
+        "Wrong adhesive for substrate or application",
+        "Open time mismatch",
+        "Too little adhesive applied",
+        "Poor placement or inadequate coverage",
+        "Contaminated, cold, or unsuitable substrate condition"
+      ];
+      firstChecks = [
+        "Verify adhesive type is correct for the substrate",
+        "Check whether the bond is failing because of low quantity or bad location",
+        "Review open time versus actual assembly timing",
+        "Inspect substrate cleanliness and temperature condition",
+        "Check whether bead is compressing or spreading as expected"
+      ];
+      practicalDirection = [
+        "Do not assume a stronger-looking bead automatically means better bond",
+        "Bond quality often involves application timing and material compatibility, not just hotter settings"
+      ];
+    }
+
+    if(symptom === "char"){
+      title = "Charring or Burnt Adhesive";
+      summary = "Char usually means the material has spent too long at damaging heat exposure or the system has contamination buildup.";
+      likelyCauses = [
+        "Adhesive overheated too long in tank or delivery path",
+        "Poor material turnover",
+        "Contamination mixing with hot adhesive",
+        "Hot spots or local buildup areas",
+        "Maintenance interval too long"
+      ];
+      firstChecks = [
+        "Review actual operating temperatures and hold times",
+        "Check how long adhesive sits heated between production periods",
+        "Inspect nozzles and modules for carbonized residue",
+        "Review cleanup and purge practices",
+        "Confirm the adhesive grade is being handled as intended"
+      ];
+      practicalDirection = [
+        "If char keeps returning, lowering one temperature may not solve the real residency-time problem",
+        "Look at process duration, idle heating, and maintenance habits"
+      ];
+    }
+
+    if(symptom === "intermittent"){
+      title = "Intermittent Application / Random Variation";
+      summary = "Random variation usually points to instability somewhere in the process rather than one clearly wrong fixed setting.";
+      likelyCauses = [
+        "Unstable air or material pressure",
+        "Inconsistent trigger / sensing",
+        "Partial restriction moving or changing with runtime",
+        "Temperature instability",
+        "Mechanical stick-slip or marginal actuation"
+      ];
+      firstChecks = [
+        "Watch whether the gun response changes cycle to cycle",
+        "Check for drifting pressures or temperature instability",
+        "Inspect nozzle and hardware condition",
+        "Verify line speed and product tracking consistency",
+        "Ask whether the problem appears more often after warmup or after long runtime"
+      ];
+      practicalDirection = [
+        "Random-looking symptoms are often process stability problems",
+        "If the issue grows with time, suspect contamination, degradation, or heat-related instability"
+      ];
+    }
+
+    if(systemTemp === "no"){
+      firstChecks.unshift("Fully stabilize the system before judging the process");
+      likelyCauses.unshift("System not fully warmed up or not thermally stable yet");
+    }
+
+    if(airStable === "no" && (symptom === "no_output" || symptom === "weak_output" || symptom === "stringing" || symptom === "dripping" || symptom === "poor_cutoff" || symptom === "placement" || symptom === "intermittent")){
+      likelyCauses.unshift("Air pressure instability affecting gun actuation");
+      firstChecks.unshift("Check air pressure, air quality, and pneumatic response first");
+    }
+
+    if(speedChanged === "yes" && (symptom === "oversized_bead" || symptom === "undersized_bead" || symptom === "placement" || symptom === "intermittent")){
+      likelyCauses.unshift("Line speed changed without matching timing or output adjustment");
+      firstChecks.unshift("Review speed-to-timing relationship before changing recipe values");
+    }
+
+    if(hardwareCondition === "dirty"){
+      likelyCauses.unshift("Visible contamination or char affecting flow or cutoff");
+      firstChecks.unshift("Clean and inspect nozzle / gun condition before deeper process changes");
+    }
+
+    if(hardwareCondition === "worn"){
+      likelyCauses.unshift("Wear in applicator hardware causing inconsistent stop or flow behavior");
+      firstChecks.unshift("Check hardware wear before trying to tune around the issue");
+    }
+
+    if(materialCondition === "old"){
+      likelyCauses.unshift("Adhesive degraded by age or extended heating");
+      firstChecks.unshift("Question material condition before increasing temperature");
+    }
+
+    if(materialCondition === "changed"){
+      likelyCauses.unshift("Different adhesive behavior after material change");
+      firstChecks.unshift("Confirm current recipe still matches the new adhesive");
+    }
+
+    recommendation = firstChecks[0];
+
+    document.getElementById("recommendationText").innerHTML =
+      "<strong>Main Direction:</strong> " + recommendation + "<br><br>" +
+      "Most likely symptom path: " + title + ".";
+
+    document.getElementById("output").innerHTML =
+      "<h3>" + title + "</h3>" +
+      "<strong>What this usually means</strong><br>" +
+      summary +
+
+      "<div class='result-block'>" +
+      "<h4>Most Likely Causes</h4>" +
+      "<ul>" + likelyCauses.map(item => "<li>" + item + "</li>").join("") + "</ul>" +
+      "</div>" +
+
+      "<div class='result-block'>" +
+      "<h4>Best First Checks</h4>" +
+      "<ul>" + firstChecks.map(item => "<li>" + item + "</li>").join("") + "</ul>" +
+      "</div>" +
+
+      "<div class='result-block'>" +
+      "<h4>Practical Direction</h4>" +
+      "<ul>" + practicalDirection.map(item => "<li>" + item + "</li>").join("") + "</ul>" +
+      "</div>" +
+
+      "<div class='result-block'>" +
+      "<h4>Next Step</h4>" +
+      "<ul><li>Use this as your starting direction, then change one variable at a time and watch whether the symptom improves, shifts, or stays the same.</li></ul>" +
+      "</div>";
+
+    scrollToOutput();
+  }
+</script>
+
+<script>
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
