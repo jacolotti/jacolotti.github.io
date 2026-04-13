@@ -17,119 +17,901 @@
 
   <title>Adhesive Pattern Timing Calculator | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Convert line speed into adhesive gun timing. Calculate ON time, OFF time, and pattern spacing based on product length, gaps, and conveyor speed.">
+  <meta name="description" content="Free adhesive pattern timing calculator for automation engineers. Convert line speed into gun on-time, off-time, cycle time, and placement timing using product length, product gap, bead length, and start offset.">
 
-<style>
-/* SAME STYLE AS YOUR OTHER PAGES */
-body{font-family:Arial;background:#f4f4f4;margin:0;color:#222;}
-.hero{background:linear-gradient(135deg,#1f2a44,#2d3d63);color:white;padding:40px;text-align:center;}
-.page-wrap{max-width:1100px;margin:30px auto;padding:0 18px;}
-.card{background:white;padding:28px;border-radius:12px;box-shadow:0 0 12px rgba(0,0,0,.08);}
-.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0;}
-.control-group{background:#f8fbff;padding:16px;border-radius:10px;border:1px solid #d7e6ff;}
-.control-group input{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;}
-.button-row{margin-top:20px;}
-.button-row button{padding:12px 20px;background:#1e6bd6;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
-.result{margin-top:20px;padding:20px;background:#e9f1ff;border-radius:10px;}
-</style>
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f4f4f4;
+      margin:0;
+      color:#222;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 32px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:950px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.2;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.6;
+    }
+
+    .hero-cta{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .hero-cta .secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
+    }
+
+    .page-wrap{
+      max-width:1100px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin:0 auto 22px;
+      max-width:1000px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:0 0 12px rgba(0,0,0,.08);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+      text-align:left;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .card h2,
+    .sidebar-card h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .card h3{
+      color:#1f2a44;
+      margin-top:28px;
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin:0 0 18px;
+      color:#555;
+      font-size:16px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:10px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
+      text-align:left;
+    }
+
+    .quick-row{
+      margin:8px 0 22px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .quick-row button{
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cdd8ee;
+      background:#f7f9fd;
+      cursor:pointer;
+      font-weight:600;
+      color:#1f2a44;
+    }
+
+    .quick-row button:hover{
+      background:#eef3fc;
+    }
+
+    .controls{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      gap:16px;
+      margin:25px 0 20px;
+      text-align:left;
+    }
+
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:16px;
+    }
+
+    .control-group label{
+      display:block;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#23314f;
+    }
+
+    .control-group input,
+    .control-group select{
+      width:100%;
+      padding:10px 12px;
+      font-size:16px;
+      box-sizing:border-box;
+      border:1px solid #cfd6e4;
+      border-radius:8px;
+      background:white;
+      font-family:Arial, sans-serif;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+    }
+
+    .button-row{
+      margin:20px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .button-row button{
+      padding:13px 22px;
+      font-size:16px;
+      background:#1e6bd6;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .button-row button.secondary{
+      background:#5a6a85;
+    }
+
+    .button-row button.ghost{
+      background:#e9eef8;
+      color:#1f2a44;
+    }
+
+    .button-row button:hover{
+      background:#1555ad;
+      transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
+    }
+
+    .result{
+      margin-top:25px;
+      padding:20px;
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      font-size:18px;
+      line-height:1.6;
+      font-weight:500;
+      text-align:left;
+      scroll-margin-top:100px;
+    }
+
+    .cta-box{
+      margin-top:26px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+      line-height:1.6;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .note{
+      margin-top:20px;
+      color:#666;
+      font-size:14px;
+      line-height:1.6;
+      text-align:left;
+    }
+
+    .learn-more{
+      margin-top:28px;
+      text-align:left;
+      padding:20px;
+      background:#f4f8ff;
+      border-radius:10px;
+      border:1px solid #d7e6ff;
+    }
+
+    .learn-more h3{
+      color:#1f2a44;
+      margin-top:0;
+      margin-bottom:10px;
+    }
+
+    .learn-more ul{
+      margin:0 0 12px 20px;
+      color:#555;
+      line-height:1.7;
+    }
+
+    .learn-more li{
+      margin-bottom:8px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .recommendation-box{
+      background:#e9f1ff;
+      border:1px solid #c8d9ff;
+      border-radius:10px;
+      padding:18px;
+      margin-top:0;
+      margin-bottom:20px;
+    }
+
+    .recommendation-box h3{
+      margin-top:0;
+      margin-bottom:10px;
+      color:#1f2a44;
+    }
+
+    .sidebar-card p{
+      margin:0 0 14px;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .sidebar-card ul{
+      padding-left:18px;
+      margin:0;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .pneumatic-btn{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      padding:10px 14px;
+      border-radius:8px;
+      font-weight:bold;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .pneumatic-btn:hover{
+      opacity:.95;
+    }
+
+    .pneumatic-consulting{
+      margin-top:20px;
+      padding:20px;
+      background:#f4f8ff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      text-align:left;
+    }
+
+    .pneumatic-consulting h3{
+      margin-top:0;
+      color:#1f2a44;
+    }
+
+    .pneumatic-consulting p{
+      color:#555;
+      line-height:1.6;
+      margin-bottom:14px;
+    }
+
+    .pneumatic-consulting ul{
+      padding-left:18px;
+      margin:0 0 18px;
+      color:#444;
+      line-height:1.7;
+    }
+
+    .footer{
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      text-align:center;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .card,
+      .sidebar-card{
+        padding:20px;
+      }
+
+      .hero h1{
+        font-size:28px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
 <div id="navbar"></div>
 
 <section class="hero">
-  <h1>Adhesive Pattern Timing Calculator</h1>
-  <p>Convert line speed into real gun ON/OFF timing based on product spacing and bead placement.</p>
+  <div class="hero-inner">
+    <h1>Adhesive Pattern Timing Calculator</h1>
+    <p>
+      Convert conveyor speed and product spacing into real gun timing so you can estimate on-time, off-time, and placement timing for adhesive patterns.
+    </p>
+    <div class="hero-cta">
+      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="/hot-melt-troubleshooting.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'pattern_timing_hero','to':'hot_melt_troubleshooting'});">Troubleshooting Tool</a>
+    </div>
+  </div>
 </section>
 
 <div class="page-wrap">
-  <div class="card">
+  <div class="top-note">
+    <strong>Good starting use case:</strong> use this calculator when you know the product spacing and line speed, and you need a practical starting point for adhesive gun on-time, off-time, and bead placement timing.
+  </div>
 
-    <h2>Calculate Gun Timing</h2>
+  <div class="main-grid">
+    <div class="card" id="calculator">
+      <div class="section-label">Calculator</div>
+      <h2>Estimate Adhesive Pattern Timing</h2>
 
-    <div class="controls">
+      <p class="description">
+        This calculator converts line motion into timing. That matters because adhesive application problems are often caused by timing that no longer matches actual conveyor speed or product spacing.
+      </p>
 
-      <div class="control-group">
-        <label>Line Speed (m/min)</label>
-        <input id="speed" type="number" value="30">
+      <p class="description">
+        Instead of guessing at milliseconds directly, start with distance first, then convert it into time. That is usually the cleaner way to think about adhesive placement in real machines.
+      </p>
+
+      <div class="formula-box">
+        Line Speed (mm/sec) = Line Speed (m/min) × 1000 ÷ 60<br><br>
+        Gun ON Time = Bead Length ÷ Line Speed<br><br>
+        Gun OFF Time = Non-Bead Distance ÷ Line Speed
       </div>
 
-      <div class="control-group">
-        <label>Product Length (mm)</label>
-        <input id="productLength" type="number" value="200">
+      <div class="section-label">Quick examples</div>
+      <div class="quick-row">
+        <button type="button" onclick="loadExample1(); gtag('event','pattern_timing_example',{'type':'basic'});">Basic Example</button>
+        <button type="button" onclick="loadExample2(); gtag('event','pattern_timing_example',{'type':'faster_line'});">Faster Line</button>
+        <button type="button" onclick="loadExample3(); gtag('event','pattern_timing_example',{'type':'longer_pattern'});">Longer Pattern</button>
       </div>
 
-      <div class="control-group">
-        <label>Gap Between Products (mm)</label>
-        <input id="gap" type="number" value="50">
+      <div class="controls">
+        <div class="control-group">
+          <label for="lineSpeed">Line Speed (m/min)</label>
+          <input id="lineSpeed" type="number" value="30" min="0.001" step="0.001">
+        </div>
+
+        <div class="control-group">
+          <label for="productLength">Product Length (mm)</label>
+          <input id="productLength" type="number" value="200" min="0.001" step="0.001">
+        </div>
+
+        <div class="control-group">
+          <label for="productGap">Gap Between Products (mm)</label>
+          <input id="productGap" type="number" value="50" min="0" step="0.001">
+        </div>
+
+        <div class="control-group">
+          <label for="startOffset">Bead Start Offset (mm)</label>
+          <input id="startOffset" type="number" value="20" min="0" step="0.001">
+        </div>
+
+        <div class="control-group">
+          <label for="beadLength">Bead Length (mm)</label>
+          <input id="beadLength" type="number" value="150" min="0.001" step="0.001">
+        </div>
+
+        <div class="control-group">
+          <label for="triggerMode">Trigger Reference</label>
+          <select id="triggerMode">
+            <option value="leading">Leading edge trigger</option>
+            <option value="part_start">Part start reference</option>
+          </select>
+        </div>
       </div>
 
-      <div class="control-group">
-        <label>Bead Length (mm)</label>
-        <input id="beadLength" type="number" value="150">
+      <div class="button-row">
+        <button onclick="calculate(); gtag('event','pattern_timing_calculation');">Calculate</button>
+        <button class="secondary" onclick="loadExample1();">Load Example</button>
+        <button class="ghost" onclick="resetCalculator(); gtag('event','pattern_timing_clear');">Reset</button>
       </div>
 
-      <div class="control-group">
-        <label>Start Offset (mm)</label>
-        <input id="offset" type="number" value="20">
+      <div class="result" id="output">
+        Enter values and press <strong>Calculate</strong>.
       </div>
 
+      <div class="cta-box">
+        <h3>Need help applying this in your system?</h3>
+        <p>
+          If your pattern is drifting, landing in the wrong spot, or not matching line conditions, get help reviewing the timing logic and machine assumptions.
+        </p>
+        <a href="/automation-help.html"
+           onclick="gtag('event','cta_click',{'location':'pattern_timing_main','target':'automation_help'});">
+           Get Help With My System
+        </a>
+      </div>
+
+      <div class="cta-box">
+        <h3>Next Step</h3>
+        <p>
+          If the timing looks right but the bead still looks wrong, the next step is troubleshooting process conditions and hardware.
+        </p>
+        <a href="/hot-melt-troubleshooting.html"
+           onclick="gtag('event','next_step_click',{'from':'pattern_timing','to':'hot_melt_troubleshooting'});">
+           Go to Hot Melt Troubleshooting →
+        </a>
+      </div>
+
+      <h3>Continue This Section</h3>
+
+      <div class="internal-links">
+        <a href="/adhesive-system-setup.html"
+           onclick="gtag('event','internal_link_click',{'from':'pattern_timing','to':'adhesive_setup'});">
+           → Setup Guide
+        </a>
+
+        <a href="/nordson-parameters-explained.html"
+           onclick="gtag('event','internal_link_click',{'from':'pattern_timing','to':'nordson_parameters'});">
+           → Parameter Explanations
+        </a>
+
+        <a href="/adhesive-usage-calculator.html"
+           onclick="gtag('event','internal_link_click',{'from':'pattern_timing','to':'adhesive_usage'});">
+           → Adhesive Usage Calculator
+        </a>
+
+        <a href="/hot-melt-troubleshooting.html"
+           onclick="gtag('event','internal_link_click',{'from':'pattern_timing','to':'hot_melt_troubleshooting'});">
+           → Troubleshooting Tool
+        </a>
+      </div>
+
+      <div class="learn-more">
+        <h3>How to use this calculator in real applications</h3>
+        <p>
+          On real equipment, timing values are often entered in milliseconds, but the underlying process problem is usually a distance problem. If line speed changes or product spacing changes, the old timing value may no longer place the bead correctly.
+        </p>
+
+        <p>
+          That is why it is often better to start with speed and distance first, then convert those into an expected timing window.
+        </p>
+
+        <h3>Common uses for this calculator</h3>
+        <ul>
+          <li>Estimating initial gun on-time for a new adhesive pattern</li>
+          <li>Checking whether a line speed increase changed bead location</li>
+          <li>Reviewing off-time between product patterns</li>
+          <li>Comparing placement timing across different product sizes</li>
+          <li>Giving controls or maintenance a cleaner timing starting point</li>
+        </ul>
+
+        <h3>Common mistakes in timing setup</h3>
+        <ul>
+          <li>Thinking only in milliseconds instead of distance and speed</li>
+          <li>Changing temperature when the real issue is trigger timing</li>
+          <li>Ignoring the gap between products</li>
+          <li>Not checking whether line speed actually changed</li>
+          <li>Assuming the gun response is instant with no delay</li>
+        </ul>
+      </div>
+
+      <p class="note">
+        This calculator gives a timing starting point. Actual application timing may still need adjustment for trigger delay, pneumatic response, product tracking, sensor position, and real machine behavior.
+      </p>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators for real automation work
+      </div>
     </div>
 
-    <div class="button-row">
-      <button onclick="calculate()">Calculate</button>
-    </div>
+    <div>
+      <div class="sidebar-card">
+        <h3>Suggested starting point</h3>
+        <div class="recommendation-box">
+          <div id="recommendationText">
+            Run the calculator to see a practical timing note based on your current line speed and pattern length.
+          </div>
+        </div>
+      </div>
 
-    <div class="result" id="output">
-      Enter values and press Calculate.
-    </div>
+      <div class="sidebar-card">
+        <h3>What this calculator gives you</h3>
+        <ul>
+          <li>Line speed in mm/sec</li>
+          <li>Bead start time</li>
+          <li>Gun on-time</li>
+          <li>Gun off-time</li>
+          <li>Total cycle time</li>
+          <li>Pattern spacing interpretation</li>
+        </ul>
+      </div>
 
+      <div class="sidebar-card">
+        <h3>Best inputs to verify</h3>
+        <ul>
+          <li>Actual line speed</li>
+          <li>Real product length</li>
+          <li>True gap between products</li>
+          <li>Desired bead start offset</li>
+          <li>Desired bead length</li>
+          <li>Sensor or trigger reference point</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Need help validating a real application?</h3>
+        <div class="pneumatic-consulting">
+          <p>
+            Submit your adhesive application details and I can help review timing assumptions, line-speed effects, and likely next checks.
+          </p>
+
+          <ul>
+            <li>Timing estimate review</li>
+            <li>Distance-to-time reality check</li>
+            <li>Placement drift review</li>
+            <li>General automation design support</li>
+          </ul>
+
+          <a href="/automation-help.html" class="pneumatic-btn"
+             onclick="gtag('event','sidebar_help_click',{'from':'pattern_timing'});">
+             Get Help With Your Application →
+          </a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Whether the sensor position matches the timing reference</li>
+          <li>Whether line speed changes during the shift</li>
+          <li>Whether pneumatic gun response adds delay</li>
+          <li>Whether product pitch is actually consistent</li>
+          <li>Whether the gun is physically aligned to the intended start point</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
 
 <script>
-function calculate(){
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
 
-  let speed = parseFloat(document.getElementById("speed").value);
-  let productLength = parseFloat(document.getElementById("productLength").value);
-  let gap = parseFloat(document.getElementById("gap").value);
-  let beadLength = parseFloat(document.getElementById("beadLength").value);
-  let offset = parseFloat(document.getElementById("offset").value);
+  function calculate(){
+    let lineSpeed = parseFloat(document.getElementById("lineSpeed").value) || 0;
+    let productLength = parseFloat(document.getElementById("productLength").value) || 0;
+    let productGap = parseFloat(document.getElementById("productGap").value) || 0;
+    let startOffset = parseFloat(document.getElementById("startOffset").value) || 0;
+    let beadLength = parseFloat(document.getElementById("beadLength").value) || 0;
+    let triggerMode = document.getElementById("triggerMode").value;
 
-  let speed_mm_sec = (speed * 1000) / 60;
+    const output = document.getElementById("output");
 
-  let on_time = beadLength / speed_mm_sec;
-  let off_distance = productLength + gap - beadLength;
-  let off_time = off_distance / speed_mm_sec;
+    if(lineSpeed <= 0){
+      output.innerHTML = "<strong>Please enter a line speed greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
 
-  let cycle_distance = productLength + gap;
-  let cycle_time = cycle_distance / speed_mm_sec;
+    if(productLength <= 0){
+      output.innerHTML = "<strong>Please enter a product length greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
 
-  document.getElementById("output").innerHTML = `
-    <strong>Line Speed</strong><br>
-    ${speed_mm_sec.toFixed(2)} mm/sec<br><br>
+    if(productGap < 0){
+      output.innerHTML = "<strong>Please enter a product gap of 0 or greater.</strong>";
+      scrollToOutput();
+      return;
+    }
 
-    <strong>Gun ON Time</strong><br>
-    ${(on_time*1000).toFixed(1)} ms<br><br>
+    if(startOffset < 0){
+      output.innerHTML = "<strong>Please enter a bead start offset of 0 or greater.</strong>";
+      scrollToOutput();
+      return;
+    }
 
-    <strong>Gun OFF Time</strong><br>
-    ${(off_time*1000).toFixed(1)} ms<br><br>
+    if(beadLength <= 0){
+      output.innerHTML = "<strong>Please enter a bead length greater than 0.</strong>";
+      scrollToOutput();
+      return;
+    }
 
-    <strong>Cycle Time</strong><br>
-    ${(cycle_time*1000).toFixed(1)} ms<br><br>
+    if(startOffset >= productLength){
+      output.innerHTML = "<strong>Bead start offset must be smaller than product length.</strong>";
+      scrollToOutput();
+      return;
+    }
 
-    <strong>Interpretation</strong><br>
-    These values represent the timing needed to match your current line speed.
-    If your bead is landing in the wrong location, adjust offset or timing—not temperature.
-  `;
-}
+    if(startOffset + beadLength > productLength){
+      output.innerHTML = "<strong>Bead start offset plus bead length cannot exceed product length.</strong>";
+      scrollToOutput();
+      return;
+    }
+
+    let lineSpeedMmSec = (lineSpeed * 1000) / 60;
+    let cycleDistanceMm = productLength + productGap;
+    let cycleTimeSec = cycleDistanceMm / lineSpeedMmSec;
+    let startTimeSec = startOffset / lineSpeedMmSec;
+    let onTimeSec = beadLength / lineSpeedMmSec;
+    let endOffsetMm = startOffset + beadLength;
+    let endTimeSec = endOffsetMm / lineSpeedMmSec;
+    let offDistanceMm = cycleDistanceMm - beadLength;
+    let offTimeSec = offDistanceMm / lineSpeedMmSec;
+
+    let recommendation = "";
+    let timingComment = "";
+
+    if(onTimeSec * 1000 < 50){
+      recommendation = "This is a very short on-time. At this level, trigger delay, pneumatic response, and controller resolution can have a large effect on actual placement.";
+    } else if(onTimeSec * 1000 < 150){
+      recommendation = "This is a moderate short-duration pattern. It is practical, but timing accuracy still matters a lot if the bead must start and stop cleanly.";
+    } else if(onTimeSec * 1000 < 400){
+      recommendation = "This is a fairly manageable timing window for many applications. It is still important to verify placement against real line speed and actual gun response.";
+    } else {
+      recommendation = "This is a longer on-time pattern. In this range, timing is usually easier to manage, but line speed changes can still shift the bead noticeably.";
+    }
+
+    if(triggerMode === "leading"){
+      timingComment = "This result assumes your timing starts from a leading-edge style trigger reference. If the sensor is mounted away from the actual dispense point, you still need to account for that physical distance.";
+    } else {
+      timingComment = "This result assumes your timing reference is based on the part start position. If the actual trigger comes from a sensor upstream, account for transport distance before finalizing the timing.";
+    }
+
+    document.getElementById("recommendationText").innerHTML =
+      "<strong>Estimated Gun ON Time:</strong> " + (onTimeSec * 1000).toFixed(1) + " ms<br><br>" +
+      recommendation;
+
+    output.innerHTML =
+      "<strong>Line Speed</strong><br>" +
+      lineSpeedMmSec.toFixed(2) + " mm/sec<br><br>" +
+
+      "<strong>Cycle Distance</strong><br>" +
+      cycleDistanceMm.toFixed(2) + " mm<br><br>" +
+
+      "<strong>Total Cycle Time</strong><br>" +
+      cycleTimeSec.toFixed(4) + " sec<br>" +
+      (cycleTimeSec * 1000).toFixed(1) + " ms<br><br>" +
+
+      "<strong>Bead Start Timing</strong><br>" +
+      startTimeSec.toFixed(4) + " sec after reference<br>" +
+      (startTimeSec * 1000).toFixed(1) + " ms after reference<br><br>" +
+
+      "<strong>Gun ON Time</strong><br>" +
+      onTimeSec.toFixed(4) + " sec<br>" +
+      (onTimeSec * 1000).toFixed(1) + " ms<br><br>" +
+
+      "<strong>Bead End Timing</strong><br>" +
+      endTimeSec.toFixed(4) + " sec after reference<br>" +
+      (endTimeSec * 1000).toFixed(1) + " ms after reference<br><br>" +
+
+      "<strong>Gun OFF Time Between Patterns</strong><br>" +
+      offTimeSec.toFixed(4) + " sec<br>" +
+      (offTimeSec * 1000).toFixed(1) + " ms<br><br>" +
+
+      "<strong>Interpretation</strong><br>" +
+      recommendation + " " + timingComment +
+      "<br><br><strong>Next Step:</strong> Compare this result to your real trigger position, product tracking, and actual gun response.";
+
+    scrollToOutput();
+  }
+
+  function resetCalculator(){
+    document.getElementById("lineSpeed").value = "30";
+    document.getElementById("productLength").value = "200";
+    document.getElementById("productGap").value = "50";
+    document.getElementById("startOffset").value = "20";
+    document.getElementById("beadLength").value = "150";
+    document.getElementById("triggerMode").value = "leading";
+    document.getElementById("output").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
+    document.getElementById("recommendationText").innerHTML =
+      "Run the calculator to see a practical timing note based on your current line speed and pattern length.";
+  }
+
+  function loadExample1(){
+    document.getElementById("lineSpeed").value = "30";
+    document.getElementById("productLength").value = "200";
+    document.getElementById("productGap").value = "50";
+    document.getElementById("startOffset").value = "20";
+    document.getElementById("beadLength").value = "150";
+    document.getElementById("triggerMode").value = "leading";
+    calculate();
+  }
+
+  function loadExample2(){
+    document.getElementById("lineSpeed").value = "45";
+    document.getElementById("productLength").value = "180";
+    document.getElementById("productGap").value = "40";
+    document.getElementById("startOffset").value = "15";
+    document.getElementById("beadLength").value = "120";
+    document.getElementById("triggerMode").value = "part_start";
+    calculate();
+  }
+
+  function loadExample3(){
+    document.getElementById("lineSpeed").value = "20";
+    document.getElementById("productLength").value = "300";
+    document.getElementById("productGap").value = "60";
+    document.getElementById("startOffset").value = "30";
+    document.getElementById("beadLength").value = "220";
+    document.getElementById("triggerMode").value = "leading";
+    calculate();
+  }
 </script>
 
 <script>
-fetch("navbar.html")
-.then(r=>r.text())
-.then(data=>document.getElementById("navbar").innerHTML=data);
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
 </script>
 
 </body>
