@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="canonical" href="https://automationcalculators.net/pattern-timing-calculator.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta charset="UTF-8">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <title>Adhesive Pattern Timing Calculator | Automation Calculators</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Convert line speed into adhesive gun timing. Calculate ON time, OFF time, and pattern spacing based on product length, gaps, and conveyor speed.">
+
+<style>
+/* SAME STYLE AS YOUR OTHER PAGES */
+body{font-family:Arial;background:#f4f4f4;margin:0;color:#222;}
+.hero{background:linear-gradient(135deg,#1f2a44,#2d3d63);color:white;padding:40px;text-align:center;}
+.page-wrap{max-width:1100px;margin:30px auto;padding:0 18px;}
+.card{background:white;padding:28px;border-radius:12px;box-shadow:0 0 12px rgba(0,0,0,.08);}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:20px 0;}
+.control-group{background:#f8fbff;padding:16px;border-radius:10px;border:1px solid #d7e6ff;}
+.control-group input{width:100%;padding:10px;border-radius:8px;border:1px solid #ccc;}
+.button-row{margin-top:20px;}
+.button-row button{padding:12px 20px;background:#1e6bd6;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
+.result{margin-top:20px;padding:20px;background:#e9f1ff;border-radius:10px;}
+</style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <h1>Adhesive Pattern Timing Calculator</h1>
+  <p>Convert line speed into real gun ON/OFF timing based on product spacing and bead placement.</p>
+</section>
+
+<div class="page-wrap">
+  <div class="card">
+
+    <h2>Calculate Gun Timing</h2>
+
+    <div class="controls">
+
+      <div class="control-group">
+        <label>Line Speed (m/min)</label>
+        <input id="speed" type="number" value="30">
+      </div>
+
+      <div class="control-group">
+        <label>Product Length (mm)</label>
+        <input id="productLength" type="number" value="200">
+      </div>
+
+      <div class="control-group">
+        <label>Gap Between Products (mm)</label>
+        <input id="gap" type="number" value="50">
+      </div>
+
+      <div class="control-group">
+        <label>Bead Length (mm)</label>
+        <input id="beadLength" type="number" value="150">
+      </div>
+
+      <div class="control-group">
+        <label>Start Offset (mm)</label>
+        <input id="offset" type="number" value="20">
+      </div>
+
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculate()">Calculate</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and press Calculate.
+    </div>
+
+  </div>
+</div>
+
+<script>
+function calculate(){
+
+  let speed = parseFloat(document.getElementById("speed").value);
+  let productLength = parseFloat(document.getElementById("productLength").value);
+  let gap = parseFloat(document.getElementById("gap").value);
+  let beadLength = parseFloat(document.getElementById("beadLength").value);
+  let offset = parseFloat(document.getElementById("offset").value);
+
+  let speed_mm_sec = (speed * 1000) / 60;
+
+  let on_time = beadLength / speed_mm_sec;
+  let off_distance = productLength + gap - beadLength;
+  let off_time = off_distance / speed_mm_sec;
+
+  let cycle_distance = productLength + gap;
+  let cycle_time = cycle_distance / speed_mm_sec;
+
+  document.getElementById("output").innerHTML = `
+    <strong>Line Speed</strong><br>
+    ${speed_mm_sec.toFixed(2)} mm/sec<br><br>
+
+    <strong>Gun ON Time</strong><br>
+    ${(on_time*1000).toFixed(1)} ms<br><br>
+
+    <strong>Gun OFF Time</strong><br>
+    ${(off_time*1000).toFixed(1)} ms<br><br>
+
+    <strong>Cycle Time</strong><br>
+    ${(cycle_time*1000).toFixed(1)} ms<br><br>
+
+    <strong>Interpretation</strong><br>
+    These values represent the timing needed to match your current line speed.
+    If your bead is landing in the wrong location, adjust offset or timing—not temperature.
+  `;
+}
+</script>
+
+<script>
+fetch("navbar.html")
+.then(r=>r.text())
+.then(data=>document.getElementById("navbar").innerHTML=data);
+</script>
+
+</body>
+</html>
