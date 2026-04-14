@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/plc-not-communicating.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>PLC Not Communicating? | Ethernet/IP & HMI Troubleshooting Guide</title>
+  <meta name="description" content="Step-by-step PLC communication troubleshooting guide for Ethernet/IP, HMI communication loss, remote I/O faults, duplicate IP addresses, switch issues, cable problems, and controller network faults.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root{
+      --primary:#1f2a44;
+      --primary-dark:#162033;
+      --accent:#1e6bd6;
+      --bg:#f4f4f4;
+      --card:#ffffff;
+      --soft:#f8fbff;
+      --border:#d7e6ff;
+      --text:#222;
+      --muted:#555;
+      --info-bg:#e9f1ff;
+      --warn-bg:#fff7df;
+      --warn-border:#f1d98a;
+      --warn-text:#5c4a12;
+      --success-bg:#eaf7ea;
+      --success-border:#b9dfb9;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      font-family:Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      margin:0;
+    }
+
+    a{color:var(--accent);}
+
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 34px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:980px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:36px;
+      line-height:1.18;
+    }
+
+    .hero p{
+      max-width:860px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.65;
+    }
+
+    .hero-buttons{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      opacity:.96;
+    }
+
+    .btn-primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .btn-secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .page-wrap{
+      max-width:1120px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:var(--warn-bg);
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
+      padding:14px 16px;
+      border-radius:10px;
+      margin-bottom:22px;
+      line-height:1.6;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:var(--shadow);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    h2,h3,h4{
+      color:#1f2a44;
+      margin-top:0;
+    }
+
+    .description{
+      color:var(--muted);
+      line-height:1.75;
+      margin-bottom:18px;
+    }
+
+    .guide-section{
+      margin-bottom:30px;
+      padding-bottom:22px;
+      border-bottom:1px solid #e7eefc;
+    }
+
+    .guide-section:last-child{
+      border-bottom:none;
+      margin-bottom:0;
+      padding-bottom:0;
+    }
+
+    .info-box{
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:18px;
+      margin:18px 0;
+    }
+
+    .checklist{
+      background:#f4f8ff;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:18px;
+      margin:18px 0 22px;
+    }
+
+    .checklist ul,
+    .info-box ul,
+    .guide-section ul,
+    .sidebar-card ul{
+      margin:10px 0 0 20px;
+      padding:0;
+      line-height:1.8;
+      color:#444;
+    }
+
+    .guide-section li,
+    .sidebar-card li{
+      margin-bottom:8px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#eef5ff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      text-decoration:none;
+      color:#1f2a44;
+      font-weight:600;
+    }
+
+    .link-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .link-list a{
+      display:block;
+      padding:10px 12px;
+      background:#f4f8ff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      text-decoration:none;
+      color:#1f2a44;
+      font-weight:600;
+    }
+
+    .cta-box{
+      margin-top:24px;
+      padding:22px;
+      background:var(--success-bg);
+      border:1px solid var(--success-border);
+      border-radius:10px;
+      text-align:center;
+    }
+
+    .cta-box p{
+      margin:0 0 14px;
+      color:#345;
+      line-height:1.65;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      margin:6px 6px 0;
+      padding:12px 16px;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      border-radius:8px;
+      font-weight:bold;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>PLC Not Communicating?</h1>
+    <p>
+      Use this step-by-step guide to troubleshoot PLC communication problems in real automation systems. Check controller status, Ethernet/IP paths, HMI communication, remote I/O faults, duplicate IP addresses, switch issues, cable problems, and network module status before guessing.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#guide" class="btn btn-primary" onclick="gtag('event','plc_comms_hero_click',{'target':'guide_start'});">Start Troubleshooting</a>
+      <a href="/plc-troubleshooter.html" class="btn btn-secondary" onclick="gtag('event','plc_comms_hero_click',{'target':'plc_troubleshooter'});">Open PLC Troubleshooter</a>
+      <a href="/plc-troubleshooting-guide.html" class="btn btn-secondary" onclick="gtag('event','plc_comms_hero_click',{'target':'plc_guide'});">Open PLC Guide</a>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrap">
+
+  <div class="top-note">
+    <strong>Best use of this page:</strong> first decide whether the problem affects one device, one HMI path, one remote I/O rack, or the whole network. That one distinction saves a lot of wasted troubleshooting.
+  </div>
+
+  <div class="main-grid">
+
+    <div class="card" id="guide">
+
+      <div class="section-label">Guide</div>
+      <h2>Step-by-Step PLC Communication Troubleshooting</h2>
+
+      <p class="description">
+        If the PLC is not communicating, start broad and narrow it down. Communication problems can look like controller failures, HMI faults, remote I/O faults, or field device issues, but the root cause is often simpler: power loss, addressing conflicts, bad cables, switch issues, wrong paths, or a failed network module.
+      </p>
+
+      <div class="cta-box" style="margin-top:0; margin-bottom:22px;">
+        <h3>Need a symptom-based path instead?</h3>
+        <p>
+          Use the interactive PLC troubleshooter if you want help narrowing the issue down based on what the machine is actually doing.
+        </p>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_comms_cta_click',{'target':'troubleshooter_top'});">Start Troubleshooter</a>
+        <a href="/plc-electrical.html" onclick="gtag('event','plc_comms_cta_click',{'target':'plc_electrical_top'});">PLC & Electrical Tools</a>
+      </div>
+
+      <div class="checklist">
+        <h3>Before you start</h3>
+        <ul>
+          <li>Confirm whether the controller itself is powered and in RUN mode.</li>
+          <li>Check whether only one device is offline or multiple devices are affected.</li>
+          <li>Check whether this started after a hardware swap, firmware update, wiring change, or IP change.</li>
+          <li>Know whether the problem is constant or intermittent.</li>
+          <li>Compare real network LEDs and module status to what the HMI message says.</li>
+        </ul>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 1: Make sure the PLC is actually online</h3>
+        <p class="description">
+          A communication problem is not always a network problem. Start by verifying that the controller is alive and healthy before chasing switches, HMIs, or remote nodes.
+        </p>
+        <ul>
+          <li>Check controller power and RUN or FAULT status.</li>
+          <li>Look for major faults or network module faults.</li>
+          <li>Verify the rack or processor has not lost power.</li>
+          <li>Check module LEDs before touching software.</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Simple rule:</strong> if the PLC itself is offline or faulted, do not waste time troubleshooting HMI paths first.
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 2: Decide whether the problem is one path or the whole network</h3>
+        <p class="description">
+          This is one of the most important decisions in communication troubleshooting. If only one HMI or one remote node is offline, suspect the path to that device. If multiple nodes drop together, suspect a bigger network or controller-level issue.
+        </p>
+        <ul>
+          <li>Only the HMI is offline: suspect HMI IP, path, cable, switch port, or runtime issue.</li>
+          <li>Only one remote I/O node is faulted: suspect that device, cable, port, or configuration.</li>
+          <li>Multiple devices are down: suspect switch power, uplink failure, addressing conflict, or controller network issue.</li>
+        </ul>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 3: Check IP address, subnet, and duplicate IP conflicts</h3>
+        <p class="description">
+          Wrong addressing is still one of the most common causes of PLC communication loss, especially after hardware replacement or rushed changes.
+        </p>
+        <ul>
+          <li>Verify the PLC IP address matches the expected network.</li>
+          <li>Check subnet mask and gateway where applicable.</li>
+          <li>Confirm HMI and remote I/O nodes are on the right network.</li>
+          <li>Watch for duplicate IP conflicts after adding or replacing devices.</li>
+          <li>Do not assume the sticker on the device matches its current settings.</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Common mistake:</strong> a replaced node may power up fine but come online with the wrong IP address or default network settings.
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 4: Check cables, connectors, and switch ports</h3>
+        <p class="description">
+          A surprising number of PLC communication faults come down to cable or switch problems, even when the system looks fine at first glance.
+        </p>
+        <ul>
+          <li>Check link and activity LEDs on the controller, switch, HMI, and remote nodes.</li>
+          <li>Swap patch cable or switch port if possible.</li>
+          <li>Inspect M12 or RJ45 connectors for damage, loose seating, or broken locking tabs.</li>
+          <li>Check whether a cabinet switch lost power.</li>
+          <li>Look for damaged cables near motion, doors, or high-vibration areas.</li>
+        </ul>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 5: Verify HMI communication path</h3>
+        <p class="description">
+          If only the HMI says communication lost, the PLC may still be fine. Narrow it down to the HMI side before assuming the controller is at fault.
+        </p>
+        <ul>
+          <li>Check whether the HMI can still reach the PLC address.</li>
+          <li>Verify the HMI is pointed to the correct PLC and path.</li>
+          <li>Confirm the HMI runtime is running normally.</li>
+          <li>Compare communication settings to a known-good backup if changes were made.</li>
+        </ul>
+
+        <div class="internal-links">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_comms_internal_click',{'target':'plc_troubleshooter_hmi'});">Walk Through the Issue</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_comms_internal_click',{'target':'plc_guide_hmi'});">Open PLC Guide</a>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 6: Check remote I/O and Ethernet/IP nodes</h3>
+        <p class="description">
+          If one node is faulted but the rest of the network is fine, treat it as a node-level problem first, not a whole-network failure.
+        </p>
+        <ul>
+          <li>Check whether the node has power and status LEDs.</li>
+          <li>Compare configured hardware to the real part number and revision.</li>
+          <li>Verify the node IP address and subnet.</li>
+          <li>Check for electronic keying or identity mismatch after replacement.</li>
+          <li>Review controller diagnostics for module-specific fault text.</li>
+        </ul>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 7: Treat intermittent communication differently</h3>
+        <p class="description">
+          If communication drops in and out, suspect unstable power, marginal switch ports, duplicate IP conflicts, vibration-sensitive connectors, or network hardware that fails under load.
+        </p>
+        <ul>
+          <li>Trend whether dropouts happen during machine motion, load changes, or at random.</li>
+          <li>Look for switch power instability or overloaded supplies.</li>
+          <li>Inspect connectors and patch cables that may move or vibrate.</li>
+          <li>Check whether another device coming online triggers the issue.</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Intermittent communication</strong> is usually easier to solve when you watch when it fails, not just that it fails.
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 8: Use the right next tool</h3>
+        <p class="description">
+          Once you know whether the problem is controller health, network path, addressing, cabling, or node configuration, move into the right tool or support page instead of guessing.
+        </p>
+
+        <div class="internal-links">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_comms_internal_click',{'target':'plc_troubleshooter_bottom'});">PLC Troubleshooter</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_comms_internal_click',{'target':'plc_guide_bottom'});">PLC Troubleshooting Guide</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_comms_internal_click',{'target':'plc_electrical_bottom'});">PLC & Electrical Hub</a>
+          <a href="/automation-help.html" onclick="gtag('event','plc_comms_internal_click',{'target':'automation_help_bottom'});">Get Help</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Still not sure why communication is failing?</h3>
+        <p>
+          Use the interactive troubleshooter for a symptom-based path, or get help if the machine is down and you need real-world support now.
+        </p>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_comms_cta_click',{'target':'troubleshooter_bottom'});">Start Troubleshooter</a>
+        <a href="/automation-help.html" onclick="gtag('event','plc_comms_cta_click',{'target':'automation_help'});">Get Help With My System</a>
+        <a href="/integrators.html" onclick="gtag('event','plc_comms_cta_click',{'target':'integrators'});">Find an Integrator</a>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators and guides for real automation work
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="sidebar-card">
+        <h3>Common communication symptoms</h3>
+        <ul>
+          <li>HMI says communication lost</li>
+          <li>Remote I/O node is faulted</li>
+          <li>Ethernet/IP device offline</li>
+          <li>PLC disappears from the network</li>
+          <li>Communication works sometimes but not always</li>
+          <li>Only one device or path is offline</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Best companion pages</h3>
+        <div class="link-list">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'plc_guide'});">PLC Troubleshooting Guide</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'plc_electrical'});">PLC & Electrical Hub</a>
+          <a href="/automation-help.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'automation_help'});">Get Help With My System</a>
+          <a href="/integrators.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'integrators'});">Find an Integrator</a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Typical root causes</h3>
+        <ul>
+          <li>PLC powered down or faulted</li>
+          <li>Wrong IP address or subnet</li>
+          <li>Duplicate IP conflict</li>
+          <li>Bad cable or switch port</li>
+          <li>Switch or network segment lost power</li>
+          <li>Wrong HMI communication path</li>
+          <li>Remote node replacement mismatch</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Use this page when:</h3>
+        <ul>
+          <li>The PLC or HMI is not communicating</li>
+          <li>Remote I/O or Ethernet/IP nodes are faulting</li>
+          <li>You want a targeted communication guide instead of a broad checklist</li>
+          <li>You want a search-friendly page that feeds into your tools</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
