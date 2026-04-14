@@ -19,15 +19,266 @@
   </script>
 
   <style>
-    body{font-family:Arial;background:#f4f4f4;margin:0;color:#222;}
-    .container{max-width:1000px;margin:30px auto;padding:20px;background:#fff;border-radius:10px;}
-    h1,h2{color:#1f2a44;}
-    .description{color:#555;line-height:1.7;}
-    .section{margin-bottom:30px;}
-    .cta-box{margin-top:20px;padding:20px;background:#eaf7ea;border-radius:8px;text-align:center;}
-    .cta-box a{display:inline-block;margin-top:10px;padding:10px 14px;background:#1f2a44;color:#fff;text-decoration:none;border-radius:6px;}
-    .note{background:#fff7df;padding:12px;border-radius:8px;margin-bottom:20px;}
-    .links a{display:block;margin:6px 0;color:#1e6bd6;text-decoration:none;}
+    :root{
+      --primary:#1f2a44;
+      --primary-dark:#162033;
+      --accent:#1e6bd6;
+      --bg:#f4f4f4;
+      --card:#ffffff;
+      --soft:#f8fbff;
+      --border:#d7e6ff;
+      --text:#222;
+      --muted:#555;
+      --info-bg:#e9f1ff;
+      --warn-bg:#fff7df;
+      --warn-border:#f1d98a;
+      --warn-text:#5c4a12;
+      --success-bg:#eaf7ea;
+      --success-border:#b9dfb9;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+      --radius:12px;
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      font-family:Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      margin:0;
+    }
+
+    a{color:var(--accent);}
+
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 34px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:980px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:36px;
+      line-height:1.18;
+    }
+
+    .hero p{
+      max-width:860px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.65;
+    }
+
+    .hero-buttons{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      opacity:.96;
+    }
+
+    .btn-primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .btn-secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .page-wrap{
+      max-width:1120px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:var(--warn-bg);
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
+      padding:14px 16px;
+      border-radius:10px;
+      margin-bottom:22px;
+      line-height:1.6;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:var(--shadow);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    h2,h3,h4{
+      color:#1f2a44;
+      margin-top:0;
+    }
+
+    .description{
+      color:var(--muted);
+      line-height:1.75;
+      margin-bottom:18px;
+    }
+
+    .guide-section{
+      margin-bottom:30px;
+      padding-bottom:22px;
+      border-bottom:1px solid #e7eefc;
+    }
+
+    .guide-section:last-child{
+      border-bottom:none;
+      margin-bottom:0;
+      padding-bottom:0;
+    }
+
+    .info-box{
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:18px;
+      margin:18px 0;
+    }
+
+    .info-box ul,
+    .guide-section ul,
+    .sidebar-card ul{
+      margin:10px 0 0 20px;
+      padding:0;
+      line-height:1.8;
+      color:#444;
+    }
+
+    .guide-section li,
+    .sidebar-card li{
+      margin-bottom:8px;
+    }
+
+    .cta-box{
+      margin-top:24px;
+      padding:22px;
+      background:var(--success-bg);
+      border:1px solid var(--success-border);
+      border-radius:10px;
+      text-align:center;
+    }
+
+    .cta-box p{
+      margin:0 0 14px;
+      color:#345;
+      line-height:1.65;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      margin:6px 6px 0;
+      padding:12px 16px;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      border-radius:8px;
+      font-weight:bold;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#eef5ff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      text-decoration:none;
+      color:#1f2a44;
+      font-weight:600;
+    }
+
+    .link-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .link-list a{
+      display:block;
+      padding:10px 12px;
+      background:#f4f8ff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      text-decoration:none;
+      color:#1f2a44;
+      font-weight:600;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:30px;
+      }
+    }
   </style>
 </head>
 
@@ -35,199 +286,253 @@
 
 <div id="navbar"></div>
 
-<div class="container">
+<section class="hero">
+  <div class="hero-inner">
+    <h1>PLC Troubleshooting Guide</h1>
+    <p>
+      Use this step-by-step guide to troubleshoot real PLC problems in automation systems. Start broad, isolate the issue, then move into the right calculator or the interactive troubleshooter.
+    </p>
 
-<h1>PLC Troubleshooting Guide (Real-World Step-by-Step)</h1>
+    <div class="hero-buttons">
+      <a href="/plc-troubleshooter.html" class="btn btn-primary" onclick="gtag('event','plc_guide_hero_click',{'target':'troubleshooter'});">Start Interactive Troubleshooter</a>
+      <a href="/plc-electrical.html" class="btn btn-secondary" onclick="gtag('event','plc_guide_hero_click',{'target':'plc_electrical'});">View PLC & Electrical Tools</a>
+    </div>
+  </div>
+</section>
 
-<p class="description">
-This guide walks through how to troubleshoot PLC systems in the real world — not just theory. 
-Use this when a machine is down, acting inconsistently, or not behaving the way it should.
-</p>
+<div class="page-wrap">
 
-<div class="note">
-<strong>Rule #1:</strong> Always compare what the machine is physically doing vs what the PLC thinks is happening.
-</div>
+  <div class="top-note">
+    <strong>Best use of this guide:</strong> start with the symptom you can verify physically, not the assumption. The fastest PLC troubleshooting usually comes from comparing what the machine is actually doing versus what the PLC thinks is happening.
+  </div>
 
----
+  <div class="main-grid">
 
-<div class="section">
-<h2>Step 1 – Is the PLC Running?</h2>
+    <div class="card">
 
-<p class="description">
-Before chasing anything else, confirm the PLC is actually operational.
-</p>
+      <div class="section-label">Guide</div>
+      <h2>Step-by-Step PLC Troubleshooting for Real Systems</h2>
 
-<ul>
-<li>Is the controller in RUN mode?</li>
-<li>Any major faults present?</li>
-<li>Are I/O modules powered?</li>
-<li>Are status LEDs normal?</li>
-</ul>
+      <p class="description">
+        Most PLC issues are not mysterious programming problems. In real machines, the root cause is often field power, wiring, communication path, scan-time limitations, device configuration, or a mismatch between the real signal and the value being displayed.
+      </p>
 
-<p class="description">
-If the PLC is faulted or not running, nothing else matters yet.
-</p>
-</div>
+      <div class="cta-box">
+        <h3>Need help narrowing it down quickly?</h3>
+        <p>
+          If you are working on a live issue right now, use the interactive PLC troubleshooter to walk through the problem step by step.
+        </p>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_cta_click',{'target':'troubleshooter_top'});">Start Troubleshooter Now</a>
+      </div>
 
----
+      <div class="guide-section">
+        <h3>Step 1: Confirm the PLC is actually running</h3>
+        <p class="description">
+          Before chasing sensors, HMIs, or outputs, verify that the controller is healthy. If the PLC is faulted, powered down, or offline, nothing else matters yet.
+        </p>
+        <ul>
+          <li>Check that the controller is in RUN mode.</li>
+          <li>Look for major faults or module faults.</li>
+          <li>Confirm the rack or remote I/O has power.</li>
+          <li>Check whether communication LEDs look normal.</li>
+          <li>Compare current status to a known-good condition if one exists.</li>
+        </ul>
 
-<div class="section">
-<h2>Step 2 – Communication Problems</h2>
+        <div class="info-box">
+          <strong>Real-world reminder:</strong> a machine can look dead because of a network issue, but a dead controller or powered-down rack changes the whole troubleshooting path. Start there.
+        </div>
+      </div>
 
-<p class="description">
-If HMIs, remote I/O, or devices aren’t communicating, isolate whether it's:
-</p>
+      <div class="guide-section">
+        <h3>Step 2: Check communication problems first</h3>
+        <p class="description">
+          If the HMI is offline, remote I/O is faulted, or devices are dropping from the network, decide whether the problem affects one node or multiple nodes. That tells you whether to suspect device-level issues or a larger network problem.
+        </p>
+        <ul>
+          <li>Check IP addresses, subnet, and gateway if used.</li>
+          <li>Look for duplicate IP conflicts.</li>
+          <li>Verify Ethernet cables, M12 connectors, and switch ports.</li>
+          <li>Check whether the PLC communication module is healthy.</li>
+          <li>Determine whether only one path is down or the whole segment is affected.</li>
+        </ul>
 
-<ul>
-<li>One device</li>
-<li>Multiple devices</li>
-<li>The entire network</li>
-</ul>
+        <div class="internal-links">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_internal_link',{'target':'troubleshooter_comm'});">Use PLC Troubleshooter</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_guide_internal_link',{'target':'plc_electrical_comm'});">Open PLC & Electrical Hub</a>
+        </div>
+      </div>
 
-<ul>
-<li>Check IP addresses and subnet</li>
-<li>Look for duplicate IP conflicts</li>
-<li>Check Ethernet cables and switch ports</li>
-<li>Verify PLC communication module status</li>
-</ul>
+      <div class="guide-section">
+        <h3>Step 3: Verify inputs before blaming logic</h3>
+        <p class="description">
+          If the PLC is not seeing a sensor, prox, switch, or field signal, measure the signal where the PLC receives it. Do not stop at the sensor end and assume the PLC is getting the same thing.
+        </p>
+        <ul>
+          <li>Measure input voltage at the PLC terminal or I/O node.</li>
+          <li>Check whether the device output is actually switching.</li>
+          <li>Verify sourcing and sinking match the hardware design.</li>
+          <li>Watch the input LED on the card if available.</li>
+          <li>If the LED changes but logic does not, suspect mapping, aliasing, or program usage.</li>
+        </ul>
 
-<div class="cta-box">
-  <h3>Need help narrowing it down?</h3>
-  <p>Use the interactive troubleshooting wizard to walk through your issue.</p>
-  <a href="/plc-communication-troubleshooting.html">Start PLC Troubleshooter</a>
-</div>
+        <div class="info-box">
+          <strong>Simple rule:</strong> if the physical input LED never changes, the PLC logic is usually not the first problem.
+        </div>
+      </div>
 
-</div>
+      <div class="guide-section">
+        <h3>Step 4: Check outputs and field power</h3>
+        <p class="description">
+          If the machine is not actuating, verify whether the PLC output is actually turning on and whether the load is receiving usable power under real conditions.
+        </p>
+        <ul>
+          <li>Check whether the PLC output point is active.</li>
+          <li>Measure voltage at the output terminal.</li>
+          <li>Check relay, contactor, valve, or drive control wiring.</li>
+          <li>Verify field power and common return path.</li>
+          <li>Do not confuse a commanded output with a powered load.</li>
+        </ul>
+      </div>
 
----
+      <div class="guide-section">
+        <h3>Step 5: Separate analog signal issues from scaling issues</h3>
+        <p class="description">
+          A bad displayed value is not always a bad signal. First decide whether the raw electrical signal is wrong, or whether the conversion into engineering units is wrong.
+        </p>
+        <ul>
+          <li>Measure the real 4-20mA or 0-10V signal at the PLC input.</li>
+          <li>Check the configured analog range.</li>
+          <li>Make sure signed vs unsigned values are handled correctly.</li>
+          <li>Verify the HMI is not scaling a value that is already scaled in logic.</li>
+          <li>Confirm the device and card are using the same signal type.</li>
+        </ul>
 
-<div class="section">
-<h2>Step 3 – Inputs (Sensors Not Working)</h2>
+        <div class="internal-links">
+          <a href="/analog-scaling.html" onclick="gtag('event','plc_guide_internal_link',{'target':'analog_scaling'});">Use Analog Scaling Calculator</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_guide_internal_link',{'target':'voltage_drop_analog'});">Check Voltage Drop</a>
+        </div>
+      </div>
 
-<p class="description">
-If the PLC isn’t seeing a signal:
-</p>
+      <div class="guide-section">
+        <h3>Step 6: Check scan time and missed signals</h3>
+        <p class="description">
+          If short pulses, fast sensors, or quick events are being missed, the issue may be timing rather than wiring. Normal cyclic scan logic does not catch every fast event.
+        </p>
+        <ul>
+          <li>Compare pulse duration to PLC scan time and module update time.</li>
+          <li>Check input filter or debounce settings.</li>
+          <li>Watch whether the physical input LED changes faster than the logic can respond.</li>
+          <li>Consider immediate input, hardware latch, or high-speed input hardware where needed.</li>
+        </ul>
 
-<ul>
-<li>Check voltage at the PLC input terminal</li>
-<li>Check sensor output (not just power)</li>
-<li>Verify sourcing vs sinking wiring</li>
-<li>Watch input LED on the PLC</li>
-</ul>
+        <div class="internal-links">
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_guide_internal_link',{'target':'plc_pulse_capture'});">Check PLC Scan Time & Pulse Capture</a>
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_internal_link',{'target':'troubleshooter_scan'});">Walk Through the Issue</a>
+        </div>
+      </div>
 
-<p class="description">
-If the LED changes but logic doesn’t → programming issue  
-If LED doesn’t change → wiring or device issue
-</p>
+      <div class="guide-section">
+        <h3>Step 7: Treat intermittent issues differently</h3>
+        <p class="description">
+          Intermittent faults usually mean unstable power, cable damage, loose terminals, vibration, grounding noise, or device electronics that are beginning to fail. These are often harder to catch because the machine works sometimes.
+        </p>
+        <ul>
+          <li>Trend when the issue happens: motion, load change, heat, or random timing.</li>
+          <li>Check for cable flex points and strained connectors.</li>
+          <li>Look for voltage dip under load.</li>
+          <li>Check whether multiple nodes drop together or only one device does.</li>
+          <li>Suspect noise, grounding, or poor shield termination on unstable analog signals.</li>
+        </ul>
 
-</div>
+        <div class="internal-links">
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_guide_internal_link',{'target':'voltage_drop_intermittent'});">Check Voltage Drop</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_guide_internal_link',{'target':'wire_size_intermittent'});">Use Wire Size Calculator</a>
+        </div>
+      </div>
 
----
+      <div class="guide-section">
+        <h3>Step 8: Use the right next tool</h3>
+        <p class="description">
+          Once you know the problem area, move into the right calculator or tool. This saves time and makes your site more useful than a generic checklist page.
+        </p>
 
-<div class="section">
-<h2>Step 4 – Outputs (Actuators Not Responding)</h2>
+        <div class="internal-links">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_internal_link',{'target':'troubleshooter_bottom'});">Interactive PLC Troubleshooter</a>
+          <a href="/analog-scaling.html" onclick="gtag('event','plc_guide_internal_link',{'target':'analog_scaling_bottom'});">Analog Scaling</a>
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_guide_internal_link',{'target':'pulse_capture_bottom'});">PLC Scan Time & Pulse Capture</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_guide_internal_link',{'target':'voltage_drop_bottom'});">Voltage Drop</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_guide_internal_link',{'target':'wire_size_bottom'});">Wire Size Calculator</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_guide_internal_link',{'target':'plc_electrical_bottom'});">PLC & Electrical Hub</a>
+        </div>
+      </div>
 
-<ul>
-<li>Is the PLC output turning on?</li>
-<li>Check voltage at output terminal</li>
-<li>Check relay/contactor wiring</li>
-<li>Verify field device power</li>
-</ul>
+      <div class="cta-box">
+        <h3>Working on a real machine issue?</h3>
+        <p>
+          Use the interactive troubleshooter if you need to narrow it down quickly, or get real-world help if the machine is down and you need support now.
+        </p>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_cta_click',{'target':'troubleshooter_bottom_cta'});">Start Troubleshooter</a>
+        <a href="/automation-help.html" onclick="gtag('event','plc_guide_cta_click',{'target':'automation_help'});">Get Help With My System</a>
+        <a href="/integrators.html" onclick="gtag('event','plc_guide_cta_click',{'target':'integrators'});">Find an Integrator</a>
+      </div>
 
-<p class="description">
-Outputs fail more often due to wiring or field power than PLC logic.
-</p>
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators and guides for real automation work
+      </div>
 
-</div>
+    </div>
 
----
+    <div>
 
-<div class="section">
-<h2>Step 5 – Analog Signals</h2>
+      <div class="sidebar-card">
+        <h3>Best companion pages</h3>
+        <div class="link-list">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'plc_electrical'});">PLC & Electrical Hub</a>
+          <a href="/analog-scaling.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'analog_scaling'});">Analog Scaling Calculator</a>
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'plc_pulse_capture'});">PLC Scan Time & Pulse Capture</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'voltage_drop'});">Voltage Drop Calculator</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'wire_size'});">Wire Size Calculator</a>
+        </div>
+      </div>
 
-<ul>
-<li>Is the raw signal correct?</li>
-<li>Is scaling correct?</li>
-<li>4–20mA vs 0–10V mismatch?</li>
-</ul>
+      <div class="sidebar-card">
+        <h3>Typical root causes</h3>
+        <ul>
+          <li>Wrong IP address, subnet, or duplicate addressing</li>
+          <li>Device powered but not actually communicating</li>
+          <li>Loose or damaged Ethernet cable or connector</li>
+          <li>Weak 24V supply or voltage drop under load</li>
+          <li>Incorrect analog scaling or engineering conversion</li>
+          <li>Pulse width shorter than PLC scan time</li>
+          <li>Noise, grounding, or intermittent cable failure</li>
+        </ul>
+      </div>
 
-<div class="links">
-<a href="/analog-scaling.html">Use Analog Scaling Calculator</a>
-<a href="/voltage-drop.html">Check Voltage Drop</a>
-</div>
+      <div class="sidebar-card">
+        <h3>Use this guide when:</h3>
+        <ul>
+          <li>You want the full troubleshooting workflow</li>
+          <li>You are not sure where to start</li>
+          <li>You need a rankable guide page for search traffic</li>
+          <li>You want to move users into tools and help pages naturally</li>
+        </ul>
+      </div>
 
-</div>
+    </div>
 
----
-
-<div class="section">
-<h2>Step 6 – Missed Signals / Scan Time</h2>
-
-<p class="description">
-Fast signals may not be captured by normal PLC scans.
-</p>
-
-<ul>
-<li>Compare pulse duration to scan time</li>
-<li>Use high-speed inputs if needed</li>
-<li>Check input filters</li>
-</ul>
-
-<div class="links">
-<a href="/plc-pulse-capture.html">Check Scan Time & Pulse Capture</a>
-</div>
-
-</div>
-
----
-
-<div class="section">
-<h2>Step 7 – Intermittent Problems</h2>
-
-<ul>
-<li>Loose wiring</li>
-<li>Bad connectors</li>
-<li>Voltage drops under load</li>
-<li>Noise / grounding issues</li>
-<li>Network instability</li>
-</ul>
-
-<p class="description">
-If it only happens sometimes, suspect:
-<strong>movement, vibration, or load changes</strong>
-</p>
-
-</div>
-
----
-
-<div class="section">
-<h2>Final Advice</h2>
-
-<p class="description">
-Most PLC problems are NOT programming problems.
-</p>
-
-<ul>
-<li>~70% wiring / electrical</li>
-<li>~20% configuration</li>
-<li>~10% logic</li>
-</ul>
-
-<div class="cta-box">
-<h3>Working on a real issue?</h3>
-<p>Get help applying this directly to your system.</p>
-<a href="/automation-help.html">Get Help</a>
-</div>
-
-</div>
-
+  </div>
 </div>
 
 <script>
-fetch("navbar.html")
-.then(res => res.text())
-.then(data => document.getElementById("navbar").innerHTML = data);
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
 </script>
 
 </body>
