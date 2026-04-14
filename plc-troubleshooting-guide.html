@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/plc-troubleshooting-guide.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>PLC Troubleshooting Guide | Step-by-Step for Real Automation Systems</title>
+  <meta name="description" content="Step-by-step PLC troubleshooting guide for real automation systems. Diagnose communication faults, inputs, outputs, analog signals, scan time issues, and intermittent problems.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    body{font-family:Arial;background:#f4f4f4;margin:0;color:#222;}
+    .container{max-width:1000px;margin:30px auto;padding:20px;background:#fff;border-radius:10px;}
+    h1,h2{color:#1f2a44;}
+    .description{color:#555;line-height:1.7;}
+    .section{margin-bottom:30px;}
+    .cta-box{margin-top:20px;padding:20px;background:#eaf7ea;border-radius:8px;text-align:center;}
+    .cta-box a{display:inline-block;margin-top:10px;padding:10px 14px;background:#1f2a44;color:#fff;text-decoration:none;border-radius:6px;}
+    .note{background:#fff7df;padding:12px;border-radius:8px;margin-bottom:20px;}
+    .links a{display:block;margin:6px 0;color:#1e6bd6;text-decoration:none;}
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+<h1>PLC Troubleshooting Guide (Real-World Step-by-Step)</h1>
+
+<p class="description">
+This guide walks through how to troubleshoot PLC systems in the real world — not just theory. 
+Use this when a machine is down, acting inconsistently, or not behaving the way it should.
+</p>
+
+<div class="note">
+<strong>Rule #1:</strong> Always compare what the machine is physically doing vs what the PLC thinks is happening.
+</div>
+
+---
+
+<div class="section">
+<h2>Step 1 – Is the PLC Running?</h2>
+
+<p class="description">
+Before chasing anything else, confirm the PLC is actually operational.
+</p>
+
+<ul>
+<li>Is the controller in RUN mode?</li>
+<li>Any major faults present?</li>
+<li>Are I/O modules powered?</li>
+<li>Are status LEDs normal?</li>
+</ul>
+
+<p class="description">
+If the PLC is faulted or not running, nothing else matters yet.
+</p>
+</div>
+
+---
+
+<div class="section">
+<h2>Step 2 – Communication Problems</h2>
+
+<p class="description">
+If HMIs, remote I/O, or devices aren’t communicating, isolate whether it's:
+</p>
+
+<ul>
+<li>One device</li>
+<li>Multiple devices</li>
+<li>The entire network</li>
+</ul>
+
+<ul>
+<li>Check IP addresses and subnet</li>
+<li>Look for duplicate IP conflicts</li>
+<li>Check Ethernet cables and switch ports</li>
+<li>Verify PLC communication module status</li>
+</ul>
+
+<div class="cta-box">
+  <h3>Need help narrowing it down?</h3>
+  <p>Use the interactive troubleshooting wizard to walk through your issue.</p>
+  <a href="/plc-communication-troubleshooting.html">Start PLC Troubleshooter</a>
+</div>
+
+</div>
+
+---
+
+<div class="section">
+<h2>Step 3 – Inputs (Sensors Not Working)</h2>
+
+<p class="description">
+If the PLC isn’t seeing a signal:
+</p>
+
+<ul>
+<li>Check voltage at the PLC input terminal</li>
+<li>Check sensor output (not just power)</li>
+<li>Verify sourcing vs sinking wiring</li>
+<li>Watch input LED on the PLC</li>
+</ul>
+
+<p class="description">
+If the LED changes but logic doesn’t → programming issue  
+If LED doesn’t change → wiring or device issue
+</p>
+
+</div>
+
+---
+
+<div class="section">
+<h2>Step 4 – Outputs (Actuators Not Responding)</h2>
+
+<ul>
+<li>Is the PLC output turning on?</li>
+<li>Check voltage at output terminal</li>
+<li>Check relay/contactor wiring</li>
+<li>Verify field device power</li>
+</ul>
+
+<p class="description">
+Outputs fail more often due to wiring or field power than PLC logic.
+</p>
+
+</div>
+
+---
+
+<div class="section">
+<h2>Step 5 – Analog Signals</h2>
+
+<ul>
+<li>Is the raw signal correct?</li>
+<li>Is scaling correct?</li>
+<li>4–20mA vs 0–10V mismatch?</li>
+</ul>
+
+<div class="links">
+<a href="/analog-scaling.html">Use Analog Scaling Calculator</a>
+<a href="/voltage-drop.html">Check Voltage Drop</a>
+</div>
+
+</div>
+
+---
+
+<div class="section">
+<h2>Step 6 – Missed Signals / Scan Time</h2>
+
+<p class="description">
+Fast signals may not be captured by normal PLC scans.
+</p>
+
+<ul>
+<li>Compare pulse duration to scan time</li>
+<li>Use high-speed inputs if needed</li>
+<li>Check input filters</li>
+</ul>
+
+<div class="links">
+<a href="/plc-pulse-capture.html">Check Scan Time & Pulse Capture</a>
+</div>
+
+</div>
+
+---
+
+<div class="section">
+<h2>Step 7 – Intermittent Problems</h2>
+
+<ul>
+<li>Loose wiring</li>
+<li>Bad connectors</li>
+<li>Voltage drops under load</li>
+<li>Noise / grounding issues</li>
+<li>Network instability</li>
+</ul>
+
+<p class="description">
+If it only happens sometimes, suspect:
+<strong>movement, vibration, or load changes</strong>
+</p>
+
+</div>
+
+---
+
+<div class="section">
+<h2>Final Advice</h2>
+
+<p class="description">
+Most PLC problems are NOT programming problems.
+</p>
+
+<ul>
+<li>~70% wiring / electrical</li>
+<li>~20% configuration</li>
+<li>~10% logic</li>
+</ul>
+
+<div class="cta-box">
+<h3>Working on a real issue?</h3>
+<p>Get help applying this directly to your system.</p>
+<a href="/automation-help.html">Get Help</a>
+</div>
+
+</div>
+
+</div>
+
+<script>
+fetch("navbar.html")
+.then(res => res.text())
+.then(data => document.getElementById("navbar").innerHTML = data);
+</script>
+
+</body>
+</html>
