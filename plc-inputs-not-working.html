@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/plc-inputs-not-working.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>PLC Inputs Not Working? | Step-by-Step Troubleshooting Guide</title>
+  <meta name="description" content="Step-by-step PLC input troubleshooting guide for sensors, switches, proxes, and field devices. Learn how to check PLC input LEDs, voltage, sourcing vs sinking, wiring faults, and missed signals.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root{
+      --primary:#1f2a44;
+      --primary-dark:#162033;
+      --accent:#1e6bd6;
+      --bg:#f4f4f4;
+      --card:#ffffff;
+      --soft:#f8fbff;
+      --border:#d7e6ff;
+      --text:#222;
+      --muted:#555;
+      --info-bg:#e9f1ff;
+      --warn-bg:#fff7df;
+      --warn-border:#f1d98a;
+      --warn-text:#5c4a12;
+      --success-bg:#eaf7ea;
+      --success-border:#b9dfb9;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      font-family:Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      margin:0;
+    }
+
+    a{color:var(--accent);}
+
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 34px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:980px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:36px;
+      line-height:1.18;
+    }
+
+    .hero p{
+      max-width:860px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.65;
+    }
+
+    .hero-buttons{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      opacity:.96;
+    }
+
+    .btn-primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .btn-secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .page-wrap{
+      max-width:1120px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:var(--warn-bg);
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
+      padding:14px 16px;
+      border-radius:10px;
+      margin-bottom:22px;
+      line-height:1.6;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:var(--shadow);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    h2,h3,h4{
+      color:#1f2a44;
+      margin-top:0;
+    }
+
+    .description{
+      color:var(--muted);
+      line-height:1.75;
+      margin-bottom:18px;
+    }
+
+    .guide-section{
+      margin-bottom:30px;
+      padding-bottom:22px;
+      border-bottom:1px solid #e7eefc;
+    }
+
+    .guide-section:last-child{
+      border-bottom:none;
+      margin-bottom:0;
+      padding-bottom:0;
+    }
+
+    .info-box{
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:18px;
+      margin:18px 0;
+    }
+
+    .checklist{
+      background:#f4f8ff;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:18px;
+      margin:18px 0 22px;
+    }
+
+    .checklist ul,
+    .info-box ul,
+    .guide-section ul,
+    .sidebar-card ul{
+      margin:10px 0 0 20px;
+      padding:0;
+      line-height:1.8;
+      color:#444;
+    }
+
+    .guide-section li,
+    .sidebar-card li{
+      margin-bottom:8px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#eef5ff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      text-decoration:none;
+      color:#1f2a44;
+      font-weight:600;
+    }
+
+    .link-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .link-list a{
+      display:block;
+      padding:10px 12px;
+      background:#f4f8ff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      text-decoration:none;
+      color:#1f2a44;
+      font-weight:600;
+    }
+
+    .cta-box{
+      margin-top:24px;
+      padding:22px;
+      background:var(--success-bg);
+      border:1px solid var(--success-border);
+      border-radius:10px;
+      text-align:center;
+    }
+
+    .cta-box p{
+      margin:0 0 14px;
+      color:#345;
+      line-height:1.65;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      margin:6px 6px 0;
+      padding:12px 16px;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      border-radius:8px;
+      font-weight:bold;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>PLC Inputs Not Working?</h1>
+    <p>
+      Use this step-by-step guide to troubleshoot PLC input problems in real automation systems. Check input LEDs, voltage at the PLC terminal, sourcing vs sinking, wiring faults, sensor output, and scan-time issues before blaming the logic.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#guide" class="btn btn-primary" onclick="gtag('event','plc_inputs_hero_click',{'target':'guide_start'});">Start Troubleshooting</a>
+      <a href="/plc-troubleshooter.html" class="btn btn-secondary" onclick="gtag('event','plc_inputs_hero_click',{'target':'plc_troubleshooter'});">Open PLC Troubleshooter</a>
+      <a href="/plc-troubleshooting-guide.html" class="btn btn-secondary" onclick="gtag('event','plc_inputs_hero_click',{'target':'plc_guide'});">Open PLC Guide</a>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrap">
+
+  <div class="top-note">
+    <strong>Best use of this page:</strong> compare what the field device is physically doing versus what the PLC input is actually receiving. Most "PLC input problems" are really sensor, wiring, field power, or timing problems.
+  </div>
+
+  <div class="main-grid">
+
+    <div class="card" id="guide">
+
+      <div class="section-label">Guide</div>
+      <h2>Step-by-Step PLC Input Troubleshooting</h2>
+
+      <p class="description">
+        If a prox, switch, photoeye, pressure switch, or other field input is not showing up in the PLC, do not jump straight into software changes. Start at the physical input path first. The fastest way to solve input issues is to work from the device to the PLC terminal and verify the signal at each point.
+      </p>
+
+      <div class="cta-box" style="margin-top:0; margin-bottom:22px;">
+        <h3>Not sure where to start?</h3>
+        <p>
+          Use the interactive PLC troubleshooter if you want help narrowing the issue down symptom by symptom.
+        </p>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_inputs_cta_click',{'target':'troubleshooter_top'});">Start Troubleshooter</a>
+        <a href="/plc-electrical.html" onclick="gtag('event','plc_inputs_cta_click',{'target':'plc_electrical_top'});">PLC & Electrical Tools</a>
+      </div>
+
+      <div class="checklist">
+        <h3>Before you start</h3>
+        <ul>
+          <li>Confirm the machine is in a state where the input should actually turn on.</li>
+          <li>Check whether the device has power and status indication.</li>
+          <li>Know whether the input is wired as sourcing or sinking.</li>
+          <li>Check whether this is a constant failure or intermittent problem.</li>
+          <li>Compare the real input point to the correct PLC tag or HMI indication.</li>
+        </ul>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 1: Check the PLC input LED first</h3>
+        <p class="description">
+          This is one of the fastest ways to separate field problems from logic problems. If the physical input LED on the PLC card or remote I/O point never turns on, the PLC logic usually is not the first issue.
+        </p>
+        <ul>
+          <li>If the input LED does not turn on, suspect sensor output, wiring, field power, or the wrong terminal.</li>
+          <li>If the input LED turns on but the tag does not behave as expected, suspect mapping, aliasing, or logic usage.</li>
+          <li>If the LED flickers or is inconsistent, suspect an intermittent signal, weak power, or noise.</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Simple rule:</strong> no physical input LED usually means no real signal at the PLC input.
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 2: Measure voltage at the PLC input terminal</h3>
+        <p class="description">
+          Do not stop at the sensor. Measure where the PLC actually receives the signal. A sensor can appear to work while the PLC input still never sees a valid voltage.
+        </p>
+        <ul>
+          <li>Measure voltage between the input terminal and the correct common or return.</li>
+          <li>Check the input both when the device should be off and when it should be on.</li>
+          <li>Verify the common terminal is correct for that input group.</li>
+          <li>Check whether the signal collapses under load or only looks good with no demand.</li>
+        </ul>
+
+        <div class="internal-links">
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'voltage_drop'});">Check Voltage Drop</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'wire_size'});">Use Wire Size Calculator</a>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 3: Verify sourcing vs sinking</h3>
+        <p class="description">
+          A lot of input problems come from the hardware being wired one way while everyone assumes it is wired the other way. If sourcing and sinking do not match the card and sensor type, the input may never behave correctly.
+        </p>
+        <ul>
+          <li>Confirm whether the PLC input card expects sourcing or sinking field devices.</li>
+          <li>Check the sensor output type and wiring diagram.</li>
+          <li>Verify the group common is landed correctly.</li>
+          <li>Make sure PNP and NPN assumptions are not being mixed up.</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Common mistake:</strong> the sensor may switch correctly, but the PLC input still never turns on because the common path is wrong.
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 4: Check the sensor or switch output directly</h3>
+        <p class="description">
+          If the PLC input is dead, verify whether the field device is actually changing state. Powered is not the same thing as switching.
+        </p>
+        <ul>
+          <li>Check whether the device has a status LED and whether it changes when actuated.</li>
+          <li>Measure the output wire while triggering the device.</li>
+          <li>Inspect connector pinout and cable color assumptions.</li>
+          <li>Check for damaged connectors, bent pins, or broken conductors near motion points.</li>
+        </ul>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 5: Confirm the wiring path all the way through</h3>
+        <p class="description">
+          A good device does not help if the signal never reaches the PLC. Trace the whole path and verify terminals, splice points, quick disconnects, and remote I/O nodes.
+        </p>
+        <ul>
+          <li>Verify the correct PLC input point is being used.</li>
+          <li>Check for loose terminals, poor crimping, or broken strands.</li>
+          <li>Inspect junction boxes, terminal strips, and quick-disconnect cables.</li>
+          <li>Look for swapped wires after maintenance or recent rewiring.</li>
+        </ul>
+
+        <div class="internal-links">
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'plc_guide_mid'});">Open PLC Guide</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'plc_electrical_mid'});">PLC & Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 6: If the LED turns on but the PLC still misses it</h3>
+        <p class="description">
+          This is where timing starts to matter. Fast signals can be real and visible physically, but still get missed by normal scan logic.
+        </p>
+        <ul>
+          <li>Compare pulse duration to PLC scan time and module update time.</li>
+          <li>Check input filter or debounce settings.</li>
+          <li>Look for short events during machine motion or high-speed sequences.</li>
+          <li>Consider high-speed input hardware or latching methods if needed.</li>
+        </ul>
+
+        <div class="internal-links">
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'pulse_capture'});">Check PLC Scan Time & Pulse Capture</a>
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'plc_troubleshooter_mid'});">Walk Through the Issue</a>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 7: Treat intermittent inputs differently</h3>
+        <p class="description">
+          If the input works sometimes, suspect vibration, cable flex, loose terminals, weak field power, or a failing sensor rather than a static logic problem.
+        </p>
+        <ul>
+          <li>Check whether the issue happens during motion or only in certain machine states.</li>
+          <li>Inspect cable carriers and flex points.</li>
+          <li>Look for voltage dips under load.</li>
+          <li>Check whether the sensor body, connector, or cordset moves when the issue happens.</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Intermittent inputs</strong> are usually easier to solve when you trend when they fail, not just whether they fail.
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 8: Use the right next tool</h3>
+        <p class="description">
+          Once you know whether the problem is power, wiring, timing, or a broader PLC issue, move into the right calculator or troubleshooting page instead of guessing.
+        </p>
+
+        <div class="internal-links">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'plc_troubleshooter_bottom'});">PLC Troubleshooter</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'plc_guide_bottom'});">PLC Troubleshooting Guide</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'voltage_drop_bottom'});">Voltage Drop</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'wire_size_bottom'});">Wire Size Calculator</a>
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'pulse_capture_bottom'});">PLC Scan Time & Pulse Capture</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_inputs_internal_click',{'target':'plc_electrical_bottom'});">PLC & Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Still not sure why the input is failing?</h3>
+        <p>
+          Use the interactive troubleshooter for a symptom-based path, or get help if you are dealing with a real machine problem right now.
+        </p>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_inputs_cta_click',{'target':'troubleshooter_bottom'});">Start Troubleshooter</a>
+        <a href="/automation-help.html" onclick="gtag('event','plc_inputs_cta_click',{'target':'automation_help'});">Get Help With My System</a>
+        <a href="/integrators.html" onclick="gtag('event','plc_inputs_cta_click',{'target':'integrators'});">Find an Integrator</a>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators and guides for real automation work
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="sidebar-card">
+        <h3>Common input symptoms</h3>
+        <ul>
+          <li>Sensor LED turns on but PLC input does not</li>
+          <li>PLC input LED never changes</li>
+          <li>Input works only sometimes</li>
+          <li>One input point works, another does not</li>
+          <li>Input is missed during fast machine motion</li>
+          <li>HMI shows false or inconsistent input state</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Best companion pages</h3>
+        <div class="link-list">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_inputs_sidebar_click',{'target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_inputs_sidebar_click',{'target':'plc_guide'});">PLC Troubleshooting Guide</a>
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_inputs_sidebar_click',{'target':'pulse_capture'});">PLC Scan Time & Pulse Capture</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_inputs_sidebar_click',{'target':'voltage_drop'});">Voltage Drop Calculator</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_inputs_sidebar_click',{'target':'wire_size'});">Wire Size Calculator</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_inputs_sidebar_click',{'target':'plc_electrical'});">PLC & Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Typical root causes</h3>
+        <ul>
+          <li>No field power at the device</li>
+          <li>Wrong input common or wrong terminal</li>
+          <li>Sourcing and sinking mismatch</li>
+          <li>Broken conductor or loose terminal</li>
+          <li>Sensor output not actually switching</li>
+          <li>Pulse too short for the PLC to catch</li>
+          <li>Intermittent cable flex or vibration issue</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Use this page when:</h3>
+        <ul>
+          <li>You have one input or sensor that is not being seen</li>
+          <li>You want a targeted guide instead of a broad checklist</li>
+          <li>You need a rankable PLC troubleshooting page</li>
+          <li>You want to move from input problems into the right tools fast</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
