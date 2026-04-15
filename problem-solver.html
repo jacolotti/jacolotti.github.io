@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Start With Your Issue | AutomationCalculators.net</title>
+  <meta name="description" content="Describe your automation issue and get routed to the right calculator, troubleshooting page, or engineering guide.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <link rel="canonical" href="https://automationcalculators.net/problem-solver.html">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+
+    h1, h2, h3 {
+      color: #0f172a;
+      margin-top: 0;
+    }
+
+    .description {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .hero-box {
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
+      color: #fff;
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+
+    .hero-box h1 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .hero-box p {
+      margin: 0;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+
+    .solver-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #111827;
+    }
+
+    select, input[type="text"] {
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #fff;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    button {
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 12px 18px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .secondary-btn {
+      background: #475569;
+    }
+
+    .secondary-btn:hover {
+      background: #334155;
+    }
+
+    .result, .note, .cta-box, .quick-links, .how-it-works, .search-box {
+      margin-top: 24px;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .result {
+      background: #eff6ff;
+      border-left: 5px solid #2563eb;
+      display: none;
+    }
+
+    .note {
+      background: #f8fafc;
+      border-left: 5px solid #94a3b8;
+    }
+
+    .how-it-works {
+      background: #f8fafc;
+      border-left: 5px solid #0ea5e9;
+    }
+
+    .quick-links {
+      background: #f8fafc;
+      border-left: 5px solid #10b981;
+    }
+
+    .search-box {
+      background: #f8fafc;
+      border-left: 5px solid #7c3aed;
+    }
+
+    .quick-links a,
+    .result a,
+    .cta-box a {
+      color: #1d4ed8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .quick-links a:hover,
+    .result a:hover,
+    .cta-box a:hover {
+      text-decoration: underline;
+    }
+
+    .result ul,
+    .quick-links ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+
+    .cta-box {
+      background: #e0f2fe;
+      border-left: 5px solid #0284c7;
+    }
+
+    .cta-box a {
+      display: inline-block;
+      background: #0284c7;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+
+    .cta-box a:hover {
+      background: #0369a1;
+      text-decoration: none;
+    }
+
+    .footer-text {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #64748b;
+    }
+
+    .muted {
+      color: #475569;
+      font-size: 0.95rem;
+    }
+
+    .match-badge {
+      display: inline-block;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        margin: 15px;
+        padding: 20px;
+      }
+
+      .solver-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="navbar"></div>
+
+  <div class="container">
+    <div class="hero-box">
+      <h1>Start With Your Issue</h1>
+      <p>
+        Describe the problem you are seeing, or select a system and issue below.
+        This tool routes you to the best calculator, guide, or troubleshooting page for your situation.
+      </p>
+    </div>
+
+    <p class="description">
+      Real users usually start with a symptom, not a calculator category. They know the cylinder is too slow,
+      the PLC is missing a signal, the weld is weak, or the conveyor motor seems undersized.
+      This page helps them get to the right tool faster.
+    </p>
+
+    <div class="search-box">
+      <h2>Search by Problem</h2>
+      <p class="description">
+        Type your issue in plain language. Examples: “cylinder too slow”, “PLC missing input”, “weak spot weld”, “conveyor motor undersized”.
+      </p>
+
+      <div class="field">
+        <label for="keywordInput">Describe the issue</label>
+        <input type="text" id="keywordInput" placeholder="Example: sensor turns on but PLC misses it">
+      </div>
+
+      <div class="button-row">
+        <button onclick="findByKeyword()">Search by Issue</button>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Or use guided selection:</strong> choose the system first, then choose the issue.
+    </div>
+
+    <div class="solver-grid">
+      <div class="field">
+        <label for="systemSelect">1. Select a system</label>
+        <select id="systemSelect" onchange="populateIssues()">
+          <option value="">-- Choose a system --</option>
+          <option value="pneumatics">Pneumatics</option>
+          <option value="plc">PLC / Electrical</option>
+          <option value="motion">Motors & Motion</option>
+          <option value="robotics">Robotics</option>
+          <option value="welding">Welding</option>
+          <option value="fastening">Fastening</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="issueSelect">2. Select the issue</label>
+        <select id="issueSelect">
+          <option value="">-- Choose an issue --</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="findTool()">Find the Best Tool</button>
+      <button class="secondary-btn" onclick="resetSolver()">Reset</button>
+    </div>
+
+    <div id="resultBox" class="result">
+      <div id="matchBadge" class="match-badge">Best Match</div>
+      <h3 id="resultTitle">Recommended Tool</h3>
+      <p id="resultDescription"></p>
+      <p id="resultReason" class="muted"></p>
+      <p><strong>Primary page:</strong> <a id="primaryLink" href="#">Open Tool</a></p>
+      <div id="relatedLinks"></div>
+    </div>
+
+    <div class="how-it-works">
+      <h2>Why This Works</h2>
+      <p class="description">
+        This gives your site a problem-based entry point instead of forcing users to guess which calculator category fits their issue.
+      </p>
+      <ul>
+        <li>Better user experience for first-time visitors</li>
+        <li>Faster path to the right engineering tool</li>
+        <li>Stronger internal linking between calculators and guides</li>
+        <li>Better conversion potential for help requests</li>
+      </ul>
+    </div>
+
+    <div class="quick-links">
+      <h2>Popular Starting Points</h2>
+      <ul>
+        <li><a href="/pneumatic.html" onclick="gtag('event','problem_solver_quick_link',{'target':'pneumatic_force'});">Pneumatic Force Calculator</a></li>
+        <li><a href="/pneumatic-speed.html" onclick="gtag('event','problem_solver_quick_link',{'target':'pneumatic_speed'});">Pneumatic Speed Calculator</a></li>
+        <li><a href="/air-consumption.html" onclick="gtag('event','problem_solver_quick_link',{'target':'air_consumption'});">Air Consumption Calculator</a></li>
+        <li><a href="/plc-communication-troubleshooting.html" onclick="gtag('event','problem_solver_quick_link',{'target':'plc_troubleshooting'});">PLC Communication Troubleshooter</a></li>
+        <li><a href="/plc-pulse-capture.html" onclick="gtag('event','problem_solver_quick_link',{'target':'plc_pulse_capture'});">PLC Scan Time & Pulse Capture</a></li>
+        <li><a href="/motor.html" onclick="gtag('event','problem_solver_quick_link',{'target':'motor_sizing'});">Conveyor Motor Sizing Calculator</a></li>
+        <li><a href="/robot.html" onclick="gtag('event','problem_solver_quick_link',{'target':'robot_cycle_time'});">Robot Cycle Time Calculator</a></li>
+        <li><a href="/spot-weld.html" onclick="gtag('event','problem_solver_quick_link',{'target':'spot_weld'});">Resistance Spot Weld Starting Parameter Calculator</a></li>
+      </ul>
+    </div>
+
+    <div class="cta-box">
+      <h3>Still not sure where to start?</h3>
+      <p>
+        If you are working through a real machine or process problem, use the automation help page and describe the issue directly.
+      </p>
+      <a href="/automation-help.html" onclick="gtag('event','problem_solver_cta',{'location':'bottom_help'});">Get Help With My System</a>
+    </div>
+
+    <p class="footer-text">
+      Automation Engineering Tools • Practical calculators and troubleshooting tools for real automation work
+    </p>
+  </div>
+
+  <script>
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+
+    const issueMap = {
+      pneumatics: [
+        {
+          label: "Cylinder does not have enough force",
+          title: "Pneumatic Force Calculator",
+          description: "Use this to estimate extend and retract force based on bore, rod, and pressure.",
+          reason: "Best when the issue is low cylinder force, not enough push/pull force, or uncertainty about bore and pressure.",
+          primaryText: "Open Pneumatic Force Calculator",
+          primaryUrl: "/pneumatic.html",
+          related: [
+            { text: "Air Consumption Calculator", url: "/air-consumption.html" },
+            { text: "Pneumatic System Sizing Guide", url: "/pneumatic-system-sizing-guide.html" }
+          ],
+          keywords: ["weak cylinder", "not enough force", "cylinder weak", "low force", "pneumatic force", "won't push", "wont push", "wont pull", "won't pull", "insufficient force"]
+        },
+        {
+          label: "Cylinder is too slow",
+          title: "Pneumatic Speed Calculator",
+          description: "Use this to estimate cylinder speed and understand how bore, stroke, pressure, and flow affect motion.",
+          reason: "Best when the issue is slow cylinder speed, sluggish motion, or slow extension and retraction.",
+          primaryText: "Open Pneumatic Speed Calculator",
+          primaryUrl: "/pneumatic-speed.html",
+          related: [
+            { text: "Air Consumption Calculator", url: "/air-consumption.html" },
+            { text: "Compressed Air Line Size Calculator", url: "/air-line-size-calculator.html" }
+          ],
+          keywords: ["cylinder too slow", "slow cylinder", "slow pneumatic", "pneumatic speed", "sluggish cylinder", "slow extend", "slow retract", "actuator too slow"]
+        },
+        {
+          label: "Air usage seems too high",
+          title: "Air Consumption Calculator",
+          description: "Use this to estimate compressed air demand and understand whether actuator sizing or cycle rate is driving usage.",
+          reason: "Best when the issue is high air usage, compressor load, or uncertainty about consumption per cycle.",
+          primaryText: "Open Air Consumption Calculator",
+          primaryUrl: "/air-consumption.html",
+          related: [
+            { text: "Compressed Air Line Size Calculator", url: "/air-line-size-calculator.html" },
+            { text: "Pneumatic Force Calculator", url: "/pneumatic.html" }
+          ],
+          keywords: ["air usage high", "too much air", "air consumption", "compressed air usage", "compressor running too much", "air demand", "high air usage"]
+        },
+        {
+          label: "Not sure what air line size is needed",
+          title: "Compressed Air Line Size Calculator",
+          description: "Use this to estimate line sizing and reduce pressure loss problems in pneumatic systems.",
+          reason: "Best when the issue is pressure loss, air starvation, or selecting correct line size.",
+          primaryText: "Open Air Line Size Calculator",
+          primaryUrl: "/air-line-size-calculator.html",
+          related: [
+            { text: "Pneumatic System Sizing Guide", url: "/pneumatic-system-sizing-guide.html" },
+            { text: "Air Consumption Calculator", url: "/air-consumption.html" }
+          ],
+          keywords: ["air line size", "line size", "pressure drop air", "pressure loss pneumatic", "pneumatic line size", "hose too small", "air starvation"]
+        }
+      ],
+      plc: [
+        {
+          label: "PLC is not seeing the sensor input",
+          title: "PLC Communication Troubleshooter",
+          description: "Start here to work through sensor power, wiring, input status, communication path, and likely root causes.",
+          reason: "Best when the field device is on but the PLC or HMI is not reading it correctly.",
+          primaryText: "Open PLC Communication Troubleshooter",
+          primaryUrl: "/plc-communication-troubleshooting.html",
+          related: [
+            { text: "PLC Scan Time & Pulse Capture", url: "/plc-pulse-capture.html" },
+            { text: "Voltage Drop Calculator", url: "/voltage-drop.html" }
+          ],
+          keywords: ["plc not seeing input", "sensor on plc off", "plc missing input", "input not detected", "sensor not showing", "plc input problem", "communication issue", "plc trouble"]
+        },
+        {
+          label: "Signal is too fast and may be getting missed",
+          title: "PLC Scan Time & Pulse Capture",
+          description: "Use this to evaluate whether scan time or short pulse duration is causing missed inputs.",
+          reason: "Best when the signal exists physically but is too brief for the PLC scan to catch consistently.",
+          primaryText: "Open PLC Scan Time & Pulse Capture",
+          primaryUrl: "/plc-pulse-capture.html",
+          related: [
+            { text: "PLC Communication Troubleshooter", url: "/plc-communication-troubleshooting.html" },
+            { text: "Analog Scaling Calculator", url: "/analog-scaling.html" }
+          ],
+          keywords: ["signal too fast", "pulse missed", "plc misses pulse", "short pulse", "scan time", "fast input", "missed signal", "plc missing sensor"]
+        },
+        {
+          label: "Analog input needs scaling",
+          title: "Analog Scaling Calculator",
+          description: "Use this to convert raw analog values into engineering units for PLC and HMI use.",
+          reason: "Best when the analog value reads but is not converted correctly into PSI, temperature, level, or other engineering units.",
+          primaryText: "Open Analog Scaling Calculator",
+          primaryUrl: "/analog-scaling.html",
+          related: [
+            { text: "PLC Communication Troubleshooter", url: "/plc-communication-troubleshooting.html" },
+            { text: "Voltage Drop Calculator", url: "/voltage-drop.html" }
+          ],
+          keywords: ["analog scaling", "4-20 scaling", "raw counts", "engineering units", "analog not scaling", "plc analog", "0-10v scaling", "4-20ma scaling"]
+        },
+        {
+          label: "Concerned about wire size or voltage drop",
+          title: "Voltage Drop Calculator",
+          description: "Use this to estimate voltage loss over cable length and verify whether your field device is getting enough voltage.",
+          reason: "Best when the device works inconsistently over distance or the wire run may be too long or too small.",
+          primaryText: "Open Voltage Drop Calculator",
+          primaryUrl: "/voltage-drop.html",
+          related: [
+            { text: "Wire Gauge vs Amps Chart", url: "/wire-gauge-amps.html" },
+            { text: "AWG Wire Gauge Chart", url: "/awg-wire-gauge-chart.html" }
+          ],
+          keywords: ["voltage drop", "wire too small", "low voltage at sensor", "cable run too long", "wire gauge", "field voltage loss", "wire size"]
+        }
+      ],
+      motion: [
+        {
+          label: "Conveyor motor may be undersized",
+          title: "Conveyor Motor Sizing Calculator",
+          description: "Use this to estimate motor power and torque requirements for conveyor applications.",
+          reason: "Best when a conveyor struggles to start, stalls, overheats, or seems underpowered.",
+          primaryText: "Open Conveyor Motor Sizing Calculator",
+          primaryUrl: "/motor.html",
+          related: [
+            { text: "Conveyor Speed Calculator", url: "/conveyor-speed.html" },
+            { text: "Gear Ratio Calculator", url: "/gear-ratio.html" }
+          ],
+          keywords: ["motor undersized", "conveyor motor", "conveyor weak", "motor overheating", "conveyor stalls", "not enough motor torque", "motor sizing"]
+        },
+        {
+          label: "Need to calculate conveyor speed",
+          title: "Conveyor Speed Calculator",
+          description: "Use this to estimate line speed based on pulley or roller parameters and drive speed.",
+          reason: "Best when the issue is line speed, throughput, RPM, or roller speed.",
+          primaryText: "Open Conveyor Speed Calculator",
+          primaryUrl: "/conveyor-speed.html",
+          related: [
+            { text: "Conveyor Motor Sizing Calculator", url: "/motor.html" },
+            { text: "Gearbox Torque Calculator", url: "/gearbox-torque.html" }
+          ],
+          keywords: ["conveyor speed", "line speed", "belt speed", "roller rpm", "throughput speed", "how fast conveyor"]
+        },
+        {
+          label: "Servo torque needs to be checked",
+          title: "Servo Torque Calculator",
+          description: "Use this to estimate required servo torque for acceleration and load conditions.",
+          reason: "Best when checking servo sizing, acceleration load, or torque margin.",
+          primaryText: "Open Servo Torque Calculator",
+          primaryUrl: "/servo-torque.html",
+          related: [
+            { text: "Gear Ratio Calculator", url: "/gear-ratio.html" },
+            { text: "Gearbox Torque Calculator", url: "/gearbox-torque.html" }
+          ],
+          keywords: ["servo torque", "servo sizing", "servo too small", "axis torque", "motion torque", "acceleration torque"]
+        },
+        {
+          label: "Need a gear ratio or gearbox torque check",
+          title: "Gear Ratio Calculator",
+          description: "Use this to estimate ratio requirements based on speed and torque targets.",
+          reason: "Best when selecting or validating a reduction ratio between motor speed and load speed.",
+          primaryText: "Open Gear Ratio Calculator",
+          primaryUrl: "/gear-ratio.html",
+          related: [
+            { text: "Gearbox Torque Calculator", url: "/gearbox-torque.html" },
+            { text: "Servo Torque Calculator", url: "/servo-torque.html" }
+          ],
+          keywords: ["gear ratio", "ratio check", "gearbox ratio", "reduce speed increase torque", "reducer sizing", "gear reduction"]
+        }
+      ],
+      robotics: [
+        {
+          label: "Robot cycle time is too long",
+          title: "Robot Cycle Time Calculator",
+          description: "Use this to estimate robot motion timing and identify where travel distance or motion assumptions are affecting performance.",
+          reason: "Best when robot motion feels slow, throughput is low, or cycle targets are being missed.",
+          primaryText: "Open Robot Cycle Time Calculator",
+          primaryUrl: "/robot.html",
+          related: [
+            { text: "Robot Reach Calculator", url: "/robot-reach.html" },
+            { text: "Robot Payload Calculator", url: "/robot-payload.html" }
+          ],
+          keywords: ["robot too slow", "robot cycle time", "cycle too long", "slow robot", "robot throughput", "robot timing"]
+        },
+        {
+          label: "Need to verify robot reach",
+          title: "Robot Reach Calculator",
+          description: "Use this to check whether the robot can physically access the target work area.",
+          reason: "Best when checking whether the robot can get to the point, fixture, or part location.",
+          primaryText: "Open Robot Reach Calculator",
+          primaryUrl: "/robot-reach.html",
+          related: [
+            { text: "Robot Payload Calculator", url: "/robot-payload.html" },
+            { text: "Robot Cycle Time Calculator", url: "/robot.html" }
+          ],
+          keywords: ["robot reach", "can robot reach", "reach problem", "robot access", "out of reach", "work envelope"]
+        },
+        {
+          label: "Need to verify robot payload",
+          title: "Robot Payload Calculator",
+          description: "Use this to check whether the robot payload is realistic once tooling and part weight are included.",
+          reason: "Best when the payload is close to the limit or tooling weight may be too high.",
+          primaryText: "Open Robot Payload Calculator",
+          primaryUrl: "/robot-payload.html",
+          related: [
+            { text: "Robot Reach Calculator", url: "/robot-reach.html" },
+            { text: "Robot Cycle Time Calculator", url: "/robot.html" }
+          ],
+          keywords: ["robot payload", "payload too heavy", "tool too heavy", "robot weight limit", "eoat too heavy"]
+        }
+      ],
+      welding: [
+        {
+          label: "Spot weld seems weak",
+          title: "Resistance Spot Weld Starting Parameter Calculator",
+          description: "Use this to estimate a practical starting point for weld current, force, and time.",
+          reason: "Best when the weld nugget is weak, inconsistent, or you need a practical starting point.",
+          primaryText: "Open Spot Weld Calculator",
+          primaryUrl: "/spot-weld.html",
+          related: [
+            { text: "Projection Weld Calculator", url: "/projection-weld.html" },
+            { text: "Coolant Flow & Line Sizing", url: "/coolant-flow-sizing.html" }
+          ],
+          keywords: ["weak weld", "spot weld weak", "bad weld", "weld nugget small", "inconsistent weld", "spot weld problem"]
+        },
+        {
+          label: "Projection weld needs starting parameters",
+          title: "Projection Weld Calculator",
+          description: "Use this to estimate starting values for projection welding applications.",
+          reason: "Best when setting up or troubleshooting a projection welding application.",
+          primaryText: "Open Projection Weld Calculator",
+          primaryUrl: "/projection-weld.html",
+          related: [
+            { text: "Spot Weld Calculator", url: "/spot-weld.html" },
+            { text: "Coolant Flow & Line Sizing", url: "/coolant-flow-sizing.html" }
+          ],
+          keywords: ["projection weld", "projection welding setup", "projection weld parameters", "projection weld problem"]
+        },
+        {
+          label: "Need coolant flow or line sizing",
+          title: "Coolant Flow & Line Sizing",
+          description: "Use this to estimate coolant requirements and line sizing for welding and thermal management applications.",
+          reason: "Best when the system is running hot, cooling is questionable, or line size needs checked.",
+          primaryText: "Open Coolant Flow & Sizing Page",
+          primaryUrl: "/coolant-flow-sizing.html",
+          related: [
+            { text: "Spot Weld Calculator", url: "/spot-weld.html" },
+            { text: "Projection Weld Calculator", url: "/projection-weld.html" }
+          ],
+          keywords: ["coolant flow", "coolant size", "cooling line size", "weld cooling", "water line sizing", "coolant too low"]
+        }
+      ],
+      fastening: [
+        {
+          label: "Need torque to clamp load estimate",
+          title: "Torque to Clamp Load Calculator",
+          description: "Use this to estimate clamp load from applied torque for bolted joints.",
+          reason: "Best when the real question is how much clamp load results from tightening torque.",
+          primaryText: "Open Torque to Clamp Load Calculator",
+          primaryUrl: "/torque-clamp-load.html",
+          related: [
+            { text: "Torque Angle Calculator", url: "/torque-angle.html" },
+            { text: "Bolt Tightening Torque Calculator", url: "/bolt-tightening-torque.html" }
+          ],
+          keywords: ["clamp load", "torque clamp", "bolt clamp load", "fastener clamp", "joint preload"]
+        },
+        {
+          label: "Need torque angle guidance",
+          title: "Torque Angle Calculator",
+          description: "Use this to estimate angle-based tightening relationships for fastening applications.",
+          reason: "Best when the process uses torque-plus-angle or angle-based tightening.",
+          primaryText: "Open Torque Angle Calculator",
+          primaryUrl: "/torque-angle.html",
+          related: [
+            { text: "Torque to Clamp Load Calculator", url: "/torque-clamp-load.html" },
+            { text: "Bolt Tightening Torque Calculator", url: "/bolt-tightening-torque.html" }
+          ],
+          keywords: ["torque angle", "angle tightening", "torque plus angle", "bolt angle", "fastener angle"]
+        },
+        {
+          label: "Need general bolt tightening torque reference",
+          title: "Bolt Tightening Torque Calculator",
+          description: "Use this to estimate bolt tightening torque for practical fastening work.",
+          reason: "Best when selecting a reasonable torque value for a bolted joint.",
+          primaryText: "Open Bolt Tightening Torque Calculator",
+          primaryUrl: "/bolt-tightening-torque.html",
+          related: [
+            { text: "Torque to Clamp Load Calculator", url: "/torque-clamp-load.html" },
+            { text: "Torque Angle Calculator", url: "/torque-angle.html" }
+          ],
+          keywords: ["bolt torque", "tightening torque", "fastener torque", "what torque", "bolt tightening"]
+        }
+      ]
+    };
+
+    function populateIssues() {
+      const system = document.getElementById("systemSelect").value;
+      const issueSelect = document.getElementById("issueSelect");
+
+      issueSelect.innerHTML = '<option value="">-- Choose an issue --</option>';
+
+      if (!system || !issueMap[system]) return;
+
+      issueMap[system].forEach((item, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = item.label;
+        issueSelect.appendChild(option);
+      });
+    }
+
+    function showResult(selected, sourceLabel) {
+      document.getElementById("resultTitle").textContent = selected.title;
+      document.getElementById("resultDescription").textContent = selected.description;
+      document.getElementById("resultReason").textContent = selected.reason || "";
+
+      const badge = document.getElementById("matchBadge");
+      badge.textContent = sourceLabel;
+
+      const primaryLink = document.getElementById("primaryLink");
+      primaryLink.textContent = selected.primaryText;
+      primaryLink.href = selected.primaryUrl;
+      primaryLink.setAttribute("onclick", `gtag('event','problem_solver_result_click',{'target':'${selected.primaryUrl}'});`);
+
+      let relatedHtml = "";
+      if (selected.related && selected.related.length > 0) {
+        relatedHtml += "<p><strong>Related pages:</strong></p><ul>";
+        selected.related.forEach(link => {
+          relatedHtml += `<li><a href="${link.url}" onclick="gtag('event','problem_solver_related_click',{'target':'${link.url}'});">${link.text}</a></li>`;
+        });
+        relatedHtml += "</ul>";
+      }
+
+      document.getElementById("relatedLinks").innerHTML = relatedHtml;
+      document.getElementById("resultBox").style.display = "block";
+      document.getElementById("resultBox").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function findTool() {
+      const system = document.getElementById("systemSelect").value;
+      const issueIndex = document.getElementById("issueSelect").value;
+
+      if (!system || issueIndex === "") {
+        alert("Please select both a system and an issue.");
+        return;
+      }
+
+      const selected = issueMap[system][issueIndex];
+      showResult(selected, "Guided Match");
+
+      gtag('event', 'problem_solver_match', {
+        source: 'guided',
+        system: system,
+        issue: selected.label,
+        destination: selected.primaryUrl
+      });
+    }
+
+    function normalizeText(text) {
+      return text.toLowerCase().trim();
+    }
+
+    function findByKeyword() {
+      const input = normalizeText(document.getElementById("keywordInput").value);
+
+      if (!input) {
+        alert("Please type your issue first.");
+        return;
+      }
+
+      let bestMatch = null;
+      let bestScore = 0;
+      let matchedSystem = "";
+
+      Object.keys(issueMap).forEach(system => {
+        issueMap[system].forEach(item => {
+          let score = 0;
+
+          item.keywords.forEach(keyword => {
+            if (input.includes(keyword)) {
+              score += keyword.length >= 12 ? 4 : 3;
+            }
+
+            const keywordWords = keyword.split(" ");
+            keywordWords.forEach(word => {
+              if (word.length > 2 && input.includes(word)) {
+                score += 1;
+              }
+            });
+          });
+
+          const titleWords = item.title.toLowerCase().split(" ");
+          titleWords.forEach(word => {
+            if (word.length > 3 && input.includes(word)) {
+              score += 1;
+            }
+          });
+
+          if (score > bestScore) {
+            bestScore = score;
+            bestMatch = item;
+            matchedSystem = system;
+          }
+        });
+      });
+
+      if (bestMatch && bestScore > 1) {
+        showResult(bestMatch, "Keyword Match");
+
+        gtag('event', 'problem_solver_match', {
+          source: 'keyword',
+          system: matchedSystem,
+          issue_text: input,
+          destination: bestMatch.primaryUrl,
+          score: bestScore
+        });
+      } else {
+        const fallback = {
+          title: "Automation Help",
+          description: "No strong direct match was found from the keyword search. The best next step is to describe the issue directly.",
+          reason: "This fallback helps when the issue is more specific than the current keyword map or spans multiple systems.",
+          primaryText: "Open Automation Help",
+          primaryUrl: "/automation-help.html",
+          related: [
+            { text: "PLC Communication Troubleshooter", url: "/plc-communication-troubleshooting.html" },
+            { text: "Pneumatic System Sizing Guide", url: "/pneumatic-system-sizing-guide.html" },
+            { text: "Automation Calculators Overview", url: "/automation-calculators.html" }
+          ]
+        };
+
+        showResult(fallback, "Closest Next Step");
+
+        gtag('event', 'problem_solver_no_match', {
+          source: 'keyword',
+          issue_text: input
+        });
+      }
+    }
+
+    function resetSolver() {
+      document.getElementById("systemSelect").value = "";
+      document.getElementById("issueSelect").innerHTML = '<option value="">-- Choose an issue --</option>';
+      document.getElementById("keywordInput").value = "";
+      document.getElementById("resultBox").style.display = "none";
+
+      gtag('event', 'problem_solver_reset', {
+        page: 'problem_solver'
+      });
+    }
+  </script>
+
+</body>
+</html>
