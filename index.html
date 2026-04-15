@@ -6,11 +6,12 @@
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <script>
-if (window.location.pathname.includes("index.html")) {
-  window.location.replace("/");
-}
-</script>
+    if (window.location.pathname.includes("index.html")) {
+      window.location.replace("/");
+    }
+  </script>
 
   <title>Automation Engineering Calculators | PLC, Pneumatics, Robotics, Servo, ROI</title>
   <meta name="description" content="Free automation engineering calculators, simulators, and troubleshooting tools for PLCs, robotics, pneumatics, conveyors, servo sizing, welding, electrical design, fastening, machine safety, automation ROI, and adhesive dispensing applications.">
@@ -202,6 +203,77 @@ if (window.location.pathname.includes("index.html")) {
       background:white;
       color:var(--primary);
       border:1px solid var(--border);
+    }
+
+    .issue-finder{
+      margin:24px 0 30px 0;
+      background:#ffffff;
+      border-radius:12px;
+      padding:24px;
+      box-shadow:0 4px 18px rgba(0,0,0,0.08);
+      border-left:5px solid #2563eb;
+      text-align:left;
+    }
+
+    .issue-finder h2{
+      margin:0 0 10px 0;
+      color:var(--primary);
+      font-size:30px;
+    }
+
+    .issue-finder p{
+      margin:0 0 16px 0;
+      color:var(--muted);
+      line-height:1.6;
+    }
+
+    .issue-finder-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .issue-finder-row input{
+      flex:1 1 420px;
+      min-width:240px;
+      padding:12px;
+      border:1px solid #cbd5e1;
+      border-radius:8px;
+      font-size:1rem;
+    }
+
+    .issue-finder-row button{
+      background:var(--accent);
+      color:#ffffff;
+      border:none;
+      border-radius:8px;
+      padding:12px 18px;
+      font-size:1rem;
+      font-weight:bold;
+      cursor:pointer;
+      transition:background 0.2s ease, transform 0.15s ease;
+    }
+
+    .issue-finder-row button:hover{
+      background:#1d4ed8;
+      transform:translateY(-1px);
+    }
+
+    .issue-finder-links{
+      margin-top:14px;
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .issue-finder-links a{
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .issue-finder-links a:hover{
+      text-decoration:underline;
     }
 
     .top-note{
@@ -580,6 +652,27 @@ if (window.location.pathname.includes("index.html")) {
       .email-box{
         padding:22px;
       }
+
+      .issue-finder{
+        padding:20px;
+      }
+
+      .issue-finder h2{
+        font-size:26px;
+      }
+
+      .issue-finder-row{
+        flex-direction:column;
+      }
+
+      .issue-finder-row button{
+        width:100%;
+      }
+
+      .issue-finder-links{
+        flex-direction:column;
+        gap:10px;
+      }
     }
   </style>
 </head>
@@ -605,6 +698,32 @@ if (window.location.pathname.includes("index.html")) {
       <a class="btn btn-primary" href="automation-calculators.html" onclick="gtag('event','tool_open',{tool:'calculator_index_top'});">Browse All Calculators</a>
       <a class="btn btn-secondary" href="integrators.html" onclick="gtag('event','integrator_cta_click',{location:'hero'});">Find an Integrator</a>
       <a class="btn btn-secondary" href="pneumatic.html" onclick="gtag('event','tool_open',{tool:'hero_pneumatic_force'});">Start with Pneumatic Force</a>
+    </div>
+  </section>
+
+  <section class="issue-finder">
+    <h2>Start With Your Issue</h2>
+    <p>
+      Describe the problem you are seeing and get routed to the most relevant calculator,
+      troubleshooting page, or guide.
+    </p>
+
+    <div class="issue-finder-row">
+      <input
+        type="text"
+        id="homepageIssueInput"
+        placeholder="Example: cylinder too slow, PLC missing input, weak spot weld"
+      >
+      <button onclick="findHomepageIssue()">Find the Right Tool</button>
+    </div>
+
+    <div class="issue-finder-links">
+      <a href="/problem-solver.html" onclick="gtag('event','homepage_issue_finder_click',{'target':'full_problem_solver'});">
+        Open Full Problem Solver
+      </a>
+      <a href="/automation-calculators.html" onclick="gtag('event','homepage_issue_finder_click',{'target':'all_calculators'});">
+        Browse All Calculators
+      </a>
     </div>
   </section>
 
@@ -1080,6 +1199,175 @@ if (window.location.pathname.includes("index.html")) {
 <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
 <script>
+  function findHomepageIssue() {
+    const inputEl = document.getElementById('homepageIssueInput');
+    const input = (inputEl.value || '').toLowerCase().trim();
+
+    if (!input) {
+      alert('Please describe the issue first.');
+      return;
+    }
+
+    const matches = [
+      {
+        keywords: ['cylinder too slow', 'slow cylinder', 'slow pneumatic', 'sluggish cylinder', 'slow extend', 'slow retract', 'actuator too slow'],
+        url: '/pneumatic-speed.html',
+        label: 'pneumatic_speed'
+      },
+      {
+        keywords: ['weak cylinder', 'not enough force', 'cylinder weak', 'low force', 'wont push', "won't push", 'wont pull', "won't pull", 'insufficient force'],
+        url: '/pneumatic.html',
+        label: 'pneumatic_force'
+      },
+      {
+        keywords: ['air usage high', 'too much air', 'air consumption', 'compressed air usage', 'compressor running too much', 'air demand'],
+        url: '/air-consumption.html',
+        label: 'air_consumption'
+      },
+      {
+        keywords: ['air line size', 'pressure drop air', 'pressure loss pneumatic', 'hose too small', 'air starvation'],
+        url: '/air-line-size-calculator.html',
+        label: 'air_line_size'
+      },
+      {
+        keywords: ['plc not seeing input', 'sensor on plc off', 'plc missing input', 'input not detected', 'sensor not showing', 'plc input problem', 'communication issue'],
+        url: '/plc-communication-troubleshooting.html',
+        label: 'plc_troubleshooting'
+      },
+      {
+        keywords: ['signal too fast', 'pulse missed', 'plc misses pulse', 'short pulse', 'scan time', 'fast input', 'missed signal'],
+        url: '/plc-pulse-capture.html',
+        label: 'plc_pulse_capture'
+      },
+      {
+        keywords: ['analog scaling', '4-20 scaling', 'raw counts', 'engineering units', '0-10v scaling', '4-20ma scaling'],
+        url: '/analog-scaling.html',
+        label: 'analog_scaling'
+      },
+      {
+        keywords: ['voltage drop', 'wire too small', 'low voltage at sensor', 'cable run too long', 'wire gauge', 'wire size'],
+        url: '/voltage-drop.html',
+        label: 'voltage_drop'
+      },
+      {
+        keywords: ['motor undersized', 'conveyor motor', 'motor overheating', 'conveyor stalls', 'not enough motor torque', 'motor sizing'],
+        url: '/motor.html',
+        label: 'motor_sizing'
+      },
+      {
+        keywords: ['conveyor speed', 'line speed', 'belt speed', 'roller rpm', 'throughput speed'],
+        url: '/conveyor-speed.html',
+        label: 'conveyor_speed'
+      },
+      {
+        keywords: ['servo torque', 'servo sizing', 'servo too small', 'axis torque', 'motion torque'],
+        url: '/servo-torque.html',
+        label: 'servo_torque'
+      },
+      {
+        keywords: ['gear ratio', 'gearbox ratio', 'gear reduction', 'reduce speed increase torque', 'reducer sizing'],
+        url: '/gear-ratio.html',
+        label: 'gear_ratio'
+      },
+      {
+        keywords: ['robot too slow', 'robot cycle time', 'cycle too long', 'slow robot', 'robot throughput'],
+        url: '/robot.html',
+        label: 'robot_cycle_time'
+      },
+      {
+        keywords: ['robot reach', 'can robot reach', 'reach problem', 'robot access', 'out of reach'],
+        url: '/robot-reach.html',
+        label: 'robot_reach'
+      },
+      {
+        keywords: ['robot payload', 'payload too heavy', 'tool too heavy', 'robot weight limit'],
+        url: '/robot-payload.html',
+        label: 'robot_payload'
+      },
+      {
+        keywords: ['weak weld', 'spot weld weak', 'bad weld', 'weld nugget small', 'inconsistent weld', 'spot weld problem'],
+        url: '/spot-weld.html',
+        label: 'spot_weld'
+      },
+      {
+        keywords: ['projection weld', 'projection welding setup', 'projection weld parameters'],
+        url: '/projection-weld.html',
+        label: 'projection_weld'
+      },
+      {
+        keywords: ['coolant flow', 'coolant size', 'cooling line size', 'weld cooling', 'water line sizing'],
+        url: '/coolant-flow-sizing.html',
+        label: 'coolant_flow'
+      },
+      {
+        keywords: ['clamp load', 'torque clamp', 'bolt clamp load', 'joint preload'],
+        url: '/torque-clamp-load.html',
+        label: 'torque_clamp_load'
+      },
+      {
+        keywords: ['torque angle', 'angle tightening', 'torque plus angle', 'bolt angle'],
+        url: '/torque-angle.html',
+        label: 'torque_angle'
+      },
+      {
+        keywords: ['bolt torque', 'tightening torque', 'fastener torque', 'bolt tightening'],
+        url: '/bolt-tightening-torque.html',
+        label: 'bolt_tightening_torque'
+      }
+    ];
+
+    let bestMatch = null;
+    let bestScore = 0;
+
+    matches.forEach(match => {
+      let score = 0;
+
+      match.keywords.forEach(keyword => {
+        if (input.includes(keyword)) {
+          score += 3;
+        }
+
+        keyword.split(' ').forEach(word => {
+          if (word.length > 2 && input.includes(word)) {
+            score += 1;
+          }
+        });
+      });
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = match;
+      }
+    });
+
+    if (bestMatch && bestScore > 1) {
+      gtag('event', 'homepage_issue_finder_match', {
+        issue_text: input,
+        target: bestMatch.label,
+        destination: bestMatch.url,
+        score: bestScore
+      });
+      window.location.href = bestMatch.url;
+    } else {
+      gtag('event', 'homepage_issue_finder_no_match', {
+        issue_text: input
+      });
+      window.location.href = '/problem-solver.html';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('homepageIssueInput');
+    if (input) {
+      input.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          findHomepageIssue();
+        }
+      });
+    }
+  });
+
   fetch("navbar.html?v=20260314")
     .then(response => response.text())
     .then(data => {
