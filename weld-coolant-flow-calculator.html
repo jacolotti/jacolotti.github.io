@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Resistance Welding Coolant Flow &amp; Line Sizing Calculator | AutomationCalculators.net</title>
+  <meta name="description" content="Estimate coolant flow requirements, hose size, velocity, and pressure drop for resistance welding systems including weld guns, transformers, cables, and cooling circuits." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/weld-coolant-flow-calculator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #1f2937;
+    }
+
+    #navbar {
+      width: 100%;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 30px auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+
+    h1, h2, h3 {
+      color: #0f172a;
+      margin-top: 0;
+    }
+
+    .description {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 22px;
+    }
+
+    .card {
+      background: #f8fafc;
+      border: 1px solid #dbe4ee;
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+      font-size: 1.08rem;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      color: #111827;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #ffffff;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    button {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #1d4ed8;
+    }
+
+    .secondary-btn {
+      background: #475569;
+    }
+
+    .secondary-btn:hover {
+      background: #334155;
+    }
+
+    .result {
+      margin-top: 24px;
+      padding: 18px;
+      border-radius: 10px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .result-box {
+      background: #ffffff;
+      border: 1px solid #dbeafe;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .result-title {
+      font-size: 0.92rem;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+
+    .result-value {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #0f172a;
+    }
+
+    .good, .warning, .note, .info-box, .cta-box, .internal-links, .assumptions-box {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 10px;
+    }
+
+    .good {
+      background: #ecfdf5;
+      border: 1px solid #86efac;
+      color: #166534;
+    }
+
+    .warning {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+
+    .note {
+      background: #fff7ed;
+      border: 1px solid #fdba74;
+      color: #7c2d12;
+    }
+
+    .info-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+    }
+
+    .assumptions-box {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #eff6ff, #dbeafe);
+      border: 1px solid #93c5fd;
+    }
+
+    .cta-box a,
+    .internal-links a {
+      display: inline-block;
+      margin-top: 10px;
+      margin-right: 10px;
+      text-decoration: none;
+      background: #2563eb;
+      color: #ffffff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .cta-box a:hover,
+    .internal-links a:hover {
+      background: #1d4ed8;
+    }
+
+    .internal-links {
+      background: #f8fafc;
+      border: 1px solid #dbe4ee;
+    }
+
+    ul {
+      margin: 10px 0 0 20px;
+      line-height: 1.7;
+    }
+
+    .footer-note {
+      text-align: center;
+      color: #64748b;
+      font-size: 0.95rem;
+      margin-top: 30px;
+    }
+
+    .small-text {
+      font-size: 0.92rem;
+      color: #64748b;
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 700px) {
+      .container {
+        margin: 15px;
+        padding: 20px;
+      }
+
+      .grid,
+      .result-grid {
+        grid-template-columns: 1fr;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <div class="container">
+    <h1>Resistance Welding Coolant Flow &amp; Line Sizing Calculator</h1>
+
+    <p class="description">
+      Estimate total coolant flow, line velocity, and pressure-drop risk for a resistance welding cooling circuit.
+      This page is meant as a practical starting point for weld guns, transformers, secondary cables, holders, and similar water-cooled components.
+    </p>
+
+    <p class="description">
+      This works best for concept sizing, troubleshooting, and retrofit checks. Actual delivered flow still depends on manifold design,
+      quick disconnects, internal passages, coolant temperature, branch balance, and OEM requirements.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Cooling Load Inputs</h3>
+
+        <label for="componentType">Primary Cooled Component</label>
+        <select id="componentType">
+          <option value="spot_gun">Spot Weld Gun</option>
+          <option value="transformer">Weld Transformer</option>
+          <option value="cables">Secondary Cables / Shunts</option>
+          <option value="holders">Electrode Holders / Arms</option>
+          <option value="mixed" selected>Custom / Mixed Circuit</option>
+        </select>
+
+        <label for="deviceCount">Number of Devices / Branches</label>
+        <input type="number" id="deviceCount" min="1" step="1" value="2" />
+
+        <label for="flowPerDevice">Target Flow per Device (GPM)</label>
+        <input type="number" id="flowPerDevice" min="0" step="0.1" value="1.5" />
+
+        <label for="simultaneousFactor">Simultaneous Use Factor</label>
+        <input type="number" id="simultaneousFactor" min="0.1" max="1.0" step="0.05" value="1.0" />
+
+        <label for="safetyFactor">Safety Factor</label>
+        <input type="number" id="safetyFactor" min="1.0" max="2.0" step="0.05" value="1.15" />
+
+        <label for="coolantType">Coolant Type</label>
+        <select id="coolantType">
+          <option value="water" selected>Water</option>
+          <option value="water_glycol">Water / Glycol Mix</option>
+        </select>
+      </div>
+
+      <div class="card">
+        <h3>Line / Pressure Inputs</h3>
+
+        <label for="hoseId">Main Supply Line ID</label>
+        <select id="hoseId">
+          <option value="0.25">1/4 in</option>
+          <option value="0.375">3/8 in</option>
+          <option value="0.50" selected>1/2 in</option>
+          <option value="0.625">5/8 in</option>
+          <option value="0.75">3/4 in</option>
+          <option value="1.00">1 in</option>
+        </select>
+
+        <label for="equivalentLength">Equivalent Total Line Length (ft)</label>
+        <input type="number" id="equivalentLength" min="1" step="1" value="35" />
+
+        <label for="availablePressure">Available Supply Pressure (psi)</label>
+        <input type="number" id="availablePressure" min="0" step="1" value="40" />
+
+        <label for="allowableDrop">Allowable Pressure Drop (psi)</label>
+        <input type="number" id="allowableDrop" min="0" step="0.5" value="8" />
+
+        <label for="restrictionFactor">Fittings / Restriction Multiplier</label>
+        <select id="restrictionFactor">
+          <option value="1.0">Minimal restriction</option>
+          <option value="1.2" selected>Typical machine routing</option>
+          <option value="1.4">Many bends / disconnects</option>
+          <option value="1.6">Very restrictive circuit</option>
+        </select>
+
+        <label for="maxPreferredVelocity">Preferred Max Velocity (ft/s)</label>
+        <input type="number" id="maxPreferredVelocity" min="1" step="0.5" value="5" />
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateCoolantFlow()">Calculate</button>
+      <button class="secondary-btn" onclick="resetCoolantForm()">Reset</button>
+    </div>
+
+    <div id="resultSection" class="result" style="display:none;">
+      <h2>Results</h2>
+
+      <div class="result-grid">
+        <div class="result-box">
+          <div class="result-title">Base Total Flow</div>
+          <div class="result-value" id="baseFlowResult">0.00 GPM</div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-title">Recommended Total Flow</div>
+          <div class="result-value" id="recommendedFlowResult">0.00 GPM</div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-title">Line Velocity</div>
+          <div class="result-value" id="velocityResult">0.00 ft/s</div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-title">Estimated Pressure Drop</div>
+          <div class="result-value" id="pressureDropResult">0.00 psi</div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-title">Pressure Margin</div>
+          <div class="result-value" id="pressureMarginResult">0.00 psi</div>
+        </div>
+
+        <div class="result-box">
+          <div class="result-title">Suggested Minimum Line Size</div>
+          <div class="result-value" id="lineSizeResult">-</div>
+        </div>
+      </div>
+
+      <div id="statusBox"></div>
+      <div id="warningBox"></div>
+    </div>
+
+    <div class="assumptions-box">
+      <h3>What this tool is actually doing</h3>
+      <p class="description">
+        This calculator totals your target device flow, applies a simultaneity factor, adds a safety factor, and then checks whether the selected line size looks reasonable.
+        It estimates line velocity directly from flow and line ID, then uses a simplified pressure-drop model to flag circuits that look undersized.
+      </p>
+      <p class="small-text">
+        It is intentionally built as a practical screening tool, not as an OEM-certified thermal model.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h3>Why coolant flow matters in resistance welding</h3>
+      <ul>
+        <li>Low flow can increase heat in transformers, cables, holders, and gun components.</li>
+        <li>Undersized lines can create high velocity and unnecessary pressure loss.</li>
+        <li>Long runs, quick disconnects, elbows, and small internal passages all reduce delivered flow.</li>
+        <li>Parallel branches may still give uneven cooling if one path is more restrictive than the others.</li>
+      </ul>
+    </div>
+
+    <div class="note">
+      <strong>Good practice:</strong> use this page to screen the circuit, then verify actual delivered flow at the machine whenever possible.
+      A system can look acceptable on paper and still underperform because of branch imbalance or internal restrictions.
+    </div>
+
+    <div class="internal-links">
+      <h3>Related Welding Tools</h3>
+      <p class="description">
+        Cooling ties directly into weld consistency, tip life, and thermal stability.
+      </p>
+      <a href="/spot-weld.html" onclick="gtag('event','tool_open',{'tool':'spot_weld','from':'weld_coolant_flow'});">Resistance Spot Weld Calculator</a>
+      <a href="/projection-weld.html" onclick="gtag('event','tool_open',{'tool':'projection_weld','from':'weld_coolant_flow'});">Projection Weld Calculator</a>
+    </div>
+
+    <div class="cta-box">
+      <h3>Need help with a real weld system?</h3>
+      <p class="description">
+        If you are trying to size a new cooling loop, fix hot weld cables, troubleshoot inconsistent temperature, or check whether a weld circuit is being starved,
+        you can reach out for help on a real machine.
+      </p>
+      <a href="/automation-help.html" onclick="gtag('event','guide_cta_click',{'page':'weld_coolant_flow','target':'automation_help'});">Get Help With My Welding System</a>
+    </div>
+
+    <p class="footer-note">
+      Automation Engineering Tools • Practical calculators and guides for real automation work
+    </p>
+  </div>
+
+  <script>
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(() => {
+        document.getElementById('navbar').innerHTML = '';
+      });
+
+    const nominalSizes = [0.25, 0.375, 0.50, 0.625, 0.75, 1.00];
+
+    function setDefaultsByComponent() {
+      const componentType = document.getElementById('componentType').value;
+
+      if (componentType === 'spot_gun') {
+        document.getElementById('deviceCount').value = 1;
+        document.getElementById('flowPerDevice').value = 1.5;
+      } else if (componentType === 'transformer') {
+        document.getElementById('deviceCount').value = 1;
+        document.getElementById('flowPerDevice').value = 1.0;
+      } else if (componentType === 'cables') {
+        document.getElementById('deviceCount').value = 2;
+        document.getElementById('flowPerDevice').value = 0.75;
+      } else if (componentType === 'holders') {
+        document.getElementById('deviceCount').value = 2;
+        document.getElementById('flowPerDevice').value = 0.5;
+      } else {
+        document.getElementById('deviceCount').value = 2;
+        document.getElementById('flowPerDevice').value = 1.5;
+      }
+    }
+
+    document.getElementById('componentType').addEventListener('change', setDefaultsByComponent);
+
+    function gpmToFt3PerSec(gpm) {
+      return gpm * 0.002228;
+    }
+
+    function lineAreaFt2(diameterInches) {
+      const diameterFeet = diameterInches / 12;
+      return Math.PI * Math.pow(diameterFeet, 2) / 4;
+    }
+
+    function calcVelocityFtSec(flowGpm, diameterInches) {
+      const flowFt3Sec = gpmToFt3PerSec(flowGpm);
+      const areaFt2 = lineAreaFt2(diameterInches);
+      return flowFt3Sec / areaFt2;
+    }
+
+    function calcPressureDropPsi(flowGpm, diameterInches, lengthFt, restrictionFactor, coolantType) {
+      let coolantMultiplier = 1.0;
+      if (coolantType === 'water_glycol') {
+        coolantMultiplier = 1.2;
+      }
+
+      const baseDrop = (Math.pow(flowGpm, 1.85) * lengthFt) / (Math.pow(diameterInches, 4.87) * 1500);
+      return baseDrop * restrictionFactor * coolantMultiplier;
+    }
+
+    function recommendNominalLine(flowGpm, preferredVelocity) {
+      for (let i = 0; i < nominalSizes.length; i++) {
+        const size = nominalSizes[i];
+        const velocity = calcVelocityFtSec(flowGpm, size);
+        if (velocity <= preferredVelocity) {
+          return size;
+        }
+      }
+      return nominalSizes[nominalSizes.length - 1];
+    }
+
+    function formatNominalSize(size) {
+      const labels = {
+        0.25: '1/4 in',
+        0.375: '3/8 in',
+        0.5: '1/2 in',
+        0.625: '5/8 in',
+        0.75: '3/4 in',
+        1: '1 in'
+      };
+      return labels[size] || size.toFixed(3) + ' in';
+    }
+
+    function calculateCoolantFlow() {
+      const deviceCount = parseFloat(document.getElementById('deviceCount').value) || 0;
+      const flowPerDevice = parseFloat(document.getElementById('flowPerDevice').value) || 0;
+      const simultaneousFactor = parseFloat(document.getElementById('simultaneousFactor').value) || 1;
+      const safetyFactor = parseFloat(document.getElementById('safetyFactor').value) || 1;
+      const hoseId = parseFloat(document.getElementById('hoseId').value) || 0;
+      const equivalentLength = parseFloat(document.getElementById('equivalentLength').value) || 0;
+      const availablePressure = parseFloat(document.getElementById('availablePressure').value) || 0;
+      const allowableDrop = parseFloat(document.getElementById('allowableDrop').value) || 0;
+      const restrictionFactor = parseFloat(document.getElementById('restrictionFactor').value) || 1;
+      const maxPreferredVelocity = parseFloat(document.getElementById('maxPreferredVelocity').value) || 5;
+      const coolantType = document.getElementById('coolantType').value;
+
+      if (deviceCount <= 0 || flowPerDevice <= 0 || hoseId <= 0 || equivalentLength <= 0) {
+        alert('Please enter valid values for device count, target flow, line size, and equivalent length.');
+        return;
+      }
+
+      const baseFlow = deviceCount * flowPerDevice * simultaneousFactor;
+      const recommendedFlow = baseFlow * safetyFactor;
+      const velocity = calcVelocityFtSec(recommendedFlow, hoseId);
+      const pressureDrop = calcPressureDropPsi(recommendedFlow, hoseId, equivalentLength, restrictionFactor, coolantType);
+      const pressureMargin = availablePressure - pressureDrop;
+      const recommendedLine = recommendNominalLine(recommendedFlow, maxPreferredVelocity);
+
+      document.getElementById('resultSection').style.display = 'block';
+      document.getElementById('baseFlowResult').textContent = baseFlow.toFixed(2) + ' GPM';
+      document.getElementById('recommendedFlowResult').textContent = recommendedFlow.toFixed(2) + ' GPM';
+      document.getElementById('velocityResult').textContent = velocity.toFixed(2) + ' ft/s';
+      document.getElementById('pressureDropResult').textContent = pressureDrop.toFixed(2) + ' psi';
+      document.getElementById('pressureMarginResult').textContent = pressureMargin.toFixed(2) + ' psi';
+      document.getElementById('lineSizeResult').textContent = formatNominalSize(recommendedLine);
+
+      const warnings = [];
+      let goodMessage = 'This line size looks reasonable as a starting point. Still verify actual delivered flow at the machine.';
+
+      if (velocity > maxPreferredVelocity) {
+        warnings.push('Velocity is above your preferred maximum. That usually means the main line is on the small side or the circuit is too restrictive.');
+      }
+
+      if (velocity < 2.0) {
+        warnings.push('Velocity is fairly low. That is not automatically bad, but it can be a sign the selected line is larger than necessary for this flow.');
+      }
+
+      if (pressureDrop > allowableDrop) {
+        warnings.push('Estimated pressure drop is above your allowable limit. The line may be undersized, too long, or too restrictive.');
+      }
+
+      if (pressureMargin < 5) {
+        warnings.push('Pressure margin is low. Delivered flow may suffer once real fittings, quick disconnects, and internal passages are included.');
+      }
+
+      if (deviceCount >= 3) {
+        warnings.push('Multiple branches increase the risk of uneven flow. Parallel circuits often need branch balancing to prevent one device from being starved.');
+      }
+
+      if (coolantType === 'water_glycol') {
+        warnings.push('Water/glycol usually adds some flow resistance compared to plain water. Treat this result as a screening estimate.');
+      }
+
+      if (recommendedLine > hoseId) {
+        goodMessage = 'The selected line looks small for the requested flow. The suggested minimum line size is larger.';
+      }
+
+      if (warnings.length > 0) {
+        document.getElementById('statusBox').innerHTML = '<div class="good">' + goodMessage + '</div>';
+        document.getElementById('warningBox').innerHTML =
+          '<div class="warning"><strong>Things to watch:</strong><ul>' +
+          warnings.map(item => '<li>' + item + '</li>').join('') +
+          '</ul></div>';
+      } else {
+        document.getElementById('statusBox').innerHTML = '<div class="good">' + goodMessage + '</div>';
+        document.getElementById('warningBox').innerHTML = '';
+      }
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'calculator_used', {
+          tool: 'weld_coolant_flow',
+          component_type: document.getElementById('componentType').value
+        });
+      }
+    }
+
+    function resetCoolantForm() {
+      document.getElementById('componentType').value = 'mixed';
+      document.getElementById('deviceCount').value = 2;
+      document.getElementById('flowPerDevice').value = 1.5;
+      document.getElementById('simultaneousFactor').value = 1.0;
+      document.getElementById('safetyFactor').value = 1.15;
+      document.getElementById('coolantType').value = 'water';
+      document.getElementById('hoseId').value = '0.50';
+      document.getElementById('equivalentLength').value = 35;
+      document.getElementById('availablePressure').value = 40;
+      document.getElementById('allowableDrop').value = 8;
+      document.getElementById('restrictionFactor').value = '1.2';
+      document.getElementById('maxPreferredVelocity').value = 5;
+
+      document.getElementById('resultSection').style.display = 'none';
+      document.getElementById('statusBox').innerHTML = '';
+      document.getElementById('warningBox').innerHTML = '';
+    }
+  </script>
+</body>
+</html>
