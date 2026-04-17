@@ -852,12 +852,14 @@ j1Group.add(shoulderPivot);
   robotType.addEventListener('change', applyPreset);
 
   targetControls.addEventListener('dragging-changed', function(event){
-    controls.enabled = !event.value;
-    if (!event.value) {
-      syncInputsFromTarget();
-      updateRobotPose(false);
-    }
-  });
+  controls.enabled = !event.value;
+
+  if (!event.value) {
+    syncInputsFromTarget();
+    updateRobotPose(false);
+    snapTargetToTcpTip(); // 👈 ADD THIS LINE
+  }
+});
 
   function applyPreset(){
     const preset = robotType.value;
@@ -932,8 +934,13 @@ j1Group.add(shoulderPivot);
   function snapTargetToTcpTip(){
   const tcpWorld = new THREE.Vector3();
   tcpTip.getWorldPosition(tcpWorld);
+
   target.position.copy(tcpWorld);
-  syncInputsFromTarget();
+
+  // 🔥 force inputs to match the TCP position
+  targetX.value = tcpWorld.x.toFixed(1);
+  targetY.value = tcpWorld.z.toFixed(1);
+  targetZ.value = tcpWorld.y.toFixed(1);
 }
 
   function updateFixture(){
