@@ -466,17 +466,17 @@
 
             <div class="field">
               <label for="targetX">Target X (in)</label>
-              <input type="number" id="targetX" value="34" step="1">
+              <input type="number" id="targetX" value="55" step="1">
             </div>
 
             <div class="field">
               <label for="targetY">Target Y (in)</label>
-              <input type="number" id="targetY" value="18" step="1">
+              <input type="number" id="targetY" value="0" step="1">
             </div>
 
             <div class="field">
               <label for="targetZ">Target Z (in)</label>
-              <input type="number" id="targetZ" value="30" step="1">
+              <input type="number" id="targetZ" value="18" step="1">
             </div>
 
             <div class="button-row">
@@ -496,17 +496,17 @@
 
             <div class="field">
               <label for="fixtureWidth">Fixture Width (in)</label>
-              <input type="number" id="fixtureWidth" value="18" step="1">
+              <input type="number" id="fixtureWidth" value="24" step="1">
             </div>
 
             <div class="field">
               <label for="fixtureDepth">Fixture Depth (in)</label>
-              <input type="number" id="fixtureDepth" value="18" step="1">
+              <input type="number" id="fixtureDepth" value="24" step="1">
             </div>
 
             <div class="field">
               <label for="fixtureHeight">Fixture Height (in)</label>
-              <input type="number" id="fixtureHeight" value="12" step="1">
+              <input type="number" id="fixtureHeight" value="18" step="1">
             </div>
 
             <div class="button-row">
@@ -765,7 +765,7 @@ j1Group.add(shoulderPivot);
     new THREE.SphereGeometry(2.4, 24, 24),
     new THREE.MeshStandardMaterial({ color: 0xdc2626, emissive: 0x3b0a0a, emissiveIntensity: 0.25 })
   );
-  target.position.set(34, 30, 18);
+  target.position.set(55, 18, 0);
   scene.add(target);
 
   const targetRing = new THREE.Mesh(
@@ -800,8 +800,8 @@ j1Group.add(shoulderPivot);
     transparent: true,
     opacity: 0.35
   });
-  let fixture = new THREE.Mesh(new THREE.BoxGeometry(18, 12, 18), fixtureMaterial);
-  fixture.position.set(30, 6, 0);
+  let fixture = new THREE.Mesh(new THREE.BoxGeometry(24, 18, 24), fixtureMaterial);
+  fixture.position.set(55, 6, 0);
   scene.add(fixture);
 
   const robotType = document.getElementById('robotType');
@@ -936,67 +936,83 @@ j1Group.add(shoulderPivot);
 
     fixture.geometry.dispose();
     fixture.geometry = new THREE.BoxGeometry(w, h, d);
-    fixture.position.set(30, h / 2, 0);
+    fixture.position.set(55, h / 2, 0);
   }
 
   let currentPose = { yaw: 0, shoulder: 0, elbow: 0 };
   let targetPose = { yaw: 0, shoulder: 0, elbow: 0 };
   let animateMotion = false;
+  let lastReachable = true;
 
   function solveIK(){
-    const bh = Math.max(0, parseFloat(baseHeight.value) || 0);
-    const l1 = Math.max(1, parseFloat(link1.value) || 1);
-    const l2 = Math.max(1, parseFloat(link2.value) || 1);
-    const tcp = Math.max(0, parseFloat(tcpLength.value) || 0);
+  const bh = Math.max(0, parseFloat(baseHeight.value) || 0);
+  const l1 = Math.max(1, parseFloat(link1.value) || 1);
+  const l2 = Math.max(1, parseFloat(link2.value) || 1);
+  const tcp = Math.max(0, parseFloat(tcpLength.value) || 0);
 
-    const px = target.position.x;
-    const py = target.position.z;
-    const pz = target.position.y;
+  // Target is now treated as TCP tip location
+  const tcpX = target.position.x;
+  const tcpY = target.position.z;
+  const tcpZ = target.position.y;
 
-    const yaw = Math.atan2(py, px || 0.0001);
-    const radial = Math.sqrt(px * px + py * py);
-    const vertical = pz - (8 + bh);
+  // J1 base rotation from TCP target
+  const yaw = Math.atan2(tcpY, tcpX || 0.0001);
 
-    const effectiveReach = Math.max(0.01, radial - tcp);
-    const d = Math.sqrt(effectiveReach * effectiveReach + vertical * vertical);
+  // Back off from the TCP target to estimate wrist center position
+  const horizontalMag = Math.sqrt(tcpX * tcpX + tcpY * tcpY);
+  const ux = horizontalMag > 0.0001 ? tcpX / horizontalMag : 1;
+  const uy = horizontalMag > 0.0001 ? tcpY / horizontalMag : 0;
 
-    const maxR = l1 + l2;
-    const minR = Math.abs(l1 - l2);
-    const reachable = d <= maxR && d >= minR;
+  const wristX = tcpX - ux * tcp;
+  const wristY = tcpY - uy * tcp;
+  const wristZ = tcpZ;
 
-    const clampedD = Math.min(Math.max(d, minR + 0.0001), maxR - 0.0001);
+  const radial = Math.sqrt(tcpX * tcpX + tcpY * tcpY);
+  const wristRadial = Math.sqrt(wristX * wristX + wristY * wristY);
+  const vertical = wristZ - (8 + bh);
 
-    const cosElbow = THREE.MathUtils.clamp((l1*l1 + l2*l2 - clampedD*clampedD) / (2*l1*l2), -1, 1);
-    const elbowInterior = Math.acos(cosElbow);
-    const elbowAngle = Math.PI - elbowInterior;
+  const d = Math.sqrt(wristRadial * wristRadial + vertical * vertical);
 
-    const cosShoulder = THREE.MathUtils.clamp((clampedD*clampedD + l1*l1 - l2*l2) / (2 * l1 * clampedD), -1, 1);
-    const shoulderOffset = Math.acos(cosShoulder);
-    const lineAngle = Math.atan2(vertical, effectiveReach);
-    const shoulderAngle = lineAngle + shoulderOffset;
+  const maxR = l1 + l2;
+  const minR = Math.abs(l1 - l2);
+  const reachable = d <= maxR && d >= minR;
 
-    radialDistance.textContent = radial.toFixed(1) + ' in';
-    verticalOffset.textContent = vertical.toFixed(1) + ' in';
+  const clampedD = Math.min(Math.max(d, minR + 0.0001), maxR - 0.0001);
 
-    if (reachable){
-      reachStatus.textContent = 'Reachable';
-      reachStatus.className = 'value success';
-    } else {
-      reachStatus.textContent = 'Outside Simple Reach';
-      reachStatus.className = 'value danger';
-    }
+  const cosElbow = THREE.MathUtils.clamp((l1*l1 + l2*l2 - clampedD*clampedD) / (2*l1*l2), -1, 1);
+  const elbowInterior = Math.acos(cosElbow);
+  const elbowAngle = Math.PI - elbowInterior;
 
-    return {
-      reachable,
-      yaw,
-      shoulder: shoulderAngle,
-      elbow: elbowAngle
-    };
+  const cosShoulder = THREE.MathUtils.clamp((clampedD*clampedD + l1*l1 - l2*l2) / (2 * l1 * clampedD), -1, 1);
+  const shoulderOffset = Math.acos(cosShoulder);
+  const lineAngle = Math.atan2(vertical, wristRadial);
+  const shoulderAngle = lineAngle + shoulderOffset;
+
+  radialDistance.textContent = radial.toFixed(1) + ' in';
+  verticalOffset.textContent = (tcpZ - (8 + bh)).toFixed(1) + ' in';
+
+  if (reachable){
+    reachStatus.textContent = 'Reachable';
+    reachStatus.className = 'value success';
+  } else {
+    reachStatus.textContent = 'Outside Simple Reach';
+    reachStatus.className = 'value danger';
   }
+
+  return {
+    reachable,
+    yaw,
+    shoulder: shoulderAngle,
+    elbow: elbowAngle
+  };
+}
+
+   
 
   function updateRobotPose(withAnimation = false){
     updateRobotGeometry();
     targetPose = solveIK();
+lastReachable = targetPose.reachable;
 
     if (!withAnimation){
       currentPose = { ...targetPose };
@@ -1012,7 +1028,7 @@ j1Group.add(shoulderPivot);
     shoulderPivot.rotation.z = pose.shoulder;
     elbowPivot.rotation.z = pose.elbow;
 
-    const ok = solveIK().reachable;
+    const ok = lastReachable;
     target.material.color.set(ok ? 0xdc2626 : 0x7f1d1d);
     targetRing.material.color.set(ok ? 0xdc2626 : 0x7f1d1d);
   }
