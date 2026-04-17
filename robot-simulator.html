@@ -756,7 +756,7 @@ j1Group.add(shoulderPivot);
 
   const tcpTip = new THREE.Mesh(
     new THREE.SphereGeometry(1.8, 20, 20),
-    new THREE.MeshStandardMaterial({ color: 0xdc2626 })
+    new THREE.MeshStandardMaterial({ color: 0xf59e0b })
   );
   tcpTip.position.x = 8;
   wristPivot.add(tcpTip);
@@ -929,6 +929,13 @@ j1Group.add(shoulderPivot);
   targetZ.value = target.position.y.toFixed(1);
 }
 
+  function snapTargetToTcpTip(){
+  const tcpWorld = new THREE.Vector3();
+  tcpTip.getWorldPosition(tcpWorld);
+  target.position.copy(tcpWorld);
+  syncInputsFromTarget();
+}
+
   function updateFixture(){
     const w = Math.max(1, parseFloat(fixtureWidth.value) || 1);
     const d = Math.max(1, parseFloat(fixtureDepth.value) || 1);
@@ -1077,9 +1084,10 @@ lastReachable = targetPose.reachable;
   }
 
   updateFixture();
-  applyInputsToTarget();
-  updateRobotPose(false);
-  animate();
+applyInputsToTarget();
+updateRobotPose(false);
+snapTargetToTcpTip();
+animate();
 </script>
 </body>
 </html>
