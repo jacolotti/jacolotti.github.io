@@ -1,36 +1,66 @@
 <style>
   .navbar {
     background: #ffffff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     border-bottom: 1px solid #dbe4ee;
-    padding: 0 18px;
-    min-height: 72px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .navbar-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 12px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-    position: relative;
-    z-index: 1000;
   }
 
   .nav-left,
   .nav-right {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    gap: 8px;
   }
 
-  .navbar a,
+  .brand {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: #0b66c3;
+    text-decoration: none;
+    margin-right: 10px;
+    white-space: nowrap;
+  }
+
+  .nav-link,
   .dropbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.96rem;
+    font-weight: 700;
     color: #16202a;
     text-decoration: none;
-    font-weight: 700;
-    font-size: 0.97rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
   }
 
-  .navbar a:hover,
+  .nav-link:hover,
   .dropbtn:hover {
+    background: #eef4fb;
+    color: #0b66c3;
+    text-decoration: none;
+  }
+
+  .nav-link.active {
+    background: #eef4fb;
     color: #0b66c3;
   }
 
@@ -38,23 +68,10 @@
     position: relative;
   }
 
-  .dropbtn {
-    background: transparent;
-    border: none;
-    padding: 12px 14px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-
-  .dropbtn:hover {
-    background: #eef4fb;
-  }
-
   .dropdown-content {
     display: none;
     position: absolute;
-    top: 100%;
+    top: calc(100% + 8px);
     left: 0;
     min-width: 260px;
     background: #ffffff;
@@ -68,8 +85,11 @@
   .dropdown-content a {
     display: block;
     padding: 11px 16px;
-    font-weight: 600;
     color: #16202a;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: background 0.2s ease, color 0.2s ease;
   }
 
   .dropdown-content a:hover {
@@ -82,196 +102,190 @@
     display: block;
   }
 
-  .navbar .brand {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: #0b66c3;
+  .btn-help {
+    background: #0b66c3;
+    color: #ffffff !important;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 700;
     text-decoration: none;
-    white-space: nowrap;
+    transition: background 0.2s ease, transform 0.2s ease;
   }
 
-  .navbar .search-box input {
-    width: 220px;
-    max-width: 100%;
-    padding: 10px 14px;
+  .btn-help:hover {
+    background: #084c92;
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
+
+  .menu-toggle {
+    display: none;
+    background: #eef4fb;
     border: 1px solid #dbe4ee;
-    border-radius: 999px;
-    background: #f9fbfd;
-    font-size: 0.95rem;
-    outline: none;
+    color: #16202a;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
   }
 
-  .navbar .search-box input:focus {
-    border-color: #0b66c3;
-    background: #ffffff;
-  }
+  @media (max-width: 1020px) {
+    .navbar-inner {
+      flex-wrap: wrap;
+    }
 
-  @media (max-width: 900px) {
-    .navbar {
-      padding: 10px 14px;
-      align-items: flex-start;
-      min-height: auto;
-      flex-direction: column;
+    .menu-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: auto;
     }
 
     .nav-left,
     .nav-right {
+      display: none;
       width: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 6px;
     }
 
-    .navbar .search-box input {
+    .navbar.open .nav-left,
+    .navbar.open .nav-right {
+      display: flex;
+    }
+
+    .brand {
+      margin-right: 0;
+    }
+
+    .nav-link,
+    .dropbtn,
+    .btn-help {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .dropdown {
       width: 100%;
     }
 
     .dropdown-content {
       position: static;
-      box-shadow: none;
-      border: 1px solid #dbe4ee;
+      display: none;
       margin-top: 6px;
+      box-shadow: none;
+      border-radius: 12px;
+      border: 1px solid #dbe4ee;
+    }
+
+    .dropdown.open .dropdown-content {
+      display: block;
     }
   }
 </style>
-<div class="navbar">
 
-  <a href="/" class="nav-highlight">Home</a>
-  <a href="/automation-calculators.html">All Calculators</a>
-  <a href="/reference-charts.html">Reference Charts</a>
+<div class="navbar" id="siteNavbar">
+  <div class="navbar-inner">
+    <a href="/" class="brand" onclick="gtag('event','nav_click',{'location':'navbar','item':'brand'});">
+      Automation Tools
+    </a>
 
-  <a href="/problem-solver.html" onclick="gtag('event','nav_click',{'target':'problem_solver'});">Start With Your Issue</a>
-  
-  <div class="dropdown">
-    <button class="dropbtn">Pneumatics</button>
-    <div class="dropdown-content">
-      <a href="/pneumatics.html"
- onclick="gtag('event','nav_click',{
-   'section':'pneumatics',
-   'type':'overview'
- });">
-        Start Here: Pneumatics Overview
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+      Menu
+    </button>
+
+    <div class="nav-left">
+      <a href="/" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'home'});">Home</a>
+
+      <a href="/problem-solver.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'problem_solver'});">
+        Start With Your Issue
       </a>
-      <a href="/pneumatic-system-sizing-guide.html" style="font-weight:bold;">
-        Full Pneumatic System Guide
+
+      <a href="/automation-calculators.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'all_calculators'});">
+        All Calculators
       </a>
-      <a href="/pneumatic.html">Pneumatic Force</a>
-      <a href="/psi-to-force-calculator.html">PSI to Force</a>
-      <a href="/air-consumption.html">Air Consumption</a>
-      <a href="/cfm-scfm-psi-calculator.html">CFM SCFM PSI</a>
-      <a href="/pneumatic-speed.html">Pneumatic Speed</a>
-      <a href="/air-line-size-calculator.html">Air Line Size</a>
+
+      <div class="dropdown">
+        <button class="dropbtn" onclick="toggleDropdown(event)">
+          Categories ▾
+        </button>
+        <div class="dropdown-content">
+          <a href="/pneumatics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatics'});">Pneumatics</a>
+          <a href="/robotics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robotics'});">Robotics</a>
+          <a href="/adhesives.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesives'});">Adhesives</a>
+          <a href="/motors-motion.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'motors_motion'});">Motors &amp; Motion</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_electrical'});">PLC / Electrical</a>
+          <a href="/welding.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'welding'});">Welding</a>
+          <a href="/fastening.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'fastening'});">Fastening</a>
+          <a href="/automation-roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi'});">ROI</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropbtn" onclick="toggleDropdown(event)">
+          Resources ▾
+        </button>
+        <div class="dropdown-content">
+          <a href="/reference-charts.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'reference_charts'});">Reference Charts</a>
+          <a href="/integrators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'integrators'});">Integrators</a>
+          <a href="/feedback.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'feedback'});">Feedback</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <a href="/integrators.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'integrators_top'});">
+        Integrators
+      </a>
+      <a href="/automation-help.html" class="btn-help" onclick="gtag('event','nav_click',{'location':'navbar','item':'get_help'});">
+        Get Help
+      </a>
     </div>
   </div>
-
-  <div class="dropdown">
-    <button class="dropbtn">Robotics</button>
-    <div class="dropdown-content">
-      <a href="/robot.html">Robot Cycle Time</a>
-      <a href="/robot-reach.html">Robot Reach</a>
-      <a href="/robot-payload.html">Robot Payload</a>
-      <a href="/robot-simulator.html">Robot Simulator</a>
-      <a href="/bin-simulator.html">Bin Simulator</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn">Adhesives</button>
-    <div class="dropdown-content">
-
-      <a href="/adhesives-dispensing.html"
- onclick="gtag('event','nav_click',{
-   'section':'adhesives',
-   'type':'overview'
- });">
-        Start Here: Adhesives & Dispensing
-      </a>
-
-      <a href="/adhesive-system-setup.html" style="font-weight:bold;">
-        Adhesive System Setup Guide
-      </a>
-
-      <a href="/nordson-parameters-explained.html">
-        Nordson Parameters Explained
-      </a>
-
-      <a href="/adhesive-usage-calculator.html">
-        Adhesive Usage Calculator
-      </a>
-
-      <a href="/pattern-timing-calculator.html">
-        Pattern Timing Calculator
-      </a>
-
-      <a href="/hot-melt-troubleshooting.html">
-        Hot Melt Troubleshooting Tool
-      </a>
-
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn">Motors &amp; Motion</button>
-    <div class="dropdown-content">
-      <a href="/motor-fla-calculator.html">Motor Full Load Current</a>
-      <a href="/motor.html">Conveyor Motor</a>
-      <a href="/servo-torque.html">Servo Torque</a>
-      <a href="/gear-ratio.html">Gear Ratio</a>
-      <a href="/gearbox-torque.html">Gearbox Torque</a>
-      <a href="/conveyor-speed.html">Conveyor Speed</a>
-      <a href="/bearing-life-calculator.html">Bearing Life</a>
-      <a href="/beam-deflection-calculator.html">Beam Deflection Calculator</a>
-      <a href="/nema-motor-frame-chart.html">NEMA Motor Frame Chart</a>
-      <a href="/hp-torque-rpm-calculator.html">HP Torque RPM</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn">PLC / Electrical</button>
-    <div class="dropdown-content">
-      <a href="/plc-electrical.html">Start Here: PLC & Electrical</a>
-      <a href="/plc-troubleshooting-guide.html">PLC Troubleshooting Guide</a>
-      <a href="/plc-troubleshooter.html">PLC Troubleshooter</a>
-      <a href="/plc-inputs-not-working.html">PLC Inputs Not Working</a>
-      <a href="/plc-not-communicating.html">PLC Not Communicating</a>
-      <a href="/analog-scaling.html">Analog Scaling</a>
-      <a href="/plc-pulse-capture.html">PLC Scan Time &amp; Pulse Capture</a>
-      <a href="/wire-size-calculator.html">Wire Size Calculator</a>
-      <a href="/electrical-symbols-reference-chart.html">Electrical Symbols Reference Chart</a>
-      <a href="/voltage-drop.html">Voltage Drop</a>
-      <a href="/wire-gauge-amps.html">Wire Gauge vs Amps</a>
-      <a href="/awg-wire-gauge-chart.html">AWG Wire Gauge Chart</a>
-      <a href="/safety-distance.html">Safety Distance</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn">Welding</button>
-    <div class="dropdown-content">
-      <a href="/spot-weld.html">Spot Weld</a>
-      <a href="/projection-weld.html">Projection Weld</a>
-      <a href="/coolant-flow-sizing.html" onclick="gtag('event','nav_click',{'target':'weld_coolant_flow'});">Coolant Flow &amp; Line Sizing</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn">Fastening</button>
-    <div class="dropdown-content">
-      <a href="/multi-stage-torque-sequence.html">Torque Sequence</a>
-      <a href="/torque-clamp-load.html">Clamp Load</a>
-      <a href="/bolt-tightening-torque.html">Bolt Torque</a>
-      <a href="/torque-angle.html">Torque Angle</a>
-      <a href="/metric-tap-drill-chart.html">Metric Tap Drill Chart</a>
-      <a href="/bolt-torque-chart.html">Bolt Torque Chart</a>
-    </div>
-  </div>
-
-  <a href="/roi.html">ROI</a>
-  <a href="/feedback.html">Feedback</a>
-  <a href="/automation-help.html" class="nav-highlight"
- onclick="gtag('event','nav_click',{
-   'location':'navbar',
-   'item':'get_help'
- });">
-    Get Help
-  </a>
-  <a href="/integrators.html">Integrators</a>
-
 </div>
+
+<script>
+  (function () {
+    const navbar = document.getElementById('siteNavbar');
+    const menuToggle = document.getElementById('menuToggle');
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', function () {
+        navbar.classList.toggle('open');
+      });
+    }
+
+    window.toggleDropdown = function (event) {
+      if (window.innerWidth <= 1020) {
+        event.preventDefault();
+        const dropdown = event.target.closest('.dropdown');
+        if (dropdown) {
+          dropdown.classList.toggle('open');
+        }
+      }
+    };
+
+    const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+    const links = navbar.querySelectorAll('.nav-link, .dropdown-content a');
+
+    links.forEach(link => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      const normalizedHref = href.replace(/\/$/, '') || '/';
+      if (normalizedHref === currentPath) {
+        if (link.classList.contains('nav-link')) {
+          link.classList.add('active');
+        } else {
+          const parentDropdown = link.closest('.dropdown');
+          if (parentDropdown) {
+            const button = parentDropdown.querySelector('.dropbtn');
+            if (button) button.classList.add('active');
+          }
+        }
+      }
+    });
+  })();
+</script>
