@@ -211,7 +211,7 @@
       </a>
 
       <div class="dropdown">
-        <button class="dropbtn" type="button" aria-expanded="false" onclick="toggleDropdown(this)">
+        <button class="dropbtn" type="button">
           Popular Tools ▾
         </button>
         <div class="dropdown-content">
@@ -226,7 +226,7 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn" type="button" aria-expanded="false" onclick="toggleDropdown(this)">
+        <button class="dropbtn" type="button">
           More Tools ▾
         </button>
         <div class="dropdown-content">
@@ -251,76 +251,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  (function () {
-    const navbar = document.getElementById('siteNavbar');
-    const menuToggle = document.getElementById('menuToggle');
-    const dropdowns = navbar.querySelectorAll('.dropdown');
-
-    function closeAllDropdowns(exceptDropdown) {
-      dropdowns.forEach(dropdown => {
-        if (dropdown !== exceptDropdown) {
-          dropdown.classList.remove('open');
-          const button = dropdown.querySelector('.dropbtn');
-          if (button) button.setAttribute('aria-expanded', 'false');
-        }
-      });
-    }
-
-    window.toggleDropdown = function (button) {
-      const dropdown = button.closest('.dropdown');
-      const isOpen = dropdown.classList.contains('open');
-
-      closeAllDropdowns(dropdown);
-
-      if (isOpen) {
-        dropdown.classList.remove('open');
-        button.setAttribute('aria-expanded', 'false');
-      } else {
-        dropdown.classList.add('open');
-        button.setAttribute('aria-expanded', 'true');
-      }
-    };
-
-    if (menuToggle) {
-      menuToggle.addEventListener('click', function () {
-        const isOpen = navbar.classList.toggle('open');
-        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      });
-    }
-
-    document.addEventListener('click', function (event) {
-      if (!navbar.contains(event.target)) {
-        closeAllDropdowns();
-      }
-    });
-
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') {
-        closeAllDropdowns();
-      }
-    });
-
-    const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
-    const links = navbar.querySelectorAll('.nav-link, .dropdown-content a');
-
-    links.forEach(link => {
-      const href = link.getAttribute('href');
-      if (!href) return;
-
-      const normalizedHref = href.replace(/\/$/, '') || '/';
-      if (normalizedHref === currentPath) {
-        if (link.classList.contains('nav-link')) {
-          link.classList.add('active');
-        } else {
-          const parentDropdown = link.closest('.dropdown');
-          if (parentDropdown) {
-            const button = parentDropdown.querySelector('.dropbtn');
-            if (button) button.classList.add('active');
-          }
-        }
-      }
-    });
-  })();
-</script>
