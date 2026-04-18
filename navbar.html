@@ -72,7 +72,7 @@
   .dropdown-content {
     display: none;
     position: absolute;
-    top: calc(100% + 8px);
+    top: calc(100% + 6px);
     left: 0;
     min-width: 270px;
     background: #ffffff;
@@ -81,6 +81,11 @@
     box-shadow: 0 10px 26px rgba(12,35,64,0.12);
     padding: 8px 0;
     overflow: hidden;
+    z-index: 1100;
+  }
+
+  .dropdown.open .dropdown-content {
+    display: block;
   }
 
   .dropdown-content a {
@@ -97,10 +102,6 @@
     background: #eef4fb;
     color: #0b66c3;
     text-decoration: none;
-  }
-
-  .dropdown:hover .dropdown-content {
-    display: block;
   }
 
   .btn-help {
@@ -179,6 +180,7 @@
       box-shadow: none;
       border-radius: 12px;
       border: 1px solid #dbe4ee;
+      min-width: 100%;
     }
 
     .dropdown.open .dropdown-content {
@@ -193,7 +195,7 @@
       Automation Tools
     </a>
 
-    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation">
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">
       Menu
     </button>
 
@@ -209,7 +211,7 @@
       </a>
 
       <div class="dropdown">
-        <button class="dropbtn" onclick="toggleDropdown(event)">
+        <button class="dropbtn" type="button" aria-expanded="false" onclick="toggleDropdown(this)">
           Popular Tools ▾
         </button>
         <div class="dropdown-content">
@@ -224,7 +226,7 @@
       </div>
 
       <div class="dropdown">
-        <button class="dropbtn" onclick="toggleDropdown(event)">
+        <button class="dropbtn" type="button" aria-expanded="false" onclick="toggleDropdown(this)">
           More Tools ▾
         </button>
         <div class="dropdown-content">
@@ -254,22 +256,51 @@
   (function () {
     const navbar = document.getElementById('siteNavbar');
     const menuToggle = document.getElementById('menuToggle');
+    const dropdowns = navbar.querySelectorAll('.dropdown');
 
-    if (menuToggle) {
-      menuToggle.addEventListener('click', function () {
-        navbar.classList.toggle('open');
+    function closeAllDropdowns(exceptDropdown) {
+      dropdowns.forEach(dropdown => {
+        if (dropdown !== exceptDropdown) {
+          dropdown.classList.remove('open');
+          const button = dropdown.querySelector('.dropbtn');
+          if (button) button.setAttribute('aria-expanded', 'false');
+        }
       });
     }
 
-    window.toggleDropdown = function (event) {
-      if (window.innerWidth <= 1020) {
-        event.preventDefault();
-        const dropdown = event.target.closest('.dropdown');
-        if (dropdown) {
-          dropdown.classList.toggle('open');
-        }
+    window.toggleDropdown = function (button) {
+      const dropdown = button.closest('.dropdown');
+      const isOpen = dropdown.classList.contains('open');
+
+      closeAllDropdowns(dropdown);
+
+      if (isOpen) {
+        dropdown.classList.remove('open');
+        button.setAttribute('aria-expanded', 'false');
+      } else {
+        dropdown.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
       }
     };
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', function () {
+        const isOpen = navbar.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    }
+
+    document.addEventListener('click', function (event) {
+      if (!navbar.contains(event.target)) {
+        closeAllDropdowns();
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        closeAllDropdowns();
+      }
+    });
 
     const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
     const links = navbar.querySelectorAll('.nav-link, .dropdown-content a');
