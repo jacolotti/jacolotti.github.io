@@ -59,7 +59,8 @@
     text-decoration: none;
   }
 
-  .nav-link.active {
+  .nav-link.active,
+  .dropbtn.active {
     background: #eef4fb;
     color: #0b66c3;
   }
@@ -73,7 +74,7 @@
     position: absolute;
     top: calc(100% + 8px);
     left: 0;
-    min-width: 260px;
+    min-width: 270px;
     background: #ffffff;
     border: 1px solid #dbe4ee;
     border-radius: 14px;
@@ -209,34 +210,37 @@
 
       <div class="dropdown">
         <button class="dropbtn" onclick="toggleDropdown(event)">
-          Categories ▾
+          Popular Tools ▾
         </button>
         <div class="dropdown-content">
-          <a href="/pneumatics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatics'});">Pneumatics</a>
-          <a href="/robot.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robotics'});">Robotics</a>
-          <a href="/adhesives.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesives'});">Adhesives</a>
-          <a href="/motors-motion.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'motors_motion'});">Motors &amp; Motion</a>
-          <a href="/plc-electrical.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_electrical'});">PLC / Electrical</a>
-          <a href="/welding.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'welding'});">Welding</a>
-          <a href="/fastening.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'fastening'});">Fastening</a>
-          <a href="/automation-roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi'});">ROI</a>
+          <a href="/pneumatic.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_force'});">Pneumatic Force</a>
+          <a href="/robot.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robot_cycle'});">Robot Cycle Time</a>
+          <a href="/servo-torque.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'servo_torque'});">Servo Torque</a>
+          <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <a href="/spot-weld.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'spot_weld'});">Spot Weld</a>
+          <a href="/torque-clamp-load.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'torque_clamp_load'});">Torque to Clamp Load</a>
+          <a href="/roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi'});">Automation ROI</a>
         </div>
       </div>
 
       <div class="dropdown">
         <button class="dropbtn" onclick="toggleDropdown(event)">
-          Resources ▾
+          More Tools ▾
         </button>
         <div class="dropdown-content">
+          <a href="/air-consumption.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'air_consumption'});">Air Consumption</a>
+          <a href="/pneumatic-speed.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_speed'});">Pneumatic Speed</a>
+          <a href="/conveyor-speed.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'conveyor_speed'});">Conveyor Speed</a>
+          <a href="/gear-ratio.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'gear_ratio'});">Gear Ratio</a>
+          <a href="/analog-scaling.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'analog_scaling'});">Analog Scaling</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'voltage_drop'});">Voltage Drop</a>
           <a href="/reference-charts.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'reference_charts'});">Reference Charts</a>
-          <a href="/integrators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'integrators'});">Integrators</a>
-          <a href="/feedback.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'feedback'});">Feedback</a>
         </div>
       </div>
     </div>
 
     <div class="nav-right">
-      <a href="/integrators.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'integrators_top'});">
+      <a href="/integrators.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'integrators'});">
         Integrators
       </a>
       <a href="/automation-help.html" class="btn-help" onclick="gtag('event','nav_click',{'location':'navbar','item':'get_help'});">
