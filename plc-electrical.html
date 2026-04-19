@@ -435,8 +435,7 @@
 
   <section class="section">
     <div class="note-box">
-      <strong>Best way to use this section:</strong> start with the symptom first. If you are not sure where to begin, open the PLC Troubleshooting Guide. If the issue is a field device on but PLC or HMI status off, go to PLC Troubleshooter. If the device or module is offline, start with communication troubleshooting. If the signal exists but gets missed, check scan time and pulse capture.
-    </div>
+      <strong>Best way to use this section:</strong> start with the symptom first. If you are not sure where to begin, open the PLC Troubleshooting Guide. If the issue is a field device on but PLC or HMI status off, go to PLC Troubleshooter. If the device or module is offline, start with communication troubleshooting. If the input is correct but the machine does not respond, check PLC outputs and field power.
   </section>
 
   <section class="section" id="start-here">
@@ -463,9 +462,21 @@
           Start here when the prox, photoeye, switch, or input condition does not match what the PLC or HMI is showing.
         </p>
         <div class="card-links">
-          <a class="pill-link" href="/plc-troubleshooter.html" onclick="gtag('event','plc_electrical_start_path',{'path':'plc_troubleshooter','target':'plc_troubleshooter'});">PLC Troubleshooter</a>
-          <a class="pill-link" href="/plc-inputs-not-working.html" onclick="gtag('event','plc_electrical_start_path',{'path':'inputs','target':'plc_inputs_not_working'});">PLC Inputs Not Working</a>
-        </div>
+  <a class="pill-link" href="/plc-troubleshooter.html"
+     onclick="gtag('event','plc_electrical_start_path',{'path':'plc_troubleshooter','target':'plc_troubleshooter'});">
+     PLC Troubleshooter
+  </a>
+
+  <a class="pill-link" href="/plc-inputs-not-working.html"
+     onclick="gtag('event','plc_electrical_start_path',{'path':'inputs','target':'plc_inputs_not_working'});">
+     PLC Inputs Not Working
+  </a>
+
+  <a class="pill-link" href="/plc-outputs-not-working.html"
+     onclick="gtag('event','plc_electrical_start_path',{'path':'outputs','target':'plc_outputs_not_working'});">
+     PLC Outputs Not Working
+  </a>
+</div>
       </div>
 
       <div class="card">
@@ -537,12 +548,14 @@
         <h3>Input / Sensor Troubleshooting Workflow</h3>
         <p>Use this when a sensor or input state is not matching what the machine is doing.</p>
         <div class="flow-steps">
-          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_electrical_flow',{'flow':'inputs','step':'plc_troubleshooter'});">PLC Troubleshooter</a>
-          <span class="arrow">→</span>
-          <a href="/plc-inputs-not-working.html" onclick="gtag('event','plc_electrical_flow',{'flow':'inputs','step':'inputs_not_working'});">Inputs Not Working</a>
-          <span class="arrow">→</span>
-          <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_electrical_flow',{'flow':'inputs','step':'pulse_capture'});">Scan Time & Pulse Capture</a>
-        </div>
+  <a href="/plc-troubleshooter.html">PLC Troubleshooter</a>
+  <span class="arrow">→</span>
+  <a href="/plc-inputs-not-working.html">Inputs Not Working</a>
+  <span class="arrow">→</span>
+  <a href="/plc-outputs-not-working.html">Outputs Not Working</a>
+  <span class="arrow">→</span>
+  <a href="/plc-pulse-capture.html">Scan Time & Pulse Capture</a>
+</div>
       </div>
 
       <div class="workflow">
