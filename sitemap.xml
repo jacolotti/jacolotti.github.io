@@ -28,6 +28,13 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+
+   <url>
+    <loc>https://automationcalculators.net/fastening.html</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
   
   <url>
     <loc>https://automationcalculators.net/electrical-symbols-reference-chart.html</loc>
