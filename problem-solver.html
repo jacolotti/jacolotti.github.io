@@ -329,7 +329,8 @@
         <li><a href="/pneumatic.html" onclick="gtag('event','problem_solver_quick_link',{'target':'pneumatic_force'});">Pneumatic Force Calculator</a></li>
         <li><a href="/pneumatic-speed.html" onclick="gtag('event','problem_solver_quick_link',{'target':'pneumatic_speed'});">Pneumatic Speed Calculator</a></li>
         <li><a href="/air-consumption.html" onclick="gtag('event','problem_solver_quick_link',{'target':'air_consumption'});">Air Consumption Calculator</a></li>
-        <li><a href="/plc-communication-troubleshooting.html" onclick="gtag('event','problem_solver_quick_link',{'target':'plc_troubleshooting'});">PLC Communication Troubleshooter</a></li>
+        <li><a href="/plc-troubleshooter.html" onclick="gtag('event','problem_solver_quick_link',{'target':'plc_troubleshooter'});">PLC Troubleshooter</a></li>
+        <li><a href="/plc-communication-troubleshooting.html" onclick="gtag('event','problem_solver_quick_link',{'target':'plc_communication_troubleshooter'});">PLC Communication Troubleshooter</a></li>
         <li><a href="/plc-pulse-capture.html" onclick="gtag('event','problem_solver_quick_link',{'target':'plc_pulse_capture'});">PLC Scan Time & Pulse Capture</a></li>
         <li><a href="/motor.html" onclick="gtag('event','problem_solver_quick_link',{'target':'motor_sizing'});">Conveyor Motor Sizing Calculator</a></li>
         <li><a href="/robot.html" onclick="gtag('event','problem_solver_quick_link',{'target':'robot_cycle_time'});">Robot Cycle Time Calculator</a></li>
@@ -415,16 +416,31 @@
       plc: [
         {
           label: "PLC is not seeing the sensor input",
-          title: "PLC Communication Troubleshooter",
-          description: "Start here to work through sensor power, wiring, input status, communication path, and likely root causes.",
-          reason: "Best when the field device is on but the PLC or HMI is not reading it correctly.",
-          primaryText: "Open PLC Communication Troubleshooter",
-          primaryUrl: "/plc-communication-troubleshooting.html",
+          title: "PLC Troubleshooter",
+          description: "Start here to work through field inputs, sensor status mismatch, PLC logic conditions, addressing, and HMI state issues.",
+          reason: "Best when the field device is on but the PLC or HMI is not showing the expected state.",
+          primaryText: "Open PLC Troubleshooter",
+          primaryUrl: "/plc-troubleshooter.html",
           related: [
-            { text: "PLC Scan Time & Pulse Capture", url: "/plc-pulse-capture.html" },
-            { text: "Voltage Drop Calculator", url: "/voltage-drop.html" }
+            { text: "PLC Inputs Not Working", url: "/plc-inputs-not-working.html" },
+            { text: "PLC Communication Troubleshooter", url: "/plc-communication-troubleshooting.html" },
+            { text: "PLC Scan Time & Pulse Capture", url: "/plc-pulse-capture.html" }
           ],
-          keywords: ["plc not seeing input", "sensor on plc off", "plc missing input", "input not detected", "sensor not showing", "plc input problem", "communication issue", "plc trouble"]
+          keywords: [
+            "plc not seeing input",
+            "sensor on plc off",
+            "plc missing input",
+            "input not detected",
+            "sensor not showing",
+            "plc input problem",
+            "prox on hmi off",
+            "sensor on but hmi off",
+            "prox sensor on but hmi off",
+            "part present off",
+            "input on but hmi off",
+            "sensor is on but hmi is off",
+            "field device on but plc off"
+          ]
         },
         {
           label: "Signal is too fast and may be getting missed",
@@ -434,6 +450,7 @@
           primaryText: "Open PLC Scan Time & Pulse Capture",
           primaryUrl: "/plc-pulse-capture.html",
           related: [
+            { text: "PLC Troubleshooter", url: "/plc-troubleshooter.html" },
             { text: "PLC Communication Troubleshooter", url: "/plc-communication-troubleshooting.html" },
             { text: "Analog Scaling Calculator", url: "/analog-scaling.html" }
           ],
@@ -447,6 +464,7 @@
           primaryText: "Open Analog Scaling Calculator",
           primaryUrl: "/analog-scaling.html",
           related: [
+            { text: "PLC Troubleshooter", url: "/plc-troubleshooter.html" },
             { text: "PLC Communication Troubleshooter", url: "/plc-communication-troubleshooting.html" },
             { text: "Voltage Drop Calculator", url: "/voltage-drop.html" }
           ],
@@ -464,6 +482,34 @@
             { text: "AWG Wire Gauge Chart", url: "/awg-wire-gauge-chart.html" }
           ],
           keywords: ["voltage drop", "wire too small", "low voltage at sensor", "cable run too long", "wire gauge", "field voltage loss", "wire size"]
+        },
+        {
+          label: "Device or network is not communicating",
+          title: "PLC Communication Troubleshooter",
+          description: "Start here to work through network, module, addressing, and communication path issues.",
+          reason: "Best when the PLC, HMI, remote I/O, drive, or field device is offline or not communicating.",
+          primaryText: "Open PLC Communication Troubleshooter",
+          primaryUrl: "/plc-communication-troubleshooting.html",
+          related: [
+            { text: "PLC Troubleshooter", url: "/plc-troubleshooter.html" },
+            { text: "Voltage Drop Calculator", url: "/voltage-drop.html" }
+          ],
+          keywords: [
+            "communication issue",
+            "comm fault",
+            "communication fault",
+            "offline",
+            "not communicating",
+            "ethernet ip",
+            "network issue",
+            "no connection",
+            "adapter fault",
+            "device not found",
+            "module offline",
+            "node offline",
+            "lost comms",
+            "lost communication"
+          ]
         }
       ],
       motion: [
@@ -720,6 +766,62 @@
         return;
       }
 
+      // Priority rule:
+      // If a field device is ON but PLC/HMI/input/part-present is OFF,
+      // send user to PLC Troubleshooter first.
+      const hasSensorWord =
+        input.includes("sensor") ||
+        input.includes("prox") ||
+        input.includes("prox sensor") ||
+        input.includes("photoeye") ||
+        input.includes("switch");
+
+      const hasOnWord =
+        input.includes(" is on") ||
+        input.includes(" on but") ||
+        input.includes("turned on") ||
+        input.includes("lit") ||
+        input.includes("made");
+
+      const hasMismatchWord =
+        input.includes("hmi is off") ||
+        input.includes("hmi off") ||
+        input.includes("plc is off") ||
+        input.includes("plc off") ||
+        input.includes("input off") ||
+        input.includes("part present off") ||
+        input.includes("not showing on hmi") ||
+        input.includes("not showing in plc") ||
+        input.includes("not showing") ||
+        input.includes("not detected");
+
+      if (hasSensorWord && hasOnWord && hasMismatchWord) {
+        const forcedMatch = {
+          title: "PLC Troubleshooter",
+          description: "Start here to work through field inputs, sensor status mismatch, PLC logic conditions, addressing, and HMI state issues.",
+          reason: "Best when the sensor or field device is physically on but the PLC or HMI is still showing the wrong state.",
+          primaryText: "Open PLC Troubleshooter",
+          primaryUrl: "/plc-troubleshooter.html",
+          related: [
+            { text: "PLC Inputs Not Working", url: "/plc-inputs-not-working.html" },
+            { text: "PLC Communication Troubleshooter", url: "/plc-communication-troubleshooting.html" },
+            { text: "PLC Scan Time & Pulse Capture", url: "/plc-pulse-capture.html" }
+          ]
+        };
+
+        showResult(forcedMatch, "Keyword Match");
+
+        gtag('event', 'problem_solver_match', {
+          source: 'keyword_priority',
+          system: 'plc',
+          issue_text: input,
+          destination: forcedMatch.primaryUrl,
+          score: 999
+        });
+
+        return;
+      }
+
       let bestMatch = null;
       let bestScore = 0;
       let matchedSystem = "";
@@ -774,8 +876,8 @@
           primaryText: "Open Automation Help",
           primaryUrl: "/automation-help.html",
           related: [
+            { text: "PLC Troubleshooter", url: "/plc-troubleshooter.html" },
             { text: "PLC Communication Troubleshooter", url: "/plc-communication-troubleshooting.html" },
-            { text: "Pneumatic System Sizing Guide", url: "/pneumatic-system-sizing-guide.html" },
             { text: "Automation Calculators Overview", url: "/automation-calculators.html" }
           ]
         };
