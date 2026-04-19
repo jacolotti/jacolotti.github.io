@@ -327,12 +327,12 @@
       </p>
 
       <div class="cta-box" style="margin-top:0; margin-bottom:22px;">
-        <h3>Need a symptom-based path instead?</h3>
+        <h3>Not sure where to start?</h3>
         <p>
-          Use the interactive PLC troubleshooter if you want help narrowing the issue down based on what the machine is actually doing.
+          If you're troubleshooting a real PLC issue, start with the full step-by-step guide or use the interactive troubleshooter to narrow the issue down by symptom.
         </p>
-        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_comms_cta_click',{'target':'troubleshooter_top'});">Start Troubleshooter</a>
-        <a href="/plc-electrical.html" onclick="gtag('event','plc_comms_cta_click',{'target':'plc_electrical_top'});">PLC & Electrical Tools</a>
+        <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','internal_link',{'from':'plc_comms','to':'plc_troubleshooting_guide'});">Start with PLC Troubleshooting Guide</a>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_comms','to':'plc_troubleshooter'});">Use PLC Troubleshooter</a>
       </div>
 
       <div class="checklist">
@@ -471,12 +471,33 @@
       </div>
 
       <div class="cta-box">
-        <h3>Still not sure why communication is failing?</h3>
+        <h3>What should you check next?</h3>
         <p>
-          Use the interactive troubleshooter for a symptom-based path, or get help if the machine is down and you need real-world support now.
+          Once you narrow the fault down, move into the next page that matches the symptom. This helps you isolate whether the issue is broader PLC behavior, field inputs, or a real communication path problem.
         </p>
-        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_comms_cta_click',{'target':'troubleshooter_bottom'});">Start Troubleshooter</a>
-        <a href="/automation-help.html" onclick="gtag('event','plc_comms_cta_click',{'target':'automation_help'});">Get Help With My System</a>
+        <div class="internal-links" style="justify-content:center;">
+          <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','internal_link',{'from':'plc_comms','to':'plc_comm_wizard_next'});">Check PLC Communication Issues</a>
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_comms','to':'plc_troubleshooter_next'});">Use the PLC Troubleshooter</a>
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','internal_link',{'from':'plc_comms','to':'plc_inputs_next'});">Check PLC Input Issues</a>
+        </div>
+      </div>
+
+      <div class="guide-section" style="border-bottom:none; padding-bottom:0; margin-bottom:0;">
+        <h3>Related PLC & Electrical Tools</h3>
+        <div class="internal-links">
+          <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','internal_link',{'from':'plc_comms','to':'plc_comm_wizard'});">PLC Communication Troubleshooter</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','internal_link',{'from':'plc_comms','to':'plc_electrical_hub'});">PLC & Electrical Hub</a>
+          <a href="/reference-charts.html" onclick="gtag('event','internal_link',{'from':'plc_comms','to':'reference_charts'});">Electrical Reference Charts</a>
+          <a href="/analog-scaling.html" onclick="gtag('event','internal_link',{'from':'plc_comms','to':'analog_scaling'});">Analog Scaling Calculator</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Working on a real machine issue?</h3>
+        <p>
+          If the machine is down or communication faults are affecting production, you can get help applying this directly to your system.
+        </p>
+        <a href="/automation-help.html" onclick="gtag('event','lead_cta',{'source':'plc_comms'});">Get Help With My System</a>
         <a href="/integrators.html" onclick="gtag('event','plc_comms_cta_click',{'target':'integrators'});">Find an Integrator</a>
       </div>
 
@@ -505,6 +526,7 @@
         <div class="link-list">
           <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'plc_troubleshooter'});">PLC Troubleshooter</a>
           <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'plc_guide'});">PLC Troubleshooting Guide</a>
+          <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'plc_comm_wizard'});">PLC Communication Troubleshooter</a>
           <a href="/plc-electrical.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'plc_electrical'});">PLC & Electrical Hub</a>
           <a href="/automation-help.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'automation_help'});">Get Help With My System</a>
           <a href="/integrators.html" onclick="gtag('event','plc_comms_sidebar_click',{'target':'integrators'});">Find an Integrator</a>
