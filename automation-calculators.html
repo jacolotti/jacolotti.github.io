@@ -7,7 +7,7 @@
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Automation Calculators Index | PLC, Pneumatics, Robotics, Motion, Welding, ROI</title>
-  <meta name="description" content="Browse all free automation engineering calculators, troubleshooting tools, and reference pages in one place. PLC, electrical, pneumatics, robotics, motion, welding, fastening, adhesives, and automation ROI tools.">
+  <meta name="description" content="Browse all automation engineering calculators, troubleshooting tools, reference charts, and setup guides in one place. PLC, electrical, pneumatics, robotics, motion, welding, fastening, adhesives, and ROI tools.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -19,19 +19,24 @@
 
   <style>
     :root{
-      --bg:#f4f7fb;
+      --bg:#f5f7fb;
       --card:#ffffff;
       --text:#16202a;
-      --muted:#556271;
+      --muted:#5d6b79;
       --accent:#0b66c3;
       --accent-dark:#084c92;
-      --border:#dbe4ee;
-      --soft:#eef4fb;
-      --shadow:0 10px 26px rgba(12,35,64,0.08);
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15, 35, 60, 0.08);
       --radius:16px;
+      --max:1180px;
     }
 
     *{box-sizing:border-box;}
+
+    html{
+      scroll-behavior:smooth;
+    }
 
     body{
       margin:0;
@@ -55,122 +60,120 @@
       top:0;
       z-index:999;
       background:#fff;
-      box-shadow:0 2px 10px rgba(0,0,0,0.06);
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
     }
 
     .hero{
-      background:linear-gradient(135deg, #0b66c3 0%, #0d79d0 45%, #0b3d69 100%);
-      color:#fff;
-      padding:58px 20px 42px;
+      background:#ffffff;
+      border-bottom:1px solid var(--border);
     }
 
     .hero-inner{
-      max-width:1180px;
+      max-width:var(--max);
       margin:0 auto;
+      padding:50px 20px 36px;
       display:grid;
-      grid-template-columns:1.2fr 0.8fr;
-      gap:28px;
-      align-items:center;
+      grid-template-columns:1.35fr 0.85fr;
+      gap:24px;
+      align-items:start;
     }
 
     .hero h1{
-      font-size:2.35rem;
+      margin:0 0 14px;
+      font-size:2.3rem;
       line-height:1.15;
-      margin:0 0 16px;
+      color:var(--text);
     }
 
     .hero p{
       margin:0 0 14px;
-      color:rgba(255,255,255,0.95);
-      font-size:1.06rem;
+      color:var(--muted);
       max-width:760px;
+      font-size:1.02rem;
     }
 
     .hero-actions{
       display:flex;
       flex-wrap:wrap;
       gap:12px;
-      margin-top:22px;
+      margin-top:20px;
     }
 
     .btn{
       display:inline-block;
-      padding:13px 18px;
+      padding:12px 16px;
       border-radius:10px;
       font-weight:700;
-      text-decoration:none;
       transition:.2s ease;
+      text-decoration:none;
     }
 
     .btn-primary{
-      background:#fff;
-      color:var(--accent-dark);
+      background:var(--accent);
+      color:#fff;
     }
 
     .btn-primary:hover{
-      background:#f1f6fb;
+      background:var(--accent-dark);
       text-decoration:none;
     }
 
     .btn-secondary{
-      background:rgba(255,255,255,0.14);
-      color:#fff;
-      border:1px solid rgba(255,255,255,0.28);
+      background:var(--soft);
+      color:var(--accent-dark);
+      border:1px solid var(--border);
     }
 
     .btn-secondary:hover{
-      background:rgba(255,255,255,0.2);
+      background:#e2edf9;
       text-decoration:none;
     }
 
     .hero-panel{
-      background:rgba(255,255,255,0.12);
-      border:1px solid rgba(255,255,255,0.18);
-      border-radius:18px;
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
       padding:22px;
-      backdrop-filter:blur(5px);
     }
 
     .hero-panel h3{
-      margin:0 0 12px;
-      color:#fff;
-      font-size:1.15rem;
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--text);
     }
 
     .hero-panel ul{
       margin:0;
       padding-left:18px;
+      color:var(--muted);
     }
 
     .hero-panel li{
-      margin-bottom:10px;
-      color:rgba(255,255,255,0.95);
+      margin-bottom:8px;
     }
 
     .section{
-      max-width:1180px;
+      max-width:var(--max);
       margin:0 auto;
-      padding:38px 20px;
+      padding:34px 20px;
     }
 
     .section h2{
       margin:0 0 10px;
-      font-size:2rem;
+      font-size:1.95rem;
       color:var(--text);
     }
 
     .section-intro{
-      margin:0 0 24px;
+      margin:0 0 22px;
       color:var(--muted);
-      max-width:840px;
-      font-size:1.02rem;
+      max-width:860px;
     }
 
     .jump-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:18px;
     }
 
     .jump-links a{
@@ -178,99 +181,79 @@
       padding:10px 14px;
       border-radius:999px;
       background:var(--soft);
+      border:1px solid var(--border);
       color:var(--accent-dark);
       font-weight:700;
       text-decoration:none;
     }
 
     .jump-links a:hover{
-      background:#dfeefa;
+      background:#e2edf9;
     }
 
-    .grid-4{
+    .grid-4,
+    .grid-3,
+    .grid-2{
       display:grid;
-      grid-template-columns:repeat(4, 1fr);
       gap:18px;
     }
 
-    .grid-3{
-      display:grid;
-      grid-template-columns:repeat(3, 1fr);
-      gap:20px;
-    }
+    .grid-4{ grid-template-columns:repeat(4, 1fr); }
+    .grid-3{ grid-template-columns:repeat(3, 1fr); }
+    .grid-2{ grid-template-columns:repeat(2, 1fr); }
 
-    .grid-2{
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:20px;
-    }
-
-    .card{
+    .mini-card,
+    .tool-card,
+    .workflow,
+    .note-card{
       background:var(--card);
       border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:22px;
-      height:100%;
-    }
-
-    .card h3{
-      margin:0 0 8px;
-      font-size:1.18rem;
-      color:var(--text);
-    }
-
-    .card p{
-      margin:0 0 12px;
-      color:var(--muted);
-    }
-
-    .mini-card{
-      display:block;
-      background:#fff;
-      border:1px solid var(--border);
       border-radius:14px;
-      padding:18px;
       box-shadow:var(--shadow);
-      text-decoration:none;
-      color:inherit;
-      height:100%;
-      transition:.2s ease;
     }
 
-    .mini-card:hover{
+    .mini-card,
+    .tool-card{
+      display:block;
+      padding:20px;
+      color:inherit;
+      text-decoration:none;
+      transition:.18s ease;
+      height:100%;
+    }
+
+    .mini-card:hover,
+    .tool-card:hover{
       transform:translateY(-2px);
       text-decoration:none;
-      box-shadow:0 14px 28px rgba(12,35,64,0.10);
+      box-shadow:0 12px 26px rgba(15,35,60,0.10);
     }
 
-    .mini-card h3{
+    .mini-card h3,
+    .tool-card h4{
       margin:0 0 8px;
-      font-size:1.05rem;
       color:var(--text);
     }
 
-    .mini-card p{
+    .mini-card p,
+    .tool-card p{
       margin:0;
       color:var(--muted);
       font-size:0.96rem;
     }
 
     .workflow{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:22px;
-      box-shadow:var(--shadow);
+      padding:20px;
+      margin:0 0 18px;
     }
 
     .workflow h3{
-      margin:0 0 10px;
-      font-size:1.12rem;
+      margin:0 0 8px;
+      font-size:1.08rem;
     }
 
     .workflow p{
-      margin:0 0 14px;
+      margin:0 0 12px;
       color:var(--muted);
     }
 
@@ -284,108 +267,71 @@
 
     .flow-steps a{
       background:var(--soft);
+      border:1px solid var(--border);
       color:var(--accent-dark);
-      padding:9px 12px;
+      padding:8px 12px;
       border-radius:999px;
       text-decoration:none;
     }
 
+    .flow-steps a:hover{
+      background:#e2edf9;
+    }
+
     .arrow{
-      color:#7b8b9b;
+      color:#8695a3;
     }
 
     .category-section{
-      margin-top:30px;
+      margin-top:34px;
       scroll-margin-top:90px;
     }
 
     .category-head{
       display:flex;
       justify-content:space-between;
-      gap:16px;
       align-items:flex-end;
-      margin-bottom:14px;
+      gap:14px;
       flex-wrap:wrap;
+      margin-bottom:14px;
     }
 
     .category-head h3{
       margin:0;
-      font-size:1.55rem;
-      color:var(--text);
+      font-size:1.5rem;
     }
 
     .category-head p{
       margin:0;
       color:var(--muted);
-      max-width:760px;
+      max-width:780px;
     }
 
     .tool-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(235px,1fr));
+      grid-template-columns:repeat(auto-fit, minmax(235px, 1fr));
       gap:18px;
     }
 
-    .tool-card{
-      display:block;
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:20px;
-      box-shadow:var(--shadow);
-      text-decoration:none;
-      color:inherit;
-      transition:.2s ease;
-      height:100%;
-    }
-
-    .tool-card:hover{
-      transform:translateY(-2px);
-      text-decoration:none;
-      box-shadow:0 14px 28px rgba(12,35,64,0.10);
-    }
-
-    .tool-card h4{
-      margin:0 0 10px;
-      font-size:1.04rem;
-      color:var(--text);
-    }
-
-    .tool-card p{
-      margin:0;
-      color:var(--muted);
-      font-size:0.96rem;
-    }
-
     .band{
-      background:#eaf2fb;
+      background:#eef4fa;
       border-top:1px solid var(--border);
       border-bottom:1px solid var(--border);
     }
 
-    .cta-box{
-      background:linear-gradient(135deg, #0d4d86 0%, #0b66c3 100%);
-      color:#fff;
-      border-radius:20px;
-      padding:30px;
-      box-shadow:var(--shadow);
+    .note-card{
+      padding:24px;
     }
 
-    .cta-box h2{
-      color:#fff;
+    .note-card h2{
       margin-top:0;
-    }
-
-    .cta-box p{
-      color:rgba(255,255,255,0.94);
-      max-width:820px;
     }
 
     .footer-note{
       text-align:center;
-      color:#5d6d7b;
-      font-size:0.96rem;
-      padding:16px 0 10px;
+      color:#667584;
+      font-size:0.95rem;
+      padding:6px 0 10px;
     }
 
     @media (max-width: 1020px){
@@ -398,12 +344,12 @@
     }
 
     @media (max-width: 700px){
-      .hero{
-        padding:46px 16px 34px;
+      .hero-inner{
+        padding:40px 16px 30px;
       }
 
       .section{
-        padding:32px 16px;
+        padding:30px 16px;
       }
 
       .hero h1{
@@ -411,18 +357,14 @@
       }
 
       .section h2{
-        font-size:1.6rem;
+        font-size:1.55rem;
       }
 
-      .card,
-      .workflow,
+      .mini-card,
       .tool-card,
-      .mini-card{
+      .workflow,
+      .note-card{
         padding:18px;
-      }
-
-      .cta-box{
-        padding:22px;
       }
     }
   </style>
@@ -433,28 +375,28 @@
   <section class="hero">
     <div class="hero-inner">
       <div>
-        <h1>Browse All Automation Engineering Tools in One Place</h1>
+        <h1>Automation Engineering Tools in One Place</h1>
         <p>
-          This page should be your main calculator hub, not just a long list. Jump into the right tool faster for troubleshooting, sizing, quoting, setup, and project planning.
+          Browse calculators, troubleshooting tools, setup guides, and reference pages across PLCs, pneumatics, robotics, motion, welding, fastening, adhesives, and automation planning.
         </p>
         <p>
-          Use the quick links below, start with a popular calculator, or scroll the full library by category.
+          This page is meant to help you get to the right tool quickly without hunting through the whole site.
         </p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#popular-tools" onclick="gtag('event','index_cta',{'location':'hero','action':'popular_tools'});">Popular Starting Points</a>
+          <a class="btn btn-primary" href="#popular-tools" onclick="gtag('event','index_cta',{'location':'hero','action':'popular_tools'});">Popular Tools</a>
           <a class="btn btn-secondary" href="#full-library" onclick="gtag('event','index_cta',{'location':'hero','action':'full_library'});">Browse Full Library</a>
-          <a class="btn btn-secondary" href="/problem-solver.html" onclick="gtag('event','index_cta',{'location':'hero','action':'problem_solver'});">Start With Your Issue</a>
+          <a class="btn btn-secondary" href="/problem-solver.html" onclick="gtag('event','index_cta',{'location':'hero','action':'problem_solver'});">Start With the Problem Solver</a>
         </div>
       </div>
 
       <div class="hero-panel">
-        <h3>What this page should do better</h3>
+        <h3>What you’ll find here</h3>
         <ul>
-          <li>Get people to the right tool fast</li>
-          <li>Show the most-used calculators first</li>
-          <li>Group tools by real engineering workflow</li>
-          <li>Keep the full index available for browsing and SEO</li>
+          <li>Quick-access calculators for real plant and machine work</li>
+          <li>Troubleshooting pages for common controls and process issues</li>
+          <li>Reference charts and guides that support real decisions</li>
+          <li>Organized categories instead of one long unstructured list</li>
         </ul>
       </div>
     </div>
@@ -463,7 +405,7 @@
   <section class="section">
     <h2>Jump to a Category</h2>
     <p class="section-intro">
-      Use this as a fast access page for the whole site. Start with the category that matches the work in front of you.
+      Use the quick links below to move directly to the part of the site that matches what you are working on.
     </p>
 
     <div class="jump-links">
@@ -474,6 +416,7 @@
       <a href="#welding" onclick="gtag('event','index_jump',{'category':'welding'});">Welding</a>
       <a href="#fastening" onclick="gtag('event','index_jump',{'category':'fastening'});">Fastening</a>
       <a href="#adhesives" onclick="gtag('event','index_jump',{'category':'adhesives'});">Adhesives</a>
+      <a href="#mechanical" onclick="gtag('event','index_jump',{'category':'mechanical'});">Mechanical</a>
       <a href="#planning" onclick="gtag('event','index_jump',{'category':'planning'});">ROI / Planning</a>
       <a href="#resources" onclick="gtag('event','index_jump',{'category':'resources'});">Reference Tools</a>
     </div>
@@ -482,28 +425,28 @@
   <section class="section" id="popular-tools">
     <h2>Popular Starting Points</h2>
     <p class="section-intro">
-      These are the tools most likely to get someone moving quickly instead of forcing them to hunt through the whole index.
+      These are strong entry points for the site if you are troubleshooting, sizing, or trying to get to an answer quickly.
     </p>
 
     <div class="grid-4">
       <a class="mini-card" href="/pneumatic.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'pneumatic_force'});">
         <h3>Pneumatic Force</h3>
-        <p>Fast cylinder force check for sizing, troubleshooting, and concept review.</p>
+        <p>Quick cylinder force sizing and troubleshooting starting point.</p>
       </a>
 
       <a class="mini-card" href="/servo-torque.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'servo_torque'});">
         <h3>Servo Torque</h3>
-        <p>Quick motion sizing starting point for conveyors, indexing, and driven axes.</p>
+        <p>Useful motion sizing starting point for conveyors and driven axes.</p>
       </a>
 
       <a class="mini-card" href="/plc-communication-troubleshooting.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'plc_comm_troubleshooting'});">
-        <h3>PLC Troubleshooter</h3>
-        <p>Work through communication, field-device, and signal issues step by step.</p>
+        <h3>PLC Communication Troubleshooter</h3>
+        <p>Step through real communication and field device issues logically.</p>
       </a>
 
-      <a class="mini-card" href="/roi.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'automation_roi'});">
-        <h3>Automation ROI</h3>
-        <p>Estimate payback and justify automation projects more clearly.</p>
+      <a class="mini-card" href="/robot-simulator.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'robot_simulator'});">
+        <h3>Robot Simulator</h3>
+        <p>Interactive robot positioning and layout concept tool.</p>
       </a>
     </div>
   </section>
@@ -512,27 +455,27 @@
     <div style="max-width:1180px;margin:0 auto;">
       <h2>Common Tool Flows</h2>
       <p class="section-intro">
-        This is how the page should guide people, not just dump every calculator in one stream.
+        Some jobs follow a natural sequence. These flows help people move through related tools faster.
       </p>
 
       <div class="grid-3">
         <div class="workflow">
           <h3>Pneumatic Flow</h3>
-          <p>Move from force into air usage, speed, and line sizing.</p>
+          <p>Start with force, then move into air use, speed, and line sizing.</p>
           <div class="flow-steps">
             <a href="/pneumatic.html">Force</a>
             <span class="arrow">→</span>
-            <a href="/air-consumption.html">Air Consumption</a>
+            <a href="/air-consumption.html">Air Use</a>
             <span class="arrow">→</span>
-            <a href="/pneumatic-speed.html">Cylinder Speed</a>
+            <a href="/pneumatic-speed.html">Speed</a>
             <span class="arrow">→</span>
-            <a href="/air-line-size-calculator.html">Air Line Size</a>
+            <a href="/air-line-size-calculator.html">Line Size</a>
           </div>
         </div>
 
         <div class="workflow">
           <h3>Motion Flow</h3>
-          <p>Start with speed, then work into torque, gearing, and output torque.</p>
+          <p>Start with speed and torque, then work into gearing and output torque.</p>
           <div class="flow-steps">
             <a href="/conveyor-speed.html">Conveyor Speed</a>
             <span class="arrow">→</span>
@@ -540,21 +483,21 @@
             <span class="arrow">→</span>
             <a href="/gear-ratio.html">Gear Ratio</a>
             <span class="arrow">→</span>
-            <a href="/gearbox-torque.html">Gearbox Output</a>
+            <a href="/gearbox-torque.html">Gearbox Torque</a>
           </div>
         </div>
 
         <div class="workflow">
-          <h3>Controls Flow</h3>
-          <p>Start with troubleshooting, then check pulse capture, scaling, and electrical sizing.</p>
+          <h3>Adhesive Flow</h3>
+          <p>Start with setup, then move into usage, timing, and troubleshooting.</p>
           <div class="flow-steps">
-            <a href="/plc-communication-troubleshooting.html">Troubleshooting</a>
+            <a href="/adhesive-system-setup.html">Setup</a>
             <span class="arrow">→</span>
-            <a href="/plc-pulse-capture.html">Pulse Capture</a>
+            <a href="/adhesive-usage-calculator.html">Usage</a>
             <span class="arrow">→</span>
-            <a href="/analog-scaling.html">Analog Scaling</a>
+            <a href="/pattern-timing-calculator.html">Timing</a>
             <span class="arrow">→</span>
-            <a href="/voltage-drop.html">Voltage Drop</a>
+            <a href="/hot-melt-troubleshooting.html">Troubleshoot</a>
           </div>
         </div>
       </div>
@@ -564,30 +507,34 @@
   <section class="section" id="full-library">
     <h2>Full Tool Library</h2>
     <p class="section-intro">
-      Full category index for engineers, technicians, machine builders, and integrators. This keeps the page useful both as a navigation hub and as a searchable site index.
+      Browse the full site by category. This page is meant to be a central index for engineers, technicians, integrators, and machine builders.
     </p>
 
     <div class="category-section" id="robotics">
       <div class="category-head">
         <h3>Robotics</h3>
-        <p>Cycle time, reach, payload, and layout-related tools for robot cell planning and handling concepts.</p>
+        <p>Robot cycle time, reach, payload, simulation, and layout-related tools.</p>
       </div>
       <div class="tool-grid">
         <a class="tool-card" href="/robot.html" onclick="gtag('event','tool_open',{tool:'robot_cycle'});">
           <h4>Robot Cycle Time Calculator</h4>
-          <p>Estimate robot cycle time, throughput per minute, hourly output, and shift output.</p>
+          <p>Estimate cycle time, throughput per minute, and shift output for robot applications.</p>
         </a>
         <a class="tool-card" href="/robot-reach.html" onclick="gtag('event','tool_open',{tool:'robot_reach'});">
           <h4>Robot Reach Calculator</h4>
-          <p>Check whether a robot can physically reach a target point with a safety margin.</p>
+          <p>Check whether a robot can physically reach a target point with margin.</p>
         </a>
         <a class="tool-card" href="/robot-payload.html" onclick="gtag('event','tool_open',{tool:'robot_payload'});">
           <h4>Robot Payload Calculator</h4>
-          <p>Estimate required robot payload using part, gripper, tooling weight, and safety factor.</p>
+          <p>Estimate required robot payload using part, gripper, tooling, and safety factor.</p>
+        </a>
+        <a class="tool-card" href="/robot-simulator.html" onclick="gtag('event','tool_open',{tool:'robot_simulator'});">
+          <h4>Robot Simulator</h4>
+          <p>Interactive robot visualization tool for concepting and placement checks.</p>
         </a>
         <a class="tool-card" href="/bin-simulator.html" onclick="gtag('event','tool_open',{tool:'bin_simulator'});">
           <h4>Bin Loading Simulator</h4>
-          <p>Preview free-fall stacking behavior for basic bin loading concepts.</p>
+          <p>Preview stacking and loading behavior for simple bin loading concepts.</p>
         </a>
       </div>
     </div>
@@ -595,28 +542,40 @@
     <div class="category-section" id="motion">
       <div class="category-head">
         <h3>Motors &amp; Motion</h3>
-        <p>Servo sizing, gearing, conveyor motion, and drivetrain estimate tools.</p>
+        <p>Motion sizing, gearing, conveyor calculations, motor reference tools, and power relationships.</p>
       </div>
       <div class="tool-grid">
         <a class="tool-card" href="/servo-torque.html" onclick="gtag('event','tool_open',{tool:'servo_torque'});">
           <h4>Servo Torque Calculator</h4>
-          <p>Estimate running torque, acceleration torque, power, and recommended servo torque.</p>
-        </a>
-        <a class="tool-card" href="/gear-ratio.html" onclick="gtag('event','tool_open',{tool:'gear_ratio'});">
-          <h4>Gear Ratio Calculator</h4>
-          <p>Calculate gear ratio, output speed, output torque, and direction change.</p>
-        </a>
-        <a class="tool-card" href="/gearbox-torque.html" onclick="gtag('event','tool_open',{tool:'gearbox_torque'});">
-          <h4>Gearbox Output Torque Calculator</h4>
-          <p>Estimate gearbox output torque, output speed, and power from motor inputs.</p>
+          <p>Estimate running torque, acceleration torque, and recommended servo sizing.</p>
         </a>
         <a class="tool-card" href="/motor.html" onclick="gtag('event','tool_open',{tool:'motor_sizing'});">
           <h4>Conveyor Motor Sizing Calculator</h4>
-          <p>Estimate required conveyor force, torque, roller RPM, and drive power.</p>
+          <p>Estimate required force, torque, RPM, and drive power for conveyor applications.</p>
         </a>
         <a class="tool-card" href="/conveyor-speed.html" onclick="gtag('event','tool_open',{tool:'conveyor_speed'});">
           <h4>Conveyor Speed Calculator</h4>
           <p>Calculate conveyor speed, travel time, and throughput from spacing and rate.</p>
+        </a>
+        <a class="tool-card" href="/gear-ratio.html" onclick="gtag('event','tool_open',{tool:'gear_ratio'});">
+          <h4>Gear Ratio Calculator</h4>
+          <p>Calculate gear ratio, output speed, output torque, and speed reduction effects.</p>
+        </a>
+        <a class="tool-card" href="/gearbox-torque.html" onclick="gtag('event','tool_open',{tool:'gearbox_torque'});">
+          <h4>Gearbox Output Torque Calculator</h4>
+          <p>Estimate output torque, output speed, and drivetrain performance from motor inputs.</p>
+        </a>
+        <a class="tool-card" href="/hp-torque-rpm-calculator.html" onclick="gtag('event','tool_open',{tool:'hp_torque_rpm'});">
+          <h4>HP / Torque / RPM Calculator</h4>
+          <p>Convert horsepower, torque, and speed relationships for mechanical drive systems.</p>
+        </a>
+        <a class="tool-card" href="/motor-fla-calculator.html" onclick="gtag('event','tool_open',{tool:'motor_fla'});">
+          <h4>Motor FLA Calculator</h4>
+          <p>Estimate full-load current for motors as a practical sizing reference.</p>
+        </a>
+        <a class="tool-card" href="/nema-motor-frame-chart.html" onclick="gtag('event','tool_open',{tool:'nema_motor_frame'});">
+          <h4>NEMA Motor Frame Chart</h4>
+          <p>Reference common NEMA motor frame sizes for replacement and sizing work.</p>
         </a>
       </div>
     </div>
@@ -624,24 +583,39 @@
     <div class="category-section" id="pneumatics">
       <div class="category-head">
         <h3>Pneumatics</h3>
-        <p>Force, speed, air usage, and line sizing tools for pneumatic systems.</p>
+        <p>Force, speed, air consumption, line sizing, and general pneumatic system support tools.</p>
       </div>
+
+      <div class="workflow">
+        <h3>Pneumatic Setup Flow</h3>
+        <p>Start with force, then move into consumption, speed, and line demand.</p>
+        <div class="flow-steps">
+          <a href="/pneumatic.html">Force</a>
+          <span class="arrow">→</span>
+          <a href="/air-consumption.html">Air Consumption</a>
+          <span class="arrow">→</span>
+          <a href="/pneumatic-speed.html">Speed</a>
+          <span class="arrow">→</span>
+          <a href="/air-line-size-calculator.html">Air Line Size</a>
+        </div>
+      </div>
+
       <div class="tool-grid">
         <a class="tool-card" href="/pneumatic.html" onclick="gtag('event','tool_open',{tool:'pneumatic_force'});">
           <h4>Pneumatic Force Calculator</h4>
-          <p>Estimate cylinder extend force, retract force, derated force, and work per stroke.</p>
+          <p>Estimate extend force, retract force, derated force, and output for cylinders.</p>
         </a>
         <a class="tool-card" href="/pneumatic-speed.html" onclick="gtag('event','tool_open',{tool:'pneumatic_speed'});">
           <h4>Pneumatic Cylinder Speed Calculator</h4>
-          <p>Estimate extend and retract speed using flow rate, cylinder size, and stroke.</p>
+          <p>Estimate cylinder extend and retract speed using flow rate, size, and stroke.</p>
         </a>
         <a class="tool-card" href="/air-consumption.html" onclick="gtag('event','tool_open',{tool:'air_consumption'});">
           <h4>Pneumatic Air Consumption Calculator</h4>
-          <p>Estimate cylinder air use per cycle and required SCFM for production rates.</p>
+          <p>Estimate cylinder air use per cycle and SCFM demand for production rates.</p>
         </a>
         <a class="tool-card" href="/air-line-size-calculator.html" onclick="gtag('event','tool_open',{tool:'air_line_size'});">
           <h4>Air Line Size Calculator</h4>
-          <p>Estimate compressed air line size using airflow and system demand.</p>
+          <p>Estimate compressed air line size using airflow demand and application needs.</p>
         </a>
         <a class="tool-card" href="/psi-to-force-calculator.html" onclick="gtag('event','tool_open',{tool:'psi_to_force'});">
           <h4>PSI to Force Calculator</h4>
@@ -649,7 +623,15 @@
         </a>
         <a class="tool-card" href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','tool_open',{tool:'cfm_scfm_psi'});">
           <h4>CFM / SCFM / PSI Calculator</h4>
-          <p>Review airflow and pressure relationships for compressed air systems.</p>
+          <p>Review airflow and pressure relationships in compressed air systems.</p>
+        </a>
+        <a class="tool-card" href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','tool_open',{tool:'pneumatic_system_guide'});">
+          <h4>Pneumatic System Sizing Guide</h4>
+          <p>Follow a step-by-step path for sizing force, speed, air use, and line demand together.</p>
+        </a>
+        <a class="tool-card" href="/pneumatics.html" onclick="gtag('event','tool_open',{tool:'pneumatics_category'});">
+          <h4>Pneumatics Overview</h4>
+          <p>Browse pneumatic calculators and supporting pages from one category landing page.</p>
         </a>
       </div>
     </div>
@@ -657,12 +639,51 @@
     <div class="category-section" id="plc-electrical">
       <div class="category-head">
         <h3>PLC &amp; Electrical</h3>
-        <p>Controls troubleshooting, scaling, pulse capture, electrical drop, wire sizing, and machine safety checks.</p>
+        <p>Controls troubleshooting, PLC guides, signal handling, electrical sizing, machine safety, and supporting references.</p>
       </div>
+
+      <div class="workflow">
+        <h3>Controls Troubleshooting Flow</h3>
+        <p>Start with the issue, then work into troubleshooting, pulse capture, scaling, and electrical checks.</p>
+        <div class="flow-steps">
+          <a href="/problem-solver.html">Problem Solver</a>
+          <span class="arrow">→</span>
+          <a href="/plc-troubleshooter.html">PLC Troubleshooter</a>
+          <span class="arrow">→</span>
+          <a href="/plc-pulse-capture.html">Pulse Capture</a>
+          <span class="arrow">→</span>
+          <a href="/voltage-drop.html">Voltage Drop</a>
+        </div>
+      </div>
+
       <div class="tool-grid">
+        <a class="tool-card" href="/problem-solver.html" onclick="gtag('event','tool_open',{tool:'problem_solver'});">
+          <h4>Problem Solver</h4>
+          <p>Start from the symptom and work toward the right calculator, guide, or troubleshooting path.</p>
+        </a>
         <a class="tool-card" href="/plc-communication-troubleshooting.html" onclick="gtag('event','tool_open',{tool:'plc_comm_troubleshooting'});">
           <h4>PLC Communication Troubleshooter</h4>
-          <p>Work through PLC, HMI, remote I/O, Ethernet/IP, Profinet, and field-device problems.</p>
+          <p>Work through PLC, HMI, remote I/O, network, and field-device communication issues.</p>
+        </a>
+        <a class="tool-card" href="/plc-troubleshooter.html" onclick="gtag('event','tool_open',{tool:'plc_troubleshooter'});">
+          <h4>PLC Troubleshooter</h4>
+          <p>General PLC issue path for machine-side troubleshooting and logic investigation.</p>
+        </a>
+        <a class="tool-card" href="/plc-troubleshooting-guide.html" onclick="gtag('event','tool_open',{tool:'plc_troubleshooting_guide'});">
+          <h4>PLC Troubleshooting Guide</h4>
+          <p>Structured guide content for working through live PLC and controls problems.</p>
+        </a>
+        <a class="tool-card" href="/plc-not-communicating.html" onclick="gtag('event','tool_open',{tool:'plc_not_communicating'});">
+          <h4>PLC Not Communicating</h4>
+          <p>Focused troubleshooting page for communication-related faults and connection issues.</p>
+        </a>
+        <a class="tool-card" href="/plc-inputs-not-working.html" onclick="gtag('event','tool_open',{tool:'plc_inputs_not_working'});">
+          <h4>PLC Inputs Not Working</h4>
+          <p>Targeted troubleshooting help for missing input signals and field-device issues.</p>
+        </a>
+        <a class="tool-card" href="/plc-electrical.html" onclick="gtag('event','tool_open',{tool:'plc_electrical'});">
+          <h4>PLC &amp; Electrical Overview</h4>
+          <p>Category-level landing page for controls, signal, and electrical support tools.</p>
         </a>
         <a class="tool-card" href="/plc-pulse-capture.html" onclick="gtag('event','tool_open',{tool:'plc_pulse_capture'});">
           <h4>PLC Scan Time &amp; Pulse Capture</h4>
@@ -674,19 +695,19 @@
         </a>
         <a class="tool-card" href="/voltage-drop.html" onclick="gtag('event','tool_open',{tool:'voltage_drop'});">
           <h4>Voltage Drop Calculator</h4>
-          <p>Calculate circuit resistance, voltage drop, percent drop, and final load voltage.</p>
+          <p>Calculate resistance, voltage drop, percent drop, and final load voltage.</p>
         </a>
-        <a class="tool-card" href="/wire-size-calculator.html" onclick="gtag('event','tool_open',{tool:'wire_size_calculator'});">
+        <a class="tool-card" href="/wire-size-calculator.html" onclick="gtag('event','tool_open',{tool:'wire_size'});">
           <h4>Wire Size Calculator</h4>
-          <p>Estimate recommended AWG wire size using amps, voltage, distance, and allowable drop.</p>
+          <p>Estimate recommended AWG wire size using current, voltage, distance, and allowable drop.</p>
         </a>
         <a class="tool-card" href="/wire-gauge-amps.html" onclick="gtag('event','tool_open',{tool:'wire_gauge_amps'});">
           <h4>Wire Gauge vs Amps Chart</h4>
-          <p>Quick AWG ampacity and resistance reference for controls and electrical work.</p>
+          <p>Quick AWG ampacity and resistance reference for electrical and controls work.</p>
         </a>
         <a class="tool-card" href="/awg-wire-gauge-chart.html" onclick="gtag('event','tool_open',{tool:'awg_wire_gauge_chart'});">
           <h4>AWG Wire Gauge Chart</h4>
-          <p>Reference AWG sizes, diameters, and electrical comparison data in one place.</p>
+          <p>Reference AWG sizes, diameters, and comparison data in one place.</p>
         </a>
         <a class="tool-card" href="/safety-distance.html" onclick="gtag('event','tool_open',{tool:'safety_distance'});">
           <h4>Safety Distance Calculator</h4>
@@ -698,16 +719,20 @@
     <div class="category-section" id="welding">
       <div class="category-head">
         <h3>Welding</h3>
-        <p>Starting-point calculators for resistance welding setup and supporting weld-related pages.</p>
+        <p>Resistance welding setup calculators and weld support tools for process planning and troubleshooting.</p>
       </div>
       <div class="tool-grid">
         <a class="tool-card" href="/spot-weld.html" onclick="gtag('event','tool_open',{tool:'spot_weld'});">
           <h4>Spot Weld Calculator</h4>
-          <p>Estimate weld current, force, weld time, squeeze time, hold time, and tip diameter.</p>
+          <p>Estimate current, force, weld time, squeeze time, hold time, and tip diameter.</p>
         </a>
         <a class="tool-card" href="/projection-weld.html" onclick="gtag('event','tool_open',{tool:'projection_weld'});">
           <h4>Projection Weld Calculator</h4>
-          <p>Estimate current, force, time, and per-projection starting values.</p>
+          <p>Estimate current, force, weld time, and starting values for projection welds.</p>
+        </a>
+        <a class="tool-card" href="/coolant-flow-sizing.html" onclick="gtag('event','tool_open',{tool:'coolant_flow_sizing'});">
+          <h4>Coolant Flow Sizing</h4>
+          <p>Estimate coolant flow needs for weld circuits, guns, transformers, and supporting cooling loops.</p>
         </a>
       </div>
     </div>
@@ -715,7 +740,7 @@
     <div class="category-section" id="fastening">
       <div class="category-head">
         <h3>Fastening</h3>
-        <p>Torque strategy, clamp load, bolt torque, and torque-angle calculators.</p>
+        <p>Torque strategy, clamp load, tightening references, and multi-stage fastening tools.</p>
       </div>
       <div class="tool-grid">
         <a class="tool-card" href="/multi-stage-torque-sequence.html" onclick="gtag('event','tool_open',{tool:'multi_stage_torque_sequence'});">
@@ -724,11 +749,11 @@
         </a>
         <a class="tool-card" href="/torque-clamp-load.html" onclick="gtag('event','tool_open',{tool:'torque_clamp_load'});">
           <h4>Torque to Clamp Load Calculator</h4>
-          <p>Estimate clamp load from applied torque, nut factor, bolt size, and efficiency assumptions.</p>
+          <p>Estimate clamp load from applied torque, nut factor, bolt size, and assumptions.</p>
         </a>
         <a class="tool-card" href="/bolt-tightening-torque.html" onclick="gtag('event','tool_open',{tool:'bolt_tightening_torque'});">
           <h4>Bolt Tightening Torque Calculator</h4>
-          <p>Estimate recommended bolt torque from size, proof load percentage, and nut factor.</p>
+          <p>Estimate recommended torque from bolt size, proof load percentage, and nut factor.</p>
         </a>
         <a class="tool-card" href="/torque-angle.html" onclick="gtag('event','tool_open',{tool:'torque_angle'});">
           <h4>Torque Angle Calculator</h4>
@@ -742,68 +767,87 @@
     </div>
 
     <div class="category-section" id="adhesives">
-  <div class="category-head">
-    <h3>Adhesives &amp; Dispensing</h3>
-    <p>Adhesive system setup, usage calculations, dispensing control, and troubleshooting tools for industrial applications and Nordson-style systems.</p>
-  </div>
+      <div class="category-head">
+        <h3>Adhesives &amp; Dispensing</h3>
+        <p>Adhesive setup, usage calculations, dispensing guidance, Nordson-related setup support, and troubleshooting tools.</p>
+      </div>
 
       <div class="workflow">
-  <h3>Adhesive Setup Flow</h3>
-  <p>Start with system setup, then move into usage, timing, and troubleshooting.</p>
-  <div class="flow-steps">
-    <a href="/adhesive-system-setup.html">Setup</a>
-    <span class="arrow">→</span>
-    <a href="/adhesive-usage-calculator.html">Usage</a>
-    <span class="arrow">→</span>
-    <a href="/pattern-timing-calculator.html">Timing</a>
-    <span class="arrow">→</span>
-    <a href="/hot-melt-troubleshooting.html">Troubleshoot</a>
-  </div>
-</div>
-  <div class="tool-grid">
+        <h3>Adhesive Setup Flow</h3>
+        <p>Start with system setup, then move into usage, timing, and troubleshooting.</p>
+        <div class="flow-steps">
+          <a href="/adhesive-system-setup.html">Setup</a>
+          <span class="arrow">→</span>
+          <a href="/adhesive-usage-calculator.html">Usage</a>
+          <span class="arrow">→</span>
+          <a href="/pattern-timing-calculator.html">Timing</a>
+          <span class="arrow">→</span>
+          <a href="/hot-melt-troubleshooting.html">Troubleshoot</a>
+        </div>
+      </div>
 
-    <a class="tool-card" href="/adhesive-system-setup.html" onclick="gtag('event','tool_open',{tool:'adhesive_system_setup'});">
-      <h4>Adhesive System Setup</h4>
-      <p>Set up pressure, temperature, and flow for industrial adhesive systems.</p>
-    </a>
+      <div class="tool-grid">
+        <a class="tool-card" href="/adhesive-system-setup.html" onclick="gtag('event','tool_open',{tool:'adhesive_system_setup'});">
+          <h4>Adhesive System Setup</h4>
+          <p>Starting point for setting up industrial adhesive systems and basic process settings.</p>
+        </a>
+        <a class="tool-card" href="/adhesive-usage-calculator.html" onclick="gtag('event','tool_open',{tool:'adhesive_usage'});">
+          <h4>Adhesive Usage Calculator</h4>
+          <p>Estimate adhesive consumption using bead size, cycle rate, and production volume.</p>
+        </a>
+        <a class="tool-card" href="/adhesives-dispensing.html" onclick="gtag('event','tool_open',{tool:'adhesives_dispensing'});">
+          <h4>Adhesives Dispensing Guide</h4>
+          <p>Review dispensing behavior, bead control, and application consistency guidance.</p>
+        </a>
+        <a class="tool-card" href="/nordson-parameters-explained.html" onclick="gtag('event','tool_open',{tool:'nordson_parameters'});">
+          <h4>Nordson Parameters Explained</h4>
+          <p>Break down key Nordson settings such as pressure, temperature, timers, and behavior.</p>
+        </a>
+        <a class="tool-card" href="/pattern-timing-calculator.html" onclick="gtag('event','tool_open',{tool:'pattern_timing'});">
+          <h4>Pattern Timing Calculator</h4>
+          <p>Calculate on/off timing for adhesive patterns using line speed and spacing.</p>
+        </a>
+        <a class="tool-card" href="/hot-melt-troubleshooting.html" onclick="gtag('event','tool_open',{tool:'hot_melt_troubleshooting'});">
+          <h4>Hot Melt Troubleshooting</h4>
+          <p>Diagnose stringing, poor adhesion, inconsistent flow, and common hot melt problems.</p>
+        </a>
+      </div>
+    </div>
 
-    <a class="tool-card" href="/adhesive-usage-calculator.html" onclick="gtag('event','tool_open',{tool:'adhesive_usage'});">
-      <h4>Adhesive Usage Calculator</h4>
-      <p>Estimate adhesive consumption based on bead size, cycle rate, and production volume.</p>
-    </a>
-
-    <a class="tool-card" href="/pattern-timing-calculator.html" onclick="gtag('event','tool_open',{tool:'pattern_timing'});">
-      <h4>Adhesive Pattern Timing Calculator</h4>
-      <p>Calculate on/off timing for adhesive patterns based on line speed and part spacing.</p>
-    </a>
-
-    <a class="tool-card" href="/adhesives-dispensing.html" onclick="gtag('event','tool_open',{tool:'adhesives_dispensing'});">
-      <h4>Adhesive Dispensing Guide</h4>
-      <p>Understand bead control, flow consistency, and application setup for dispensing systems.</p>
-    </a>
-
-    <a class="tool-card" href="/nordson-parameters-explained.html" onclick="gtag('event','tool_open',{tool:'nordson_parameters'});">
-      <h4>Nordson Parameters Explained</h4>
-      <p>Breakdown of key Nordson settings including pressure, temperature, timers, and output behavior.</p>
-    </a>
-
-    <a class="tool-card" href="/hot-melt-troubleshooting.html" onclick="gtag('event','tool_open',{tool:'hot_melt_troubleshooting'});">
-      <h4>Hot Melt Troubleshooting</h4>
-      <p>Diagnose stringing, poor adhesion, inconsistent flow, and common hot melt system issues.</p>
-    </a>
-
-  </div>
-</div>
+    <div class="category-section" id="mechanical">
+      <div class="category-head">
+        <h3>Mechanical &amp; Engineering</h3>
+        <p>General mechanical engineering support tools that do not fit neatly into one automation category.</p>
+      </div>
+      <div class="tool-grid">
+        <a class="tool-card" href="/beam-deflection-calculator.html" onclick="gtag('event','tool_open',{tool:'beam_deflection'});">
+          <h4>Beam Deflection Calculator</h4>
+          <p>Estimate beam deflection for quick structural checks and concept work.</p>
+        </a>
+        <a class="tool-card" href="/bearing-life-calculator.html" onclick="gtag('event','tool_open',{tool:'bearing_life'});">
+          <h4>Bearing Life Calculator</h4>
+          <p>Estimate bearing life for rotating equipment and driven mechanical systems.</p>
+        </a>
+      </div>
+    </div>
 
     <div class="category-section" id="planning">
       <div class="category-head">
         <h3>Business &amp; Project Planning</h3>
-        <p>ROI and justification tools for automation project review.</p>
+        <p>Automation planning and justification tools for payback and project review.</p>
       </div>
       <div class="tool-grid">
         <a class="tool-card" href="/roi.html" onclick="gtag('event','tool_open',{tool:'automation_roi'});">
           <h4>Automation ROI Calculator</h4>
-          <p>Estimate annual savings, net annual benefit, payback period, and multi-year ROI.</p>
+          <p>Estimate annual savings, net annual benefit, payback period, and project return.</p>
+        </a>
+        <a class="tool-card" href="/automation-help.html" onclick="gtag('event','tool_open',{tool:'automation_help'});">
+          <h4>Automation Help</h4>
+          <p>Use the support path if you need help turning calculator results into a real machine decision.</p>
+        </a>
+        <a class="tool-card" href="/integrators.html" onclick="gtag('event','tool_open',{tool:'integrators'});">
+          <h4>Find an Integrator</h4>
+          <p>Connect with integrators and application support resources for real projects.</p>
         </a>
       </div>
     </div>
@@ -811,40 +855,52 @@
     <div class="category-section" id="resources">
       <div class="category-head">
         <h3>Reference Tools &amp; Supporting Pages</h3>
-        <p>These are not always calculators, but they are still part of the site’s practical engineering workflow.</p>
+        <p>Reference charts, guides, and support pages that help engineers move faster in real work.</p>
       </div>
       <div class="tool-grid">
         <a class="tool-card" href="/reference-charts.html" onclick="gtag('event','tool_open',{tool:'reference_charts'});">
           <h4>Reference Charts Hub</h4>
           <p>Open quick engineering reference charts and supporting lookup pages.</p>
         </a>
-        <a class="tool-card" href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','tool_open',{tool:'pneumatic_system_guide'});">
-          <h4>Pneumatic System Sizing Guide</h4>
-          <p>Step-by-step path for sizing force, air use, speed, and line demand together.</p>
+        <a class="tool-card" href="/metric-tap-drill-chart.html" onclick="gtag('event','tool_open',{tool:'metric_tap_drill_chart'});">
+          <h4>Metric Tap Drill Chart</h4>
+          <p>Quick reference for common metric tap drill sizes used in fabrication and tooling.</p>
+        </a>
+        <a class="tool-card" href="/electrical-symbols-reference-chart.html" onclick="gtag('event','tool_open',{tool:'electrical_symbols_chart'});">
+          <h4>Electrical Symbols Reference Chart</h4>
+          <p>Reference common electrical symbols used in controls and machine documentation.</p>
+        </a>
+        <a class="tool-card" href="/nema-motor-frame-chart.html" onclick="gtag('event','tool_open',{tool:'nema_motor_frame_resource'});">
+          <h4>NEMA Motor Frame Chart</h4>
+          <p>Useful motor frame reference for maintenance, replacement, and sizing work.</p>
+        </a>
+        <a class="tool-card" href="/feedback.html" onclick="gtag('event','tool_open',{tool:'feedback'});">
+          <h4>Feedback</h4>
+          <p>Send input on tools, pages, and improvements you would like to see added to the site.</p>
         </a>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="cta-box">
+    <div class="note-card">
       <h2>Need Help Applying This on a Real Machine?</h2>
-      <p>
-        Calculators help you get to an answer faster, but some situations need real application support. If you need help turning these numbers into a machine decision, controls change, tooling choice, or automation concept, use the help path below.
+      <p class="section-intro" style="margin-bottom:16px;">
+        Calculators can get you to an answer faster, but some situations still need real application help. If you need help turning these numbers into a machine decision, controls change, tooling choice, or automation concept, use the support options below.
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="/integrators.html" onclick="gtag('event','index_cta',{'location':'bottom_cta','action':'find_integrator'});">Find an Integrator</a>
-        <a class="btn btn-secondary" href="/automation-help.html" onclick="gtag('event','index_cta',{'location':'bottom_cta','action':'automation_help'});">Request Help</a>
+        <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','index_cta',{'location':'bottom_cta','action':'automation_help'});">Request Help</a>
+        <a class="btn btn-secondary" href="/integrators.html" onclick="gtag('event','index_cta',{'location':'bottom_cta','action':'find_integrator'});">Find an Integrator</a>
       </div>
     </div>
 
     <div class="footer-note">
-      Automation Engineering Tools • Practical calculators for real automation work
+      Automation Engineering Tools • Practical calculators and guides for real automation work
     </div>
   </section>
 
   <script>
-    fetch('/navbar.html?v=20260418')
+    fetch('/navbar.html?v=20260419')
       .then(response => response.text())
       .then(data => {
         document.getElementById('navbar').innerHTML = data;
