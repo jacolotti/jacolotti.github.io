@@ -330,6 +330,24 @@
       font-weight:bold;
     }
 
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#eef5ff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      text-decoration:none;
+      color:#1f2a44;
+      font-weight:600;
+    }
+
     .sidebar-card p{
       margin:0 0 14px;
       color:#555;
@@ -424,12 +442,12 @@
       </div>
 
       <div class="cta-box" style="margin-top:0; margin-bottom:22px;">
-        <h3>Want the full troubleshooting process first?</h3>
+        <h3>Not sure where to start?</h3>
         <p>
-          Open the PLC Troubleshooting Guide if you want the broader step-by-step workflow before using the wizard.
+          If you're troubleshooting a real PLC issue, start with the full step-by-step guide first, or use this wizard when you already know the symptom you want to chase.
         </p>
-        <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','wizard_cta_click',{'target':'plc_guide_top'});">Open PLC Guide</a>
-        <a href="/plc-electrical.html" onclick="gtag('event','wizard_cta_click',{'target':'plc_electrical_top'});">Open PLC & Electrical Hub</a>
+        <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','internal_link',{'from':'plc_troubleshooter','to':'plc_troubleshooting_guide'});">Start with PLC Troubleshooting Guide</a>
+        <a href="/plc-electrical.html" onclick="gtag('event','internal_link',{'from':'plc_troubleshooter','to':'plc_electrical_hub'});">Open PLC & Electrical Hub</a>
       </div>
 
       <div class="wizard-panel">
@@ -461,12 +479,34 @@
       </div>
 
       <div class="cta-box">
-        <h3>Need broader guidance or real-world help?</h3>
+        <h3>What should you check next?</h3>
         <p>
-          Use the PLC guide for the full troubleshooting workflow, or get real help if you are dealing with a live machine issue.
+          Once this wizard narrows the problem down, jump into the page that matches the symptom. That is the fastest way to move from “something is wrong” to a real root-cause check.
+        </p>
+        <div class="internal-links" style="justify-content:center;">
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','internal_link',{'from':'plc_troubleshooter','to':'plc_inputs_next'});">Check PLC Input Issues</a>
+          <a href="/plc-not-communicating.html" onclick="gtag('event','internal_link',{'from':'plc_troubleshooter','to':'plc_not_communicating_next'});">Check PLC Communication Issues</a>
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','internal_link',{'from':'plc_troubleshooter','to':'plc_pulse_capture_next'});">Check Missed Signals & Scan Time</a>
+        </div>
+      </div>
+
+      <div style="margin-top:28px;">
+        <h3 style="color:#1f2a44; margin-bottom:12px;">Related PLC & Electrical Tools</h3>
+        <div class="internal-links">
+          <a href="/analog-scaling.html" onclick="gtag('event','internal_link',{'from':'plc_troubleshooter','to':'analog_scaling'});">Analog Scaling Calculator</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','internal_link',{'from':'plc_troubleshooter','to':'voltage_drop'});">Voltage Drop Calculator</a>
+          <a href="/wire-gauge-amps.html" onclick="gtag('event','internal_link',{'from':'plc_troubleshooter','to':'wire_gauge'});">Wire Gauge vs Amps Chart</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','internal_link',{'from':'plc_troubleshooter','to':'plc_electrical_related'});">PLC & Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Working on a real machine issue?</h3>
+        <p>
+          Use the PLC guide for the full troubleshooting workflow, or get real help if you are dealing with a live machine problem.
         </p>
         <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','wizard_cta_click',{'target':'plc_guide_bottom'});">Open PLC Guide</a>
-        <a href="/automation-help.html" onclick="gtag('event','wizard_cta_click',{'target':'automation_help'});">Get Help With My System</a>
+        <a href="/automation-help.html" onclick="gtag('event','lead_cta',{'source':'plc_troubleshooter'});">Get Help With My System</a>
         <a href="/integrators.html" onclick="gtag('event','wizard_cta_click',{'target':'integrators'});">Find an Integrator</a>
       </div>
 
@@ -508,8 +548,8 @@
           <a href="/plc-pulse-capture.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'plc_pulse_capture'});">PLC Scan Time & Pulse Capture</a>
           <a href="/voltage-drop.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'voltage_drop'});">Voltage Drop Calculator</a>
           <a href="/wire-size-calculator.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'wire_size'});">Wire Size Calculator</a>
-          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'plc_guide'});">PLC Troubleshooting Guide</a>
-          <a href="/plc-electrical.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'plc_electrical_overview'});">PLC & Electrical Overview</a>
+          <a href="/plc-not-communicating.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'plc_not_communicating'});">PLC Not Communicating</a>
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','wizard_sidebar_click',{'tool':'plc_inputs'});">PLC Inputs Not Working</a>
         </div>
       </div>
 
@@ -577,7 +617,7 @@
         </ul>
       `,
       links: [
-        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "" },
+        { href: "/plc-not-communicating.html", text: "Open PLC Communication Guide", cls: "" },
         { href: "/automation-help.html", text: "Get Help With My System", cls: "alt" }
       ]
     },
@@ -603,7 +643,7 @@
         </ul>
       `,
       links: [
-        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "" },
+        { href: "/plc-not-communicating.html", text: "Open PLC Communication Guide", cls: "" },
         { href: "/plc-electrical.html", text: "PLC & Electrical Hub", cls: "alt" }
       ]
     },
@@ -631,7 +671,7 @@
         </ul>
       `,
       links: [
-        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "" },
+        { href: "/plc-not-communicating.html", text: "Open PLC Communication Guide", cls: "" },
         { href: "/plc-electrical.html", text: "PLC & Electrical Hub", cls: "alt" }
       ]
     },
@@ -668,7 +708,7 @@
         </ul>
       `,
       links: [
-        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "" },
+        { href: "/plc-not-communicating.html", text: "Open PLC Communication Guide", cls: "" },
         { href: "/automation-help.html", text: "Get Help With My System", cls: "alt" }
       ]
     },
@@ -717,7 +757,7 @@
         </ul>
       `,
       links: [
-        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "" },
+        { href: "/plc-not-communicating.html", text: "Open PLC Communication Guide", cls: "" },
         { href: "/plc-electrical.html", text: "PLC & Electrical Hub", cls: "alt" }
       ]
     },
@@ -774,7 +814,7 @@
         </ul>
       `,
       links: [
-        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "" },
+        { href: "/plc-inputs-not-working.html", text: "Open PLC Inputs Guide", cls: "" },
         { href: "/automation-help.html", text: "Get Help With My System", cls: "alt" }
       ]
     },
@@ -802,7 +842,7 @@
       `,
       links: [
         { href: "/plc-pulse-capture.html", text: "Check PLC Scan Time & Pulse Capture", cls: "" },
-        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "alt" }
+        { href: "/plc-inputs-not-working.html", text: "Open PLC Inputs Guide", cls: "alt" }
       ]
     },
 
@@ -927,8 +967,8 @@
         </ul>
       `,
       links: [
-        { href: "/plc-pulse-capture.html", text: "Check PLC Scan Time & Pulse Capture", cls: "" },
-        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "alt" }
+        { href: "/plc-inputs-not-working.html", text: "Open PLC Inputs Guide", cls: "" },
+        { href: "/plc-pulse-capture.html", text: "Check PLC Scan Time & Pulse Capture", cls: "alt" }
       ]
     },
 
@@ -946,7 +986,7 @@
       `,
       links: [
         { href: "/plc-pulse-capture.html", text: "Check PLC Scan Time & Pulse Capture", cls: "" },
-        { href: "/plc-troubleshooting-guide.html", text: "Open PLC Guide", cls: "alt" }
+        { href: "/plc-inputs-not-working.html", text: "Open PLC Inputs Guide", cls: "alt" }
       ]
     },
 
