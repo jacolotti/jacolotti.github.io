@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/plc-outputs-not-working.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>PLC Outputs Not Working? | Step-by-Step Troubleshooting Guide</title>
+  <meta name="description" content="Step-by-step PLC output troubleshooting guide for valves, relays, contactors, solenoids, motor starters, and field devices. Learn how to check output LEDs, field power, wiring, commons, relays, and why a PLC output may be on while the load still does not actuate.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root{
+      --primary:#1f2a44;
+      --primary-dark:#162033;
+      --accent:#1e6bd6;
+      --bg:#f4f4f4;
+      --card:#ffffff;
+      --soft:#f8fbff;
+      --border:#d7e6ff;
+      --text:#222;
+      --muted:#555;
+      --info-bg:#e9f1ff;
+      --warn-bg:#fff7df;
+      --warn-border:#f1d98a;
+      --warn-text:#5c4a12;
+      --success-bg:#eaf7ea;
+      --success-border:#b9dfb9;
+      --shadow:0 8px 24px rgba(0,0,0,.08);
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      font-family:Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      margin:0;
+    }
+
+    a{color:var(--accent);}
+
+    .hero{
+      background:linear-gradient(135deg,#1f2a44,#2d3d63);
+      color:white;
+      padding:42px 20px 34px;
+      text-align:center;
+    }
+
+    .hero-inner{
+      max-width:980px;
+      margin:auto;
+    }
+
+    .hero h1{
+      margin:0 0 12px;
+      font-size:36px;
+      line-height:1.18;
+    }
+
+    .hero p{
+      max-width:860px;
+      margin:0 auto 14px;
+      color:#e7ecf7;
+      font-size:17px;
+      line-height:1.65;
+    }
+
+    .hero-buttons{
+      margin-top:18px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.18s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+      opacity:.96;
+    }
+
+    .btn-primary{
+      background:white;
+      color:#1f2a44;
+    }
+
+    .btn-secondary{
+      color:white;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .page-wrap{
+      max-width:1120px;
+      margin:30px auto;
+      padding:0 18px 40px;
+    }
+
+    .top-note{
+      background:var(--warn-bg);
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
+      padding:14px 16px;
+      border-radius:10px;
+      margin-bottom:22px;
+      line-height:1.6;
+    }
+
+    .main-grid{
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .card,
+    .sidebar-card{
+      background:white;
+      border-radius:12px;
+      box-shadow:var(--shadow);
+    }
+
+    .card{
+      padding:28px;
+    }
+
+    .sidebar-card{
+      padding:22px;
+      margin-bottom:20px;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    h2,h3,h4{
+      color:#1f2a44;
+      margin-top:0;
+    }
+
+    .description{
+      color:var(--muted);
+      line-height:1.75;
+      margin-bottom:18px;
+    }
+
+    .guide-section{
+      margin-bottom:30px;
+      padding-bottom:22px;
+      border-bottom:1px solid #e7eefc;
+    }
+
+    .guide-section:last-child{
+      border-bottom:none;
+      margin-bottom:0;
+      padding-bottom:0;
+    }
+
+    .info-box{
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:18px;
+      margin:18px 0;
+    }
+
+    .checklist{
+      background:#f4f8ff;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:18px;
+      margin:18px 0 22px;
+    }
+
+    .checklist ul,
+    .info-box ul,
+    .guide-section ul,
+    .sidebar-card ul{
+      margin:10px 0 0 20px;
+      padding:0;
+      line-height:1.8;
+      color:#444;
+    }
+
+    .guide-section li,
+    .sidebar-card li{
+      margin-bottom:8px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:#eef5ff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      text-decoration:none;
+      color:#1f2a44;
+      font-weight:600;
+    }
+
+    .link-list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .link-list a{
+      display:block;
+      padding:10px 12px;
+      background:#f4f8ff;
+      border:1px solid var(--border);
+      border-radius:8px;
+      text-decoration:none;
+      color:#1f2a44;
+      font-weight:600;
+    }
+
+    .cta-box{
+      margin-top:24px;
+      padding:22px;
+      background:var(--success-bg);
+      border:1px solid var(--success-border);
+      border-radius:10px;
+      text-align:center;
+    }
+
+    .cta-box p{
+      margin:0 0 14px;
+      color:#345;
+      line-height:1.65;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      margin:6px 6px 0;
+      padding:12px 16px;
+      background:#1f2a44;
+      color:white;
+      text-decoration:none;
+      border-radius:8px;
+      font-weight:bold;
+    }
+
+    .footer{
+      text-align:center;
+      margin-top:40px;
+      color:#666;
+      font-size:14px;
+      line-height:1.7;
+    }
+
+    @media (max-width:900px){
+      .main-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:30px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>PLC Outputs Not Working?</h1>
+    <p>
+      Use this step-by-step guide to troubleshoot PLC output problems in real automation systems. Check output LEDs, output terminals, field power, commons, interposing relays, contactors, solenoids, and why an output can look ON in the PLC while the real device still does not actuate.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#guide" class="btn btn-primary" onclick="gtag('event','plc_outputs_hero_click',{'target':'guide_start'});">Start Troubleshooting</a>
+      <a href="/plc-troubleshooter.html" class="btn btn-secondary" onclick="gtag('event','plc_outputs_hero_click',{'target':'plc_troubleshooter'});">Open PLC Troubleshooter</a>
+      <a href="/plc-troubleshooting-guide.html" class="btn btn-secondary" onclick="gtag('event','plc_outputs_hero_click',{'target':'plc_guide'});">Open PLC Guide</a>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrap">
+
+  <div class="top-note">
+    <strong>Best use of this page:</strong> compare what the PLC says the output is doing versus what the real device is actually receiving. A commanded output is not the same thing as usable power at the load.
+  </div>
+
+  <div class="main-grid">
+
+    <div class="card" id="guide">
+
+      <div class="section-label">Guide</div>
+      <h2>Step-by-Step PLC Output Troubleshooting</h2>
+
+      <p class="description">
+        If a valve, relay, solenoid, contactor, stack light, motor starter, or other field device is not actuating, do not jump straight into program edits. Start by checking whether the PLC output is physically turning on, then verify whether the load is actually receiving voltage and return path under real conditions.
+      </p>
+
+      <div class="cta-box" style="margin-top:0; margin-bottom:22px;">
+        <h3>Not sure where to start?</h3>
+        <p>
+          If you're troubleshooting a real PLC issue, start with the full step-by-step guide or use the interactive troubleshooter to narrow the issue down by symptom.
+        </p>
+        <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_troubleshooting_guide'});">Start with PLC Troubleshooting Guide</a>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_troubleshooter'});">Use PLC Troubleshooter</a>
+      </div>
+
+      <div class="checklist">
+        <h3>Before you start</h3>
+        <ul>
+          <li>Confirm the machine is actually in a state where the output should turn on.</li>
+          <li>Verify safety circuits, permissives, and interlocks are satisfied.</li>
+          <li>Know whether the output drives the load directly or through an interposing relay.</li>
+          <li>Check whether the problem is constant or intermittent.</li>
+          <li>Compare the PLC output status to the real device behavior, not just the HMI screen.</li>
+        </ul>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 1: Check the PLC output LED first</h3>
+        <p class="description">
+          This is one of the fastest ways to separate program-command issues from field-power issues. If the physical output LED on the PLC card or remote output module never turns on, the PLC may not actually be commanding the output.
+        </p>
+        <ul>
+          <li>If the output LED never turns on, suspect permissives, logic conditions, mapping, or the wrong point being watched.</li>
+          <li>If the output LED turns on but the device does not move, suspect field power, commons, fuse issues, wiring, relay failure, or load failure.</li>
+          <li>If the LED flickers or is inconsistent, suspect intermittent logic conditions, unstable power, or loose connections.</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Simple rule:</strong> if the PLC output LED is off, the load problem is usually not the first place to start.
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 2: Measure voltage at the PLC output terminal</h3>
+        <p class="description">
+          Do not stop at the logic tag. Measure what the PLC output terminal is actually doing when the output is commanded on and off.
+        </p>
+        <ul>
+          <li>Measure the output terminal relative to the correct common or return.</li>
+          <li>Check the output both when it should be off and when it should be on.</li>
+          <li>Verify the output group common is correct for that module.</li>
+          <li>Check whether voltage disappears under load even if it looks normal unloaded.</li>
+        </ul>
+
+        <div class="internal-links">
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'voltage_drop'});">Check Voltage Drop</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'wire_size'});">Use Wire Size Calculator</a>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 3: Verify field power and common return path</h3>
+        <p class="description">
+          A PLC output can switch correctly and still do nothing if the load does not have usable power or return path. This is one of the most common output troubleshooting misses.
+        </p>
+        <ul>
+          <li>Check whether the load supply is present at the device.</li>
+          <li>Verify the common or neutral return path is intact.</li>
+          <li>Check output fuses, breakers, and distribution terminals.</li>
+          <li>Make sure the output card type matches the field wiring method.</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Common mistake:</strong> the PLC output is on, but the load never energizes because the field-side supply or return path is missing.
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 4: Check relays, contactors, and interface hardware</h3>
+        <p class="description">
+          Many PLC outputs do not drive the real device directly. They often energize an interposing relay, motor starter coil, contactor, or valve manifold output first.
+        </p>
+        <ul>
+          <li>Check whether the interposing relay coil is getting voltage.</li>
+          <li>Verify relay contacts are actually closing.</li>
+          <li>Inspect relay sockets, contactor coils, overload blocks, and terminal strips.</li>
+          <li>Do not assume the relay is good just because the PLC point is on.</li>
+        </ul>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 5: Verify the load itself can actuate</h3>
+        <p class="description">
+          If the output and field power look correct, the problem may be the real load. Solenoids, valves, contactors, and other devices can fail mechanically or electrically.
+        </p>
+        <ul>
+          <li>Check coil resistance where appropriate.</li>
+          <li>Listen for contactor or relay pull-in when commanded.</li>
+          <li>Check whether the valve spool or actuator is mechanically stuck.</li>
+          <li>Inspect for burned coils, damaged connectors, or loose load wiring.</li>
+        </ul>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 6: If the output is commanded but does not stay on</h3>
+        <p class="description">
+          This usually points toward logic conditions, permissives, safety resets, or unstable machine state rather than pure field wiring.
+        </p>
+        <ul>
+          <li>Check whether a timer, seal-in, or permissive drops out immediately.</li>
+          <li>Verify whether the output is being reset by another rung or routine.</li>
+          <li>Check safety relays, E-stops, and interlocks that may remove downstream power.</li>
+          <li>Trend the real output tag if the problem is too fast to catch live.</li>
+        </ul>
+
+        <div class="internal-links">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'plc_troubleshooter_mid'});">Walk Through the Issue</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'plc_guide_mid'});">Open PLC Guide</a>
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 7: Treat intermittent outputs differently</h3>
+        <p class="description">
+          If the output works sometimes, suspect loose terminals, weak power, vibration, heating components, relay wear, or load-side problems that only appear under certain conditions.
+        </p>
+        <ul>
+          <li>Check whether the fault happens during machine motion, load changes, or heat buildup.</li>
+          <li>Inspect terminals, relay bases, and contactors for looseness or wear.</li>
+          <li>Look for voltage dips at the output or load when the machine cycles.</li>
+          <li>Check whether the output LED stays on when the real device drops out.</li>
+        </ul>
+
+        <div class="info-box">
+          <strong>Intermittent outputs</strong> are often easier to solve by comparing PLC output state to actual load voltage when the failure happens.
+        </div>
+      </div>
+
+      <div class="guide-section">
+        <h3>Step 8: Use the right next tool</h3>
+        <p class="description">
+          Once you know whether the problem is logic, field power, output hardware, or the real load, move into the right page instead of guessing.
+        </p>
+
+        <div class="internal-links">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'plc_troubleshooter_bottom'});">PLC Troubleshooter</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'plc_guide_bottom'});">PLC Troubleshooting Guide</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'voltage_drop_bottom'});">Voltage Drop</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'wire_size_bottom'});">Wire Size Calculator</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'plc_electrical_bottom'});">PLC & Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>What should you check next?</h3>
+        <p>
+          Once you know whether the issue is command logic, field power, or load-side actuation, move into the next page that matches the symptom. That is the fastest way to isolate the real root cause.
+        </p>
+        <div class="internal-links" style="justify-content:center;">
+          <a href="/voltage-drop.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'voltage_drop_next'});">Verify Voltage Drop</a>
+          <a href="/wire-gauge-amps.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'wire_gauge_next'});">Check Wire Sizing</a>
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_troubleshooter_next'});">Use the PLC Troubleshooter</a>
+        </div>
+      </div>
+
+      <div class="guide-section" style="border-bottom:none; padding-bottom:0; margin-bottom:0;">
+        <h3>Related PLC & Electrical Tools</h3>
+        <div class="internal-links">
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_inputs'});">PLC Inputs Not Working</a>
+          <a href="/analog-scaling.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'analog_scaling'});">Analog Scaling Calculator</a>
+          <a href="/reference-charts.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'reference_charts'});">Electrical Reference Charts</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_electrical_hub'});">PLC & Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Working on a real machine issue?</h3>
+        <p>
+          If you're dealing with a live machine problem, you can get help applying this directly to your system.
+        </p>
+        <a href="/automation-help.html" onclick="gtag('event','lead_cta',{'source':'plc_outputs'});">Get Help With My System</a>
+        <a href="/integrators.html" onclick="gtag('event','plc_outputs_cta_click',{'target':'integrators'});">Find an Integrator</a>
+      </div>
+
+      <div class="footer">
+        Automation Engineering Tools • Practical calculators and guides for real automation work
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="sidebar-card">
+        <h3>Common output symptoms</h3>
+        <ul>
+          <li>PLC output LED is on but the device does not actuate</li>
+          <li>Output point never turns on</li>
+          <li>Contactor or solenoid clicks sometimes but not always</li>
+          <li>Relay energizes but the load still does not run</li>
+          <li>HMI says output is on, but nothing happens in the machine</li>
+          <li>Output works only intermittently</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Best companion pages</h3>
+        <div class="link-list">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'plc_guide'});">PLC Troubleshooting Guide</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'voltage_drop'});">Voltage Drop Calculator</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'wire_size'});">Wire Size Calculator</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'plc_electrical'});">PLC & Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Typical root causes</h3>
+        <ul>
+          <li>PLC output never actually commanded on</li>
+          <li>Missing field power or common return</li>
+          <li>Blown fuse or tripped protection</li>
+          <li>Failed relay, contactor, or interposing hardware</li>
+          <li>Broken wire or loose output terminal</li>
+          <li>Load coil or actuator failure</li>
+          <li>Intermittent logic, safety, or power condition</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Use this page when:</h3>
+        <ul>
+          <li>A commanded PLC output is not producing real machine action</li>
+          <li>You need to separate PLC command problems from load-side problems</li>
+          <li>You want a targeted output troubleshooting guide</li>
+          <li>You want to move from output symptoms into the right tools fast</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  fetch("navbar.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
+</body>
+</html>
