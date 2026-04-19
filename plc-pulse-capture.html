@@ -6,7 +6,6 @@
   <meta name="author" content="AutomationCalculators.net">
   <meta charset="UTF-8">
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -343,6 +342,7 @@
       border-radius:8px;
       text-decoration:none;
       font-weight:bold;
+      margin:6px 6px 0;
     }
 
     .learn-more{
@@ -466,7 +466,8 @@
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
-      <a href="/plc-communication-troubleshooting.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'plc_pulse_capture_hero','to':'plc_comm'});">PLC Communication Tool</a>
+      <a href="/plc-troubleshooter.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'plc_pulse_capture_hero','to':'plc_troubleshooter'});">PLC Troubleshooter</a>
+      <a href="/plc-troubleshooting-guide.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'plc_pulse_capture_hero','to':'plc_guide'});">PLC Guide</a>
     </div>
   </div>
 </section>
@@ -488,6 +489,15 @@
       <p class="description">
         It is most useful when someone says, “the sensor definitely flashed, but the PLC never saw it,” or when you are trying to decide whether regular logic is enough or if you need a hardware latch, event task, or high-speed input.
       </p>
+
+      <div class="cta-box" style="margin-top:0; margin-bottom:22px;">
+        <h3>Not sure where to start?</h3>
+        <p>
+          If you're troubleshooting a real PLC issue, start with the full step-by-step guide or use the interactive troubleshooter to narrow the issue down by symptom.
+        </p>
+        <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','internal_link',{'from':'plc_pulse_capture','to':'plc_troubleshooting_guide'});">Start with PLC Troubleshooting Guide</a>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_pulse_capture','to':'plc_troubleshooter'});">Use PLC Troubleshooter</a>
+      </div>
 
       <div class="formula-box">
         Estimated conservative minimum detectable pulse ≈ Input Filter + Input Update Time + Logic Task Time<br><br>
@@ -574,11 +584,15 @@
       </div>
 
       <div class="cta-box">
-        <h3>Need help applying this to a real machine?</h3>
+        <h3>What should you check next?</h3>
         <p>
-          Get connected with a qualified automation integrator if you are chasing missed counts, unreliable sensor pulses, reject confirmation problems, or fast event capture issues in production equipment.
+          If this tool shows you are in a risky zone, move into the next page that matches the symptom instead of guessing. That is usually the fastest way to decide whether you need wiring checks, input troubleshooting, or communication review.
         </p>
-        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'plc_pulse_capture_midpage'});">Find an Integrator</a>
+        <div class="internal-links" style="justify-content:center;">
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','internal_link',{'from':'plc_pulse_capture','to':'plc_inputs_next'});">Check PLC Input Issues</a>
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_pulse_capture','to':'plc_troubleshooter_next'});">Use the PLC Troubleshooter</a>
+          <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','internal_link',{'from':'plc_pulse_capture','to':'plc_comm_next'});">Check PLC Communication Issues</a>
+        </div>
       </div>
 
       <p class="note">
@@ -596,11 +610,30 @@
         </p>
 
         <div class="internal-links">
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','internal_link_click',{'from':'plc_pulse_capture','to':'plc_inputs'});">PLC Inputs Not Working</a>
           <a href="/analog-scaling.html" onclick="gtag('event','internal_link_click',{'from':'plc_pulse_capture','to':'analog_scaling'});">Analog Scaling</a>
           <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','internal_link_click',{'from':'plc_pulse_capture','to':'plc_comm'});">PLC Communication Troubleshooter</a>
-          <a href="/safety-distance.html" onclick="gtag('event','internal_link_click',{'from':'plc_pulse_capture','to':'safety_distance'});">Safety Distance Calculator</a>
           <a href="/reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'plc_pulse_capture','to':'reference_charts'});">Reference Charts</a>
         </div>
+      </div>
+
+      <div class="guide-section" style="border-bottom:none; padding-bottom:0; margin-top:28px;">
+        <h3 style="color:#1f2a44; margin-bottom:12px;">Related PLC & Electrical Tools</h3>
+        <div class="internal-links">
+          <a href="/plc-electrical.html" onclick="gtag('event','internal_link',{'from':'plc_pulse_capture','to':'plc_electrical_hub'});">PLC & Electrical Hub</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','internal_link',{'from':'plc_pulse_capture','to':'plc_guide_related'});">PLC Troubleshooting Guide</a>
+          <a href="/wire-gauge-amps.html" onclick="gtag('event','internal_link',{'from':'plc_pulse_capture','to':'wire_gauge'});">Wire Gauge vs Amps Chart</a>
+          <a href="/reference-charts.html" onclick="gtag('event','internal_link',{'from':'plc_pulse_capture','to':'reference_charts_related'});">Electrical Reference Charts</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Working on a real machine issue?</h3>
+        <p>
+          If you are chasing missed counts, unreliable sensor pulses, reject confirmation problems, or fast event capture issues in production equipment, you can get help applying this directly to your system.
+        </p>
+        <a href="/automation-help.html" onclick="gtag('event','lead_cta',{'source':'plc_pulse_capture'});">Get Help With My System</a>
+        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'plc_pulse_capture'});">Find an Integrator</a>
       </div>
 
       <div class="footer">
@@ -636,6 +669,16 @@
           <li>Hardware latch / high-speed input availability</li>
           <li>Real oscilloscope or trend verification</li>
         </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>Best companion pages</h3>
+        <div class="internal-links">
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','plc_pulse_sidebar_click',{'target':'plc_inputs'});">PLC Inputs Not Working</a>
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_pulse_sidebar_click',{'target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_pulse_sidebar_click',{'target':'plc_guide'});">PLC Troubleshooting Guide</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_pulse_sidebar_click',{'target':'plc_electrical'});">PLC & Electrical Hub</a>
+        </div>
       </div>
     </div>
   </div>
