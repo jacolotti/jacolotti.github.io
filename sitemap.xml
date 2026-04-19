@@ -42,6 +42,20 @@
     <changefreq>weekly</changefreq>
     <priority>8.0</priority>
   </url>
+
+    <url>
+    <loc>https://automationcalculators.net/plc-communication-troubleshooting.html</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <url>
+    <loc>https://automationcalculators.net/sourcing-vs-sinking.html</loc>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
   
   <url>
     <loc>https://automationcalculators.net/automation-calculators.html</loc>
