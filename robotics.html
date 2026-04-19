@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/robotics.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Robotics Tools | Cycle Time, Reach, Payload & Robot Simulation</title>
+  <meta name="description" content="Robotics tools for automation engineers. Estimate robot cycle time, reach, payload, and simulate motion paths for real automation applications.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#0b66c3,#0b3d69);
+      color:#fff;
+      padding:60px 20px;
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:auto;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+    }
+
+    .hero h1{
+      font-size:2.3rem;
+      margin-bottom:15px;
+    }
+
+    .hero p{
+      color:#e5f0ff;
+    }
+
+    .section{
+      max-width:var(--max);
+      margin:auto;
+      padding:40px 20px;
+    }
+
+    .grid{
+      display:grid;
+      gap:20px;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:var(--shadow);
+    }
+
+    .card h3{
+      margin-top:0;
+    }
+
+    .card a{
+      display:inline-block;
+      margin-top:10px;
+      font-weight:bold;
+      color:var(--accent);
+    }
+
+    .flow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      font-weight:bold;
+    }
+
+    .flow a{
+      background:#edf4fb;
+      padding:8px 12px;
+      border-radius:999px;
+      text-decoration:none;
+    }
+
+    .cta{
+      background:#0b66c3;
+      color:#fff;
+      padding:30px;
+      border-radius:var(--radius);
+    }
+
+    .cta a{
+      color:#fff;
+      font-weight:bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Robotics Tools for Cycle Time, Reach, Payload & Simulation</h1>
+      <p>
+        Use this section to estimate robot cycle time, check reach and payload limits,
+        and simulate motion paths for real automation applications.
+      </p>
+    </div>
+
+    <div>
+      <ul>
+        <li>Robot cycle time estimation</li>
+        <li>Reach and workspace checks</li>
+        <li>Payload validation</li>
+        <li>Basic motion simulation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Where Should You Start?</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>Robot seems too slow or cycle time is unknown</h3>
+      <p>Start here to estimate cycle time based on movement and process steps.</p>
+      <a href="/robot.html">Robot Cycle Time →</a>
+    </div>
+
+    <div class="card">
+      <h3>Robot may not physically reach the target</h3>
+      <p>Check reach limits and workspace feasibility.</p>
+      <a href="/robot-reach.html">Robot Reach →</a>
+    </div>
+
+    <div class="card">
+      <h3>Payload or tooling weight concerns</h3>
+      <p>Validate robot payload vs actual load conditions.</p>
+      <a href="/robot-payload.html">Robot Payload →</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>Common Robotics Workflow</h2>
+
+  <div class="flow">
+    <a href="/robot-reach.html">Reach</a>
+    →
+    <a href="/robot-payload.html">Payload</a>
+    →
+    <a href="/robot.html">Cycle Time</a>
+    →
+    <a href="/robot-simulator.html">Simulation</a>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Robotics Tools</h2>
+
+  <div class="grid">
+
+    <div class="card">
+      <h3>Robot Cycle Time Calculator</h3>
+      <p>Estimate total cycle time for robot operations.</p>
+      <a href="/robot.html">Open →</a>
+    </div>
+
+    <div class="card">
+      <h3>Robot Reach Calculator</h3>
+      <p>Check if the robot can physically reach required positions.</p>
+      <a href="/robot-reach.html">Open →</a>
+    </div>
+
+    <div class="card">
+      <h3>Robot Payload Calculator</h3>
+      <p>Compare tooling and part weight against robot limits.</p>
+      <a href="/robot-payload.html">Open →</a>
+    </div>
+
+    <div class="card">
+      <h3>Robot Simulator</h3>
+      <p>Visualize robot movement and positioning.</p>
+      <a href="/robot-simulator.html">Open →</a>
+    </div>
+
+    <div class="card">
+      <h3>Start With Your Issue</h3>
+      <p>Not sure which tool fits? Start with the problem solver.</p>
+      <a href="/problem-solver.html">Open →</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="cta">
+    <h2>Need Help With a Real Robot Application?</h2>
+    <p>
+      Some robotics problems need real system review — reach, payload, fixtures,
+      and cycle time all interact. If you're working on a live system, get help.
+    </p>
+    <a href="/automation-help.html">Get Help →</a>
+  </div>
+</section>
+
+<footer style="text-align:center;padding:20px;">
+  Automation Engineering Tools • Practical calculators for real automation work
+</footer>
+
+<script>
+fetch('/navbar.html')
+.then(res => res.text())
+.then(data => document.getElementById('navbar').innerHTML = data);
+</script>
+
+</body>
+</html>
