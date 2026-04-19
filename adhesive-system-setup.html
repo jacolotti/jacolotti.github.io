@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <link rel="canonical" href="https://automationcalculators.net/adhesive-system-setup.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
-  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adhesive System Setup Guide | AutomationCalculators.net</title>
+  <meta name="description" content="Industrial adhesive system setup guide for automation engineers. Learn the main components, startup checks, temperature zones, pressure settings, line speed effects, and practical setup considerations for hot melt adhesive systems.">
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,107 +17,182 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>Adhesive System Setup Guide | Automation Calculators</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Industrial adhesive system setup guide for automation engineers. Learn the main components, startup checks, temperature zones, pressure settings, line speed effects, and practical setup considerations for hot melt adhesive systems.">
-
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+      --hero1:#0b66c3;
+      --hero2:#0d79d0;
+      --hero3:#0b3d69;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+
     body{
-      font-family:Arial, sans-serif;
-      background:#f4f4f4;
       margin:0;
-      color:#222;
-    }
-
-    .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
-      text-align:center;
-    }
-
-    .hero-inner{
-      max-width:950px;
-      margin:auto;
-    }
-
-    .hero h1{
-      margin:0 0 12px;
-      font-size:34px;
-      line-height:1.2;
-    }
-
-    .hero p{
-      max-width:800px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
-      font-size:17px;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
       line-height:1.6;
     }
 
-    .hero-cta{
-      margin-top:18px;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .hero-cta a{
-      display:inline-block;
-      padding:12px 18px;
-      border-radius:8px;
+    a{
+      color:var(--accent);
       text-decoration:none;
-      font-weight:bold;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hero{
+      background:linear-gradient(135deg, var(--hero1) 0%, var(--hero2) 45%, var(--hero3) 100%);
+      color:#fff;
+      padding:58px 20px 40px;
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:24px;
+      align-items:center;
+    }
+
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.35rem;
+      line-height:1.12;
+      color:#fff;
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      max-width:760px;
+      color:rgba(255,255,255,0.94);
+      font-size:1.04rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:13px 18px;
+      border-radius:10px;
+      font-weight:700;
+      text-decoration:none;
       transition:.2s ease;
+      border:none;
+      cursor:pointer;
+      text-align:center;
     }
 
-    .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+    .btn-primary{
+      background:#fff;
+      color:var(--accent-dark);
     }
 
-    .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+    .btn-primary:hover{
+      background:#f1f6fb;
+      text-decoration:none;
     }
 
-    .hero-cta a:hover{
-      transform:translateY(-1px);
-      opacity:.95;
+    .btn-secondary{
+      background:rgba(255,255,255,0.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.28);
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.2);
+      text-decoration:none;
+    }
+
+    .hero-panel{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:18px;
+      padding:22px;
+      backdrop-filter:blur(5px);
+    }
+
+    .hero-panel h3{
+      margin:0 0 12px;
+      font-size:1.1rem;
+      color:#fff;
+    }
+
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .hero-panel li{
+      margin-bottom:10px;
+      color:rgba(255,255,255,0.95);
+    }
+
+    .hero-panel a{
+      color:#fff;
+      text-decoration:underline;
     }
 
     .page-wrap{
-      max-width:1100px;
-      margin:30px auto;
-      padding:0 18px 40px;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:34px 20px 42px;
     }
 
     .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
+      background:#fff8df;
+      border:1px solid #f1df95;
       color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
-      font-size:15px;
-      line-height:1.5;
-      text-align:left;
+      padding:16px 18px;
+      border-radius:14px;
+      margin:0 0 24px;
+      box-shadow:var(--shadow);
     }
 
     .main-grid{
       display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
+      grid-template-columns:minmax(0, 2fr) minmax(300px, 0.9fr);
+      gap:22px;
       align-items:start;
     }
 
     .card,
-    .sidebar-card{
-      background:white;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
+    .sidebar-card,
+    .info-card,
+    .cta-box,
+    .learn-more{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
     }
 
     .card{
@@ -124,173 +201,97 @@
 
     .sidebar-card{
       padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin-bottom:18px;
+    }
+
+    .info-card{
+      padding:18px;
+    }
+
+    .cta-box{
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#f7fbff);
+    }
+
+    .learn-more{
+      padding:22px;
+      background:#f8fbff;
     }
 
     .section-label{
       font-size:13px;
-      font-weight:bold;
+      font-weight:700;
       text-transform:uppercase;
       letter-spacing:.08em;
-      color:#5e7197;
+      color:#6a7d95;
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
-      margin-top:0;
-      color:#1f2a44;
+    h2,h3,h4{
+      color:var(--text);
+    }
+
+    .card h2{
+      margin:0 0 12px;
+      font-size:2rem;
     }
 
     .card h3{
-      color:#1f2a44;
-      margin-top:28px;
+      margin-top:30px;
       margin-bottom:10px;
+      font-size:1.35rem;
+    }
+
+    .sidebar-card h3,
+    .cta-box h3,
+    .learn-more h3,
+    .info-card h4{
+      margin-top:0;
     }
 
     .description{
       margin:0 0 18px;
-      color:#555;
-      font-size:16px;
-      line-height:1.6;
-      text-align:left;
+      color:var(--muted);
+      font-size:1rem;
+      line-height:1.7;
     }
 
     .formula-box{
-      margin:20px 0;
-      padding:18px;
-      background:#eef3ff;
-      border:1px solid #cfdaf5;
-      border-radius:10px;
-      color:#1f2a44;
-      font-weight:bold;
-      font-size:17px;
-      line-height:1.7;
-      text-align:left;
+      margin:20px 0 24px;
+      padding:20px;
+      background:#eef4fb;
+      border:1px solid #d3e1ef;
+      border-radius:14px;
+      color:var(--text);
+      font-weight:700;
+      font-size:1.05rem;
+      line-height:1.8;
     }
 
     .quick-row{
-      margin:8px 0 22px;
+      margin:8px 0 24px;
       display:flex;
       flex-wrap:wrap;
       gap:10px;
     }
 
-    .quick-row a{
-      display:inline-block;
-      padding:10px 12px;
-      border-radius:8px;
-      border:1px solid #cdd8ee;
-      background:#f7f9fd;
-      cursor:pointer;
-      font-weight:600;
-      color:#1f2a44;
-      text-decoration:none;
-    }
-
-    .quick-row a:hover{
-      background:#eef3fc;
-    }
-
-    .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
-    }
-
-    .cta-box h3{
-      margin:0 0 10px;
-      color:#1f2a44;
-    }
-
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .note{
-      margin-top:20px;
-      color:#666;
-      font-size:14px;
-      line-height:1.6;
-      text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more ul{
-      margin:0 0 12px 20px;
-      color:#555;
-      line-height:1.7;
-    }
-
-    .learn-more li{
-      margin-bottom:8px;
-    }
-
-    .internal-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
-    }
-
+    .quick-row a,
     .internal-links a{
       display:inline-block;
-      padding:10px 12px;
-      background:white;
-      border:1px solid #d6e0f1;
-      border-radius:8px;
-      color:#1f2a44;
+      padding:10px 13px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--accent-dark);
+      font-weight:700;
       text-decoration:none;
-      font-weight:600;
+      border:1px solid #d9e5f2;
+      transition:.2s ease;
     }
 
+    .quick-row a:hover,
     .internal-links a:hover{
-      background:#e9eef8;
-    }
-
-    .recommendation-box{
-      background:#e9f1ff;
-      border:1px solid #c8d9ff;
-      border-radius:10px;
-      padding:18px;
-      margin-top:0;
-      margin-bottom:20px;
-    }
-
-    .recommendation-box h4{
-      margin-top:0;
-      margin-bottom:10px;
-      color:#1f2a44;
+      background:#dfeefa;
+      text-decoration:none;
     }
 
     .info-grid{
@@ -300,145 +301,181 @@
       margin-top:18px;
     }
 
-    .info-card{
-      background:#f8fbff;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
-      padding:18px;
-    }
-
-    .info-card h4{
-      margin-top:0;
-      margin-bottom:10px;
-      color:#1f2a44;
-      font-size:18px;
-    }
-
-    .info-card p{
+    .info-card p,
+    .sidebar-card p,
+    .learn-more p,
+    .cta-box p{
       margin:0;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:0.98rem;
     }
 
     .setup-table{
       width:100%;
-      border-collapse:collapse;
+      border-collapse:separate;
+      border-spacing:0;
       margin-top:18px;
-      background:white;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
+      background:#fff;
+      border:1px solid #d9e3ee;
+      border-radius:14px;
       overflow:hidden;
     }
 
     .setup-table th,
     .setup-table td{
-      padding:12px 14px;
-      border-bottom:1px solid #e3ebfb;
+      padding:13px 14px;
+      border-bottom:1px solid #e6edf5;
       text-align:left;
       vertical-align:top;
-      line-height:1.5;
-      font-size:15px;
+      line-height:1.55;
+      font-size:0.96rem;
     }
 
     .setup-table th{
-      background:#eef4ff;
-      color:#1f2a44;
+      background:#eef4fb;
+      color:var(--text);
+      font-weight:700;
     }
 
     .setup-table tr:last-child td{
       border-bottom:none;
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+    .cta-box{
+      margin-top:26px;
+      text-align:center;
     }
 
-    .sidebar-card ul{
-      padding-left:18px;
+    .cta-box p{
+      margin:0 0 16px;
+    }
+
+    .cta-box a,
+    .pneumatic-btn{
+      display:inline-block;
+      background:#0b66c3;
+      color:#fff;
+      padding:12px 16px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .cta-box a:hover,
+    .pneumatic-btn:hover{
+      background:#084c92;
+      text-decoration:none;
+    }
+
+    .learn-more ul,
+    .sidebar-card ul,
+    .pneumatic-consulting ul{
+      padding-left:20px;
       margin:0;
-      color:#444;
+      color:var(--muted);
       line-height:1.7;
     }
 
-    .pneumatic-btn{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      text-decoration:none;
-      padding:10px 14px;
-      border-radius:8px;
-      font-weight:bold;
-      border:none;
-      cursor:pointer;
-      font-size:15px;
+    .learn-more li,
+    .sidebar-card li,
+    .pneumatic-consulting li{
+      margin-bottom:8px;
     }
 
-    .pneumatic-btn:hover{
-      opacity:.95;
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .recommendation-box{
+      background:#eef4fb;
+      border:1px solid #d3e1ef;
+      border-radius:14px;
+      padding:18px;
+      margin-top:0;
+      margin-bottom:0;
+    }
+
+    .recommendation-box h4{
+      margin-top:0;
+      margin-bottom:10px;
+      color:var(--text);
     }
 
     .pneumatic-consulting{
-      margin-top:20px;
-      padding:20px;
-      background:#f4f8ff;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
+      margin-top:12px;
+      padding:18px;
+      background:#f8fbff;
+      border:1px solid #dce7f3;
+      border-radius:14px;
       text-align:left;
     }
 
     .pneumatic-consulting h3{
       margin-top:0;
-      color:#1f2a44;
     }
 
     .pneumatic-consulting p{
-      color:#555;
-      line-height:1.6;
+      color:var(--muted);
+      line-height:1.7;
       margin-bottom:14px;
     }
 
-    .pneumatic-consulting ul{
-      padding-left:18px;
-      margin:0 0 18px;
-      color:#444;
+    .note{
+      margin-top:24px;
+      color:var(--muted);
+      font-size:0.95rem;
       line-height:1.7;
     }
 
     .footer{
-      margin-top:40px;
-      color:#666;
-      font-size:14px;
+      margin-top:30px;
+      color:#64748b;
+      font-size:0.95rem;
       text-align:center;
     }
 
-    @media (max-width:900px){
+    @media (max-width: 980px){
+      .hero-inner,
       .main-grid{
         grid-template-columns:1fr;
       }
+
+      .hero h1{
+        font-size:2rem;
+      }
     }
 
-    @media (max-width:700px){
+    @media (max-width: 700px){
+      .hero{
+        padding:46px 16px 34px;
+      }
+
+      .page-wrap{
+        padding:28px 16px 36px;
+      }
+
       .card,
       .sidebar-card{
         padding:20px;
       }
 
-      .hero h1{
-        font-size:28px;
-      }
-
-      .hero-cta{
+      .hero-actions{
         flex-direction:column;
-        align-items:center;
       }
 
-      .hero-cta a{
+      .hero-actions .btn{
         width:100%;
-        max-width:320px;
+      }
+
+      .card h2{
+        font-size:1.7rem;
       }
     }
   </style>
@@ -449,13 +486,28 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <h1>Adhesive System Setup Guide</h1>
-    <p>
-      Understand the main components, setup variables, and practical starting checks used in industrial hot melt adhesive systems.
-    </p>
-    <div class="hero-cta">
-      <a href="#setup-guide" class="primary">Open Guide</a>
-      <a href="/nordson-parameters-explained.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'adhesive_setup_hero','to':'nordson_parameters'});">Parameter Explanations</a>
+    <div>
+      <h1>Adhesive System Setup Guide</h1>
+      <p>
+        Understand the main components, setup variables, and practical starting checks used in industrial hot melt adhesive systems.
+      </p>
+      <p>
+        This page is meant to help you get the system logic straight before randomly changing temperatures, pressures, timing, or hardware.
+      </p>
+      <div class="hero-actions">
+        <a href="#setup-guide" class="btn btn-primary">Open Guide</a>
+        <a href="/nordson-parameters-explained.html" class="btn btn-secondary" onclick="gtag('event','related_tool_click',{'from':'adhesive_setup_hero','to':'nordson_parameters'});">Parameter Explanations</a>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h3>Best use cases for this page</h3>
+      <ul>
+        <li>Bringing up a new adhesive system</li>
+        <li>Troubleshooting inconsistent dispense</li>
+        <li>Understanding what settings matter most before making changes</li>
+        <li>Building a cleaner adhesive workflow on the site</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -665,12 +717,12 @@
           <li>Using the wrong nozzle or worn hardware for the target application</li>
         </ul>
 
-        <h3>Where this fits in your process</h3>
+        <h3 style="margin-top:20px;">Where this fits in your process</h3>
         <p>
           This page is the starting point for understanding adhesive application at a system level. After that, the next practical steps are to break down specific parameters, estimate adhesive usage, and troubleshoot bead or cutoff problems in a structured way.
         </p>
 
-        <h3>Real-world use</h3>
+        <h3 style="margin-top:20px;">Real-world use</h3>
         <p>
           In real production, adhesive quality is not only about whether material comes out of the gun. The real question is whether it applies in the right amount, in the right location, at the right time, and stays stable as conditions change during the shift.
         </p>
@@ -727,7 +779,7 @@
         <h3>Suggested starting point</h3>
         <div class="recommendation-box">
           <h4>Start here if you are new to adhesive setup</h4>
-          <p style="margin:0;">
+          <p>
             Begin by understanding the full system first. A lot of adhesive issues come from interaction between temperature, pressure, timing, and hardware condition rather than one single bad setting.
           </p>
         </div>
@@ -795,13 +847,13 @@
 </div>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html')
     .then(response => response.text())
     .then(data => {
-      document.getElementById("navbar").innerHTML = data;
+      document.getElementById('navbar').innerHTML = data;
     })
     .catch(error => {
-      console.error("Navbar failed to load:", error);
+      console.error('Navbar failed to load:', error);
     });
 </script>
 
