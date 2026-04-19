@@ -14,15 +14,8 @@
     padding: 12px 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-  }
-
-  .nav-left,
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    gap: 16px;
+    position: relative;
   }
 
   .brand {
@@ -30,8 +23,41 @@
     font-weight: 800;
     color: #0b66c3;
     text-decoration: none;
-    margin-right: 10px;
     white-space: nowrap;
+    margin-right: 6px;
+  }
+
+  .brand:hover {
+    text-decoration: none;
+    color: #084c92;
+  }
+
+  .menu-toggle {
+    display: none;
+    margin-left: auto;
+    background: #eef4fb;
+    border: 1px solid #dbe4ee;
+    color: #16202a;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+  }
+
+  .nav-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    gap: 16px;
+  }
+
+  .nav-left,
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .nav-link,
@@ -53,63 +79,9 @@
   }
 
   .nav-link:hover,
-  .dropbtn:hover {
-    background: #eef4fb;
-    color: #0b66c3;
-    text-decoration: none;
-  }
-
-  .nav-link.active,
-  .dropbtn.active {
-    background: #eef4fb;
-    color: #0b66c3;
-  }
-
-  .dropdown {
-    position: relative;
-  }
-
-  /* invisible bridge so the menu stays open while moving downward */
-  .dropdown::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: 100%;
-    height: 14px;
-  }
-
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    min-width: 290px;
-    background: #ffffff;
-    border: 1px solid #dbe4ee;
-    border-radius: 14px;
-    box-shadow: 0 10px 26px rgba(12,35,64,0.12);
-    padding: 8px 0;
-    overflow: hidden;
-    z-index: 1100;
-  }
-
-  .dropdown:hover .dropdown-content,
-  .dropdown:focus-within .dropdown-content {
-    display: block;
-  }
-
-  .dropdown-content a {
-    display: block;
-    padding: 12px 16px;
-    color: #16202a;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 600;
-    transition: background 0.2s ease, color 0.2s ease;
-  }
-
-  .dropdown-content a:hover {
+  .dropbtn:hover,
+  .dropdown:hover > .dropbtn,
+  .dropdown:focus-within > .dropbtn {
     background: #eef4fb;
     color: #0b66c3;
     text-decoration: none;
@@ -131,48 +103,144 @@
     transform: translateY(-1px);
   }
 
-  .menu-toggle {
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    height: 14px;
+  }
+
+  .dropdown-panel {
     display: none;
-    background: #eef4fb;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    min-width: 760px;
+    background: #ffffff;
     border: 1px solid #dbe4ee;
-    color: #16202a;
-    font-size: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(12,35,64,0.14);
+    padding: 18px;
+    z-index: 1100;
+  }
+
+  .dropdown-panel.tools-panel {
+    min-width: 980px;
+  }
+
+  .dropdown-panel.resources-panel {
+    min-width: 640px;
+  }
+
+  .dropdown:hover .dropdown-panel,
+  .dropdown:focus-within .dropdown-panel {
+    display: block;
+  }
+
+  .mega-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .mega-grid.three-col {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .mega-col h4 {
+    margin: 0 0 10px;
+    font-size: 0.96rem;
+    color: #0f172a;
+  }
+
+  .mega-col .group-link {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
     font-weight: 700;
+    color: #0b66c3;
+    text-decoration: none;
+  }
+
+  .mega-col .group-link:hover {
+    text-decoration: underline;
+  }
+
+  .mega-links {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .mega-links a {
+    display: block;
+    padding: 8px 10px;
     border-radius: 10px;
-    padding: 10px 14px;
-    cursor: pointer;
+    color: #16202a;
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1.35;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .mega-links a:hover {
+    background: #eef4fb;
+    color: #0b66c3;
+    text-decoration: none;
+  }
+
+  .mega-divider {
+    height: 1px;
+    background: #e5edf5;
+    margin: 6px 0 2px;
+  }
+
+  .nav-note {
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 1120px) {
+    .dropdown-panel.tools-panel {
+      min-width: 880px;
+    }
   }
 
   @media (max-width: 1020px) {
-    .navbar-inner {
-      flex-wrap: wrap;
-    }
-
     .menu-toggle {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-left: auto;
     }
 
-    .nav-left,
-    .nav-right {
+    .nav-wrap {
       display: none;
       width: 100%;
       flex-direction: column;
       align-items: stretch;
-      gap: 6px;
+      gap: 8px;
+      padding-top: 10px;
     }
 
-    .navbar:hover .nav-left,
-    .navbar:hover .nav-right,
-    .navbar:focus-within .nav-left,
-    .navbar:focus-within .nav-right {
+    .navbar.open .nav-wrap {
       display: flex;
     }
 
-    .brand {
-      margin-right: 0;
+    .nav-left,
+    .nav-right {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      gap: 6px;
     }
 
     .nav-link,
@@ -190,19 +258,26 @@
       display: none;
     }
 
-    .dropdown-content {
+    .dropdown-panel,
+    .dropdown-panel.tools-panel,
+    .dropdown-panel.resources-panel {
       position: static;
       display: none;
+      min-width: 100%;
       margin-top: 6px;
       box-shadow: none;
       border-radius: 12px;
-      border: 1px solid #dbe4ee;
-      min-width: 100%;
+      padding: 14px;
     }
 
-    .dropdown:hover .dropdown-content,
-    .dropdown:focus-within .dropdown-content {
+    .dropdown.open .dropdown-panel {
       display: block;
+    }
+
+    .mega-grid,
+    .mega-grid.three-col {
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
   }
 </style>
@@ -213,59 +288,233 @@
       Automation Tools
     </a>
 
-    <button class="menu-toggle" type="button" aria-label="Navigation Menu">
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Navigation Menu" aria-expanded="false">
       Menu
     </button>
 
-    <div class="nav-left">
-      <a href="/" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'home'});">Home</a>
+    <div class="nav-wrap" id="navWrap">
+      <div class="nav-left">
+        <a href="/" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'home'});">Home</a>
 
-      <a href="/problem-solver.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'problem_solver'});">
-        Start With Your Issue
-      </a>
+        <a href="/problem-solver.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'problem_solver'});">
+          Start With Your Issue
+        </a>
 
-      <a href="/automation-calculators.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'all_calculators'});">
-        All Calculators
-      </a>
+        <a href="/automation-calculators.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'all_calculators'});">
+          All Calculators
+        </a>
 
-      <div class="dropdown">
-        <button class="dropbtn" type="button">
-          Popular Tools ▾
-        </button>
-        <div class="dropdown-content">
-          <a href="/pneumatic.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_force'});">Pneumatic Force</a>
-          <a href="/robot.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robot_cycle'});">Robot Cycle Time</a>
-          <a href="/servo-torque.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'servo_torque'});">Servo Torque</a>
-          <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_troubleshooter'});">PLC Troubleshooter</a>
-          <a href="/spot-weld.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'spot_weld'});">Spot Weld</a>
-          <a href="/torque-clamp-load.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'torque_clamp_load'});">Torque to Clamp Load</a>
-          <a href="/roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi'});">Automation ROI</a>
+        <div class="dropdown">
+          <button class="dropbtn" type="button">
+            Calculators by Category ▾
+          </button>
+
+          <div class="dropdown-panel tools-panel">
+            <div class="mega-grid">
+              <div class="mega-col">
+                <h4>Pneumatics</h4>
+                <a class="group-link" href="/automation-calculators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatics_group'});">
+                  View category overview
+                </a>
+                <div class="mega-links">
+                  <a href="/pneumatic.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_force'});">Pneumatic Force</a>
+                  <a href="/pneumatic-speed.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_speed'});">Pneumatic Speed</a>
+                  <a href="/air-consumption.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'air_consumption'});">Air Consumption</a>
+                  <a href="/air-line-size-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'air_line_size'});">Compressed Air Line Size</a>
+                  <a href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_sizing_guide'});">Pneumatic System Sizing Guide</a>
+                </div>
+              </div>
+
+              <div class="mega-col">
+                <h4>PLC / Electrical</h4>
+                <a class="group-link" href="/automation-calculators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_group'});">
+                  View category overview
+                </a>
+                <div class="mega-links">
+                  <a href="/plc-troubleshooter.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_troubleshooter'});">PLC Troubleshooter</a>
+                  <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_communication_troubleshooter'});">PLC Communication Troubleshooter</a>
+                  <a href="/plc-inputs-not-working.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_inputs_not_working'});">PLC Inputs Not Working</a>
+                  <a href="/plc-pulse-capture.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_pulse_capture'});">PLC Scan Time &amp; Pulse Capture</a>
+                  <a href="/analog-scaling.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'analog_scaling'});">Analog Scaling</a>
+                  <a href="/voltage-drop.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'voltage_drop'});">Voltage Drop</a>
+                  <a href="/wire-gauge-amps.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'wire_gauge_amps'});">Wire Gauge vs Amps</a>
+                  <a href="/awg-wire-gauge-chart.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'awg_wire_gauge_chart'});">AWG Wire Gauge Chart</a>
+                  <a href="/safety-distance.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'safety_distance'});">Safety Distance</a>
+                </div>
+              </div>
+
+              <div class="mega-col">
+                <h4>Motors &amp; Motion</h4>
+                <a class="group-link" href="/automation-calculators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'motion_group'});">
+                  View category overview
+                </a>
+                <div class="mega-links">
+                  <a href="/motor.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'motor_sizing'});">Conveyor Motor Sizing</a>
+                  <a href="/conveyor-speed.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'conveyor_speed'});">Conveyor Speed</a>
+                  <a href="/servo-torque.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'servo_torque'});">Servo Torque</a>
+                  <a href="/gear-ratio.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'gear_ratio'});">Gear Ratio</a>
+                  <a href="/gearbox-torque.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'gearbox_torque'});">Gearbox Torque</a>
+                </div>
+              </div>
+
+              <div class="mega-col">
+                <h4>Robotics</h4>
+                <a class="group-link" href="/automation-calculators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robotics_group'});">
+                  View category overview
+                </a>
+                <div class="mega-links">
+                  <a href="/robot.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robot_cycle_time'});">Robot Cycle Time</a>
+                  <a href="/robot-reach.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robot_reach'});">Robot Reach</a>
+                  <a href="/robot-payload.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robot_payload'});">Robot Payload</a>
+                  <a href="/robot-simulator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robot_simulator'});">Robot Simulator</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="mega-divider"></div>
+
+            <div class="mega-grid" style="margin-top: 16px;">
+              <div class="mega-col">
+                <h4>Welding</h4>
+                <a class="group-link" href="/automation-calculators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'welding_group'});">
+                  View category overview
+                </a>
+                <div class="mega-links">
+                  <a href="/spot-weld.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'spot_weld'});">Resistance Spot Weld</a>
+                  <a href="/projection-weld.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'projection_weld'});">Projection Weld</a>
+                  <a href="/coolant-flow-sizing.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'coolant_flow_sizing'});">Coolant Flow &amp; Line Sizing</a>
+                </div>
+              </div>
+
+              <div class="mega-col">
+                <h4>Fastening</h4>
+                <a class="group-link" href="/automation-calculators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'fastening_group'});">
+                  View category overview
+                </a>
+                <div class="mega-links">
+                  <a href="/torque-clamp-load.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'torque_clamp_load'});">Torque to Clamp Load</a>
+                  <a href="/torque-angle.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'torque_angle'});">Torque Angle</a>
+                  <a href="/bolt-tightening-torque.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'bolt_tightening_torque'});">Bolt Tightening Torque</a>
+                </div>
+              </div>
+
+              <div class="mega-col">
+                <h4>Adhesives</h4>
+                <a class="group-link" href="/automation-calculators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesives_group'});">
+                  View category overview
+                </a>
+                <div class="mega-links">
+                  <a href="/adhesive-system-setup.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesive_setup'});">Adhesive System Setup</a>
+                  <a href="/adhesive-usage-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesive_usage'});">Adhesive Usage Calculator</a>
+                  <a href="/pattern-timing-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pattern_timing'});">Pattern Timing Calculator</a>
+                  <a href="/hot-melt-troubleshooting.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'hot_melt_troubleshooting'});">Hot Melt Troubleshooting</a>
+                </div>
+              </div>
+
+              <div class="mega-col">
+                <h4>Planning / ROI</h4>
+                <a class="group-link" href="/automation-calculators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi_group'});">
+                  View category overview
+                </a>
+                <div class="mega-links">
+                  <a href="/roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'automation_roi'});">Automation ROI</a>
+                  <a href="/bin-simulator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'bin_simulator'});">2D Bin Loading Simulator</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="nav-note">
+              This menu is meant to surface the full tool library so visitors do not have to guess where a calculator lives.
+            </div>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <button class="dropbtn" type="button">
+            Guides &amp; Resources ▾
+          </button>
+
+          <div class="dropdown-panel resources-panel">
+            <div class="mega-grid three-col">
+              <div class="mega-col">
+                <h4>Start Here</h4>
+                <div class="mega-links">
+                  <a href="/problem-solver.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'problem_solver_resource'});">Start With Your Issue</a>
+                  <a href="/automation-calculators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'all_calculators_resource'});">Automation Calculators Overview</a>
+                  <a href="/reference-charts.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'reference_charts'});">Reference Charts</a>
+                </div>
+              </div>
+
+              <div class="mega-col">
+                <h4>PLC / Electrical</h4>
+                <div class="mega-links">
+                  <a href="/plc-troubleshooter.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_troubleshooter_resource'});">PLC Troubleshooter</a>
+                  <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_communication_resource'});">PLC Communication Troubleshooter</a>
+                  <a href="/plc-inputs-not-working.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_inputs_resource'});">PLC Inputs Not Working</a>
+                </div>
+              </div>
+
+              <div class="mega-col">
+                <h4>Pneumatics / Design</h4>
+                <div class="mega-links">
+                  <a href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_sizing_resource'});">Pneumatic System Sizing Guide</a>
+                  <a href="/integrators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'integrators_resource'});">Find an Integrator</a>
+                  <a href="/automation-help.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'automation_help_resource'});">Request Help</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="dropdown">
-        <button class="dropbtn" type="button">
-          More Tools ▾
-        </button>
-        <div class="dropdown-content">
-          <a href="/air-consumption.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'air_consumption'});">Air Consumption</a>
-          <a href="/pneumatic-speed.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_speed'});">Pneumatic Speed</a>
-          <a href="/conveyor-speed.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'conveyor_speed'});">Conveyor Speed</a>
-          <a href="/gear-ratio.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'gear_ratio'});">Gear Ratio</a>
-          <a href="/analog-scaling.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'analog_scaling'});">Analog Scaling</a>
-          <a href="/voltage-drop.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'voltage_drop'});">Voltage Drop</a>
-          <a href="/reference-charts.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'reference_charts'});">Reference Charts</a>
-        </div>
+      <div class="nav-right">
+        <a href="/integrators.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'integrators'});">
+          Integrators
+        </a>
+        <a href="/automation-help.html" class="btn-help" onclick="gtag('event','nav_click',{'location':'navbar','item':'get_help'});">
+          Get Help
+        </a>
       </div>
-    </div>
-
-    <div class="nav-right">
-      <a href="/integrators.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'integrators'});">
-        Integrators
-      </a>
-      <a href="/automation-help.html" class="btn-help" onclick="gtag('event','nav_click',{'location':'navbar','item':'get_help'});">
-        Get Help
-      </a>
     </div>
   </div>
 </div>
+
+<script>
+  (function () {
+    const navbar = document.getElementById('siteNavbar');
+    const menuToggle = document.getElementById('menuToggle');
+    const dropdowns = navbar.querySelectorAll('.dropdown');
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', function () {
+        const isOpen = navbar.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    }
+
+    dropdowns.forEach(function (dropdown) {
+      const button = dropdown.querySelector('.dropbtn');
+
+      if (button) {
+        button.addEventListener('click', function (e) {
+          if (window.innerWidth <= 1020) {
+            e.preventDefault();
+            dropdown.classList.toggle('open');
+          }
+        });
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 1020) {
+        navbar.classList.remove('open');
+        if (menuToggle) {
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+        dropdowns.forEach(function (dropdown) {
+          dropdown.classList.remove('open');
+        });
+      }
+    });
+  })();
+</script>
