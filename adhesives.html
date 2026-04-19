@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/adhesives.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adhesive Application Tools | Setup, Parameters, Usage, Timing & Troubleshooting</title>
+  <meta name="description" content="Adhesive application tools and guides for automation engineers. Explore hot melt system setup, Nordson parameter explanations, adhesive usage, pattern timing, and troubleshooting resources.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hero{
+      background:linear-gradient(135deg, #0b66c3 0%, #0d79d0 45%, #0b3d69 100%);
+      color:#fff;
+      padding:60px 20px 42px;
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:26px;
+      align-items:center;
+    }
+
+    .hero h1{
+      margin:0 0 16px;
+      font-size:2.45rem;
+      line-height:1.12;
+      color:#fff;
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      max-width:760px;
+      color:rgba(255,255,255,0.95);
+      font-size:1.05rem;
+    }
+
+    .trust-line{
+      margin-top:8px;
+      color:rgba(255,255,255,0.9);
+      font-weight:700;
+      font-size:0.98rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:22px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:13px 18px;
+      border-radius:10px;
+      font-weight:700;
+      text-decoration:none;
+      transition:.2s ease;
+      border:none;
+      cursor:pointer;
+      text-align:center;
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:var(--accent-dark);
+    }
+
+    .btn-primary:hover{
+      background:#f1f6fb;
+      text-decoration:none;
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,0.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.28);
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.2);
+      text-decoration:none;
+    }
+
+    .hero-panel{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:18px;
+      padding:22px;
+      backdrop-filter:blur(5px);
+    }
+
+    .hero-panel h3{
+      margin:0 0 12px;
+      font-size:1.15rem;
+      color:#fff;
+    }
+
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .hero-panel li{
+      margin-bottom:10px;
+      color:rgba(255,255,255,0.95);
+    }
+
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:38px 20px;
+    }
+
+    .section h2{
+      margin:0 0 10px;
+      font-size:1.95rem;
+      color:var(--text);
+    }
+
+    .section-intro{
+      margin:0 0 24px;
+      color:var(--muted);
+      max-width:860px;
+      font-size:1.02rem;
+    }
+
+    .note-box{
+      background:#fff8df;
+      border:1px solid #f1df95;
+      color:#5c4a12;
+      padding:16px 18px;
+      border-radius:14px;
+      box-shadow:var(--shadow);
+    }
+
+    .grid-3,
+    .grid-2,
+    .tool-grid,
+    .feature-list{
+      display:grid;
+      gap:18px;
+    }
+
+    .grid-3{grid-template-columns:repeat(3,1fr);}
+    .grid-2{grid-template-columns:repeat(2,1fr);}
+    .tool-grid{grid-template-columns:repeat(3,1fr);}
+    .feature-list{grid-template-columns:repeat(4,1fr);}
+
+    .card,
+    .tool-card,
+    .workflow,
+    .feature-item,
+    .cta-section{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .card,
+    .workflow,
+    .feature-item,
+    .cta-section{
+      padding:24px;
+    }
+
+    .tool-card{
+      padding:22px;
+      height:100%;
+    }
+
+    .card h3,
+    .workflow h3,
+    .feature-item h3,
+    .tool-card h3{
+      margin:0 0 10px;
+      color:var(--text);
+    }
+
+    .card p,
+    .workflow p,
+    .feature-item p,
+    .tool-card p,
+    .cta-section p{
+      margin:0 0 12px;
+      color:var(--muted);
+    }
+
+    .card-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .pill-link{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--accent-dark);
+      font-weight:700;
+      font-size:0.95rem;
+      text-decoration:none;
+    }
+
+    .pill-link:hover{
+      background:#dfeefa;
+      text-decoration:none;
+    }
+
+    .workflow{
+      height:100%;
+    }
+
+    .flow-steps{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
+    }
+
+    .flow-steps a{
+      background:var(--soft);
+      padding:9px 12px;
+      border-radius:999px;
+      color:var(--accent-dark);
+      text-decoration:none;
+    }
+
+    .flow-steps a:hover{
+      background:#dfeefa;
+    }
+
+    .arrow{
+      color:#7b8b9b;
+      font-weight:700;
+    }
+
+    .tool-card .label{
+      display:inline-block;
+      margin-bottom:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#eef4fb;
+      color:#0b66c3;
+      font-size:0.86rem;
+      font-weight:700;
+    }
+
+    .tool-card .tool-link{
+      display:inline-block;
+      margin-top:10px;
+      font-weight:700;
+    }
+
+    .feature-band{
+      background:#eef4fa;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+
+    .cta-section{
+      background:linear-gradient(135deg, #0d4d86 0%, #0b66c3 100%);
+      color:#fff;
+    }
+
+    .cta-section h2{
+      color:#fff;
+      margin-top:0;
+    }
+
+    .cta-section p{
+      color:rgba(255,255,255,0.94);
+      max-width:820px;
+    }
+
+    .cta-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    footer{
+      text-align:center;
+      padding:26px 20px 38px;
+      color:#5d6d7b;
+      font-size:0.96rem;
+    }
+
+    @media (max-width: 980px){
+      .hero-inner,
+      .grid-3,
+      .grid-2,
+      .tool-grid,
+      .feature-list{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:2.1rem;
+      }
+    }
+
+    @media (max-width: 700px){
+      .hero{
+        padding:46px 16px 34px;
+      }
+
+      .section{
+        padding:32px 16px;
+      }
+
+      .hero h1{
+        font-size:1.85rem;
+      }
+
+      .section h2{
+        font-size:1.58rem;
+      }
+
+      .card,
+      .tool-card,
+      .workflow,
+      .feature-item,
+      .cta-section{
+        padding:18px;
+      }
+
+      .hero-actions,
+      .cta-actions{
+        flex-direction:column;
+      }
+
+      .hero-actions .btn,
+      .cta-actions .btn{
+        width:100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>Adhesive Application Tools for Setup, Timing, Usage, and Troubleshooting</h1>
+        <p>
+          Use this section to understand industrial hot melt adhesive systems, explain common parameters, estimate adhesive use, check timing logic, and troubleshoot real application problems.
+        </p>
+        <p>
+          This is built for practical automation work — setup, bring-up, line changes, and real production troubleshooting.
+        </p>
+
+        <div class="trust-line">
+          Built for real adhesive applications — practical first.
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#start-here" onclick="gtag('event','adhesives_cta',{'location':'hero','action':'start_here'});">Start Here</a>
+          <a class="btn btn-secondary" href="/automation-help.html" onclick="gtag('event','adhesives_cta',{'location':'hero','action':'automation_help'});">Get Help With an Application</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <h3>This section helps with</h3>
+        <ul>
+          <li>New adhesive system bring-up</li>
+          <li>Understanding Nordson-style parameters in plain language</li>
+          <li>Estimating adhesive output and usage</li>
+          <li>Checking timing versus line speed</li>
+          <li>Troubleshooting poor cutoff, stringing, or inconsistent dispense</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="note-box">
+      <strong>Best way to use this section:</strong> start with setup if you need system-level context, go to parameter explanations if the equipment settings are confusing, then move into usage, timing, and troubleshooting based on the real problem in front of you.
+    </div>
+  </section>
+
+  <section class="section" id="start-here">
+    <h2>Where Should You Start?</h2>
+    <p class="section-intro">
+      Use the path that matches the situation instead of guessing which adhesive page fits.
+    </p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>I’m setting up or bringing up an adhesive system</h3>
+        <p>
+          Start with the full system overview first so the interaction between temperatures, pressure, timing, hardware, and line speed makes sense.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/adhesive-system-setup.html" onclick="gtag('event','adhesives_start_path',{'path':'setup','target':'adhesive_system_setup'});">Adhesive System Setup Guide</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>I need to understand the settings on the adhesive unit</h3>
+        <p>
+          Go here when the machine is using adhesive parameters that operators or engineers do not fully understand yet.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/nordson-parameters-explained.html" onclick="gtag('event','adhesives_start_path',{'path':'parameters','target':'nordson_parameters'});">Nordson Parameters Explained</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>I’m troubleshooting a live adhesive problem</h3>
+        <p>
+          Start with the troubleshooting page when the issue is bead quality, placement, stringing, poor cutoff, inconsistency, or process drift.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/hot-melt-troubleshooting.html" onclick="gtag('event','adhesives_start_path',{'path':'troubleshooting','target':'hot_melt_troubleshooting'});">Hot Melt Troubleshooting</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Common Adhesive Workflows</h2>
+    <p class="section-intro">
+      These paths help people move through the section logically instead of stopping after one page.
+    </p>
+
+    <div class="grid-2">
+      <div class="workflow">
+        <h3>New System / Setup Workflow</h3>
+        <p>Use this when you are learning the system or setting one up from scratch.</p>
+        <div class="flow-steps">
+          <a href="/adhesive-system-setup.html" onclick="gtag('event','adhesives_flow',{'flow':'setup','step':'system_setup'});">System Setup</a>
+          <span class="arrow">→</span>
+          <a href="/nordson-parameters-explained.html" onclick="gtag('event','adhesives_flow',{'flow':'setup','step':'parameters'});">Parameter Explanations</a>
+          <span class="arrow">→</span>
+          <a href="/adhesive-usage-calculator.html" onclick="gtag('event','adhesives_flow',{'flow':'setup','step':'usage'});">Usage Calculator</a>
+          <span class="arrow">→</span>
+          <a href="/pattern-timing-calculator.html" onclick="gtag('event','adhesives_flow',{'flow':'setup','step':'timing'});">Pattern Timing</a>
+        </div>
+      </div>
+
+      <div class="workflow">
+        <h3>Troubleshooting Workflow</h3>
+        <p>Use this when the system already runs, but the actual application is inconsistent.</p>
+        <div class="flow-steps">
+          <a href="/hot-melt-troubleshooting.html" onclick="gtag('event','adhesives_flow',{'flow':'troubleshooting','step':'troubleshoot'});">Troubleshoot</a>
+          <span class="arrow">→</span>
+          <a href="/nordson-parameters-explained.html" onclick="gtag('event','adhesives_flow',{'flow':'troubleshooting','step':'parameters'});">Check Parameters</a>
+          <span class="arrow">→</span>
+          <a href="/pattern-timing-calculator.html" onclick="gtag('event','adhesives_flow',{'flow':'troubleshooting','step':'timing'});">Check Timing</a>
+          <span class="arrow">→</span>
+          <a href="/adhesive-usage-calculator.html" onclick="gtag('event','adhesives_flow',{'flow':'troubleshooting','step':'usage'});">Check Usage</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Adhesive Tools and Guides</h2>
+    <p class="section-intro">
+      These are the current pages in the adhesive section. Together, they cover system understanding, parameter explanation, output estimation, timing, and troubleshooting.
+    </p>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="label">Guide</div>
+        <h3>Adhesive System Setup Guide</h3>
+        <p>
+          System-level overview of melters, hoses, applicators, nozzles, air supply, startup checks, and the key variables that affect stable application.
+        </p>
+        <a class="tool-link" href="/adhesive-system-setup.html" onclick="gtag('event','adhesive_tool_open',{'tool':'adhesive_system_setup'});">Open guide →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Reference</div>
+        <h3>Nordson Parameters Explained</h3>
+        <p>
+          Plain-language breakdown of the most common adhesive system parameters so operators and engineers can understand what each setting is actually doing.
+        </p>
+        <a class="tool-link" href="/nordson-parameters-explained.html" onclick="gtag('event','adhesive_tool_open',{'tool':'nordson_parameters_explained'});">Open reference →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Calculator</div>
+        <h3>Adhesive Usage Calculator</h3>
+        <p>
+          Estimate adhesive output and usage so you can think more clearly about consumption, process load, and application expectations.
+        </p>
+        <a class="tool-link" href="/adhesive-usage-calculator.html" onclick="gtag('event','adhesive_tool_open',{'tool':'adhesive_usage_calculator'});">Open calculator →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Calculator</div>
+        <h3>Pattern Timing Calculator</h3>
+        <p>
+          Check adhesive timing relative to line speed and part travel to help with placement, pattern length, and edge control.
+        </p>
+        <a class="tool-link" href="/pattern-timing-calculator.html" onclick="gtag('event','adhesive_tool_open',{'tool':'pattern_timing_calculator'});">Open calculator →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Troubleshooter</div>
+        <h3>Hot Melt Troubleshooting</h3>
+        <p>
+          Work through common hot melt problems such as stringing, poor cutoff, inconsistent beads, bad placement, or unstable application.
+        </p>
+        <a class="tool-link" href="/hot-melt-troubleshooting.html" onclick="gtag('event','adhesive_tool_open',{'tool':'hot_melt_troubleshooting'});">Open troubleshooting page →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Help</div>
+        <h3>Need Help With a Real Adhesive Application?</h3>
+        <p>
+          Use the help page when the process problem is live, the application is more specific than a calculator can cover, or you want another set of eyes on it.
+        </p>
+        <a class="tool-link" href="/automation-help.html" onclick="gtag('event','adhesive_tool_open',{'tool':'automation_help'});">Request help →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature-band">
+    <div class="section">
+      <h2>What This Section Is Actually For</h2>
+      <p class="section-intro">
+        This section is not just about making material come out of the gun. It is about getting the right amount, in the right place, at the right time, with stable behavior as production conditions change.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <h3>System Understanding</h3>
+          <p>Good adhesive troubleshooting starts with understanding how the melter, hose, gun, nozzle, and timing all interact.</p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Parameter Clarity</h3>
+          <p>People waste time when settings are adjusted blindly. Explaining the parameters helps stop random changes.</p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Better Timing Decisions</h3>
+          <p>Line speed and trigger timing can break a good application fast. This section helps make that visible.</p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Useful Plant-Floor Workflow</h3>
+          <p>Built for real setup, production changes, and troubleshooting instead of generic adhesive theory.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-section">
+      <h2>Need Help Applying This on a Real Machine?</h2>
+      <p>
+        Adhesive calculators and guides help you move faster, but some applications need real review of hardware, settings, timing, and line conditions. If you need help on a live process, use the help page and describe what the system is doing.
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','adhesives_cta',{'location':'bottom','action':'automation_help'});">Get Help With My Adhesive System</a>
+        <a class="btn btn-secondary" href="/integrators.html" onclick="gtag('event','adhesives_cta',{'location':'bottom','action':'integrators'});">Find an Integrator</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators and troubleshooting tools for real automation work
+  </footer>
+
+  <script>
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Navbar failed to load:', error);
+      });
+  </script>
+</body>
+</html>
