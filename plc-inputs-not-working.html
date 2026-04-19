@@ -329,10 +329,10 @@
       <div class="cta-box" style="margin-top:0; margin-bottom:22px;">
         <h3>Not sure where to start?</h3>
         <p>
-          Use the interactive PLC troubleshooter if you want help narrowing the issue down symptom by symptom.
+          If you're troubleshooting a real PLC issue, start with the full step-by-step guide or use the interactive troubleshooter to narrow the issue down by symptom.
         </p>
-        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_inputs_cta_click',{'target':'troubleshooter_top'});">Start Troubleshooter</a>
-        <a href="/plc-electrical.html" onclick="gtag('event','plc_inputs_cta_click',{'target':'plc_electrical_top'});">PLC & Electrical Tools</a>
+        <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','internal_link',{'from':'plc_inputs','to':'plc_troubleshooting_guide'});">Start with PLC Troubleshooting Guide</a>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_inputs','to':'plc_troubleshooter'});">Use PLC Troubleshooter</a>
       </div>
 
       <div class="checklist">
@@ -480,12 +480,33 @@
       </div>
 
       <div class="cta-box">
-        <h3>Still not sure why the input is failing?</h3>
+        <h3>What should you check next?</h3>
         <p>
-          Use the interactive troubleshooter for a symptom-based path, or get help if you are dealing with a real machine problem right now.
+          Once you work through the physical input path, move into the next tool that matches the symptom. This is the fastest way to isolate the root cause instead of guessing.
         </p>
-        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_inputs_cta_click',{'target':'troubleshooter_bottom'});">Start Troubleshooter</a>
-        <a href="/automation-help.html" onclick="gtag('event','plc_inputs_cta_click',{'target':'automation_help'});">Get Help With My System</a>
+        <div class="internal-links" style="justify-content:center;">
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','internal_link',{'from':'plc_inputs','to':'pulse_capture_next'});">Check Scan Time & Pulse Capture</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','internal_link',{'from':'plc_inputs','to':'voltage_drop_next'});">Verify Voltage Drop</a>
+          <a href="/wire-gauge-amps.html" onclick="gtag('event','internal_link',{'from':'plc_inputs','to':'wire_gauge_next'});">Check Wire Sizing</a>
+        </div>
+      </div>
+
+      <div class="guide-section" style="border-bottom:none; padding-bottom:0; margin-bottom:0;">
+        <h3>Related PLC & Electrical Tools</h3>
+        <div class="internal-links">
+          <a href="/analog-scaling.html" onclick="gtag('event','internal_link',{'from':'plc_inputs','to':'analog_scaling'});">Analog Scaling Calculator</a>
+          <a href="/wire-gauge-amps.html" onclick="gtag('event','internal_link',{'from':'plc_inputs','to':'wire_gauge'});">Wire Gauge vs Amps Chart</a>
+          <a href="/reference-charts.html" onclick="gtag('event','internal_link',{'from':'plc_inputs','to':'reference_charts'});">Electrical Reference Charts</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','internal_link',{'from':'plc_inputs','to':'plc_electrical_hub'});">PLC & Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Working on a real machine issue?</h3>
+        <p>
+          If you're dealing with a live problem, you can get help applying this directly to your system.
+        </p>
+        <a href="/automation-help.html" onclick="gtag('event','lead_cta',{'source':'plc_inputs'});">Get Help With My System</a>
         <a href="/integrators.html" onclick="gtag('event','plc_inputs_cta_click',{'target':'integrators'});">Find an Integrator</a>
       </div>
 
