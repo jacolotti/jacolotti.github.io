@@ -317,12 +317,13 @@
         Most PLC issues are not mysterious programming problems. In real machines, the root cause is often field power, wiring, communication path, scan-time limitations, device configuration, or a mismatch between the real signal and the value being displayed.
       </p>
 
-      <div class="cta-box">
-        <h3>Need help narrowing it down quickly?</h3>
+      <div class="cta-box" style="margin-top:0; margin-bottom:22px;">
+        <h3>Not sure where to start?</h3>
         <p>
-          If you are working on a live issue right now, use the interactive PLC troubleshooter to walk through the problem step by step.
+          Start with this guide if you want the full workflow first, then move into the interactive troubleshooter or symptom-specific pages once you narrow the issue down.
         </p>
-        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_cta_click',{'target':'troubleshooter_top'});">Start Troubleshooter Now</a>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_guide','to':'plc_troubleshooter'});">Use PLC Troubleshooter</a>
+        <a href="/plc-electrical.html" onclick="gtag('event','internal_link',{'from':'plc_guide','to':'plc_electrical_hub'});">Open PLC & Electrical Hub</a>
       </div>
 
       <div class="guide-section">
@@ -357,6 +358,7 @@
         </ul>
 
         <div class="internal-links">
+          <a href="/plc-not-communicating.html" onclick="gtag('event','plc_guide_internal_link',{'target':'plc_not_communicating'});">PLC Not Communicating Guide</a>
           <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_internal_link',{'target':'troubleshooter_comm'});">Use PLC Troubleshooter</a>
           <a href="/plc-electrical.html" onclick="gtag('event','plc_guide_internal_link',{'target':'plc_electrical_comm'});">Open PLC & Electrical Hub</a>
         </div>
@@ -378,6 +380,11 @@
         <div class="info-box">
           <strong>Simple rule:</strong> if the physical input LED never changes, the PLC logic is usually not the first problem.
         </div>
+
+        <div class="internal-links">
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','plc_guide_internal_link',{'target':'plc_inputs'});">PLC Inputs Not Working</a>
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_guide_internal_link',{'target':'voltage_drop_inputs'});">Check Voltage Drop</a>
+        </div>
       </div>
 
       <div class="guide-section">
@@ -392,6 +399,11 @@
           <li>Verify field power and common return path.</li>
           <li>Do not confuse a commanded output with a powered load.</li>
         </ul>
+
+        <div class="internal-links">
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_guide_internal_link',{'target':'voltage_drop_outputs'});">Check Voltage Drop</a>
+          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_guide_internal_link',{'target':'wire_size_outputs'});">Use Wire Size Calculator</a>
+        </div>
       </div>
 
       <div class="guide-section">
@@ -458,6 +470,8 @@
 
         <div class="internal-links">
           <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_internal_link',{'target':'troubleshooter_bottom'});">Interactive PLC Troubleshooter</a>
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','plc_guide_internal_link',{'target':'plc_inputs_bottom'});">PLC Inputs Not Working</a>
+          <a href="/plc-not-communicating.html" onclick="gtag('event','plc_guide_internal_link',{'target':'plc_not_communicating_bottom'});">PLC Not Communicating</a>
           <a href="/analog-scaling.html" onclick="gtag('event','plc_guide_internal_link',{'target':'analog_scaling_bottom'});">Analog Scaling</a>
           <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_guide_internal_link',{'target':'pulse_capture_bottom'});">PLC Scan Time & Pulse Capture</a>
           <a href="/voltage-drop.html" onclick="gtag('event','plc_guide_internal_link',{'target':'voltage_drop_bottom'});">Voltage Drop</a>
@@ -467,12 +481,34 @@
       </div>
 
       <div class="cta-box">
+        <h3>What should you check next?</h3>
+        <p>
+          Once you know whether the issue is communication, inputs, timing, analog behavior, or field power, move into the next page that matches the symptom. That is what turns this from a guide into a real troubleshooting system.
+        </p>
+        <div class="internal-links" style="justify-content:center;">
+          <a href="/plc-not-communicating.html" onclick="gtag('event','internal_link',{'from':'plc_guide','to':'plc_not_communicating_next'});">Check Communication Problems</a>
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','internal_link',{'from':'plc_guide','to':'plc_inputs_next'});">Check Input Problems</a>
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','internal_link',{'from':'plc_guide','to':'plc_pulse_capture_next'});">Check Missed Signals & Scan Time</a>
+        </div>
+      </div>
+
+      <div class="guide-section" style="border-bottom:none; padding-bottom:0; margin-bottom:0;">
+        <h3>Related PLC & Electrical Tools</h3>
+        <div class="internal-links">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_guide','to':'plc_troubleshooter_related'});">PLC Troubleshooter</a>
+          <a href="/analog-scaling.html" onclick="gtag('event','internal_link',{'from':'plc_guide','to':'analog_scaling_related'});">Analog Scaling Calculator</a>
+          <a href="/reference-charts.html" onclick="gtag('event','internal_link',{'from':'plc_guide','to':'reference_charts_related'});">Electrical Reference Charts</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','internal_link',{'from':'plc_guide','to':'plc_electrical_related'});">PLC & Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="cta-box">
         <h3>Working on a real machine issue?</h3>
         <p>
           Use the interactive troubleshooter if you need to narrow it down quickly, or get real-world help if the machine is down and you need support now.
         </p>
         <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_cta_click',{'target':'troubleshooter_bottom_cta'});">Start Troubleshooter</a>
-        <a href="/automation-help.html" onclick="gtag('event','plc_guide_cta_click',{'target':'automation_help'});">Get Help With My System</a>
+        <a href="/automation-help.html" onclick="gtag('event','lead_cta',{'source':'plc_guide'});">Get Help With My System</a>
         <a href="/integrators.html" onclick="gtag('event','plc_guide_cta_click',{'target':'integrators'});">Find an Integrator</a>
       </div>
 
@@ -488,6 +524,8 @@
         <h3>Best companion pages</h3>
         <div class="link-list">
           <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'plc_inputs'});">PLC Inputs Not Working</a>
+          <a href="/plc-not-communicating.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'plc_not_communicating'});">PLC Not Communicating</a>
           <a href="/plc-electrical.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'plc_electrical'});">PLC & Electrical Hub</a>
           <a href="/analog-scaling.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'analog_scaling'});">Analog Scaling Calculator</a>
           <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_guide_sidebar_click',{'target':'plc_pulse_capture'});">PLC Scan Time & Pulse Capture</a>
