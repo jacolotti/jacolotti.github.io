@@ -416,7 +416,7 @@
 
         <div class="hero-actions">
           <a class="btn btn-primary" href="#start-here" onclick="gtag('event','plc_electrical_cta',{'location':'hero','action':'start_here'});">Start Here</a>
-          <a class="btn btn-secondary" href="/problem-solver.html" onclick="gtag('event','plc_electrical_cta',{'location':'hero','action':'problem_solver'});">Start With Your Issue</a>
+          <a class="btn btn-secondary" href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_electrical_cta',{'location':'hero','action':'plc_guide'});">Open PLC Guide</a>
         </div>
       </div>
 
@@ -435,17 +435,28 @@
 
   <section class="section">
     <div class="note-box">
-      <strong>Best way to use this section:</strong> start with the symptom first. If the issue is a field device on but PLC or HMI status off, go to PLC Troubleshooter. If the device or module is offline, start with communication troubleshooting. If the signal exists but gets missed, check scan time and pulse capture.
+      <strong>Best way to use this section:</strong> start with the symptom first. If you are not sure where to begin, open the PLC Troubleshooting Guide. If the issue is a field device on but PLC or HMI status off, go to PLC Troubleshooter. If the device or module is offline, start with communication troubleshooting. If the signal exists but gets missed, check scan time and pulse capture.
     </div>
   </section>
 
   <section class="section" id="start-here">
     <h2>Where Should You Start?</h2>
     <p class="section-intro">
-      Use the path that matches the actual problem instead of guessing which PLC or electrical tool fits.
+      Use the path that matches the real symptom instead of guessing which PLC or electrical tool fits.
     </p>
 
     <div class="grid-3">
+      <div class="card">
+        <h3>I am not sure where to start yet</h3>
+        <p>
+          Start here if you want the full troubleshooting workflow before jumping into individual calculators or symptom pages.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_electrical_start_path',{'path':'guide','target':'plc_troubleshooting_guide'});">PLC Troubleshooting Guide</a>
+          <a class="pill-link" href="/plc-troubleshooter.html" onclick="gtag('event','plc_electrical_start_path',{'path':'wizard','target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+        </div>
+      </div>
+
       <div class="card">
         <h3>The field device is on, but the PLC or HMI is wrong</h3>
         <p>
@@ -463,7 +474,8 @@
           Go here when the problem is communication-related — remote I/O offline, module faulted, network issue, IP mismatch, or no connection.
         </p>
         <div class="card-links">
-          <a class="pill-link" href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_electrical_start_path',{'path':'communication','target':'plc_communication_troubleshooter'});">PLC Communication Troubleshooter</a>
+          <a class="pill-link" href="/plc-not-communicating.html" onclick="gtag('event','plc_electrical_start_path',{'path':'comm_guide','target':'plc_not_communicating'});">PLC Not Communicating</a>
+          <a class="pill-link" href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_electrical_start_path',{'path':'communication','target':'plc_communication_troubleshooter'});">Communication Troubleshooter</a>
         </div>
       </div>
 
@@ -474,6 +486,29 @@
         </p>
         <div class="card-links">
           <a class="pill-link" href="/plc-pulse-capture.html" onclick="gtag('event','plc_electrical_start_path',{'path':'pulse_capture','target':'plc_pulse_capture'});">PLC Scan Time & Pulse Capture</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>The analog value looks wrong</h3>
+        <p>
+          Use this when the displayed value, engineering units, or raw signal interpretation does not look right.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/analog-scaling.html" onclick="gtag('event','plc_electrical_start_path',{'path':'analog','target':'analog_scaling'});">Analog Scaling</a>
+          <a class="pill-link" href="/voltage-drop.html" onclick="gtag('event','plc_electrical_start_path',{'path':'analog_voltage','target':'voltage_drop'});">Voltage Drop</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>I need wiring, voltage, or reference help</h3>
+        <p>
+          Use these when the question is more electrical than PLC logic — wire sizing, voltage drop, ampacity, or reference charts.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/voltage-drop.html" onclick="gtag('event','plc_electrical_start_path',{'path':'voltage_drop','target':'voltage_drop'});">Voltage Drop</a>
+          <a class="pill-link" href="/wire-gauge-amps.html" onclick="gtag('event','plc_electrical_start_path',{'path':'wire_gauge','target':'wire_gauge_amps'});">Wire Gauge vs Amps</a>
+          <a class="pill-link" href="/reference-charts.html" onclick="gtag('event','plc_electrical_start_path',{'path':'reference','target':'reference_charts'});">Reference Charts</a>
         </div>
       </div>
     </div>
@@ -487,6 +522,18 @@
 
     <div class="grid-2">
       <div class="workflow">
+        <h3>Master PLC Troubleshooting Workflow</h3>
+        <p>Use this when you want the full problem-first path before drilling into specific symptoms.</p>
+        <div class="flow-steps">
+          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_electrical_flow',{'flow':'master','step':'plc_guide'});">PLC Guide</a>
+          <span class="arrow">→</span>
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_electrical_flow',{'flow':'master','step':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <span class="arrow">→</span>
+          <a href="/automation-help.html" onclick="gtag('event','plc_electrical_flow',{'flow':'master','step':'automation_help'});">Get Help</a>
+        </div>
+      </div>
+
+      <div class="workflow">
         <h3>Input / Sensor Troubleshooting Workflow</h3>
         <p>Use this when a sensor or input state is not matching what the machine is doing.</p>
         <div class="flow-steps">
@@ -495,6 +542,18 @@
           <a href="/plc-inputs-not-working.html" onclick="gtag('event','plc_electrical_flow',{'flow':'inputs','step':'inputs_not_working'});">Inputs Not Working</a>
           <span class="arrow">→</span>
           <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_electrical_flow',{'flow':'inputs','step':'pulse_capture'});">Scan Time & Pulse Capture</a>
+        </div>
+      </div>
+
+      <div class="workflow">
+        <h3>Communication / Network Workflow</h3>
+        <p>Use this when the PLC, HMI, remote I/O, or Ethernet path is offline or unstable.</p>
+        <div class="flow-steps">
+          <a href="/plc-not-communicating.html" onclick="gtag('event','plc_electrical_flow',{'flow':'communication','step':'plc_not_communicating'});">Communication Guide</a>
+          <span class="arrow">→</span>
+          <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_electrical_flow',{'flow':'communication','step':'plc_comm_troubleshooter'});">Comm Troubleshooter</a>
+          <span class="arrow">→</span>
+          <a href="/automation-help.html" onclick="gtag('event','plc_electrical_flow',{'flow':'communication','step':'automation_help'});">Get Help</a>
         </div>
       </div>
 
@@ -517,17 +576,35 @@
   <section class="section">
     <h2>PLC & Electrical Tools and Guides</h2>
     <p class="section-intro">
-      These are the current PLC and electrical pages in the section. Together, they cover troubleshooting, signal behavior, scaling, voltage checks, and reference support.
+      These are the current PLC and electrical pages in the section. Together, they cover troubleshooting, communication, signal behavior, scaling, voltage checks, and reference support.
     </p>
 
     <div class="tool-grid">
       <div class="tool-card">
-        <div class="label">Troubleshooter</div>
+        <div class="label">Master Guide</div>
+        <h3>PLC Troubleshooting Guide</h3>
+        <p>
+          Start here if you want the full step-by-step troubleshooting workflow before drilling into a specific symptom page or calculator.
+        </p>
+        <a class="tool-link" href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'plc_troubleshooting_guide'});">Open guide →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Interactive Tool</div>
         <h3>PLC Troubleshooter</h3>
         <p>
           Start here for field-device mismatch problems, sensor state issues, PLC-side logic checks, addressing questions, and HMI/PLC status disagreement.
         </p>
         <a class="tool-link" href="/plc-troubleshooter.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'plc_troubleshooter'});">Open troubleshooter →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Communication Guide</div>
+        <h3>PLC Not Communicating</h3>
+        <p>
+          Use this when the PLC, HMI, remote I/O, or Ethernet path is offline and you need a step-by-step communication troubleshooting guide.
+        </p>
+        <a class="tool-link" href="/plc-not-communicating.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'plc_not_communicating'});">Open guide →</a>
       </div>
 
       <div class="tool-card">
@@ -540,7 +617,7 @@
       </div>
 
       <div class="tool-card">
-        <div class="label">Guide</div>
+        <div class="label">Input Guide</div>
         <h3>PLC Inputs Not Working</h3>
         <p>
           Use this when the input issue is tied to field wiring, device condition, addressing, power, or how the input is actually getting into the PLC.
@@ -615,7 +692,7 @@
         <div class="label">Problem Finder</div>
         <h3>Start With Your Issue</h3>
         <p>
-          Use the problem solver when the user describes the symptom but does not know which PLC or electrical page fits yet.
+          Use the problem solver when the symptom is clear but you do not yet know which PLC or electrical page fits best.
         </p>
         <a class="tool-link" href="/problem-solver.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'problem_solver'});">Open problem solver →</a>
       </div>
