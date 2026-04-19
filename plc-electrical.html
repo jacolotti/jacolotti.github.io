@@ -6,9 +6,8 @@
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>PLC & Electrical Calculators | Analog Scaling, Voltage Drop, Wire Size</title>
-  <meta name="description" content="PLC and electrical calculators, troubleshooting tools, and step-by-step guides for analog scaling, voltage drop, wire sizing, scan time issues, and real automation system problems.">
+  <title>PLC & Electrical Tools | Troubleshooting, Inputs, Analog Scaling, Voltage Drop & Reference Charts</title>
+  <meta name="description" content="PLC and electrical tools for automation engineers. Explore PLC troubleshooting, communication troubleshooting, input issues, scan time and pulse capture, analog scaling, voltage drop, wire charts, and safety distance tools.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -19,296 +18,676 @@
   </script>
 
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+
     body{
-      font-family:Arial, sans-serif;
-      background:#f4f4f4;
       margin:0;
-      text-align:center;
-      color:#222;
-    }
-
-    .container{
-      background:white;
-      padding:40px;
-      max-width:1150px;
-      margin:30px auto;
-      border-radius:12px;
-      box-shadow:0 8px 24px rgba(0,0,0,.08);
-    }
-
-    h1,h2,h3{
-      color:#1f2a44;
-    }
-
-    .subtitle{
-      color:#555;
-      max-width:850px;
-      margin:auto;
-      margin-bottom:20px;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
       line-height:1.6;
     }
 
+    a{
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
     .hero{
-      background:#eef5ff;
-      border:1px solid #d7e6ff;
-      border-radius:12px;
-      padding:30px;
-      margin-bottom:20px;
+      background:linear-gradient(135deg, #0b66c3 0%, #0d79d0 45%, #0b3d69 100%);
+      color:#fff;
+      padding:60px 20px 42px;
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:26px;
+      align-items:center;
+    }
+
+    .hero h1{
+      margin:0 0 16px;
+      font-size:2.45rem;
+      line-height:1.12;
+      color:#fff;
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      max-width:760px;
+      color:rgba(255,255,255,0.95);
+      font-size:1.05rem;
+    }
+
+    .trust-line{
+      margin-top:8px;
+      color:rgba(255,255,255,0.9);
+      font-weight:700;
+      font-size:0.98rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:22px;
     }
 
     .btn{
       display:inline-block;
-      padding:12px 20px;
-      border-radius:8px;
+      padding:13px 18px;
+      border-radius:10px;
+      font-weight:700;
       text-decoration:none;
-      font-weight:bold;
-      margin:6px;
-      transition:.18s ease;
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-      opacity:.96;
+      transition:.2s ease;
+      border:none;
+      cursor:pointer;
+      text-align:center;
     }
 
     .btn-primary{
-      background:#1e6bd6;
-      color:white;
+      background:#fff;
+      color:var(--accent-dark);
+    }
+
+    .btn-primary:hover{
+      background:#f1f6fb;
+      text-decoration:none;
     }
 
     .btn-secondary{
-      background:white;
-      border:1px solid #d7e6ff;
-      color:#1f2a44;
+      background:rgba(255,255,255,0.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.28);
     }
 
-    .workflow{
-      background:#e9f1ff;
-      border:1px solid #c8d9ff;
-      padding:20px;
-      border-radius:10px;
-      text-align:left;
-      margin-top:20px;
-    }
-
-    .step-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:15px;
-      margin-top:20px;
-    }
-
-    .step-card{
-      background:white;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
-      padding:18px;
-      text-align:left;
-    }
-
-    .step-card a{
-      display:inline-block;
-      margin-top:10px;
-      background:#1e6bd6;
-      color:white;
-      padding:8px 12px;
-      border-radius:6px;
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.2);
       text-decoration:none;
-      font-weight:bold;
+    }
+
+    .hero-panel{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:18px;
+      padding:22px;
+      backdrop-filter:blur(5px);
+    }
+
+    .hero-panel h3{
+      margin:0 0 12px;
+      font-size:1.15rem;
+      color:#fff;
+    }
+
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .hero-panel li{
+      margin-bottom:10px;
+      color:rgba(255,255,255,0.95);
+    }
+
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:38px 20px;
+    }
+
+    .section h2{
+      margin:0 0 10px;
+      font-size:1.95rem;
+      color:var(--text);
     }
 
     .section-intro{
-      max-width:900px;
-      margin:12px auto 0;
-      color:#555;
-      line-height:1.7;
+      margin:0 0 24px;
+      color:var(--muted);
+      max-width:860px;
+      font-size:1.02rem;
     }
 
-    .tools-grid{
+    .note-box{
+      background:#fff8df;
+      border:1px solid #f1df95;
+      color:#5c4a12;
+      padding:16px 18px;
+      border-radius:14px;
+      box-shadow:var(--shadow);
+    }
+
+    .grid-3,
+    .grid-2,
+    .tool-grid,
+    .feature-list{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:15px;
-      margin-top:20px;
-      text-align:left;
+      gap:18px;
+    }
+
+    .grid-3{grid-template-columns:repeat(3,1fr);}
+    .grid-2{grid-template-columns:repeat(2,1fr);}
+    .tool-grid{grid-template-columns:repeat(3,1fr);}
+    .feature-list{grid-template-columns:repeat(4,1fr);}
+
+    .card,
+    .tool-card,
+    .workflow,
+    .feature-item,
+    .cta-section{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .card,
+    .workflow,
+    .feature-item,
+    .cta-section{
+      padding:24px;
     }
 
     .tool-card{
-      background:#fbfdff;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
-      padding:18px;
+      padding:22px;
+      height:100%;
     }
 
-    .tool-card a{
-      font-weight:bold;
-      color:#1e6bd6;
+    .card h3,
+    .workflow h3,
+    .feature-item h3,
+    .tool-card h3{
+      margin:0 0 10px;
+      color:var(--text);
+    }
+
+    .card p,
+    .workflow p,
+    .feature-item p,
+    .tool-card p,
+    .cta-section p{
+      margin:0 0 12px;
+      color:var(--muted);
+    }
+
+    .card-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .pill-link{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--accent-dark);
+      font-weight:700;
+      font-size:0.95rem;
       text-decoration:none;
     }
 
-    .tool-card p{
-      color:#555;
-      line-height:1.6;
+    .pill-link:hover{
+      background:#dfeefa;
+      text-decoration:none;
     }
 
-    .cta-box{
-      margin-top:30px;
-      padding:20px;
-      background:#eaf7ea;
-      border:1px solid #b9dfb9;
-      border-radius:10px;
+    .workflow{
+      height:100%;
     }
 
-    .cta-box p{
-      color:#345;
-      line-height:1.6;
-      max-width:850px;
-      margin:10px auto 16px;
+    .flow-steps{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
     }
 
-    .link-row{
-      margin-top:14px;
+    .flow-steps a{
+      background:var(--soft);
+      padding:9px 12px;
+      border-radius:999px;
+      color:var(--accent-dark);
+      text-decoration:none;
     }
 
-    @media (max-width:700px){
-      .container{
-        padding:22px;
-        margin:16px;
+    .flow-steps a:hover{
+      background:#dfeefa;
+    }
+
+    .arrow{
+      color:#7b8b9b;
+      font-weight:700;
+    }
+
+    .tool-card .label{
+      display:inline-block;
+      margin-bottom:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#eef4fb;
+      color:#0b66c3;
+      font-size:0.86rem;
+      font-weight:700;
+    }
+
+    .tool-card .tool-link{
+      display:inline-block;
+      margin-top:10px;
+      font-weight:700;
+    }
+
+    .feature-band{
+      background:#eef4fa;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+
+    .cta-section{
+      background:linear-gradient(135deg, #0d4d86 0%, #0b66c3 100%);
+      color:#fff;
+    }
+
+    .cta-section h2{
+      color:#fff;
+      margin-top:0;
+    }
+
+    .cta-section p{
+      color:rgba(255,255,255,0.94);
+      max-width:820px;
+    }
+
+    .cta-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    footer{
+      text-align:center;
+      padding:26px 20px 38px;
+      color:#5d6d7b;
+      font-size:0.96rem;
+    }
+
+    @media (max-width: 980px){
+      .hero-inner,
+      .grid-3,
+      .grid-2,
+      .tool-grid,
+      .feature-list{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:2.1rem;
+      }
+    }
+
+    @media (max-width: 700px){
+      .hero{
+        padding:46px 16px 34px;
+      }
+
+      .section{
+        padding:32px 16px;
+      }
+
+      .hero h1{
+        font-size:1.85rem;
+      }
+
+      .section h2{
+        font-size:1.58rem;
+      }
+
+      .card,
+      .tool-card,
+      .workflow,
+      .feature-item,
+      .cta-section{
+        padding:18px;
+      }
+
+      .hero-actions,
+      .cta-actions{
+        flex-direction:column;
+      }
+
+      .hero-actions .btn,
+      .cta-actions .btn{
+        width:100%;
       }
     }
   </style>
 </head>
-
 <body>
+  <div id="navbar"></div>
 
-<div id="navbar"></div>
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>PLC & Electrical Tools for Troubleshooting, Inputs, Scaling, and Field Checks</h1>
+        <p>
+          Use this section to troubleshoot PLC-side problems, work through communication and input issues, evaluate scan-time-related misses, scale analog values, and check common electrical design questions like voltage drop and wire sizing.
+        </p>
+        <p>
+          This is built for practical controls work — machine troubleshooting, field checks, startup, and design support.
+        </p>
 
-<div class="container">
+        <div class="trust-line">
+          Built for real PLC and electrical problems — practical first.
+        </div>
 
-  <div class="hero">
-    <h1>PLC & Electrical Tools for Real Automation Work</h1>
-    <p class="subtitle">
-      Solve analog scaling, voltage drop, wire sizing, scan time, and PLC troubleshooting issues faster without digging through manuals first.
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#start-here" onclick="gtag('event','plc_electrical_cta',{'location':'hero','action':'start_here'});">Start Here</a>
+          <a class="btn btn-secondary" href="/problem-solver.html" onclick="gtag('event','plc_electrical_cta',{'location':'hero','action':'problem_solver'});">Start With Your Issue</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <h3>This section helps with</h3>
+        <ul>
+          <li>PLC input mismatch problems</li>
+          <li>Communication and network troubleshooting</li>
+          <li>Fast signals and missed pulses</li>
+          <li>Analog scaling and engineering units</li>
+          <li>Voltage drop, wire sizing, and electrical reference checks</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="note-box">
+      <strong>Best way to use this section:</strong> start with the symptom first. If the issue is a field device on but PLC or HMI status off, go to PLC Troubleshooter. If the device or module is offline, start with communication troubleshooting. If the signal exists but gets missed, check scan time and pulse capture.
+    </div>
+  </section>
+
+  <section class="section" id="start-here">
+    <h2>Where Should You Start?</h2>
+    <p class="section-intro">
+      Use the path that matches the actual problem instead of guessing which PLC or electrical tool fits.
     </p>
 
-    <a class="btn btn-primary" href="/plc-troubleshooting-guide.html" onclick="gtag('event','category_hero_click',{'category':'plc_electrical','target':'plc_guide'});">Start with PLC Guide</a>
-    <a class="btn btn-secondary" href="/plc-troubleshooter.html" onclick="gtag('event','category_hero_click',{'category':'plc_electrical','target':'plc_troubleshooter'});">Open Troubleshooter</a>
-    <a class="btn btn-secondary" href="/analog-scaling.html" onclick="gtag('event','category_hero_click',{'category':'plc_electrical','target':'analog_scaling'});">Analog Scaling</a>
-    <a class="btn btn-secondary" href="/integrators.html" onclick="gtag('event','category_hero_click',{'category':'plc_electrical','target':'integrators'});">Need Help?</a>
-  </div>
+    <div class="grid-3">
+      <div class="card">
+        <h3>The field device is on, but the PLC or HMI is wrong</h3>
+        <p>
+          Start here when the prox, photoeye, switch, or input condition does not match what the PLC or HMI is showing.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-troubleshooter.html" onclick="gtag('event','plc_electrical_start_path',{'path':'plc_troubleshooter','target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <a class="pill-link" href="/plc-inputs-not-working.html" onclick="gtag('event','plc_electrical_start_path',{'path':'inputs','target':'plc_inputs_not_working'});">PLC Inputs Not Working</a>
+        </div>
+      </div>
 
-  <div class="workflow">
-    <h2>PLC & Electrical Workflow</h2>
-    <p>
-      Most PLC and electrical problems come from mismatched signals, bad communication paths, weak field power, scan-time limitations, or wiring issues that look like logic issues. Follow this workflow to narrow things down faster.
+      <div class="card">
+        <h3>The device, module, or network is offline</h3>
+        <p>
+          Go here when the problem is communication-related — remote I/O offline, module faulted, network issue, IP mismatch, or no connection.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_electrical_start_path',{'path':'communication','target':'plc_communication_troubleshooter'});">PLC Communication Troubleshooter</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>The signal exists but seems too fast or inconsistent</h3>
+        <p>
+          Use this when the PLC seems to miss a pulse, a short signal, or a fast event that is physically happening.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-pulse-capture.html" onclick="gtag('event','plc_electrical_start_path',{'path':'pulse_capture','target':'plc_pulse_capture'});">PLC Scan Time & Pulse Capture</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Common PLC / Electrical Workflows</h2>
+    <p class="section-intro">
+      These paths help people move through the section logically instead of bouncing around randomly.
     </p>
 
-    <div class="step-grid">
-
-      <div class="step-card">
-        <h3>Step 1: PLC Troubleshooting Guide</h3>
-        <p>Start with the full step-by-step process for communication, inputs, outputs, analog signals, scan time, and intermittent faults.</p>
-        <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','workflow_click',{'category':'plc_electrical','step':'plc_guide'});">Open Guide</a>
+    <div class="grid-2">
+      <div class="workflow">
+        <h3>Input / Sensor Troubleshooting Workflow</h3>
+        <p>Use this when a sensor or input state is not matching what the machine is doing.</p>
+        <div class="flow-steps">
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_electrical_flow',{'flow':'inputs','step':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <span class="arrow">→</span>
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','plc_electrical_flow',{'flow':'inputs','step':'inputs_not_working'});">Inputs Not Working</a>
+          <span class="arrow">→</span>
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_electrical_flow',{'flow':'inputs','step':'pulse_capture'});">Scan Time & Pulse Capture</a>
+        </div>
       </div>
 
-      <div class="step-card">
-        <h3>Step 2: Interactive Troubleshooter</h3>
-        <p>Walk through your exact issue step by step and narrow down the likely root cause faster.</p>
-        <a href="/plc-troubleshooter.html" onclick="gtag('event','workflow_click',{'category':'plc_electrical','step':'plc_troubleshooter'});">Start Troubleshooter</a>
+      <div class="workflow">
+        <h3>Electrical / Analog Check Workflow</h3>
+        <p>Use this when the issue is signal interpretation, wire runs, voltage, or reference sizing.</p>
+        <div class="flow-steps">
+          <a href="/analog-scaling.html" onclick="gtag('event','plc_electrical_flow',{'flow':'electrical','step':'analog_scaling'});">Analog Scaling</a>
+          <span class="arrow">→</span>
+          <a href="/voltage-drop.html" onclick="gtag('event','plc_electrical_flow',{'flow':'electrical','step':'voltage_drop'});">Voltage Drop</a>
+          <span class="arrow">→</span>
+          <a href="/wire-gauge-amps.html" onclick="gtag('event','plc_electrical_flow',{'flow':'electrical','step':'wire_gauge_amps'});">Wire Gauge vs Amps</a>
+          <span class="arrow">→</span>
+          <a href="/reference-charts.html" onclick="gtag('event','plc_electrical_flow',{'flow':'electrical','step':'reference_charts'});">Reference Charts</a>
+        </div>
       </div>
-
-      <div class="step-card">
-        <h3>Step 3: Analog Scaling</h3>
-        <p>Convert 4-20mA or 0-10V signals into usable engineering values.</p>
-        <a href="/analog-scaling.html" onclick="gtag('event','workflow_click',{'category':'plc_electrical','step':'analog_scaling'});">Open Tool</a>
-      </div>
-
-      <div class="step-card">
-        <h3>Step 4: PLC Scan Time & Pulse Capture</h3>
-        <p>Check whether short signals are too fast for the PLC scan or module update time.</p>
-        <a href="/plc-pulse-capture.html" onclick="gtag('event','workflow_click',{'category':'plc_electrical','step':'plc_pulse_capture'});">Open Tool</a>
-      </div>
-
-      <div class="step-card">
-        <h3>Step 5: Voltage Drop</h3>
-        <p>Check voltage loss across long cable runs and weak field power situations.</p>
-        <a href="/voltage-drop.html" onclick="gtag('event','workflow_click',{'category':'plc_electrical','step':'voltage_drop'});">Open Tool</a>
-      </div>
-
-      <div class="step-card">
-        <h3>Step 6: Wire Size</h3>
-        <p>Make sure conductors are properly sized for load, distance, and real field conditions.</p>
-        <a href="/wire-size-calculator.html" onclick="gtag('event','workflow_click',{'category':'plc_electrical','step':'wire_size'});">Open Tool</a>
-      </div>
-
     </div>
-  </div>
+  </section>
 
-  <h2>PLC & Electrical Tools</h2>
-  <p class="section-intro">
-    Use the guide when you need the full troubleshooting process. Use the troubleshooter when you want to narrow down a live issue quickly. Use the calculators when you already know the specific problem area.
-  </p>
-
-  <div class="tools-grid">
-
-    <div class="tool-card">
-      <h3>PLC Troubleshooting Guide</h3>
-      <p>Step-by-step guide to diagnose PLC communication, input, output, analog, scan time, and intermittent issues in real systems.</p>
-      <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','tool_card_click',{'category':'plc_electrical','tool':'plc_guide'});">Open Guide →</a>
-    </div>
-
-    <div class="tool-card">
-      <h3>PLC Troubleshooter</h3>
-      <p>Interactive tool to walk through communication, I/O, and signal issues step by step.</p>
-      <a href="/plc-troubleshooter.html" onclick="gtag('event','tool_card_click',{'category':'plc_electrical','tool':'plc_troubleshooter'});">Start →</a>
-    </div>
-
-    <div class="tool-card">
-      <h3>Analog Scaling</h3>
-      <p>Convert raw PLC values into engineering units and troubleshoot scaling confusion.</p>
-      <a href="/analog-scaling.html" onclick="gtag('event','tool_card_click',{'category':'plc_electrical','tool':'analog_scaling'});">Open →</a>
-    </div>
-
-    <div class="tool-card">
-      <h3>PLC Scan Time & Pulse Capture</h3>
-      <p>Check whether short pulses or quick events are being missed because of scan time or module response.</p>
-      <a href="/plc-pulse-capture.html" onclick="gtag('event','tool_card_click',{'category':'plc_electrical','tool':'plc_pulse_capture'});">Open →</a>
-    </div>
-
-    <div class="tool-card">
-      <h3>Voltage Drop</h3>
-      <p>Calculate voltage drop across wire runs and spot weak field power conditions.</p>
-      <a href="/voltage-drop.html" onclick="gtag('event','tool_card_click',{'category':'plc_electrical','tool':'voltage_drop'});">Open →</a>
-    </div>
-
-    <div class="tool-card">
-      <h3>Wire Size Calculator</h3>
-      <p>Select the correct wire gauge based on load, distance, and system requirements.</p>
-      <a href="/wire-size-calculator.html" onclick="gtag('event','tool_card_click',{'category':'plc_electrical','tool':'wire_size'});">Open →</a>
-    </div>
-
-  </div>
-
-  <div class="cta-box">
-    <h2>Working on a real machine issue?</h2>
-    <p>
-      Start with the PLC guide if you want the full troubleshooting process. Use the interactive troubleshooter if you need to narrow down a live issue faster. If you need real-world help, connect with an integrator or request direct support.
+  <section class="section">
+    <h2>PLC & Electrical Tools and Guides</h2>
+    <p class="section-intro">
+      These are the current PLC and electrical pages in the section. Together, they cover troubleshooting, signal behavior, scaling, voltage checks, and reference support.
     </p>
-    <div class="link-row">
-      <a class="btn btn-primary" href="/plc-troubleshooting-guide.html" onclick="gtag('event','category_cta_click',{'category':'plc_electrical','target':'plc_guide'});">Open PLC Guide</a>
-      <a class="btn btn-secondary" href="/plc-troubleshooter.html" onclick="gtag('event','category_cta_click',{'category':'plc_electrical','target':'plc_troubleshooter'});">Start Troubleshooter</a>
-      <a class="btn btn-primary" href="/integrators.html" onclick="gtag('event','category_cta_click',{'category':'plc_electrical','target':'integrators'});">Find Integrator</a>
-      <a class="btn btn-secondary" href="/automation-help.html" onclick="gtag('event','category_cta_click',{'category':'plc_electrical','target':'automation_help'});">Get Help</a>
+
+    <div class="tool-grid">
+      <div class="tool-card">
+        <div class="label">Troubleshooter</div>
+        <h3>PLC Troubleshooter</h3>
+        <p>
+          Start here for field-device mismatch problems, sensor state issues, PLC-side logic checks, addressing questions, and HMI/PLC status disagreement.
+        </p>
+        <a class="tool-link" href="/plc-troubleshooter.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'plc_troubleshooter'});">Open troubleshooter →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Troubleshooter</div>
+        <h3>PLC Communication Troubleshooter</h3>
+        <p>
+          Work through network, module, addressing, and path issues when the problem is really communication-related.
+        </p>
+        <a class="tool-link" href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'plc_communication_troubleshooter'});">Open troubleshooter →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Guide</div>
+        <h3>PLC Inputs Not Working</h3>
+        <p>
+          Use this when the input issue is tied to field wiring, device condition, addressing, power, or how the input is actually getting into the PLC.
+        </p>
+        <a class="tool-link" href="/plc-inputs-not-working.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'plc_inputs_not_working'});">Open guide →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Calculator / Guide</div>
+        <h3>PLC Scan Time & Pulse Capture</h3>
+        <p>
+          Evaluate whether short pulses or fast signals are getting missed because the PLC scan is not catching them consistently.
+        </p>
+        <a class="tool-link" href="/plc-pulse-capture.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'plc_pulse_capture'});">Open page →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Calculator</div>
+        <h3>Analog Scaling Calculator</h3>
+        <p>
+          Convert raw analog values into engineering units and get a clearer handle on 4–20 mA, 0–10 V, or PLC-side scaling logic.
+        </p>
+        <a class="tool-link" href="/analog-scaling.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'analog_scaling'});">Open calculator →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Calculator</div>
+        <h3>Voltage Drop Calculator</h3>
+        <p>
+          Estimate field voltage loss over cable length and check whether wire size or run length is affecting device behavior.
+        </p>
+        <a class="tool-link" href="/voltage-drop.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'voltage_drop'});">Open calculator →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Reference</div>
+        <h3>Wire Gauge vs Amps</h3>
+        <p>
+          Quick reference for wire gauge and ampacity comparisons when you need a practical field-side check.
+        </p>
+        <a class="tool-link" href="/wire-gauge-amps.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'wire_gauge_amps'});">Open chart →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Reference</div>
+        <h3>AWG Wire Gauge Chart</h3>
+        <p>
+          Use this as a cleaner wire gauge reference when you need a quick chart instead of a calculator flow.
+        </p>
+        <a class="tool-link" href="/awg-wire-gauge-chart.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'awg_wire_gauge_chart'});">Open chart →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Reference</div>
+        <h3>Safety Distance</h3>
+        <p>
+          Use this to support basic safety distance checks and related electrical / controls support work around safeguarding questions.
+        </p>
+        <a class="tool-link" href="/safety-distance.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'safety_distance'});">Open page →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Reference Hub</div>
+        <h3>Reference Charts</h3>
+        <p>
+          Browse electrical and general support charts from one place when you need fast lookups instead of a full troubleshooting flow.
+        </p>
+        <a class="tool-link" href="/reference-charts.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'reference_charts'});">Open reference hub →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Problem Finder</div>
+        <h3>Start With Your Issue</h3>
+        <p>
+          Use the problem solver when the user describes the symptom but does not know which PLC or electrical page fits yet.
+        </p>
+        <a class="tool-link" href="/problem-solver.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'problem_solver'});">Open problem solver →</a>
+      </div>
+
+      <div class="tool-card">
+        <div class="label">Help</div>
+        <h3>Need Help With a Real PLC / Electrical Issue?</h3>
+        <p>
+          Use the help page when the problem is live, machine-specific, or bigger than a calculator or single guide can cover cleanly.
+        </p>
+        <a class="tool-link" href="/automation-help.html" onclick="gtag('event','plc_electrical_tool_open',{'tool':'automation_help'});">Request help →</a>
+      </div>
     </div>
-  </div>
+  </section>
 
-</div>
+  <section class="feature-band">
+    <div class="section">
+      <h2>What This Section Is Actually For</h2>
+      <p class="section-intro">
+        This section is built to help people solve real PLC and electrical problems faster — not just calculate numbers in isolation.
+      </p>
 
-<script>
-  fetch("navbar.html")
-    .then(r => r.text())
-    .then(d => document.getElementById("navbar").innerHTML = d)
-    .catch(error => console.error("Navbar failed to load:", error));
-</script>
+      <div class="feature-list">
+        <div class="feature-item">
+          <h3>Problem-First Navigation</h3>
+          <p>Users usually know the symptom, not the perfect tool name. This section helps route from the real issue first.</p>
+        </div>
 
+        <div class="feature-item">
+          <h3>Better Troubleshooting Flow</h3>
+          <p>It separates PLC state mismatch, communication faults, fast pulse issues, and electrical signal questions more cleanly.</p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Reference Support</h3>
+          <p>Not every problem needs a calculator. Sometimes a wire chart, voltage check, or safety reference is the right move.</p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Useful Plant-Floor Workflow</h3>
+          <p>Built for real startup, field troubleshooting, and controls support instead of abstract textbook examples.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-section">
+      <h2>Need Help Applying This on a Real Machine?</h2>
+      <p>
+        PLC and electrical tools help you move faster, but some situations need live review of the machine, field devices, network path, or wiring conditions. If you need help on a real system, use the help page and describe what the machine is doing.
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','plc_electrical_cta',{'location':'bottom','action':'automation_help'});">Get Help With My System</a>
+        <a class="btn btn-secondary" href="/integrators.html" onclick="gtag('event','plc_electrical_cta',{'location':'bottom','action':'integrators'});">Find an Integrator</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators and troubleshooting tools for real automation work
+  </footer>
+
+  <script>
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Navbar failed to load:', error);
+      });
+  </script>
 </body>
 </html>
