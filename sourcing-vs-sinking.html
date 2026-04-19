@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/sourcing-vs-sinking.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Sourcing vs Sinking PLC Wiring | Inputs, Outputs, PNP vs NPN Explained</title>
+
+  <meta name="description" content="Understand sourcing vs sinking PLC wiring for inputs and outputs. Fix sensors that don’t register, outputs that won’t energize, and common PNP vs NPN mismatches.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{color:var(--accent); text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hero{
+      background:linear-gradient(135deg, #0b66c3 0%, #0d79d0 45%, #0b3d69 100%);
+      color:#fff;
+      padding:60px 20px 42px;
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:26px;
+      align-items:center;
+    }
+
+    .hero h1{
+      margin:0 0 16px;
+      font-size:2.3rem;
+      line-height:1.12;
+      color:#fff;
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      max-width:760px;
+      color:rgba(255,255,255,0.95);
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .btn{
+      padding:12px 18px;
+      border-radius:10px;
+      font-weight:bold;
+      text-decoration:none;
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:var(--accent-dark);
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,0.15);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.3);
+    }
+
+    .hero-panel{
+      background:rgba(255,255,255,0.12);
+      border-radius:16px;
+      padding:20px;
+    }
+
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:36px 20px;
+    }
+
+    .section h2{
+      margin-bottom:10px;
+    }
+
+    .section-intro{
+      color:var(--muted);
+      margin-bottom:22px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+
+    .card, .workflow, .tool-card{
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+    }
+
+    .card-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .pill-link{
+      background:var(--soft);
+      padding:8px 12px;
+      border-radius:999px;
+      font-weight:bold;
+      color:var(--accent-dark);
+    }
+
+    .flow-steps{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      font-weight:bold;
+    }
+
+    .flow-steps a{
+      background:var(--soft);
+      padding:8px 12px;
+      border-radius:999px;
+    }
+
+    .arrow{color:#7b8b9b;}
+
+    .tool-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .tool-card .label{
+      font-size:0.8rem;
+      background:#eef4fb;
+      padding:5px 10px;
+      border-radius:999px;
+      margin-bottom:10px;
+      display:inline-block;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px;
+      color:#6b7b88;
+    }
+
+    @media(max-width:900px){
+      .grid-3, .grid-2, .tool-grid, .hero-inner{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Sourcing vs Sinking: Why Your PLC Inputs or Outputs Aren’t Working</h1>
+      <p>
+        If your sensor is on but the PLC input never changes — or your output turns on in logic but the device does nothing — this is usually a sourcing vs sinking mismatch.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="/plc-inputs-not-working.html">Fix Input Issues</a>
+        <a class="btn btn-secondary" href="/plc-outputs-not-working.html">Fix Output Issues</a>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h3>This page helps with:</h3>
+      <ul>
+        <li>PNP vs NPN confusion</li>
+        <li>Inputs not registering</li>
+        <li>Outputs not energizing</li>
+        <li>Wiring mismatches</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Where Should You Start?</h2>
+  <p class="section-intro">Start based on the real symptom — not the term.</p>
+
+  <div class="grid-3">
+
+    <div class="card">
+      <h3>Sensor is ON but PLC input is OFF</h3>
+      <div class="card-links">
+        <a class="pill-link" href="/plc-inputs-not-working.html">Inputs Not Working</a>
+        <a class="pill-link" href="/plc-troubleshooter.html">PLC Troubleshooter</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Output is ON but device is OFF</h3>
+      <div class="card-links">
+        <a class="pill-link" href="/plc-outputs-not-working.html">Outputs Not Working</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Not sure yet</h3>
+      <div class="card-links">
+        <a class="pill-link" href="/plc-troubleshooter.html">Start Troubleshooter</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>Common Workflows</h2>
+
+  <div class="grid-2">
+
+    <div class="workflow">
+      <h3>Input Troubleshooting Flow</h3>
+      <div class="flow-steps">
+        <a href="/plc-troubleshooter.html">Troubleshooter</a>
+        <span class="arrow">→</span>
+        <a href="/plc-inputs-not-working.html">Inputs</a>
+        <span class="arrow">→</span>
+        <a href="/sourcing-vs-sinking.html">Sourcing vs Sinking</a>
+      </div>
+    </div>
+
+    <div class="workflow">
+      <h3>Output Troubleshooting Flow</h3>
+      <div class="flow-steps">
+        <a href="/plc-outputs-not-working.html">Outputs</a>
+        <span class="arrow">→</span>
+        <a href="/sourcing-vs-sinking.html">Sourcing vs Sinking</a>
+        <span class="arrow">→</span>
+        <a href="/voltage-drop.html">Voltage Drop</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <h2>Quick Explanation (What Actually Matters)</h2>
+
+  <div class="grid-2">
+
+    <div class="card">
+      <h3>Sourcing</h3>
+      <p>Sends +24V to the device (PNP)</p>
+    </div>
+
+    <div class="card">
+      <h3>Sinking</h3>
+      <p>Sends path to 0V/common (NPN)</p>
+    </div>
+
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <strong>Rule:</strong> sourcing connects to sinking  
+  </div>
+</section>
+
+<section class="section">
+  <h2>Related Tools</h2>
+
+  <div class="tool-grid">
+
+    <div class="tool-card">
+      <div class="label">Guide</div>
+      <h3>PLC Inputs Not Working</h3>
+      <a href="/plc-inputs-not-working.html">Open →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Guide</div>
+      <h3>PLC Outputs Not Working</h3>
+      <a href="/plc-outputs-not-working.html">Open →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Tool</div>
+      <h3>PLC Troubleshooter</h3>
+      <a href="/plc-troubleshooter.html">Open →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Calculator</div>
+      <h3>Voltage Drop</h3>
+      <a href="/voltage-drop.html">Open →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Reference</div>
+      <h3>Wire Gauge vs Amps</h3>
+      <a href="/wire-gauge-amps.html">Open →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Reference</div>
+      <h3>Reference Charts</h3>
+      <a href="/reference-charts.html">Open →</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+Automation Engineering Tools • Practical troubleshooting for real automation work
+</footer>
+
+<script>
+fetch('/navbar.html')
+.then(res => res.text())
+.then(data => document.getElementById('navbar').innerHTML = data);
+</script>
+
+</body>
+</html>
