@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <link rel="canonical" href="https://automationcalculators.net/plc-communication-troubleshooting.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
-  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Google Analytics -->
+  <title>PLC Communication Troubleshooting Wizard | Ethernet/IP, PROFINET, Modbus</title>
+  <meta name="description" content="Step-by-step PLC communication troubleshooting wizard for EtherNet/IP, PROFINET, Modbus TCP, Modbus RTU, DeviceNet, Profibus, and serial networks. Diagnose real industrial communication issues faster.">
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,65 +18,355 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>PLC Communication Troubleshooting Wizard | Ethernet/IP, PROFINET, Modbus</title>
-  <meta name="description" content="Step-by-step PLC communication troubleshooting wizard for Ethernet/IP, PROFINET, Modbus TCP, Modbus RTU, DeviceNet, Profibus, and serial networks. Diagnose real industrial communication issues faster.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+      --warn-bg:#fff8df;
+      --warn-border:#f1df95;
+      --warn-text:#5c4a12;
+      --result-bg:#e9f1ff;
+      --result-border:#c8d9ff;
+      --success-bg:#eef8ef;
+      --success-border:#c7e4cb;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+
     body{
-      font-family:Arial, sans-serif;
-      background:#f4f4f4;
       margin:0;
-      color:#222;
-    }
-
-    .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:40px 20px;
-      text-align:center;
-    }
-
-    .hero h1{
-      margin:0 0 10px;
-      font-size:32px;
-    }
-
-    .hero p{
-      max-width:850px;
-      margin:auto;
-      color:#e7ecf7;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
       line-height:1.6;
     }
 
-    .container{
-      max-width:1100px;
-      margin:30px auto;
-      padding:0 18px 40px;
+    a{
+      color:var(--accent);
+      text-decoration:none;
     }
 
-    .card{
-      background:white;
-      padding:30px;
+    a:hover{
+      text-decoration:underline;
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hero{
+      background:linear-gradient(135deg, #0b66c3 0%, #0d79d0 45%, #0b3d69 100%);
+      color:#fff;
+      padding:60px 20px 42px;
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:26px;
+      align-items:center;
+    }
+
+    .hero h1{
+      margin:0 0 16px;
+      font-size:2.35rem;
+      line-height:1.12;
+      color:#fff;
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      max-width:760px;
+      color:rgba(255,255,255,0.95);
+      font-size:1.05rem;
+    }
+
+    .trust-line{
+      margin-top:8px;
+      color:rgba(255,255,255,0.9);
+      font-weight:700;
+      font-size:0.98rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:22px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:13px 18px;
       border-radius:10px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
+      font-weight:700;
+      text-decoration:none;
+      transition:.2s ease;
+      border:none;
+      cursor:pointer;
+      text-align:center;
     }
 
-    .top-note{
-      background:#fff7df;
-      padding:14px;
-      border-radius:8px;
+    .btn-primary{
+      background:#fff;
+      color:var(--accent-dark);
+    }
+
+    .btn-primary:hover{
+      background:#f1f6fb;
+      text-decoration:none;
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,0.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.28);
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.2);
+      text-decoration:none;
+    }
+
+    .hero-panel{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:18px;
+      padding:22px;
+      backdrop-filter:blur(5px);
+    }
+
+    .hero-panel h3{
+      margin:0 0 12px;
+      font-size:1.15rem;
+      color:#fff;
+    }
+
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .hero-panel li{
+      margin-bottom:10px;
+      color:rgba(255,255,255,0.95);
+    }
+
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:38px 20px;
+    }
+
+    .section h2{
+      margin:0 0 10px;
+      font-size:1.95rem;
+      color:var(--text);
+    }
+
+    .section-intro{
+      margin:0 0 24px;
+      color:var(--muted);
+      max-width:860px;
+      font-size:1.02rem;
+    }
+
+    .note-box{
+      background:var(--warn-bg);
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
+      padding:16px 18px;
+      border-radius:14px;
+      box-shadow:var(--shadow);
+    }
+
+    .grid-3,
+    .grid-2,
+    .tool-grid,
+    .feature-list,
+    .controls{
+      display:grid;
+      gap:18px;
+    }
+
+    .grid-3{grid-template-columns:repeat(3,1fr);}
+    .grid-2{grid-template-columns:repeat(2,1fr);}
+    .tool-grid{grid-template-columns:repeat(3,1fr);}
+    .feature-list{grid-template-columns:repeat(4,1fr);}
+    .controls{grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));}
+
+    .card,
+    .workflow,
+    .feature-item,
+    .cta-section,
+    .wizard-shell,
+    .result,
+    .progress-shell,
+    .inline-cta{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .card,
+    .workflow,
+    .feature-item,
+    .cta-section,
+    .wizard-shell,
+    .result,
+    .progress-shell,
+    .inline-cta{
+      padding:24px;
+    }
+
+    .tool-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+      height:100%;
+    }
+
+    .card h3,
+    .workflow h3,
+    .feature-item h3,
+    .tool-card h3,
+    .wizard-shell h3{
+      margin:0 0 10px;
+      color:var(--text);
+    }
+
+    .card p,
+    .workflow p,
+    .feature-item p,
+    .tool-card p,
+    .cta-section p,
+    .wizard-shell p,
+    .inline-cta p{
+      margin:0 0 12px;
+      color:var(--muted);
+    }
+
+    .card-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+
+    .pill-link{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--accent-dark);
+      font-weight:700;
+      font-size:0.95rem;
+      text-decoration:none;
+    }
+
+    .pill-link:hover{
+      background:#dfeefa;
+      text-decoration:none;
+    }
+
+    .flow-steps{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
+    }
+
+    .flow-steps a{
+      background:var(--soft);
+      padding:9px 12px;
+      border-radius:999px;
+      color:var(--accent-dark);
+      text-decoration:none;
+    }
+
+    .flow-steps a:hover{
+      background:#dfeefa;
+    }
+
+    .arrow{
+      color:#7b8b9b;
+      font-weight:700;
+    }
+
+    .tool-card .label{
+      display:inline-block;
+      margin-bottom:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#eef4fb;
+      color:#0b66c3;
+      font-size:0.86rem;
+      font-weight:700;
+    }
+
+    .tool-card .tool-link{
+      display:inline-block;
+      margin-top:10px;
+      font-weight:700;
+    }
+
+    .feature-band{
+      background:#eef4fa;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+    }
+
+    .cta-section{
+      background:linear-gradient(135deg, #0d4d86 0%, #0b66c3 100%);
+      color:#fff;
+    }
+
+    .cta-section h2{
+      color:#fff;
+      margin-top:0;
+    }
+
+    .cta-section p{
+      color:rgba(255,255,255,0.94);
+      max-width:820px;
+    }
+
+    .cta-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .progress-shell{
       margin-bottom:22px;
-      text-align:left;
-      font-size:15px;
-      line-height:1.5;
     }
 
     .wizard-progress{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-bottom:25px;
+      margin:0;
     }
 
     .progress-step{
@@ -82,20 +375,20 @@
       background:#dde5f2;
       color:#334;
       padding:10px 12px;
-      border-radius:8px;
+      border-radius:10px;
       font-size:14px;
-      font-weight:bold;
+      font-weight:700;
       text-align:center;
     }
 
     .progress-step.active{
-      background:#1f2a44;
-      color:white;
+      background:#16202a;
+      color:#fff;
     }
 
     .progress-step.complete{
       background:#4b6b9b;
-      color:white;
+      color:#fff;
     }
 
     .step-panel{
@@ -108,38 +401,48 @@
     }
 
     .step-title{
-      font-size:24px;
+      font-size:1.7rem;
       margin:0 0 8px;
-      color:#1f2a44;
+      color:#16202a;
     }
 
     .step-subtitle{
       margin:0 0 20px;
-      color:#555;
-      line-height:1.5;
+      color:var(--muted);
+      line-height:1.6;
     }
 
-    .controls{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-      gap:16px;
-      text-align:left;
+    .control-group{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:12px;
+      padding:16px;
     }
 
     .control-group label{
-      font-weight:bold;
-      margin-bottom:6px;
       display:block;
+      font-weight:700;
+      margin-bottom:6px;
+      color:#23314f;
     }
 
     .control-group input,
     .control-group select{
       width:100%;
-      padding:10px;
-      border-radius:6px;
-      border:1px solid #ccc;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #cfd6e4;
       box-sizing:border-box;
       font-size:15px;
+      background:#fff;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    .control-group input:focus,
+    .control-group select:focus{
+      outline:none;
+      border-color:#5a78b5;
+      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
     }
 
     .button-row{
@@ -152,16 +455,18 @@
     button{
       padding:12px 22px;
       font-size:16px;
-      background:#1f2a44;
-      color:white;
+      background:#16202a;
+      color:#fff;
       border:none;
-      border-radius:8px;
+      border-radius:10px;
       cursor:pointer;
-      font-weight:bold;
+      font-weight:700;
+      transition:.18s ease;
     }
 
     button:hover{
       background:#2d3d63;
+      transform:translateY(-1px);
     }
 
     .secondary{
@@ -174,7 +479,7 @@
 
     .ghost{
       background:#e4e9f2;
-      color:#1f2a44;
+      color:#16202a;
     }
 
     .ghost:hover{
@@ -183,9 +488,8 @@
 
     .result{
       margin-top:28px;
-      padding:22px;
-      background:#e9f1ff;
-      border-radius:10px;
+      background:var(--result-bg);
+      border-color:var(--result-border);
       text-align:left;
       line-height:1.65;
       display:none;
@@ -193,7 +497,7 @@
 
     .result h3{
       margin-top:0;
-      color:#1f2a44;
+      color:#16202a;
     }
 
     .result-section{
@@ -207,7 +511,7 @@
     .result-section strong{
       display:block;
       margin-bottom:6px;
-      color:#1f2a44;
+      color:#16202a;
     }
 
     .result ul{
@@ -219,92 +523,301 @@
       margin-bottom:6px;
     }
 
-    .cta{
-      margin-top:25px;
-      padding:20px;
-      background:#eef4ff;
-      border-radius:10px;
+    .inline-cta{
+      margin-top:24px;
+      background:var(--success-bg);
+      border-color:var(--success-border);
       text-align:center;
     }
 
-    .cta a{
+    .inline-cta a{
       display:inline-block;
-      margin-top:10px;
-      background:#1f2a44;
-      color:white;
-      padding:10px 16px;
-      border-radius:6px;
+      margin:6px 6px 0;
+      padding:12px 16px;
+      background:#16202a;
+      color:#fff;
       text-decoration:none;
-      font-weight:bold;
-    }
-
-    .footer{
-      margin-top:30px;
-      font-size:14px;
-      color:#666;
-      text-align:center;
+      border-radius:8px;
+      font-weight:700;
     }
 
     .small-note{
       margin-top:18px;
       font-size:14px;
       color:#666;
-      line-height:1.5;
+      line-height:1.6;
+    }
+
+    footer{
+      text-align:center;
+      padding:26px 20px 38px;
+      color:#5d6d7b;
+      font-size:0.96rem;
+    }
+
+    @media (max-width: 980px){
+      .hero-inner,
+      .grid-3,
+      .grid-2,
+      .tool-grid,
+      .feature-list{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:2.05rem;
+      }
     }
 
     @media (max-width: 700px){
+      .hero{
+        padding:46px 16px 34px;
+      }
+
+      .section{
+        padding:32px 16px;
+      }
+
       .hero h1{
-        font-size:28px;
+        font-size:1.8rem;
       }
 
-      .step-title{
-        font-size:22px;
+      .section h2{
+        font-size:1.58rem;
       }
 
+      .card,
+      .tool-card,
+      .workflow,
+      .feature-item,
+      .cta-section,
+      .wizard-shell,
+      .result,
+      .progress-shell,
+      .inline-cta{
+        padding:18px;
+      }
+
+      .hero-actions,
+      .cta-actions,
+      .button-row{
+        flex-direction:column;
+      }
+
+      .hero-actions .btn,
+      .cta-actions .btn,
       button{
         width:100%;
       }
 
-      .button-row{
-        flex-direction:column;
+      .step-title{
+        font-size:1.45rem;
       }
     }
   </style>
 </head>
-
 <body>
 
 <div id="navbar"></div>
 
-<div class="hero">
-  <h1>PLC Communication Troubleshooting Wizard</h1>
-  <p>
-    Step through your communication problem the way a real troubleshooting process works:
-    protocol, symptom, physical layer, network condition, and recent changes.
-    Get more specific guidance for Ethernet/IP, PROFINET, Modbus TCP, Modbus RTU, DeviceNet, Profibus, and serial networks.
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>PLC Communication Troubleshooting Wizard for Ethernet/IP, PROFINET, Modbus, and Real Network Faults</h1>
+      <p>
+        Step through communication problems the way real troubleshooting works: protocol, symptom, physical layer, network condition, and recent changes. Use this to narrow likely root causes faster before chasing random settings.
+      </p>
+      <p>
+        This page helps separate addressing, network load, configuration, physical layer, and device-level issues across common industrial communication protocols.
+      </p>
+
+      <div class="trust-line">
+        Built for real communication failures — symptom first, then structure.
+      </div>
+
+      <div class="hero-actions">
+        <a href="#wizard" class="btn btn-primary" onclick="gtag('event','plc_comm_cta',{'location':'hero','action':'start_wizard'});">Start Wizard</a>
+        <a href="/plc-not-communicating.html" class="btn btn-secondary" onclick="gtag('event','plc_comm_cta',{'location':'hero','action':'comm_guide'});">Communication Guide</a>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h3>This page helps with</h3>
+      <ul>
+        <li>EtherNet/IP, PROFINET, Modbus, DeviceNet, Profibus, and serial issues</li>
+        <li>Offline devices and remote I/O faults</li>
+        <li>Timeouts, dropouts, and slow updates</li>
+        <li>Wrong data or mapping mismatches</li>
+        <li>Physical layer vs addressing vs configuration problems</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="note-box">
+    <strong>Best way to use this page:</strong> move through the wizard one step at a time. Start with the actual symptom, then physical and network conditions. This tool helps narrow likely root causes faster, but power, wiring, addressing, and recent changes should still be checked first in the field.
+  </div>
+</section>
+
+<section class="section" id="start-here">
+  <h2>Where Should You Start?</h2>
+  <p class="section-intro">
+    Use the path that matches the real communication symptom instead of guessing which networking page fits.
   </p>
-</div>
 
-<div class="container">
-  <div class="card">
-
-    <div class="top-note">
-      <strong>How to use:</strong> Move through the wizard one step at a time.
-      Start with the actual symptom, then physical and network conditions.
-      This tool is designed to help narrow likely root causes quickly, but power, wiring, addressing, and recent changes should always be checked first in the field.
+  <div class="grid-3">
+    <div class="card">
+      <h3>I want guided communication troubleshooting</h3>
+      <p>
+        Use the wizard if you already know the issue is network or protocol-related and want to narrow the next checks quickly.
+      </p>
+      <div class="card-links">
+        <a class="pill-link" href="#wizard" onclick="gtag('event','plc_comm_start_path',{'path':'wizard','target':'wizard'});">Start Communication Wizard</a>
+      </div>
     </div>
 
-    <div class="wizard-progress">
-      <div class="progress-step active" id="progress1">1. Protocol</div>
-      <div class="progress-step" id="progress2">2. Symptom</div>
-      <div class="progress-step" id="progress3">3. Physical</div>
-      <div class="progress-step" id="progress4">4. Context</div>
-      <div class="progress-step" id="progress5">5. Results</div>
+    <div class="card">
+      <h3>I want the bigger communication framework first</h3>
+      <p>
+        Start here if you want the structured guide before drilling into protocol-specific wizard branches.
+      </p>
+      <div class="card-links">
+        <a class="pill-link" href="/plc-not-communicating.html" onclick="gtag('event','plc_comm_start_path',{'path':'comm_guide','target':'plc_not_communicating'});">PLC Not Communicating</a>
+        <a class="pill-link" href="/plc-troubleshooter.html" onclick="gtag('event','plc_comm_start_path',{'path':'master_troubleshooter','target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+      </div>
     </div>
 
-    <!-- STEP 1 -->
+    <div class="card">
+      <h3>The issue might not actually be communication</h3>
+      <p>
+        If the device is powered but the PLC state is wrong, or the problem is timing or electrical behavior, go to the symptom pages instead.
+      </p>
+      <div class="card-links">
+        <a class="pill-link" href="/plc-inputs-not-working.html" onclick="gtag('event','plc_comm_start_path',{'path':'inputs','target':'plc_inputs_not_working'});">Inputs</a>
+        <a class="pill-link" href="/plc-outputs-not-working.html" onclick="gtag('event','plc_comm_start_path',{'path':'outputs','target':'plc_outputs_not_working'});">Outputs</a>
+        <a class="pill-link" href="/plc-pulse-capture.html" onclick="gtag('event','plc_comm_start_path',{'path':'pulse','target':'plc_pulse_capture'});">Pulse Capture</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Remote I/O or field node is faulted</h3>
+      <p>
+        Use the communication path when the adapter, network node, or distributed I/O station is offline or unstable.
+      </p>
+      <div class="card-links">
+        <a class="pill-link" href="#wizard" onclick="gtag('event','plc_comm_start_path',{'path':'remote_io','target':'wizard'});">Start Wizard</a>
+        <a class="pill-link" href="/plc-not-communicating.html" onclick="gtag('event','plc_comm_start_path',{'path':'remote_io_guide','target':'plc_not_communicating'});">Communication Guide</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>I suspect IP, device name, mapping, or protocol setup</h3>
+      <p>
+        This is exactly what the wizard is good at separating: addressing, configuration, and data-interpretation problems.
+      </p>
+      <div class="card-links">
+        <a class="pill-link" href="#wizard" onclick="gtag('event','plc_comm_start_path',{'path':'addressing_config','target':'wizard'});">Start Wizard</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>I want the larger PLC / electrical system</h3>
+      <p>
+        Use the hub when you want the connected structure around troubleshooting, communication, inputs, outputs, scaling, voltage, and support tools.
+      </p>
+      <div class="card-links">
+        <a class="pill-link" href="/plc-electrical.html" onclick="gtag('event','plc_comm_start_path',{'path':'hub','target':'plc_electrical_hub'});">PLC & Electrical Hub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>Common Communication Workflows</h2>
+  <p class="section-intro">
+    These flows help connect this page to the rest of your PLC troubleshooting system instead of trapping the user inside one wizard.
+  </p>
+
+  <div class="grid-2">
+    <div class="workflow">
+      <h3>Communication Troubleshooting Workflow</h3>
+      <p>Use this when the issue is clearly network, remote I/O, addressing, or protocol-related.</p>
+      <div class="flow-steps">
+        <a href="/plc-not-communicating.html" onclick="gtag('event','plc_comm_flow',{'flow':'communication','step':'comm_guide'});">Comm Guide</a>
+        <span class="arrow">→</span>
+        <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_comm_flow',{'flow':'communication','step':'comm_wizard'});">Comm Wizard</a>
+        <span class="arrow">→</span>
+        <a href="/automation-help.html" onclick="gtag('event','plc_comm_flow',{'flow':'communication','step':'automation_help'});">Get Help</a>
+      </div>
+    </div>
+
+    <div class="workflow">
+      <h3>Master PLC Troubleshooting Workflow</h3>
+      <p>Use this when communication is just one part of the larger machine problem.</p>
+      <div class="flow-steps">
+        <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_comm_flow',{'flow':'master','step':'guide'});">PLC Guide</a>
+        <span class="arrow">→</span>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_comm_flow',{'flow':'master','step':'troubleshooter'});">PLC Troubleshooter</a>
+        <span class="arrow">→</span>
+        <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_comm_flow',{'flow':'master','step':'comm_wizard'});">Comm Wizard</a>
+      </div>
+    </div>
+
+    <div class="workflow">
+      <h3>Remote I/O / Network Node Workflow</h3>
+      <p>Use this when an adapter, remote station, HMI, or networked device is offline or faulted.</p>
+      <div class="flow-steps">
+        <a href="/plc-not-communicating.html" onclick="gtag('event','plc_comm_flow',{'flow':'remote_io','step':'guide'});">Comm Guide</a>
+        <span class="arrow">→</span>
+        <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_comm_flow',{'flow':'remote_io','step':'wizard'});">Comm Wizard</a>
+        <span class="arrow">→</span>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_comm_flow',{'flow':'remote_io','step':'master_troubleshooter'});">PLC Troubleshooter</a>
+      </div>
+    </div>
+
+    <div class="workflow">
+      <h3>Communication vs Electrical Workflow</h3>
+      <p>Use this when the issue might actually be power, field voltage, or unstable wiring instead of protocol configuration.</p>
+      <div class="flow-steps">
+        <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_comm_flow',{'flow':'electrical_split','step':'comm_wizard'});">Comm Wizard</a>
+        <span class="arrow">→</span>
+        <a href="/voltage-drop.html" onclick="gtag('event','plc_comm_flow',{'flow':'electrical_split','step':'voltage_drop'});">Voltage Drop</a>
+        <span class="arrow">→</span>
+        <a href="/wire-size-calculator.html" onclick="gtag('event','plc_comm_flow',{'flow':'electrical_split','step':'wire_size'});">Wire Size</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="wizard">
+  <div class="wizard-shell">
+    <h2>Interactive PLC Communication Troubleshooting Wizard</h2>
+    <p class="section-intro" style="margin-bottom:18px;">
+      Step through your communication problem the way a real troubleshooting process works: protocol, symptom, physical layer, network condition, and recent changes.
+    </p>
+
+    <div class="inline-cta" style="margin-top:0; margin-bottom:22px;">
+      <h3>Not sure whether to use this or the guide?</h3>
+      <p>
+        Use the communication guide if you want the larger framework first. Use this wizard when you already know the issue is communication-related and want to narrow the likely cause faster.
+      </p>
+      <a href="/plc-not-communicating.html" onclick="gtag('event','internal_link_click',{'from':'plc_comm_troubleshooter','to':'plc_not_communicating'});">Open Communication Guide</a>
+      <a href="/plc-electrical.html" onclick="gtag('event','internal_link_click',{'from':'plc_comm_troubleshooter','to':'plc_electrical_hub'});">Open PLC & Electrical Hub</a>
+    </div>
+
+    <div class="progress-shell">
+      <div class="wizard-progress">
+        <div class="progress-step active" id="progress1">1. Protocol</div>
+        <div class="progress-step" id="progress2">2. Symptom</div>
+        <div class="progress-step" id="progress3">3. Physical</div>
+        <div class="progress-step" id="progress4">4. Context</div>
+        <div class="progress-step" id="progress5">5. Results</div>
+      </div>
+    </div>
+
     <div class="step-panel active" id="step1">
-      <h2 class="step-title">Step 1 — Select the communication protocol</h2>
+      <h3 class="step-title">Step 1 — Select the communication protocol</h3>
       <p class="step-subtitle">
         Different protocols fail in different ways. Start by identifying the network type.
       </p>
@@ -353,9 +866,8 @@
       </div>
     </div>
 
-    <!-- STEP 2 -->
     <div class="step-panel" id="step2">
-      <h2 class="step-title">Step 2 — Choose the main symptom</h2>
+      <h3 class="step-title">Step 2 — Choose the main symptom</h3>
       <p class="step-subtitle">
         Pick the symptom that best matches what you are seeing right now.
       </p>
@@ -393,9 +905,8 @@
       </div>
     </div>
 
-    <!-- STEP 3 -->
     <div class="step-panel" id="step3">
-      <h2 class="step-title">Step 3 — Check physical and power conditions</h2>
+      <h3 class="step-title">Step 3 — Check physical and power conditions</h3>
       <p class="step-subtitle">
         This step matters more than people want to admit. Many communication issues are still power, wiring, shielding, grounding, or connector problems.
       </p>
@@ -436,9 +947,8 @@
       </div>
     </div>
 
-    <!-- STEP 4 -->
     <div class="step-panel" id="step4">
-      <h2 class="step-title">Step 4 — Add network context</h2>
+      <h3 class="step-title">Step 4 — Add network context</h3>
       <p class="step-subtitle">
         These details help narrow whether the issue is addressing, traffic, configuration, or a recent change.
       </p>
@@ -484,24 +994,157 @@
 
     <div class="result" id="output"></div>
 
-    <div class="cta">
-      <strong>Need help fixing this in the real world?</strong><br>
-      Get connected with an automation integrator.
-      <br>
+    <div class="inline-cta">
+      <h3>Need help fixing this in the real world?</h3>
+      <p>
+        If the issue is active on a real machine or plant network, get connected with an automation integrator who can help with communication setup, field troubleshooting, and system-level fixes.
+      </p>
       <a href="/integrators.html" onclick="gtag('event','internal_link_click',{'link_text':'Find an Integrator','location':'plc_comm_troubleshooter_cta'});">Find an Integrator</a>
     </div>
 
     <div class="small-note">
-      This tool provides structured troubleshooting guidance based on the conditions you select.
-      It does not replace actual PLC diagnostics, device manuals, packet capture, or manufacturer-specific fault code interpretation.
+      This tool provides structured troubleshooting guidance based on the conditions you select. It does not replace actual PLC diagnostics, device manuals, packet capture, or manufacturer-specific fault code interpretation.
     </div>
-
-    <div class="footer">
-      Automation Engineering Tools • Practical calculators and simulators for real automation work.
-    </div>
-
   </div>
-</div>
+</section>
+
+<section class="section">
+  <h2>Related PLC & Electrical Tools</h2>
+  <p class="section-intro">
+    These pages work well with the communication wizard when you are moving between network issues, PLC symptoms, electrical causes, and broader troubleshooting flow.
+  </p>
+
+  <div class="tool-grid">
+    <div class="tool-card">
+      <div class="label">Guide</div>
+      <h3>PLC Not Communicating</h3>
+      <p>
+        Start here if you want the larger communication framework before drilling into wizard branches.
+      </p>
+      <a class="tool-link" href="/plc-not-communicating.html" onclick="gtag('event','plc_comm_tool_open',{'tool':'plc_not_communicating'});">Open guide →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Troubleshooter</div>
+      <h3>PLC Troubleshooter</h3>
+      <p>
+        Use this when the issue may not be purely communication and you want the bigger symptom-first path.
+      </p>
+      <a class="tool-link" href="/plc-troubleshooter.html" onclick="gtag('event','plc_comm_tool_open',{'tool':'plc_troubleshooter'});">Open troubleshooter →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Guide</div>
+      <h3>PLC Inputs Not Working</h3>
+      <p>
+        Go here when the field device is physically changing state but the PLC is not reflecting it correctly.
+      </p>
+      <a class="tool-link" href="/plc-inputs-not-working.html" onclick="gtag('event','plc_comm_tool_open',{'tool':'plc_inputs_not_working'});">Open guide →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Guide</div>
+      <h3>PLC Outputs Not Working</h3>
+      <p>
+        Use this when the issue looks like an output-side device problem instead of a network path problem.
+      </p>
+      <a class="tool-link" href="/plc-outputs-not-working.html" onclick="gtag('event','plc_comm_tool_open',{'tool':'plc_outputs_not_working'});">Open guide →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Calculator</div>
+      <h3>Voltage Drop Calculator</h3>
+      <p>
+        Use this when unstable field power or weak voltage might be creating a fake “communication” problem.
+      </p>
+      <a class="tool-link" href="/voltage-drop.html" onclick="gtag('event','plc_comm_tool_open',{'tool':'voltage_drop'});">Open calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Calculator</div>
+      <h3>Wire Size Calculator</h3>
+      <p>
+        Use this when wiring distance and conductor choice may be contributing to weak field-device behavior.
+      </p>
+      <a class="tool-link" href="/wire-size-calculator.html" onclick="gtag('event','plc_comm_tool_open',{'tool':'wire_size_calculator'});">Open calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Timing Tool</div>
+      <h3>PLC Scan Time & Pulse Capture</h3>
+      <p>
+        Go here when the problem is more about missed events or update timing than actual network connection failure.
+      </p>
+      <a class="tool-link" href="/plc-pulse-capture.html" onclick="gtag('event','plc_comm_tool_open',{'tool':'plc_pulse_capture'});">Open page →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Reference Hub</div>
+      <h3>Reference Charts</h3>
+      <p>
+        Use this when you need quick support references while troubleshooting networked equipment and wiring.
+      </p>
+      <a class="tool-link" href="/reference-charts.html" onclick="gtag('event','plc_comm_tool_open',{'tool':'reference_charts'});">Open hub →</a>
+    </div>
+
+    <div class="tool-card">
+      <div class="label">Hub</div>
+      <h3>PLC & Electrical Hub</h3>
+      <p>
+        Jump back to the larger system when you want the connected PLC / electrical structure around this page.
+      </p>
+      <a class="tool-link" href="/plc-electrical.html" onclick="gtag('event','plc_comm_tool_open',{'tool':'plc_electrical_hub'});">Open hub →</a>
+    </div>
+  </div>
+</section>
+
+<section class="feature-band">
+  <div class="section">
+    <h2>What This Page Is Actually For</h2>
+    <p class="section-intro">
+      This page is not just a network wizard. It helps sort out whether the issue is really protocol, addressing, wiring, power, configuration, or something else entirely.
+    </p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <h3>Protocol-First Routing</h3>
+        <p>Different protocols fail in different ways. This page forces the right context earlier instead of mixing them together.</p>
+      </div>
+
+      <div class="feature-item">
+        <h3>Better Troubleshooting Direction</h3>
+        <p>It separates physical layer, configuration, addressing, traffic, and device fault conditions more cleanly.</p>
+      </div>
+
+      <div class="feature-item">
+        <h3>Stronger System Fit</h3>
+        <p>It now behaves like a connected node inside your PLC / electrical system instead of a standalone dark-theme tool.</p>
+      </div>
+
+      <div class="feature-item">
+        <h3>Useful Plant-Floor Logic</h3>
+        <p>Built around real symptoms like offline nodes, duplicate addresses, bad data, power dips, and recent change fallout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="cta-section">
+    <h2>Working on a Real Network or Remote I/O Problem?</h2>
+    <p>
+      Communication wizards help narrow likely causes, but some situations still need live review of the plant network, switch path, PLC diagnostics, device configuration, and field conditions. If the issue is active on a real system, use the help page and describe what is happening.
+    </p>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','plc_comm_cta',{'location':'bottom','action':'automation_help'});">Get Help With My System</a>
+      <a class="btn btn-secondary" href="/integrators.html" onclick="gtag('event','plc_comm_cta',{'location':'bottom','action':'integrators'});">Find an Integrator</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Automation Engineering Tools • Practical calculators and troubleshooting tools for real automation work
+</footer>
 
 <script>
 let currentStep = 1;
@@ -536,13 +1179,13 @@ function showStep(step){
 function nextStep(step){
   showStep(step);
   document.getElementById("output").style.display = "none";
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: document.getElementById("wizard").offsetTop - 20, behavior: "smooth" });
 }
 
 function prevStep(step){
   showStep(step);
   document.getElementById("output").style.display = "none";
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: document.getElementById("wizard").offsetTop - 20, behavior: "smooth" });
 }
 
 function resetWizard(){
@@ -575,6 +1218,10 @@ function addList(items){
   return html;
 }
 
+function uniqueList(arr){
+  return [...new Set(arr.filter(item => item && item.trim() !== ""))];
+}
+
 function showResults(){
   let protocol = document.getElementById("protocol").value;
   let deviceType = document.getElementById("deviceType").value;
@@ -596,7 +1243,6 @@ function showResults(){
   let platformChecks = [];
   let notes = [];
 
-  // GLOBAL PRIORITY CHECKS
   if(powerCondition === "unstable"){
     likelyCause = "Unstable power or brownout condition affecting communications";
     likelyCauses.push("Power supply voltage dropping under load");
@@ -643,7 +1289,6 @@ function showResults(){
     deeperChecks.push("Compare boot state with manual and known-good startup behavior");
   }
 
-  // PROTOCOL-SPECIFIC LOGIC
   if(protocol === "ethernetip"){
     if(symptom === "offline" || symptom === "noComm"){
       likelyCause = "EtherNet/IP addressing or device configuration problem";
@@ -854,7 +1499,6 @@ function showResults(){
     deeperChecks.push("Compare configured hardware to installed hardware");
   }
 
-  // CONTEXT MODIFIERS
   if(recentChanges === "yes"){
     notes.push("A recent change is one of the strongest clues. Review the last thing changed before chasing deeper theories.");
   }
@@ -883,7 +1527,6 @@ function showResults(){
     notes.push("Because the issue appeared after a change, compare current configuration against the last known-good state first.");
   }
 
-  // DEVICE TYPE MODIFIERS
   if(deviceType === "plc-vfd"){
     notes.push("For PLC ↔ VFD links, also verify drive parameter set, comm control source, and whether the drive is in local vs remote control.");
   }
@@ -904,7 +1547,6 @@ function showResults(){
     notes.push("For PLC ↔ PLC communications, verify message path, produced/consumed tag configuration, and whether both ends still match after any program change.");
   }
 
-  // PLATFORM SPECIFIC
   if(platform === "allenbradley"){
     platformChecks.push("Check the IO tree status and any module fault codes");
     platformChecks.push("Verify electronic keying and module revision compatibility");
@@ -932,7 +1574,6 @@ function showResults(){
 
   let html = "";
   html += "<h3>Troubleshooting Results</h3>";
-
   html += "<div class='result-section'><strong>Most Likely Root Cause</strong>" + likelyCause + "</div>";
   html += "<div class='result-section'><strong>Likely Causes</strong>" + addList(uniqueList(likelyCauses)) + "</div>";
   html += "<div class='result-section'><strong>What To Test First</strong>" + addList(uniqueList(testFirst)) + "</div>";
@@ -967,16 +1608,17 @@ function showResults(){
 
   document.getElementById("output").scrollIntoView({ behavior: "smooth", block: "start" });
 }
-
-function uniqueList(arr){
-  return [...new Set(arr.filter(item => item && item.trim() !== ""))];
-}
 </script>
 
 <script>
-fetch("navbar.html")
-.then(r => r.text())
-.then(d => document.getElementById("navbar").innerHTML = d);
+  fetch("navbar.html?v=20260314")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
 </script>
 
 </body>
