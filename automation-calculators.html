@@ -7,7 +7,7 @@
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Automation Calculators Index | PLC, Pneumatics, Robotics, Motion, Welding, ROI</title>
-  <meta name="description" content="Browse all automation engineering calculators, troubleshooting tools, reference charts, and setup guides in one place. PLC, electrical, pneumatics, robotics, motion, welding, fastening, adhesives, and ROI tools.">
+  <meta name="description" content="Browse all automation engineering calculators, troubleshooting tools, guides, and category hubs in one place. PLC, electrical, pneumatics, robotics, motion, welding, fastening, adhesives, ROI, and reference tools.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -377,38 +377,39 @@
       <div>
         <h1>Automation Engineering Tools in One Place</h1>
         <p>
-          Browse calculators, troubleshooting tools, setup guides, and reference pages across PLCs, pneumatics, robotics, motion, welding, fastening, adhesives, and automation planning.
+          Browse calculators, troubleshooting tools, setup guides, and category hubs across PLCs, pneumatics, robotics, motion, welding, fastening, adhesives, ROI, and supporting references.
         </p>
         <p>
-          This page is meant to help you get to the right tool quickly without hunting through the whole site.
+          This page is the main index for the full site so people can either enter through a category hub or jump directly into the specific tool they need.
         </p>
 
         <div class="hero-actions">
           <a class="btn btn-primary" href="#popular-tools" onclick="gtag('event','index_cta',{'location':'hero','action':'popular_tools'});">Popular Tools</a>
+          <a class="btn btn-secondary" href="#category-hubs" onclick="gtag('event','index_cta',{'location':'hero','action':'category_hubs'});">Browse Category Hubs</a>
           <a class="btn btn-secondary" href="#full-library" onclick="gtag('event','index_cta',{'location':'hero','action':'full_library'});">Browse Full Library</a>
-          <a class="btn btn-secondary" href="/problem-solver.html" onclick="gtag('event','index_cta',{'location':'hero','action':'problem_solver'});">Start With the Problem Solver</a>
         </div>
       </div>
 
       <div class="hero-panel">
-        <h3>What you’ll find here</h3>
+        <h3>How this page is organized</h3>
         <ul>
-          <li>Quick-access calculators for real plant and machine work</li>
-          <li>Troubleshooting pages for common controls and process issues</li>
-          <li>Reference charts and guides that support real decisions</li>
-          <li>Organized categories instead of one long unstructured list</li>
+          <li>Category hubs first so visitors can follow a cleaner system</li>
+          <li>Recommended workflows for common engineering tasks</li>
+          <li>Direct access to calculators, guides, and troubleshooting pages</li>
+          <li>Stronger internal linking between related tools and hubs</li>
         </ul>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <h2>Jump to a Category</h2>
+    <h2>Jump to a Section</h2>
     <p class="section-intro">
-      Use the quick links below to move directly to the part of the site that matches what you are working on.
+      Use the quick links below to move directly to the category or resource area that matches what you are working on.
     </p>
 
     <div class="jump-links">
+      <a href="#category-hubs" onclick="gtag('event','index_jump',{'section':'category_hubs'});">Category Hubs</a>
       <a href="#robotics" onclick="gtag('event','index_jump',{'category':'robotics'});">Robotics</a>
       <a href="#motion" onclick="gtag('event','index_jump',{'category':'motion'});">Motors &amp; Motion</a>
       <a href="#pneumatics" onclick="gtag('event','index_jump',{'category':'pneumatics'});">Pneumatics</a>
@@ -417,7 +418,7 @@
       <a href="#fastening" onclick="gtag('event','index_jump',{'category':'fastening'});">Fastening</a>
       <a href="#adhesives" onclick="gtag('event','index_jump',{'category':'adhesives'});">Adhesives</a>
       <a href="#mechanical" onclick="gtag('event','index_jump',{'category':'mechanical'});">Mechanical</a>
-      <a href="#planning" onclick="gtag('event','index_jump',{'category':'planning'});">ROI / Planning</a>
+      <a href="#roi" onclick="gtag('event','index_jump',{'category':'roi'});">ROI / Planning</a>
       <a href="#resources" onclick="gtag('event','index_jump',{'category':'resources'});">Reference Tools</a>
     </div>
   </section>
@@ -425,28 +426,77 @@
   <section class="section" id="popular-tools">
     <h2>Popular Starting Points</h2>
     <p class="section-intro">
-      These are strong entry points for the site if you are troubleshooting, sizing, or trying to get to an answer quickly.
+      These are strong entry points if someone is troubleshooting, sizing, planning, or trying to get to an answer fast.
     </p>
 
     <div class="grid-4">
-      <a class="mini-card" href="/pneumatic.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'pneumatic_force'});">
-        <h3>Pneumatic Force</h3>
-        <p>Quick cylinder force sizing and troubleshooting starting point.</p>
+      <a class="mini-card" href="/plc-electrical.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'plc_electrical_hub'});">
+        <h3>PLC &amp; Electrical Hub</h3>
+        <p>Best starting point for controls troubleshooting, inputs, signals, scan time, and electrical support tools.</p>
       </a>
 
-      <a class="mini-card" href="/servo-torque.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'servo_torque'});">
-        <h3>Servo Torque</h3>
-        <p>Useful motion sizing starting point for conveyors and driven axes.</p>
+      <a class="mini-card" href="/pneumatics.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'pneumatics_hub'});">
+        <h3>Pneumatics Hub</h3>
+        <p>Start here for cylinder force, speed, air use, line sizing, and pneumatic workflow pages.</p>
       </a>
 
-      <a class="mini-card" href="/plc-communication-troubleshooting.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'plc_comm_troubleshooting'});">
-        <h3>PLC Communication Troubleshooter</h3>
-        <p>Step through real communication and field device issues logically.</p>
+      <a class="mini-card" href="/automation-roi.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'automation_roi'});">
+        <h3>Automation ROI Calculator</h3>
+        <p>Quick starting point for project justification, annual savings, and payback review.</p>
       </a>
 
       <a class="mini-card" href="/robot-simulator.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'robot_simulator'});">
         <h3>Robot Simulator</h3>
-        <p>Interactive robot positioning and layout concept tool.</p>
+        <p>Interactive robot positioning and layout concept tool for quick reach and placement checks.</p>
+      </a>
+    </div>
+  </section>
+
+  <section class="section" id="category-hubs">
+    <h2>Category Hubs</h2>
+    <p class="section-intro">
+      These hub pages are the cleanest way to navigate the site. They group tools logically, add workflow guidance, and help visitors move through related pages instead of jumping around randomly.
+    </p>
+
+    <div class="grid-4">
+      <a class="mini-card" href="/plc-electrical.html" onclick="gtag('event','hub_open',{'hub':'plc_electrical'});">
+        <h3>PLC &amp; Electrical Hub</h3>
+        <p>Controls troubleshooting, signal handling, electrical sizing, machine safety, and related guides.</p>
+      </a>
+
+      <a class="mini-card" href="/pneumatics.html" onclick="gtag('event','hub_open',{'hub':'pneumatics'});">
+        <h3>Pneumatics Hub</h3>
+        <p>Force, air consumption, speed, line sizing, and practical pneumatic workflow paths.</p>
+      </a>
+
+      <a class="mini-card" href="/robotics.html" onclick="gtag('event','hub_open',{'hub':'robotics'});">
+        <h3>Robotics Hub</h3>
+        <p>Robot cycle time, reach, payload, simulation, and layout-oriented tools.</p>
+      </a>
+
+      <a class="mini-card" href="/motors-motion.html" onclick="gtag('event','hub_open',{'hub':'motors_motion'});">
+        <h3>Motors &amp; Motion Hub</h3>
+        <p>Conveyor speed, motor sizing, servo torque, gearing, and power relationships.</p>
+      </a>
+
+      <a class="mini-card" href="/welding.html" onclick="gtag('event','hub_open',{'hub':'welding'});">
+        <h3>Welding Hub</h3>
+        <p>Resistance welding setup tools, coolant sizing, and weld process support pages.</p>
+      </a>
+
+      <a class="mini-card" href="/fastening.html" onclick="gtag('event','hub_open',{'hub':'fastening'});">
+        <h3>Fastening Hub</h3>
+        <p>Torque strategy, clamp load, torque-angle, and tightening reference tools.</p>
+      </a>
+
+      <a class="mini-card" href="/adhesives.html" onclick="gtag('event','hub_open',{'hub':'adhesives'});">
+        <h3>Adhesives Hub</h3>
+        <p>Setup, dispensing, usage, timing, and troubleshooting tools for adhesive applications.</p>
+      </a>
+
+      <a class="mini-card" href="/roi.html" onclick="gtag('event','hub_open',{'hub':'roi'});">
+        <h3>ROI Hub</h3>
+        <p>Project justification, downtime cost, labor savings, break-even, and automation ROI workflow tools.</p>
       </a>
     </div>
   </section>
@@ -455,7 +505,7 @@
     <div style="max-width:1180px;margin:0 auto;">
       <h2>Common Tool Flows</h2>
       <p class="section-intro">
-        Some jobs follow a natural sequence. These flows help people move through related tools faster.
+        A lot of engineering work follows a sequence. These flows help people move through the site in a more logical order.
       </p>
 
       <div class="grid-3">
@@ -474,30 +524,30 @@
         </div>
 
         <div class="workflow">
-          <h3>Motion Flow</h3>
-          <p>Start with speed and torque, then work into gearing and output torque.</p>
+          <h3>Controls Flow</h3>
+          <p>Start with the problem, then narrow into troubleshooting and supporting checks.</p>
           <div class="flow-steps">
-            <a href="/conveyor-speed.html">Conveyor Speed</a>
+            <a href="/problem-solver.html">Problem Solver</a>
             <span class="arrow">→</span>
-            <a href="/servo-torque.html">Servo Torque</a>
+            <a href="/plc-troubleshooter.html">PLC Troubleshooter</a>
             <span class="arrow">→</span>
-            <a href="/gear-ratio.html">Gear Ratio</a>
+            <a href="/plc-pulse-capture.html">Pulse Capture</a>
             <span class="arrow">→</span>
-            <a href="/gearbox-torque.html">Gearbox Torque</a>
+            <a href="/voltage-drop.html">Voltage Drop</a>
           </div>
         </div>
 
         <div class="workflow">
-          <h3>Adhesive Flow</h3>
-          <p>Start with setup, then move into usage, timing, and troubleshooting.</p>
+          <h3>ROI Flow</h3>
+          <p>Start with current loss, estimate labor savings, then review payback and break-even.</p>
           <div class="flow-steps">
-            <a href="/adhesive-system-setup.html">Setup</a>
+            <a href="/downtime-cost-calculator.html">Downtime Cost</a>
             <span class="arrow">→</span>
-            <a href="/adhesive-usage-calculator.html">Usage</a>
+            <a href="/labor-savings-calculator.html">Labor Savings</a>
             <span class="arrow">→</span>
-            <a href="/pattern-timing-calculator.html">Timing</a>
+            <a href="/automation-roi.html">ROI</a>
             <span class="arrow">→</span>
-            <a href="/hot-melt-troubleshooting.html">Troubleshoot</a>
+            <a href="/break-even-calculator.html">Break-Even</a>
           </div>
         </div>
       </div>
@@ -507,7 +557,7 @@
   <section class="section" id="full-library">
     <h2>Full Tool Library</h2>
     <p class="section-intro">
-      Browse the full site by category. This page is meant to be a central index for engineers, technicians, integrators, and machine builders.
+      Browse the full site by category. This index supports the hub system, but it also gives direct access to individual tools for people who already know what they need.
     </p>
 
     <div class="category-section" id="robotics">
@@ -516,6 +566,10 @@
         <p>Robot cycle time, reach, payload, simulation, and layout-related tools.</p>
       </div>
       <div class="tool-grid">
+        <a class="tool-card" href="/robotics.html" onclick="gtag('event','tool_open',{tool:'robotics_hub'});">
+          <h4>Robotics Hub</h4>
+          <p>Main robotics landing page with grouped tools, workflow guidance, and stronger internal navigation.</p>
+        </a>
         <a class="tool-card" href="/robot.html" onclick="gtag('event','tool_open',{tool:'robot_cycle'});">
           <h4>Robot Cycle Time Calculator</h4>
           <p>Estimate cycle time, throughput per minute, and shift output for robot applications.</p>
@@ -542,9 +596,13 @@
     <div class="category-section" id="motion">
       <div class="category-head">
         <h3>Motors &amp; Motion</h3>
-        <p>Motion sizing, gearing, conveyor calculations, motor reference tools, and power relationships.</p>
+        <p>Motion sizing, gearing, conveyor calculations, motor references, and drive power relationships.</p>
       </div>
       <div class="tool-grid">
+        <a class="tool-card" href="/motors-motion.html" onclick="gtag('event','tool_open',{tool:'motors_motion_hub'});">
+          <h4>Motors &amp; Motion Hub</h4>
+          <p>Main motion landing page with sizing paths, related tools, and internal workflow links.</p>
+        </a>
         <a class="tool-card" href="/servo-torque.html" onclick="gtag('event','tool_open',{tool:'servo_torque'});">
           <h4>Servo Torque Calculator</h4>
           <p>Estimate running torque, acceleration torque, and recommended servo sizing.</p>
@@ -601,6 +659,10 @@
       </div>
 
       <div class="tool-grid">
+        <a class="tool-card" href="/pneumatics.html" onclick="gtag('event','tool_open',{tool:'pneumatics_hub'});">
+          <h4>Pneumatics Hub</h4>
+          <p>Main pneumatic landing page with workflow guidance and internal links between related sizing tools.</p>
+        </a>
         <a class="tool-card" href="/pneumatic.html" onclick="gtag('event','tool_open',{tool:'pneumatic_force'});">
           <h4>Pneumatic Force Calculator</h4>
           <p>Estimate extend force, retract force, derated force, and output for cylinders.</p>
@@ -629,10 +691,6 @@
           <h4>Pneumatic System Sizing Guide</h4>
           <p>Follow a step-by-step path for sizing force, speed, air use, and line demand together.</p>
         </a>
-        <a class="tool-card" href="/pneumatics.html" onclick="gtag('event','tool_open',{tool:'pneumatics_category'});">
-          <h4>Pneumatics Overview</h4>
-          <p>Browse pneumatic calculators and supporting pages from one category landing page.</p>
-        </a>
       </div>
     </div>
 
@@ -657,6 +715,10 @@
       </div>
 
       <div class="tool-grid">
+        <a class="tool-card" href="/plc-electrical.html" onclick="gtag('event','tool_open',{tool:'plc_electrical_hub'});">
+          <h4>PLC &amp; Electrical Hub</h4>
+          <p>Main controls landing page with troubleshooting paths, related tools, and stronger internal linking.</p>
+        </a>
         <a class="tool-card" href="/problem-solver.html" onclick="gtag('event','tool_open',{tool:'problem_solver'});">
           <h4>Problem Solver</h4>
           <p>Start from the symptom and work toward the right calculator, guide, or troubleshooting path.</p>
@@ -680,10 +742,6 @@
         <a class="tool-card" href="/plc-inputs-not-working.html" onclick="gtag('event','tool_open',{tool:'plc_inputs_not_working'});">
           <h4>PLC Inputs Not Working</h4>
           <p>Targeted troubleshooting help for missing input signals and field-device issues.</p>
-        </a>
-        <a class="tool-card" href="/plc-electrical.html" onclick="gtag('event','tool_open',{tool:'plc_electrical'});">
-          <h4>PLC &amp; Electrical Overview</h4>
-          <p>Category-level landing page for controls, signal, and electrical support tools.</p>
         </a>
         <a class="tool-card" href="/plc-pulse-capture.html" onclick="gtag('event','tool_open',{tool:'plc_pulse_capture'});">
           <h4>PLC Scan Time &amp; Pulse Capture</h4>
@@ -722,6 +780,10 @@
         <p>Resistance welding setup calculators and weld support tools for process planning and troubleshooting.</p>
       </div>
       <div class="tool-grid">
+        <a class="tool-card" href="/welding.html" onclick="gtag('event','tool_open',{tool:'welding_hub'});">
+          <h4>Welding Hub</h4>
+          <p>Main welding landing page with grouped resistance welding tools and related process support pages.</p>
+        </a>
         <a class="tool-card" href="/spot-weld.html" onclick="gtag('event','tool_open',{tool:'spot_weld'});">
           <h4>Spot Weld Calculator</h4>
           <p>Estimate current, force, weld time, squeeze time, hold time, and tip diameter.</p>
@@ -743,6 +805,10 @@
         <p>Torque strategy, clamp load, tightening references, and multi-stage fastening tools.</p>
       </div>
       <div class="tool-grid">
+        <a class="tool-card" href="/fastening.html" onclick="gtag('event','tool_open',{tool:'fastening_hub'});">
+          <h4>Fastening Hub</h4>
+          <p>Main fastening landing page with tightening workflow guidance and grouped torque-related tools.</p>
+        </a>
         <a class="tool-card" href="/multi-stage-torque-sequence.html" onclick="gtag('event','tool_open',{tool:'multi_stage_torque_sequence'});">
           <h4>Multi-Stage Torque Sequence Calculator</h4>
           <p>Build multi-stage tightening setups for DC tools and nutrunner strategies.</p>
@@ -787,6 +853,10 @@
       </div>
 
       <div class="tool-grid">
+        <a class="tool-card" href="/adhesives.html" onclick="gtag('event','tool_open',{tool:'adhesives_hub'});">
+          <h4>Adhesives Hub</h4>
+          <p>Main adhesive landing page with grouped setup, usage, timing, and troubleshooting paths.</p>
+        </a>
         <a class="tool-card" href="/adhesive-system-setup.html" onclick="gtag('event','tool_open',{tool:'adhesive_system_setup'});">
           <h4>Adhesive System Setup</h4>
           <p>Starting point for setting up industrial adhesive systems and basic process settings.</p>
@@ -831,23 +901,54 @@
       </div>
     </div>
 
-    <div class="category-section" id="planning">
+    <div class="category-section" id="roi">
       <div class="category-head">
-        <h3>Business &amp; Project Planning</h3>
-        <p>Automation planning and justification tools for payback and project review.</p>
+        <h3>ROI / Planning</h3>
+        <p>Automation planning and project justification tools for downtime impact, labor savings, payback, and break-even review.</p>
       </div>
+
+      <div class="workflow">
+        <h3>Automation Justification Flow</h3>
+        <p>Start with current loss, add labor impact, review annual value, then check recovery timing.</p>
+        <div class="flow-steps">
+          <a href="/downtime-cost-calculator.html">Downtime Cost</a>
+          <span class="arrow">→</span>
+          <a href="/labor-savings-calculator.html">Labor Savings</a>
+          <span class="arrow">→</span>
+          <a href="/automation-roi.html">Automation ROI</a>
+          <span class="arrow">→</span>
+          <a href="/break-even-calculator.html">Break-Even</a>
+        </div>
+      </div>
+
       <div class="tool-grid">
+        <a class="tool-card" href="/roi.html" onclick="gtag('event','tool_open',{tool:'roi_hub'});">
+          <h4>ROI Hub</h4>
+          <p>Main planning landing page with a recommended workflow for automation project justification.</p>
+        </a>
+        <a class="tool-card" href="/downtime-cost-calculator.html" onclick="gtag('event','tool_open',{tool:'downtime_cost_calculator'});">
+          <h4>Downtime Cost Calculator</h4>
+          <p>Estimate the real production cost of downtime using shift, rate, value, and loss assumptions.</p>
+        </a>
+        <a class="tool-card" href="/labor-savings-calculator.html" onclick="gtag('event','tool_open',{tool:'labor_savings_calculator'});">
+          <h4>Labor Savings Calculator</h4>
+          <p>Estimate labor reduction, annual savings, and staffing-related justification for automation projects.</p>
+        </a>
         <a class="tool-card" href="/automation-roi.html" onclick="gtag('event','tool_open',{tool:'automation_roi'});">
           <h4>Automation ROI Calculator</h4>
           <p>Estimate annual savings, net annual benefit, payback period, and project return.</p>
         </a>
+        <a class="tool-card" href="/break-even-calculator.html" onclick="gtag('event','tool_open',{tool:'break_even_calculator'});">
+          <h4>Break-Even Calculator</h4>
+          <p>Estimate how long it takes for savings or contribution to recover project cost.</p>
+        </a>
         <a class="tool-card" href="/automation-help.html" onclick="gtag('event','tool_open',{tool:'automation_help'});">
           <h4>Automation Help</h4>
-          <p>Use the support path if you need help turning calculator results into a real machine decision.</p>
+          <p>Use the support path if you need help turning calculator results into a real machine or project decision.</p>
         </a>
         <a class="tool-card" href="/integrators.html" onclick="gtag('event','tool_open',{tool:'integrators'});">
           <h4>Find an Integrator</h4>
-          <p>Connect with integrators and application support resources for real projects.</p>
+          <p>Connect with integrators and application support resources when a project needs outside help.</p>
         </a>
       </div>
     </div>
@@ -884,9 +985,9 @@
 
   <section class="section">
     <div class="note-card">
-      <h2>Need Help Applying This on a Real Machine?</h2>
+      <h2>Need Help Applying This on a Real Machine or Project?</h2>
       <p class="section-intro" style="margin-bottom:16px;">
-        Calculators can get you to an answer faster, but some situations still need real application help. If you need help turning these numbers into a machine decision, controls change, tooling choice, or automation concept, use the support options below.
+        Calculators can get you to an answer faster, but some jobs still need real application help. If you need help turning these numbers into a machine decision, tooling choice, controls change, or automation concept, use the support options below.
       </p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','index_cta',{'location':'bottom_cta','action':'automation_help'});">Request Help</a>
@@ -900,7 +1001,7 @@
   </section>
 
   <script>
-    fetch('/navbar.html?v=20260419')
+    fetch('/navbar.html?v=20260422')
       .then(response => response.text())
       .then(data => {
         document.getElementById('navbar').innerHTML = data;
