@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/downtime-cost-calculator.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Downtime Cost Calculator | Production Loss & Machine Downtime Cost</title>
+  <meta name="description" content="Calculate the real cost of machine downtime based on production rate, part value, and downtime duration. Practical tool for automation engineers and plant managers.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    body {
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:#f5f7fb;
+      color:#1f2937;
+    }
+
+    #navbar {
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    .container {
+      max-width:1000px;
+      margin:auto;
+      padding:30px 20px;
+    }
+
+    h1 {
+      margin-bottom:10px;
+    }
+
+    .description {
+      color:#555;
+      margin-bottom:20px;
+    }
+
+    .calculator {
+      background:#fff;
+      border:1px solid #dbe3ee;
+      border-radius:12px;
+      padding:20px;
+      margin-bottom:25px;
+    }
+
+    .calculator input {
+      width:100%;
+      padding:10px;
+      margin-bottom:12px;
+      border-radius:6px;
+      border:1px solid #ccc;
+    }
+
+    .calculator button {
+      background:#0f4c81;
+      color:#fff;
+      border:none;
+      padding:12px;
+      width:100%;
+      border-radius:6px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .result {
+      margin-top:15px;
+      font-size:1.2rem;
+      font-weight:bold;
+    }
+
+    .section {
+      background:#fff;
+      padding:20px;
+      border-radius:12px;
+      border:1px solid #dbe3ee;
+      margin-bottom:20px;
+    }
+
+    .internal-links a {
+      display:inline-block;
+      margin:5px;
+      padding:8px 12px;
+      background:#eef4fb;
+      border-radius:999px;
+      font-weight:bold;
+      text-decoration:none;
+    }
+
+    .cta {
+      background:#0f4c81;
+      color:#fff;
+      padding:25px;
+      border-radius:12px;
+    }
+
+    .cta a {
+      color:#fff;
+      font-weight:bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<div class="container">
+
+  <h1>Downtime Cost Calculator</h1>
+  <p class="description">
+    Estimate the real cost of machine downtime based on lost production.
+    This helps justify automation, maintenance improvements, and system upgrades.
+  </p>
+
+  <div class="calculator">
+    <input type="number" id="rate" placeholder="Parts per hour">
+    <input type="number" id="value" placeholder="Value per part ($)">
+    <input type="number" id="downtime" placeholder="Downtime (hours)">
+
+    <button onclick="calculate()">Calculate Downtime Cost</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <div class="section">
+    <h2>What this means</h2>
+    <p>
+      This number represents lost production value only. In real systems,
+      downtime also impacts labor, scheduling, overtime, and downstream processes.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>When to use this</h2>
+    <ul>
+      <li>Machine breakdown justification</li>
+      <li>Automation ROI calculations</li>
+      <li>Maintenance improvement planning</li>
+      <li>Production bottleneck analysis</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Recommended workflow</h2>
+    <div class="internal-links">
+      <a href="/labor-savings-calculator.html">Labor Savings →</a>
+      <a href="/automation-roi.html">Automation ROI →</a>
+      <a href="/break-even-calculator.html">Break-Even →</a>
+      <a href="/roi.html">ROI Hub →</a>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h2>Working on a real problem?</h2>
+    <p>
+      If downtime is costing your operation real money, you may need more than a calculator.
+      You can get help applying this to your actual system.
+    </p>
+    <a href="/automation-help.html">Get Help →</a>
+  </div>
+
+</div>
+
+<script>
+function calculate(){
+  let rate = parseFloat(document.getElementById("rate").value) || 0;
+  let value = parseFloat(document.getElementById("value").value) || 0;
+  let downtime = parseFloat(document.getElementById("downtime").value) || 0;
+
+  let cost = rate * value * downtime;
+
+  document.getElementById("result").innerText =
+    "Estimated Downtime Cost: $" + cost.toLocaleString(undefined, {maximumFractionDigits:2});
+}
+</script>
+
+<script>
+fetch('/navbar.html')
+.then(res => res.text())
+.then(data => document.getElementById('navbar').innerHTML = data);
+</script>
+
+</body>
+</html>
