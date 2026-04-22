@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <link rel="canonical" href="https://automationcalculators.net/pneumatic.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
-  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pneumatic Cylinder Force Calculator | Automation Calculators</title>
+  <meta name="description" content="Free pneumatic cylinder force calculator for automation engineers. Estimate extend force, retract force, piston area, rod-side area, and derated force using bore diameter, rod diameter, air pressure, stroke, and metric or imperial units.">
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,202 +17,263 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>Pneumatic Cylinder Force Calculator | Automation Calculators</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free pneumatic cylinder force calculator for automation engineers. Estimate cylinder extend force, retract force, piston area, rod-side area, and derated force using bore diameter, rod diameter, air pressure, stroke, and metric or imperial units.">
-
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+      --success-bg:#e9f1ff;
+      --success-border:#c8d9ff;
+      --warn-bg:#fff7df;
+      --warn-border:#f1d98a;
+      --warn-text:#5c4a12;
+    }
+
+    *{box-sizing:border-box;}
+
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
-      font-family:Arial, sans-serif;
-      background:#f4f4f4;
       margin:0;
-      color:#222;
-    }
-
-    .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
-      text-align:center;
-    }
-
-    .hero-inner{
-      max-width:950px;
-      margin:auto;
-    }
-
-    .hero h1{
-      margin:0 0 12px;
-      font-size:34px;
-      line-height:1.2;
-    }
-
-    .hero p{
-      max-width:800px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
-      font-size:17px;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
       line-height:1.6;
     }
 
-    .hero-cta{
-      margin-top:18px;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .hero-cta a{
-      display:inline-block;
-      padding:12px 18px;
-      border-radius:8px;
+    a{
+      color:var(--accent);
       text-decoration:none;
-      font-weight:bold;
-      transition:.2s ease;
     }
 
-    .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+    a:hover{
+      text-decoration:underline;
     }
 
-    .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
     }
 
-    .hero-cta a:hover{
-      transform:translateY(-1px);
-      opacity:.95;
+    .hero{
+      background:#ffffff;
+      border-bottom:1px solid var(--border);
     }
 
-    .page-wrap{
-      max-width:1100px;
-      margin:30px auto;
-      padding:0 18px 40px;
-    }
-
-    .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
-      color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
-      font-size:15px;
-      line-height:1.5;
-      text-align:left;
-    }
-
-    .main-grid{
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:50px 20px 36px;
       display:grid;
-      grid-template-columns:2fr 1fr;
+      grid-template-columns:1.35fr 0.85fr;
       gap:24px;
       align-items:start;
     }
 
-    .card,
-    .sidebar-card{
-      background:white;
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.3rem;
+      line-height:1.15;
+      color:var(--text);
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width:760px;
+      font-size:1.02rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      transition:.2s ease;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:var(--accent-dark);
+      text-decoration:none;
+    }
+
+    .btn-secondary{
+      background:var(--soft);
+      color:var(--accent-dark);
+      border:1px solid var(--border);
+    }
+
+    .btn-secondary:hover{
+      background:#e2edf9;
+      text-decoration:none;
+    }
+
+    .hero-panel{
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:22px;
+    }
+
+    .hero-panel h3{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--text);
+    }
+
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+
+    .hero-panel li{
+      margin-bottom:8px;
+    }
+
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:34px 20px;
+    }
+
+    .section h2{
+      margin:0 0 10px;
+      font-size:1.95rem;
+      color:var(--text);
+    }
+
+    .section h3{
+      color:var(--text);
+      margin-top:0;
+    }
+
+    .section-intro{
+      margin:0 0 22px;
+      color:var(--muted);
+      max-width:860px;
+    }
+
+    .info-note{
+      background:var(--warn-bg);
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
+      padding:14px 16px;
       border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
+      margin-top:18px;
+    }
+
+    .card,
+    .workflow,
+    .note-card,
+    .result,
+    .formula-box,
+    .control-group,
+    .quick-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
     }
 
     .card{
-      padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
-    }
-
-    .section-label{
-      font-size:13px;
-      font-weight:bold;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      color:#5e7197;
-      margin-bottom:10px;
-    }
-
-    .card h2,
-    .sidebar-card h3{
-      margin-top:0;
-      color:#1f2a44;
-    }
-
-    .description{
-      margin:0 0 18px;
-      color:#555;
-      font-size:16px;
-      line-height:1.6;
-      text-align:left;
+      padding:26px;
     }
 
     .formula-box{
-      margin:20px 0;
       padding:18px;
-      background:#eef3ff;
-      border:1px solid #cfdaf5;
-      border-radius:10px;
-      color:#1f2a44;
-      font-weight:bold;
+      background:var(--soft);
+      border:1px solid var(--border);
+      color:var(--text);
+      font-weight:700;
       font-size:17px;
       line-height:1.7;
-      text-align:left;
+      margin:18px 0 22px;
     }
 
     .quick-row{
-      margin:8px 0 22px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin:18px 0 24px;
     }
 
-    .quick-row button{
-      padding:10px 12px;
-      border-radius:8px;
-      border:1px solid #cdd8ee;
-      background:#f7f9fd;
-      cursor:pointer;
-      font-weight:600;
-      color:#1f2a44;
+    .quick-card{
+      padding:18px;
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
     }
 
-    .quick-row button:hover{
-      background:#eef3fc;
+    .quick-card h4{
+      margin:0 0 8px;
+      color:var(--text);
+      font-size:1rem;
+    }
+
+    .quick-card p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .quick-card button{
+      width:100%;
     }
 
     .controls{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
       gap:16px;
-      margin:25px 0 20px;
-      text-align:left;
+      margin:20px 0 20px;
     }
 
     .control-group{
       background:#f8fbff;
       border:1px solid #d7e6ff;
-      border-radius:10px;
       padding:16px;
     }
 
     .control-group label{
       display:block;
-      font-weight:600;
+      font-weight:700;
       margin-bottom:6px;
       color:#23314f;
     }
 
     .control-group input,
     .control-group select,
-    .pneumatic-form input,
-    .pneumatic-form textarea{
+    .lead-form input,
+    .lead-form select,
+    .lead-form textarea{
       width:100%;
       padding:10px 12px;
       font-size:16px;
@@ -223,8 +286,9 @@
 
     .control-group input:focus,
     .control-group select:focus,
-    .pneumatic-form input:focus,
-    .pneumatic-form textarea:focus{
+    .lead-form input:focus,
+    .lead-form select:focus,
+    .lead-form textarea:focus{
       outline:none;
       border-color:#5a78b5;
       box-shadow:0 0 0 3px rgba(90,120,181,0.12);
@@ -237,121 +301,57 @@
       gap:12px;
     }
 
-    .button-row button{
-      padding:13px 22px;
-      font-size:16px;
-      background:#1e6bd6;
-      color:white;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:bold;
-      transition:.2s ease;
-    }
-
-    .button-row button.secondary{
-      background:#5a6a85;
-    }
-
-    .button-row button.ghost{
-      background:#e9eef8;
-      color:#1f2a44;
-    }
-
-    .button-row button:hover{
-      background:#1555ad;
-      transform:translateY(-1px);
-    }
-
-    .button-row button.secondary:hover{
-      background:#485772;
-    }
-
-    .button-row button.ghost:hover{
-      background:#dde7f8;
-    }
-
     .result{
-      margin-top:25px;
-      padding:20px;
-      background:#e9f1ff;
-      border:1px solid #c8d9ff;
-      border-radius:10px;
+      margin-top:24px;
+      padding:22px;
+      background:var(--success-bg);
+      border:1px solid var(--success-border);
       font-size:18px;
       line-height:1.6;
       font-weight:500;
-      text-align:left;
       scroll-margin-top:100px;
     }
 
-    .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
-    }
-
-    .cta-box h3{
-      margin:0 0 10px;
-      color:#1f2a44;
-    }
-
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .note{
-      margin-top:20px;
-      color:#666;
-      font-size:14px;
-      line-height:1.6;
-      text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
+    .workflow{
       padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
+      margin:0 0 18px;
     }
 
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
+    .workflow p{
+      margin:0 0 12px;
+      color:var(--muted);
     }
 
-    .learn-more ul{
-  margin:0 0 12px 20px;
-  color:#555;
-  line-height:1.7;
-}
+    .flow-steps{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+    }
 
-.learn-more li{
-  margin-bottom:8px;
-}
+    .flow-steps a{
+      background:var(--soft);
+      border:1px solid var(--border);
+      color:var(--accent-dark);
+      padding:8px 12px;
+      border-radius:999px;
+      text-decoration:none;
+    }
+
+    .flow-steps a:hover{
+      background:#e2edf9;
+    }
+
+    .arrow{
+      color:#8695a3;
+    }
 
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .internal-links a{
@@ -360,207 +360,203 @@
       background:white;
       border:1px solid #d6e0f1;
       border-radius:8px;
-      color:#1f2a44;
+      color:var(--accent-dark);
       text-decoration:none;
-      font-weight:600;
+      font-weight:700;
     }
 
     .internal-links a:hover{
       background:#e9eef8;
     }
 
-    .recommendation-box{
-      background:#e9f1ff;
-      border:1px solid #c8d9ff;
-      border-radius:10px;
-      padding:18px;
-      margin-top:0;
-      margin-bottom:20px;
+    .cta-box{
+      margin-top:22px;
+      padding:22px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:14px;
     }
 
-    .recommendation-box h3{
-      margin-top:0;
-      margin-bottom:10px;
-      color:#1f2a44;
+    .cta-box h3{
+      margin:0 0 10px;
     }
 
-    .pneumatic-grid{
+    .cta-box p{
+      margin:0 0 16px;
+      color:#4d5a74;
+    }
+
+    .grid-2,
+    .grid-3{
       display:grid;
-      grid-template-columns:1fr;
-      gap:16px;
-      margin-top:16px;
+      gap:18px;
     }
 
-    .pneumatic-card{
-      background:#f8fbff;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
-      padding:18px;
-    }
+    .grid-2{ grid-template-columns:repeat(2,1fr); }
+    .grid-3{ grid-template-columns:repeat(3,1fr); }
 
-    .pneumatic-card h4{
-      margin-top:0;
-      margin-bottom:10px;
-      color:#1f2a44;
-      font-size:18px;
-    }
-
-    .pneumatic-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
-    }
-
-    .pneumatic-card a,
-    .pneumatic-btn{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      text-decoration:none;
-      padding:10px 14px;
-      border-radius:8px;
-      font-weight:bold;
-      border:none;
-      cursor:pointer;
-      font-size:15px;
-    }
-
-    .pneumatic-card a:hover,
-    .pneumatic-btn:hover{
-      opacity:.95;
-    }
-
-    .pneumatic-consulting{
-      margin-top:20px;
+    .mini-card{
+      background:white;
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
       padding:20px;
-      background:#f4f8ff;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
-      text-align:left;
+      height:100%;
     }
 
-    .pneumatic-consulting h3{
-      margin-top:0;
-      color:#1f2a44;
+    .mini-card h3,
+    .mini-card h4{
+      margin:0 0 8px;
+      color:var(--text);
     }
 
-    .pneumatic-consulting p{
-      color:#555;
-      line-height:1.6;
-      margin-bottom:14px;
+    .mini-card p,
+    .mini-card li{
+      color:var(--muted);
+      font-size:0.96rem;
     }
 
-    .pneumatic-consulting ul{
-      padding-left:18px;
-      margin:0 0 18px;
-      color:#444;
-      line-height:1.7;
-    }
-
-    .pneumatic-form{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-
-    .pneumatic-form label{
-      text-align:left;
-      font-weight:600;
-      font-size:14px;
-      color:#1f2a44;
-    }
-
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
-    }
-
-    .sidebar-card ul{
-      padding-left:18px;
+    .mini-card ul{
       margin:0;
-      color:#444;
-      line-height:1.7;
+      padding-left:18px;
     }
 
-    .footer{
-      margin-top:40px;
+    .lead-form{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .lead-form .full{
+      grid-column:1 / -1;
+    }
+
+    .note{
+      margin-top:18px;
       color:#666;
       font-size:14px;
-      text-align:center;
+      line-height:1.6;
     }
 
-    @media (max-width:900px){
-      .main-grid{
+    .footer-note{
+      text-align:center;
+      color:#667584;
+      font-size:0.95rem;
+      padding:8px 0 4px;
+    }
+
+    @media (max-width: 1020px){
+      .hero-inner,
+      .grid-2,
+      .grid-3,
+      .quick-row{
         grid-template-columns:1fr;
       }
     }
 
-    @media (max-width:700px){
-      .card,
-      .sidebar-card{
-        padding:20px;
+    @media (max-width: 700px){
+      .hero-inner{
+        padding:40px 16px 30px;
+      }
+
+      .section{
+        padding:30px 16px;
       }
 
       .hero h1{
-        font-size:28px;
+        font-size:1.95rem;
       }
 
-      .hero-cta{
-        flex-direction:column;
-        align-items:center;
+      .section h2{
+        font-size:1.55rem;
       }
 
-      .hero-cta a{
-        width:100%;
-        max-width:320px;
+      .card,
+      .workflow,
+      .note-card,
+      .quick-card,
+      .mini-card{
+        padding:18px;
       }
 
       .button-row{
         flex-direction:column;
       }
 
-      .button-row button{
+      .button-row .btn{
         width:100%;
+      }
+
+      .lead-form{
+        grid-template-columns:1fr;
       }
     }
   </style>
 </head>
 <body>
+  <div id="navbar"></div>
 
-<div id="navbar"></div>
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>Pneumatic Cylinder Force Calculator</h1>
+        <p>
+          Estimate cylinder extend force, retract force, derated force, area, and approximate work per stroke so you can verify whether a pneumatic setup is realistically sized before ordering hardware.
+        </p>
+        <p>
+          This is usually the first step in pneumatic sizing. Once force is confirmed, the next checks are air consumption, cylinder speed, and line sizing.
+        </p>
 
-<section class="hero">
-  <div class="hero-inner">
-    <h1>Pneumatic Cylinder Force Calculator</h1>
-    <p>
-      Quickly calculate real-world cylinder force and verify if your system will actually work before you order hardware.
-    </p>
-    <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
-      <a href="/air-consumption.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'pneumatic_force_hero','to':'air_consumption'});">Air Consumption Calculator</a>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta',{'location':'hero','action':'open_calculator'});">Open Calculator</a>
+          <a class="btn btn-secondary" href="/pneumatics.html" onclick="gtag('event','page_cta',{'location':'hero','action':'pneumatics_hub'});">Pneumatics Hub</a>
+          <a class="btn btn-secondary" href="/air-consumption.html" onclick="gtag('event','page_cta',{'location':'hero','action':'air_consumption'});">Next: Air Consumption</a>
+        </div>
+
+        <div class="info-note">
+          <strong>Good starting use case:</strong> check whether a proposed cylinder has enough usable force before you spend time on detailed design, hardware ordering, and tooling changes. Real systems still need margin for friction, pressure drop, side loading, and setup losses.
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <h3>What this page helps you do</h3>
+        <ul>
+          <li>Estimate theoretical and derated cylinder force</li>
+          <li>Compare extend-side and retract-side performance</li>
+          <li>Check whether a cylinder is even in the right range</li>
+          <li>Move into the next pneumatic sizing steps with the right workflow</li>
+        </ul>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="page-wrap">
-  <div class="top-note">
-    <strong>Good starting use case:</strong> check whether a proposed cylinder has enough usable force before you spend time on detailed design, hardware ordering, and tooling changes. Real systems still need margin for friction, pressure drop, side loading, and setup losses.
-  </div>
+  <section class="section">
+    <h2>Recommended Pneumatic Workflow</h2>
+    <p class="section-intro">
+      Force is usually the starting point. After that, verify whether your air system can actually support the required speed and flow under real operating conditions.
+    </p>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
+    <div class="workflow">
+      <h3>Typical design path</h3>
+      <p>Start with force, then move into consumption, speed, and line demand.</p>
+      <div class="flow-steps">
+        <a href="/pneumatic.html" onclick="gtag('event','workflow_click',{'from':'pneumatic_force','to':'pneumatic_force'});">Force</a>
+        <span class="arrow">→</span>
+        <a href="/air-consumption.html" onclick="gtag('event','workflow_click',{'from':'pneumatic_force','to':'air_consumption'});">Air Consumption</a>
+        <span class="arrow">→</span>
+        <a href="/pneumatic-speed.html" onclick="gtag('event','workflow_click',{'from':'pneumatic_force','to':'pneumatic_speed'});">Speed</a>
+        <span class="arrow">→</span>
+        <a href="/air-line-size-calculator.html" onclick="gtag('event','workflow_click',{'from':'pneumatic_force','to':'air_line_size'});">Air Line Size</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="card">
       <h2>Estimate Pneumatic Cylinder Force</h2>
-
-      <p class="description">
+      <p class="section-intro">
         Estimate cylinder extend force and retract force using bore diameter, rod diameter, air pressure, stroke, derating, and metric or imperial inputs.
-      </p>
-
-      <p class="description">
-        This calculator is useful for pneumatic cylinder sizing in industrial automation, machine design, tooling, part clamping, actuator force checks, and general pneumatic design work.
       </p>
 
       <div class="formula-box">
@@ -568,11 +564,25 @@
         Derated Force = Theoretical Force × Derating Factor
       </div>
 
-      <div class="section-label">Quick examples</div>
+      <h3>Quick examples</h3>
       <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','pneumatic_force_example',{'type':'standard_metric'});">Standard Metric</button>
-        <button type="button" onclick="loadExample2(); gtag('event','pneumatic_force_example',{'type':'larger_cylinder'});">Larger Cylinder</button>
-        <button type="button" onclick="loadExample3(); gtag('event','pneumatic_force_example',{'type':'imperial'});">Imperial Example</button>
+        <div class="quick-card">
+          <h4>Standard Metric</h4>
+          <p>General-purpose double-acting cylinder example for typical machine applications.</p>
+          <button class="btn btn-secondary" type="button" onclick="loadExample1(); gtag('event','pneumatic_force_example',{'type':'standard_metric'});">Load Example</button>
+        </div>
+
+        <div class="quick-card">
+          <h4>Larger Cylinder</h4>
+          <p>Higher-force example with a larger bore and longer stroke.</p>
+          <button class="btn btn-secondary" type="button" onclick="loadExample2(); gtag('event','pneumatic_force_example',{'type':'larger_cylinder'});">Load Example</button>
+        </div>
+
+        <div class="quick-card">
+          <h4>Imperial Example</h4>
+          <p>Useful if you are sizing with inches and PSI instead of metric inputs.</p>
+          <button class="btn btn-secondary" type="button" onclick="loadExample3(); gtag('event','pneumatic_force_example',{'type':'imperial'});">Load Example</button>
+        </div>
       </div>
 
       <div class="controls">
@@ -627,113 +637,14 @@
       </div>
 
       <div class="button-row">
-        <button onclick="calculate(); gtag('event','pneumatic_force_calculation');">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator(); gtag('event','pneumatic_force_clear');">Reset</button>
+        <button class="btn btn-primary" onclick="calculate(); gtag('event','pneumatic_force_calculation');">Calculate</button>
+        <button class="btn btn-secondary" onclick="loadExample1();">Load Example</button>
+        <button class="btn btn-secondary" onclick="resetCalculator(); gtag('event','pneumatic_force_clear');">Reset</button>
       </div>
 
       <div class="result" id="output">
         Enter values and press <strong>Calculate</strong>.
       </div>
-
-      <div class="cta-box">
-  <h3>Need help applying this in your system?</h3>
-  <p>
-    If you're working on a real project or troubleshooting an issue, get help or connect with an integrator.
-  </p>
-  <a href="/automation-help.html"
-   onclick="gtag('event','cta_click',{
-     'location':'calculator_page',
-     'target':'automation_help'
-   });">
-   Get Help With My System
-  </a>
-</div>
-
-      <div class="cta-box"> 
-  <h3>Next Step</h3>
-  <p>
-    Now estimate how much air your system will consume so you can verify flow demand and properly size your valves, tubing, and supply.
-  </p>
-
-  <a href="/air-consumption.html"
-     onclick="gtag('event','next_step_click',{'from':'pneumatic_force','to':'air_consumption'});">
-     Go to Air Consumption →
-  </a>
-</div>
-
-      <h3>Continue Your Design</h3>
-
-<div class="internal-links">
-  <a href="/air-consumption.html"
-     onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_consumption'});">
-     → Step 1: Air Consumption
-  </a>
-
-  <a href="/air-line-size-calculator.html"
-     onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_line_size'});">
-     → Step 2: Air Line Size
-  </a>
-
-  <a href="/pneumatic-speed.html"
-     onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'pneumatic_speed'});">
-     → Step 3: Pneumatic Speed
-  </a>
-
-  <a href="/cfm-scfm-psi-calculator.html"
-     onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'cfm_scfm_psi'});">
-     Supporting Tool: CFM / SCFM / PSI
-  </a>
-</div>
-      <div class="cta-box">
-      <p>Follow the full step-by-step pneumatic system sizing process.</p>
-      <a href="/pneumatic-system-sizing-guide.html">View Pneumatic System Guide</a>
-    </div>
-
-        <div class="cta-box">
-  <h3>Need implementation support?</h3>
-  <p>
-    If you need help implementing this in a real system, connect with a qualified automation integrator.
-  </p>
-  <a href="/integrators.html">Find an Integrator</a>
-</div>
-
-       <div class="cta-box" id="help-form">
-  <h3>Need help applying this in your system?</h3>
-  <p>
-    If this force result doesn’t fully answer your question, I can help review your application, check assumptions, and make sure your cylinder selection will actually work in a real system.
-  </p>
-
-  <form action="https://formspree.io/f/mgonbvpn" method="POST" style="margin-top:10px;">
-    
-    <input type="text" name="name" placeholder="Your Name" required style="margin-bottom:10px;">
-
-    <input type="email" name="email" placeholder="Your Email" required style="margin-bottom:10px;">
-
-    <select name="project_timing" required style="margin-bottom:10px;">
-      <option value="">Project Timing</option>
-      <option value="ASAP">ASAP</option>
-      <option value="1-3 months">1–3 months</option>
-      <option value="3-6 months">3–6 months</option>
-      <option value="exploring">Just exploring</option>
-    </select>
-
-    <!-- TRACKING -->
-    <input type="hidden" name="source_page" value="pneumatic_force_calculator">
-    <input type="hidden" name="calculated_force" id="hiddenForce">
-
-    <button type="submit" class="pneumatic-btn"
-  onclick="gtag('event','lead_submit',{
-    'tool':'pneumatic_force',
-    'type':'quick',
-    'value': document.getElementById('hiddenForce')?.value
-  });">
-  Get Help With My System / Connect Me
-</button>
-
-  </form>
-</div>
-
 
       <p class="note">
         This calculator estimates theoretical cylinder force from pressure and area, then applies the entered derating percentage. It does not account for seal drag, friction losses, pressure drop, cushioning, side loading, spring force in single-acting cylinders, mounting effects, or other real-world losses.
@@ -742,57 +653,12 @@
       <p class="note">
         For single-acting cylinders, this tool still shows retract-side area for reference, but actual return behavior may depend on spring force, gravity, or external load.
       </p>
-
-     <div class="learn-more">
-  <h3>How to use this calculator in real applications</h3>
-
-  <p>
-    This calculator is typically used during early machine design, troubleshooting, or validating whether a cylinder has enough usable force before hardware is ordered.
-    While the math is simple, real-world performance depends heavily on pressure stability, friction, mounting conditions, and system losses.
-  </p>
-
-  <p>
-    A common workflow is to estimate required force here, then verify cylinder speed, air consumption, and air line sizing to ensure the system can actually deliver that force under real operating conditions.
-  </p>
-
-  <h3>Real-world example</h3>
-
-  <p>
-    A cylinder that calculates to 250 lbf of force may seem sufficient for a clamping application, but if pressure drops under load or friction increases, the actual usable force can fall significantly.
-    This often leads to parts slipping, inconsistent clamping, or slow cycle times.
-  </p>
-
-  <h3>Common mistakes in cylinder force calculations</h3>
-
-  <ul>
-    <li>Using theoretical force without applying a realistic derating factor</li>
-    <li>Ignoring pressure drop through valves and air lines</li>
-    <li>Overlooking side loading on the cylinder rod</li>
-    <li>Not accounting for friction, seal drag, or tooling resistance</li>
-    <li>Assuming supply pressure remains constant during operation</li>
-  </ul>
-
-  <h3>Where this fits in your design process</h3>
-
-  <p>
-    Cylinder force is usually the starting point in pneumatic design. Once force is verified, the next step is ensuring the system can move at the required speed and sustain the necessary airflow without pressure loss.
-  </p>
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
     </div>
+  </section>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>Suggested starting point</h3>
-        <div class="recommendation-box">
-          <div id="recommendationText">
-            Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.
-          </div>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
+  <section class="section">
+    <div class="grid-3">
+      <div class="mini-card">
         <h3>What this calculator gives you</h3>
         <ul>
           <li>Extend force</li>
@@ -804,51 +670,7 @@
         </ul>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Component starting points</h3>
-        <div class="pneumatic-grid">
-          <div class="pneumatic-card">
-            <h4>Air Cylinders</h4>
-            <p>Review bore size, stroke length, mounting style, and cylinder type for your application.</p>
-            <a href="https://www.automationdirect.com/" target="_blank" rel="noopener noreferrer sponsored">View Air Cylinders</a>
-          </div>
-
-          <div class="pneumatic-card">
-            <h4>Regulators & Air Prep</h4>
-            <p>Stable pressure matters. Good regulators and air prep improve consistency and usable force.</p>
-            <a href="https://www.automationdirect.com/" target="_blank" rel="noopener noreferrer sponsored">View Regulators & Air Prep</a>
-          </div>
-
-          <div class="pneumatic-card">
-            <h4>Valves & Flow Controls</h4>
-            <p>Review valves, flow controls, fittings, and air system hardware for practical pneumatic motion setups.</p>
-            <a href="https://www.automationdirect.com/" target="_blank" rel="noopener noreferrer sponsored">Browse Pneumatic Components</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
-        <h3>Need help validating a real application?</h3>
-        <div class="pneumatic-consulting">
-          <p>
-            Submit your application details and I can review the request and respond with practical input on force checks, cylinder sizing direction, and general pneumatic setup questions.
-          </p>
-
-          <ul>
-            <li>Cylinder force and bore validation</li>
-            <li>Rod loading and application review</li>
-            <li>Derating and pressure-drop reality check</li>
-            <li>General automation design support</li>
-          </ul>
-
-          <a href="#help-form" class="pneumatic-btn"
-   onclick="gtag('event','sidebar_help_click',{'from':'pneumatic_force'});">
-  Get Help With Your Application →
-</a>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
+      <div class="mini-card">
         <h3>Common next checks</h3>
         <ul>
           <li>Pressure drop through valves and tubing</li>
@@ -858,279 +680,426 @@
           <li>Mounting strength and reaction loads</li>
         </ul>
       </div>
+
+      <div class="mini-card">
+        <h3>Suggested starting point</h3>
+        <p id="recommendationText">
+          Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.
+        </p>
+      </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<script>
-  function updateLabels(){
-    let lengthUnit = document.getElementById("lengthUnit").value;
-    let pressureUnit = document.getElementById("pressureUnit").value;
+  <section class="section">
+    <div class="card">
+      <h2>Continue Your Pneumatic Design</h2>
+      <p class="section-intro">
+        Force alone is not enough. Use the next related tools to confirm whether the system can actually perform the way you expect in production.
+      </p>
 
-    document.getElementById("boreLabel").innerText =
-      "Bore Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+      <div class="internal-links">
+        <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_consumption'});">Step 1: Air Consumption</a>
+        <a href="/pneumatic-speed.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'pneumatic_speed'});">Step 2: Pneumatic Speed</a>
+        <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'air_line_size'});">Step 3: Air Line Size</a>
+        <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'cfm_scfm_psi'});">Supporting Tool: CFM / SCFM / PSI</a>
+        <a href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'pneumatic_system_guide'});">Full Pneumatic System Guide</a>
+        <a href="/pneumatics.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_force','to':'pneumatics_hub'});">Pneumatics Hub</a>
+      </div>
 
-    document.getElementById("rodLabel").innerText =
-      "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+      <div class="grid-3" style="margin-top:22px;">
+        <div class="mini-card">
+          <h4>Air Consumption Calculator</h4>
+          <p>Estimate cylinder air use per cycle and check whether your compressed air system can sustain production demand.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Pneumatic Speed Calculator</h4>
+          <p>Check whether available flow and stroke length support the actual motion speed you need.</p>
+        </div>
+        <div class="mini-card">
+          <h4>Air Line Size Calculator</h4>
+          <p>Verify tubing and supply sizing so the cylinder can actually deliver the expected performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    document.getElementById("strokeLabel").innerText =
-      "Stroke Length (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+  <section class="section">
+    <div class="card">
+      <h2>How to Use This Calculator in Real Applications</h2>
+      <p class="section-intro">
+        This calculator is typically used during early machine design, troubleshooting, or validating whether a cylinder has enough usable force before hardware is ordered.
+      </p>
 
-    document.getElementById("pressureLabel").innerText =
-      "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
-  }
+      <div class="grid-2">
+        <div class="mini-card">
+          <h4>Where this fits in your process</h4>
+          <p>
+            Cylinder force is usually the first decision in pneumatic design. Once force is verified, the next step is ensuring the system can move at the required speed and sustain the necessary airflow without pressure loss.
+          </p>
+          <p>
+            A common workflow is to estimate required force here, then verify cylinder speed, air consumption, and air line sizing to ensure the system can actually deliver that force under real operating conditions.
+          </p>
+        </div>
 
-  function scrollToOutput(){
-    document.getElementById("output").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
+        <div class="mini-card">
+          <h4>Real-world example</h4>
+          <p>
+            A cylinder that calculates to 250 lbf of force may seem sufficient for a clamping application, but if pressure drops under load or friction increases, the actual usable force can fall significantly.
+          </p>
+          <p>
+            That often leads to parts slipping, inconsistent clamping, or slow cycle times even though the basic math looked acceptable at first.
+          </p>
+        </div>
+      </div>
 
-  function calculate(){
-    let bore = parseFloat(document.getElementById("bore").value) || 0;
-    let rod = parseFloat(document.getElementById("rod").value) || 0;
-    let pressure = parseFloat(document.getElementById("pressure").value) || 0;
-    let stroke = parseFloat(document.getElementById("stroke").value) || 0;
-    let derating = parseFloat(document.getElementById("derating").value) || 0;
+      <div class="cta-box" style="margin-top:22px;">
+        <h3>Common mistakes in cylinder force calculations</h3>
+        <div class="internal-links" style="margin-top:0;">
+          <a href="javascript:void(0)">Using theoretical force with no realistic derating</a>
+          <a href="javascript:void(0)">Ignoring pressure drop through valves and air lines</a>
+          <a href="javascript:void(0)">Overlooking side loading on the rod</a>
+          <a href="javascript:void(0)">Not accounting for friction, seal drag, or tooling resistance</a>
+          <a href="javascript:void(0)">Assuming supply pressure stays constant during operation</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    let lengthUnit = document.getElementById("lengthUnit").value;
-    let pressureUnit = document.getElementById("pressureUnit").value;
-    let cylinderType = document.getElementById("cylinderType").value;
-    const output = document.getElementById("output");
+  <section class="section">
+    <div class="grid-2">
+      <div class="card">
+        <h2>Need Help Applying This in a Real System?</h2>
+        <p class="section-intro">
+          If this force result does not fully answer your question, use the support path below. This is meant for real machine decisions, cylinder selection direction, and general pneumatic setup review.
+        </p>
 
-    if(bore <= 0){
-      output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
+        <div class="hero-actions" style="margin-top:0;">
+          <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','cta_click',{'location':'pneumatic_force_page','target':'automation_help'});">Get Help With My System</a>
+          <a class="btn btn-secondary" href="/integrators.html" onclick="gtag('event','cta_click',{'location':'pneumatic_force_page','target':'integrators'});">Find an Integrator</a>
+        </div>
+
+        <form class="lead-form" action="https://formspree.io/f/mgonbvpn" method="POST" style="margin-top:18px;">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+
+          <select name="project_timing" required>
+            <option value="">Project Timing</option>
+            <option value="ASAP">ASAP</option>
+            <option value="1-3 months">1–3 months</option>
+            <option value="3-6 months">3–6 months</option>
+            <option value="exploring">Just exploring</option>
+          </select>
+
+          <input type="text" id="helpForce" name="force_result" placeholder="Calculated Force" readonly>
+
+          <input type="hidden" name="source_page" value="pneumatic_force_calculator">
+          <input type="hidden" name="calculated_force" id="hiddenForce">
+
+          <button type="submit" class="btn btn-primary full"
+            onclick="gtag('event','lead_submit',{
+              'tool':'pneumatic_force',
+              'type':'quick',
+              'value': document.getElementById('hiddenForce')?.value
+            });">
+            Get Help With My System / Connect Me
+          </button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Related Pneumatic Pages</h2>
+        <p class="section-intro">
+          These pages work best together and support the same design workflow.
+        </p>
+
+        <div class="internal-links">
+          <a href="/pneumatics.html" onclick="gtag('event','related_tool_click',{'from':'pneumatic_force','to':'pneumatics_hub'});">Pneumatics Hub</a>
+          <a href="/air-consumption.html" onclick="gtag('event','related_tool_click',{'from':'pneumatic_force','to':'air_consumption'});">Air Consumption Calculator</a>
+          <a href="/pneumatic-speed.html" onclick="gtag('event','related_tool_click',{'from':'pneumatic_force','to':'pneumatic_speed'});">Pneumatic Speed Calculator</a>
+          <a href="/air-line-size-calculator.html" onclick="gtag('event','related_tool_click',{'from':'pneumatic_force','to':'air_line_size'});">Air Line Size Calculator</a>
+          <a href="/psi-to-force-calculator.html" onclick="gtag('event','related_tool_click',{'from':'pneumatic_force','to':'psi_to_force'});">PSI to Force Calculator</a>
+          <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','related_tool_click',{'from':'pneumatic_force','to':'cfm_scfm_psi'});">CFM / SCFM / PSI Calculator</a>
+          <a href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','related_tool_click',{'from':'pneumatic_force','to':'pneumatic_system_guide'});">Pneumatic System Sizing Guide</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Automation Engineering Tools • Practical calculators for real automation work
+    </div>
+  </section>
+
+  <script>
+    function updateLabels(){
+      let lengthUnit = document.getElementById("lengthUnit").value;
+      let pressureUnit = document.getElementById("pressureUnit").value;
+
+      document.getElementById("boreLabel").innerText =
+        "Bore Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+
+      document.getElementById("rodLabel").innerText =
+        "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+
+      document.getElementById("strokeLabel").innerText =
+        "Stroke Length (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+
+      document.getElementById("pressureLabel").innerText =
+        "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
+    }
+
+    function scrollToOutput(){
+      document.getElementById("output").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function calculate(){
+      let bore = parseFloat(document.getElementById("bore").value) || 0;
+      let rod = parseFloat(document.getElementById("rod").value) || 0;
+      let pressure = parseFloat(document.getElementById("pressure").value) || 0;
+      let stroke = parseFloat(document.getElementById("stroke").value) || 0;
+      let derating = parseFloat(document.getElementById("derating").value) || 0;
+
+      let lengthUnit = document.getElementById("lengthUnit").value;
+      let pressureUnit = document.getElementById("pressureUnit").value;
+      let cylinderType = document.getElementById("cylinderType").value;
+      const output = document.getElementById("output");
+
+      if(bore <= 0){
+        output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
+        scrollToOutput();
+        return;
+      }
+
+      if(rod < 0){
+        output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
+        scrollToOutput();
+        return;
+      }
+
+      if(rod >= bore){
+        output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
+        scrollToOutput();
+        return;
+      }
+
+      if(pressure <= 0){
+        output.innerHTML = "<strong>Please enter an air pressure greater than 0.</strong>";
+        scrollToOutput();
+        return;
+      }
+
+      if(stroke < 0){
+        output.innerHTML = "<strong>Please enter a stroke length of 0 or greater.</strong>";
+        scrollToOutput();
+        return;
+      }
+
+      if(derating <= 0 || derating > 100){
+        output.innerHTML = "<strong>Please enter a force derating percentage greater than 0 and up to 100.</strong>";
+        scrollToOutput();
+        return;
+      }
+
+      let boreMm = bore;
+      let rodMm = rod;
+      let strokeMm = stroke;
+      let pressureBar = pressure;
+
+      if(lengthUnit === "inch"){
+        boreMm = bore * 25.4;
+        rodMm = rod * 25.4;
+        strokeMm = stroke * 25.4;
+      }
+
+      if(pressureUnit === "psi"){
+        pressureBar = pressure * 0.0689476;
+      }
+
+      let derateFactor = derating / 100;
+
+      let boreAreaMm2 = Math.PI * Math.pow(boreMm / 2, 2);
+      let rodAreaMm2 = Math.PI * Math.pow(rodMm / 2, 2);
+      let retractAreaMm2 = boreAreaMm2 - rodAreaMm2;
+
+      let extendForceN = boreAreaMm2 * pressureBar * 0.1;
+      let retractForceN = retractAreaMm2 * pressureBar * 0.1;
+
+      let deratedExtendForceN = extendForceN * derateFactor;
+      let deratedRetractForceN = retractForceN * derateFactor;
+
+      let extendForceLbf = extendForceN * 0.224809;
+      let retractForceLbf = retractForceN * 0.224809;
+      let deratedExtendForceLbf = deratedExtendForceN * 0.224809;
+      let deratedRetractForceLbf = deratedRetractForceN * 0.224809;
+
+      let extendForceKgf = extendForceN / 9.80665;
+      let retractForceKgf = retractForceN / 9.80665;
+      let deratedExtendForceKgf = deratedExtendForceN / 9.80665;
+      let deratedRetractForceKgf = deratedRetractForceN / 9.80665;
+
+      let strokeMeters = strokeMm / 1000;
+      let extendWorkJ = deratedExtendForceN * strokeMeters;
+      let retractWorkJ = deratedRetractForceN * strokeMeters;
+
+      let hiddenForce = document.getElementById("hiddenForce");
+      if(hiddenForce){
+        hiddenForce.value = deratedExtendForceLbf.toFixed(2) + " lbf";
+      }
+
+      let helpForce = document.getElementById("helpForce");
+      if(helpForce){
+        helpForce.value = deratedExtendForceLbf.toFixed(2) + " lbf";
+      }
+
+      let cylinderTypeText = cylinderType === "single" ? "Single Acting" : "Double Acting";
+
+      let retractSectionTitle = "Retract Force";
+      let retractDeratedTitle = "Derated Retract Force";
+      let retractWorkTitle = "Approx. Retract Work Per Stroke";
+
+      if(cylinderType === "single"){
+        retractSectionTitle = "Retract-Side Force Reference";
+        retractDeratedTitle = "Derated Retract-Side Force Reference";
+        retractWorkTitle = "Approx. Retract-Side Work Reference";
+      }
+
+      let recommendation = "";
+
+      if(deratedExtendForceLbf < 50){
+        recommendation = "Your derated extend force is relatively light. This usually points toward smaller pneumatic cylinders for light clamping, positioning, ejecting, or simple actuator tasks. Still confirm friction, alignment, and any shock loads before final selection.";
+      } else if(deratedExtendForceLbf < 200){
+        recommendation = "Your derated extend force is in a moderate range. This is common for general automation tasks like part stops, moderate clamps, slides, and tooling motion. Check mounting rigidity, speed requirements, and pressure stability before ordering.";
+      } else if(deratedExtendForceLbf < 500){
+        recommendation = "Your derated extend force is fairly strong. This suggests a more substantial cylinder setup may be needed. Make sure your structure, tooling, and mounting can handle the reaction loads, not just the cylinder output.";
+      } else {
+        recommendation = "Your derated extend force is high. This kind of application deserves a careful review of frame strength, side loading, pressure drop, safety factor, and whether pneumatics are still the best fit compared with hydraulic or servo-driven alternatives.";
+      }
+
+      document.getElementById("recommendationText").innerHTML =
+        "<strong>Derated Extend Force:</strong> " + deratedExtendForceLbf.toFixed(2) + " lbf<br><br>" + recommendation;
+
+      output.innerHTML =
+        "<strong>Cylinder Type</strong><br>" +
+        cylinderTypeText + "<br><br>" +
+
+        "<strong>Bore Area</strong><br>" +
+        boreAreaMm2.toFixed(2) + " mm²<br><br>" +
+
+        "<strong>Rod Area</strong><br>" +
+        rodAreaMm2.toFixed(2) + " mm²<br><br>" +
+
+        "<strong>Retract-Side Area</strong><br>" +
+        retractAreaMm2.toFixed(2) + " mm²<br><br>" +
+
+        "<strong>Extend Force</strong><br>" +
+        extendForceN.toFixed(2) + " N<br>" +
+        extendForceLbf.toFixed(2) + " lbf<br>" +
+        extendForceKgf.toFixed(2) + " kgf<br><br>" +
+
+        "<strong>" + retractSectionTitle + "</strong><br>" +
+        retractForceN.toFixed(2) + " N<br>" +
+        retractForceLbf.toFixed(2) + " lbf<br>" +
+        retractForceKgf.toFixed(2) + " kgf<br><br>" +
+
+        "<strong>Derated Extend Force</strong><br>" +
+        deratedExtendForceN.toFixed(2) + " N<br>" +
+        deratedExtendForceLbf.toFixed(2) + " lbf<br>" +
+        deratedExtendForceKgf.toFixed(2) + " kgf<br><br>" +
+
+        "<strong>" + retractDeratedTitle + "</strong><br>" +
+        deratedRetractForceN.toFixed(2) + " N<br>" +
+        deratedRetractForceLbf.toFixed(2) + " lbf<br>" +
+        deratedRetractForceKgf.toFixed(2) + " kgf<br><br>" +
+
+        "<strong>Approx. Extend Work Per Stroke</strong><br>" +
+        extendWorkJ.toFixed(3) + " J<br><br>" +
+
+        "<strong>" + retractWorkTitle + "</strong><br>" +
+        retractWorkJ.toFixed(3) + " J<br><br>" +
+
+        "<strong>Interpretation</strong><br>" +
+        recommendation +
+        "<br><br><strong>Next Step:</strong> Use this force value to estimate air consumption and verify your system can maintain performance under real conditions.";
+
       scrollToOutput();
-      return;
     }
 
-    if(rod < 0){
-      output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
-      scrollToOutput();
-      return;
+    function resetCalculator(){
+      document.getElementById("lengthUnit").value = "mm";
+      document.getElementById("pressureUnit").value = "bar";
+      document.getElementById("cylinderType").value = "double";
+      document.getElementById("bore").value = "50";
+      document.getElementById("rod").value = "20";
+      document.getElementById("pressure").value = "6";
+      document.getElementById("stroke").value = "100";
+      document.getElementById("derating").value = "100";
+      updateLabels();
+      document.getElementById("output").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
+      document.getElementById("recommendationText").innerHTML =
+        "Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.";
+      let helpForce = document.getElementById("helpForce");
+      if(helpForce){
+        helpForce.value = "";
+      }
+      let hiddenForce = document.getElementById("hiddenForce");
+      if(hiddenForce){
+        hiddenForce.value = "";
+      }
     }
 
-    if(rod >= bore){
-      output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
-      scrollToOutput();
-      return;
+    function loadExample1(){
+      document.getElementById("lengthUnit").value = "mm";
+      document.getElementById("pressureUnit").value = "bar";
+      document.getElementById("cylinderType").value = "double";
+      document.getElementById("bore").value = "50";
+      document.getElementById("rod").value = "20";
+      document.getElementById("pressure").value = "6";
+      document.getElementById("stroke").value = "100";
+      document.getElementById("derating").value = "90";
+      updateLabels();
+      calculate();
     }
 
-    if(pressure <= 0){
-      output.innerHTML = "<strong>Please enter an air pressure greater than 0.</strong>";
-      scrollToOutput();
-      return;
+    function loadExample2(){
+      document.getElementById("lengthUnit").value = "mm";
+      document.getElementById("pressureUnit").value = "bar";
+      document.getElementById("cylinderType").value = "double";
+      document.getElementById("bore").value = "80";
+      document.getElementById("rod").value = "25";
+      document.getElementById("pressure").value = "6";
+      document.getElementById("stroke").value = "150";
+      document.getElementById("derating").value = "85";
+      updateLabels();
+      calculate();
     }
 
-    if(stroke < 0){
-      output.innerHTML = "<strong>Please enter a stroke length of 0 or greater.</strong>";
-      scrollToOutput();
-      return;
+    function loadExample3(){
+      document.getElementById("lengthUnit").value = "inch";
+      document.getElementById("pressureUnit").value = "psi";
+      document.getElementById("cylinderType").value = "double";
+      document.getElementById("bore").value = "2";
+      document.getElementById("rod").value = "0.625";
+      document.getElementById("pressure").value = "90";
+      document.getElementById("stroke").value = "6";
+      document.getElementById("derating").value = "90";
+      updateLabels();
+      calculate();
     }
 
-    if(derating <= 0 || derating > 100){
-      output.innerHTML = "<strong>Please enter a force derating percentage greater than 0 and up to 100.</strong>";
-      scrollToOutput();
-      return;
-    }
-
-    let boreMm = bore;
-    let rodMm = rod;
-    let strokeMm = stroke;
-    let pressureBar = pressure;
-
-    if(lengthUnit === "inch"){
-      boreMm = bore * 25.4;
-      rodMm = rod * 25.4;
-      strokeMm = stroke * 25.4;
-    }
-
-    if(pressureUnit === "psi"){
-      pressureBar = pressure * 0.0689476;
-    }
-
-    let derateFactor = derating / 100;
-
-    let boreAreaMm2 = Math.PI * Math.pow(boreMm / 2, 2);
-    let rodAreaMm2 = Math.PI * Math.pow(rodMm / 2, 2);
-    let retractAreaMm2 = boreAreaMm2 - rodAreaMm2;
-
-    let extendForceN = boreAreaMm2 * pressureBar * 0.1;
-    let retractForceN = retractAreaMm2 * pressureBar * 0.1;
-
-    let deratedExtendForceN = extendForceN * derateFactor;
-    let deratedRetractForceN = retractForceN * derateFactor;
-
-    let extendForceLbf = extendForceN * 0.224809;
-    let retractForceLbf = retractForceN * 0.224809;
-    let deratedExtendForceLbf = deratedExtendForceN * 0.224809;
-    let hiddenForce = document.getElementById("hiddenForce");
-if(hiddenForce){
-  hiddenForce.value = deratedExtendForceLbf.toFixed(2) + " lbf";
-}
-    let deratedRetractForceLbf = deratedRetractForceN * 0.224809;
-
-    let extendForceKgf = extendForceN / 9.80665;
-    let retractForceKgf = retractForceN / 9.80665;
-    let deratedExtendForceKgf = deratedExtendForceN / 9.80665;
-    let deratedRetractForceKgf = deratedRetractForceN / 9.80665;
-
-    let strokeMeters = strokeMm / 1000;
-    let extendWorkJ = deratedExtendForceN * strokeMeters;
-    let retractWorkJ = deratedRetractForceN * strokeMeters;
-
-    let cylinderTypeText = cylinderType === "single" ? "Single Acting" : "Double Acting";
-
-    let retractSectionTitle = "Retract Force";
-    let retractDeratedTitle = "Derated Retract Force";
-    let retractWorkTitle = "Approx. Retract Work Per Stroke";
-
-    if(cylinderType === "single"){
-      retractSectionTitle = "Retract-Side Force Reference";
-      retractDeratedTitle = "Derated Retract-Side Force Reference";
-      retractWorkTitle = "Approx. Retract-Side Work Reference";
-    }
-
-    let recommendation = "";
-
-    if(deratedExtendForceLbf < 50){
-      recommendation = "Your derated extend force is relatively light. This usually points toward smaller pneumatic cylinders for light clamping, positioning, ejecting, or simple actuator tasks. Still confirm friction, alignment, and any shock loads before final selection.";
-    } else if(deratedExtendForceLbf < 200){
-      recommendation = "Your derated extend force is in a moderate range. This is common for general automation tasks like part stops, moderate clamps, slides, and tooling motion. Check mounting rigidity, speed requirements, and pressure stability before ordering.";
-    } else if(deratedExtendForceLbf < 500){
-      recommendation = "Your derated extend force is fairly strong. This suggests a more substantial cylinder setup may be needed. Make sure your structure, tooling, and mounting can handle the reaction loads, not just the cylinder output.";
-    } else {
-      recommendation = "Your derated extend force is high. This kind of application deserves a careful review of frame strength, side loading, pressure drop, safety factor, and whether pneumatics are still the best fit compared with hydraulic or servo-driven alternatives.";
-    }
-
-    document.getElementById("recommendationText").innerHTML =
-      "<strong>Derated Extend Force:</strong> " + deratedExtendForceLbf.toFixed(2) + " lbf<br><br>" +
-      recommendation;
-
-    const helpForce = document.getElementById("helpForce");
-    if(helpForce){
-      helpForce.value = deratedExtendForceLbf.toFixed(2) + " lbf";
-    }
-
-    output.innerHTML =
-      "<strong>Cylinder Type</strong><br>" +
-      cylinderTypeText + "<br><br>" +
-
-      "<strong>Bore Area</strong><br>" +
-      boreAreaMm2.toFixed(2) + " mm²<br><br>" +
-
-      "<strong>Rod Area</strong><br>" +
-      rodAreaMm2.toFixed(2) + " mm²<br><br>" +
-
-      "<strong>Retract-Side Area</strong><br>" +
-      retractAreaMm2.toFixed(2) + " mm²<br><br>" +
-
-      "<strong>Extend Force</strong><br>" +
-      extendForceN.toFixed(2) + " N<br>" +
-      extendForceLbf.toFixed(2) + " lbf<br>" +
-      extendForceKgf.toFixed(2) + " kgf<br><br>" +
-
-      "<strong>" + retractSectionTitle + "</strong><br>" +
-      retractForceN.toFixed(2) + " N<br>" +
-      retractForceLbf.toFixed(2) + " lbf<br>" +
-      retractForceKgf.toFixed(2) + " kgf<br><br>" +
-
-      "<strong>Derated Extend Force</strong><br>" +
-      deratedExtendForceN.toFixed(2) + " N<br>" +
-      deratedExtendForceLbf.toFixed(2) + " lbf<br>" +
-      deratedExtendForceKgf.toFixed(2) + " kgf<br><br>" +
-
-      "<strong>" + retractDeratedTitle + "</strong><br>" +
-      deratedRetractForceN.toFixed(2) + " N<br>" +
-      deratedRetractForceLbf.toFixed(2) + " lbf<br>" +
-      deratedRetractForceKgf.toFixed(2) + " kgf<br><br>" +
-
-      "<strong>Approx. Extend Work Per Stroke</strong><br>" +
-      extendWorkJ.toFixed(3) + " J<br><br>" +
-
-      "<strong>" + retractWorkTitle + "</strong><br>" +
-      retractWorkJ.toFixed(3) + " J<br><br>" +
-
-      "<strong>Interpretation</strong><br>" +
-      recommendation +
-      "<br><br><strong>Next Step:</strong> Use this force value to estimate air consumption and verify your system can maintain performance under real conditions.";
-
-    scrollToOutput();
-  }
-
-  function resetCalculator(){
-    document.getElementById("lengthUnit").value = "mm";
-    document.getElementById("pressureUnit").value = "bar";
-    document.getElementById("cylinderType").value = "double";
-    document.getElementById("bore").value = "50";
-    document.getElementById("rod").value = "20";
-    document.getElementById("pressure").value = "6";
-    document.getElementById("stroke").value = "100";
-    document.getElementById("derating").value = "100";
     updateLabels();
-    document.getElementById("output").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
-    document.getElementById("recommendationText").innerHTML =
-      "Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.";
-    document.getElementById("helpForce").value = "";
-    let hiddenForce = document.getElementById("hiddenForce");
-if(hiddenForce){
-  hiddenForce.value = "";
-}
-  }
+  </script>
 
-  function loadExample1(){
-    document.getElementById("lengthUnit").value = "mm";
-    document.getElementById("pressureUnit").value = "bar";
-    document.getElementById("cylinderType").value = "double";
-    document.getElementById("bore").value = "50";
-    document.getElementById("rod").value = "20";
-    document.getElementById("pressure").value = "6";
-    document.getElementById("stroke").value = "100";
-    document.getElementById("derating").value = "90";
-    updateLabels();
-    calculate();
-  }
-
-  function loadExample2(){
-    document.getElementById("lengthUnit").value = "mm";
-    document.getElementById("pressureUnit").value = "bar";
-    document.getElementById("cylinderType").value = "double";
-    document.getElementById("bore").value = "80";
-    document.getElementById("rod").value = "25";
-    document.getElementById("pressure").value = "6";
-    document.getElementById("stroke").value = "150";
-    document.getElementById("derating").value = "85";
-    updateLabels();
-    calculate();
-  }
-
-  function loadExample3(){
-    document.getElementById("lengthUnit").value = "inch";
-    document.getElementById("pressureUnit").value = "psi";
-    document.getElementById("cylinderType").value = "double";
-    document.getElementById("bore").value = "2";
-    document.getElementById("rod").value = "0.625";
-    document.getElementById("pressure").value = "90";
-    document.getElementById("stroke").value = "6";
-    document.getElementById("derating").value = "90";
-    updateLabels();
-    calculate();
-  }
-
-  updateLabels();
-</script>
-
-<script>
-  fetch("navbar.html?v=20260314")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar").innerHTML = data;
-    })
-    .catch(error => {
-      console.error("Navbar failed to load:", error);
-    });
-</script>
-
+  <script>
+    fetch('/navbar.html?v=20260422')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Navbar failed to load:', error);
+      });
+  </script>
 </body>
 </html>
