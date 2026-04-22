@@ -20,237 +20,308 @@
 
   <style>
     :root{
-      --primary:#1f2a44;
-      --primary-dark:#162033;
-      --accent:#1e6bd6;
-      --bg:#f4f4f4;
+      --bg:#f5f7fb;
       --card:#ffffff;
-      --soft:#f8fbff;
-      --border:#d7e6ff;
-      --text:#222;
-      --muted:#555;
-      --info-bg:#e9f1ff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
       --warn-bg:#fff7df;
       --warn-border:#f1d98a;
       --warn-text:#5c4a12;
       --success-bg:#eaf7ea;
       --success-border:#b9dfb9;
-      --shadow:0 8px 24px rgba(0,0,0,.08);
     }
 
     *{box-sizing:border-box;}
 
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
-      font-family:Arial, sans-serif;
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
       background:var(--bg);
       color:var(--text);
-      margin:0;
-    }
-
-    a{color:var(--accent);}
-
-    .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 34px;
-      text-align:center;
-    }
-
-    .hero-inner{
-      max-width:980px;
-      margin:auto;
-    }
-
-    .hero h1{
-      margin:0 0 12px;
-      font-size:36px;
-      line-height:1.18;
-    }
-
-    .hero p{
-      max-width:860px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
-      font-size:17px;
-      line-height:1.65;
-    }
-
-    .hero-buttons{
-      margin-top:18px;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      display:inline-block;
-      padding:12px 18px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-      transition:.18s ease;
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-      opacity:.96;
-    }
-
-    .btn-primary{
-      background:white;
-      color:#1f2a44;
-    }
-
-    .btn-secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
-    }
-
-    .page-wrap{
-      max-width:1120px;
-      margin:30px auto;
-      padding:0 18px 40px;
-    }
-
-    .top-note{
-      background:var(--warn-bg);
-      border:1px solid var(--warn-border);
-      color:var(--warn-text);
-      padding:14px 16px;
-      border-radius:10px;
-      margin-bottom:22px;
       line-height:1.6;
     }
 
-    .main-grid{
+    a{
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hero{
+      background:#ffffff;
+      border-bottom:1px solid var(--border);
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:50px 20px 36px;
       display:grid;
-      grid-template-columns:2fr 1fr;
+      grid-template-columns:1.35fr 0.85fr;
       gap:24px;
       align-items:start;
     }
 
-    .card,
-    .sidebar-card{
-      background:white;
-      border-radius:12px;
-      box-shadow:var(--shadow);
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.3rem;
+      line-height:1.15;
+      color:var(--text);
     }
 
-    .card{
-      padding:28px;
+    .hero p{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width:760px;
+      font-size:1.02rem;
     }
 
-    .sidebar-card{
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      transition:.2s ease;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:var(--accent-dark);
+      text-decoration:none;
+    }
+
+    .btn-secondary{
+      background:var(--soft);
+      color:var(--accent-dark);
+      border:1px solid var(--border);
+    }
+
+    .btn-secondary:hover{
+      background:#e2edf9;
+      text-decoration:none;
+    }
+
+    .hero-panel{
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
       padding:22px;
-      margin-bottom:20px;
     }
 
-    .section-label{
-      font-size:13px;
-      font-weight:bold;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      color:#5e7197;
-      margin-bottom:10px;
+    .hero-panel h3{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--text);
     }
 
-    h2,h3,h4{
-      color:#1f2a44;
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+
+    .hero-panel li{
+      margin-bottom:8px;
+    }
+
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:34px 20px;
+    }
+
+    .section h2{
+      margin:0 0 10px;
+      font-size:1.95rem;
+      color:var(--text);
+    }
+
+    .section h3,
+    .section h4{
+      color:var(--text);
       margin-top:0;
     }
 
-    .description{
+    .section-intro{
+      margin:0 0 22px;
       color:var(--muted);
-      line-height:1.75;
-      margin-bottom:18px;
+      max-width:860px;
     }
 
-    .guide-section{
-      margin-bottom:30px;
-      padding-bottom:22px;
-      border-bottom:1px solid #e7eefc;
+    .info-note{
+      background:var(--warn-bg);
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
+      padding:14px 16px;
+      border-radius:12px;
+      margin-top:18px;
     }
 
-    .guide-section:last-child{
-      border-bottom:none;
-      margin-bottom:0;
-      padding-bottom:0;
+    .workflow,
+    .card,
+    .guide-step,
+    .mini-card,
+    .info-box,
+    .checklist,
+    .cta-box{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
     }
 
-    .info-box{
+    .workflow,
+    .card{
+      padding:24px;
+    }
+
+    .workflow p{
+      margin:0 0 12px;
+      color:var(--muted);
+    }
+
+    .flow-steps{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+    }
+
+    .flow-steps a{
       background:var(--soft);
       border:1px solid var(--border);
-      border-radius:10px;
+      color:var(--accent-dark);
+      padding:8px 12px;
+      border-radius:999px;
+      text-decoration:none;
+    }
+
+    .flow-steps a:hover{
+      background:#e2edf9;
+    }
+
+    .arrow{
+      color:#8695a3;
+    }
+
+    .checklist,
+    .info-box{
       padding:18px;
-      margin:18px 0;
+      margin-top:18px;
     }
 
     .checklist{
       background:#f4f8ff;
       border:1px solid var(--border);
-      border-radius:10px;
-      padding:18px;
-      margin:18px 0 22px;
+    }
+
+    .info-box{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
     }
 
     .checklist ul,
     .info-box ul,
-    .guide-section ul,
-    .sidebar-card ul{
+    .mini-card ul,
+    .guide-step ul{
       margin:10px 0 0 20px;
       padding:0;
       line-height:1.8;
       color:#444;
     }
 
-    .guide-section li,
-    .sidebar-card li{
-      margin-bottom:8px;
+    .step-grid{
+      display:grid;
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .guide-step{
+      padding:22px;
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+    }
+
+    .step-label{
+      display:inline-block;
+      margin-bottom:10px;
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+    }
+
+    .guide-step p{
+      color:var(--muted);
+      margin:0 0 14px;
     }
 
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:16px;
+      margin-top:14px;
     }
 
     .internal-links a{
       display:inline-block;
       padding:10px 12px;
-      background:#eef5ff;
-      border:1px solid var(--border);
+      background:white;
+      border:1px solid #d6e0f1;
       border-radius:8px;
       text-decoration:none;
-      color:#1f2a44;
-      font-weight:600;
+      color:var(--accent-dark);
+      font-weight:700;
     }
 
-    .link-list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .link-list a{
-      display:block;
-      padding:10px 12px;
-      background:#f4f8ff;
-      border:1px solid var(--border);
-      border-radius:8px;
-      text-decoration:none;
-      color:#1f2a44;
-      font-weight:600;
+    .internal-links a:hover{
+      background:#e9eef8;
     }
 
     .cta-box{
-      margin-top:24px;
+      margin-top:22px;
       padding:22px;
       background:var(--success-bg);
       border:1px solid var(--success-border);
-      border-radius:10px;
-      text-align:center;
     }
 
     .cta-box p{
@@ -259,96 +330,166 @@
       line-height:1.65;
     }
 
-    .cta-box a{
-      display:inline-block;
-      margin:6px 6px 0;
-      padding:12px 16px;
-      background:#1f2a44;
-      color:white;
-      text-decoration:none;
-      border-radius:8px;
-      font-weight:bold;
+    .grid-2,
+    .grid-3{
+      display:grid;
+      gap:18px;
     }
 
-    .footer{
+    .grid-2{ grid-template-columns:repeat(2,1fr); }
+    .grid-3{ grid-template-columns:repeat(3,1fr); }
+
+    .mini-card{
+      padding:20px;
+      height:100%;
+    }
+
+    .mini-card p,
+    .mini-card li{
+      color:var(--muted);
+      font-size:0.96rem;
+    }
+
+    .footer-note{
       text-align:center;
-      margin-top:40px;
+      margin-top:8px;
       color:#666;
       font-size:14px;
       line-height:1.7;
     }
 
-    @media (max-width:900px){
-      .main-grid{
+    @media (max-width:1020px){
+      .hero-inner,
+      .grid-2,
+      .grid-3{
         grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width:700px){
+      .hero-inner{
+        padding:40px 16px 30px;
+      }
+
+      .section{
+        padding:30px 16px;
       }
 
       .hero h1{
-        font-size:30px;
+        font-size:1.95rem;
+      }
+
+      .section h2{
+        font-size:1.55rem;
+      }
+
+      .workflow,
+      .card,
+      .guide-step,
+      .mini-card,
+      .info-box,
+      .checklist,
+      .cta-box{
+        padding:18px;
       }
     }
   </style>
 </head>
-
 <body>
 
 <div id="navbar"></div>
 
 <section class="hero">
   <div class="hero-inner">
-    <h1>PLC Outputs Not Working?</h1>
-    <p>
-      Use this step-by-step guide to troubleshoot PLC output problems in real automation systems. Check output LEDs, output terminals, field power, commons, interposing relays, contactors, solenoids, and why an output can look ON in the PLC while the real device still does not actuate.
-    </p>
+    <div>
+      <h1>PLC Outputs Not Working?</h1>
+      <p>
+        Use this step-by-step guide to troubleshoot PLC output problems in real automation systems. Check output LEDs, output terminals, field power, commons, interposing relays, contactors, solenoids, and why an output can look ON in the PLC while the real device still does not actuate.
+      </p>
+      <p>
+        The main goal is to separate command logic problems from field-power and load-side problems as fast as possible.
+      </p>
 
-    <div class="hero-buttons">
-      <a href="#guide" class="btn btn-primary" onclick="gtag('event','plc_outputs_hero_click',{'target':'guide_start'});">Start Troubleshooting</a>
-      <a href="/plc-troubleshooter.html" class="btn btn-secondary" onclick="gtag('event','plc_outputs_hero_click',{'target':'plc_troubleshooter'});">Open PLC Troubleshooter</a>
-      <a href="/plc-troubleshooting-guide.html" class="btn btn-secondary" onclick="gtag('event','plc_outputs_hero_click',{'target':'plc_guide'});">Open PLC Guide</a>
+      <div class="hero-actions">
+        <a href="#guide" class="btn btn-primary" onclick="gtag('event','plc_outputs_hero_click',{'target':'guide_start'});">Start Troubleshooting</a>
+        <a href="/plc-troubleshooter.html" class="btn btn-secondary" onclick="gtag('event','plc_outputs_hero_click',{'target':'plc_troubleshooter'});">Open PLC Troubleshooter</a>
+        <a href="/plc-electrical.html" class="btn btn-secondary" onclick="gtag('event','plc_outputs_hero_click',{'target':'plc_electrical_hub'});">PLC &amp; Electrical Hub</a>
+      </div>
+
+      <div class="info-note">
+        <strong>Best use of this page:</strong> compare what the PLC says the output is doing versus what the real device is actually receiving. A commanded output is not the same thing as usable power at the load.
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h3>Common output symptoms</h3>
+      <ul>
+        <li>PLC output LED is on but the device does not actuate</li>
+        <li>Output point never turns on</li>
+        <li>Contactor or solenoid clicks sometimes but not always</li>
+        <li>HMI says output is on, but nothing happens in the machine</li>
+        <li>Output works only intermittently</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<div class="page-wrap">
+<section class="section">
+  <h2>Recommended PLC Troubleshooting Flow</h2>
+  <p class="section-intro">
+    This page fits into the PLC &amp; Electrical troubleshooting system. Use it when the symptom is clearly output-side, then move into the next tool based on what you find.
+  </p>
 
-  <div class="top-note">
-    <strong>Best use of this page:</strong> compare what the PLC says the output is doing versus what the real device is actually receiving. A commanded output is not the same thing as usable power at the load.
+  <div class="workflow">
+    <h3>Typical path</h3>
+    <p>Start from the symptom, narrow the issue, then move into electrical checks if needed.</p>
+    <div class="flow-steps">
+      <a href="/problem-solver.html" onclick="gtag('event','workflow_click',{'from':'plc_outputs','to':'problem_solver'});">Problem Solver</a>
+      <span class="arrow">→</span>
+      <a href="/plc-troubleshooter.html" onclick="gtag('event','workflow_click',{'from':'plc_outputs','to':'plc_troubleshooter'});">PLC Troubleshooter</a>
+      <span class="arrow">→</span>
+      <a href="/plc-outputs-not-working.html" onclick="gtag('event','workflow_click',{'from':'plc_outputs','to':'plc_outputs'});">Output Guide</a>
+      <span class="arrow">→</span>
+      <a href="/voltage-drop.html" onclick="gtag('event','workflow_click',{'from':'plc_outputs','to':'voltage_drop'});">Electrical Checks</a>
+    </div>
   </div>
+</section>
 
-  <div class="main-grid">
+<section class="section" id="guide">
+  <div class="card">
+    <h2>Step-by-Step PLC Output Troubleshooting</h2>
 
-    <div class="card" id="guide">
+    <p class="section-intro">
+      If a valve, relay, solenoid, contactor, stack light, motor starter, or other field device is not actuating, do not jump straight into program edits. Start by checking whether the PLC output is physically turning on, then verify whether the load is actually receiving voltage and return path under real conditions.
+    </p>
 
-      <div class="section-label">Guide</div>
-      <h2>Step-by-Step PLC Output Troubleshooting</h2>
-
-      <p class="description">
-        If a valve, relay, solenoid, contactor, stack light, motor starter, or other field device is not actuating, do not jump straight into program edits. Start by checking whether the PLC output is physically turning on, then verify whether the load is actually receiving voltage and return path under real conditions.
+    <div class="cta-box" style="margin-top:0; margin-bottom:22px;">
+      <h3>Not sure where to start?</h3>
+      <p>
+        If you're troubleshooting a real PLC issue, start with the full step-by-step guide or use the interactive troubleshooter to narrow the issue down by symptom.
       </p>
-
-      <div class="cta-box" style="margin-top:0; margin-bottom:22px;">
-        <h3>Not sure where to start?</h3>
-        <p>
-          If you're troubleshooting a real PLC issue, start with the full step-by-step guide or use the interactive troubleshooter to narrow the issue down by symptom.
-        </p>
+      <div class="internal-links" style="justify-content:center;">
         <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_troubleshooting_guide'});">Start with PLC Troubleshooting Guide</a>
         <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_troubleshooter'});">Use PLC Troubleshooter</a>
       </div>
+    </div>
 
-      <div class="checklist">
-        <h3>Before you start</h3>
-        <ul>
-          <li>Confirm the machine is actually in a state where the output should turn on.</li>
-          <li>Verify safety circuits, permissives, and interlocks are satisfied.</li>
-          <li>Know whether the output drives the load directly or through an interposing relay.</li>
-          <li>Check whether the problem is constant or intermittent.</li>
-          <li>Compare the PLC output status to the real device behavior, not just the HMI screen.</li>
-        </ul>
-      </div>
+    <div class="checklist">
+      <h3>Before you start</h3>
+      <ul>
+        <li>Confirm the machine is actually in a state where the output should turn on.</li>
+        <li>Verify safety circuits, permissives, and interlocks are satisfied.</li>
+        <li>Know whether the output drives the load directly or through an interposing relay.</li>
+        <li>Check whether the problem is constant or intermittent.</li>
+        <li>Compare the PLC output status to the real device behavior, not just the HMI screen.</li>
+      </ul>
+    </div>
 
-      <div class="guide-section">
-        <h3>Step 1: Check the PLC output LED first</h3>
-        <p class="description">
+    <div class="step-grid">
+      <div class="guide-step">
+        <div class="step-label">Step 1</div>
+        <h3>Check the PLC output LED first</h3>
+        <p>
           This is one of the fastest ways to separate program-command issues from field-power issues. If the physical output LED on the PLC card or remote output module never turns on, the PLC may not actually be commanding the output.
         </p>
         <ul>
@@ -362,9 +503,10 @@
         </div>
       </div>
 
-      <div class="guide-section">
-        <h3>Step 2: Measure voltage at the PLC output terminal</h3>
-        <p class="description">
+      <div class="guide-step">
+        <div class="step-label">Step 2</div>
+        <h3>Measure voltage at the PLC output terminal</h3>
+        <p>
           Do not stop at the logic tag. Measure what the PLC output terminal is actually doing when the output is commanded on and off.
         </p>
         <ul>
@@ -380,9 +522,10 @@
         </div>
       </div>
 
-      <div class="guide-section">
-        <h3>Step 3: Verify field power and common return path</h3>
-        <p class="description">
+      <div class="guide-step">
+        <div class="step-label">Step 3</div>
+        <h3>Verify field power and common return path</h3>
+        <p>
           A PLC output can switch correctly and still do nothing if the load does not have usable power or return path. This is one of the most common output troubleshooting misses.
         </p>
         <ul>
@@ -397,9 +540,10 @@
         </div>
       </div>
 
-      <div class="guide-section">
-        <h3>Step 4: Check relays, contactors, and interface hardware</h3>
-        <p class="description">
+      <div class="guide-step">
+        <div class="step-label">Step 4</div>
+        <h3>Check relays, contactors, and interface hardware</h3>
+        <p>
           Many PLC outputs do not drive the real device directly. They often energize an interposing relay, motor starter coil, contactor, or valve manifold output first.
         </p>
         <ul>
@@ -410,9 +554,10 @@
         </ul>
       </div>
 
-      <div class="guide-section">
-        <h3>Step 5: Verify the load itself can actuate</h3>
-        <p class="description">
+      <div class="guide-step">
+        <div class="step-label">Step 5</div>
+        <h3>Verify the load itself can actuate</h3>
+        <p>
           If the output and field power look correct, the problem may be the real load. Solenoids, valves, contactors, and other devices can fail mechanically or electrically.
         </p>
         <ul>
@@ -423,9 +568,10 @@
         </ul>
       </div>
 
-      <div class="guide-section">
-        <h3>Step 6: If the output is commanded but does not stay on</h3>
-        <p class="description">
+      <div class="guide-step">
+        <div class="step-label">Step 6</div>
+        <h3>If the output is commanded but does not stay on</h3>
+        <p>
           This usually points toward logic conditions, permissives, safety resets, or unstable machine state rather than pure field wiring.
         </p>
         <ul>
@@ -441,9 +587,10 @@
         </div>
       </div>
 
-      <div class="guide-section">
-        <h3>Step 7: Treat intermittent outputs differently</h3>
-        <p class="description">
+      <div class="guide-step">
+        <div class="step-label">Step 7</div>
+        <h3>Treat intermittent outputs differently</h3>
+        <p>
           If the output works sometimes, suspect loose terminals, weak power, vibration, heating components, relay wear, or load-side problems that only appear under certain conditions.
         </p>
         <ul>
@@ -458,9 +605,10 @@
         </div>
       </div>
 
-      <div class="guide-section">
-        <h3>Step 8: Use the right next tool</h3>
-        <p class="description">
+      <div class="guide-step">
+        <div class="step-label">Step 8</div>
+        <h3>Use the right next tool</h3>
+        <p>
           Once you know whether the problem is logic, field power, output hardware, or the real load, move into the right page instead of guessing.
         </p>
 
@@ -469,108 +617,105 @@
           <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'plc_guide_bottom'});">PLC Troubleshooting Guide</a>
           <a href="/voltage-drop.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'voltage_drop_bottom'});">Voltage Drop</a>
           <a href="/wire-size-calculator.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'wire_size_bottom'});">Wire Size Calculator</a>
-          <a href="/plc-electrical.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'plc_electrical_bottom'});">PLC & Electrical Hub</a>
+          <a href="/plc-electrical.html" onclick="gtag('event','plc_outputs_internal_click',{'target':'plc_electrical_bottom'});">PLC &amp; Electrical Hub</a>
         </div>
       </div>
-
-      <div class="cta-box">
-        <h3>What should you check next?</h3>
-        <p>
-          Once you know whether the issue is command logic, field power, or load-side actuation, move into the next page that matches the symptom. That is the fastest way to isolate the real root cause.
-        </p>
-        <div class="internal-links" style="justify-content:center;">
-          <a href="/voltage-drop.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'voltage_drop_next'});">Verify Voltage Drop</a>
-          <a href="/wire-gauge-amps.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'wire_gauge_next'});">Check Wire Sizing</a>
-          <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_troubleshooter_next'});">Use the PLC Troubleshooter</a>
-        </div>
-      </div>
-
-      <div class="guide-section" style="border-bottom:none; padding-bottom:0; margin-bottom:0;">
-        <h3>Related PLC & Electrical Tools</h3>
-        <div class="internal-links">
-          <a href="/plc-inputs-not-working.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_inputs'});">PLC Inputs Not Working</a>
-          <a href="/analog-scaling.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'analog_scaling'});">Analog Scaling Calculator</a>
-          <a href="/reference-charts.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'reference_charts'});">Electrical Reference Charts</a>
-          <a href="/plc-electrical.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_electrical_hub'});">PLC & Electrical Hub</a>
-        </div>
-      </div>
-
-      <div class="cta-box">
-        <h3>Working on a real machine issue?</h3>
-        <p>
-          If you're dealing with a live machine problem, you can get help applying this directly to your system.
-        </p>
-        <a href="/automation-help.html" onclick="gtag('event','lead_cta',{'source':'plc_outputs'});">Get Help With My System</a>
-        <a href="/integrators.html" onclick="gtag('event','plc_outputs_cta_click',{'target':'integrators'});">Find an Integrator</a>
-      </div>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators and guides for real automation work
-      </div>
-
     </div>
 
-    <div>
-
-      <div class="sidebar-card">
-        <h3>Common output symptoms</h3>
-        <ul>
-          <li>PLC output LED is on but the device does not actuate</li>
-          <li>Output point never turns on</li>
-          <li>Contactor or solenoid clicks sometimes but not always</li>
-          <li>Relay energizes but the load still does not run</li>
-          <li>HMI says output is on, but nothing happens in the machine</li>
-          <li>Output works only intermittently</li>
-        </ul>
+    <div class="cta-box">
+      <h3>What should you check next?</h3>
+      <p>
+        Once you know whether the issue is command logic, field power, or load-side actuation, move into the next page that matches the symptom. That is the fastest way to isolate the real root cause.
+      </p>
+      <div class="internal-links" style="justify-content:center;">
+        <a href="/voltage-drop.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'voltage_drop_next'});">Verify Voltage Drop</a>
+        <a href="/wire-gauge-amps.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'wire_gauge_next'});">Check Wire Sizing</a>
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_troubleshooter_next'});">Use the PLC Troubleshooter</a>
       </div>
-
-      <div class="sidebar-card">
-        <h3>Best companion pages</h3>
-        <div class="link-list">
-          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'plc_troubleshooter'});">PLC Troubleshooter</a>
-          <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'plc_guide'});">PLC Troubleshooting Guide</a>
-          <a href="/voltage-drop.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'voltage_drop'});">Voltage Drop Calculator</a>
-          <a href="/wire-size-calculator.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'wire_size'});">Wire Size Calculator</a>
-          <a href="/plc-electrical.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'plc_electrical'});">PLC & Electrical Hub</a>
-        </div>
-      </div>
-
-      <div class="sidebar-card">
-        <h3>Typical root causes</h3>
-        <ul>
-          <li>PLC output never actually commanded on</li>
-          <li>Missing field power or common return</li>
-          <li>Blown fuse or tripped protection</li>
-          <li>Failed relay, contactor, or interposing hardware</li>
-          <li>Broken wire or loose output terminal</li>
-          <li>Load coil or actuator failure</li>
-          <li>Intermittent logic, safety, or power condition</li>
-        </ul>
-      </div>
-
-      <div class="sidebar-card">
-        <h3>Use this page when:</h3>
-        <ul>
-          <li>A commanded PLC output is not producing real machine action</li>
-          <li>You need to separate PLC command problems from load-side problems</li>
-          <li>You want a targeted output troubleshooting guide</li>
-          <li>You want to move from output symptoms into the right tools fast</li>
-        </ul>
-      </div>
-
     </div>
-
   </div>
-</div>
+</section>
+
+<section class="section">
+  <div class="grid-3">
+    <div class="mini-card">
+      <h3>Typical root causes</h3>
+      <ul>
+        <li>PLC output never actually commanded on</li>
+        <li>Missing field power or common return</li>
+        <li>Blown fuse or tripped protection</li>
+        <li>Failed relay, contactor, or interposing hardware</li>
+        <li>Broken wire or loose output terminal</li>
+        <li>Load coil or actuator failure</li>
+        <li>Intermittent logic, safety, or power condition</li>
+      </ul>
+    </div>
+
+    <div class="mini-card">
+      <h3>Use this page when</h3>
+      <ul>
+        <li>A commanded PLC output is not producing real machine action</li>
+        <li>You need to separate PLC command problems from load-side problems</li>
+        <li>You want a targeted output troubleshooting guide</li>
+        <li>You want to move from output symptoms into the right tools fast</li>
+      </ul>
+    </div>
+
+    <div class="mini-card">
+      <h3>Best companion pages</h3>
+      <div class="internal-links" style="margin-top:0;">
+        <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+        <a href="/plc-troubleshooting-guide.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'plc_guide'});">PLC Troubleshooting Guide</a>
+        <a href="/voltage-drop.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'voltage_drop'});">Voltage Drop Calculator</a>
+        <a href="/wire-size-calculator.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'wire_size'});">Wire Size Calculator</a>
+        <a href="/plc-electrical.html" onclick="gtag('event','plc_outputs_sidebar_click',{'target':'plc_electrical'});">PLC &amp; Electrical Hub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="grid-2">
+    <div class="card">
+      <h2>Related PLC &amp; Electrical Tools</h2>
+      <p class="section-intro">
+        These pages work together and help keep output troubleshooting tied into the rest of the controls system.
+      </p>
+
+      <div class="internal-links">
+        <a href="/plc-inputs-not-working.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_inputs'});">PLC Inputs Not Working</a>
+        <a href="/analog-scaling.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'analog_scaling'});">Analog Scaling Calculator</a>
+        <a href="/reference-charts.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'reference_charts'});">Electrical Reference Charts</a>
+        <a href="/plc-electrical.html" onclick="gtag('event','internal_link',{'from':'plc_outputs','to':'plc_electrical_hub'});">PLC &amp; Electrical Hub</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Working on a real machine issue?</h2>
+      <p class="section-intro">
+        If you're dealing with a live machine problem, use the support path below and move straight into help that matches the real system.
+      </p>
+
+      <div class="hero-actions" style="margin-top:0;">
+        <a href="/automation-help.html" class="btn btn-primary" onclick="gtag('event','lead_cta',{'source':'plc_outputs'});">Get Help With My System</a>
+        <a href="/integrators.html" class="btn btn-secondary" onclick="gtag('event','plc_outputs_cta_click',{'target':'integrators'});">Find an Integrator</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Automation Engineering Tools • Practical calculators and guides for real automation work
+  </div>
+</section>
 
 <script>
-  fetch("navbar.html")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
-      document.getElementById("navbar").innerHTML = data;
+      document.getElementById('navbar').innerHTML = data;
     })
     .catch(error => {
-      console.error("Navbar failed to load:", error);
+      console.error('Navbar failed to load:', error);
     });
 </script>
 
