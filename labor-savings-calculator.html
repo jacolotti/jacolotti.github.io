@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/labor-savings-calculator.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Labor Savings Calculator | Annual Labor Cost Reduction for Automation</title>
+  <meta name="description" content="Calculate annual labor savings from automation based on hours saved, labor rate, shifts, and operating days. Practical tool for automation ROI and project justification.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#dbe3ee;
+      --blue:#0f4c81;
+      --blue-dark:#0b3a61;
+      --blue-soft:#eaf3fb;
+      --green:#dff4e8;
+      --green-border:#b9e2c8;
+      --warn:#fff4d6;
+      --warn-border:#efd58b;
+      --shadow:0 10px 30px rgba(15, 76, 129, 0.08);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      color:var(--blue);
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    .hero{
+      background:linear-gradient(135deg, #0f4c81 0%, #1467a8 100%);
+      color:#fff;
+      padding:56px 20px 42px;
+    }
+
+    .hero-inner{
+      max-width:1150px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.3fr 0.9fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.25rem;
+      line-height:1.15;
+    }
+
+    .hero p{
+      margin:0 0 16px;
+      font-size:1.05rem;
+      max-width:760px;
+      color:rgba(255,255,255,0.94);
+    }
+
+    .hero-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 0;
+    }
+
+    .hero-badges span{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.22);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:0.92rem;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.1);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:20px;
+      padding:22px;
+      box-shadow:0 12px 35px rgba(0,0,0,0.12);
+    }
+
+    .hero-card h3{
+      margin:0 0 10px;
+      font-size:1.15rem;
+    }
+
+    .hero-card ul{
+      margin:0;
+      padding-left:20px;
+      color:rgba(255,255,255,0.95);
+    }
+
+    .hero-card li{
+      margin-bottom:10px;
+    }
+
+    .container{
+      max-width:1150px;
+      margin:0 auto;
+      padding:34px 20px 60px;
+    }
+
+    .section{
+      margin-bottom:26px;
+    }
+
+    .section-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px;
+    }
+
+    .section-card h2{
+      margin-top:0;
+      margin-bottom:12px;
+      font-size:1.7rem;
+      color:var(--blue-dark);
+    }
+
+    .description{
+      color:var(--muted);
+      font-size:1rem;
+      margin-bottom:14px;
+    }
+
+    .calculator-layout{
+      display:grid;
+      grid-template-columns:1.05fr 0.95fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .calc-panel{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .calc-panel h3{
+      margin:0 0 14px;
+      color:var(--blue-dark);
+      font-size:1.15rem;
+    }
+
+    .field{
+      margin-bottom:14px;
+    }
+
+    .field label{
+      display:block;
+      font-weight:700;
+      margin-bottom:6px;
+      color:var(--text);
+    }
+
+    .field input{
+      width:100%;
+      padding:12px 13px;
+      border:1px solid #cfd9e5;
+      border-radius:10px;
+      font-size:1rem;
+      background:#fff;
+    }
+
+    .field input:focus{
+      outline:none;
+      border-color:#78a9d4;
+      box-shadow:0 0 0 3px rgba(15,76,129,0.08);
+    }
+
+    .button-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+
+    button{
+      border:none;
+      border-radius:10px;
+      padding:12px 18px;
+      font-weight:700;
+      cursor:pointer;
+      font-size:0.98rem;
+    }
+
+    .primary-btn{
+      background:var(--blue);
+      color:#fff;
+    }
+
+    .primary-btn:hover{
+      background:var(--blue-dark);
+    }
+
+    .secondary-btn{
+      background:#edf4fb;
+      color:var(--blue-dark);
+    }
+
+    .secondary-btn:hover{
+      background:#e2eefb;
+    }
+
+    .result-panel{
+      background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .result-panel h3{
+      margin:0 0 14px;
+      color:var(--blue-dark);
+      font-size:1.15rem;
+    }
+
+    .result-box{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+      margin-bottom:12px;
+    }
+
+    .result-label{
+      color:var(--muted);
+      font-size:0.92rem;
+      margin-bottom:4px;
+    }
+
+    .result-value{
+      font-size:1.6rem;
+      font-weight:700;
+      color:var(--blue-dark);
+    }
+
+    .result-sub{
+      color:var(--muted);
+      font-size:0.96rem;
+      margin-top:4px;
+    }
+
+    .status-note{
+      margin-top:12px;
+      background:var(--green);
+      border:1px solid var(--green-border);
+      border-radius:14px;
+      padding:14px 16px;
+      color:#21543a;
+    }
+
+    .warning-note{
+      margin-top:12px;
+      background:var(--warn);
+      border:1px solid var(--warn-border);
+      border-radius:14px;
+      padding:14px 16px;
+      color:#6a5410;
+    }
+
+    .workflow{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:16px;
+      margin-top:22px;
+    }
+
+    .workflow-step{
+      background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+    }
+
+    .workflow-step .step-number{
+      display:inline-block;
+      width:34px;
+      height:34px;
+      line-height:34px;
+      text-align:center;
+      border-radius:50%;
+      background:var(--blue);
+      color:#fff;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .workflow-step h3{
+      margin:0 0 10px;
+      font-size:1.04rem;
+      color:var(--blue-dark);
+    }
+
+    .workflow-step p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:0.96rem;
+    }
+
+    .workflow-step a{
+      font-weight:700;
+    }
+
+    .tool-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .tool-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .tool-card h3{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--blue-dark);
+    }
+
+    .tool-card p{
+      margin:0 0 14px;
+      color:var(--muted);
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      background:#fff;
+      border:1px solid var(--line);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:700;
+    }
+
+    .cta-box{
+      margin-top:22px;
+      background:var(--blue-soft);
+      border:1px solid #cfe2f5;
+      border-radius:18px;
+      padding:24px;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:var(--blue-dark);
+    }
+
+    .cta-box p{
+      margin:0 0 14px;
+      color:#415166;
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+      padding:18px 20px 40px;
+    }
+
+    @media (max-width: 980px){
+      .hero-inner,
+      .calculator-layout,
+      .workflow,
+      .tool-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 700px){
+      .hero{
+        padding:42px 18px 36px;
+      }
+
+      .hero h1{
+        font-size:1.9rem;
+      }
+
+      .section-card,
+      .hero-card,
+      .calc-panel,
+      .result-panel{
+        padding:22px;
+      }
+
+      .container{
+        padding:24px 16px 50px;
+      }
+
+      .internal-links a,
+      .button-row button{
+        width:100%;
+        text-align:center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>Labor Savings Calculator</h1>
+        <p>
+          Estimate annual labor savings from automation based on hours saved, labor rate,
+          shifts, and operating days. Use this tool to support project justification with
+          a more realistic labor reduction estimate.
+        </p>
+        <div class="hero-badges">
+          <span>Hours Saved</span>
+          <span>Labor Rate</span>
+          <span>Annual Savings</span>
+          <span>ROI Support</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Best use of this page</h3>
+        <ul>
+          <li>Estimate yearly savings from reduced manual labor.</li>
+          <li>Support automation justification for loading, unloading, inspection, or handling.</li>
+          <li>Convert time savings into annual labor cost impact.</li>
+          <li>Feed labor savings into ROI and break-even analysis.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <section class="section">
+      <div class="section-card">
+        <h2>What this calculator does</h2>
+        <p class="description">
+          This calculator estimates annual labor savings by multiplying hours saved per shift by labor rate, shifts per day, and operating days per year. It gives you a practical yearly savings number to use in automation planning and ROI work.
+        </p>
+        <p class="description">
+          This is most useful when a project reduces operator touch time, manual machine tending, repetitive loading and unloading, secondary inspection work, or other labor-heavy tasks. Use realistic time savings, not best-case assumptions.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Calculate labor savings</h2>
+
+        <div class="calculator-layout">
+          <div class="calc-panel">
+            <h3>Labor inputs</h3>
+
+            <div class="field">
+              <label for="hoursSaved">Hours saved per shift</label>
+              <input type="number" id="hoursSaved" placeholder="Example: 2.5" step="0.01">
+            </div>
+
+            <div class="field">
+              <label for="laborRate">Loaded labor rate ($/hour)</label>
+              <input type="number" id="laborRate" placeholder="Example: 28" step="0.01">
+            </div>
+
+            <div class="field">
+              <label for="shiftsPerDay">Shifts per day</label>
+              <input type="number" id="shiftsPerDay" placeholder="Example: 2" step="0.01">
+            </div>
+
+            <div class="field">
+              <label for="daysPerYear">Operating days per year</label>
+              <input type="number" id="daysPerYear" placeholder="Example: 250" step="0.01">
+            </div>
+
+            <div class="button-row">
+              <button class="primary-btn" onclick="calculateLaborSavings()">Calculate Labor Savings</button>
+              <button class="secondary-btn" onclick="clearLaborSavings()">Clear</button>
+            </div>
+          </div>
+
+          <div class="result-panel">
+            <h3>Results</h3>
+
+            <div class="result-box">
+              <div class="result-label">Daily labor savings</div>
+              <div class="result-value" id="dailySavingsResult">$0</div>
+              <div class="result-sub">Hours saved × labor rate × shifts per day</div>
+            </div>
+
+            <div class="result-box">
+              <div class="result-label">Annual labor savings</div>
+              <div class="result-value" id="annualSavingsResult">$0</div>
+              <div class="result-sub">Daily labor savings × operating days per year</div>
+            </div>
+
+            <div class="result-box">
+              <div class="result-label">Annual hours saved</div>
+              <div class="result-value" id="annualHoursResult">0 hrs</div>
+              <div class="result-sub">Hours saved per shift × shifts per day × days per year</div>
+            </div>
+
+            <div id="messageArea" class="warning-note">
+              Enter labor inputs to calculate annual savings.
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <h3>Use loaded labor rate, not just base wage</h3>
+          <p>
+            For better justification, use a rate that reflects the true cost of labor, not just hourly pay. In many cases that includes benefits, taxes, overtime burden, supervision, or support cost.
+          </p>
+          <div class="internal-links">
+            <a href="/automation-roi.html" onclick="gtag('event','internal_link',{'from':'labor_savings','to':'automation_roi'});">Use in ROI Calculator</a>
+            <a href="/break-even-calculator.html" onclick="gtag('event','internal_link',{'from':'labor_savings','to':'break_even'});">Use in Break-Even Calculator</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Recommended ROI workflow</h2>
+        <p class="description">
+          Labor savings is usually one part of a stronger justification. This is the best order for most automation project planning.
+        </p>
+
+        <div class="workflow">
+          <div class="workflow-step">
+            <div class="step-number">1</div>
+            <h3>Check downtime cost</h3>
+            <p>
+              If the project also reduces downtime, estimate that cost first.
+            </p>
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','workflow_click',{'page':'labor_savings','step':'downtime_cost'});">Open Downtime Cost Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">2</div>
+            <h3>Estimate labor savings</h3>
+            <p>
+              Calculate yearly labor reduction using realistic saved hours and labor rate.
+            </p>
+            <a href="/labor-savings-calculator.html" onclick="gtag('event','workflow_click',{'page':'labor_savings','step':'labor_savings'});">Use This Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">3</div>
+            <h3>Calculate ROI</h3>
+            <p>
+              Combine labor savings with other project benefits to estimate return on investment.
+            </p>
+            <a href="/automation-roi.html" onclick="gtag('event','workflow_click',{'page':'labor_savings','step':'automation_roi'});">Open ROI Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">4</div>
+            <h3>Check break-even timing</h3>
+            <p>
+              Review how long the project takes to recover its cost.
+            </p>
+            <a href="/break-even-calculator.html" onclick="gtag('event','workflow_click',{'page':'labor_savings','step':'break_even'});">Open Break-Even Calculator</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Related ROI tools</h2>
+        <p class="description">
+          This page works best when it is connected to the rest of your ROI section instead of standing alone.
+        </p>
+
+        <div class="tool-grid">
+          <div class="tool-card">
+            <h3>Downtime Cost Calculator</h3>
+            <p>
+              Estimate current production loss and machine downtime cost to strengthen justification.
+            </p>
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','tool_open',{'from':'labor_savings','tool':'downtime_cost'});">Open calculator</a>
+          </div>
+
+          <div class="tool-card">
+            <h3>Automation ROI Calculator</h3>
+            <p>
+              Combine project cost and annual savings to estimate return on investment.
+            </p>
+            <a href="/automation-roi.html" onclick="gtag('event','tool_open',{'from':'labor_savings','tool':'automation_roi'});">Open calculator</a>
+          </div>
+
+          <div class="tool-card">
+            <h3>Break-Even Calculator</h3>
+            <p>
+              Review how long it takes for project savings to recover the original investment.
+            </p>
+            <a href="/break-even-calculator.html" onclick="gtag('event','tool_open',{'from':'labor_savings','tool':'break_even'});">Open calculator</a>
+          </div>
+        </div>
+
+        <div class="internal-links">
+          <a href="/roi.html" onclick="gtag('event','internal_link',{'from':'labor_savings','to':'roi_hub'});">ROI Hub</a>
+          <a href="/downtime-cost-calculator.html" onclick="gtag('event','internal_link',{'from':'labor_savings','to':'downtime_cost'});">Downtime Cost</a>
+          <a href="/automation-roi.html" onclick="gtag('event','internal_link',{'from':'labor_savings','to':'automation_roi'});">Automation ROI</a>
+          <a href="/break-even-calculator.html" onclick="gtag('event','internal_link',{'from':'labor_savings','to':'break_even'});">Break-Even</a>
+          <a href="/problem-solver.html" onclick="gtag('event','internal_link',{'from':'labor_savings','to':'problem_solver'});">Problem Solver</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>What the result means</h2>
+        <p class="description">
+          This number estimates direct annual labor cost reduction. It does not automatically mean headcount is removed, but it does quantify the labor capacity created by the improvement. That can still be very valuable if operators are being reassigned to other needed work.
+        </p>
+        <p class="description">
+          This page is strongest when labor savings is treated honestly. If the time saved cannot actually be recovered in the real process, the projected savings may be overstated. Use realistic assumptions tied to actual cycle and staffing behavior.
+        </p>
+
+        <div class="cta-box">
+          <h3>Build your labor-based justification in order</h3>
+          <p>
+            The strongest flow is:
+            <strong>Downtime Cost → Labor Savings → ROI → Break-Even</strong>.
+            That gives you a more credible explanation than using labor savings alone.
+          </p>
+          <div class="internal-links">
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','final_flow_click',{'page':'labor_savings','target':'downtime_cost'});">1. Downtime Cost</a>
+            <a href="/automation-roi.html" onclick="gtag('event','final_flow_click',{'page':'labor_savings','target':'automation_roi'});">2. ROI</a>
+            <a href="/break-even-calculator.html" onclick="gtag('event','final_flow_click',{'page':'labor_savings','target':'break_even'});">3. Break-Even</a>
+            <a href="/roi.html" onclick="gtag('event','final_flow_click',{'page':'labor_savings','target':'roi_hub'});">4. ROI Hub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators and guides for real automation project planning
+  </div>
+
+  <script>
+    function formatCurrency(value){
+      return '$' + value.toLocaleString(undefined, {maximumFractionDigits:2});
+    }
+
+    function calculateLaborSavings(){
+      const hoursSaved = parseFloat(document.getElementById('hoursSaved').value) || 0;
+      const laborRate = parseFloat(document.getElementById('laborRate').value) || 0;
+      const shiftsPerDay = parseFloat(document.getElementById('shiftsPerDay').value) || 0;
+      const daysPerYear = parseFloat(document.getElementById('daysPerYear').value) || 0;
+
+      const dailySavings = hoursSaved * laborRate * shiftsPerDay;
+      const annualSavings = dailySavings * daysPerYear;
+      const annualHours = hoursSaved * shiftsPerDay * daysPerYear;
+
+      document.getElementById('dailySavingsResult').textContent = formatCurrency(dailySavings);
+      document.getElementById('annualSavingsResult').textContent = formatCurrency(annualSavings);
+      document.getElementById('annualHoursResult').textContent =
+        annualHours.toLocaleString(undefined, {maximumFractionDigits:2}) + ' hrs';
+
+      const messageArea = document.getElementById('messageArea');
+
+      if(hoursSaved <= 0 || laborRate <= 0 || shiftsPerDay <= 0 || daysPerYear <= 0){
+        messageArea.className = 'warning-note';
+        messageArea.textContent = 'Enter values greater than zero in all fields to calculate labor savings.';
+      } else if(annualSavings > 0){
+        messageArea.className = 'status-note';
+        messageArea.textContent = 'This project shows positive annual labor savings. Use this result in the ROI and break-even calculators next.';
+      } else {
+        messageArea.className = 'warning-note';
+        messageArea.textContent = 'Recheck your assumptions. The current values do not produce meaningful annual labor savings.';
+      }
+
+      gtag('event','calculator_use',{
+        page:'labor_savings',
+        tool:'labor_savings',
+        hours_saved_per_shift:hoursSaved,
+        labor_rate:laborRate,
+        shifts_per_day:shiftsPerDay,
+        days_per_year:daysPerYear
+      });
+    }
+
+    function clearLaborSavings(){
+      document.getElementById('hoursSaved').value = '';
+      document.getElementById('laborRate').value = '';
+      document.getElementById('shiftsPerDay').value = '';
+      document.getElementById('daysPerYear').value = '';
+
+      document.getElementById('dailySavingsResult').textContent = '$0';
+      document.getElementById('annualSavingsResult').textContent = '$0';
+      document.getElementById('annualHoursResult').textContent = '0 hrs';
+
+      const messageArea = document.getElementById('messageArea');
+      messageArea.className = 'warning-note';
+      messageArea.textContent = 'Enter labor inputs to calculate annual savings.';
+    }
+  </script>
+
+  <script>
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+  </script>
+</body>
+</html>
