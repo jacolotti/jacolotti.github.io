@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/roi.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>ROI & Planning Hub | Automation ROI, Downtime Cost, Break-Even, Labor Savings</title>
+  <meta name="description" content="Automation ROI and planning tools for estimating project payback, downtime cost, labor savings, and break-even timing. Use this hub to evaluate automation project value with a practical engineering workflow.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#dbe3ee;
+      --blue:#0f4c81;
+      --blue-dark:#0b3a61;
+      --blue-soft:#eaf3fb;
+      --green:#dff4e8;
+      --green-border:#b9e2c8;
+      --shadow:0 10px 30px rgba(15, 76, 129, 0.08);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      color:var(--blue);
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+    }
+
+    .hero{
+      background:linear-gradient(135deg, #0f4c81 0%, #1467a8 100%);
+      color:#fff;
+      padding:56px 20px 48px;
+    }
+
+    .hero-inner{
+      max-width:1150px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.35fr 0.95fr;
+      gap:28px;
+      align-items:center;
+    }
+
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.3rem;
+      line-height:1.15;
+    }
+
+    .hero p{
+      margin:0 0 16px;
+      font-size:1.05rem;
+      max-width:760px;
+      color:rgba(255,255,255,0.94);
+    }
+
+    .hero-badges{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:18px 0 22px;
+    }
+
+    .hero-badges span{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.22);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:0.92rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:10px;
+      font-weight:700;
+      transition:0.2s ease;
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:var(--blue-dark);
+    }
+
+    .btn-primary:hover{
+      background:#eef6ff;
+      text-decoration:none;
+    }
+
+    .btn-secondary{
+      border:1px solid rgba(255,255,255,0.35);
+      color:#fff;
+      background:rgba(255,255,255,0.08);
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.16);
+      text-decoration:none;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.1);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:20px;
+      padding:22px;
+      box-shadow:0 12px 35px rgba(0,0,0,0.12);
+    }
+
+    .hero-card h3{
+      margin-top:0;
+      margin-bottom:10px;
+      font-size:1.15rem;
+    }
+
+    .hero-card ul{
+      margin:0;
+      padding-left:20px;
+      color:rgba(255,255,255,0.95);
+    }
+
+    .hero-card li{
+      margin-bottom:10px;
+    }
+
+    .container{
+      max-width:1150px;
+      margin:0 auto;
+      padding:34px 20px 60px;
+    }
+
+    .section{
+      margin-bottom:26px;
+    }
+
+    .section-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px;
+    }
+
+    .section-card h2{
+      margin-top:0;
+      margin-bottom:12px;
+      font-size:1.7rem;
+      color:var(--blue-dark);
+    }
+
+    .description{
+      color:var(--muted);
+      font-size:1rem;
+      margin-bottom:14px;
+    }
+
+    .workflow{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:16px;
+      margin-top:22px;
+    }
+
+    .workflow-step{
+      background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+    }
+
+    .workflow-step .step-number{
+      display:inline-block;
+      width:34px;
+      height:34px;
+      line-height:34px;
+      text-align:center;
+      border-radius:50%;
+      background:var(--blue);
+      color:#fff;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .workflow-step h3{
+      margin:0 0 10px;
+      font-size:1.06rem;
+      color:var(--blue-dark);
+    }
+
+    .workflow-step p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:0.96rem;
+    }
+
+    .workflow-step a{
+      font-weight:700;
+    }
+
+    .tool-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .tool-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+      transition:transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .tool-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 12px 25px rgba(15,76,129,0.08);
+    }
+
+    .tool-card h3{
+      margin:0 0 10px;
+      font-size:1.15rem;
+      color:var(--blue-dark);
+    }
+
+    .tool-card p{
+      margin:0 0 14px;
+      color:var(--muted);
+    }
+
+    .tool-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .tool-links a{
+      font-weight:700;
+    }
+
+    .guide-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .guide-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .guide-card h3{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--blue-dark);
+    }
+
+    .guide-card p{
+      margin:0 0 14px;
+      color:var(--muted);
+    }
+
+    .system-map{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .system-box{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .system-box h3{
+      margin:0 0 10px;
+      color:var(--blue-dark);
+      font-size:1.08rem;
+    }
+
+    .system-box p{
+      margin:0 0 12px;
+      color:var(--muted);
+    }
+
+    .system-box ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .system-box li{
+      margin-bottom:8px;
+    }
+
+    .cta-box{
+      margin-top:22px;
+      background:var(--blue-soft);
+      border:1px solid #cfe2f5;
+      border-radius:18px;
+      padding:24px;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:var(--blue-dark);
+    }
+
+    .cta-box p{
+      margin:0 0 14px;
+      color:#415166;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      background:#fff;
+      border:1px solid var(--line);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:700;
+    }
+
+    .note{
+      margin-top:16px;
+      background:var(--green);
+      border:1px solid var(--green-border);
+      border-radius:14px;
+      padding:16px 18px;
+      color:#21543a;
+    }
+
+    .note strong{
+      color:#173f2c;
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+      padding:18px 20px 40px;
+    }
+
+    @media (max-width: 980px){
+      .hero-inner,
+      .workflow,
+      .guide-grid,
+      .system-map{
+        grid-template-columns:1fr;
+      }
+
+      .tool-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 700px){
+      .hero{
+        padding:42px 18px 36px;
+      }
+
+      .hero h1{
+        font-size:1.9rem;
+      }
+
+      .section-card,
+      .hero-card{
+        padding:22px;
+      }
+
+      .container{
+        padding:24px 16px 50px;
+      }
+
+      .internal-links a{
+        width:100%;
+        text-align:center;
+      }
+
+      .hero-actions .btn{
+        width:100%;
+        text-align:center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>ROI & Planning Hub</h1>
+        <p>
+          Use this hub to estimate the business value of automation projects by checking ROI,
+          downtime cost, labor savings, and break-even timing. This section is built to help
+          engineers and decision-makers evaluate whether a project makes financial sense before money gets committed.
+        </p>
+        <div class="hero-badges">
+          <span>Automation ROI</span>
+          <span>Downtime Cost</span>
+          <span>Labor Savings</span>
+          <span>Break-Even Timing</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#workflow" onclick="gtag('event','hub_cta',{'page':'roi_hub','location':'hero','action':'start_workflow'});">Start Recommended Workflow</a>
+          <a class="btn btn-secondary" href="#tools" onclick="gtag('event','hub_cta',{'page':'roi_hub','location':'hero','action':'view_tools'});">View ROI Tools</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>Best use of this page</h3>
+        <ul>
+          <li>Estimate whether an automation project is worth pursuing financially.</li>
+          <li>Calculate the cost of downtime in practical production terms.</li>
+          <li>Quantify labor savings and expected payback.</li>
+          <li>Check how long it takes for a project to break even.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+    <section class="section">
+      <div class="section-card">
+        <h2>What this hub is for</h2>
+        <p class="description">
+          Automation projects are often justified with vague claims like “it will save labor” or “it should pay for itself.” That is weak planning. This hub is designed to force clearer thinking by breaking project value into measurable pieces: downtime cost, labor savings, project ROI, and payback timing.
+        </p>
+        <p class="description">
+          Instead of jumping straight to one ROI number, this page organizes the tools in a more realistic order. That gives a better picture of whether a project is financially justified and what assumptions are driving the answer.
+        </p>
+
+        <div class="note">
+          <strong>Recommended approach:</strong> start by understanding the actual cost of the current problem, then estimate expected savings, then calculate ROI, and finally check break-even timing. That sequence is far more useful than guessing at payback first.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="section-card">
+        <h2>Recommended ROI workflow</h2>
+        <p class="description">
+          This is the cleanest path for most automation project reviews, especially when you are trying to justify downtime reduction, labor reduction, or overall process improvement.
+        </p>
+
+        <div class="workflow">
+          <div class="workflow-step">
+            <div class="step-number">1</div>
+            <h3>Calculate downtime cost</h3>
+            <p>
+              Start by estimating what the current problem is really costing in lost production, labor, scrap, or disruption.
+            </p>
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','workflow_click',{'page':'roi_hub','step':'downtime_cost'});">Open Downtime Cost Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">2</div>
+            <h3>Estimate labor savings</h3>
+            <p>
+              If the project changes staffing, manual handling, or operator involvement, estimate those savings next.
+            </p>
+            <a href="/labor-savings-calculator.html" onclick="gtag('event','workflow_click',{'page':'roi_hub','step':'labor_savings'});">Open Labor Savings Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">3</div>
+            <h3>Calculate automation ROI</h3>
+            <p>
+              Combine project cost and expected benefits to estimate the overall return on the investment.
+            </p>
+            <a href="/automation-roi.html" onclick="gtag('event','workflow_click',{'page':'roi_hub','step':'roi'});">Open Automation ROI Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">4</div>
+            <h3>Check break-even timing</h3>
+            <p>
+              Review how long it takes for the project savings to cover the investment and reach payback.
+            </p>
+            <a href="/break-even-calculator.html" onclick="gtag('event','workflow_click',{'page':'roi_hub','step':'break_even'});">Open Break-Even Calculator</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="section-card">
+        <h2>ROI and planning calculators</h2>
+        <p class="description">
+          These are the core tools for evaluating project value. Used together, they tell a much better story than any one calculator on its own.
+        </p>
+
+        <div class="tool-grid">
+          <div class="tool-card">
+            <h3>Downtime Cost Calculator</h3>
+            <p>
+              Estimate the cost of machine downtime, lost production, or process interruptions to understand the value of fixing the current problem.
+            </p>
+            <div class="tool-links">
+              <a href="/downtime-cost-calculator.html" onclick="gtag('event','tool_open',{'from':'roi_hub','tool':'downtime_cost'});">Open calculator</a>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Labor Savings Calculator</h3>
+            <p>
+              Estimate labor reduction and staffing-related savings for projects involving automation, improved handling, or reduced manual work.
+            </p>
+            <div class="tool-links">
+              <a href="/labor-savings-calculator.html" onclick="gtag('event','tool_open',{'from':'roi_hub','tool':'labor_savings'});">Open calculator</a>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Automation ROI Calculator</h3>
+            <p>
+              Estimate how much return a project generates compared with its total investment cost.
+            </p>
+            <div class="tool-links">
+              <a href="/automation-roi.html" onclick="gtag('event','tool_open',{'from':'roi_hub','tool':'automation_roi'});">Open calculator</a>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Break-Even Calculator</h3>
+            <p>
+              Check how long it takes for project savings to recover the initial cost and move into positive value.
+            </p>
+            <div class="tool-links">
+              <a href="/break-even-calculator.html" onclick="gtag('event','tool_open',{'from':'roi_hub','tool':'break_even'});">Open calculator</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <h3>Trying to justify a real automation project?</h3>
+          <p>
+            Do not start by throwing out one big ROI percentage. First define the current cost, then estimate the savings, then calculate ROI, and then show how quickly the project reaches payback.
+          </p>
+          <div class="internal-links">
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','hub_internal_link',{'from':'roi_hub','to':'downtime_cost'});">Start with Downtime Cost</a>
+            <a href="/labor-savings-calculator.html" onclick="gtag('event','hub_internal_link',{'from':'roi_hub','to':'labor_savings'});">Then Check Labor Savings</a>
+            <a href="/automation-roi.html" onclick="gtag('event','hub_internal_link',{'from':'roi_hub','to':'automation_roi'});">Then Calculate ROI</a>
+            <a href="/break-even-calculator.html" onclick="gtag('event','hub_internal_link',{'from':'roi_hub','to':'break_even'});">Then Review Break-Even</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Use cases by problem type</h2>
+        <p class="description">
+          If you already know the business question you are trying to answer, use these paths to choose the best starting point.
+        </p>
+
+        <div class="system-map">
+          <div class="system-box">
+            <h3>Need to justify fixing downtime</h3>
+            <p>
+              If the main problem is machine stoppage, lost output, or repeated interruptions, start by quantifying the real financial impact of downtime.
+            </p>
+            <ul>
+              <li><a href="/downtime-cost-calculator.html" onclick="gtag('event','symptom_path',{'page':'roi_hub','path':'downtime_issue_downtime_cost'});">Check downtime cost first</a></li>
+              <li><a href="/automation-roi.html" onclick="gtag('event','symptom_path',{'page':'roi_hub','path':'downtime_issue_roi'});">Then calculate project ROI</a></li>
+              <li><a href="/break-even-calculator.html" onclick="gtag('event','symptom_path',{'page':'roi_hub','path':'downtime_issue_break_even'});">Then review payback timing</a></li>
+            </ul>
+          </div>
+
+          <div class="system-box">
+            <h3>Need to justify labor reduction</h3>
+            <p>
+              If the project is meant to reduce operator time, manual loading, or repetitive labor, start by estimating labor-related savings clearly.
+            </p>
+            <ul>
+              <li><a href="/labor-savings-calculator.html" onclick="gtag('event','symptom_path',{'page':'roi_hub','path':'labor_issue_labor_savings'});">Check labor savings first</a></li>
+              <li><a href="/automation-roi.html" onclick="gtag('event','symptom_path',{'page':'roi_hub','path':'labor_issue_roi'});">Then calculate project ROI</a></li>
+              <li><a href="/break-even-calculator.html" onclick="gtag('event','symptom_path',{'page':'roi_hub','path':'labor_issue_break_even'});">Then review payback timing</a></li>
+            </ul>
+          </div>
+
+          <div class="system-box">
+            <h3>Need to know if the project is worth it</h3>
+            <p>
+              If the question is overall project value, pull together the major costs and benefits and then look at ROI plus time-to-payback.
+            </p>
+            <ul>
+              <li><a href="/automation-roi.html" onclick="gtag('event','symptom_path',{'page':'roi_hub','path':'worth_it_issue_roi'});">Calculate ROI first</a></li>
+              <li><a href="/break-even-calculator.html" onclick="gtag('event','symptom_path',{'page':'roi_hub','path':'worth_it_issue_break_even'});">Then check break-even timing</a></li>
+              <li><a href="/downtime-cost-calculator.html" onclick="gtag('event','symptom_path',{'page':'roi_hub','path':'worth_it_issue_downtime'});">Then validate the current problem cost</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>Good planning habit:</strong> weak ROI numbers usually come from weak assumptions. The more clearly you define downtime, labor, and project cost inputs, the more credible the final ROI becomes.
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Supporting ROI paths</h2>
+        <p class="description">
+          This section should work as a connected system. These internal links help users move through project justification in a practical order instead of bouncing around randomly.
+        </p>
+
+        <div class="guide-grid">
+          <div class="guide-card">
+            <h3>Downtime → Savings → ROI → Break-Even</h3>
+            <p>
+              This is the strongest workflow for most automation justification cases and project reviews.
+            </p>
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','guide_flow_click',{'from':'roi_hub','flow':'downtime_start'});">Start workflow</a>
+          </div>
+
+          <div class="guide-card">
+            <h3>Problem-first navigation</h3>
+            <p>
+              If the user is not sure which calculator fits, direct them into the problem finder first.
+            </p>
+            <a href="/problem-solver.html" onclick="gtag('event','guide_flow_click',{'from':'roi_hub','flow':'problem_solver'});">Open problem finder</a>
+          </div>
+
+          <div class="guide-card">
+            <h3>Payback after ROI</h3>
+            <p>
+              Break-even timing is more useful after the cost and savings assumptions have already been grounded.
+            </p>
+            <a href="/break-even-calculator.html" onclick="gtag('event','guide_flow_click',{'from':'roi_hub','flow':'break_even_after_roi'});">Open break-even calculator</a>
+          </div>
+        </div>
+
+        <div class="internal-links">
+          <a href="/downtime-cost-calculator.html" onclick="gtag('event','internal_link',{'from':'roi_hub','to':'downtime_cost'});">Downtime Cost Calculator</a>
+          <a href="/labor-savings-calculator.html" onclick="gtag('event','internal_link',{'from':'roi_hub','to':'labor_savings'});">Labor Savings Calculator</a>
+          <a href="/automation-roi.html" onclick="gtag('event','internal_link',{'from':'roi_hub','to':'automation_roi'});">Automation ROI Calculator</a>
+          <a href="/break-even-calculator.html" onclick="gtag('event','internal_link',{'from':'roi_hub','to':'break_even'});">Break-Even Calculator</a>
+          <a href="/problem-solver.html" onclick="gtag('event','internal_link',{'from':'roi_hub','to':'problem_solver'});">Problem Solver</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Where to go next</h2>
+        <p class="description">
+          This page should act as the main ROI and planning entry point. From here, users should be able to move naturally from problem cost to savings, ROI, and payback without weak links or dead ends.
+        </p>
+
+        <div class="cta-box">
+          <h3>Build your justification in order</h3>
+          <p>
+            The strongest internal linking sequence for this section is:
+            <strong>Downtime Cost → Labor Savings → Automation ROI → Break-Even → Problem Solver</strong>.
+          </p>
+          <div class="internal-links">
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','final_flow_click',{'page':'roi_hub','target':'downtime_cost'});">1. Downtime Cost</a>
+            <a href="/labor-savings-calculator.html" onclick="gtag('event','final_flow_click',{'page':'roi_hub','target':'labor_savings'});">2. Labor Savings</a>
+            <a href="/automation-roi.html" onclick="gtag('event','final_flow_click',{'page':'roi_hub','target':'automation_roi'});">3. ROI</a>
+            <a href="/break-even-calculator.html" onclick="gtag('event','final_flow_click',{'page':'roi_hub','target':'break_even'});">4. Break-Even</a>
+            <a href="/problem-solver.html" onclick="gtag('event','final_flow_click',{'page':'roi_hub','target':'problem_solver'});">5. Problem Solver</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators and guides for real automation project planning
+  </div>
+
+  <script>
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+  </script>
+</body>
+</html>
