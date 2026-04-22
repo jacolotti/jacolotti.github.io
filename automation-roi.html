@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="canonical" href="https://automationcalculators.net/roi.html">
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/automation-roi.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
-  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Google Analytics -->
+  <title>Automation ROI Calculator | Payback, Savings & Project Return</title>
+  <meta name="description" content="Calculate automation ROI based on project cost and annual savings. Practical tool for estimating return, payback direction, and project justification for automation investments.">
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,756 +18,743 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>Automation ROI Calculator | Payback Period & Return on Investment</title>
-  <meta name="description" content="Free automation ROI calculator for machine builders, controls engineers, and automation teams. Estimate annual savings, net annual benefit, payback period, and 1-year, 3-year, and 5-year ROI for automation projects.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#dbe3ee;
+      --blue:#0f4c81;
+      --blue-dark:#0b3a61;
+      --blue-soft:#eaf3fb;
+      --green:#dff4e8;
+      --green-border:#b9e2c8;
+      --warn:#fff4d6;
+      --warn-border:#efd58b;
+      --shadow:0 10px 30px rgba(15, 76, 129, 0.08);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box;}
+
     body{
-      font-family:Arial, sans-serif;
-      background:#f4f4f4;
       margin:0;
-      color:#222;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      color:var(--blue);
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
-      text-align:center;
+      background:linear-gradient(135deg, #0f4c81 0%, #1467a8 100%);
+      color:#fff;
+      padding:56px 20px 42px;
     }
 
     .hero-inner{
-      max-width:950px;
-      margin:auto;
+      max-width:1150px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.3fr 0.9fr;
+      gap:28px;
+      align-items:center;
     }
 
     .hero h1{
-      margin:0 0 12px;
-      font-size:34px;
-      line-height:1.2;
+      margin:0 0 14px;
+      font-size:2.25rem;
+      line-height:1.15;
     }
 
     .hero p{
-      max-width:800px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
-      font-size:17px;
-      line-height:1.6;
+      margin:0 0 16px;
+      font-size:1.05rem;
+      max-width:760px;
+      color:rgba(255,255,255,0.94);
     }
 
-    .hero-cta{
-      margin-top:18px;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .hero-cta a{
-      display:inline-block;
-      padding:12px 18px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-      transition:.2s ease;
-    }
-
-    .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
-    }
-
-    .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
-    }
-
-    .hero-cta a:hover{
-      transform:translateY(-1px);
-      opacity:.95;
-    }
-
-    .page-wrap{
-      max-width:1100px;
-      margin:30px auto;
-      padding:0 18px 40px;
-    }
-
-    .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
-      color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
-      font-size:15px;
-      line-height:1.5;
-      text-align:left;
-    }
-
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
-      background:white;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
-      padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
-    }
-
-    .section-label{
-      font-size:13px;
-      font-weight:bold;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      color:#5e7197;
-      margin-bottom:10px;
-    }
-
-    .card h2,
-    .sidebar-card h3{
-      margin-top:0;
-      color:#1f2a44;
-    }
-
-    .description{
-      margin:0 0 18px;
-      color:#555;
-      font-size:16px;
-      line-height:1.6;
-      text-align:left;
-    }
-
-    .formula-box{
-      margin:20px 0;
-      padding:18px;
-      background:#eef3ff;
-      border:1px solid #cfdaf5;
-      border-radius:10px;
-      color:#1f2a44;
-      font-weight:bold;
-      font-size:17px;
-      line-height:1.7;
-      text-align:left;
-    }
-
-    .quick-row{
-      margin:8px 0 22px;
+    .hero-badges{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
+      margin:18px 0 0;
     }
 
-    .quick-row button{
-      padding:10px 12px;
-      border-radius:8px;
-      border:1px solid #cdd8ee;
-      background:#f7f9fd;
-      cursor:pointer;
-      font-weight:600;
-      color:#1f2a44;
+    .hero-badges span{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.22);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:0.92rem;
     }
 
-    .quick-row button:hover{
-      background:#eef3fc;
-    }
-
-    .controls{
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
-      gap:16px;
-      margin:25px 0 20px;
-      text-align:left;
-    }
-
-    .control-group{
-      background:#f8fbff;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
-      padding:16px;
-    }
-
-    .control-group label{
-      display:block;
-      font-weight:600;
-      margin-bottom:6px;
-      color:#23314f;
-    }
-
-    .control-group input{
-      width:100%;
-      padding:10px 12px;
-      font-size:16px;
-      box-sizing:border-box;
-      border:1px solid #cfd6e4;
-      border-radius:8px;
-      background:white;
-      font-family:Arial, sans-serif;
-    }
-
-    .control-group input:focus{
-      outline:none;
-      border-color:#5a78b5;
-      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
-    }
-
-    .button-row{
-      margin:20px 0;
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-    }
-
-    .button-row button{
-      padding:13px 22px;
-      font-size:16px;
-      background:#1e6bd6;
-      color:white;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:bold;
-      transition:.2s ease;
-    }
-
-    .button-row button.secondary{
-      background:#5a6a85;
-    }
-
-    .button-row button.ghost{
-      background:#e9eef8;
-      color:#1f2a44;
-    }
-
-    .button-row button:hover{
-      background:#1555ad;
-      transform:translateY(-1px);
-    }
-
-    .button-row button.secondary:hover{
-      background:#485772;
-    }
-
-    .button-row button.ghost:hover{
-      background:#dde7f8;
-    }
-
-    .result{
-      margin-top:25px;
-      padding:20px;
-      background:#e9f1ff;
-      border:1px solid #c8d9ff;
-      border-radius:10px;
-      font-size:18px;
-      line-height:1.6;
-      font-weight:500;
-      text-align:left;
-      scroll-margin-top:100px;
-    }
-
-    .cta-box{
-      margin-top:26px;
+    .hero-card{
+      background:rgba(255,255,255,0.1);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:20px;
       padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
+      box-shadow:0 12px 35px rgba(0,0,0,0.12);
     }
 
-    .cta-box h3{
+    .hero-card h3{
       margin:0 0 10px;
-      color:#1f2a44;
+      font-size:1.15rem;
     }
 
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
+    .hero-card ul{
+      margin:0;
+      padding-left:20px;
+      color:rgba(255,255,255,0.95);
     }
 
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .note{
-      margin-top:20px;
-      color:#666;
-      font-size:14px;
-      line-height:1.6;
-      text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
+    .hero-card li{
       margin-bottom:10px;
     }
 
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
+    .container{
+      max-width:1150px;
+      margin:0 auto;
+      padding:34px 20px 60px;
+    }
+
+    .section{
+      margin-bottom:26px;
+    }
+
+    .section-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px;
+    }
+
+    .section-card h2{
+      margin-top:0;
       margin-bottom:12px;
+      font-size:1.7rem;
+      color:var(--blue-dark);
+    }
+
+    .description{
+      color:var(--muted);
+      font-size:1rem;
+      margin-bottom:14px;
+    }
+
+    .calculator-layout{
+      display:grid;
+      grid-template-columns:1.05fr 0.95fr;
+      gap:22px;
+      align-items:start;
+    }
+
+    .calc-panel{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .calc-panel h3{
+      margin:0 0 14px;
+      color:var(--blue-dark);
+      font-size:1.15rem;
+    }
+
+    .field{
+      margin-bottom:14px;
+    }
+
+    .field label{
+      display:block;
+      font-weight:700;
+      margin-bottom:6px;
+      color:var(--text);
+    }
+
+    .field input{
+      width:100%;
+      padding:12px 13px;
+      border:1px solid #cfd9e5;
+      border-radius:10px;
+      font-size:1rem;
+      background:#fff;
+    }
+
+    .field input:focus{
+      outline:none;
+      border-color:#78a9d4;
+      box-shadow:0 0 0 3px rgba(15,76,129,0.08);
+    }
+
+    .button-row{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+
+    button{
+      border:none;
+      border-radius:10px;
+      padding:12px 18px;
+      font-weight:700;
+      cursor:pointer;
+      font-size:0.98rem;
+    }
+
+    .primary-btn{
+      background:var(--blue);
+      color:#fff;
+    }
+
+    .primary-btn:hover{
+      background:var(--blue-dark);
+    }
+
+    .secondary-btn{
+      background:#edf4fb;
+      color:var(--blue-dark);
+    }
+
+    .secondary-btn:hover{
+      background:#e2eefb;
+    }
+
+    .result-panel{
+      background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .result-panel h3{
+      margin:0 0 14px;
+      color:var(--blue-dark);
+      font-size:1.15rem;
+    }
+
+    .result-box{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+      margin-bottom:12px;
+    }
+
+    .result-label{
+      color:var(--muted);
+      font-size:0.92rem;
+      margin-bottom:4px;
+    }
+
+    .result-value{
+      font-size:1.6rem;
+      font-weight:700;
+      color:var(--blue-dark);
+    }
+
+    .result-sub{
+      color:var(--muted);
+      font-size:0.96rem;
+      margin-top:4px;
+    }
+
+    .status-note{
+      margin-top:12px;
+      background:var(--green);
+      border:1px solid var(--green-border);
+      border-radius:14px;
+      padding:14px 16px;
+      color:#21543a;
+    }
+
+    .warning-note{
+      margin-top:12px;
+      background:var(--warn);
+      border:1px solid var(--warn-border);
+      border-radius:14px;
+      padding:14px 16px;
+      color:#6a5410;
+    }
+
+    .workflow{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:16px;
+      margin-top:22px;
+    }
+
+    .workflow-step{
+      background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+    }
+
+    .workflow-step .step-number{
+      display:inline-block;
+      width:34px;
+      height:34px;
+      line-height:34px;
+      text-align:center;
+      border-radius:50%;
+      background:var(--blue);
+      color:#fff;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .workflow-step h3{
+      margin:0 0 10px;
+      font-size:1.04rem;
+      color:var(--blue-dark);
+    }
+
+    .workflow-step p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:0.96rem;
+    }
+
+    .workflow-step a{
+      font-weight:700;
+    }
+
+    .tool-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .tool-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .tool-card h3{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--blue-dark);
+    }
+
+    .tool-card p{
+      margin:0 0 14px;
+      color:var(--muted);
     }
 
     .internal-links{
       display:flex;
       flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
+      gap:12px;
+      margin-top:14px;
     }
 
     .internal-links a{
       display:inline-block;
-      padding:10px 12px;
-      background:white;
-      border:1px solid #d6e0f1;
-      border-radius:8px;
-      color:#1f2a44;
-      text-decoration:none;
-      font-weight:600;
+      background:#fff;
+      border:1px solid var(--line);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:700;
     }
 
-    .internal-links a:hover{
-      background:#e9eef8;
+    .cta-box{
+      margin-top:22px;
+      background:var(--blue-soft);
+      border:1px solid #cfe2f5;
+      border-radius:18px;
+      padding:24px;
     }
 
-    .sidebar-card p{
+    .cta-box h3{
+      margin:0 0 10px;
+      color:var(--blue-dark);
+    }
+
+    .cta-box p{
       margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
-    }
-
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
+      color:#415166;
     }
 
     .footer{
-      margin-top:40px;
-      color:#666;
-      font-size:14px;
       text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+      padding:18px 20px 40px;
     }
 
-    @media (max-width:900px){
-      .main-grid{
+    @media (max-width: 980px){
+      .hero-inner,
+      .calculator-layout,
+      .workflow,
+      .tool-grid{
         grid-template-columns:1fr;
       }
     }
 
-    @media (max-width:700px){
-      .card,
-      .sidebar-card{
-        padding:20px;
+    @media (max-width: 700px){
+      .hero{
+        padding:42px 18px 36px;
       }
 
       .hero h1{
-        font-size:28px;
+        font-size:1.9rem;
       }
 
-      .hero-cta{
-        flex-direction:column;
-        align-items:center;
+      .section-card,
+      .hero-card,
+      .calc-panel,
+      .result-panel{
+        padding:22px;
       }
 
-      .hero-cta a{
-        width:100%;
-        max-width:320px;
+      .container{
+        padding:24px 16px 50px;
       }
 
-      .button-row{
-        flex-direction:column;
-      }
-
+      .internal-links a,
       .button-row button{
         width:100%;
+        text-align:center;
       }
     }
   </style>
 </head>
 <body>
+  <div id="navbar"></div>
 
-<div id="navbar"></div>
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>Automation ROI Calculator</h1>
+        <p>
+          Estimate automation project return based on total project cost and expected annual savings.
+          Use this tool to check whether a project is financially justified and how strong the return really is.
+        </p>
+        <div class="hero-badges">
+          <span>Project Justification</span>
+          <span>Annual Savings</span>
+          <span>Return on Investment</span>
+          <span>Payback Direction</span>
+        </div>
+      </div>
 
-<section class="hero">
-  <div class="hero-inner">
-    <h1>Automation ROI Calculator</h1>
-    <p>
-      Estimate gross annual savings, net annual benefit, payback period, and return on investment for automation projects using labor savings, scrap reduction, throughput gains, maintenance cost, and total system cost.
-    </p>
-    <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
-      <a href="/robot.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'roi_hero','to':'robot_cycle'});">Robot Cycle Calculator</a>
+      <div class="hero-card">
+        <h3>Best use of this page</h3>
+        <ul>
+          <li>Estimate whether an automation project is worth pursuing.</li>
+          <li>Compare project cost against expected yearly savings.</li>
+          <li>Support internal justification for maintenance or automation upgrades.</li>
+          <li>Feed into break-even and planning discussions.</li>
+        </ul>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="page-wrap">
-  <div class="top-note">
-    <strong>Good starting use case:</strong> use this for early capital justification and concept screening before you build a full business case. Final approval usually still depends on plant hurdle rate, depreciation treatment, downtime risk, training needs, support cost, and equipment life assumptions.
-  </div>
-
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Automation ROI and Payback Period</h2>
-
-      <p class="description">
-        Estimate payback period and return on investment for automation projects using annual savings, maintenance cost, and total system cost.
-      </p>
-
-      <p class="description">
-        This calculator is useful for estimating the financial benefit of robotics, conveyor systems, machine upgrades, assembly automation, packaging systems, machine tending, and other industrial automation projects.
-      </p>
-
-      <div class="formula-box">
-        Net Annual Benefit = Total Annual Savings − Annual Maintenance Cost<br><br>
-        Payback Period = System Cost ÷ Net Annual Benefit
-      </div>
-
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','roi_example',{'type':'standard_cell'});">Standard Cell</button>
-        <button type="button" onclick="loadExample2(); gtag('event','roi_example',{'type':'higher_savings'});">Higher Savings</button>
-        <button type="button" onclick="loadExample3(); gtag('event','roi_example',{'type':'long_payback'});">Longer Payback</button>
-      </div>
-
-      <div class="controls">
-        <div class="control-group">
-          <label for="systemCost">Automation System Cost ($)</label>
-          <input id="systemCost" type="number" value="120000" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="laborSavings">Annual Labor Savings ($)</label>
-          <input id="laborSavings" type="number" value="35000" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="scrapSavings">Annual Scrap Reduction Savings ($)</label>
-          <input id="scrapSavings" type="number" value="5000" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="throughputSavings">Annual Throughput Increase Savings ($)</label>
-          <input id="throughputSavings" type="number" value="8000" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="otherSavings">Other Annual Savings ($)</label>
-          <input id="otherSavings" type="number" value="0" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="maintenanceCost">Annual Maintenance Cost ($)</label>
-          <input id="maintenanceCost" type="number" value="5000" min="0" step="0.01">
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateROI(); gtag('event','roi_calculation');">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator(); gtag('event','roi_clear');">Reset</button>
-        <button class="ghost" onclick="copyResults(); gtag('event','roi_copy_results');">Copy Results</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help turning this into a real automation case?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you need help estimating project scope, savings assumptions, system concept direction, or real-world implementation feasibility.
+  <main class="container">
+    <section class="section">
+      <div class="section-card">
+        <h2>What this calculator does</h2>
+        <p class="description">
+          This calculator estimates annual ROI using a simple formula: annual net savings divided by project cost. It helps answer the question, “If we spend this amount, how strong is the yearly return?”
         </p>
-        <a href="/integrators.html">Find an Integrator</a>
+        <p class="description">
+          For most automation projects, the best inputs come from downtime reduction, labor savings, scrap reduction, maintenance reduction, or throughput improvement. The more realistic those assumptions are, the more useful this number becomes.
+        </p>
       </div>
+    </section>
 
-      <p class="note">
-        This calculator is a simple financial estimate. It does not include financing cost, tax effects, depreciation, utility cost changes, downtime risk, spare parts inventory, operator training, engineering support, or opportunity cost.
-      </p>
+    <section class="section">
+      <div class="section-card">
+        <h2>Calculate automation ROI</h2>
 
-      <p class="note">
-        For a stronger business case, compare simple payback here with your plant’s actual hurdle rate, capital approval rules, and expected equipment life.
-      </p>
+        <div class="calculator-layout">
+          <div class="calc-panel">
+            <h3>Project inputs</h3>
 
-      <div class="learn-more">
-        <h3>What to check next</h3>
+            <div class="field">
+              <label for="projectCost">Total project cost ($)</label>
+              <input type="number" id="projectCost" placeholder="Example: 85000">
+            </div>
 
-        <p>
-          This tool is good for quick capital screening, but real automation ROI often shifts once you include engineering support, operator learning curve, unplanned downtime, spare parts, launch risk, maintenance burden, and how much of the projected labor savings the plant can actually capture.
+            <div class="field">
+              <label for="annualSavings">Expected annual savings ($)</label>
+              <input type="number" id="annualSavings" placeholder="Example: 42000">
+            </div>
+
+            <div class="field">
+              <label for="annualOperatingCost">Added annual operating cost ($)</label>
+              <input type="number" id="annualOperatingCost" placeholder="Example: 5000">
+            </div>
+
+            <div class="button-row">
+              <button class="primary-btn" onclick="calculateROI()">Calculate ROI</button>
+              <button class="secondary-btn" onclick="clearROI()">Clear</button>
+            </div>
+          </div>
+
+          <div class="result-panel">
+            <h3>Results</h3>
+
+            <div class="result-box">
+              <div class="result-label">Annual net savings</div>
+              <div class="result-value" id="netSavingsResult">$0</div>
+              <div class="result-sub">Expected annual savings minus added annual operating cost</div>
+            </div>
+
+            <div class="result-box">
+              <div class="result-label">Annual ROI</div>
+              <div class="result-value" id="roiResult">0%</div>
+              <div class="result-sub">Net annual return as a percentage of project cost</div>
+            </div>
+
+            <div class="result-box">
+              <div class="result-label">Simple payback estimate</div>
+              <div class="result-value" id="paybackResult">—</div>
+              <div class="result-sub">Approximate time to recover project cost</div>
+            </div>
+
+            <div id="messageArea" class="warning-note">
+              Enter project cost and expected savings to calculate ROI.
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <h3>Use realistic savings numbers</h3>
+          <p>
+            Weak ROI calculations usually come from inflated savings assumptions. If possible, base your inputs on actual downtime data, labor reduction, scrap reduction, or measured production improvements.
+          </p>
+          <div class="internal-links">
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','internal_link',{'from':'automation_roi','to':'downtime_cost'});">Estimate Downtime Cost</a>
+            <a href="/labor-savings-calculator.html" onclick="gtag('event','internal_link',{'from':'automation_roi','to':'labor_savings'});">Estimate Labor Savings</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Recommended ROI workflow</h2>
+        <p class="description">
+          This is the best order for most project justification work. Do not start with ROI if you have not grounded the current cost and expected savings first.
         </p>
 
-        <p>
-          For real project approval, this page usually works best alongside throughput, cycle time, payload, and implementation discussions so you can connect the financial estimate to a realistic equipment concept.
+        <div class="workflow">
+          <div class="workflow-step">
+            <div class="step-number">1</div>
+            <h3>Check downtime cost</h3>
+            <p>
+              Start by estimating what the current machine problem or inefficiency is costing.
+            </p>
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','workflow_click',{'page':'automation_roi','step':'downtime_cost'});">Open Downtime Cost Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">2</div>
+            <h3>Estimate labor savings</h3>
+            <p>
+              If the project reduces staffing time or manual work, estimate that next.
+            </p>
+            <a href="/labor-savings-calculator.html" onclick="gtag('event','workflow_click',{'page':'automation_roi','step':'labor_savings'});">Open Labor Savings Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">3</div>
+            <h3>Calculate ROI</h3>
+            <p>
+              Use project cost and net annual savings to estimate yearly return.
+            </p>
+            <a href="/automation-roi.html" onclick="gtag('event','workflow_click',{'page':'automation_roi','step':'roi'});">Use This ROI Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">4</div>
+            <h3>Check break-even timing</h3>
+            <p>
+              Once ROI looks reasonable, review how long it takes for the project to pay itself back.
+            </p>
+            <a href="/break-even-calculator.html" onclick="gtag('event','workflow_click',{'page':'automation_roi','step':'break_even'});">Open Break-Even Calculator</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Related ROI tools</h2>
+        <p class="description">
+          This page works best as part of a full ROI system, not as a standalone calculator.
         </p>
+
+        <div class="tool-grid">
+          <div class="tool-card">
+            <h3>Downtime Cost Calculator</h3>
+            <p>
+              Estimate what the current production loss or machine stoppage is actually costing.
+            </p>
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','tool_open',{'from':'automation_roi','tool':'downtime_cost'});">Open calculator</a>
+          </div>
+
+          <div class="tool-card">
+            <h3>Labor Savings Calculator</h3>
+            <p>
+              Estimate yearly savings from reduced labor, handling, or operator involvement.
+            </p>
+            <a href="/labor-savings-calculator.html" onclick="gtag('event','tool_open',{'from':'automation_roi','tool':'labor_savings'});">Open calculator</a>
+          </div>
+
+          <div class="tool-card">
+            <h3>Break-Even Calculator</h3>
+            <p>
+              Review how long it takes for total savings to recover the project cost.
+            </p>
+            <a href="/break-even-calculator.html" onclick="gtag('event','tool_open',{'from':'automation_roi','tool':'break_even'});">Open calculator</a>
+          </div>
+        </div>
 
         <div class="internal-links">
-          <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'roi','to':'robot_cycle'});">Robot Cycle Time</a>
-          <a href="/robot-payload.html" onclick="gtag('event','internal_link_click',{'from':'roi','to':'robot_payload'});">Robot Payload</a>
-          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'roi','to':'pneumatic_force'});">Pneumatic Force</a>
-          <a href="/reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'roi','to':'reference_charts'});">Reference Charts</a>
+          <a href="/roi.html" onclick="gtag('event','internal_link',{'from':'automation_roi','to':'roi_hub'});">ROI Hub</a>
+          <a href="/downtime-cost-calculator.html" onclick="gtag('event','internal_link',{'from':'automation_roi','to':'downtime_cost'});">Downtime Cost</a>
+          <a href="/labor-savings-calculator.html" onclick="gtag('event','internal_link',{'from':'automation_roi','to':'labor_savings'});">Labor Savings</a>
+          <a href="/break-even-calculator.html" onclick="gtag('event','internal_link',{'from':'automation_roi','to':'break_even'});">Break-Even</a>
+          <a href="/problem-solver.html" onclick="gtag('event','internal_link',{'from':'automation_roi','to':'problem_solver'});">Problem Solver</a>
         </div>
       </div>
+    </section>
 
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
-    </div>
-
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
-        <ul>
-          <li>Gross annual savings</li>
-          <li>Net annual benefit</li>
-          <li>Payback period in years and months</li>
-          <li>1-year ROI</li>
-          <li>3-year ROI</li>
-          <li>5-year ROI</li>
-        </ul>
-      </div>
-
-      <div class="sidebar-card">
-        <h3>Where this helps</h3>
-        <p>
-          Useful for early capital planning, automation screening, concept review, management discussions, and deciding whether a proposed project is even in the right financial range before deeper engineering work.
+    <section class="section">
+      <div class="section-card">
+        <h2>What the result means</h2>
+        <p class="description">
+          A positive ROI means the project is generating more value each year than it costs to operate, relative to the initial investment. A negative ROI means the savings assumptions are not strong enough yet, or the project cost is too high.
         </p>
-      </div>
-
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
-        <ul>
-          <li>Can labor savings actually be captured?</li>
-          <li>Will throughput gains be realized upstream and downstream?</li>
-          <li>What downtime and launch risk should be added?</li>
-          <li>What spare parts and maintenance support are required?</li>
-          <li>How long will the equipment realistically stay in service?</li>
-        </ul>
-      </div>
-
-      <div class="sidebar-card">
-        <h3>Business case reminder</h3>
-        <p>
-          A technically good automation concept can still be rejected if the financial case is weak, and a good ROI can still fail if the scope is unrealistic. You need both.
+        <p class="description">
+          This is a simple annual ROI view. For more detailed justification, you can also layer in financing cost, tax effects, depreciation, maintenance burden, or risk. But for many plant-level decisions, this simple version is the right place to start.
         </p>
+
+        <div class="cta-box">
+          <h3>Trying to justify a real project?</h3>
+          <p>
+            The strongest justification flow is:
+            <strong>Downtime Cost → Labor Savings → ROI → Break-Even</strong>.
+            Use the related pages so the final number is backed by something credible.
+          </p>
+          <div class="internal-links">
+            <a href="/downtime-cost-calculator.html" onclick="gtag('event','final_flow_click',{'page':'automation_roi','target':'downtime_cost'});">1. Downtime Cost</a>
+            <a href="/labor-savings-calculator.html" onclick="gtag('event','final_flow_click',{'page':'automation_roi','target':'labor_savings'});">2. Labor Savings</a>
+            <a href="/break-even-calculator.html" onclick="gtag('event','final_flow_click',{'page':'automation_roi','target':'break_even'});">3. Break-Even</a>
+            <a href="/roi.html" onclick="gtag('event','final_flow_click',{'page':'automation_roi','target':'roi_hub'});">4. ROI Hub</a>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators and guides for real automation project planning
   </div>
-</div>
 
-<script>
-  let lastResultsText = "";
-
-  function formatMoney(value){
-    return "$" + value.toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-  }
-
-  function scrollToOutput(){
-    document.getElementById("output").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  }
-
-  function showMessage(message){
-    document.getElementById("output").innerHTML = "<strong>" + message + "</strong>";
-  }
-
-  function calculateROI(){
-    let systemCost = parseFloat(document.getElementById("systemCost").value) || 0;
-    let laborSavings = parseFloat(document.getElementById("laborSavings").value) || 0;
-    let scrapSavings = parseFloat(document.getElementById("scrapSavings").value) || 0;
-    let throughputSavings = parseFloat(document.getElementById("throughputSavings").value) || 0;
-    let otherSavings = parseFloat(document.getElementById("otherSavings").value) || 0;
-    let maintenanceCost = parseFloat(document.getElementById("maintenanceCost").value) || 0;
-
-    const output = document.getElementById("output");
-
-    if(systemCost <= 0){
-      output.innerHTML = "<strong>Please enter an automation system cost greater than 0.</strong>";
-      scrollToOutput();
-      return;
+  <script>
+    function formatCurrency(value){
+      return '$' + value.toLocaleString(undefined, {maximumFractionDigits:2});
     }
 
-    if(laborSavings < 0 || scrapSavings < 0 || throughputSavings < 0 || otherSavings < 0 || maintenanceCost < 0){
-      output.innerHTML = "<strong>Please enter savings and maintenance values of 0 or greater.</strong>";
-      scrollToOutput();
-      return;
+    function calculateROI(){
+      const projectCost = parseFloat(document.getElementById('projectCost').value) || 0;
+      const annualSavings = parseFloat(document.getElementById('annualSavings').value) || 0;
+      const annualOperatingCost = parseFloat(document.getElementById('annualOperatingCost').value) || 0;
+
+      const netSavings = annualSavings - annualOperatingCost;
+
+      let roi = 0;
+      let paybackYears = 0;
+
+      if(projectCost > 0){
+        roi = (netSavings / projectCost) * 100;
+      }
+
+      if(netSavings > 0){
+        paybackYears = projectCost / netSavings;
+      }
+
+      document.getElementById('netSavingsResult').textContent = formatCurrency(netSavings);
+      document.getElementById('roiResult').textContent = roi.toLocaleString(undefined, {maximumFractionDigits:2}) + '%';
+
+      if(netSavings > 0 && projectCost > 0){
+        document.getElementById('paybackResult').textContent =
+          paybackYears.toLocaleString(undefined, {maximumFractionDigits:2}) + ' years';
+      } else {
+        document.getElementById('paybackResult').textContent = 'No payback';
+      }
+
+      const messageArea = document.getElementById('messageArea');
+
+      if(projectCost <= 0){
+        messageArea.className = 'warning-note';
+        messageArea.textContent = 'Enter a project cost greater than zero to calculate ROI.';
+      } else if(netSavings > 0){
+        messageArea.className = 'status-note';
+        messageArea.textContent = 'This project shows positive annual net savings. Review the break-even page next to see how quickly it pays back.';
+      } else if(netSavings === 0){
+        messageArea.className = 'warning-note';
+        messageArea.textContent = 'This project currently shows zero net annual savings. Recheck your savings and operating cost assumptions.';
+      } else {
+        messageArea.className = 'warning-note';
+        messageArea.textContent = 'This project currently shows negative annual net savings. The savings assumptions may be too low, or the ongoing costs may be too high.';
+      }
+
+      gtag('event','calculator_use',{
+        page:'automation_roi',
+        tool:'automation_roi',
+        project_cost:projectCost,
+        annual_savings:annualSavings,
+        annual_operating_cost:annualOperatingCost
+      });
     }
 
-    let totalAnnualSavings = laborSavings + scrapSavings + throughputSavings + otherSavings;
-    let netAnnualBenefit = totalAnnualSavings - maintenanceCost;
-    let maintenancePercentOfSavings = totalAnnualSavings > 0 ? (maintenanceCost / totalAnnualSavings) * 100 : 0;
+    function clearROI(){
+      document.getElementById('projectCost').value = '';
+      document.getElementById('annualSavings').value = '';
+      document.getElementById('annualOperatingCost').value = '';
 
-    let paybackYears = netAnnualBenefit > 0 ? systemCost / netAnnualBenefit : null;
-    let paybackMonths = netAnnualBenefit > 0 ? paybackYears * 12 : null;
+      document.getElementById('netSavingsResult').textContent = '$0';
+      document.getElementById('roiResult').textContent = '0%';
+      document.getElementById('paybackResult').textContent = '—';
 
-    let oneYearROI = (netAnnualBenefit / systemCost) * 100;
-    let threeYearROI = ((netAnnualBenefit * 3) / systemCost) * 100;
-    let fiveYearROI = ((netAnnualBenefit * 5) / systemCost) * 100;
-
-    let interpretation = "";
-    if(netAnnualBenefit <= 0){
-      interpretation = "Based on the current inputs, the project does not generate positive annual net benefit. Recheck the scope, savings assumptions, or total system cost.";
-    } else if(paybackYears <= 1.5){
-      interpretation = "This is a strong simple-payback result for many automation projects, assuming the savings are realistic and actually captured.";
-    } else if(paybackYears <= 3){
-      interpretation = "This is a moderate payback range that can still make sense for many plants, especially when safety, quality, labor stability, or strategic value are part of the case.";
-    } else {
-      interpretation = "This is a longer simple-payback result. The project may still be worthwhile, but the financial case will usually need stronger strategic justification or better savings capture.";
+      const messageArea = document.getElementById('messageArea');
+      messageArea.className = 'warning-note';
+      messageArea.textContent = 'Enter project cost and expected savings to calculate ROI.';
     }
+  </script>
 
-    lastResultsText =
-      "Automation ROI Results\n" +
-      "Automation System Cost: " + formatMoney(systemCost) + "\n" +
-      "Gross Annual Savings: " + formatMoney(totalAnnualSavings) + "\n" +
-      "Annual Maintenance Cost: " + formatMoney(maintenanceCost) + "\n" +
-      "Maintenance as % of Savings: " + maintenancePercentOfSavings.toFixed(2) + "%\n" +
-      "Net Annual Benefit: " + formatMoney(netAnnualBenefit) + "\n" +
-      (netAnnualBenefit > 0
-        ? "Payback Period: " + paybackYears.toFixed(2) + " years (" + paybackMonths.toFixed(1) + " months)\n"
-        : "Payback Period: No payback based on current inputs\n"
-      ) +
-      "1-Year ROI: " + oneYearROI.toFixed(2) + "%\n" +
-      "3-Year ROI: " + threeYearROI.toFixed(2) + "%\n" +
-      "5-Year ROI: " + fiveYearROI.toFixed(2) + "%\n" +
-      "Interpretation: " + interpretation;
-
-    output.innerHTML =
-      "<strong>Gross Annual Savings</strong><br>" +
-      formatMoney(totalAnnualSavings) + "<br><br>" +
-
-      "<strong>Annual Maintenance Cost</strong><br>" +
-      formatMoney(maintenanceCost) + "<br><br>" +
-
-      "<strong>Maintenance as % of Savings</strong><br>" +
-      maintenancePercentOfSavings.toFixed(2) + "%<br><br>" +
-
-      "<strong>Net Annual Benefit</strong><br>" +
-      formatMoney(netAnnualBenefit) + "<br><br>" +
-
-      "<strong>Payback Period</strong><br>" +
-      (netAnnualBenefit > 0
-        ? paybackYears.toFixed(2) + " years<br>" + paybackMonths.toFixed(1) + " months"
-        : "No payback based on current inputs"
-      ) + "<br><br>" +
-
-      "<strong>1-Year ROI</strong><br>" +
-      oneYearROI.toFixed(2) + "%<br><br>" +
-
-      "<strong>3-Year ROI</strong><br>" +
-      threeYearROI.toFixed(2) + "%<br><br>" +
-
-      "<strong>5-Year ROI</strong><br>" +
-      fiveYearROI.toFixed(2) + "%<br><br>" +
-
-      "<strong>Interpretation</strong><br>" +
-      interpretation;
-
-    scrollToOutput();
-  }
-
-  function copyResults(){
-    if(!lastResultsText){
-      alert("Please calculate results first.");
-      return;
-    }
-
-    navigator.clipboard.writeText(lastResultsText)
-      .then(() => alert("Results copied to clipboard."))
-      .catch(() => alert("Copy failed. Please try again."));
-  }
-
-  function resetCalculator(){
-    document.getElementById("systemCost").value = "120000";
-    document.getElementById("laborSavings").value = "35000";
-    document.getElementById("scrapSavings").value = "5000";
-    document.getElementById("throughputSavings").value = "8000";
-    document.getElementById("otherSavings").value = "0";
-    document.getElementById("maintenanceCost").value = "5000";
-    lastResultsText = "";
-    showMessage("Enter values and press Calculate.");
-  }
-
-  function loadExample1(){
-    document.getElementById("systemCost").value = "120000";
-    document.getElementById("laborSavings").value = "35000";
-    document.getElementById("scrapSavings").value = "5000";
-    document.getElementById("throughputSavings").value = "8000";
-    document.getElementById("otherSavings").value = "0";
-    document.getElementById("maintenanceCost").value = "5000";
-    calculateROI();
-  }
-
-  function loadExample2(){
-    document.getElementById("systemCost").value = "180000";
-    document.getElementById("laborSavings").value = "65000";
-    document.getElementById("scrapSavings").value = "12000";
-    document.getElementById("throughputSavings").value = "18000";
-    document.getElementById("otherSavings").value = "5000";
-    document.getElementById("maintenanceCost").value = "9000";
-    calculateROI();
-  }
-
-  function loadExample3(){
-    document.getElementById("systemCost").value = "250000";
-    document.getElementById("laborSavings").value = "30000";
-    document.getElementById("scrapSavings").value = "4000";
-    document.getElementById("throughputSavings").value = "6000";
-    document.getElementById("otherSavings").value = "0";
-    document.getElementById("maintenanceCost").value = "10000";
-    calculateROI();
-  }
-</script>
-
-<script>
-  fetch("navbar.html?v=20260314")
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById("navbar").innerHTML = data;
-    })
-    .catch(error => {
-      console.error("Navbar failed to load:", error);
-    });
-</script>
-
+  <script>
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+  </script>
 </body>
 </html>
