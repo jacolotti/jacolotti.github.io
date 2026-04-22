@@ -7,8 +7,8 @@
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Robotics Tools | Cycle Time, Reach, Payload & Robot Simulation</title>
-  <meta name="description" content="Robotics tools for automation engineers. Estimate robot cycle time, reach, payload, and simulate motion paths for real automation applications.">
+  <title>Robotics Hub | Cycle Time, Reach, Payload & Robot Simulation</title>
+  <meta name="description" content="Robotics engineering tools for robot cycle time, reach, payload, and simulation. Use this robotics hub to follow a practical workflow for real robot application sizing, validation, and troubleshooting.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -22,235 +22,710 @@
     :root{
       --bg:#f5f7fb;
       --card:#ffffff;
-      --text:#16202a;
-      --muted:#5d6b79;
-      --accent:#0b66c3;
-      --border:#d9e3ee;
-      --shadow:0 8px 24px rgba(15,35,60,0.08);
-      --radius:16px;
-      --max:1180px;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#dbe3ee;
+      --blue:#0f4c81;
+      --blue-dark:#0b3a61;
+      --blue-soft:#eaf3fb;
+      --green:#dff4e8;
+      --green-border:#b9e2c8;
+      --shadow:0 10px 30px rgba(15, 76, 129, 0.08);
+      --radius:18px;
     }
+
+    *{box-sizing:border-box;}
 
     body{
       margin:0;
       font-family:Arial, Helvetica, sans-serif;
       background:var(--bg);
       color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      color:var(--blue);
+      text-decoration:none;
+    }
+
+    a:hover{
+      text-decoration:underline;
     }
 
     #navbar{
       position:sticky;
       top:0;
-      z-index:999;
-      background:#fff;
-      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+      z-index:1000;
     }
 
     .hero{
-      background:linear-gradient(135deg,#0b66c3,#0b3d69);
+      background:linear-gradient(135deg, #0f4c81 0%, #1467a8 100%);
       color:#fff;
-      padding:60px 20px;
+      padding:56px 20px 48px;
     }
 
     .hero-inner{
-      max-width:var(--max);
-      margin:auto;
+      max-width:1150px;
+      margin:0 auto;
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:30px;
+      grid-template-columns:1.35fr 0.95fr;
+      gap:28px;
+      align-items:center;
     }
 
     .hero h1{
+      margin:0 0 14px;
       font-size:2.3rem;
-      margin-bottom:15px;
+      line-height:1.15;
     }
 
     .hero p{
-      color:#e5f0ff;
+      margin:0 0 16px;
+      font-size:1.05rem;
+      max-width:760px;
+      color:rgba(255,255,255,0.94);
     }
 
-    .section{
-      max-width:var(--max);
-      margin:auto;
-      padding:40px 20px;
-    }
-
-    .grid{
-      display:grid;
-      gap:20px;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    }
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      padding:22px;
-      box-shadow:var(--shadow);
-    }
-
-    .card h3{
-      margin-top:0;
-    }
-
-    .card a{
-      display:inline-block;
-      margin-top:10px;
-      font-weight:bold;
-      color:var(--accent);
-    }
-
-    .flow{
+    .hero-badges{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      font-weight:bold;
+      margin:18px 0 22px;
     }
 
-    .flow a{
-      background:#edf4fb;
+    .hero-badges span{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.22);
       padding:8px 12px;
       border-radius:999px;
+      font-size:0.92rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:10px;
+      font-weight:700;
+      transition:0.2s ease;
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:var(--blue-dark);
+    }
+
+    .btn-primary:hover{
+      background:#eef6ff;
       text-decoration:none;
     }
 
-    .cta{
-      background:#0b66c3;
+    .btn-secondary{
+      border:1px solid rgba(255,255,255,0.35);
       color:#fff;
-      padding:30px;
-      border-radius:var(--radius);
+      background:rgba(255,255,255,0.08);
     }
 
-    .cta a{
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.16);
+      text-decoration:none;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,0.1);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:20px;
+      padding:22px;
+      box-shadow:0 12px 35px rgba(0,0,0,0.12);
+    }
+
+    .hero-card h3{
+      margin-top:0;
+      margin-bottom:10px;
+      font-size:1.15rem;
+    }
+
+    .hero-card ul{
+      margin:0;
+      padding-left:20px;
+      color:rgba(255,255,255,0.95);
+    }
+
+    .hero-card li{
+      margin-bottom:10px;
+    }
+
+    .container{
+      max-width:1150px;
+      margin:0 auto;
+      padding:34px 20px 60px;
+    }
+
+    .section{
+      margin-bottom:26px;
+    }
+
+    .section-card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:28px;
+    }
+
+    .section-card h2{
+      margin-top:0;
+      margin-bottom:12px;
+      font-size:1.7rem;
+      color:var(--blue-dark);
+    }
+
+    .description{
+      color:var(--muted);
+      font-size:1rem;
+      margin-bottom:14px;
+    }
+
+    .workflow{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:16px;
+      margin-top:22px;
+    }
+
+    .workflow-step{
+      background:linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:18px;
+    }
+
+    .workflow-step .step-number{
+      display:inline-block;
+      width:34px;
+      height:34px;
+      line-height:34px;
+      text-align:center;
+      border-radius:50%;
+      background:var(--blue);
       color:#fff;
-      font-weight:bold;
+      font-weight:700;
+      margin-bottom:12px;
+    }
+
+    .workflow-step h3{
+      margin:0 0 10px;
+      font-size:1.06rem;
+      color:var(--blue-dark);
+    }
+
+    .workflow-step p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:0.96rem;
+    }
+
+    .workflow-step a{
+      font-weight:700;
+    }
+
+    .tool-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .tool-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+      transition:transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    .tool-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 12px 25px rgba(15,76,129,0.08);
+    }
+
+    .tool-card h3{
+      margin:0 0 10px;
+      font-size:1.15rem;
+      color:var(--blue-dark);
+    }
+
+    .tool-card p{
+      margin:0 0 14px;
+      color:var(--muted);
+    }
+
+    .tool-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .tool-links a{
+      font-weight:700;
+    }
+
+    .guide-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .guide-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .guide-card h3{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--blue-dark);
+    }
+
+    .guide-card p{
+      margin:0 0 14px;
+      color:var(--muted);
+    }
+
+    .system-map{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .system-box{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .system-box h3{
+      margin:0 0 10px;
+      color:var(--blue-dark);
+      font-size:1.08rem;
+    }
+
+    .system-box p{
+      margin:0 0 12px;
+      color:var(--muted);
+    }
+
+    .system-box ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .system-box li{
+      margin-bottom:8px;
+    }
+
+    .cta-box{
+      margin-top:22px;
+      background:var(--blue-soft);
+      border:1px solid #cfe2f5;
+      border-radius:18px;
+      padding:24px;
+    }
+
+    .cta-box h3{
+      margin:0 0 10px;
+      color:var(--blue-dark);
+    }
+
+    .cta-box p{
+      margin:0 0 14px;
+      color:#415166;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      background:#fff;
+      border:1px solid var(--line);
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:700;
+    }
+
+    .note{
+      margin-top:16px;
+      background:var(--green);
+      border:1px solid var(--green-border);
+      border-radius:14px;
+      padding:16px 18px;
+      color:#21543a;
+    }
+
+    .note strong{
+      color:#173f2c;
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+      padding:18px 20px 40px;
+    }
+
+    @media (max-width: 980px){
+      .hero-inner,
+      .workflow,
+      .guide-grid,
+      .system-map{
+        grid-template-columns:1fr;
+      }
+
+      .tool-grid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media (max-width: 700px){
+      .hero{
+        padding:42px 18px 36px;
+      }
+
+      .hero h1{
+        font-size:1.9rem;
+      }
+
+      .section-card,
+      .hero-card{
+        padding:22px;
+      }
+
+      .container{
+        padding:24px 16px 50px;
+      }
+
+      .internal-links a{
+        width:100%;
+        text-align:center;
+      }
+
+      .hero-actions .btn{
+        width:100%;
+        text-align:center;
+      }
     }
   </style>
 </head>
-
 <body>
+  <div id="navbar"></div>
 
-<div id="navbar"></div>
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>Robotics Hub</h1>
+        <p>
+          Use this hub to evaluate robot reach, validate payload, estimate cycle time,
+          and simulate motion paths for real automation applications. This section is built
+          to help engineers and integrators move through robot application checks in a practical order.
+        </p>
+        <div class="hero-badges">
+          <span>Reach Validation</span>
+          <span>Payload Checks</span>
+          <span>Cycle Time Estimation</span>
+          <span>Robot Motion Simulation</span>
+        </div>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#workflow" onclick="gtag('event','hub_cta',{'page':'robotics_hub','location':'hero','action':'start_workflow'});">Start Recommended Workflow</a>
+          <a class="btn btn-secondary" href="#tools" onclick="gtag('event','hub_cta',{'page':'robotics_hub','location':'hero','action':'view_tools'});">View Robotics Tools</a>
+        </div>
+      </div>
 
-<section class="hero">
-  <div class="hero-inner">
-    <div>
-      <h1>Robotics Tools for Cycle Time, Reach, Payload & Simulation</h1>
-      <p>
-        Use this section to estimate robot cycle time, check reach and payload limits,
-        and simulate motion paths for real automation applications.
-      </p>
+      <div class="hero-card">
+        <h3>Best use of this page</h3>
+        <ul>
+          <li>Check whether a robot can physically reach the required positions.</li>
+          <li>Confirm the robot and tooling are within safe payload limits.</li>
+          <li>Estimate cycle time before committing to a robot concept.</li>
+          <li>Use simulation to visualize movement and fixture interaction.</li>
+        </ul>
+      </div>
     </div>
+  </section>
 
-    <div>
-      <ul>
-        <li>Robot cycle time estimation</li>
-        <li>Reach and workspace checks</li>
-        <li>Payload validation</li>
-        <li>Basic motion simulation</li>
-      </ul>
-    </div>
+  <main class="container">
+    <section class="section">
+      <div class="section-card">
+        <h2>What this hub is for</h2>
+        <p class="description">
+          Robot applications often fail for predictable reasons: the robot cannot physically reach the point, the tooling load is too high, the cycle time estimate is unrealistic, or the simulated motion path was never reviewed carefully enough. This hub is organized to help prevent those problems.
+        </p>
+        <p class="description">
+          Instead of treating reach, payload, cycle time, and simulation as disconnected checks, this page ties them together into a more realistic engineering workflow. That makes it easier to move from concept review into real robot application planning and troubleshooting.
+        </p>
+
+        <div class="note">
+          <strong>Recommended approach:</strong> do not start with cycle time alone. First confirm reach and payload, then estimate motion timing, then use simulation to check path logic, orientation, and working envelope behavior.
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="section-card">
+        <h2>Recommended robotics workflow</h2>
+        <p class="description">
+          This is the cleanest path for most robot applications, whether you are checking feasibility for a new cell, validating tooling changes, or reviewing a robot that is struggling in production.
+        </p>
+
+        <div class="workflow">
+          <div class="workflow-step">
+            <div class="step-number">1</div>
+            <h3>Check robot reach</h3>
+            <p>
+              Start by confirming the robot can physically reach the required points with a realistic working envelope.
+            </p>
+            <a href="/robot-reach.html" onclick="gtag('event','workflow_click',{'page':'robotics_hub','step':'reach'});">Open Robot Reach Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">2</div>
+            <h3>Validate payload</h3>
+            <p>
+              Once reach looks feasible, confirm the part, tooling, and any added hardware stay within realistic payload limits.
+            </p>
+            <a href="/robot-payload.html" onclick="gtag('event','workflow_click',{'page':'robotics_hub','step':'payload'});">Open Robot Payload Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">3</div>
+            <h3>Estimate cycle time</h3>
+            <p>
+              Use motion distances and process steps to check whether your robot concept can actually meet the required production rate.
+            </p>
+            <a href="/robot.html" onclick="gtag('event','workflow_click',{'page':'robotics_hub','step':'cycle_time'});">Open Robot Cycle Time Calculator</a>
+          </div>
+
+          <div class="workflow-step">
+            <div class="step-number">4</div>
+            <h3>Review simulation path</h3>
+            <p>
+              Use simulation to visualize movement, placement logic, and how the robot behaves around fixtures, parts, and work zones.
+            </p>
+            <a href="/robot-simulator.html" onclick="gtag('event','workflow_click',{'page':'robotics_hub','step':'simulation'});">Open Robot Simulator</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tools">
+      <div class="section-card">
+        <h2>Robotics calculators and tools</h2>
+        <p class="description">
+          These are the core tools for evaluating robot applications. Use them together when reviewing a real system instead of treating them as isolated checks.
+        </p>
+
+        <div class="tool-grid">
+          <div class="tool-card">
+            <h3>Robot Reach Calculator</h3>
+            <p>
+              Check whether the robot can physically reach required target points and whether the working area makes sense for the application.
+            </p>
+            <div class="tool-links">
+              <a href="/robot-reach.html" onclick="gtag('event','tool_open',{'from':'robotics_hub','tool':'robot_reach'});">Open calculator</a>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Robot Payload Calculator</h3>
+            <p>
+              Compare part weight, tooling weight, and total working load against the robot's usable payload range.
+            </p>
+            <div class="tool-links">
+              <a href="/robot-payload.html" onclick="gtag('event','tool_open',{'from':'robotics_hub','tool':'robot_payload'});">Open calculator</a>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Robot Cycle Time Calculator</h3>
+            <p>
+              Estimate total cycle time for robot operations based on travel, handling, and process steps.
+            </p>
+            <div class="tool-links">
+              <a href="/robot.html" onclick="gtag('event','tool_open',{'from':'robotics_hub','tool':'robot_cycle_time'});">Open calculator</a>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Robot Simulator</h3>
+            <p>
+              Visualize motion paths and positioning to better understand how the robot behaves relative to the work area and fixture layout.
+            </p>
+            <div class="tool-links">
+              <a href="/robot-simulator.html" onclick="gtag('event','tool_open',{'from':'robotics_hub','tool':'robot_simulator'});">Open simulator</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <h3>Working on a real robot application?</h3>
+          <p>
+            If the application feels risky or unclear, do not jump straight into cycle time claims. First verify reach, then payload, then timing, then use simulation to check whether the actual movement path is realistic.
+          </p>
+          <div class="internal-links">
+            <a href="/robot-reach.html" onclick="gtag('event','hub_internal_link',{'from':'robotics_hub','to':'robot_reach'});">Start with Reach</a>
+            <a href="/robot-payload.html" onclick="gtag('event','hub_internal_link',{'from':'robotics_hub','to':'robot_payload'});">Then Check Payload</a>
+            <a href="/robot.html" onclick="gtag('event','hub_internal_link',{'from':'robotics_hub','to':'robot_cycle_time'});">Then Estimate Cycle Time</a>
+            <a href="/robot-simulator.html" onclick="gtag('event','hub_internal_link',{'from':'robotics_hub','to':'robot_simulator'});">Then Review Simulation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Use cases by problem type</h2>
+        <p class="description">
+          If you already know the issue you are trying to solve, use these symptom-based paths to choose the best starting point.
+        </p>
+
+        <div class="system-map">
+          <div class="system-box">
+            <h3>Robot may not reach the target</h3>
+            <p>
+              If the fixture, pick point, or process location looks questionable, start with working envelope and reach feasibility.
+            </p>
+            <ul>
+              <li><a href="/robot-reach.html" onclick="gtag('event','symptom_path',{'page':'robotics_hub','path':'reach_issue_reach_calc'});">Check robot reach first</a></li>
+              <li><a href="/robot-simulator.html" onclick="gtag('event','symptom_path',{'page':'robotics_hub','path':'reach_issue_simulator'});">Then review simulated positioning</a></li>
+              <li><a href="/robot.html" onclick="gtag('event','symptom_path',{'page':'robotics_hub','path':'reach_issue_cycle_time'});">Then estimate timing if layout works</a></li>
+            </ul>
+          </div>
+
+          <div class="system-box">
+            <h3>Payload or tooling weight concerns</h3>
+            <p>
+              If the EOAT, part, or added mounting hardware feels heavy, verify the total load before assuming the robot can handle it safely.
+            </p>
+            <ul>
+              <li><a href="/robot-payload.html" onclick="gtag('event','symptom_path',{'page':'robotics_hub','path':'payload_issue_payload_calc'});">Check payload first</a></li>
+              <li><a href="/robot-reach.html" onclick="gtag('event','symptom_path',{'page':'robotics_hub','path':'payload_issue_reach_calc'});">Then confirm working envelope impact</a></li>
+              <li><a href="/robot-simulator.html" onclick="gtag('event','symptom_path',{'page':'robotics_hub','path':'payload_issue_simulator'});">Then review movement path</a></li>
+            </ul>
+          </div>
+
+          <div class="system-box">
+            <h3>Robot seems too slow</h3>
+            <p>
+              Slow robot performance usually comes from unrealistic assumptions, long moves, awkward part presentation, or process delays.
+            </p>
+            <ul>
+              <li><a href="/robot.html" onclick="gtag('event','symptom_path',{'page':'robotics_hub','path':'slow_issue_cycle_time'});">Estimate cycle time first</a></li>
+              <li><a href="/robot-simulator.html" onclick="gtag('event','symptom_path',{'page':'robotics_hub','path':'slow_issue_simulator'});">Then review motion path</a></li>
+              <li><a href="/robot-reach.html" onclick="gtag('event','symptom_path',{'page':'robotics_hub','path':'slow_issue_reach_calc'});">Then check whether layout is forcing long moves</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>Good engineering habit:</strong> if a robot cell looks marginal, do not rely on one number alone. Reach, payload, motion path, and cycle time all affect each other.
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Supporting robotics paths</h2>
+        <p class="description">
+          This section should work like a system, not a loose collection of calculators. These internal links help users move through a more logical robotics evaluation flow.
+        </p>
+
+        <div class="guide-grid">
+          <div class="guide-card">
+            <h3>Reach → Payload → Cycle Time → Simulation</h3>
+            <p>
+              This is the strongest workflow for most robot feasibility checks and early application reviews.
+            </p>
+            <a href="/robot-reach.html" onclick="gtag('event','guide_flow_click',{'from':'robotics_hub','flow':'reach_start'});">Start workflow</a>
+          </div>
+
+          <div class="guide-card">
+            <h3>Problem-first navigation</h3>
+            <p>
+              If the user is not sure which robotics tool fits, direct them into the issue-based problem finder first.
+            </p>
+            <a href="/problem-solver.html" onclick="gtag('event','guide_flow_click',{'from':'robotics_hub','flow':'problem_solver'});">Open problem finder</a>
+          </div>
+
+          <div class="guide-card">
+            <h3>Simulation after math checks</h3>
+            <p>
+              Simulation is most valuable after basic reach, payload, and timing assumptions are already grounded.
+            </p>
+            <a href="/robot-simulator.html" onclick="gtag('event','guide_flow_click',{'from':'robotics_hub','flow':'simulation_after_checks'});">Open simulator</a>
+          </div>
+        </div>
+
+        <div class="internal-links">
+          <a href="/robot-reach.html" onclick="gtag('event','internal_link',{'from':'robotics_hub','to':'robot_reach'});">Robot Reach Calculator</a>
+          <a href="/robot-payload.html" onclick="gtag('event','internal_link',{'from':'robotics_hub','to':'robot_payload'});">Robot Payload Calculator</a>
+          <a href="/robot.html" onclick="gtag('event','internal_link',{'from':'robotics_hub','to':'robot_cycle_time'});">Robot Cycle Time Calculator</a>
+          <a href="/robot-simulator.html" onclick="gtag('event','internal_link',{'from':'robotics_hub','to':'robot_simulator'});">Robot Simulator</a>
+          <a href="/problem-solver.html" onclick="gtag('event','internal_link',{'from':'robotics_hub','to':'problem_solver'});">Problem Solver</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Where to go next</h2>
+        <p class="description">
+          This page should act as the main robotics entry point. From here, users should be able to move naturally into robot feasibility checks, timing review, and visual simulation without dead ends or weak internal paths.
+        </p>
+
+        <div class="cta-box">
+          <h3>Build your robotics checks in order</h3>
+          <p>
+            The strongest internal linking sequence for this section is:
+            <strong>Robot Reach → Robot Payload → Robot Cycle Time → Robot Simulator → Problem Solver</strong>.
+          </p>
+          <div class="internal-links">
+            <a href="/robot-reach.html" onclick="gtag('event','final_flow_click',{'page':'robotics_hub','target':'reach'});">1. Reach</a>
+            <a href="/robot-payload.html" onclick="gtag('event','final_flow_click',{'page':'robotics_hub','target':'payload'});">2. Payload</a>
+            <a href="/robot.html" onclick="gtag('event','final_flow_click',{'page':'robotics_hub','target':'cycle_time'});">3. Cycle Time</a>
+            <a href="/robot-simulator.html" onclick="gtag('event','final_flow_click',{'page':'robotics_hub','target':'simulator'});">4. Simulation</a>
+            <a href="/problem-solver.html" onclick="gtag('event','final_flow_click',{'page':'robotics_hub','target':'problem_solver'});">5. Problem Solver</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators and guides for real robotics application work
   </div>
-</section>
 
-<section class="section">
-  <h2>Where Should You Start?</h2>
-
-  <div class="grid">
-
-    <div class="card">
-      <h3>Robot seems too slow or cycle time is unknown</h3>
-      <p>Start here to estimate cycle time based on movement and process steps.</p>
-      <a href="/robot.html">Robot Cycle Time →</a>
-    </div>
-
-    <div class="card">
-      <h3>Robot may not physically reach the target</h3>
-      <p>Check reach limits and workspace feasibility.</p>
-      <a href="/robot-reach.html">Robot Reach →</a>
-    </div>
-
-    <div class="card">
-      <h3>Payload or tooling weight concerns</h3>
-      <p>Validate robot payload vs actual load conditions.</p>
-      <a href="/robot-payload.html">Robot Payload →</a>
-    </div>
-
-  </div>
-</section>
-
-<section class="section">
-  <h2>Common Robotics Workflow</h2>
-
-  <div class="flow">
-    <a href="/robot-reach.html">Reach</a>
-    →
-    <a href="/robot-payload.html">Payload</a>
-    →
-    <a href="/robot.html">Cycle Time</a>
-    →
-    <a href="/robot-simulator.html">Simulation</a>
-  </div>
-</section>
-
-<section class="section">
-  <h2>Robotics Tools</h2>
-
-  <div class="grid">
-
-    <div class="card">
-      <h3>Robot Cycle Time Calculator</h3>
-      <p>Estimate total cycle time for robot operations.</p>
-      <a href="/robot.html">Open →</a>
-    </div>
-
-    <div class="card">
-      <h3>Robot Reach Calculator</h3>
-      <p>Check if the robot can physically reach required positions.</p>
-      <a href="/robot-reach.html">Open →</a>
-    </div>
-
-    <div class="card">
-      <h3>Robot Payload Calculator</h3>
-      <p>Compare tooling and part weight against robot limits.</p>
-      <a href="/robot-payload.html">Open →</a>
-    </div>
-
-    <div class="card">
-      <h3>Robot Simulator</h3>
-      <p>Visualize robot movement and positioning.</p>
-      <a href="/robot-simulator.html">Open →</a>
-    </div>
-
-    <div class="card">
-      <h3>Start With Your Issue</h3>
-      <p>Not sure which tool fits? Start with the problem solver.</p>
-      <a href="/problem-solver.html">Open →</a>
-    </div>
-
-  </div>
-</section>
-
-<section class="section">
-  <div class="cta">
-    <h2>Need Help With a Real Robot Application?</h2>
-    <p>
-      Some robotics problems need real system review — reach, payload, fixtures,
-      and cycle time all interact. If you're working on a live system, get help.
-    </p>
-    <a href="/automation-help.html">Get Help →</a>
-  </div>
-</section>
-
-<footer style="text-align:center;padding:20px;">
-  Automation Engineering Tools • Practical calculators for real automation work
-</footer>
-
-<script>
-fetch('/navbar.html')
-.then(res => res.text())
-.then(data => document.getElementById('navbar').innerHTML = data);
-</script>
-
+  <script>
+    fetch('/navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar').innerHTML = data;
+      });
+  </script>
 </body>
 </html>
