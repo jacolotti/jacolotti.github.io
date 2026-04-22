@@ -6,6 +6,7 @@
     position: sticky;
     top: 0;
     z-index: 1000;
+    overflow: visible;
   }
 
   .navbar-inner {
@@ -16,6 +17,7 @@
     align-items: center;
     gap: 16px;
     position: relative;
+    overflow: visible;
   }
 
   .brand {
@@ -122,6 +124,10 @@
     top: calc(100% + 10px);
     left: 0;
     min-width: 760px;
+    max-width: min(1100px, calc(100vw - 40px));
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    overflow-x: hidden;
     background: #ffffff;
     border: 1px solid #dbe4ee;
     border-radius: 16px;
@@ -132,10 +138,25 @@
 
   .dropdown-panel.tools-panel {
     min-width: 980px;
+    max-width: min(1100px, calc(100vw - 40px));
   }
 
   .dropdown-panel.resources-panel {
     min-width: 640px;
+    max-width: min(760px, calc(100vw - 40px));
+  }
+
+  .dropdown-panel::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  .dropdown-panel::-webkit-scrollbar-thumb {
+    background: #c9d7e6;
+    border-radius: 999px;
+  }
+
+  .dropdown-panel::-webkit-scrollbar-track {
+    background: transparent;
   }
 
   .dropdown:hover .dropdown-panel,
@@ -264,6 +285,9 @@
       position: static;
       display: none;
       min-width: 100%;
+      max-width: 100%;
+      max-height: none;
+      overflow: visible;
       margin-top: 6px;
       box-shadow: none;
       border-radius: 12px;
@@ -280,6 +304,7 @@
       gap: 14px;
     }
   }
+</style>
 </style>
 
 <div class="navbar" id="siteNavbar">
