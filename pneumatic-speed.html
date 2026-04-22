@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <link rel="canonical" href="https://automationcalculators.net/pneumatic-speed.html">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
-  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pneumatic Cylinder Speed Calculator | Automation Calculators</title>
+  <meta name="description" content="Free pneumatic cylinder speed calculator for automation engineers. Estimate cylinder extend and retract speed using flow rate, bore, rod diameter, and stroke length.">
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -15,174 +17,271 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>Pneumatic Cylinder Speed Calculator | Automation Calculators</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free pneumatic cylinder speed calculator for automation engineers. Estimate cylinder extend and retract speed using flow rate, bore, rod diameter, and stroke length.">
-
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+      --success-bg:#e9f1ff;
+      --success-border:#c8d9ff;
+      --warn-bg:#fff7df;
+      --warn-border:#f1d98a;
+      --warn-text:#5c4a12;
+    }
+
+    *{box-sizing:border-box;}
+
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
-      font-family:Arial, sans-serif;
-      background:#f4f4f4;
       margin:0;
-      color:#222;
-    }
-
-    .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
-      text-align:center;
-    }
-
-    .hero-inner{
-      max-width:950px;
-      margin:auto;
-    }
-
-    .hero h1{
-      margin:0 0 12px;
-      font-size:34px;
-      line-height:1.2;
-    }
-
-    .hero p{
-      max-width:800px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
-      font-size:17px;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
       line-height:1.6;
     }
 
-    .hero-cta{
-      margin-top:18px;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .hero-cta a{
-      display:inline-block;
-      padding:12px 18px;
-      border-radius:8px;
+    a{
+      color:var(--accent);
       text-decoration:none;
-      font-weight:bold;
-      transition:.2s ease;
     }
 
-    .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+    a:hover{
+      text-decoration:underline;
     }
 
-    .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
     }
 
-    .hero-cta a:hover{
-      transform:translateY(-1px);
-      opacity:.95;
+    .hero{
+      background:#ffffff;
+      border-bottom:1px solid var(--border);
     }
 
-    .page-wrap{
-      max-width:1100px;
-      margin:30px auto;
-      padding:0 18px 40px;
-    }
-
-    .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
-      color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
-      font-size:15px;
-      line-height:1.5;
-      text-align:left;
-    }
-
-    .main-grid{
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:50px 20px 36px;
       display:grid;
-      grid-template-columns:2fr 1fr;
+      grid-template-columns:1.35fr 0.85fr;
       gap:24px;
       align-items:start;
     }
 
-    .card,
-    .sidebar-card{
-      background:white;
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.3rem;
+      line-height:1.15;
+      color:var(--text);
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width:760px;
+      font-size:1.02rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      transition:.2s ease;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:var(--accent-dark);
+      text-decoration:none;
+    }
+
+    .btn-secondary{
+      background:var(--soft);
+      color:var(--accent-dark);
+      border:1px solid var(--border);
+    }
+
+    .btn-secondary:hover{
+      background:#e2edf9;
+      text-decoration:none;
+    }
+
+    .hero-panel{
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:22px;
+    }
+
+    .hero-panel h3{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--text);
+    }
+
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+
+    .hero-panel li{
+      margin-bottom:8px;
+    }
+
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:34px 20px;
+    }
+
+    .section h2{
+      margin:0 0 10px;
+      font-size:1.95rem;
+      color:var(--text);
+    }
+
+    .section h3{
+      color:var(--text);
+      margin-top:0;
+    }
+
+    .section-intro{
+      margin:0 0 22px;
+      color:var(--muted);
+      max-width:860px;
+    }
+
+    .info-note{
+      background:var(--warn-bg);
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
+      padding:14px 16px;
       border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
+      margin-top:18px;
+    }
+
+    .card,
+    .workflow,
+    .result,
+    .formula-box,
+    .control-group,
+    .quick-card,
+    .mini-card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
     }
 
     .card{
-      padding:28px;
+      padding:26px;
     }
 
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
-    }
-
-    .section-label{
-      font-size:13px;
-      font-weight:bold;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      color:#5e7197;
-      margin-bottom:10px;
-    }
-
-    .card h2,
-    .sidebar-card h3{
-      margin-top:0;
-      color:#1f2a44;
-    }
-
-    .description{
+    .workflow{
+      padding:20px;
       margin:0 0 18px;
-      color:#555;
-      font-size:16px;
-      line-height:1.6;
-      text-align:left;
+    }
+
+    .workflow p{
+      margin:0 0 12px;
+      color:var(--muted);
+    }
+
+    .flow-steps{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+    }
+
+    .flow-steps a{
+      background:var(--soft);
+      border:1px solid var(--border);
+      color:var(--accent-dark);
+      padding:8px 12px;
+      border-radius:999px;
+      text-decoration:none;
+    }
+
+    .flow-steps a:hover{
+      background:#e2edf9;
+    }
+
+    .arrow{
+      color:#8695a3;
     }
 
     .formula-box{
-      margin:20px 0;
       padding:18px;
-      background:#eef3ff;
-      border:1px solid #cfdaf5;
-      border-radius:10px;
-      color:#1f2a44;
-      font-weight:bold;
+      background:var(--soft);
+      border:1px solid var(--border);
+      color:var(--text);
+      font-weight:700;
       font-size:17px;
       line-height:1.7;
-      text-align:left;
+      margin:18px 0 22px;
     }
 
     .quick-row{
-      margin:8px 0 22px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin:18px 0 24px;
     }
 
-    .quick-row button{
-      padding:10px 12px;
-      border-radius:8px;
-      border:1px solid #cdd8ee;
-      background:#f7f9fd;
-      cursor:pointer;
-      font-weight:600;
-      color:#1f2a44;
+    .quick-card{
+      padding:18px;
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
     }
 
-    .quick-row button:hover{
-      background:#eef3fc;
+    .quick-card h4{
+      margin:0 0 8px;
+      color:var(--text);
+      font-size:1rem;
+    }
+
+    .quick-card p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .quick-card button{
+      width:100%;
     }
 
     .controls{
@@ -196,13 +295,12 @@
     .control-group{
       background:#f8fbff;
       border:1px solid #d7e6ff;
-      border-radius:10px;
       padding:16px;
     }
 
     .control-group label{
       display:block;
-      font-weight:600;
+      font-weight:700;
       margin-bottom:6px;
       color:#23314f;
     }
@@ -215,6 +313,7 @@
       border:1px solid #cfd6e4;
       border-radius:8px;
       background:white;
+      font-family:Arial, Helvetica, sans-serif;
     }
 
     .control-group input:focus{
@@ -230,42 +329,11 @@
       gap:12px;
     }
 
-    .button-row button{
-      padding:13px 22px;
-      font-size:16px;
-      background:#1e6bd6;
-      color:white;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:bold;
-      transition:.2s ease;
-    }
-
-    .button-row button.secondary{
-      background:#5a6a85;
-    }
-
-    .button-row button.ghost{
-      background:#e9eef8;
-      color:#1f2a44;
-    }
-
-    .button-row button:hover{
-      background:#1555ad;
-      transform:translateY(-1px);
-    }
-
-    .button-row button.ghost:hover{
-      background:#dde7f8;
-    }
-
     .result{
       margin-top:25px;
       padding:20px;
-      background:#e9f1ff;
-      border:1px solid #c8d9ff;
-      border-radius:10px;
+      background:var(--success-bg);
+      border:1px solid var(--success-border);
       font-size:18px;
       line-height:1.6;
       font-weight:500;
@@ -274,17 +342,16 @@
     }
 
     .cta-box{
-      margin-top:26px;
+      margin-top:22px;
       padding:22px;
       background:linear-gradient(135deg,#edf4ff,#e3edff);
       border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
+      border-radius:14px;
     }
 
     .cta-box h3{
       margin:0 0 10px;
-      color:#1f2a44;
+      color:var(--text);
     }
 
     .cta-box p{
@@ -292,49 +359,6 @@
       color:#4d5a74;
       line-height:1.6;
     }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .note{
-      margin-top:20px;
-      color:#666;
-      font-size:14px;
-      line-height:1.6;
-      text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more ul{
-  margin:0 0 12px 20px;
-  color:#555;
-  line-height:1.7;
-}
-
-.learn-more li{
-  margin-bottom:8px;
-}
 
     .internal-links{
       display:flex;
@@ -349,67 +373,104 @@
       background:white;
       border:1px solid #d6e0f1;
       border-radius:8px;
-      color:#1f2a44;
+      color:var(--accent-dark);
       text-decoration:none;
-      font-weight:600;
+      font-weight:700;
     }
 
     .internal-links a:hover{
       background:#e9eef8;
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+    .grid-2,
+    .grid-3{
+      display:grid;
+      gap:18px;
     }
 
-    .sidebar-card ul{
-      padding-left:18px;
+    .grid-2{ grid-template-columns:repeat(2,1fr); }
+    .grid-3{ grid-template-columns:repeat(3,1fr); }
+
+    .mini-card{
+      background:white;
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      padding:20px;
+      height:100%;
+    }
+
+    .mini-card h3,
+    .mini-card h4{
+      margin:0 0 8px;
+      color:var(--text);
+    }
+
+    .mini-card p,
+    .mini-card li{
+      color:var(--muted);
+      font-size:0.96rem;
+    }
+
+    .mini-card ul{
       margin:0;
-      color:#444;
-      line-height:1.7;
+      padding-left:18px;
     }
 
-    .footer{
-      margin-top:40px;
+    .note{
+      margin-top:20px;
       color:#666;
       font-size:14px;
-      text-align:center;
+      line-height:1.6;
+      text-align:left;
     }
 
-    @media (max-width:900px){
-      .main-grid{
+    .footer-note{
+      text-align:center;
+      color:#667584;
+      font-size:0.95rem;
+      padding:8px 0 4px;
+    }
+
+    @media (max-width: 1020px){
+      .hero-inner,
+      .grid-2,
+      .grid-3,
+      .quick-row{
         grid-template-columns:1fr;
       }
     }
 
-    @media (max-width:700px){
-      .card,
-      .sidebar-card{
-        padding:20px;
+    @media (max-width: 700px){
+      .hero-inner{
+        padding:40px 16px 30px;
+      }
+
+      .section{
+        padding:30px 16px;
       }
 
       .hero h1{
-        font-size:28px;
+        font-size:1.95rem;
       }
 
-      .hero-cta{
-        flex-direction:column;
-        align-items:center;
+      .section h2{
+        font-size:1.55rem;
       }
 
-      .hero-cta a{
-        width:100%;
-        max-width:320px;
+      .card,
+      .workflow,
+      .quick-card,
+      .mini-card,
+      .control-group{
+        padding:18px;
       }
 
       .button-row{
         flex-direction:column;
       }
 
-      .button-row button{
+      .button-row .btn{
         width:100%;
       }
     }
@@ -421,171 +482,277 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <h1>Pneumatic Cylinder Speed Calculator</h1>
-    <p>
-      Estimate pneumatic cylinder extend and retract speed using cylinder size, flow rate, and real-world airflow limitations for automation systems.
-    </p>
-    <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
-      <a href="/air-consumption.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'pneumatic_speed_hero','to':'air_consumption'});">Air Consumption Calculator</a>
+    <div>
+      <h1>Pneumatic Cylinder Speed Calculator</h1>
+      <p>
+        Estimate pneumatic cylinder extend and retract speed using cylinder size, flow rate, and simplified free-air assumptions for automation systems.
+      </p>
+      <p>
+        This is a first-pass speed estimate. It helps you see whether your cylinder motion is in the right range before getting deeper into valve Cv, regulator performance, exhaust restriction, cushioning, and real load effects.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta',{'location':'hero','action':'open_calculator'});">Open Calculator</a>
+        <a class="btn btn-secondary" href="/pneumatics.html" onclick="gtag('event','page_cta',{'location':'hero','action':'pneumatics_hub'});">Pneumatics Hub</a>
+        <a class="btn btn-secondary" href="/air-line-size-calculator.html" onclick="gtag('event','page_cta',{'location':'hero','action':'air_line_size'});">Next: Air Line Size</a>
+      </div>
+
+      <div class="info-note">
+        <strong>Good starting use case:</strong> estimate whether the cylinder can move fast enough for your cycle time before digging into valve Cv, regulator behavior, cushioning, exhaust restriction, and real load effects.
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h3>What this page helps you do</h3>
+      <ul>
+        <li>Estimate extend and retract time</li>
+        <li>Estimate extend and retract speed</li>
+        <li>Check whether motion is in the right cycle-time range</li>
+        <li>Move into line sizing and support checks through the pneumatic workflow</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<div class="page-wrap">
-  <div class="top-note">
-    <strong>Good starting use case:</strong> estimate whether the cylinder can move fast enough for your cycle time before digging into valve Cv, regulator behavior, cushioning, exhaust restriction, and real load effects.
+<section class="section">
+  <h2>Recommended Pneumatic Workflow</h2>
+  <p class="section-intro">
+    Speed should be checked after force and air demand. A system can have enough force and still miss cycle time if the available flow is not there.
+  </p>
+
+  <div class="workflow">
+    <h3>Typical design path</h3>
+    <p>Start with force, estimate air demand, check speed, then verify line capacity.</p>
+    <div class="flow-steps">
+      <a href="/pneumatic.html" onclick="gtag('event','workflow_click',{'from':'pneumatic_speed','to':'pneumatic_force'});">Force</a>
+      <span class="arrow">→</span>
+      <a href="/air-consumption.html" onclick="gtag('event','workflow_click',{'from':'pneumatic_speed','to':'air_consumption'});">Air Consumption</a>
+      <span class="arrow">→</span>
+      <a href="/pneumatic-speed.html" onclick="gtag('event','workflow_click',{'from':'pneumatic_speed','to':'pneumatic_speed'});">Speed</a>
+      <span class="arrow">→</span>
+      <a href="/air-line-size-calculator.html" onclick="gtag('event','workflow_click',{'from':'pneumatic_speed','to':'air_line_size'});">Air Line Size</a>
+    </div>
   </div>
+</section>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Extend and Retract Speed</h2>
+<section class="section" id="calculator">
+  <div class="card">
+    <h2>Estimate Extend and Retract Speed</h2>
 
-      <p class="description">
-        Estimate pneumatic cylinder extend and retract speed using cylinder size, rod diameter, stroke, and supplied flow rate.
-      </p>
+    <p class="section-intro">
+      Estimate pneumatic cylinder extend and retract speed using cylinder size, rod diameter, stroke, and supplied flow rate.
+    </p>
 
-      <p class="description">
-        This calculator is useful for preliminary cylinder timing estimates, pneumatic sizing, valve selection, and automation cycle time planning.
-      </p>
+    <p class="section-intro" style="margin-top:-8px;">
+      This calculator is useful for preliminary cylinder timing estimates, pneumatic sizing, valve selection, and automation cycle time planning. It should be treated as an early engineering estimate, not a final validated motion model.
+    </p>
 
-      <div class="formula-box">
-        Cylinder Time = Volume ÷ Available Free Air Flow<br><br>
-        Speed = Stroke ÷ Time
+    <div class="formula-box">
+      Cylinder Time = Volume ÷ Available Free Air Flow<br><br>
+      Speed = Stroke ÷ Time
+    </div>
+
+    <h3>Quick examples</h3>
+    <div class="quick-row">
+      <div class="quick-card">
+        <h4>Standard Cylinder</h4>
+        <p>General-purpose example for a common bore, rod, and flow combination.</p>
+        <button class="btn btn-secondary" type="button" onclick="loadExample1(); gtag('event','pneumatic_speed_example',{'type':'standard'});">Load Example</button>
       </div>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','pneumatic_speed_example',{'type':'standard'});">Standard Cylinder</button>
-        <button type="button" onclick="loadExample2(); gtag('event','pneumatic_speed_example',{'type':'larger_bore'});">Larger Bore</button>
-        <button type="button" onclick="loadExample3(); gtag('event','pneumatic_speed_example',{'type':'higher_flow'});">Higher Flow</button>
+      <div class="quick-card">
+        <h4>Larger Bore</h4>
+        <p>Shows how larger cylinder volume can slow motion if flow stays the same.</p>
+        <button class="btn btn-secondary" type="button" onclick="loadExample2(); gtag('event','pneumatic_speed_example',{'type':'larger_bore'});">Load Example</button>
       </div>
 
-      <div class="controls">
-        <div class="control-group">
-          <label for="bore">Bore Diameter (in)</label>
-          <input id="bore" type="number" value="2" min="0.01" step="0.01">
-        </div>
+      <div class="quick-card">
+        <h4>Higher Flow</h4>
+        <p>Shows the effect of increasing available SCFM on cylinder timing.</p>
+        <button class="btn btn-secondary" type="button" onclick="loadExample3(); gtag('event','pneumatic_speed_example',{'type':'higher_flow'});">Load Example</button>
+      </div>
+    </div>
 
-        <div class="control-group">
-          <label for="rod">Rod Diameter (in)</label>
-          <input id="rod" type="number" value="0.625" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="stroke">Stroke Length (in)</label>
-          <input id="stroke" type="number" value="6" min="0.01" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="scfm">Available Flow Rate (SCFM)</label>
-          <input id="scfm" type="number" value="4" min="0.01" step="0.01">
-        </div>
+    <div class="controls">
+      <div class="control-group">
+        <label for="bore">Bore Diameter (in)</label>
+        <input id="bore" type="number" value="2" min="0.01" step="0.01">
       </div>
 
-      <div class="button-row">
-        <button onclick="calculatePneumaticSpeed(); gtag('event','pneumatic_speed_calculation');">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator();">Reset</button>
+      <div class="control-group">
+        <label for="rod">Rod Diameter (in)</label>
+        <input id="rod" type="number" value="0.625" min="0" step="0.01">
       </div>
 
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
+      <div class="control-group">
+        <label for="stroke">Stroke Length (in)</label>
+        <input id="stroke" type="number" value="6" min="0.01" step="0.01">
       </div>
 
-      <div class="cta-box">
-        <h3>Not sure where to start?</h3>
-        <p>Follow the full step-by-step pneumatic system sizing process.</p>
-        <a href="/pneumatic-system-sizing-guide.html">View Pneumatic System Guide</a>
+      <div class="control-group">
+        <label for="scfm">Available Flow Rate (SCFM)</label>
+        <input id="scfm" type="number" value="4" min="0.01" step="0.01">
       </div>
+    </div>
 
-      <div class="cta-box">
-        <h3>Need help applying this to a real machine?</h3>
-        <p>
-          Get connected with a qualified automation integrator for your project if you need help with cylinder sizing, valve selection, pneumatic timing, or full machine design.
-        </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
+    <div class="button-row">
+      <button class="btn btn-primary" onclick="calculatePneumaticSpeed(); gtag('event','pneumatic_speed_calculation');">Calculate</button>
+      <button class="btn btn-secondary" onclick="loadExample1();">Load Example</button>
+      <button class="btn btn-secondary" onclick="resetCalculator();">Reset</button>
+    </div>
 
-      <p class="note">
-        This is a simplified estimate using standard cubic feet per minute converted to free air volume. Real cylinder speed depends heavily on pressure, valve Cv, tubing length, regulator performance, load, cushioning, exhaust restriction, and meter-in or meter-out control.
-      </p>
+    <div class="result" id="output">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
 
-      <div class="learn-more">
-  <h3>How to use this calculator in real applications</h3>
-
-  <p>
-    This calculator is typically used during early design or troubleshooting to estimate whether a cylinder can meet the required cycle time.
-    While the math is straightforward, real cylinder speed is heavily influenced by valve flow capacity, pressure stability, exhaust restriction, and system layout.
-  </p>
-
-  <p>
-    A common workflow is to estimate speed here, then verify air consumption and line sizing to make sure the system can actually deliver the required flow at that speed without pressure drop.
-  </p>
-
-  <h3>Real-world example</h3>
-
-  <p>
-    A cylinder may calculate to move in 0.3 seconds based on available SCFM, but if the valve Cv is too low or the exhaust path is restricted, the actual motion can slow significantly.
-    This often shows up as inconsistent cycle times or stations falling behind the required takt time.
-  </p>
-
-  <h3>Common causes of slow pneumatic motion</h3>
-
-  <ul>
-    <li>Undersized valves limiting available flow</li>
-    <li>Long or undersized air lines causing pressure drop</li>
-    <li>Exhaust restriction or improper flow control setup</li>
-    <li>Low or unstable supply pressure under load</li>
-    <li>Cylinder cushioning or mechanical resistance</li>
-  </ul>
-
-  <h3>Where this fits in your design process</h3>
-
-  <p>
-    Cylinder speed should be evaluated alongside force and air consumption. A system that has enough force may still fail to meet cycle time if airflow is limited or poorly distributed.
-  </p>
-
-  <div class="internal-links">
-    <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'pneumatic_force'});">Pneumatic Force</a>
-    <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'air_consumption'});">Air Consumption</a>
-    <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'air_line_size'});">Air Line Size</a>
-    <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'cfm_scfm_psi'});">CFM SCFM PSI Calculator</a>
+    <p class="note">
+      This is a simplified estimate using standard cubic feet per minute converted to free air volume. Real cylinder speed depends heavily on pressure, valve Cv, tubing length, regulator performance, load, cushioning, exhaust restriction, and meter-in or meter-out control. The current calculation approach was preserved from your existing page logic. :contentReference[oaicite:1]{index=1}
+    </p>
   </div>
-</div>
+</section>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
-        <ul>
-          <li>Estimated extend time</li>
-          <li>Estimated retract time</li>
-          <li>Estimated extend speed</li>
-          <li>Estimated retract speed</li>
-        </ul>
+<section class="section">
+  <div class="grid-3">
+    <div class="mini-card">
+      <h3>What this calculator gives you</h3>
+      <ul>
+        <li>Estimated extend time</li>
+        <li>Estimated retract time</li>
+        <li>Estimated extend speed</li>
+        <li>Estimated retract speed</li>
+      </ul>
+    </div>
+
+    <div class="mini-card">
+      <h3>Where this helps</h3>
+      <p>
+        Useful for cylinder timing checks, early valve sizing, automation cycle planning, tooling motion review, and deciding whether pneumatic motion is fast enough for the application.
+      </p>
+    </div>
+
+    <div class="mini-card">
+      <h3>Common next checks</h3>
+      <ul>
+        <li>Valve Cv and flow capacity</li>
+        <li>Actual operating pressure</li>
+        <li>Tubing size and length</li>
+        <li>Load and backpressure effects</li>
+        <li>Cushioning and exhaust restriction</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="card">
+    <h2>Continue Your Pneumatic Design</h2>
+    <p class="section-intro">
+      Speed has to be reviewed alongside force and air demand. If the numbers here look slow, the issue may be valve flow, line size, regulator performance, or simply too much cylinder volume for the available air.
+    </p>
+
+    <div class="internal-links">
+      <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'pneumatic_force'});">Step 1: Pneumatic Force</a>
+      <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'air_consumption'});">Step 2: Air Consumption</a>
+      <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'air_line_size'});">Step 4: Air Line Size</a>
+      <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'cfm_scfm_psi'});">Supporting Tool: CFM / SCFM / PSI</a>
+      <a href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'pneumatic_system_guide'});">Full Pneumatic System Guide</a>
+      <a href="/pneumatics.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'pneumatics_hub'});">Pneumatics Hub</a>
+    </div>
+
+    <div class="grid-3" style="margin-top:22px;">
+      <div class="mini-card">
+        <h4>Pneumatic Force Calculator</h4>
+        <p>Use this first if you still need to confirm the cylinder can actually generate enough usable force.</p>
       </div>
-
-      <div class="sidebar-card">
-        <h3>Where this helps</h3>
-        <p>
-          Useful for cylinder timing checks, early valve sizing, automation cycle planning, tooling motion review, and deciding whether pneumatic motion is fast enough for the application.
-        </p>
+      <div class="mini-card">
+        <h4>Air Consumption Calculator</h4>
+        <p>Use this to estimate the cylinder’s air demand per cycle and how much system capacity it needs.</p>
       </div>
-
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
-        <ul>
-          <li>Valve Cv and flow capacity</li>
-          <li>Actual operating pressure</li>
-          <li>Tubing size and length</li>
-          <li>Load and backpressure effects</li>
-          <li>Cushioning and exhaust restriction</li>
-        </ul>
+      <div class="mini-card">
+        <h4>Air Line Size Calculator</h4>
+        <p>Use this next to verify tubing and supply sizing so the speed estimate is achievable in practice.</p>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<section class="section">
+  <div class="card">
+    <h2>How to Use This Calculator in Real Applications</h2>
+    <p class="section-intro">
+      This calculator is typically used during early design or troubleshooting to estimate whether a cylinder can meet the required cycle time. While the math is straightforward, real cylinder speed is heavily influenced by valve flow capacity, pressure stability, exhaust restriction, and system layout.
+    </p>
+
+    <div class="grid-2">
+      <div class="mini-card">
+        <h4>Real-world example</h4>
+        <p>
+          A cylinder may calculate to move in 0.3 seconds based on available SCFM, but if the valve Cv is too low or the exhaust path is restricted, the actual motion can slow significantly.
+        </p>
+        <p>
+          This often shows up as inconsistent cycle times or stations falling behind the required takt time.
+        </p>
+      </div>
+
+      <div class="mini-card">
+        <h4>Where this fits in your design process</h4>
+        <p>
+          Cylinder speed should be evaluated alongside force and air consumption. A system that has enough force may still fail to meet cycle time if airflow is limited or poorly distributed.
+        </p>
+        <p>
+          This page is best used as a first-pass screen before you dig into valve sizing and detailed motion tuning.
+        </p>
+      </div>
+    </div>
+
+    <div class="cta-box" style="margin-top:22px;">
+      <h3>Common causes of slow pneumatic motion</h3>
+      <div class="internal-links" style="margin-top:0;">
+        <a href="javascript:void(0)">Undersized valves limiting available flow</a>
+        <a href="javascript:void(0)">Long or undersized air lines causing pressure drop</a>
+        <a href="javascript:void(0)">Exhaust restriction or improper flow control setup</a>
+        <a href="javascript:void(0)">Low or unstable supply pressure under load</a>
+        <a href="javascript:void(0)">Cylinder cushioning or mechanical resistance</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="grid-2">
+    <div class="card">
+      <h2>Need Help Applying This to a Real Machine?</h2>
+      <p class="section-intro">
+        If you need help with cylinder sizing, valve selection, pneumatic timing, or overall machine motion behavior, use the support path below.
+      </p>
+
+      <div class="hero-actions" style="margin-top:0;">
+        <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','cta_click',{'from':'pneumatic_speed','to':'automation_help'});">Get Help With My System</a>
+        <a class="btn btn-secondary" href="/integrators.html" onclick="gtag('event','cta_click',{'from':'pneumatic_speed','to':'integrators'});">Find an Integrator</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Related Pneumatic Pages</h2>
+      <p class="section-intro">
+        These pages work best together and support the same pneumatic sizing workflow.
+      </p>
+
+      <div class="internal-links">
+        <a href="/pneumatics.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'pneumatics_hub'});">Pneumatics Hub</a>
+        <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'pneumatic_force'});">Pneumatic Force</a>
+        <a href="/air-consumption.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'air_consumption'});">Air Consumption</a>
+        <a href="/air-line-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'air_line_size'});">Air Line Size</a>
+        <a href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'cfm_scfm_psi'});">CFM / SCFM / PSI Calculator</a>
+        <a href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','internal_link_click',{'from':'pneumatic_speed','to':'pneumatic_system_guide'});">Pneumatic System Sizing Guide</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Automation Engineering Tools • Practical calculators for real automation work
+  </div>
+</section>
 
 <script>
   function scrollToOutput(){
@@ -710,13 +877,13 @@
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
-      document.getElementById("navbar").innerHTML = data;
+      document.getElementById('navbar').innerHTML = data;
     })
     .catch(error => {
-      console.error("Navbar failed to load:", error);
+      console.error('Navbar failed to load:', error);
     });
 </script>
 
