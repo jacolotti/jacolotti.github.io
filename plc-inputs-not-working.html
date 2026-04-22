@@ -67,109 +67,98 @@
     }
 
     .hero{
-      background:linear-gradient(135deg, #0b66c3 0%, #0d79d0 45%, #0b3d69 100%);
-      color:#fff;
-      padding:60px 20px 42px;
+      background:#ffffff;
+      border-bottom:1px solid var(--border);
     }
 
     .hero-inner{
       max-width:var(--max);
       margin:0 auto;
+      padding:50px 20px 36px;
       display:grid;
-      grid-template-columns:1.2fr 0.8fr;
-      gap:26px;
-      align-items:center;
+      grid-template-columns:1.35fr 0.85fr;
+      gap:24px;
+      align-items:start;
     }
 
     .hero h1{
-      margin:0 0 16px;
-      font-size:2.35rem;
-      line-height:1.12;
-      color:#fff;
+      margin:0 0 14px;
+      font-size:2.3rem;
+      line-height:1.15;
+      color:var(--text);
     }
 
     .hero p{
       margin:0 0 14px;
+      color:var(--muted);
       max-width:760px;
-      color:rgba(255,255,255,0.95);
-      font-size:1.05rem;
-    }
-
-    .trust-line{
-      margin-top:8px;
-      color:rgba(255,255,255,0.9);
-      font-weight:700;
-      font-size:0.98rem;
+      font-size:1.02rem;
     }
 
     .hero-actions{
       display:flex;
       flex-wrap:wrap;
       gap:12px;
-      margin-top:22px;
+      margin-top:20px;
     }
 
     .btn{
       display:inline-block;
-      padding:13px 18px;
+      padding:12px 16px;
       border-radius:10px;
       font-weight:700;
-      text-decoration:none;
       transition:.2s ease;
-      border:none;
-      cursor:pointer;
-      text-align:center;
+      text-decoration:none;
     }
 
     .btn-primary{
-      background:#fff;
-      color:var(--accent-dark);
+      background:var(--accent);
+      color:#fff;
     }
 
     .btn-primary:hover{
-      background:#f1f6fb;
+      background:var(--accent-dark);
       text-decoration:none;
     }
 
     .btn-secondary{
-      background:rgba(255,255,255,0.14);
-      color:#fff;
-      border:1px solid rgba(255,255,255,0.28);
+      background:var(--soft);
+      color:var(--accent-dark);
+      border:1px solid var(--border);
     }
 
     .btn-secondary:hover{
-      background:rgba(255,255,255,0.2);
+      background:#e2edf9;
       text-decoration:none;
     }
 
     .hero-panel{
-      background:rgba(255,255,255,0.12);
-      border:1px solid rgba(255,255,255,0.18);
-      border-radius:18px;
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
       padding:22px;
-      backdrop-filter:blur(5px);
     }
 
     .hero-panel h3{
-      margin:0 0 12px;
-      font-size:1.15rem;
-      color:#fff;
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--text);
     }
 
     .hero-panel ul{
       margin:0;
       padding-left:18px;
+      color:var(--muted);
     }
 
     .hero-panel li{
-      margin-bottom:10px;
-      color:rgba(255,255,255,0.95);
+      margin-bottom:8px;
     }
 
     .section{
       max-width:var(--max);
       margin:0 auto;
-      padding:38px 20px;
+      padding:34px 20px;
     }
 
     .section h2{
@@ -178,11 +167,15 @@
       color:var(--text);
     }
 
+    .section h3{
+      margin:0 0 10px;
+      color:var(--text);
+    }
+
     .section-intro{
-      margin:0 0 24px;
+      margin:0 0 22px;
       color:var(--muted);
       max-width:860px;
-      font-size:1.02rem;
     }
 
     .note-box{
@@ -196,8 +189,7 @@
 
     .grid-3,
     .grid-2,
-    .tool-grid,
-    .feature-list{
+    .tool-grid{
       display:grid;
       gap:18px;
     }
@@ -205,15 +197,16 @@
     .grid-3{grid-template-columns:repeat(3,1fr);}
     .grid-2{grid-template-columns:repeat(2,1fr);}
     .tool-grid{grid-template-columns:repeat(3,1fr);}
-    .feature-list{grid-template-columns:repeat(4,1fr);}
 
     .card,
     .workflow,
-    .feature-item,
-    .cta-section,
+    .tool-card,
     .guide-shell,
     .checklist,
-    .info-box{
+    .info-box,
+    .feature-item,
+    .cta-section,
+    .inline-cta{
       background:var(--card);
       border:1px solid var(--border);
       border-radius:var(--radius);
@@ -222,42 +215,25 @@
 
     .card,
     .workflow,
-    .feature-item,
-    .cta-section,
+    .tool-card,
     .guide-shell,
     .checklist,
-    .info-box{
+    .info-box,
+    .feature-item,
+    .cta-section,
+    .inline-cta{
       padding:24px;
-    }
-
-    .tool-card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:22px;
-      height:100%;
-    }
-
-    .card h3,
-    .workflow h3,
-    .feature-item h3,
-    .tool-card h3,
-    .guide-shell h3,
-    .checklist h3,
-    .info-box h3{
-      margin:0 0 10px;
-      color:var(--text);
     }
 
     .card p,
     .workflow p,
-    .feature-item p,
     .tool-card p,
-    .cta-section p,
     .guide-shell p,
     .checklist p,
-    .info-box p{
+    .info-box p,
+    .feature-item p,
+    .cta-section p,
+    .inline-cta p{
       margin:0 0 12px;
       color:var(--muted);
     }
@@ -273,13 +249,14 @@
     .pill-link,
     .internal-links a{
       display:inline-block;
-      padding:8px 12px;
+      padding:9px 12px;
       border-radius:999px;
       background:var(--soft);
       color:var(--accent-dark);
       font-weight:700;
       font-size:0.95rem;
       text-decoration:none;
+      border:1px solid var(--border);
     }
 
     .pill-link:hover,
@@ -302,6 +279,7 @@
       border-radius:999px;
       color:var(--accent-dark);
       text-decoration:none;
+      border:1px solid var(--border);
     }
 
     .flow-steps a:hover{
@@ -388,10 +366,8 @@
 
     .inline-cta{
       margin-top:24px;
-      padding:22px;
       background:var(--success-bg);
       border:1px solid var(--success-border);
-      border-radius:14px;
       text-align:center;
     }
 
@@ -423,8 +399,7 @@
       .hero-inner,
       .grid-3,
       .grid-2,
-      .tool-grid,
-      .feature-list{
+      .tool-grid{
         grid-template-columns:1fr;
       }
 
@@ -435,7 +410,11 @@
 
     @media (max-width: 700px){
       .hero{
-        padding:46px 16px 34px;
+        padding:0;
+      }
+
+      .hero-inner{
+        padding:40px 16px 30px;
       }
 
       .section{
@@ -457,7 +436,8 @@
       .cta-section,
       .guide-shell,
       .checklist,
-      .info-box{
+      .info-box,
+      .inline-cta{
         padding:18px;
       }
 
@@ -481,7 +461,7 @@
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <h1>PLC Inputs Not Working? Troubleshoot Sensors, Switches, Proxes, and Field Signals</h1>
+      <h1>PLC Inputs Not Working?</h1>
       <p>
         Use this step-by-step guide to troubleshoot PLC input problems in real automation systems. Check input LEDs, voltage at the PLC terminal, sourcing vs sinking, wiring faults, sensor output, and scan-time issues before blaming the logic.
       </p>
@@ -489,13 +469,10 @@
         This page fits best when the field device is physically doing something, but the PLC or HMI is not showing the input the way it should.
       </p>
 
-      <div class="trust-line">
-        Built for real field-device and PLC input problems — practical first.
-      </div>
-
       <div class="hero-actions">
         <a href="#guide" class="btn btn-primary" onclick="gtag('event','plc_inputs_hero_click',{'target':'guide_start'});">Start Troubleshooting</a>
         <a href="/plc-troubleshooter.html" class="btn btn-secondary" onclick="gtag('event','plc_inputs_hero_click',{'target':'plc_troubleshooter'});">Open PLC Troubleshooter</a>
+        <a href="/plc-electrical.html" class="btn btn-secondary" onclick="gtag('event','plc_inputs_hero_click',{'target':'plc_electrical_hub'});">PLC &amp; Electrical Hub</a>
       </div>
     </div>
 
@@ -514,7 +491,7 @@
 
 <section class="section">
   <div class="note-box">
-    <strong>Best use of this page:</strong> compare what the field device is physically doing versus what the PLC input is actually receiving. Most “PLC input problems” are really sensor, wiring, field power, common, or timing problems.
+    <strong>Best use of this page:</strong> compare what the field device is physically doing versus what the PLC input is actually receiving. Most “PLC input problems” are really sensor, wiring, field power, common, or timing problems. :contentReference[oaicite:1]{index=1}
   </div>
 </section>
 
@@ -650,11 +627,10 @@
 
 <section class="section" id="guide">
   <div class="guide-shell">
-    <div class="section-label">Guide</div>
     <h2>Step-by-Step PLC Input Troubleshooting</h2>
 
     <p class="section-intro" style="margin-bottom:18px;">
-      If a prox, switch, photoeye, pressure switch, or other field input is not showing up in the PLC, do not jump straight into software changes. Start at the physical input path first and verify the signal at each point.
+      If a prox, switch, photoeye, pressure switch, or other field input is not showing up in the PLC, do not jump straight into software changes. Start at the physical input path first and verify the signal at each point. :contentReference[oaicite:2]{index=2}
     </p>
 
     <div class="inline-cta" style="margin-top:0; margin-bottom:22px;">
@@ -923,10 +899,10 @@
   <div class="section">
     <h2>What This Page Is Actually For</h2>
     <p class="section-intro">
-      This page is not just a checklist. It helps separate real PLC input failures from field-device, common, wiring, timing, and electrical delivery problems.
+      This page is not just a checklist. It helps separate real PLC input failures from field-device, common, wiring, timing, and electrical delivery problems. The current version already had the right system intent; this update mainly brings it into the cleaner page style. :contentReference[oaicite:3]{index=3}
     </p>
 
-    <div class="feature-list">
+    <div class="grid-2">
       <div class="feature-item">
         <h3>Problem-First Direction</h3>
         <p>It starts with the real symptom instead of assuming the PLC logic is the first place to look.</p>
@@ -944,7 +920,7 @@
 
       <div class="feature-item">
         <h3>Stronger System Fit</h3>
-        <p>It now behaves like a connected node in your PLC / electrical cluster instead of an older standalone article page.</p>
+        <p>It now matches the cleaner white-hero system pages instead of looking like a separate page family.</p>
       </div>
     </div>
   </div>
@@ -968,13 +944,13 @@
 </footer>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
-      document.getElementById("navbar").innerHTML = data;
+      document.getElementById('navbar').innerHTML = data;
     })
     .catch(error => {
-      console.error("Navbar failed to load:", error);
+      console.error('Navbar failed to load:', error);
     });
 </script>
 
