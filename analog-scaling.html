@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <link rel="canonical" href="https://automationcalculators.net/analog-scaling.html">
   <meta name="robots" content="index, follow">
-  <meta charset="UTF-8">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Google Analytics -->
+  <title>PLC Analog Scaling Calculator | 4-20mA, 0-10V, Raw Counts</title>
+  <meta name="description" content="Free PLC analog scaling calculator for automation engineers. Convert 4-20mA, 0-10V, or raw counts into engineering units using standard linear scaling formulas with optional clamping and out-of-range indication.">
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -14,144 +18,274 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>PLC Analog Scaling Calculator | 4-20mA, 0-10V, Raw Counts</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Free PLC analog scaling calculator for automation engineers. Convert 4-20mA, 0-10V, or raw counts into engineering units using standard linear scaling formulas with optional clamping and out-of-range indication.">
-
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+      --success-bg:#e9f1ff;
+      --success-border:#c8d9ff;
+      --warn-bg:#fff7df;
+      --warn-border:#f1d98a;
+      --warn-text:#5c4a12;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+
     body{
-      font-family:Arial, sans-serif;
-      background:#f4f4f4;
       margin:0;
-      color:#222;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+    a:hover{text-decoration:underline;}
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
     }
 
     .hero{
-      background:linear-gradient(135deg, #1f2a44, #2d3d63);
-      color:white;
-      padding:40px 20px 30px;
-      text-align:center;
+      background:#ffffff;
+      border-bottom:1px solid var(--border);
     }
 
     .hero-inner{
-      max-width:950px;
-      margin:auto;
-    }
-
-    .hero h1{
-      margin:0 0 12px;
-      font-size:34px;
-      line-height:1.2;
-    }
-
-    .hero p{
-      margin:0 auto 14px;
-      max-width:760px;
-      font-size:17px;
-      line-height:1.6;
-      color:#e7ecf7;
-    }
-
-    .hero-cta{
-      margin-top:18px;
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:12px;
-    }
-
-    .hero-cta a{
-      display:inline-block;
-      padding:12px 18px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-      transition:0.2s ease;
-    }
-
-    .hero-cta .primary{
-      background:#ffffff;
-      color:#1f2a44;
-    }
-
-    .hero-cta .secondary{
-      background:transparent;
-      color:#ffffff;
-      border:1px solid rgba(255,255,255,0.35);
-    }
-
-    .hero-cta a:hover{
-      transform:translateY(-1px);
-      opacity:0.95;
-    }
-
-    .page-wrap{
-      max-width:1100px;
-      margin:30px auto;
-      padding:0 18px 40px;
-    }
-
-    .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
-      color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
-      margin:0 auto 22px;
-      max-width:900px;
-      font-size:15px;
-      line-height:1.5;
-      text-align:left;
-    }
-
-    .main-grid{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:50px 20px 36px;
       display:grid;
-      grid-template-columns:2fr 1fr;
+      grid-template-columns:1.35fr 0.85fr;
       gap:24px;
       align-items:start;
     }
 
-    .card{
-      background:white;
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.3rem;
+      line-height:1.15;
+      color:var(--text);
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width:760px;
+      font-size:1.02rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      transition:.2s ease;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:var(--accent-dark);
+      text-decoration:none;
+    }
+
+    .btn-secondary{
+      background:var(--soft);
+      color:var(--accent-dark);
+      border:1px solid var(--border);
+    }
+
+    .btn-secondary:hover{
+      background:#e2edf9;
+      text-decoration:none;
+    }
+
+    .hero-panel{
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:22px;
+    }
+
+    .hero-panel h3{
+      margin:0 0 10px;
+      font-size:1.08rem;
+      color:var(--text);
+    }
+
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+
+    .hero-panel li{margin-bottom:8px;}
+
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:34px 20px;
+    }
+
+    .section h2{
+      margin:0 0 10px;
+      font-size:1.95rem;
+      color:var(--text);
+    }
+
+    .section h3{
+      color:var(--text);
+      margin-top:0;
+    }
+
+    .section-intro{
+      margin:0 0 22px;
+      color:var(--muted);
+      max-width:860px;
+    }
+
+    .info-note{
+      background:var(--warn-bg);
+      border:1px solid var(--warn-border);
+      color:var(--warn-text);
+      padding:14px 16px;
       border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,0.08);
-      padding:28px;
+      margin-top:18px;
     }
 
-    .card h2{
-      margin-top:0;
-      color:#1f2a44;
-      margin-bottom:10px;
+    .card,
+    .workflow,
+    .result,
+    .field-card,
+    .quick-card,
+    .mini-card,
+    .formula-box{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
     }
 
-    .description{
-      margin-top:0;
-      margin-bottom:18px;
-      color:#555;
-      font-size:16px;
-      line-height:1.6;
+    .card{padding:26px;}
+
+    .workflow{
+      padding:20px;
+      margin:0 0 18px;
     }
 
-    .section-label{
-      font-size:13px;
-      font-weight:bold;
-      text-transform:uppercase;
-      letter-spacing:0.08em;
-      color:#5e7197;
-      margin-bottom:10px;
+    .workflow p{
+      margin:0 0 12px;
+      color:var(--muted);
     }
+
+    .flow-steps{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:10px;
+      font-weight:700;
+    }
+
+    .flow-steps a{
+      background:var(--soft);
+      border:1px solid var(--border);
+      color:var(--accent-dark);
+      padding:8px 12px;
+      border-radius:999px;
+      text-decoration:none;
+    }
+
+    .flow-steps a:hover{background:#e2edf9;}
+
+    .arrow{color:#8695a3;}
+
+    .formula-box{
+      padding:18px;
+      background:var(--soft);
+      color:var(--text);
+      font-weight:700;
+      font-size:17px;
+      line-height:1.7;
+      margin:18px 0 22px;
+    }
+
+    .quick-row{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin:18px 0 24px;
+    }
+
+    .quick-card{
+      padding:18px;
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+    }
+
+    .quick-card h4{
+      margin:0 0 8px;
+      color:var(--text);
+      font-size:1rem;
+    }
+
+    .quick-card p{
+      margin:0 0 12px;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .quick-card button{width:100%;}
 
     .grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
-      gap:18px;
-      text-align:left;
+      gap:16px;
+      margin-top:20px;
     }
 
-    .field label{
+    .field-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      padding:16px;
+    }
+
+    .field-card label{
       display:block;
       margin-bottom:6px;
-      font-weight:600;
+      font-weight:700;
       color:#23314f;
     }
 
@@ -163,33 +297,13 @@
       border:1px solid #cfd6e4;
       border-radius:8px;
       background:white;
+      font-family:Arial, Helvetica, sans-serif;
     }
 
     input:focus, select:focus{
       outline:none;
       border-color:#5a78b5;
       box-shadow:0 0 0 3px rgba(90,120,181,0.12);
-    }
-
-    .quick-row{
-      margin:8px 0 22px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .quick-row button{
-      padding:10px 12px;
-      border-radius:8px;
-      border:1px solid #cdd8ee;
-      background:#f7f9fd;
-      cursor:pointer;
-      font-weight:600;
-      color:#1f2a44;
-    }
-
-    .quick-row button:hover{
-      background:#eef3fc;
     }
 
     .button-row{
@@ -199,46 +313,18 @@
       gap:12px;
     }
 
-    .button-row button{
-      padding:13px 22px;
-      font-size:16px;
-      background:#1f2a44;
-      color:white;
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      transition:background .2s ease, transform .2s ease;
-      font-weight:bold;
-    }
-
-    .button-row button.secondary{
-      background:#5a6a85;
-    }
-
-    .button-row button.ghost{
-      background:#e9eef8;
-      color:#1f2a44;
-    }
-
-    .button-row button:hover{
-      transform:translateY(-1px);
-    }
-
     .result{
       margin-top:26px;
       padding:22px;
-      background:#e9f1ff;
-      border:1px solid #c8d9ff;
-      border-radius:10px;
+      background:var(--success-bg);
+      border:1px solid var(--success-border);
       font-size:17px;
       line-height:1.7;
       text-align:left;
       scroll-margin-top:100px;
     }
 
-    .result strong{
-      color:#1f2a44;
-    }
+    .result strong{color:var(--text);}
 
     .codebox{
       margin-top:12px;
@@ -253,57 +339,37 @@
       color:#1f2a44;
     }
 
-    .sidebar-card{
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
       background:white;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,0.08);
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
-    }
-
-    .sidebar-card h3{
-      margin-top:0;
-      margin-bottom:10px;
-      color:#1f2a44;
-    }
-
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
-    }
-
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
-    }
-
-    .sidebar-card a{
-      color:#1f2a44;
-      font-weight:bold;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:var(--accent-dark);
       text-decoration:none;
+      font-weight:700;
     }
 
-    .sidebar-card a:hover{
-      text-decoration:underline;
-    }
+    .internal-links a:hover{background:#e9eef8;}
 
     .cta-box{
-      margin-top:26px;
+      margin-top:22px;
       padding:22px;
       background:linear-gradient(135deg, #edf4ff, #e3edff);
       border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
+      border-radius:14px;
     }
 
     .cta-box h3{
       margin:0 0 10px;
-      color:#1f2a44;
+      color:var(--text);
     }
 
     .cta-box p{
@@ -312,52 +378,39 @@
       line-height:1.6;
     }
 
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 18px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
+    .grid-2,
+    .grid-3{
+      display:grid;
+      gap:18px;
     }
 
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
+    .grid-2{grid-template-columns:repeat(2,1fr);}
+    .grid-3{grid-template-columns:repeat(3,1fr);}
+
+    .mini-card{
+      background:white;
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      padding:20px;
+      height:100%;
     }
 
-    .learn-more h3{
-      color:#1f2a44;
-      margin-bottom:10px;
+    .mini-card h3,
+    .mini-card h4{
+      margin:0 0 8px;
+      color:var(--text);
     }
 
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
+    .mini-card p,
+    .mini-card li{
+      color:var(--muted);
+      font-size:0.96rem;
     }
 
-    .internal-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:10px;
-    }
-
-    .internal-links a{
-      display:inline-block;
-      padding:10px 12px;
-      background:#f2f5fb;
-      border:1px solid #d6e0f1;
-      border-radius:8px;
-      color:#1f2a44;
-      text-decoration:none;
-      font-weight:600;
-    }
-
-    .internal-links a:hover{
-      background:#e9eef8;
+    .mini-card ul{
+      margin:0;
+      padding-left:18px;
     }
 
     .note{
@@ -368,242 +421,346 @@
       text-align:left;
     }
 
-    .footer{
-      margin-top:36px;
-      color:#666;
-      font-size:14px;
+    .footer-note{
       text-align:center;
+      color:#667584;
+      font-size:0.95rem;
+      padding:8px 0 4px;
     }
 
-    @media (max-width:900px){
-      .main-grid{
+    @media (max-width:1020px){
+      .hero-inner,
+      .grid-2,
+      .grid-3,
+      .quick-row{
         grid-template-columns:1fr;
       }
     }
 
     @media (max-width:700px){
-      .hero h1{
-        font-size:28px;
+      .hero-inner{
+        padding:40px 16px 30px;
       }
 
+      .section{
+        padding:30px 16px;
+      }
+
+      .hero h1{font-size:1.95rem;}
+      .section h2{font-size:1.55rem;}
+
       .card,
-      .sidebar-card{
-        padding:20px;
+      .workflow,
+      .quick-card,
+      .mini-card,
+      .field-card{
+        padding:18px;
       }
 
       .button-row{
         flex-direction:column;
       }
 
-      .button-row button{
+      .button-row .btn{
         width:100%;
-      }
-
-      .hero-cta{
-        flex-direction:column;
-        align-items:center;
-      }
-
-      .hero-cta a{
-        width:100%;
-        max-width:320px;
       }
     }
   </style>
 </head>
+
 <body>
 
 <div id="navbar"></div>
 
 <section class="hero">
   <div class="hero-inner">
-    <h1>PLC Analog Scaling Calculator</h1>
-    <p>
-      Convert 4-20 mA, 0-10 V, or PLC raw counts into engineering units using standard linear scaling.
-      Great for transmitters, analog cards, HMIs, PLC logic, and troubleshooting bad values on real machines.
-    </p>
-    <div style="max-width:900px;margin:20px auto;padding:14px 16px;background:#f4f8ff;border:1px solid #d7e6ff;border-radius:10px;text-align:center;">
-  Looking for the full workflow?
-  <a href="/plc-electrical.html" style="font-weight:bold;">
-    Start with the PLC & Electrical Overview
-  </a>.
-</div>
-    <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
-      <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'analog_scaling_hero'});">Find an Integrator</a>
+    <div>
+      <h1>PLC Analog Scaling Calculator</h1>
+      <p>
+        Convert 4-20 mA, 0-10 V, or PLC raw counts into engineering units using standard linear scaling.
+        Use it for pressure transmitters, temperature inputs, tank level, flow, speed references, HMIs, and PLC logic.
+      </p>
+      <p>
+        This page is useful when the raw value looks correct but the displayed engineering value is wrong, shifted, clamped, reversed, or scaled to the wrong span.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta',{'location':'hero','action':'open_calculator'});">Open Calculator</a>
+        <a class="btn btn-secondary" href="/plc-electrical.html" onclick="gtag('event','page_cta',{'location':'hero','action':'plc_electrical_hub'});">PLC &amp; Electrical Hub</a>
+        <a class="btn btn-secondary" href="/plc-inputs-not-working.html" onclick="gtag('event','page_cta',{'location':'hero','action':'plc_inputs'});">PLC Input Issues</a>
+      </div>
+
+      <div class="info-note">
+        <strong>Good starting use case:</strong> if your analog device is scaled 4-20 mA = 0-300 PSI, enter the live signal value, define the raw range, define the engineering range, and press Calculate.
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h3>What this calculator gives you</h3>
+      <ul>
+        <li>Scaled engineering value</li>
+        <li>Unclamped computed value</li>
+        <li>Clamped value for bounded applications</li>
+        <li>Percent of raw input span</li>
+        <li>Structured Text example for PLC logic</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<div class="page-wrap">
-  <div class="top-note">
-    <strong>Good starting use case:</strong> if your analog device is scaled 4-20 mA = 0-300 PSI, enter the live signal value, define the raw range, define the engineering range, and press <strong>Calculate</strong>.
+<section class="section">
+  <h2>Recommended PLC Analog Workflow</h2>
+  <p class="section-intro">
+    Analog issues usually start at the field device, wiring, card configuration, raw value, scaling math, and HMI display. Work through the system instead of changing numbers blindly.
+  </p>
+
+  <div class="workflow">
+    <h3>Typical troubleshooting path</h3>
+    <p>Start with the PLC system, confirm the input path, scale the raw value, then verify electrical delivery if needed.</p>
+    <div class="flow-steps">
+      <a href="/plc-electrical.html" onclick="gtag('event','workflow_click',{'from':'analog_scaling','to':'plc_electrical'});">PLC Hub</a>
+      <span class="arrow">→</span>
+      <a href="/plc-inputs-not-working.html" onclick="gtag('event','workflow_click',{'from':'analog_scaling','to':'plc_inputs'});">Input Issues</a>
+      <span class="arrow">→</span>
+      <a href="/analog-scaling.html" onclick="gtag('event','workflow_click',{'from':'analog_scaling','to':'analog_scaling'});">Analog Scaling</a>
+      <span class="arrow">→</span>
+      <a href="/voltage-drop.html" onclick="gtag('event','workflow_click',{'from':'analog_scaling','to':'voltage_drop'});">Voltage Drop</a>
+    </div>
   </div>
+</section>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Scale Analog Input to Engineering Units</h2>
+<section class="section" id="calculator">
+  <div class="card">
+    <h2>Scale Analog Input to Engineering Units</h2>
 
-      <p class="description">
-        Use this calculator to convert current, voltage, or raw PLC counts into real engineering values such as PSI, °F, inches, flow, level, speed, or pressure.
-      </p>
+    <p class="section-intro">
+      Use this calculator to convert current, voltage, or raw PLC counts into real engineering values such as PSI, °F, inches, flow, level, speed, or pressure.
+    </p>
 
-      <p class="description">
-        It follows the standard linear scaling method commonly used in ladder logic, structured text, HMI math, and controller-side signal conditioning.
-      </p>
+    <p class="section-intro" style="margin-top:-8px;">
+      It follows the standard linear scaling method commonly used in ladder logic, structured text, HMI math, and controller-side signal conditioning.
+    </p>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="load420Example(); gtag('event','analog_scaling_quick_example',{'type':'4_20mA_pressure'});">4-20 mA Pressure</button>
-        <button type="button" onclick="load010VExample(); gtag('event','analog_scaling_quick_example',{'type':'0_10V_speed'});">0-10 V Speed</button>
-        <button type="button" onclick="loadABRawExample(); gtag('event','analog_scaling_quick_example',{'type':'ab_raw_temp'});">AB Raw Counts</button>
+    <div class="formula-box">
+      Scaled Value = ((Input - Raw Min) ÷ (Raw Max - Raw Min)) × (Engineering Max - Engineering Min) + Engineering Min
+    </div>
+
+    <h3>Quick examples</h3>
+    <div class="quick-row">
+      <div class="quick-card">
+        <h4>4-20 mA Pressure</h4>
+        <p>Typical pressure transmitter example scaled into PSI.</p>
+        <button class="btn btn-secondary" type="button" onclick="load420Example(); gtag('event','analog_scaling_quick_example',{'type':'4_20mA_pressure'});">Load Example</button>
       </div>
 
-      <div class="grid">
-        <div class="field">
-          <label for="preset">Preset Signal Type</label>
-          <select id="preset" onchange="applyPreset()">
-            <option value="custom">Custom</option>
-            <option value="4-20mA">4-20 mA</option>
-            <option value="0-20mA">0-20 mA</option>
-            <option value="0-10V">0-10 V</option>
-            <option value="1-5V">1-5 V</option>
-            <option value="abRaw">Allen-Bradley Raw Counts (0-32767)</option>
-            <option value="siemensRaw">Siemens Raw Counts (0-27648)</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="rawInput">Input Value</label>
-          <input id="rawInput" type="number" value="12" step="0.001">
-        </div>
-
-        <div class="field">
-          <label for="rawMin">Raw Minimum</label>
-          <input id="rawMin" type="number" value="4" step="0.001">
-        </div>
-
-        <div class="field">
-          <label for="rawMax">Raw Maximum</label>
-          <input id="rawMax" type="number" value="20" step="0.001">
-        </div>
-
-        <div class="field">
-          <label for="engMin">Engineering Minimum</label>
-          <input id="engMin" type="number" value="0" step="0.001">
-        </div>
-
-        <div class="field">
-          <label for="engMax">Engineering Maximum</label>
-          <input id="engMax" type="number" value="300" step="0.001">
-        </div>
-
-        <div class="field">
-          <label for="engUnits">Engineering Units Label</label>
-          <input id="engUnits" type="text" value="PSI">
-        </div>
-
-        <div class="field">
-          <label for="mode">Out-of-Range Handling</label>
-          <select id="mode">
-            <option value="extrapolate">Extrapolate Beyond Range</option>
-            <option value="clamp">Clamp to Engineering Limits</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="decimals">Displayed Decimal Places</label>
-          <select id="decimals">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3" selected>3</option>
-            <option value="4">4</option>
-          </select>
-        </div>
+      <div class="quick-card">
+        <h4>0-10 V Speed</h4>
+        <p>Example speed command or feedback signal scaled into RPM.</p>
+        <button class="btn btn-secondary" type="button" onclick="load010VExample(); gtag('event','analog_scaling_quick_example',{'type':'0_10V_speed'});">Load Example</button>
       </div>
 
-      <div class="button-row">
-        <button onclick="calculateAnalogScaling(); gtag('event','analog_scaling_calculation');">Calculate Scaling</button>
-        <button class="secondary" onclick="loadExample(); gtag('event','analog_scaling_example');">Load Standard Example</button>
-        <button class="ghost" onclick="clearCalculator(); gtag('event','analog_scaling_clear');">Reset Fields</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter your signal range and engineering range, then press <strong>Calculate Scaling</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this on a real machine?</h3>
-        <p>
-          If you are scaling analog devices in a PLC, HMI, or controls upgrade and want help with logic, commissioning, or troubleshooting, connect with an automation integrator.
-        </p>
-        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'analog_scaling_midpage'});">Find an Integrator</a>
-      </div>
-
-      <div class="learn-more">
-        <h3>Where this calculator helps</h3>
-        <p>
-          This is useful when a pressure transmitter, temperature input, level sensor, linear transducer, or analog speed reference needs to be converted into a meaningful machine value. It also helps verify whether scaling errors are happening in the PLC, HMI, sensor setup, or analog module configuration.
-        </p>
-        <p>
-          If your displayed value is wrong, check the raw signal range, card configuration, transmitter span, engineering limits, decimal placement, and whether clamping is being applied too early in the logic.
-        </p>
-
-        <div class="internal-links">
-          <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','related_tool_click',{'from':'analog_scaling','to':'plc_communication_troubleshooting'});">PLC Communication Troubleshooter</a>
-          <a href="/voltage-drop.html" onclick="gtag('event','related_tool_click',{'from':'analog_scaling','to':'voltage_drop'});">Voltage Drop Calculator</a>
-          <a href="/wire-gauge-amps.html" onclick="gtag('event','related_tool_click',{'from':'analog_scaling','to':'wire_gauge_amps'});">Wire Gauge vs Amps</a>
-        </div>
-      </div>
-
-      <p class="note">
-        This calculator uses standard linear interpolation. It is intended for normal analog scaling applications and does not include filtering, sensor non-linearity, card calibration offsets, underrange/overrange fault thresholds, broken-wire diagnostics, or module-specific behavior.
-      </p>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
+      <div class="quick-card">
+        <h4>AB Raw Counts</h4>
+        <p>Allen-Bradley-style raw count example scaled into temperature.</p>
+        <button class="btn btn-secondary" type="button" onclick="loadABRawExample(); gtag('event','analog_scaling_quick_example',{'type':'ab_raw_temp'});">Load Example</button>
       </div>
     </div>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
-        <ul>
-          <li>Scaled engineering value</li>
-          <li>Unclamped computed value</li>
-          <li>Clamped value for bounded applications</li>
-          <li>Percent of raw input span</li>
-          <li>Structured Text example for PLC logic</li>
-        </ul>
+    <div class="grid">
+      <div class="field-card">
+        <label for="preset">Preset Signal Type</label>
+        <select id="preset" onchange="applyPreset()">
+          <option value="custom">Custom</option>
+          <option value="4-20mA">4-20 mA</option>
+          <option value="0-20mA">0-20 mA</option>
+          <option value="0-10V">0-10 V</option>
+          <option value="1-5V">1-5 V</option>
+          <option value="abRaw">Allen-Bradley Raw Counts (0-32767)</option>
+          <option value="siemensRaw">Siemens Raw Counts (0-27648)</option>
+        </select>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Common real-world examples</h3>
-        <ul>
-          <li>4-20 mA pressure transmitter to PSI</li>
-          <li>0-10 V speed command to RPM</li>
-          <li>Raw counts to tank level</li>
-          <li>Temperature input to °F or °C</li>
-          <li>Flow signal to GPM or L/min</li>
-        </ul>
+      <div class="field-card">
+        <label for="rawInput">Input Value</label>
+        <input id="rawInput" type="number" value="12" step="0.001">
       </div>
 
-      <div class="sidebar-card">
-        <h3>Scaling problem checklist</h3>
-        <p>Before blaming the PLC math, check these first:</p>
-        <ul>
-          <li>Card configured for the correct signal type</li>
-          <li>Sensor span matches your assumptions</li>
-          <li>Engineering min and max are not reversed by mistake</li>
-          <li>HMI display decimals are correct</li>
-          <li>Fault or clamp logic is not masking the raw value</li>
-        </ul>
+      <div class="field-card">
+        <label for="rawMin">Raw Minimum</label>
+        <input id="rawMin" type="number" value="4" step="0.001">
+      </div>
+
+      <div class="field-card">
+        <label for="rawMax">Raw Maximum</label>
+        <input id="rawMax" type="number" value="20" step="0.001">
+      </div>
+
+      <div class="field-card">
+        <label for="engMin">Engineering Minimum</label>
+        <input id="engMin" type="number" value="0" step="0.001">
+      </div>
+
+      <div class="field-card">
+        <label for="engMax">Engineering Maximum</label>
+        <input id="engMax" type="number" value="300" step="0.001">
+      </div>
+
+      <div class="field-card">
+        <label for="engUnits">Engineering Units Label</label>
+        <input id="engUnits" type="text" value="PSI">
+      </div>
+
+      <div class="field-card">
+        <label for="mode">Out-of-Range Handling</label>
+        <select id="mode">
+          <option value="extrapolate">Extrapolate Beyond Range</option>
+          <option value="clamp">Clamp to Engineering Limits</option>
+        </select>
+      </div>
+
+      <div class="field-card">
+        <label for="decimals">Displayed Decimal Places</label>
+        <select id="decimals">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+          <option value="4">4</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="btn btn-primary" onclick="calculateAnalogScaling(); gtag('event','analog_scaling_calculation');">Calculate Scaling</button>
+      <button class="btn btn-secondary" onclick="loadExample(); gtag('event','analog_scaling_example');">Load Standard Example</button>
+      <button class="btn btn-secondary" onclick="clearCalculator(); gtag('event','analog_scaling_clear');">Reset Fields</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter your signal range and engineering range, then press <strong>Calculate Scaling</strong>.
+    </div>
+
+    <p class="note">
+      This calculator uses standard linear interpolation. It is intended for normal analog scaling applications and does not include filtering, sensor non-linearity, card calibration offsets, underrange/overrange fault thresholds, broken-wire diagnostics, or module-specific behavior.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="grid-3">
+    <div class="mini-card">
+      <h3>Common real-world examples</h3>
+      <ul>
+        <li>4-20 mA pressure transmitter to PSI</li>
+        <li>0-10 V speed command to RPM</li>
+        <li>Raw counts to tank level</li>
+        <li>Temperature input to °F or °C</li>
+        <li>Flow signal to GPM or L/min</li>
+      </ul>
+    </div>
+
+    <div class="mini-card">
+      <h3>Scaling problem checklist</h3>
+      <ul>
+        <li>Card configured for the correct signal type</li>
+        <li>Sensor span matches your assumptions</li>
+        <li>Engineering min and max are not reversed</li>
+        <li>HMI display decimals are correct</li>
+        <li>Fault or clamp logic is not masking the raw value</li>
+      </ul>
+    </div>
+
+    <div class="mini-card">
+      <h3>Where this helps</h3>
+      <p>
+        Use this when a pressure transmitter, temperature input, level sensor, linear transducer, or analog speed reference needs to be converted into a meaningful machine value.
+      </p>
+      <p>
+        It also helps verify whether scaling errors are happening in the PLC, HMI, sensor setup, or analog module configuration.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="card">
+    <h2>Continue Your PLC Troubleshooting</h2>
+    <p class="section-intro">
+      If the displayed analog value is wrong, do not only change the scale numbers. Check the raw value, wiring, card setup, engineering span, and HMI formatting.
+    </p>
+
+    <div class="internal-links">
+      <a href="/plc-electrical.html" onclick="gtag('event','internal_link_click',{'from':'analog_scaling','to':'plc_electrical_hub'});">PLC &amp; Electrical Hub</a>
+      <a href="/plc-inputs-not-working.html" onclick="gtag('event','internal_link_click',{'from':'analog_scaling','to':'plc_inputs'});">PLC Inputs Not Working</a>
+      <a href="/plc-troubleshooter.html" onclick="gtag('event','internal_link_click',{'from':'analog_scaling','to':'plc_troubleshooter'});">PLC Troubleshooter</a>
+      <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','internal_link_click',{'from':'analog_scaling','to':'plc_communication_troubleshooting'});">PLC Communication Troubleshooter</a>
+      <a href="/voltage-drop.html" onclick="gtag('event','internal_link_click',{'from':'analog_scaling','to':'voltage_drop'});">Voltage Drop Calculator</a>
+      <a href="/wire-gauge-amps.html" onclick="gtag('event','internal_link_click',{'from':'analog_scaling','to':'wire_gauge_amps'});">Wire Gauge vs Amps</a>
+    </div>
+
+    <div class="grid-3" style="margin-top:22px;">
+      <div class="mini-card">
+        <h4>PLC Inputs Not Working</h4>
+        <p>Use this when the analog point or field signal may not be reaching the controller correctly.</p>
+      </div>
+      <div class="mini-card">
+        <h4>Voltage Drop Calculator</h4>
+        <p>Use this when long wiring runs or weak delivered voltage may be affecting the signal or device.</p>
+      </div>
+      <div class="mini-card">
+        <h4>PLC Communication Troubleshooter</h4>
+        <p>Use this if raw values are missing, stale, or not reaching the HMI or higher-level system.</p>
       </div>
     </div>
   </div>
-</div>
+</section>
+
+<section class="section">
+  <div class="card">
+    <h2>How to Use This Calculator in Real Applications</h2>
+    <p class="section-intro">
+      Analog scaling problems are usually caused by a mismatch between the device span, card configuration, raw count range, PLC math, and HMI display. This tool helps isolate the math side of that problem.
+    </p>
+
+    <div class="grid-2">
+      <div class="mini-card">
+        <h4>Real-world example</h4>
+        <p>
+          A 4-20 mA pressure transmitter may be physically wired and reading correctly, but the PLC may be scaling it as 0-20 mA or using the wrong engineering span.
+        </p>
+        <p>
+          That can make a real 150 PSI pressure display as the wrong value even though the transmitter and wiring are fine.
+        </p>
+      </div>
+
+      <div class="mini-card">
+        <h4>What to check before blaming the math</h4>
+        <ul>
+          <li>Measure or view the raw value first.</li>
+          <li>Verify the analog card signal type.</li>
+          <li>Confirm transmitter span and engineering range.</li>
+          <li>Check whether the HMI is applying another scale.</li>
+          <li>Review clamp, fault, and fallback logic.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <h3>Need help applying this on a real machine?</h3>
+      <p>
+        If you are scaling analog devices in a PLC, HMI, or controls upgrade and want help with logic, commissioning, or troubleshooting, use the support path below.
+      </p>
+      <div class="hero-actions" style="margin-top:0;">
+        <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','cta_click',{'from':'analog_scaling','to':'automation_help'});">Get Help With My System</a>
+        <a class="btn btn-secondary" href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'analog_scaling_midpage'});">Find an Integrator</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Automation Engineering Tools • Practical calculators for real automation work
+  </div>
+</section>
 
 <script>
   function applyPreset(){
@@ -799,14 +956,14 @@ IF ScaledValue > ${engHigh} THEN ScaledValue := ${engHigh}; END_IF;`;
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById("navbar").innerHTML = data;
-  })
-  .catch(error => {
-    console.error("Navbar failed to load:", error);
-  });
+  fetch('/navbar.html?v=20260422')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('navbar').innerHTML = data;
+    })
+    .catch(error => {
+      console.error('Navbar failed to load:', error);
+    });
 </script>
 
 </body>
