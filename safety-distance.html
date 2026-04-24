@@ -15,8 +15,8 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>Safety Distance Calculator | Automation Calculators</title>
-  <meta name="description" content="Free machine safety distance calculator for automation engineers. Estimate required safety distance for light curtains, safety scanners, and machine guarding using stop time, system response time, approach speed, and intrusion factor.">
+  <title>Safety Distance Calculator | Machine Guarding & Light Curtain Distance</title>
+  <meta name="description" content="Free machine safety distance calculator for automation engineers. Estimate required safety distance for light curtains, safety scanners, and machine guarding using stop time, response time, approach speed, and intrusion factor.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
@@ -28,27 +28,38 @@
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:white;
+      border-bottom:1px solid #dfe5ef;
+      padding:42px 20px 34px;
       text-align:center;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:1050px;
       margin:auto;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:10px;
+      color:#1e6bd6;
+      font-weight:bold;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
     .hero h1{
       margin:0 0 12px;
-      font-size:34px;
+      color:#1f2a44;
+      font-size:36px;
       line-height:1.2;
     }
 
     .hero p{
-      max-width:800px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
+      max-width:850px;
+      margin:0 auto 18px;
+      color:#555;
       font-size:17px;
       line-height:1.6;
     }
@@ -71,13 +82,14 @@
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:#1e6bd6;
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
     }
 
     .hero-cta a:hover{
@@ -86,9 +98,9 @@
     }
 
     .page-wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:30px auto;
-      padding:0 18px 40px;
+      padding:0 18px 44px;
     }
 
     .top-note{
@@ -97,35 +109,18 @@
       color:#5c4a12;
       padding:14px 16px;
       border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
+      margin-bottom:24px;
       font-size:15px;
       line-height:1.5;
       text-align:left;
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
+    .section{
       background:white;
-      border-radius:12px;
+      border-radius:14px;
       box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
       padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin-bottom:24px;
     }
 
     .section-label{
@@ -137,18 +132,59 @@
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
-      margin-top:0;
+    h2, h3{
       color:#1f2a44;
+      margin-top:0;
     }
 
     .description{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color:#555;
       font-size:16px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
+    }
+
+    .info-grid,
+    .workflow{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card,
+    .workflow-step{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:12px;
+      padding:18px;
+      text-align:left;
+    }
+
+    .info-card h3{
+      margin:0 0 10px;
+      font-size:18px;
+    }
+
+    .info-card p,
+    .info-card li,
+    .workflow-step p{
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+      margin:0;
+    }
+
+    .info-card ul{
+      padding-left:18px;
+      margin:0;
+    }
+
+    .workflow-step strong{
+      display:block;
+      color:#1f2a44;
+      margin-bottom:8px;
     }
 
     .formula-box{
@@ -278,11 +314,32 @@
       scroll-margin-top:100px;
     }
 
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
     .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
+      padding:24px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
       border-radius:12px;
       text-align:center;
     }
@@ -309,68 +366,11 @@
     }
 
     .note{
-      margin-top:20px;
       color:#666;
       font-size:14px;
       line-height:1.6;
       text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
-    }
-
-    .internal-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
-    }
-
-    .internal-links a{
-      display:inline-block;
-      padding:10px 12px;
-      background:white;
-      border:1px solid #d6e0f1;
-      border-radius:8px;
-      color:#1f2a44;
-      text-decoration:none;
-      font-weight:600;
-    }
-
-    .internal-links a:hover{
-      background:#e9eef8;
-    }
-
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
-    }
-
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
+      margin:0 0 12px;
     }
 
     .footer{
@@ -380,15 +380,8 @@
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
     @media (max-width:700px){
-      .card,
-      .sidebar-card{
+      .section{
         padding:20px;
       }
 
@@ -422,158 +415,204 @@
 
 <section class="hero">
   <div class="hero-inner">
+    <div class="eyebrow">PLC / Electrical Calculator</div>
     <h1>Safety Distance Calculator</h1>
     <p>
       Estimate required machine safety distance for light curtains, safety scanners, and guarding devices using machine stop time, safety system response time, approach speed, and intrusion factor.
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
-      <a href="/plc-communication-troubleshooting.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'safety_distance_hero','to':'plc_comm_troubleshooting'});">PLC Troubleshooting</a>
+      <a href="/reference-charts.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'safety_distance_hero','to':'reference_charts'});">Reference Charts</a>
+      <a href="/plc-electrical.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'safety_distance_hero','to':'plc_electrical_hub'});">PLC & Electrical Hub</a>
     </div>
   </div>
 </section>
 
 <div class="page-wrap">
+
   <div class="top-note">
     <strong>Good starting use case:</strong> use this for preliminary safeguarding layout work before final validation. Actual safety distance must still be confirmed against the applicable standard, full risk assessment, stopping performance verification, and device-specific installation rules.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Required Safety Distance</h2>
+  <section class="section">
+    <div class="section-label">What this calculator does</div>
+    <h2>Estimate Required Safety Distance for Machine Guarding</h2>
 
-      <p class="description">
-        Estimate required machine safety distance for light curtains, safety scanners, and guarding devices using stop time, system response time, approach speed, and intrusion factor.
-      </p>
+    <p class="description">
+      This calculator estimates the minimum separation distance between a safeguarding device and a machine hazard using stop time, safety system response time, approach speed, and intrusion factor.
+    </p>
 
-      <p class="description">
-        This calculator is commonly used during machine design and risk assessment to estimate the minimum safe mounting distance for safeguarding devices.
-      </p>
+    <p class="description">
+      It is useful during early layout work for light curtains, safety scanners, presence-sensing devices, and machine guarding concepts. It should not replace a full risk assessment, stop-time validation, or standards review.
+    </p>
 
-      <div class="formula-box">
-        S = (K × T) + C<br><br>
-        S = Safety distance<br>
-        K = Approach speed<br>
-        T = Total stop time<br>
-        C = Intrusion factor
-      </div>
-
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','safety_distance_example',{'type':'standard_light_curtain'});">Standard Example</button>
-        <button type="button" onclick="loadExample2(); gtag('event','safety_distance_example',{'type':'faster_machine'});">Faster Machine</button>
-        <button type="button" onclick="loadExample3(); gtag('event','safety_distance_example',{'type':'longer_stop'});">Longer Stop Time</button>
-      </div>
-
-      <div class="controls">
-        <div class="control-group">
-          <label for="machineStop">Machine Stop Time (ms)</label>
-          <input id="machineStop" type="number" value="250" min="0" step="1">
-        </div>
-
-        <div class="control-group">
-          <label for="responseTime">Safety System Response Time (ms)</label>
-          <input id="responseTime" type="number" value="50" min="0" step="1">
-        </div>
-
-        <div class="control-group">
-          <label for="approachSpeed">Approach Speed (mm/s)</label>
-          <input id="approachSpeed" type="number" value="1600" min="1" step="1">
-        </div>
-
-        <div class="control-group">
-          <label for="intrusion">Intrusion Factor C (mm)</label>
-          <input id="intrusion" type="number" value="120" min="0" step="1">
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateSafetyDistance(); gtag('event','safety_distance_calculation');">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator(); gtag('event','safety_distance_clear');">Reset</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this to a real machine?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you need help with safeguarding layout, stop-time review, machine design, or applying these values to a real project.
-        </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
-
-      <p class="note">
-        This calculator provides a simplified estimate and should not replace a full safety risk assessment, required stop-time testing, or review against the applicable safeguarding standard and device manufacturer guidance.
-      </p>
-
-      <p class="note">
-        Final safety distance can depend on additional factors such as device resolution, mounting height, reach-over risk, whole-body access, muting strategy, stop category, and validated stopping performance.
-      </p>
-
-      <div class="learn-more">
-        <h3>What to check next</h3>
-
-        <p>
-          This tool is useful for early safeguarding layout work, but real safety distance decisions should never stop at the calculator. You still need verified stop-time data, actual device response data, the right intrusion factor for the safeguarding method, and the correct standard for the application.
-        </p>
-
-        <p>
-          For real machine design, this page usually works best alongside controls review, machine sequence understanding, and a proper risk assessment so the safeguarding approach matches the actual hazard and machine behavior.
-        </p>
-
-        <div class="internal-links">
-          <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','internal_link_click',{'from':'safety_distance','to':'plc_comm_troubleshooting'});">PLC Communication Troubleshooter</a>
-          <a href="/analog-scaling.html" onclick="gtag('event','internal_link_click',{'from':'safety_distance','to':'analog_scaling'});">Analog Scaling</a>
-          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'safety_distance','to':'automation_roi'});">Automation ROI</a>
-          <a href="/reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'safety_distance','to':'reference_charts'});">Reference Charts</a>
-        </div>
-      </div>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
-    </div>
-
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>What it gives you</h3>
         <ul>
           <li>Total stop time</li>
           <li>Total stop time in seconds</li>
-          <li>Required safety distance</li>
+          <li>Estimated safety distance</li>
           <li>Basic safeguarding layout direction</li>
         </ul>
       </div>
 
-      <div class="sidebar-card">
+      <div class="info-card">
         <h3>Where this helps</h3>
         <p>
           Useful for early safeguarding layout, light curtain positioning, scanner mounting review, machine design concepts, and preliminary risk assessment support.
         </p>
       </div>
 
-      <div class="sidebar-card">
+      <div class="info-card">
         <h3>Common next checks</h3>
         <ul>
           <li>Validated stop-time measurement</li>
-          <li>Applicable standard and formula details</li>
-          <li>Device resolution and intrusion assumptions</li>
+          <li>Device resolution and response time</li>
           <li>Reach-over or whole-body access risk</li>
           <li>Actual mounting constraints and machine geometry</li>
         </ul>
       </div>
+    </div>
+  </section>
 
-      <div class="sidebar-card">
-        <h3>Safety reminder</h3>
+  <section class="section">
+    <div class="section-label">Recommended workflow</div>
+    <h2>How to Use This Calculator</h2>
+
+    <div class="workflow">
+      <div class="workflow-step">
+        <strong>1. Measure actual stop time</strong>
         <p>
-          A calculator can support safeguarding layout, but it does not make a machine safe by itself. Final safety decisions need proper validation, standards review, and risk assessment.
+          Use validated stopping-performance data whenever possible instead of guessing from machine behavior.
+        </p>
+      </div>
+
+      <div class="workflow-step">
+        <strong>2. Add safety system response time</strong>
+        <p>
+          Include the response time of the safety device, relay, safety PLC, and output devices involved in the stop.
+        </p>
+      </div>
+
+      <div class="workflow-step">
+        <strong>3. Apply approach speed and intrusion factor</strong>
+        <p>
+          Use the values required by the applicable standard and safeguarding method.
+        </p>
+      </div>
+
+      <div class="workflow-step">
+        <strong>4. Validate the real installation</strong>
+        <p>
+          Confirm mounting distance, reach-over risk, whole-body access, muting, and final risk reduction.
         </p>
       </div>
     </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Calculator</div>
+    <h2>Estimate Required Safety Distance</h2>
+
+    <p class="description">
+      Enter the machine stop time, safety system response time, approach speed, and intrusion factor to estimate the required safety distance.
+    </p>
+
+    <div class="formula-box">
+      S = (K × T) + C<br><br>
+      S = Safety distance<br>
+      K = Approach speed<br>
+      T = Total stop time<br>
+      C = Intrusion factor
+    </div>
+
+    <div class="section-label">Quick examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadExample1(); gtag('event','safety_distance_example',{'type':'standard_light_curtain'});">Standard Example</button>
+      <button type="button" onclick="loadExample2(); gtag('event','safety_distance_example',{'type':'faster_machine'});">Faster Machine</button>
+      <button type="button" onclick="loadExample3(); gtag('event','safety_distance_example',{'type':'longer_stop'});">Longer Stop Time</button>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="machineStop">Machine Stop Time (ms)</label>
+        <input id="machineStop" type="number" value="250" min="0" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="responseTime">Safety System Response Time (ms)</label>
+        <input id="responseTime" type="number" value="50" min="0" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="approachSpeed">Approach Speed (mm/s)</label>
+        <input id="approachSpeed" type="number" value="1600" min="1" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="intrusion">Intrusion Factor C (mm)</label>
+        <input id="intrusion" type="number" value="120" min="0" step="1">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateSafetyDistance(); gtag('event','safety_distance_calculation');">Calculate</button>
+      <button class="secondary" onclick="loadExample1();">Load Example</button>
+      <button class="ghost" onclick="resetCalculator(); gtag('event','safety_distance_clear');">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Safety notes</div>
+    <h2>Do Not Treat This as Final Safety Validation</h2>
+
+    <p class="note">
+      This calculator provides a simplified estimate and should not replace a full safety risk assessment, required stop-time testing, or review against the applicable safeguarding standard and device manufacturer guidance.
+    </p>
+
+    <p class="note">
+      Final safety distance can depend on additional factors such as device resolution, mounting height, reach-over risk, whole-body access, muting strategy, stop category, and validated stopping performance.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Related tools</div>
+    <h2>What to Check Next</h2>
+
+    <p class="description">
+      This tool is useful for early safeguarding layout work, but real safety distance decisions should never stop at the calculator. You still need verified stop-time data, actual device response data, the right intrusion factor for the safeguarding method, and the correct standard for the application.
+    </p>
+
+    <p class="description">
+      For real machine design, this page usually works best alongside controls review, machine sequence understanding, and a proper risk assessment so the safeguarding approach matches the actual hazard and machine behavior.
+    </p>
+
+    <div class="internal-links">
+      <a href="/plc-electrical.html" onclick="gtag('event','internal_link_click',{'from':'safety_distance','to':'plc_electrical_hub'});">PLC & Electrical Hub</a>
+      <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','internal_link_click',{'from':'safety_distance','to':'plc_comm_troubleshooting'});">PLC Communication Troubleshooter</a>
+      <a href="/plc-outputs-not-working.html" onclick="gtag('event','internal_link_click',{'from':'safety_distance','to':'plc_outputs_not_working'});">PLC Outputs Not Working</a>
+      <a href="/analog-scaling.html" onclick="gtag('event','internal_link_click',{'from':'safety_distance','to':'analog_scaling'});">Analog Scaling</a>
+      <a href="/reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'safety_distance','to':'reference_charts'});">Reference Charts</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-box">
+      <h3>Need help applying this to a real machine?</h3>
+      <p>
+        Get connected with a qualified automation integrator if you need help with safeguarding layout, stop-time review, machine design, or applying these values to a real project.
+      </p>
+      <a href="/integrators.html" onclick="gtag('event','cta_click',{'from':'safety_distance','to':'integrators'});">Find an Integrator</a>
+    </div>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
 </div>
 
@@ -659,10 +698,8 @@
     document.getElementById("intrusion").value = "120";
     calculateSafetyDistance();
   }
-</script>
 
-<script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
