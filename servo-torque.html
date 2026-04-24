@@ -28,27 +28,38 @@
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:white;
+      border-bottom:1px solid #dfe5ef;
+      padding:42px 20px 34px;
       text-align:center;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:1050px;
       margin:auto;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:10px;
+      color:#1e6bd6;
+      font-weight:bold;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
     .hero h1{
       margin:0 0 12px;
-      font-size:34px;
+      color:#1f2a44;
+      font-size:36px;
       line-height:1.2;
     }
 
     .hero p{
-      max-width:800px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
+      max-width:850px;
+      margin:0 auto 18px;
+      color:#555;
       font-size:17px;
       line-height:1.6;
     }
@@ -71,13 +82,14 @@
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:#1e6bd6;
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
     }
 
     .hero-cta a:hover{
@@ -86,9 +98,9 @@
     }
 
     .page-wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:30px auto;
-      padding:0 18px 40px;
+      padding:0 18px 44px;
     }
 
     .top-note{
@@ -97,35 +109,18 @@
       color:#5c4a12;
       padding:14px 16px;
       border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
+      margin-bottom:24px;
       font-size:15px;
       line-height:1.5;
       text-align:left;
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
+    .section{
       background:white;
-      border-radius:12px;
+      border-radius:14px;
       box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
       padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin-bottom:24px;
     }
 
     .section-label{
@@ -137,18 +132,59 @@
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
-      margin-top:0;
+    h2, h3{
       color:#1f2a44;
+      margin-top:0;
     }
 
     .description{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color:#555;
       font-size:16px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
+    }
+
+    .info-grid,
+    .workflow{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card,
+    .workflow-step{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:12px;
+      padding:18px;
+      text-align:left;
+    }
+
+    .info-card h3{
+      margin:0 0 10px;
+      font-size:18px;
+    }
+
+    .info-card p,
+    .info-card li,
+    .workflow-step p{
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+      margin:0;
+    }
+
+    .info-card ul{
+      padding-left:18px;
+      margin:0;
+    }
+
+    .workflow-step strong{
+      display:block;
+      color:#1f2a44;
+      margin-bottom:8px;
     }
 
     .formula-box{
@@ -285,12 +321,12 @@
     }
 
     .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
+      padding:24px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
       border-radius:12px;
       text-align:center;
+      margin-bottom:18px;
     }
 
     .cta-box h3{
@@ -315,39 +351,18 @@
     }
 
     .note{
-      margin-top:20px;
+      margin:0 0 12px;
       color:#666;
       font-size:14px;
       line-height:1.6;
       text-align:left;
     }
 
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
-    }
-
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .internal-links a{
@@ -368,7 +383,7 @@
     .servo-help-box{
       background:#f4f8ff;
       border:1px solid #d7e6ff;
-      border-radius:10px;
+      border-radius:12px;
       padding:20px;
     }
 
@@ -437,20 +452,6 @@
       display:none;
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
-    }
-
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
-    }
-
     .footer{
       margin-top:40px;
       color:#666;
@@ -458,15 +459,8 @@
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
     @media (max-width:700px){
-      .card,
-      .sidebar-card{
+      .section{
         padding:20px;
       }
 
@@ -501,6 +495,7 @@
 
 <section class="hero">
   <div class="hero-inner">
+    <div class="eyebrow">Motors & Motion Calculator</div>
     <h1>Servo Motor Torque Calculator</h1>
     <p>
       Estimate running torque, acceleration torque, recommended motor torque, reflected inertia, and motor power for linear or rotary motion systems using load, radius, speed, acceleration time, gear ratio, efficiency, and safety factor.
@@ -508,157 +503,35 @@
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
       <a href="/gear-ratio.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'servo_torque_hero','to':'gear_ratio'});">Gear Ratio Calculator</a>
+      <a href="/motors-motion.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'servo_torque_hero','to':'motors_motion_hub'});">Motors & Motion Hub</a>
     </div>
   </div>
 </section>
 
 <div class="page-wrap">
+
   <div class="top-note">
     <strong>Good starting use case:</strong> use this for early servo sizing, concept design, and motion system screening before you dig into full reflected inertia models, detailed move profiles, gearbox backlash, gravity loading, regeneration, and vendor torque-speed curves.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Servo Motor Torque</h2>
+  <section class="section">
+    <div class="section-label">What this calculator does</div>
+    <h2>Estimate Servo Motor Torque for Linear or Rotary Motion</h2>
 
-      <p class="description">
-        Estimate servo motor torque for rotary or linear motion systems using load, pulley or wheel radius, target speed, acceleration time, gear ratio, efficiency, and safety factor.
-      </p>
+    <p class="description">
+      Estimate servo motor torque for rotary or linear motion systems using load, pulley or wheel radius, target speed, acceleration time, gear ratio, efficiency, and safety factor.
+    </p>
 
-      <p class="description">
-        This calculator is useful for early servo sizing, motion system concept design, pulley-driven axes, conveyor-style drives, rotary indexers, and rough motor selection in industrial automation equipment.
-      </p>
+    <p class="description">
+      This calculator is useful for early servo sizing, motion system concept design, pulley-driven axes, conveyor-style drives, rotary indexers, and rough motor selection in industrial automation equipment.
+    </p>
 
-      <div class="formula-box">
-        Total Motor Torque = Running Torque + Acceleration Torque<br><br>
-        Recommended Torque = Total Motor Torque × Safety Factor
-      </div>
+    <p class="description">
+      For this simplified model, the main load input is treated as a force-equivalent load in pounds. Use it for early estimating, not as a final motor sizing calculation.
+    </p>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','servo_torque_example',{'type':'linear_geared'});">Linear Geared Axis</button>
-        <button type="button" onclick="loadExample2(); gtag('event','servo_torque_example',{'type':'rotary_indexer'});">Rotary Indexer</button>
-        <button type="button" onclick="loadExample3(); gtag('event','servo_torque_example',{'type':'direct_drive'});">Direct Drive</button>
-      </div>
-
-      <div class="controls">
-        <div class="control-group">
-          <label for="mode">Application Mode</label>
-          <select id="mode" onchange="toggleModeFields()">
-            <option value="linear">Linear Travel</option>
-            <option value="rotary">Rotary Load</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label id="massLabel" for="mass">Load / Force Equivalent (lb)</label>
-          <input id="mass" type="number" value="50" min="0.01" step="0.1">
-        </div>
-
-        <div class="control-group">
-          <label for="radius">Pulley / Wheel Radius (in)</label>
-          <input id="radius" type="number" value="2" min="0.01" step="0.1">
-        </div>
-
-        <div class="control-group">
-          <label for="gearRatio">Gear Ratio (load : motor)</label>
-          <input id="gearRatio" type="number" value="1" min="0.01" step="0.1">
-        </div>
-
-        <div class="control-group">
-          <label for="efficiency">Mechanical Efficiency (%)</label>
-          <input id="efficiency" type="number" value="90" min="0.01" max="100" step="1">
-        </div>
-
-        <div class="control-group">
-          <label for="safetyFactor">Safety Factor</label>
-          <input id="safetyFactor" type="number" value="1.5" min="0.01" step="0.1">
-        </div>
-
-        <div class="control-group" id="linearSpeedField">
-          <label for="linearSpeed">Target Linear Speed (in/sec)</label>
-          <input id="linearSpeed" type="number" value="20" min="0.01" step="0.1">
-        </div>
-
-        <div class="control-group hidden" id="rotarySpeedField">
-          <label for="targetRPM">Target Load Speed (RPM)</label>
-          <input id="targetRPM" type="number" value="120" min="0.01" step="1">
-        </div>
-
-        <div class="control-group">
-          <label for="accelTime">Acceleration Time (sec)</label>
-          <input id="accelTime" type="number" value="0.4" min="0.01" step="0.01">
-        </div>
-
-        <div class="control-group" id="linearMoveField">
-          <label for="moveDistance">Move Distance (in, optional)</label>
-          <input id="moveDistance" type="number" value="12" min="0" step="0.1">
-        </div>
-
-        <div class="control-group hidden" id="rotaryMoveField">
-          <label for="moveAngle">Move Angle (deg, optional)</label>
-          <input id="moveAngle" type="number" value="180" min="0" step="0.1">
-        </div>
-
-        <div class="control-group hidden" id="externalInertiaField">
-          <label for="externalInertia">External Rotary Inertia at Load (lb-in², optional)</label>
-          <input id="externalInertia" type="number" value="0" min="0" step="0.01">
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateServoTorque();">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="clearCalculator(); gtag('event','servo_torque_clear');">Reset</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this to a real machine?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you need help with servo sizing, motion system review, gear ratio decisions, or full machine concept development.
-        </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
-
-      <p class="note">
-        This is a practical first-pass sizing calculator. Final servo selection should still consider true reflected inertia from all rotating components, move profile shape, gravity loads, gearbox backlash, duty cycle, shock loading, regenerative effects, and vendor torque-speed curves.
-      </p>
-
-      <p class="note">
-        For this simplified model, the main load input is treated as a force-equivalent load in pounds. Use it for early estimating, not as a final motor sizing calculation.
-      </p>
-
-      <div class="learn-more">
-        <h3>What to check next</h3>
-
-        <p>
-          This tool gives a strong first-pass servo estimate, but real motor selection changes quickly once you include full inertia modeling, move profile shape, gravity effects, transmission stiffness, backlash, dwell pattern, and actual duty cycle at speed.
-        </p>
-
-        <p>
-          For real motion system design, this page usually works best alongside gear ratio, reflected load review, power checks, and vendor motor curves so you can confirm the chosen motor can survive the actual application.
-        </p>
-
-        <div class="internal-links">
-          <a href="/gear-ratio.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'gear_ratio'});">Gear Ratio</a>
-          <a href="/gearbox-torque.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'gearbox_torque'});">Gearbox Output Torque</a>
-          <a href="/motor.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'motor_sizing'});">Motor Sizing</a>
-          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'automation_roi'});">Automation ROI</a>
-        </div>
-      </div>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
-    </div>
-
-    <div>
-      <div class="sidebar-card">
+    <div class="info-grid">
+      <div class="info-card">
         <h3>What this calculator gives you</h3>
         <ul>
           <li>Motor running torque</li>
@@ -670,14 +543,14 @@
         </ul>
       </div>
 
-      <div class="sidebar-card">
+      <div class="info-card">
         <h3>Where this helps</h3>
         <p>
           Useful for early servo sizing, rotary indexer concepts, belt or pulley-driven axes, conveyors, direct-drive review, and screening whether a motion concept is even in the right range before detailed vendor sizing.
         </p>
       </div>
 
-      <div class="sidebar-card">
+      <div class="info-card">
         <h3>Common next checks</h3>
         <ul>
           <li>Full reflected inertia model</li>
@@ -687,55 +560,242 @@
           <li>Vendor torque-speed curve limits</li>
         </ul>
       </div>
+    </div>
+  </section>
 
-      <div class="sidebar-card">
-        <h3>Need help with a servo application?</h3>
-        <div class="servo-help-box">
-          <p>
-            Submit your application details and I can review the request, help point you in the right direction, or connect you with someone better suited for deeper servo sizing support.
-          </p>
+  <section class="section">
+    <div class="section-label">Recommended workflow</div>
+    <h2>How to Use This Servo Sizing Tool</h2>
 
-          <ul>
-            <li>Motor sizing questions</li>
-            <li>Torque and acceleration review</li>
-            <li>Gear ratio questions</li>
-            <li>General motion application questions</li>
-          </ul>
+    <div class="workflow">
+      <div class="workflow-step">
+        <strong>1. Choose linear or rotary motion</strong>
+        <p>
+          Pick the mode that best matches the application. Linear travel works well for belt, pulley, wheel, or conveyor-style motion. Rotary load works better for indexers or rotating tables.
+        </p>
+      </div>
 
-          <form action="https://formspree.io/f/mwvrzywp" method="POST" class="servo-form">
-            <label for="helpName">Name</label>
-            <input id="helpName" type="text" name="name" required>
+      <div class="workflow-step">
+        <strong>2. Enter load, radius, speed, and acceleration</strong>
+        <p>
+          Use realistic values for the moving load, pulley radius, target speed, and acceleration time. Short acceleration times can dramatically increase required torque.
+        </p>
+      </div>
 
-            <label for="helpEmail">Email</label>
-            <input id="helpEmail" type="email" name="email" required>
+      <div class="workflow-step">
+        <strong>3. Apply gear ratio and efficiency</strong>
+        <p>
+          Gear ratio can reduce motor torque demand but increases motor speed. Efficiency matters because real gearboxes and mechanical systems lose torque.
+        </p>
+      </div>
 
-            <label for="helpCompany">Company (optional)</label>
-            <input id="helpCompany" type="text" name="company">
-
-            <label for="helpApplication">Application Description</label>
-            <textarea id="helpApplication" name="details" rows="5" required placeholder="Describe the application, motion type, load, speed, and what kind of help you need."></textarea>
-
-            <label for="helpTorque">Estimated Torque From Calculator (optional)</label>
-            <input id="helpTorque" type="text" name="estimated_torque" placeholder="Example: 4.25 N·m">
-
-            <label for="helpPhone">Phone (optional)</label>
-            <input id="helpPhone" type="text" name="phone">
-
-            <input type="hidden" name="_subject" value="Servo Help Request from AutomationCalculators.net">
-            <input type="hidden" name="calculator_page" value="servo-torque.html">
-            <input type="hidden" name="source" value="servo_torque_calculator">
-
-            <button type="submit" class="servo-btn" onclick="gtag('event','servo_help_form_submit_click');">
-              Submit Request
-            </button>
-          </form>
-
-          <div class="servo-disclosure">
-            This form is for application questions and general help requests. Final motor selection should still be confirmed with manufacturer tools and application-specific review.
-          </div>
-        </div>
+      <div class="workflow-step">
+        <strong>4. Compare against real servo curves</strong>
+        <p>
+          Use the recommended torque, motor RPM, and estimated power as a screening result before checking vendor torque-speed curves and full reflected inertia.
+        </p>
       </div>
     </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Calculator</div>
+    <h2>Estimate Servo Motor Torque</h2>
+
+    <p class="description">
+      Use the calculator below to estimate running torque, acceleration torque, total motor torque, recommended motor torque, reflected load inertia, and estimated motor power.
+    </p>
+
+    <div class="formula-box">
+      Total Motor Torque = Running Torque + Acceleration Torque<br><br>
+      Recommended Torque = Total Motor Torque × Safety Factor
+    </div>
+
+    <div class="section-label">Quick examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadExample1(); gtag('event','servo_torque_example',{'type':'linear_geared'});">Linear Geared Axis</button>
+      <button type="button" onclick="loadExample2(); gtag('event','servo_torque_example',{'type':'rotary_indexer'});">Rotary Indexer</button>
+      <button type="button" onclick="loadExample3(); gtag('event','servo_torque_example',{'type':'direct_drive'});">Direct Drive</button>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="mode">Application Mode</label>
+        <select id="mode" onchange="toggleModeFields()">
+          <option value="linear">Linear Travel</option>
+          <option value="rotary">Rotary Load</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label id="massLabel" for="mass">Load / Force Equivalent (lb)</label>
+        <input id="mass" type="number" value="50" min="0.01" step="0.1">
+      </div>
+
+      <div class="control-group">
+        <label for="radius">Pulley / Wheel Radius (in)</label>
+        <input id="radius" type="number" value="2" min="0.01" step="0.1">
+      </div>
+
+      <div class="control-group">
+        <label for="gearRatio">Gear Ratio (load : motor)</label>
+        <input id="gearRatio" type="number" value="1" min="0.01" step="0.1">
+      </div>
+
+      <div class="control-group">
+        <label for="efficiency">Mechanical Efficiency (%)</label>
+        <input id="efficiency" type="number" value="90" min="0.01" max="100" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="safetyFactor">Safety Factor</label>
+        <input id="safetyFactor" type="number" value="1.5" min="0.01" step="0.1">
+      </div>
+
+      <div class="control-group" id="linearSpeedField">
+        <label for="linearSpeed">Target Linear Speed (in/sec)</label>
+        <input id="linearSpeed" type="number" value="20" min="0.01" step="0.1">
+      </div>
+
+      <div class="control-group hidden" id="rotarySpeedField">
+        <label for="targetRPM">Target Load Speed (RPM)</label>
+        <input id="targetRPM" type="number" value="120" min="0.01" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="accelTime">Acceleration Time (sec)</label>
+        <input id="accelTime" type="number" value="0.4" min="0.01" step="0.01">
+      </div>
+
+      <div class="control-group" id="linearMoveField">
+        <label for="moveDistance">Move Distance (in, optional)</label>
+        <input id="moveDistance" type="number" value="12" min="0" step="0.1">
+      </div>
+
+      <div class="control-group hidden" id="rotaryMoveField">
+        <label for="moveAngle">Move Angle (deg, optional)</label>
+        <input id="moveAngle" type="number" value="180" min="0" step="0.1">
+      </div>
+
+      <div class="control-group hidden" id="externalInertiaField">
+        <label for="externalInertia">External Rotary Inertia at Load (lb-in², optional)</label>
+        <input id="externalInertia" type="number" value="0" min="0" step="0.01">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateServoTorque();">Calculate</button>
+      <button class="secondary" onclick="loadExample1();">Load Example</button>
+      <button class="ghost" onclick="clearCalculator(); gtag('event','servo_torque_clear');">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Design notes</div>
+    <h2>Do Not Use This as Final Servo Selection</h2>
+
+    <p class="note">
+      This is a practical first-pass sizing calculator. Final servo selection should still consider true reflected inertia from all rotating components, move profile shape, gravity loads, gearbox backlash, duty cycle, shock loading, regenerative effects, and vendor torque-speed curves.
+    </p>
+
+    <p class="note">
+      A servo may pass the estimated torque calculation but still fail the application if the motor cannot provide the torque at the required RPM, if the reflected inertia ratio is poor, or if the duty cycle creates too much heat.
+    </p>
+
+    <p class="note">
+      Use this result to screen the application, then confirm the motor against the manufacturer’s torque-speed curve, inertia limits, drive sizing rules, and thermal duty requirements.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Continue the design</div>
+    <h2>What to Check Next</h2>
+
+    <p class="description">
+      This tool gives a strong first-pass servo estimate, but real motor selection changes quickly once you include full inertia modeling, move profile shape, gravity effects, transmission stiffness, backlash, dwell pattern, and actual duty cycle at speed.
+    </p>
+
+    <p class="description">
+      For real motion system design, this page usually works best alongside gear ratio, reflected load review, power checks, and vendor motor curves so you can confirm the chosen motor can survive the actual application.
+    </p>
+
+    <div class="internal-links">
+      <a href="/gear-ratio.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'gear_ratio'});">Gear Ratio</a>
+      <a href="/gearbox-torque.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'gearbox_torque'});">Gearbox Output Torque</a>
+      <a href="/motor.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'motor_sizing'});">Motor Sizing</a>
+      <a href="/conveyor-speed.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'conveyor_speed'});">Conveyor Speed</a>
+      <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'automation_roi'});">Automation ROI</a>
+      <a href="/motors-motion.html" onclick="gtag('event','internal_link_click',{'from':'servo_torque','to':'motors_motion_hub'});">Motors & Motion Hub</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-box">
+      <h3>Need help applying this to a real machine?</h3>
+      <p>
+        Get connected with a qualified automation integrator if you need help with servo sizing, motion system review, gear ratio decisions, or full machine concept development.
+      </p>
+      <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'servo_torque_midpage'});">Find an Integrator</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Servo application help</div>
+    <h2>Need Help With a Servo Application?</h2>
+
+    <div class="servo-help-box">
+      <h3>Submit Your Application Details</h3>
+      <p>
+        Submit your application details and I can review the request, help point you in the right direction, or connect you with someone better suited for deeper servo sizing support.
+      </p>
+
+      <ul>
+        <li>Motor sizing questions</li>
+        <li>Torque and acceleration review</li>
+        <li>Gear ratio questions</li>
+        <li>General motion application questions</li>
+      </ul>
+
+      <form action="https://formspree.io/f/mwvrzywp" method="POST" class="servo-form">
+        <label for="helpName">Name</label>
+        <input id="helpName" type="text" name="name" required>
+
+        <label for="helpEmail">Email</label>
+        <input id="helpEmail" type="email" name="email" required>
+
+        <label for="helpCompany">Company (optional)</label>
+        <input id="helpCompany" type="text" name="company">
+
+        <label for="helpApplication">Application Description</label>
+        <textarea id="helpApplication" name="details" rows="5" required placeholder="Describe the application, motion type, load, speed, and what kind of help you need."></textarea>
+
+        <label for="helpTorque">Estimated Torque From Calculator (optional)</label>
+        <input id="helpTorque" type="text" name="estimated_torque" placeholder="Example: 4.25 N·m">
+
+        <label for="helpPhone">Phone (optional)</label>
+        <input id="helpPhone" type="text" name="phone">
+
+        <input type="hidden" name="_subject" value="Servo Help Request from AutomationCalculators.net">
+        <input type="hidden" name="calculator_page" value="servo-torque.html">
+        <input type="hidden" name="source" value="servo_torque_calculator">
+
+        <button type="submit" class="servo-btn" onclick="gtag('event','servo_help_form_submit_click');">
+          Submit Request
+        </button>
+      </form>
+
+      <div class="servo-disclosure">
+        This form is for application questions and general help requests. Final motor selection should still be confirmed with manufacturer tools and application-specific review.
+      </div>
+    </div>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
 </div>
 
@@ -1084,10 +1144,8 @@
   }
 
   toggleModeFields();
-</script>
 
-<script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
