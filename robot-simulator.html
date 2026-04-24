@@ -6,8 +6,9 @@
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Robot Reach & Motion Simulator | AutomationCalculators.net</title>
-  <meta name="description" content="Interactive robot reach and motion simulator for estimating work envelope, target reachability, and simple robot positioning in a browser-based 3D viewer.">
+  <meta name="description" content="Interactive robot reach and motion simulator for estimating work envelope, target reachability, base height impact, and simple robot positioning in a browser-based 3D viewer.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -25,11 +26,12 @@
       --text:#1f2937;
       --muted:#6b7280;
       --border:#dbe3ec;
-      --bg:#f7fafc;
+      --bg:#f4f6f9;
       --success:#117a37;
       --danger:#b42318;
       --card:#ffffff;
-      --shadow:0 8px 24px rgba(15, 23, 42, 0.08);
+      --shadow:0 0 12px rgba(0,0,0,0.06);
+      --blue:#1f2a44;
     }
 
     *{box-sizing:border-box;}
@@ -50,105 +52,185 @@
       text-decoration:underline;
     }
 
-    .navbar{
-      background:#0f172a;
-      color:#fff;
-      padding:14px 18px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.15);
-    }
-
-    .navbar-inner{
-      max-width:1300px;
-      margin:0 auto;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-
-    .brand{
-      font-size:1.05rem;
-      font-weight:700;
-      color:#fff;
-    }
-
-    .nav-links{
-      display:flex;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-
-    .nav-links a{
-      color:#dbeafe;
-      font-weight:600;
-      font-size:0.95rem;
-    }
-
     .hero{
-      background:linear-gradient(135deg, #0b5cab 0%, #0f172a 100%);
-      color:#fff;
-      padding:34px 20px;
+      background:white;
+      padding:48px 20px 34px;
+      text-align:center;
+      border-bottom:1px solid #e1e7f0;
     }
 
     .hero-inner{
-      max-width:1300px;
-      margin:0 auto;
+      max-width:1050px;
+      margin:auto;
     }
 
     .hero h1{
-      margin:0 0 10px 0;
-      font-size:2rem;
+      margin:0 0 12px;
+      font-size:36px;
       line-height:1.2;
+      color:var(--blue);
     }
 
     .hero p{
-      margin:0;
-      max-width:900px;
-      font-size:1.02rem;
+      max-width:880px;
+      margin:0 auto 14px;
+      color:#4f5b70;
+      font-size:17px;
       line-height:1.65;
-      color:#e5eef9;
+    }
+
+    .hero-cta{
+      margin-top:20px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .hero-cta a{
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:.2s ease;
+    }
+
+    .hero-cta .primary{
+      background:#1e6bd6;
+      color:white;
+    }
+
+    .hero-cta .secondary{
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
+    }
+
+    .hero-cta a:hover{
+      transform:translateY(-1px);
+      opacity:.95;
     }
 
     .container{
       max-width:1300px;
-      margin:24px auto;
-      padding:0 20px 40px;
+      margin:30px auto;
+      padding:0 20px 42px;
     }
 
-    .note,
-    .description,
-    .result,
-    .cta-box,
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:15px 17px;
+      border-radius:10px;
+      margin:0 0 24px;
+      font-size:15px;
+      line-height:1.55;
+      text-align:left;
+    }
+
+    .section{
+      background:white;
+      border:1px solid var(--border);
+      border-radius:14px;
+      box-shadow:var(--shadow);
+      padding:26px;
+      margin-bottom:24px;
+    }
+
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .section h2,
+    .section h3{
+      margin-top:0;
+      color:var(--blue);
+    }
+
+    .section h2{
+      font-size:26px;
+      margin-bottom:12px;
+    }
+
+    .section h3{
+      font-size:20px;
+      margin-bottom:10px;
+    }
+
+    .description{
+      margin:0 0 16px;
+      color:#555;
+      font-size:16px;
+      line-height:1.65;
+      text-align:left;
+    }
+
+    .card-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:18px;
+      text-align:left;
+    }
+
+    .info-card h3{
+      font-size:18px;
+      margin:0 0 8px;
+      color:#1f2a44;
+    }
+
+    .info-card p{
+      margin:0;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .workflow-list{
+      margin:14px 0 0;
+      padding-left:20px;
+      color:#444;
+      line-height:1.75;
+    }
+
+    .workflow-list strong{
+      color:#1f2a44;
+    }
+
+    .sim-layout{
+      display:grid;
+      grid-template-columns:360px 1fr;
+      gap:20px;
+      align-items:start;
+      margin-bottom:24px;
+    }
+
     .card{
       background:var(--card);
       border:1px solid var(--border);
       border-radius:14px;
       box-shadow:var(--shadow);
-    }
-
-    .note{
-      padding:16px 18px;
-      margin-bottom:20px;
-      background:#fff8e8;
-      border-color:#f3d28a;
-      color:#7a5710;
-    }
-
-    .sim-layout{
-      display:grid;
-      grid-template-columns: 360px 1fr;
-      gap:20px;
-      align-items:start;
-    }
-
-    .card{
       padding:18px;
     }
 
     .card h2,
     .card h3{
       margin-top:0;
+      color:#1f2a44;
     }
 
     .controls-panel{
@@ -177,6 +259,7 @@
       font-weight:700;
       margin-bottom:6px;
       font-size:0.94rem;
+      color:#23314f;
     }
 
     .field input,
@@ -257,6 +340,7 @@
     .viewer-toolbar .viewer-title{
       font-weight:700;
       font-size:1rem;
+      color:#1f2a44;
     }
 
     .viewer-toolbar .viewer-hint{
@@ -316,27 +400,59 @@
       color:var(--danger);
     }
 
-    .bottom-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:20px;
-      margin-top:20px;
-    }
-
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .internal-links a{
       display:inline-block;
-      padding:10px 14px;
-      border-radius:999px;
-      background:#eef6ff;
-      border:1px solid #d7e8fb;
-      font-weight:700;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
+    .cta-box{
+      margin-top:0;
+      padding:26px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+      box-shadow:var(--shadow);
+    }
+
+    .cta-box h2{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 auto 16px;
+      color:#4d5a74;
+      line-height:1.6;
+      max-width:780px;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+      width:auto;
     }
 
     .footer{
@@ -352,7 +468,7 @@
       line-height:1.65;
     }
 
-    @media (max-width: 1050px){
+    @media (max-width:1050px){
       .sim-layout{
         grid-template-columns:1fr;
       }
@@ -362,7 +478,7 @@
       }
 
       .results-grid{
-        grid-template-columns:repeat(2, 1fr);
+        grid-template-columns:repeat(2,1fr);
       }
 
       #viewerWrap{
@@ -370,15 +486,28 @@
       }
     }
 
-    @media (max-width: 700px){
+    @media (max-width:700px){
       .hero h1{
-        font-size:1.6rem;
+        font-size:29px;
+      }
+
+      .hero-cta{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .hero-cta a{
+        width:100%;
+        max-width:320px;
       }
 
       .button-row,
-      .bottom-grid,
       .results-grid{
         grid-template-columns:1fr;
+      }
+
+      .section{
+        padding:20px;
       }
 
       #viewerWrap{
@@ -387,214 +516,338 @@
     }
   </style>
 </head>
+
 <body>
-  <div id="navbar">
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="brand">AutomationCalculators.net</div>
-        <div class="nav-links">
-          <a href="/">Home</a>
-          <a href="/automation-calculators.html">Calculators</a>
-          <a href="/robot.html">Robot Cycle Time</a>
-          <a href="/robot-reach.html">Robot Reach</a>
-          <a href="/robot-payload.html">Robot Payload</a>
-          <a href="/automation-help.html">Automation Help</a>
-        </div>
-      </div>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Robot Reach & Motion Simulator</h1>
+    <p>
+      Use this browser-based robot simulator to estimate work envelope, target reachability, base height impact, and simple robot positioning in a 3D viewer.
+    </p>
+    <p>
+      This is intended as a practical planning tool for automation engineers, not a replacement for OEM robot simulation software.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#simulator" class="primary" onclick="gtag('event','hero_cta_click',{'from':'robot_simulator','to':'simulator'});">Open Simulator</a>
+      <a href="/robot-reach.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'robot_simulator_hero','to':'robot_reach'});">Robot Reach Calculator</a>
     </div>
   </div>
+</section>
 
-  <section class="hero">
-    <div class="hero-inner">
-      <h1>Robot Reach & Motion Simulator</h1>
-      <p>
-        Use this browser-based robot simulator to estimate work envelope, target reachability, base height impact,
-        and simple motion planning. This is intended as a practical planning tool for automation engineers, not a
-        replacement for OEM robot simulation software.
-      </p>
+<div class="container">
+
+  <div class="top-note">
+    <strong>Important:</strong> This simulator is a simplified engineering visualizer. It does not replace OEM kinematics, controller validation, interference studies, payload review, or safety review. Use it for early layout and feasibility checks.
+  </div>
+
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <h2>What This Simulator Does</h2>
+
+    <p class="description">
+      This page uses a simplified articulated arm model with base rotation, an upper arm, a forearm, and a tool center point offset. It helps you visualize whether a target point is generally reachable and how changes in base height, arm length, target position, and tool offset affect the work envelope.
+    </p>
+
+    <p class="description">
+      Use it early in a robot layout project when you are comparing rough mounting position, target reachability, fixture height, and general work envelope before going deeper into full robot simulation.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Visual Reach Check</h3>
+        <p>Drag or enter a target point and see whether the simplified arm can reach it.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Base Height Review</h3>
+        <p>Change the robot base height to see how pedestal height affects vertical access.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Arm Length Comparison</h3>
+        <p>Use compact, mid-size, or long-reach presets to compare rough robot sizing direction.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Fixture Planning</h3>
+        <p>Adjust fixture dimensions to visualize target location and basic cell layout.</p>
+      </div>
     </div>
   </section>
 
-  <div class="container">
-    <div class="note">
-      <strong>Important:</strong> This simulator is a simplified engineering visualizer. It does not replace OEM kinematics,
-      controller validation, interference studies, or safety review. Use it for early layout and feasibility checks.
-    </div>
+  <section class="section">
+    <div class="section-label">Workflow</div>
+    <h2>Recommended Robot Layout Workflow</h2>
 
-    <div class="sim-layout">
-      <div class="controls-panel">
-        <div class="card">
-          <h2>Simulator Inputs</h2>
+    <p class="description">
+      Treat this simulator as a concept screen. It is useful before full simulation, but final robot selection still needs manufacturer data, payload review, interference checks, and safety validation.
+    </p>
 
-          <div class="field-group">
-            <h3>Robot Setup</h3>
+    <ol class="workflow-list">
+      <li><strong>Set the robot preset:</strong> start with compact, mid-size, or long-reach to compare rough robot sizes.</li>
+      <li><strong>Set base height:</strong> adjust pedestal or mounting height to check vertical access.</li>
+      <li><strong>Enter or drag the target:</strong> position the target at the approximate pick, place, process, or fixture point.</li>
+      <li><strong>Review reach status:</strong> use the reach status, radial distance, vertical offset, and max reach outputs.</li>
+      <li><strong>Compare with calculators:</strong> check reach, payload, and cycle time with the related tools.</li>
+      <li><strong>Validate in real simulation:</strong> final checks should include OEM software, joint limits, singularities, collisions, EOAT, and safety.</li>
+    </ol>
+  </section>
 
-            <div class="field">
-              <label for="robotType">Robot Preset</label>
-              <select id="robotType">
-                <option value="compact">Compact Arm</option>
-                <option value="mid" selected>Mid-Size Arm</option>
-                <option value="long">Long-Reach Arm</option>
-              </select>
-              <small>Presets update the two main arm segments for a quick starting point.</small>
-            </div>
-
-            <div class="field">
-              <label for="baseHeight">Base Height (in)</label>
-              <input type="number" id="baseHeight" value="24" step="1">
-            </div>
-
-            <div class="field">
-              <label for="link1">Upper Arm Length (in)</label>
-              <input type="number" id="link1" value="36" step="1">
-            </div>
-
-            <div class="field">
-              <label for="link2">Forearm Length (in)</label>
-              <input type="number" id="link2" value="30" step="1">
-            </div>
-
-            <div class="field">
-              <label for="tcpLength">Tool Center Point Offset (in)</label>
-              <input type="number" id="tcpLength" value="8" step="1">
-              <small>Used as a simple extension beyond the second arm segment.</small>
-            </div>
-          </div>
-
-          <div class="field-group">
-            <h3>Target Position</h3>
-
-            <div class="field">
-              <label for="targetX">Target X (in)</label>
-              <input type="number" id="targetX" value="55" step="1">
-            </div>
-
-            <div class="field">
-              <label for="targetY">Target Y (in)</label>
-              <input type="number" id="targetY" value="0" step="1">
-            </div>
-
-            <div class="field">
-              <label for="targetZ">Target Z (in)</label>
-              <input type="number" id="targetZ" value="18" step="1">
-            </div>
-
-            <div class="button-row">
-              <button class="primary" id="applyInputsBtn" type="button">Apply Inputs</button>
-              <button class="secondary" id="syncFromTargetBtn" type="button">Read Dragged Target</button>
-            </div>
-          </div>
-
-          <div class="field-group">
-            <h3>Animation & Scene</h3>
-
-            <div class="field">
-              <label for="speedFactor">Animation Speed</label>
-              <input type="range" id="speedFactor" min="0.2" max="3" step="0.1" value="1.2">
-              <small>Higher values move faster.</small>
-            </div>
-
-            <div class="field">
-              <label for="fixtureWidth">Fixture Width (in)</label>
-              <input type="number" id="fixtureWidth" value="24" step="1">
-            </div>
-
-            <div class="field">
-              <label for="fixtureDepth">Fixture Depth (in)</label>
-              <input type="number" id="fixtureDepth" value="24" step="1">
-            </div>
-
-            <div class="field">
-              <label for="fixtureHeight">Fixture Height (in)</label>
-              <input type="number" id="fixtureHeight" value="18" step="1">
-            </div>
-
-            <div class="button-row">
-              <button class="primary" id="animateBtn" type="button">Animate Move</button>
-              <button class="secondary" id="resetViewBtn" type="button">Reset View</button>
-            </div>
-          </div>
-
-          <div class="field-group">
-            <h3>Recommended Use</h3>
-            <ul class="tight">
-              <li>Layout feasibility checks</li>
-              <li>Base-height comparison</li>
-              <li>Approximate work envelope review</li>
-              <li>Quick visual reach validation</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="viewer-card card">
-        <div class="viewer-toolbar">
-          <div class="viewer-title">3D Robot Viewer</div>
-          <div class="viewer-hint">Drag the red target in 3D. Left mouse = orbit, right mouse = pan, wheel = zoom.</div>
-        </div>
-
-        <div id="viewerWrap">
-          <canvas id="viewerCanvas"></canvas>
-        </div>
-
-        <div class="results-grid">
-          <div class="result-box">
-            <div class="label">Reach Status</div>
-            <div class="value" id="reachStatus">Checking...</div>
-          </div>
-          <div class="result-box">
-            <div class="label">Radial Distance</div>
-            <div class="value" id="radialDistance">0 in</div>
-          </div>
-          <div class="result-box">
-            <div class="label">Vertical Offset</div>
-            <div class="value" id="verticalOffset">0 in</div>
-          </div>
-          <div class="result-box">
-            <div class="label">Approx. Max Reach</div>
-            <div class="value" id="maxReach">0 in</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="bottom-grid">
+  <div class="sim-layout" id="simulator">
+    <div class="controls-panel">
       <div class="card">
-        <h2>How This Simulator Works</h2>
-        <p class="description">
-          This page uses a simplified articulated arm model with base rotation, an upper arm, a forearm, and a small tool offset.
-          It is designed to help you visualize whether a target point is generally reachable and how changes in base height or arm length
-          affect the work envelope.
-        </p>
-        <p class="description">
-          This is most useful early in a project when you're checking concept direction, rough reach, and likely mounting position before
-          moving into detailed robot selection or OEM software.
-        </p>
-        <div class="internal-links">
-          <a href="/robot-reach.html" onclick="gtag('event','tool_open',{'tool':'robot_reach'});">Robot Reach Calculator</a>
-          <a href="/robot-payload.html" onclick="gtag('event','tool_open',{'tool':'robot_payload'});">Robot Payload Calculator</a>
-          <a href="/robot.html" onclick="gtag('event','tool_open',{'tool':'robot_cycle_time'});">Robot Cycle Time Calculator</a>
+        <h2>Simulator Inputs</h2>
+
+        <div class="field-group">
+          <h3>Robot Setup</h3>
+
+          <div class="field">
+            <label for="robotType">Robot Preset</label>
+            <select id="robotType">
+              <option value="compact">Compact Arm</option>
+              <option value="mid" selected>Mid-Size Arm</option>
+              <option value="long">Long-Reach Arm</option>
+            </select>
+            <small>Presets update the two main arm segments for a quick starting point.</small>
+          </div>
+
+          <div class="field">
+            <label for="baseHeight">Base Height (in)</label>
+            <input type="number" id="baseHeight" value="24" step="1">
+          </div>
+
+          <div class="field">
+            <label for="link1">Upper Arm Length (in)</label>
+            <input type="number" id="link1" value="36" step="1">
+          </div>
+
+          <div class="field">
+            <label for="link2">Forearm Length (in)</label>
+            <input type="number" id="link2" value="30" step="1">
+          </div>
+
+          <div class="field">
+            <label for="tcpLength">Tool Center Point Offset (in)</label>
+            <input type="number" id="tcpLength" value="8" step="1">
+            <small>Used as a simple extension beyond the second arm segment.</small>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h3>Target Position</h3>
+
+          <div class="field">
+            <label for="targetX">Target X (in)</label>
+            <input type="number" id="targetX" value="55" step="1">
+          </div>
+
+          <div class="field">
+            <label for="targetY">Target Y (in)</label>
+            <input type="number" id="targetY" value="0" step="1">
+          </div>
+
+          <div class="field">
+            <label for="targetZ">Target Z (in)</label>
+            <input type="number" id="targetZ" value="18" step="1">
+          </div>
+
+          <div class="button-row">
+            <button class="primary" id="applyInputsBtn" type="button">Apply Inputs</button>
+            <button class="secondary" id="syncFromTargetBtn" type="button">Read Dragged Target</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h3>Animation & Scene</h3>
+
+          <div class="field">
+            <label for="speedFactor">Animation Speed</label>
+            <input type="range" id="speedFactor" min="0.2" max="3" step="0.1" value="1.2">
+            <small>Higher values move faster.</small>
+          </div>
+
+          <div class="field">
+            <label for="fixtureWidth">Fixture Width (in)</label>
+            <input type="number" id="fixtureWidth" value="24" step="1">
+          </div>
+
+          <div class="field">
+            <label for="fixtureDepth">Fixture Depth (in)</label>
+            <input type="number" id="fixtureDepth" value="24" step="1">
+          </div>
+
+          <div class="field">
+            <label for="fixtureHeight">Fixture Height (in)</label>
+            <input type="number" id="fixtureHeight" value="18" step="1">
+          </div>
+
+          <div class="button-row">
+            <button class="primary" id="animateBtn" type="button">Animate Move</button>
+            <button class="secondary" id="resetViewBtn" type="button">Reset View</button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <h3>Recommended Use</h3>
+          <ul class="tight">
+            <li>Layout feasibility checks</li>
+            <li>Base-height comparison</li>
+            <li>Approximate work envelope review</li>
+            <li>Quick visual reach validation</li>
+          </ul>
         </div>
       </div>
+    </div>
 
-      <div class="cta-box card">
-        <h2>Need help validating a real robot application?</h2>
-        <p class="description">
-          If you are laying out a real robotic cell, checking targets, or comparing automation options, you can use this as a starting point
-          and then get help applying it to an actual project.
-        </p>
-        <a class="btn-link primary" href="/automation-help.html" onclick="gtag('event','lead_cta',{'page':'robot_simulator','location':'bottom_cta'});">
-          Get Help With My Robot Application
-        </a>
+    <div class="viewer-card card">
+      <div class="viewer-toolbar">
+        <div class="viewer-title">3D Robot Viewer</div>
+        <div class="viewer-hint">Drag the red target in 3D. Left mouse = orbit, right mouse = pan, wheel = zoom.</div>
+      </div>
+
+      <div id="viewerWrap">
+        <canvas id="viewerCanvas"></canvas>
+      </div>
+
+      <div class="results-grid">
+        <div class="result-box">
+          <div class="label">Reach Status</div>
+          <div class="value" id="reachStatus">Checking...</div>
+        </div>
+
+        <div class="result-box">
+          <div class="label">Radial Distance</div>
+          <div class="value" id="radialDistance">0 in</div>
+        </div>
+
+        <div class="result-box">
+          <div class="label">Vertical Offset</div>
+          <div class="value" id="verticalOffset">0 in</div>
+        </div>
+
+        <div class="result-box">
+          <div class="label">Approx. Max Reach</div>
+          <div class="value" id="maxReach">0 in</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="footer">
-    Automation Engineering Tools • Practical calculators and visualizers for real automation work
-  </div>
+  <section class="section">
+    <div class="section-label">How to Use</div>
+    <h2>How This Simulator Works</h2>
 
- <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
+    <p class="description">
+      This simulator treats the robot as a simplified articulated arm. The target is treated as the tool center point location, and the model estimates a basic inverse kinematic pose using the upper arm length, forearm length, base height, and tool offset.
+    </p>
+
+    <p class="description">
+      The red target can be moved with the 3D transform control. You can also type target coordinates directly, apply them, and animate the robot toward the target.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Apply Inputs</h3>
+        <p>Uses the typed target position and updates the robot pose and fixture display.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Read Dragged Target</h3>
+        <p>Copies the dragged target location back into the input fields.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Animate Move</h3>
+        <p>Moves the simplified arm toward the target pose instead of snapping instantly.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Reset View</h3>
+        <p>Resets the camera view without changing the robot or target inputs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Engineering Notes</div>
+    <h2>What to Check After the Simulator</h2>
+
+    <p class="description">
+      A target can appear reachable in a simplified model and still fail in a real robot cell. Real applications depend on posture, wrist limits, EOAT size, part geometry, cable routing, guarding, fixtures, and process approach angle.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Joint Limits</h3>
+        <p>Real robots have axis limits. A simplified arm may show reach even when the actual robot cannot hold that posture.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Wrist Orientation</h3>
+        <p>Processes like welding, dispensing, machine tending, and inspection often require a specific tool angle.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>EOAT and Payload</h3>
+        <p>Tool length, center of gravity, gripper weight, weld gun weight, and inertia can reduce practical capability.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Interference</h3>
+        <p>Check the robot body, tool, part, fixture, guarding, dress pack, cables, hoses, and clearance moves.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Cycle Time</h3>
+        <p>A robot may reach the point but still fail production requirements if the move path or process time is too slow.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Safety Review</h3>
+        <p>Simulation does not replace guarding, safety distance, risk assessment, teach mode, or safe stop validation.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Related Tools</div>
+    <h2>Continue the Robot Cell Design</h2>
+
+    <p class="description">
+      Use this simulator with the related calculators to move from rough visual feasibility into a better robot concept. Reach, payload, cycle time, pneumatics, servo sizing, and ROI all matter when selecting and justifying a robotic cell.
+    </p>
+
+    <div class="internal-links">
+      <a href="/robot-reach.html" onclick="gtag('event','internal_link_click',{'from':'robot_simulator','to':'robot_reach'});">Robot Reach Calculator</a>
+      <a href="/robot-payload.html" onclick="gtag('event','internal_link_click',{'from':'robot_simulator','to':'robot_payload'});">Robot Payload Calculator</a>
+      <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'robot_simulator','to':'robot_cycle_time'});">Robot Cycle Time Calculator</a>
+      <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'robot_simulator','to':'servo_torque'});">Servo Torque Calculator</a>
+      <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'robot_simulator','to':'pneumatic_force'});">Pneumatic Force Calculator</a>
+      <a href="/safety-distance.html" onclick="gtag('event','internal_link_click',{'from':'robot_simulator','to':'safety_distance'});">Safety Distance Calculator</a>
+      <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'robot_simulator','to':'roi_hub'});">ROI & Planning Hub</a>
+      <a href="/robotics.html" onclick="gtag('event','internal_link_click',{'from':'robot_simulator','to':'robotics_hub'});">Robotics Hub</a>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Need help validating a real robot application?</h2>
+    <p>
+      If you are laying out a real robotic cell, checking targets, comparing robots, or reviewing automation options, use this as a starting point and then get help applying it to an actual project.
+    </p>
+    <a href="/automation-help.html" onclick="gtag('event','lead_cta',{'page':'robot_simulator','location':'bottom_cta'});">Get Help With My Robot Application</a>
+  </section>
+
+</div>
+
+<div class="footer">
+  Automation Engineering Tools • Practical calculators and visualizers for real automation work
+</div>
+
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
 
 <script type="importmap">
 {
@@ -695,11 +948,11 @@
   robotRoot.add(pedestal);
 
   const j1Group = new THREE.Group();
-j1Group.position.set(0, 32, 0);
-robotRoot.add(j1Group);
+  j1Group.position.set(0, 32, 0);
+  robotRoot.add(j1Group);
 
-const shoulderPivot = new THREE.Group();
-j1Group.add(shoulderPivot);
+  const shoulderPivot = new THREE.Group();
+  j1Group.add(shoulderPivot);
 
   const shoulderJoint = new THREE.Mesh(
     new THREE.SphereGeometry(3.6, 28, 28),
@@ -852,14 +1105,14 @@ j1Group.add(shoulderPivot);
   robotType.addEventListener('change', applyPreset);
 
   targetControls.addEventListener('dragging-changed', function(event){
-  controls.enabled = !event.value;
+    controls.enabled = !event.value;
 
-  if (!event.value) {
-    syncInputsFromTarget();
-    updateRobotPose(false);
-    snapTargetToTcpTip(); // 👈 ADD THIS LINE
-  }
-});
+    if (!event.value) {
+      syncInputsFromTarget();
+      updateRobotPose(false);
+      snapTargetToTcpTip();
+    }
+  });
 
   function applyPreset(){
     const preset = robotType.value;
@@ -922,26 +1175,25 @@ j1Group.add(shoulderPivot);
     const y = parseFloat(targetY.value) || 0;
     const z = Math.max(0, parseFloat(targetZ.value) || 0);
 
-  target.position.set(x, z, y);
-}
+    target.position.set(x, z, y);
+  }
 
   function syncInputsFromTarget(){
-  targetX.value = target.position.x.toFixed(1);
-  targetY.value = target.position.z.toFixed(1);
-  targetZ.value = target.position.y.toFixed(1);
-}
+    targetX.value = target.position.x.toFixed(1);
+    targetY.value = target.position.z.toFixed(1);
+    targetZ.value = target.position.y.toFixed(1);
+  }
 
   function snapTargetToTcpTip(){
-  const tcpWorld = new THREE.Vector3();
-  tcpTip.getWorldPosition(tcpWorld);
+    const tcpWorld = new THREE.Vector3();
+    tcpTip.getWorldPosition(tcpWorld);
 
-  target.position.copy(tcpWorld);
+    target.position.copy(tcpWorld);
 
-  // 🔥 force inputs to match the TCP position
-  targetX.value = tcpWorld.x.toFixed(1);
-  targetY.value = tcpWorld.z.toFixed(1);
-  targetZ.value = tcpWorld.y.toFixed(1);
-}
+    targetX.value = tcpWorld.x.toFixed(1);
+    targetY.value = tcpWorld.z.toFixed(1);
+    targetZ.value = tcpWorld.y.toFixed(1);
+  }
 
   function updateFixture(){
     const w = Math.max(1, parseFloat(fixtureWidth.value) || 1);
@@ -959,74 +1211,69 @@ j1Group.add(shoulderPivot);
   let lastReachable = true;
 
   function solveIK(){
-  const bh = Math.max(0, parseFloat(baseHeight.value) || 0);
-  const l1 = Math.max(1, parseFloat(link1.value) || 1);
-  const l2 = Math.max(1, parseFloat(link2.value) || 1);
-  const tcp = Math.max(0, parseFloat(tcpLength.value) || 0);
+    const bh = Math.max(0, parseFloat(baseHeight.value) || 0);
+    const l1 = Math.max(1, parseFloat(link1.value) || 1);
+    const l2 = Math.max(1, parseFloat(link2.value) || 1);
+    const tcp = Math.max(0, parseFloat(tcpLength.value) || 0);
 
-  // Target is now treated as TCP tip location
-  const tcpX = target.position.x;
-  const tcpY = target.position.z;
-  const tcpZ = target.position.y;
+    const tcpX = target.position.x;
+    const tcpY = target.position.z;
+    const tcpZ = target.position.y;
 
-  // J1 base rotation from TCP target
-  const yaw = Math.atan2(tcpY, tcpX || 0.0001);
+    const yaw = Math.atan2(tcpY, tcpX || 0.0001);
 
-  // Back off from the TCP target to estimate wrist center position
-  const horizontalMag = Math.sqrt(tcpX * tcpX + tcpY * tcpY);
-  const ux = horizontalMag > 0.0001 ? tcpX / horizontalMag : 1;
-  const uy = horizontalMag > 0.0001 ? tcpY / horizontalMag : 0;
+    const horizontalMag = Math.sqrt(tcpX * tcpX + tcpY * tcpY);
+    const ux = horizontalMag > 0.0001 ? tcpX / horizontalMag : 1;
+    const uy = horizontalMag > 0.0001 ? tcpY / horizontalMag : 0;
 
-  const wristX = tcpX - ux * tcp;
-  const wristY = tcpY - uy * tcp;
-  const wristZ = tcpZ;
+    const wristX = tcpX - ux * tcp;
+    const wristY = tcpY - uy * tcp;
+    const wristZ = tcpZ;
 
-  const radial = Math.sqrt(tcpX * tcpX + tcpY * tcpY);
-  const wristRadial = Math.sqrt(wristX * wristX + wristY * wristY);
-  const vertical = wristZ - (8 + bh);
+    const radial = Math.sqrt(tcpX * tcpX + tcpY * tcpY);
+    const wristRadial = Math.sqrt(wristX * wristX + wristY * wristY);
+    const vertical = wristZ - (8 + bh);
 
-  const d = Math.sqrt(wristRadial * wristRadial + vertical * vertical);
+    const d = Math.sqrt(wristRadial * wristRadial + vertical * vertical);
 
-  const maxR = l1 + l2;
-  const minR = Math.abs(l1 - l2);
-  const reachable = d <= maxR && d >= minR;
+    const maxR = l1 + l2;
+    const minR = Math.abs(l1 - l2);
+    const reachable = d <= maxR && d >= minR;
 
-  const clampedD = Math.min(Math.max(d, minR + 0.0001), maxR - 0.0001);
+    const clampedD = Math.min(Math.max(d, minR + 0.0001), maxR - 0.0001);
 
-  const cosElbow = THREE.MathUtils.clamp((l1*l1 + l2*l2 - clampedD*clampedD) / (2*l1*l2), -1, 1);
-  const elbowInterior = Math.acos(cosElbow);
-  const elbowAngle = Math.PI - elbowInterior;
+    const cosElbow = THREE.MathUtils.clamp((l1*l1 + l2*l2 - clampedD*clampedD) / (2*l1*l2), -1, 1);
+    const elbowInterior = Math.acos(cosElbow);
+    const elbowAngle = Math.PI - elbowInterior;
 
-  const cosShoulder = THREE.MathUtils.clamp((clampedD*clampedD + l1*l1 - l2*l2) / (2 * l1 * clampedD), -1, 1);
-  const shoulderOffset = Math.acos(cosShoulder);
-  const lineAngle = Math.atan2(vertical, wristRadial);
-  const shoulderAngle = lineAngle + shoulderOffset;
+    const cosShoulder = THREE.MathUtils.clamp((clampedD*clampedD + l1*l1 - l2*l2) / (2 * l1 * clampedD), -1, 1);
+    const shoulderOffset = Math.acos(cosShoulder);
+    const lineAngle = Math.atan2(vertical, wristRadial);
+    const shoulderAngle = lineAngle + shoulderOffset;
 
-  radialDistance.textContent = radial.toFixed(1) + ' in';
-  verticalOffset.textContent = (tcpZ - (8 + bh)).toFixed(1) + ' in';
+    radialDistance.textContent = radial.toFixed(1) + ' in';
+    verticalOffset.textContent = (tcpZ - (8 + bh)).toFixed(1) + ' in';
 
-  if (reachable){
-    reachStatus.textContent = 'Reachable';
-    reachStatus.className = 'value success';
-  } else {
-    reachStatus.textContent = 'Outside Simple Reach';
-    reachStatus.className = 'value danger';
+    if (reachable){
+      reachStatus.textContent = 'Reachable';
+      reachStatus.className = 'value success';
+    } else {
+      reachStatus.textContent = 'Outside Simple Reach';
+      reachStatus.className = 'value danger';
+    }
+
+    return {
+      reachable,
+      yaw,
+      shoulder: shoulderAngle,
+      elbow: elbowAngle
+    };
   }
-
-  return {
-    reachable,
-    yaw,
-    shoulder: shoulderAngle,
-    elbow: elbowAngle
-  };
-}
-
-   
 
   function updateRobotPose(withAnimation = false){
     updateRobotGeometry();
     targetPose = solveIK();
-lastReachable = targetPose.reachable;
+    lastReachable = targetPose.reachable;
 
     if (!withAnimation){
       currentPose = { ...targetPose };
@@ -1091,10 +1338,22 @@ lastReachable = targetPose.reachable;
   }
 
   updateFixture();
-applyInputsToTarget();
-updateRobotPose(false);
-snapTargetToTcpTip();
-animate();
+  applyInputsToTarget();
+  updateRobotPose(false);
+  snapTargetToTcpTip();
+  animate();
 </script>
+
+<script>
+  fetch('/navbar.html?v=20260422')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
+
 </body>
 </html>
