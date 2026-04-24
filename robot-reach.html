@@ -22,39 +22,40 @@
   <style>
     body{
       font-family:Arial, sans-serif;
-      background:#f4f4f4;
+      background:#f4f6f9;
       margin:0;
       color:#222;
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:white;
+      padding:48px 20px 34px;
       text-align:center;
+      border-bottom:1px solid #e1e7f0;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:980px;
       margin:auto;
     }
 
     .hero h1{
       margin:0 0 12px;
-      font-size:34px;
+      font-size:36px;
       line-height:1.2;
+      color:#1f2a44;
     }
 
     .hero p{
-      max-width:800px;
+      max-width:840px;
       margin:0 auto 14px;
-      color:#e7ecf7;
+      color:#4f5b70;
       font-size:17px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .hero-cta{
-      margin-top:18px;
+      margin-top:20px;
       display:flex;
       justify-content:center;
       gap:12px;
@@ -71,13 +72,14 @@
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:#1e6bd6;
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
     }
 
     .hero-cta a:hover{
@@ -86,46 +88,29 @@
     }
 
     .page-wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:30px auto;
-      padding:0 18px 40px;
+      padding:0 18px 42px;
     }
 
     .top-note{
       background:#fff7df;
       border:1px solid #f1d98a;
       color:#5c4a12;
-      padding:14px 16px;
+      padding:15px 17px;
       border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
+      margin:0 0 24px;
       font-size:15px;
-      line-height:1.5;
+      line-height:1.55;
       text-align:left;
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
+    .section{
       background:white;
       border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
+      box-shadow:0 0 12px rgba(0,0,0,.06);
       padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin-bottom:24px;
     }
 
     .section-label{
@@ -137,22 +122,68 @@
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
+    .section h2,
+    .section h3{
       margin-top:0;
       color:#1f2a44;
     }
 
+    .section h2{
+      font-size:26px;
+      margin-bottom:12px;
+    }
+
+    .section h3{
+      font-size:21px;
+      margin-bottom:10px;
+    }
+
     .description{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color:#555;
       font-size:16px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
     }
 
+    .card-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:18px;
+      text-align:left;
+    }
+
+    .info-card h3{
+      font-size:18px;
+      margin:0 0 8px;
+      color:#1f2a44;
+    }
+
+    .info-card p{
+      margin:0;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .info-card ul{
+      margin:0;
+      padding-left:18px;
+      color:#444;
+      line-height:1.7;
+      font-size:15px;
+    }
+
     .formula-box{
-      margin:20px 0;
+      margin:20px 0 0;
       padding:18px;
       background:#eef3ff;
       border:1px solid #cfdaf5;
@@ -162,6 +193,17 @@
       font-size:17px;
       line-height:1.7;
       text-align:left;
+    }
+
+    .workflow-list{
+      margin:14px 0 0;
+      padding-left:20px;
+      color:#444;
+      line-height:1.75;
+    }
+
+    .workflow-list strong{
+      color:#1f2a44;
     }
 
     .quick-row{
@@ -278,70 +320,19 @@
       scroll-margin-top:100px;
     }
 
-    .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
-    }
-
-    .cta-box h3{
-      margin:0 0 10px;
-      color:#1f2a44;
-    }
-
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
     .note{
-      margin-top:20px;
+      margin-top:18px;
       color:#666;
       font-size:14px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
     }
 
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .internal-links a{
@@ -359,18 +350,36 @@
       background:#e9eef8;
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+    .cta-box{
+      margin-top:0;
+      padding:26px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
     }
 
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
+    .cta-box h2,
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 auto 16px;
+      color:#4d5a74;
+      line-height:1.6;
+      max-width:760px;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .footer{
@@ -380,20 +389,13 @@
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
     @media (max-width:700px){
-      .card,
-      .sidebar-card{
+      .section{
         padding:20px;
       }
 
       .hero h1{
-        font-size:28px;
+        font-size:29px;
       }
 
       .hero-cta{
@@ -416,6 +418,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <div id="navbar"></div>
@@ -424,150 +427,367 @@
   <div class="hero-inner">
     <h1>Robot Reach Calculator</h1>
     <p>
-      Estimate whether a robot can physically reach a target point using horizontal distance, vertical distance, available robot reach, and a safety margin. Useful for early layout studies, fixture planning, and accessibility checks.
+      Estimate whether a robot can physically reach a target point using horizontal distance, vertical distance, available robot reach, and a safety margin.
     </p>
+    <p>
+      Use this for early layout studies, fixture planning, part presentation review, robot family selection, and basic accessibility checks before moving into full simulation.
+    </p>
+
     <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#calculator" class="primary" onclick="gtag('event','hero_cta_click',{'from':'robot_reach','to':'calculator'});">Open Calculator</a>
       <a href="/robot-payload.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'robot_reach_hero','to':'robot_payload'});">Robot Payload Calculator</a>
     </div>
   </div>
 </section>
 
 <div class="page-wrap">
+
   <div class="top-note">
-    <strong>Good starting use case:</strong> use this for first-pass reach checks before you spend time on full robot simulation. It helps screen whether a target is even in range before you evaluate wrist orientation, joint limits, EOAT length, and interference.
+    <strong>Good starting use case:</strong> use this for first-pass reach checks before you spend time on full robot simulation. It helps screen whether a target is even in range before you evaluate wrist orientation, joint limits, EOAT length, approach direction, interference, and real working envelope limits.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Robot Reach to a Target Point</h2>
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <h2>What This Robot Reach Calculator Does</h2>
 
-      <p class="description">
-        Estimate whether a robot can physically reach a target point using horizontal distance, vertical distance, available robot reach, and a safety margin.
-      </p>
+    <p class="description">
+      This calculator estimates whether a robot can physically reach a target point using a simple straight-line distance calculation. It compares the required reach to the usable reach remaining after a safety margin is removed from the robot’s catalog reach.
+    </p>
 
-      <p class="description">
-        This calculator is useful for robot accessibility checks during automation layout, EOAT planning, fixture design, and preliminary reach studies.
-      </p>
+    <p class="description">
+      It is useful for robot accessibility checks during automation layout, EOAT planning, fixture design, part presentation, weld cell planning, material handling layouts, and preliminary reach studies.
+    </p>
 
-      <div class="formula-box">
-        Required Reach = √(Horizontal Distance² + Vertical Distance²)<br><br>
-        Available Reach = Robot Reach − Safety Margin
-      </div>
+    <p class="description">
+      The goal is not to replace robot simulation. The goal is to quickly answer the first question: <strong>is this target point even reasonably close enough for the robot to reach?</strong>
+    </p>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','robot_reach_example',{'type':'standard'});">Standard Reach</button>
-        <button type="button" onclick="loadExample2(); gtag('event','robot_reach_example',{'type':'near_limit'});">Near Limit</button>
-        <button type="button" onclick="loadExample3(); gtag('event','robot_reach_example',{'type':'out_of_range'});">Out of Range</button>
-      </div>
-
-      <div class="controls">
-        <div class="control-group">
-          <label for="robotReach">Robot Reach (in)</label>
-          <input id="robotReach" type="number" value="60" min="0.01" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="horizontalDistance">Horizontal Distance to Target (in)</label>
-          <input id="horizontalDistance" type="number" value="40" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="verticalDistance">Vertical Distance to Target (in)</label>
-          <input id="verticalDistance" type="number" value="20" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="safetyMargin">Safety Margin (in)</label>
-          <input id="safetyMargin" type="number" value="4" min="0" step="0.01">
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateRobotReach(); gtag('event','robot_reach_calculation');">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator(); gtag('event','robot_reach_clear');">Reset</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this to a real cell?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you need help with robot layout, fixture placement, EOAT planning, or full work envelope review.
-        </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
-
-      <p class="note">
-        This is a straight-line reach estimate from the robot mounting point to the target point. It does not account for joint limits, wrist orientation, interference, tooling length, singularities, dress pack constraints, or real safe working envelope restrictions.
-      </p>
-
-      <div class="learn-more">
-        <h3>What to check next</h3>
-
-        <p>
-          This tool is good for quick layout direction, but real robot access depends on much more than straight-line distance. A point can fall inside the robot’s nominal reach and still be impractical because of wrist angle limits, fixture interference, EOAT length, or poor approach direction.
-        </p>
-
-        <p>
-          For real robot layout work, this page usually works best alongside payload, cycle time, and tooling checks so you can confirm the robot can both reach the point and perform the task safely and reliably.
-        </p>
-
-        <div class="internal-links">
-          <a href="/robot-payload.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'robot_payload'});">Robot Payload</a>
-          <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'robot_cycle_time'});">Robot Cycle Time</a>
-          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'pneumatic_force'});">Pneumatic Force</a>
-          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'automation_roi'});">Automation ROI</a>
-        </div>
-      </div>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
+    <div class="formula-box">
+      Required Reach = √(Horizontal Distance² + Vertical Distance²)<br><br>
+      Available Reach = Robot Reach − Safety Margin
     </div>
+  </section>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
-        <ul>
-          <li>Required straight-line reach</li>
-          <li>Available reach after safety margin</li>
-          <li>Remaining reach margin</li>
-          <li>Basic reach feasibility result</li>
-        </ul>
-      </div>
+  <section class="section">
+    <div class="section-label">Outputs</div>
+    <h2>What This Calculator Gives You</h2>
 
-      <div class="sidebar-card">
-        <h3>Where this helps</h3>
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Required Straight-Line Reach</h3>
         <p>
-          Useful for layout planning, fixture positioning, part presentation review, EOAT concept checks, and deciding whether a robot family is even in the right range before deeper simulation.
+          The calculated distance from the robot mounting reference to the target point using the entered horizontal and vertical distances.
         </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
-        <ul>
-          <li>Joint limits and wrist orientation</li>
-          <li>Tool length and center of gravity</li>
-          <li>Fixture and guarding interference</li>
-          <li>Approach angle and process direction</li>
-          <li>Robot mounting height and base location</li>
-        </ul>
+      <div class="info-card">
+        <h3>Available Reach After Safety Margin</h3>
+        <p>
+          The robot’s entered reach after subtracting your safety margin. This gives a more conservative number than using catalog reach directly.
+        </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Selection reminder</h3>
+      <div class="info-card">
+        <h3>Remaining Reach Margin</h3>
         <p>
-          Do not treat catalog reach as guaranteed usable reach everywhere in the cell. Real working envelope can shrink fast once tooling, part geometry, cable routing, and approach direction are considered.
+          The difference between available reach and required reach. Positive margin means the point is within the basic estimate. Negative margin means the target is outside the estimate.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Basic Feasibility Result</h3>
+        <p>
+          The result tells you whether the target is comfortably within range, tight but possible, or outside estimated reach.
         </p>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Application</div>
+    <h2>Where This Helps</h2>
+
+    <p class="description">
+      This tool is most useful early in the layout process, when you are still comparing robot sizes, cell geometry, fixture locations, and part presentation options.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Layout Planning</h3>
+        <p>
+          Check whether a robot base location is reasonable before spending time detailing the full cell.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Fixture Positioning</h3>
+        <p>
+          Estimate whether part nests, weld fixtures, presses, conveyors, racks, or dunnage locations are in a practical range.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Part Presentation Review</h3>
+        <p>
+          Compare different part presentation points before committing to a feeder, table, conveyor, or tooling concept.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>EOAT Concept Checks</h3>
+        <p>
+          Use the reach margin as an early warning before adding tool length, wrist offsets, cable routing, and real approach constraints.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Robot Family Selection</h3>
+        <p>
+          Decide whether a robot family is even in the right size range before comparing payload, wrist torque, and cycle time.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Simulation Pre-Check</h3>
+        <p>
+          Avoid spending time in robot simulation on layouts that are already clearly too far away.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Workflow</div>
+    <h2>Recommended Robot Layout Workflow</h2>
+
+    <p class="description">
+      A reach check should usually be the first robot layout filter, not the final decision. A point can be inside catalog reach and still fail once tooling, approach angle, joint position, or guarding interference are considered.
+    </p>
+
+    <ol class="workflow-list">
+      <li><strong>Check straight-line reach first:</strong> use this calculator to see whether the target is even close enough.</li>
+      <li><strong>Check payload next:</strong> confirm the robot can carry the part, EOAT, sensors, brackets, and any process tooling.</li>
+      <li><strong>Estimate cycle time:</strong> make sure the move distance, process time, and handling time fit the required production rate.</li>
+      <li><strong>Review EOAT length and center of gravity:</strong> long tools reduce practical reach and can overload the wrist.</li>
+      <li><strong>Check approach direction:</strong> the robot may reach the point but not from the angle your process needs.</li>
+      <li><strong>Verify in simulation:</strong> final validation should include joint limits, singularities, interference, dress pack, guarding, and safe motion.</li>
+    </ol>
+
+    <div class="internal-links">
+      <a href="/robot-payload.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach_workflow','to':'robot_payload'});">Robot Payload Calculator</a>
+      <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach_workflow','to':'robot_cycle_time'});">Robot Cycle Time Calculator</a>
+      <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach_workflow','to':'servo_torque'});">Servo Torque Calculator</a>
+      <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach_workflow','to':'roi_hub'});">ROI & Planning Hub</a>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Calculator</div>
+    <h2>Estimate Robot Reach to a Target Point</h2>
+
+    <p class="description">
+      Enter the robot’s published reach, the horizontal distance from the robot reference point to the target, the vertical distance to the target, and the safety margin you want to reserve.
+    </p>
+
+    <p class="description">
+      The calculator estimates the required straight-line reach and compares it to the available reach after your margin is subtracted.
+    </p>
+
+    <div class="section-label">Quick Examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadExample1(); gtag('event','robot_reach_example',{'type':'standard'});">Standard Reach</button>
+      <button type="button" onclick="loadExample2(); gtag('event','robot_reach_example',{'type':'near_limit'});">Near Limit</button>
+      <button type="button" onclick="loadExample3(); gtag('event','robot_reach_example',{'type':'out_of_range'});">Out of Range</button>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="robotReach">Robot Reach (in)</label>
+        <input id="robotReach" type="number" value="60" min="0.01" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="horizontalDistance">Horizontal Distance to Target (in)</label>
+        <input id="horizontalDistance" type="number" value="40" min="0" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="verticalDistance">Vertical Distance to Target (in)</label>
+        <input id="verticalDistance" type="number" value="20" min="0" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="safetyMargin">Safety Margin (in)</label>
+        <input id="safetyMargin" type="number" value="4" min="0" step="0.01">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateRobotReach(); gtag('event','robot_reach_calculation');">Calculate</button>
+      <button class="secondary" onclick="loadExample1(); gtag('event','robot_reach_example',{'type':'standard_button'});">Load Example</button>
+      <button class="ghost" onclick="resetCalculator(); gtag('event','robot_reach_clear');">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
+
+    <p class="note">
+      This is a straight-line reach estimate from the robot mounting point to the target point. It does not account for joint limits, wrist orientation, interference, tooling length, singularities, dress pack constraints, or real safe working envelope restrictions.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Interpretation</div>
+    <h2>How to Read the Result</h2>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Comfortable Margin</h3>
+        <p>
+          If the remaining margin is 6 inches or more, the target is within estimated reach with a basic cushion. You should still check EOAT, wrist angle, and approach direction.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Tight Margin</h3>
+        <p>
+          If the remaining margin is positive but less than 6 inches, the target may be reachable, but you should treat it as a warning. Small changes in tooling, mounting, or approach angle can make it fail.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Negative Margin</h3>
+        <p>
+          If the remaining margin is negative, the target is outside estimated reach using your selected safety margin. Move the robot, move the target, reduce the vertical/horizontal offset, or consider a larger robot.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Engineering Notes</div>
+    <h2>Common Next Checks</h2>
+
+    <p class="description">
+      Do not treat catalog reach as guaranteed usable reach everywhere in the cell. Real working envelope can shrink fast once tooling, part geometry, cable routing, and approach direction are considered.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Joint Limits and Wrist Orientation</h3>
+        <p>
+          A robot may reach a point in space but not with the tool angle needed for welding, dispensing, gripping, loading, or inspection.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Tool Length and Center of Gravity</h3>
+        <p>
+          EOAT length can help reach some points but may create wrist loading, clearance, deflection, or recovery problems.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Fixture and Guarding Interference</h3>
+        <p>
+          Check the entire robot body, arm, wrist, tool, part, dress pack, and cable routing — not just the TCP point.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Approach Angle and Process Direction</h3>
+        <p>
+          Applications like spot welding, projection welding, adhesive dispensing, machine tending, and vision inspection often require a specific approach direction.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Robot Mounting Height</h3>
+        <p>
+          Floor mount, pedestal mount, wall mount, and inverted mount layouts can completely change practical access to the same target point.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Base Location</h3>
+        <p>
+          Moving the robot base a few inches can sometimes solve reach, clearance, and wrist posture issues better than upsizing the robot.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Limitations</div>
+    <h2>What This Calculator Does Not Replace</h2>
+
+    <p class="description">
+      This calculator is intentionally simple. It is meant to help you screen layouts quickly. Final robot selection and cell approval should include deeper review.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Robot Simulation</h3>
+        <p>
+          Use simulation to verify joint motion, singularities, reach envelope, clearance, approach angles, and cycle time.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Manufacturer Reach Charts</h3>
+        <p>
+          Always check the robot manufacturer’s actual work envelope diagrams and wrist load ratings.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Safety Review</h3>
+        <p>
+          Reach checks do not replace guarding, safety distance, robot speed, teach mode, risk assessment, or safe stop review.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Process Validation</h3>
+        <p>
+          Welding, dispensing, fastening, machine loading, and inspection tasks each have process-specific constraints beyond reach.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Related Tools</div>
+    <h2>Continue the Robot Cell Design</h2>
+
+    <p class="description">
+      This page usually works best alongside payload, cycle time, pneumatic tooling, servo sizing, and ROI checks so you can confirm the robot can both reach the point and perform the task safely and reliably.
+    </p>
+
+    <div class="internal-links">
+      <a href="/robot-payload.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'robot_payload'});">Robot Payload</a>
+      <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'robot_cycle_time'});">Robot Cycle Time</a>
+      <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'pneumatic_force'});">Pneumatic Force</a>
+      <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'servo_torque'});">Servo Torque</a>
+      <a href="/safety-distance.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'safety_distance'});">Safety Distance</a>
+      <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'automation_roi'});">Automation ROI</a>
+      <a href="/robotics.html" onclick="gtag('event','internal_link_click',{'from':'robot_reach','to':'robotics_hub'});">Robotics Hub</a>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Need help applying this to a real cell?</h2>
+    <p>
+      Get connected with a qualified automation integrator if you need help with robot layout, fixture placement, EOAT planning, robot simulation, guarding review, or full work envelope validation.
+    </p>
+    <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'from':'robot_reach','location':'bottom_cta'});">Find an Integrator</a>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
+
 </div>
 
 <script>
@@ -661,7 +881,7 @@
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
