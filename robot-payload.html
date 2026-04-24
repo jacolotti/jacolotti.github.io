@@ -22,39 +22,40 @@
   <style>
     body{
       font-family:Arial, sans-serif;
-      background:#f4f4f4;
+      background:#f4f6f9;
       margin:0;
       color:#222;
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:white;
+      padding:48px 20px 34px;
       text-align:center;
+      border-bottom:1px solid #e1e7f0;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:980px;
       margin:auto;
     }
 
     .hero h1{
       margin:0 0 12px;
-      font-size:34px;
+      font-size:36px;
       line-height:1.2;
+      color:#1f2a44;
     }
 
     .hero p{
-      max-width:800px;
+      max-width:840px;
       margin:0 auto 14px;
-      color:#e7ecf7;
+      color:#4f5b70;
       font-size:17px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .hero-cta{
-      margin-top:18px;
+      margin-top:20px;
       display:flex;
       justify-content:center;
       gap:12px;
@@ -71,13 +72,14 @@
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:#1e6bd6;
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
     }
 
     .hero-cta a:hover{
@@ -86,46 +88,29 @@
     }
 
     .page-wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:30px auto;
-      padding:0 18px 40px;
+      padding:0 18px 42px;
     }
 
     .top-note{
       background:#fff7df;
       border:1px solid #f1d98a;
       color:#5c4a12;
-      padding:14px 16px;
+      padding:15px 17px;
       border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
+      margin:0 0 24px;
       font-size:15px;
-      line-height:1.5;
+      line-height:1.55;
       text-align:left;
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
+    .section{
       background:white;
       border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
+      box-shadow:0 0 12px rgba(0,0,0,.06);
       padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin-bottom:24px;
     }
 
     .section-label{
@@ -137,22 +122,68 @@
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
+    .section h2,
+    .section h3{
       margin-top:0;
       color:#1f2a44;
     }
 
+    .section h2{
+      font-size:26px;
+      margin-bottom:12px;
+    }
+
+    .section h3{
+      font-size:21px;
+      margin-bottom:10px;
+    }
+
     .description{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color:#555;
       font-size:16px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
     }
 
+    .card-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:18px;
+      text-align:left;
+    }
+
+    .info-card h3{
+      font-size:18px;
+      margin:0 0 8px;
+      color:#1f2a44;
+    }
+
+    .info-card p{
+      margin:0;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .info-card ul{
+      margin:0;
+      padding-left:18px;
+      color:#444;
+      line-height:1.7;
+      font-size:15px;
+    }
+
     .formula-box{
-      margin:20px 0;
+      margin:20px 0 0;
       padding:18px;
       background:#eef3ff;
       border:1px solid #cfdaf5;
@@ -162,6 +193,17 @@
       font-size:17px;
       line-height:1.7;
       text-align:left;
+    }
+
+    .workflow-list{
+      margin:14px 0 0;
+      padding-left:20px;
+      color:#444;
+      line-height:1.75;
+    }
+
+    .workflow-list strong{
+      color:#1f2a44;
     }
 
     .quick-row{
@@ -278,70 +320,19 @@
       scroll-margin-top:100px;
     }
 
-    .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
-    }
-
-    .cta-box h3{
-      margin:0 0 10px;
-      color:#1f2a44;
-    }
-
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
     .note{
-      margin-top:20px;
+      margin-top:18px;
       color:#666;
       font-size:14px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
     }
 
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .internal-links a{
@@ -359,18 +350,36 @@
       background:#e9eef8;
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+    .cta-box{
+      margin-top:0;
+      padding:26px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
     }
 
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
+    .cta-box h2,
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 auto 16px;
+      color:#4d5a74;
+      line-height:1.6;
+      max-width:760px;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .footer{
@@ -380,20 +389,13 @@
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
     @media (max-width:700px){
-      .card,
-      .sidebar-card{
+      .section{
         padding:20px;
       }
 
       .hero h1{
-        font-size:28px;
+        font-size:29px;
       }
 
       .hero-cta{
@@ -416,6 +418,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <div id="navbar"></div>
@@ -424,150 +427,404 @@
   <div class="hero-inner">
     <h1>Robot Payload Calculator</h1>
     <p>
-      Estimate required robot payload using part weight, gripper weight, additional tooling weight, and a safety factor. Useful for early robot selection, EOAT budgeting, and concept development.
+      Estimate required robot payload using part weight, gripper weight, additional tooling weight, and a safety factor.
     </p>
+    <p>
+      Use this for early robot selection, EOAT budgeting, gripper sizing, concept development, and first-pass payload planning before reviewing wrist moments, inertia, center of gravity, and manufacturer derating limits.
+    </p>
+
     <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#calculator" class="primary" onclick="gtag('event','hero_cta_click',{'from':'robot_payload','to':'calculator'});">Open Calculator</a>
       <a href="/robot.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'robot_payload_hero','to':'robot_cycle_time'});">Robot Cycle Time Calculator</a>
     </div>
   </div>
 </section>
 
 <div class="page-wrap">
+
   <div class="top-note">
-    <strong>Good starting use case:</strong> use this for first-pass robot selection before you dig into wrist moments, inertia, center of gravity, dynamic motion, mounting orientation, and manufacturer derating limits.
+    <strong>Good starting use case:</strong> use this for first-pass robot selection before you dig into wrist moments, inertia, center of gravity, dynamic motion, mounting orientation, tooling offset, and manufacturer derating limits.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Required Robot Payload</h2>
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <h2>What This Robot Payload Calculator Does</h2>
 
-      <p class="description">
-        Estimate required robot payload using part weight, gripper weight, additional tooling weight, and a safety factor.
-      </p>
+    <p class="description">
+      This calculator estimates the required robot payload by adding the part weight, gripper weight, and additional tooling weight, then applying a safety factor. It gives you a practical starting point for robot family selection and tooling concept review.
+    </p>
 
-      <p class="description">
-        This calculator is useful for preliminary robot selection, EOAT budgeting, gripper sizing, and payload planning during automation concept development.
-      </p>
+    <p class="description">
+      It is useful for preliminary robot selection, EOAT budgeting, gripper sizing, part handling studies, machine tending concepts, weld cell planning, pick-and-place layouts, and early automation concept development.
+    </p>
 
-      <div class="formula-box">
-        Total Carried Weight = Part Weight + Gripper Weight + Tooling Weight<br><br>
-        Required Payload = Total Carried Weight × (1 + Safety Factor)
-      </div>
+    <p class="description">
+      The goal is not to replace the robot manufacturer’s payload charts. The goal is to answer the first sizing question: <strong>how much carried load should this robot realistically be planned around?</strong>
+    </p>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','robot_payload_example',{'type':'standard'});">Standard Cell</button>
-        <button type="button" onclick="loadExample2(); gtag('event','robot_payload_example',{'type':'heavier_eoat'});">Heavier EOAT</button>
-        <button type="button" onclick="loadExample3(); gtag('event','robot_payload_example',{'type':'larger_part'});">Larger Part</button>
-      </div>
-
-      <div class="controls">
-        <div class="control-group">
-          <label for="partWeight">Part Weight (lb)</label>
-          <input id="partWeight" type="number" value="8" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="gripperWeight">Gripper Weight (lb)</label>
-          <input id="gripperWeight" type="number" value="12" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="toolingWeight">Additional Tooling Weight (lb)</label>
-          <input id="toolingWeight" type="number" value="3" min="0" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="safetyFactor">Safety Factor (%)</label>
-          <input id="safetyFactor" type="number" value="20" min="0" step="0.01">
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateRobotPayload(); gtag('event','robot_payload_calculation');">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator(); gtag('event','robot_payload_clear');">Reset</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this to a real cell?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you need help with robot selection, tooling weight review, EOAT design, or full cell concept development.
-        </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
-
-      <p class="note">
-        This is a simple payload estimate based on total carried weight plus safety factor. Actual robot selection must also consider wrist moments, inertia, tooling center of gravity, reach, mounting orientation, dynamic motion, and manufacturer derating rules.
-      </p>
-
-      <div class="learn-more">
-        <h3>What to check next</h3>
-
-        <p>
-          This tool is useful for quick robot sizing direction, but payload alone does not decide whether a robot is a good fit. A robot can technically carry the weight and still fail the application because of poor reach, wrist moment overload, excessive tooling offset, or dynamic motion limits.
-        </p>
-
-        <p>
-          For real robot selection, this page usually works best alongside reach, cycle time, and tooling design checks so you can confirm the robot has enough capacity in the actual position and motion envelope.
-        </p>
-
-        <div class="internal-links">
-          <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'robot_cycle_time'});">Robot Cycle Time</a>
-          <a href="/robot-reach.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'robot_reach'});">Robot Reach</a>
-          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'pneumatic_force'});">Pneumatic Force</a>
-          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'automation_roi'});">Automation ROI</a>
-        </div>
-      </div>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
+    <div class="formula-box">
+      Total Carried Weight = Part Weight + Gripper Weight + Tooling Weight<br><br>
+      Required Payload = Total Carried Weight × (1 + Safety Factor)
     </div>
+  </section>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
-        <ul>
-          <li>Total carried weight</li>
-          <li>Recommended robot payload</li>
-          <li>Safety factor applied</li>
-          <li>Basic robot sizing direction</li>
-        </ul>
-      </div>
+  <section class="section">
+    <div class="section-label">Outputs</div>
+    <h2>What This Calculator Gives You</h2>
 
-      <div class="sidebar-card">
-        <h3>Where this helps</h3>
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Total Carried Weight</h3>
         <p>
-          Useful for preliminary robot selection, end-of-arm tooling planning, gripper budgeting, automation concept development, and screening whether a robot family is even in the right range.
+          The combined weight of the part, gripper, brackets, sensors, fittings, quick-change plate, vacuum cups, weld gun equipment, or other tooling included in your inputs.
         </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
-        <ul>
-          <li>Wrist moment and inertia limits</li>
-          <li>Tooling center of gravity offset</li>
-          <li>Reach at the actual pick and place points</li>
-          <li>Dynamic motion and acceleration profile</li>
-          <li>Robot mounting orientation derating</li>
-        </ul>
+      <div class="info-card">
+        <h3>Recommended Robot Payload</h3>
+        <p>
+          The calculated carried load after applying the safety factor. This is the number you should compare against robot payload ratings as an early screen.
+        </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Selection reminder</h3>
+      <div class="info-card">
+        <h3>Safety Factor Applied</h3>
         <p>
-          Do not choose a robot purely because the catalog payload is slightly above your calculated number. Real applications often need more margin once tooling offsets, motion profile, and wrist loading are considered.
+          The percentage margin added to the carried weight. This helps account for uncertainty in tooling, brackets, sensors, part variation, and real-world design changes.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Basic Robot Sizing Direction</h3>
+        <p>
+          The interpretation gives a general sense of whether the application is light, moderate, or higher payload before you move into detailed robot selection.
         </p>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Application</div>
+    <h2>Where This Helps</h2>
+
+    <p class="description">
+      Payload sizing is usually one of the first filters when choosing a robot. A robot that is too small will struggle with wrist loading, acceleration, recovery moves, and tool offsets. A robot that is much larger than needed may cost more, take more floor space, and reduce flexibility.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Preliminary Robot Selection</h3>
+        <p>
+          Quickly screen whether a robot family is even in the right payload range before reviewing reach, wrist moment, cycle time, and mounting options.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>End-of-Arm Tooling Planning</h3>
+        <p>
+          Budget weight for grippers, sensors, brackets, vacuum tooling, clamps, weld guns, quick changers, and cable management before the EOAT design is finalized.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Gripper Budgeting</h3>
+        <p>
+          Compare multiple gripper concepts and see how much payload is left for the part and added tooling.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Automation Concept Development</h3>
+        <p>
+          Use payload estimates when comparing robot handling, servo gantry handling, pneumatic pick-and-place, or manual assist options.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Machine Tending</h3>
+        <p>
+          Estimate whether the robot can handle raw parts, finished parts, dual grippers, blowoff tooling, deburring tooling, and inspection sensors.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Welding and Fastening Cells</h3>
+        <p>
+          Use the estimate when a robot is carrying weld guns, rivet tooling, nut runners, adhesive dispense guns, or other process equipment.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Workflow</div>
+    <h2>Recommended Robot Selection Workflow</h2>
+
+    <p class="description">
+      Payload is important, but it is not enough by itself. A robot can meet the catalog payload number and still fail the application because the EOAT is long, the center of gravity is offset, the motion is aggressive, or the robot is working near the edge of its reach.
+    </p>
+
+    <ol class="workflow-list">
+      <li><strong>Estimate carried payload first:</strong> use this calculator to combine part, gripper, and added tooling weight.</li>
+      <li><strong>Add a realistic safety factor:</strong> do not size the robot exactly at the calculated weight unless the tooling is already locked down and validated.</li>
+      <li><strong>Check robot reach:</strong> confirm the robot can reach the pick, place, process, clearance, and recovery positions.</li>
+      <li><strong>Review wrist moment and inertia:</strong> long EOAT and offset loads can overload the wrist even when total weight looks acceptable.</li>
+      <li><strong>Estimate cycle time:</strong> faster moves and hard acceleration increase the importance of payload, inertia, and stiffness.</li>
+      <li><strong>Check mounting orientation:</strong> floor, wall, ceiling, pedestal, or angled mounting may change allowable payload depending on the robot model.</li>
+      <li><strong>Validate with manufacturer data:</strong> final selection should be checked against official payload diagrams, wrist charts, inertia limits, and simulation.</li>
+    </ol>
+
+    <div class="internal-links">
+      <a href="/robot-reach.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload_workflow','to':'robot_reach'});">Robot Reach Calculator</a>
+      <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload_workflow','to':'robot_cycle_time'});">Robot Cycle Time Calculator</a>
+      <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload_workflow','to':'servo_torque'});">Servo Torque Calculator</a>
+      <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload_workflow','to':'roi_hub'});">ROI & Planning Hub</a>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Calculator</div>
+    <h2>Estimate Required Robot Payload</h2>
+
+    <p class="description">
+      Enter the part weight, gripper weight, additional tooling weight, and safety factor. The calculator will estimate the total carried weight and recommended payload after margin is applied.
+    </p>
+
+    <p class="description">
+      Use the safety factor to account for tooling changes, brackets, fasteners, cables, sensors, fittings, spare capacity, uncertainty, and design growth that often appears later in a project.
+    </p>
+
+    <div class="section-label">Quick Examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadExample1(); gtag('event','robot_payload_example',{'type':'standard'});">Standard Cell</button>
+      <button type="button" onclick="loadExample2(); gtag('event','robot_payload_example',{'type':'heavier_eoat'});">Heavier EOAT</button>
+      <button type="button" onclick="loadExample3(); gtag('event','robot_payload_example',{'type':'larger_part'});">Larger Part</button>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="partWeight">Part Weight (lb)</label>
+        <input id="partWeight" type="number" value="8" min="0" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="gripperWeight">Gripper Weight (lb)</label>
+        <input id="gripperWeight" type="number" value="12" min="0" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="toolingWeight">Additional Tooling Weight (lb)</label>
+        <input id="toolingWeight" type="number" value="3" min="0" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="safetyFactor">Safety Factor (%)</label>
+        <input id="safetyFactor" type="number" value="20" min="0" step="0.01">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateRobotPayload(); gtag('event','robot_payload_calculation');">Calculate</button>
+      <button class="secondary" onclick="loadExample1(); gtag('event','robot_payload_example',{'type':'standard_button'});">Load Example</button>
+      <button class="ghost" onclick="resetCalculator(); gtag('event','robot_payload_clear');">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
+
+    <p class="note">
+      This is a simple payload estimate based on total carried weight plus safety factor. Actual robot selection must also consider wrist moments, inertia, tooling center of gravity, reach, mounting orientation, dynamic motion, and manufacturer derating rules.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Interpretation</div>
+    <h2>How to Read the Result</h2>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Light Payload Requirement</h3>
+        <p>
+          A lower calculated payload may point toward smaller industrial robots or collaborative robots, but do not stop at weight. Reach, wrist moment, EOAT offset, and required speed can still push the application into a larger robot.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Moderate Payload Requirement</h3>
+        <p>
+          Many common robot handling, machine tending, and light assembly applications land in a moderate range. This is where EOAT center of gravity and wrist moment checks become especially important.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Higher Payload Requirement</h3>
+        <p>
+          Higher payload applications should be checked carefully against the robot’s wrist rating, reach position, inertia limits, cycle speed, mounting orientation, and manufacturer derating charts.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Engineering Notes</div>
+    <h2>Common Next Checks</h2>
+
+    <p class="description">
+      Do not choose a robot purely because the catalog payload is slightly above your calculated number. Real applications often need more margin once tooling offsets, motion profile, and wrist loading are considered.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Wrist Moment and Inertia Limits</h3>
+        <p>
+          A robot wrist has torque and inertia limits. A light tool mounted far from the wrist can create more loading than a heavier compact tool mounted close to the flange.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Tooling Center of Gravity Offset</h3>
+        <p>
+          Long grippers, weld guns, dispense heads, vacuum frames, and dual gripper tools can shift the center of gravity away from the flange and reduce practical payload.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Reach at Actual Pick and Place Points</h3>
+        <p>
+          Payload ratings may change depending on robot posture. A robot working near the edge of its reach may have less usable performance than one working closer to the center of its envelope.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Dynamic Motion and Acceleration</h3>
+        <p>
+          Fast moves, sharp direction changes, short cycle times, and aggressive acceleration can increase loading and expose problems that are not obvious from static weight alone.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Mounting Orientation Derating</h3>
+        <p>
+          Floor, wall, ceiling, pedestal, and angled mounting can affect allowable payload and motion limits. Always check the robot manufacturer’s guidance for the intended mount.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Cables, Hoses, and Dress Pack</h3>
+        <p>
+          Cable trays, air lines, vacuum hoses, weld cables, adhesive hoses, sensor wiring, and dress pack brackets can add weight and restrict real motion.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Design Guidance</div>
+    <h2>Payload Selection Reminders</h2>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Do Not Size at the Exact Limit</h3>
+        <p>
+          If your required payload is very close to the robot’s published payload, you have little room for tooling growth, part variation, sensor additions, or later design changes.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Payload Is Not the Same as Process Capability</h3>
+        <p>
+          A robot may carry the load but still fail if it cannot hold the process angle, maintain stiffness, avoid collisions, or meet cycle time.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Leave Room for the Real EOAT</h3>
+        <p>
+          Early EOAT estimates are often optimistic. Brackets, hardware, valves, fittings, manifolds, quick changers, and guards usually add more weight than expected.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Review the Worst-Case Part</h3>
+        <p>
+          Use the heaviest realistic part, including variation, retained fluid, chips, weld slag, adhesive, or any added process material that may be carried by the robot.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Limitations</div>
+    <h2>What This Calculator Does Not Replace</h2>
+
+    <p class="description">
+      This calculator is intentionally simple. It helps with early screening, but final robot selection should always be checked against official robot data and real application constraints.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Manufacturer Payload Charts</h3>
+        <p>
+          Always check the robot manufacturer’s payload diagrams, wrist charts, center of gravity diagrams, inertia limits, and derating data.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Robot Simulation</h3>
+        <p>
+          Use simulation to verify posture, reach, clearance, cycle time, joint motion, singularities, collision zones, and approach angles.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Detailed EOAT Design</h3>
+        <p>
+          Final EOAT weight and center of gravity should be reviewed after the actual tooling, sensors, manifolds, brackets, and cable routing are defined.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Risk and Safety Review</h3>
+        <p>
+          Payload sizing does not replace guarding, safety distance, robot speed review, teach mode procedures, risk assessment, or safe stop validation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Related Tools</div>
+    <h2>Continue the Robot Cell Design</h2>
+
+    <p class="description">
+      This page usually works best alongside reach, cycle time, pneumatic tooling, servo sizing, and ROI checks so you can confirm the robot can both carry the load and perform the task safely and reliably.
+    </p>
+
+    <div class="internal-links">
+      <a href="/robot-reach.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'robot_reach'});">Robot Reach</a>
+      <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'robot_cycle_time'});">Robot Cycle Time</a>
+      <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'pneumatic_force'});">Pneumatic Force</a>
+      <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'servo_torque'});">Servo Torque</a>
+      <a href="/gearbox-torque.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'gearbox_torque'});">Gearbox Torque</a>
+      <a href="/safety-distance.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'safety_distance'});">Safety Distance</a>
+      <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'automation_roi'});">Automation ROI</a>
+      <a href="/robotics.html" onclick="gtag('event','internal_link_click',{'from':'robot_payload','to':'robotics_hub'});">Robotics Hub</a>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Need help applying this to a real cell?</h2>
+    <p>
+      Get connected with a qualified automation integrator if you need help with robot selection, tooling weight review, EOAT design, reach validation, simulation, guarding review, or full cell concept development.
+    </p>
+    <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'from':'robot_payload','location':'bottom_cta'});">Find an Integrator</a>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
+
 </div>
 
 <script>
@@ -654,7 +911,7 @@
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
