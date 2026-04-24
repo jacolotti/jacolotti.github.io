@@ -28,27 +28,38 @@
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:white;
+      border-bottom:1px solid #dfe5ef;
+      padding:42px 20px 34px;
       text-align:center;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:1050px;
       margin:auto;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:10px;
+      color:#1e6bd6;
+      font-weight:bold;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
     .hero h1{
       margin:0 0 12px;
-      font-size:34px;
+      color:#1f2a44;
+      font-size:36px;
       line-height:1.2;
     }
 
     .hero p{
-      max-width:800px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
+      max-width:850px;
+      margin:0 auto 18px;
+      color:#555;
       font-size:17px;
       line-height:1.6;
     }
@@ -71,13 +82,14 @@
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:#1e6bd6;
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
     }
 
     .hero-cta a:hover{
@@ -86,46 +98,17 @@
     }
 
     .page-wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:30px auto;
-      padding:0 18px 40px;
+      padding:0 18px 44px;
     }
 
-    .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
-      color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
-      font-size:15px;
-      line-height:1.5;
-      text-align:left;
-    }
-
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
+    .section{
       background:white;
-      border-radius:12px;
+      border-radius:14px;
       box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
       padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin-bottom:24px;
     }
 
     .section-label{
@@ -137,18 +120,60 @@
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
-      margin-top:0;
+    h2, h3{
       color:#1f2a44;
+      margin-top:0;
     }
 
     .description{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color:#555;
       font-size:16px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
+    }
+
+    .top-note{
+      background:#fff7df;
+      border:1px solid #f1d98a;
+      color:#5c4a12;
+      padding:14px 16px;
+      border-radius:10px;
+      margin-bottom:24px;
+      font-size:15px;
+      line-height:1.5;
+      text-align:left;
+    }
+
+    .info-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:12px;
+      padding:18px;
+    }
+
+    .info-card h3{
+      margin:0 0 10px;
+      font-size:18px;
+    }
+
+    .info-card p,
+    .info-card li{
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .info-card ul{
+      padding-left:18px;
+      margin:0;
     }
 
     .formula-box{
@@ -164,11 +189,39 @@
       text-align:left;
     }
 
+    .table-wrap{
+      overflow-x:auto;
+      margin-top:18px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      background:white;
+      min-width:650px;
+    }
+
+    th, td{
+      border:1px solid #d7e0f0;
+      padding:12px 10px;
+      text-align:center;
+      font-size:14px;
+    }
+
+    th{
+      background:#1f2a44;
+      color:white;
+    }
+
+    tr:nth-child(even){
+      background:#f7faff;
+    }
+
     .controls{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
       gap:16px;
-      margin:25px 0 20px;
+      margin:22px 0 20px;
       text-align:left;
     }
 
@@ -247,7 +300,7 @@
     }
 
     .result{
-      margin-top:25px;
+      margin-top:22px;
       padding:20px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
@@ -273,11 +326,60 @@
       text-align:left;
     }
 
+    .workflow{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .workflow-step{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:12px;
+      padding:18px;
+    }
+
+    .workflow-step strong{
+      display:block;
+      color:#1f2a44;
+      margin-bottom:8px;
+    }
+
+    .workflow-step p{
+      margin:0;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .internal-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:600;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
     .cta-box{
       margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
+      padding:24px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
       border-radius:12px;
       text-align:center;
     }
@@ -303,86 +405,6 @@
       font-weight:bold;
     }
 
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
-    }
-
-    .internal-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
-    }
-
-    .internal-links a{
-      display:inline-block;
-      padding:10px 12px;
-      background:white;
-      border:1px solid #d6e0f1;
-      border-radius:8px;
-      color:#1f2a44;
-      text-decoration:none;
-      font-weight:600;
-    }
-
-    .internal-links a:hover{
-      background:#e9eef8;
-    }
-
-    table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:18px;
-      background:white;
-    }
-
-    th, td{
-      border:1px solid #d7e0f0;
-      padding:12px 10px;
-      text-align:center;
-      font-size:14px;
-    }
-
-    th{
-      background:#1f2a44;
-      color:white;
-    }
-
-    tr:nth-child(even){
-      background:#f7faff;
-    }
-
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
-    }
-
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
-    }
-
     .footer{
       margin-top:40px;
       color:#666;
@@ -390,15 +412,8 @@
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
     @media (max-width:700px){
-      .card,
-      .sidebar-card{
+      .section{
         padding:20px;
       }
 
@@ -423,11 +438,6 @@
       .button-row button{
         width:100%;
       }
-
-      th, td{
-        font-size:13px;
-        padding:10px 6px;
-      }
     }
   </style>
 </head>
@@ -437,6 +447,7 @@
 
 <section class="hero">
   <div class="hero-inner">
+    <div class="eyebrow">PLC / Electrical Reference</div>
     <h1>Wire Gauge vs Amps Chart</h1>
     <p>
       Quickly compare common AWG copper wire sizes, typical ampacity, resistance, and area. Use the built-in estimator for a fast first-pass wire gauge recommendation based on current, distance, and system voltage.
@@ -444,33 +455,102 @@
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Estimator</a>
       <a href="/voltage-drop.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'wire_gauge_chart_hero','to':'voltage_drop'});">Voltage Drop Calculator</a>
+      <a href="/plc-electrical.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'wire_gauge_chart_hero','to':'plc_electrical_hub'});">PLC & Electrical Hub</a>
     </div>
   </div>
 </section>
 
 <div class="page-wrap">
+
   <div class="top-note">
     <strong>Good starting use case:</strong> use this page for quick design lookups and rough conductor screening before you finalize wire size using code requirements, insulation type, ambient temperature, conductor count, and installation method.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Reference + Estimator</div>
-      <h2>Common AWG Wire Gauge Reference</h2>
+  <section class="section">
+    <div class="section-label">What this page does</div>
+    <h2>AWG Wire Gauge Reference for Controls and Automation Work</h2>
+    <p class="description">
+      Use this AWG wire gauge reference chart to quickly compare common copper wire sizes, ampacity, and resistance. This page is intended as a fast engineering reference for automation, controls, machine wiring, and early electrical design work.
+    </p>
+    <p class="description">
+      Actual allowable ampacity depends on insulation type, conductor count, ambient temperature, installation method, terminal ratings, and code requirements. Always verify final conductor sizing against NEC, local code, and your application conditions.
+    </p>
 
-      <p class="description">
-        Use this AWG wire gauge reference chart to quickly compare common copper wire sizes, ampacity, and resistance. This page is intended as a fast engineering reference for automation, controls, and electrical design work.
-      </p>
-
-      <p class="description">
-        Actual allowable ampacity depends on insulation type, conductor count, ambient temperature, installation method, and code requirements. Always verify final conductor sizing against NEC, local code, and your application conditions.
-      </p>
-
-      <div class="formula-box">
-        Voltage Drop = Current × Circuit Resistance<br><br>
-        This quick estimator checks both basic ampacity coverage and a conservative 3% voltage drop screen using round-trip conductor length.
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>What it gives you</h3>
+        <ul>
+          <li>Quick AWG ampacity reference</li>
+          <li>Resistance per 1000 ft</li>
+          <li>Basic conductor area values</li>
+          <li>Simple wire gauge estimator</li>
+          <li>Voltage drop screening result</li>
+        </ul>
       </div>
 
+      <div class="info-card">
+        <h3>Where this helps</h3>
+        <p>
+          Useful for automation panel work, controls circuits, sensors, actuators, solenoids, machine wiring, and early electrical design when you need a fast conductor reference.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Common next checks</h3>
+        <ul>
+          <li>Thermal ampacity and insulation rating</li>
+          <li>Voltage drop at actual startup current</li>
+          <li>Conductor bundling and ambient temperature</li>
+          <li>Terminal and connector limitations</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Recommended workflow</div>
+    <h2>How to Use This Page</h2>
+
+    <div class="workflow">
+      <div class="workflow-step">
+        <strong>1. Start with the load current</strong>
+        <p>
+          Enter the real expected current, not just the nominal device label if startup or inrush current matters.
+        </p>
+      </div>
+
+      <div class="workflow-step">
+        <strong>2. Check one-way distance</strong>
+        <p>
+          The estimator uses round-trip conductor length for voltage drop screening.
+        </p>
+      </div>
+
+      <div class="workflow-step">
+        <strong>3. Review voltage drop</strong>
+        <p>
+          Use the 3% result as an early design screen, especially on 24 VDC controls circuits.
+        </p>
+      </div>
+
+      <div class="workflow-step">
+        <strong>4. Confirm final sizing</strong>
+        <p>
+          Verify against electrical code, insulation rating, ambient temperature, and installation method.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Reference chart</div>
+    <h2>Common AWG Wire Gauge Reference</h2>
+
+    <p class="description">
+      This table gives common copper conductor sizes, typical amp ratings, resistance, and area values for quick comparison.
+    </p>
+
+    <div class="table-wrap">
       <table>
         <tr>
           <th>AWG</th>
@@ -487,126 +567,97 @@
         <tr><td>2</td><td>95A</td><td>0.156</td><td>33.6</td></tr>
         <tr><td>1/0</td><td>125A</td><td>0.098</td><td>53.5</td></tr>
       </table>
+    </div>
+  </section>
 
-      <div class="section-label" style="margin-top:28px;">Estimator</div>
-      <h2>Recommended Wire Gauge Estimator</h2>
+  <section class="section">
+    <div class="section-label">Estimator</div>
+    <h2>Recommended Wire Gauge Estimator</h2>
 
-      <p class="description">
-        Enter current and one-way distance to get a quick wire gauge recommendation based on a simple ampacity and voltage drop check. This is a practical estimation tool, not a code replacement.
+    <p class="description">
+      Enter current and one-way distance to get a quick wire gauge recommendation based on a simple ampacity and voltage drop check. This is a practical estimation tool, not a code replacement.
+    </p>
+
+    <div class="formula-box">
+      Voltage Drop = Current × Circuit Resistance<br><br>
+      This quick estimator checks both basic ampacity coverage and a conservative 3% voltage drop screen using round-trip conductor length.
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="amps">Current (A)</label>
+        <input type="number" id="amps" value="24" min="0.01" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="distance">One-Way Distance (ft)</label>
+        <input type="number" id="distance" value="50" min="0.01" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="voltage">System Voltage</label>
+        <select id="voltage">
+          <option value="24">24 VDC</option>
+          <option value="48">48 VDC</option>
+          <option value="120">120 VAC</option>
+          <option value="240">240 VAC</option>
+          <option value="480">480 VAC</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="material">Conductor Material</label>
+        <select id="material">
+          <option value="copper">Copper</option>
+          <option value="aluminum">Aluminum</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateWireGauge()">Calculate</button>
+      <button class="secondary" onclick="loadExample1()">Load Example</button>
+      <button class="ghost" onclick="resetCalculator()">Reset</button>
+    </div>
+
+    <div class="result" id="result">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
+
+    <div id="statusMessage"></div>
+
+    <div class="cta-box">
+      <h3>Need help applying this to a real machine?</h3>
+      <p>
+        Get connected with a qualified automation integrator if you need help with controls wiring, panel design, conductor sizing, or troubleshooting real voltage and load issues in the field.
       </p>
-
-      <div class="controls">
-        <div class="control-group">
-          <label for="amps">Current (A)</label>
-          <input type="number" id="amps" value="24" min="0.01" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="distance">One-Way Distance (ft)</label>
-          <input type="number" id="distance" value="50" min="0.01" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="voltage">System Voltage</label>
-          <select id="voltage">
-            <option value="24">24 VDC</option>
-            <option value="48">48 VDC</option>
-            <option value="120">120 VAC</option>
-            <option value="240">240 VAC</option>
-            <option value="480">480 VAC</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="material">Conductor Material</label>
-          <select id="material">
-            <option value="copper">Copper</option>
-            <option value="aluminum">Aluminum</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateWireGauge()">Calculate</button>
-        <button class="secondary" onclick="loadExample1()">Load Example</button>
-        <button class="ghost" onclick="resetCalculator()">Reset</button>
-      </div>
-
-      <div class="result" id="result">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div id="statusMessage"></div>
-
-      <div class="cta-box">
-        <h3>Need help applying this to a real machine?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you need help with controls wiring, panel design, conductor sizing, or troubleshooting real voltage and load issues in the field.
-        </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
-
-      <div class="learn-more">
-        <h3>What to check next</h3>
-
-        <p>
-          This page is great for a fast first-pass conductor choice, but real wire sizing still depends on installation method, ambient temperature, conductor bundling, terminal temperature rating, startup current, and code rules. A wire that looks acceptable on paper can still be wrong for the installation.
-        </p>
-
-        <p>
-          For real electrical design, this page usually works best alongside a more detailed voltage drop calculation and actual device load review so you can confirm both ampacity and delivered voltage at the equipment.
-        </p>
-
-        <div class="internal-links">
-          <a href="/voltage-drop.html" onclick="gtag('event','internal_link_click',{'from':'wire_gauge_chart','to':'voltage_drop'});">Voltage Drop Calculator</a>
-          <a href="/wire-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'wire_gauge_chart','to':'wire_size_calculator'});">Wire Size Calculator</a>
-          <a href="/awg-wire-gauge-chart.html" onclick="gtag('event','internal_link_click',{'from':'wire_gauge_chart','to':'awg_wire_gauge_chart'});">AWG Wire Gauge Chart</a>
-          <a href="/reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'wire_gauge_chart','to':'reference_charts'});">Reference Charts</a>
-        </div>
-      </div>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
+      <a href="/integrators.html" onclick="gtag('event','cta_click',{'from':'wire_gauge_chart','to':'integrators'});">Find an Integrator</a>
     </div>
+  </section>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>What this page gives you</h3>
-        <ul>
-          <li>Quick AWG ampacity reference</li>
-          <li>Resistance per 1000 ft</li>
-          <li>Basic conductor area values</li>
-          <li>Simple wire gauge estimator</li>
-          <li>Voltage drop screening result</li>
-        </ul>
-      </div>
+  <section class="section">
+    <div class="section-label">Related tools</div>
+    <h2>What to Check Next</h2>
 
-      <div class="sidebar-card">
-        <h3>Where this helps</h3>
-        <p>
-          Useful for automation panel work, controls circuits, sensors, actuators, solenoids, machine wiring, and early electrical design when you need a fast conductor reference without digging through handbooks.
-        </p>
-      </div>
+    <p class="description">
+      This page is great for a fast first-pass conductor choice, but real wire sizing still depends on installation method, ambient temperature, conductor bundling, terminal temperature rating, startup current, and code rules.
+    </p>
 
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
-        <ul>
-          <li>Thermal ampacity and insulation rating</li>
-          <li>Voltage drop at actual startup current</li>
-          <li>Code requirements for the installation</li>
-          <li>Conductor bundling and ambient temperature</li>
-          <li>Terminal and connector limitations</li>
-        </ul>
-      </div>
+    <p class="description">
+      For real electrical design, this page usually works best alongside a more detailed voltage drop calculation and actual device load review so you can confirm both ampacity and delivered voltage at the equipment.
+    </p>
 
-      <div class="sidebar-card">
-        <h3>Practical reminder</h3>
-        <p>
-          A quick table is useful, but final conductor sizing should never stop at amp rating alone. Voltage drop, real installation conditions, and code rules matter just as much.
-        </p>
-      </div>
+    <div class="internal-links">
+      <a href="/voltage-drop.html" onclick="gtag('event','internal_link_click',{'from':'wire_gauge_chart','to':'voltage_drop'});">Voltage Drop Calculator</a>
+      <a href="/wire-size-calculator.html" onclick="gtag('event','internal_link_click',{'from':'wire_gauge_chart','to':'wire_size_calculator'});">Wire Size Calculator</a>
+      <a href="/awg-wire-gauge-chart.html" onclick="gtag('event','internal_link_click',{'from':'wire_gauge_chart','to':'awg_wire_gauge_chart'});">AWG Wire Gauge Chart</a>
+      <a href="/reference-charts.html" onclick="gtag('event','internal_link_click',{'from':'wire_gauge_chart','to':'reference_charts'});">Reference Charts</a>
+      <a href="/plc-electrical.html" onclick="gtag('event','internal_link_click',{'from':'wire_gauge_chart','to':'plc_electrical_hub'});">PLC & Electrical Hub</a>
     </div>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
 </div>
 
@@ -730,7 +781,7 @@
     document.getElementById("statusMessage").innerHTML = "";
   }
 
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
