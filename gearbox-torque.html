@@ -28,27 +28,38 @@
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:white;
+      border-bottom:1px solid #dfe5ef;
+      padding:42px 20px 34px;
       text-align:center;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:1050px;
       margin:auto;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:10px;
+      color:#1e6bd6;
+      font-weight:bold;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-transform:uppercase;
     }
 
     .hero h1{
       margin:0 0 12px;
-      font-size:34px;
+      color:#1f2a44;
+      font-size:36px;
       line-height:1.2;
     }
 
     .hero p{
-      max-width:800px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
+      max-width:850px;
+      margin:0 auto 18px;
+      color:#555;
       font-size:17px;
       line-height:1.6;
     }
@@ -71,13 +82,14 @@
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:#1e6bd6;
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
     }
 
     .hero-cta a:hover{
@@ -86,9 +98,9 @@
     }
 
     .page-wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:30px auto;
-      padding:0 18px 40px;
+      padding:0 18px 44px;
     }
 
     .top-note{
@@ -97,25 +109,18 @@
       color:#5c4a12;
       padding:14px 16px;
       border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
+      margin-bottom:24px;
       font-size:15px;
       line-height:1.5;
       text-align:left;
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card{
+    .section{
       background:white;
-      border-radius:12px;
+      border-radius:14px;
       box-shadow:0 0 12px rgba(0,0,0,.08);
       padding:28px;
+      margin-bottom:24px;
     }
 
     .section-label{
@@ -127,19 +132,59 @@
       margin-bottom:10px;
     }
 
-    .card h2{
-      margin-top:0;
-      margin-bottom:10px;
+    h2, h3{
       color:#1f2a44;
+      margin-top:0;
     }
 
     .description{
-      margin-top:0;
-      margin-bottom:18px;
+      margin:0 0 16px;
       color:#555;
       font-size:16px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
+    }
+
+    .info-grid,
+    .workflow{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card,
+    .workflow-step{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:12px;
+      padding:18px;
+      text-align:left;
+    }
+
+    .info-card h3{
+      margin:0 0 10px;
+      font-size:18px;
+    }
+
+    .info-card p,
+    .info-card li,
+    .workflow-step p{
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+      margin:0;
+    }
+
+    .info-card ul{
+      padding-left:18px;
+      margin:0;
+    }
+
+    .workflow-step strong{
+      display:block;
+      color:#1f2a44;
+      margin-bottom:8px;
     }
 
     .quick-row{
@@ -211,7 +256,7 @@
     .button-row button{
       padding:13px 22px;
       font-size:16px;
-      background:#1f2a44;
+      background:#1e6bd6;
       color:white;
       border:none;
       border-radius:8px;
@@ -231,8 +276,12 @@
     }
 
     .button-row button:hover{
-      background:#2d3d63;
+      background:#1555ad;
       transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
     }
 
     .button-row button.ghost:hover{
@@ -253,10 +302,9 @@
     }
 
     .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
+      padding:24px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
       border-radius:12px;
       text-align:center;
     }
@@ -282,33 +330,17 @@
       font-weight:bold;
     }
 
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-bottom:10px;
-    }
-
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
-    }
-
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:10px;
+      margin-top:14px;
     }
 
     .internal-links a{
       display:inline-block;
       padding:10px 12px;
-      background:#f2f5fb;
+      background:white;
       border:1px solid #d6e0f1;
       border-radius:8px;
       color:#1f2a44;
@@ -320,37 +352,8 @@
       background:#e9eef8;
     }
 
-    .sidebar-card{
-      background:white;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
-    }
-
-    .sidebar-card h3{
-      margin-top:0;
-      margin-bottom:10px;
-      color:#1f2a44;
-    }
-
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
-    }
-
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
-    }
-
     .note{
-      margin-top:20px;
+      margin:0 0 12px;
       color:#666;
       font-size:14px;
       line-height:1.6;
@@ -364,15 +367,8 @@
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
     @media (max-width:700px){
-      .card,
-      .sidebar-card{
+      .section{
         padding:20px;
       }
 
@@ -406,6 +402,7 @@
 
 <section class="hero">
   <div class="hero-inner">
+    <div class="eyebrow">Motors & Motion Calculator</div>
     <h1>Gearbox Output Torque Calculator</h1>
     <p>
       Calculate reducer output torque, output speed, and transmitted horsepower using motor torque, motor speed, gear ratio, and gearbox efficiency.
@@ -413,105 +410,31 @@
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
       <a href="/gear-ratio.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'gearbox_torque_hero','to':'gear_ratio'});">Gear Ratio Calculator</a>
+      <a href="/motors-motion.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'gearbox_torque_hero','to':'motors_motion_hub'});">Motors & Motion Hub</a>
     </div>
   </div>
 </section>
 
 <div class="page-wrap">
+
   <div class="top-note">
     <strong>Good starting use case:</strong> enter motor torque, motor speed, gear ratio, and gearbox efficiency to estimate output shaft torque and speed before checking service factor, shock load, and thermal limits.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Reducer Output Torque and Speed</h2>
+  <section class="section">
+    <div class="section-label">What this calculator does</div>
+    <h2>Estimate Reducer Output Torque, Output Speed, and Power</h2>
 
-      <p class="description">
-        This calculator is useful for motor and reducer selection, conveyor drives, rotary mechanisms, servo systems, and torque multiplication estimates.
-      </p>
+    <p class="description">
+      This calculator is useful for motor and reducer selection, conveyor drives, rotary mechanisms, servo systems, and torque multiplication estimates.
+    </p>
 
-      <p class="description">
-        It helps estimate reducer output torque, output speed, and transmitted horsepower for motors driving gear reducers. It is useful for conveyor design, rotary indexing tables, automation machinery, servo drives, and industrial power transmission systems.
-      </p>
+    <p class="description">
+      It helps estimate reducer output torque, output speed, and transmitted horsepower for motors driving gear reducers. It is useful for conveyor design, rotary indexing tables, automation machinery, servo drives, and industrial power transmission systems.
+    </p>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','gearbox_torque_example',{'type':'standard'});">Standard Example</button>
-        <button type="button" onclick="loadExample2(); gtag('event','gearbox_torque_example',{'type':'higher_ratio'});">Higher Ratio</button>
-        <button type="button" onclick="loadExample3(); gtag('event','gearbox_torque_example',{'type':'lower_efficiency'});">Lower Efficiency</button>
-      </div>
-
-      <div class="grid">
-        <div class="input-card">
-          <label for="motorTorque">Motor Torque (lb-in)</label>
-          <input id="motorTorque" type="number" value="50" min="0.01" step="0.01">
-        </div>
-
-        <div class="input-card">
-          <label for="motorRPM">Motor Speed (RPM)</label>
-          <input id="motorRPM" type="number" value="1750" min="0.01" step="0.01">
-        </div>
-
-        <div class="input-card">
-          <label for="gearRatio">Gear Ratio</label>
-          <input id="gearRatio" type="number" value="10" min="0.01" step="0.01">
-        </div>
-
-        <div class="input-card">
-          <label for="efficiency">Gearbox Efficiency (%)</label>
-          <input id="efficiency" type="number" value="90" min="0.01" max="100" step="0.01">
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateGearboxTorque(); gtag('event','gearbox_torque_calculation');">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator();">Reset</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this to a real machine?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you are sizing a reducer, matching a motor to a conveyor, or checking whether a gearbox can support a real application.
-        </p>
-        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'gearbox_torque_midpage'});">Find an Integrator</a>
-      </div>
-
-      <p class="note">
-        Output torque is estimated as motor torque multiplied by gear ratio and efficiency. This is a practical engineering estimate and does not account for shock loading, service factor, thermal limits, backlash, or peak acceleration loads.
-      </p>
-
-      <div class="learn-more">
-        <h3>What to verify after this</h3>
-
-        <p>
-          This calculator is great for a first-pass estimate, but real gearbox selection still needs more review. After getting output torque and speed, you should check service factor, allowable overhung load, duty cycle, acceleration demand, and the manufacturer’s continuous and peak ratings.
-        </p>
-
-        <p>
-          This matters even more in conveyors, indexing tables, and high-inertia systems where startup loads or repeated reversals can stress the reducer far more than steady-state calculations suggest.
-        </p>
-
-        <div class="internal-links">
-          <a href="/gear-ratio.html" onclick="gtag('event','internal_link_click',{'from':'gearbox_torque','to':'gear_ratio'});">Gear Ratio Calculator</a>
-          <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'gearbox_torque','to':'servo_torque'});">Servo Torque Calculator</a>
-          <a href="/motor.html" onclick="gtag('event','internal_link_click',{'from':'gearbox_torque','to':'conveyor_motor'});">Conveyor Motor Sizing</a>
-          <a href="/conveyor-speed.html" onclick="gtag('event','internal_link_click',{'from':'gearbox_torque','to':'conveyor_speed'});">Conveyor Speed Calculator</a>
-        </div>
-      </div>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
-    </div>
-
-    <div>
-      <div class="sidebar-card">
+    <div class="info-grid">
+      <div class="info-card">
         <h3>What this calculator gives you</h3>
         <ul>
           <li>Estimated output torque</li>
@@ -521,14 +444,14 @@
         </ul>
       </div>
 
-      <div class="sidebar-card">
+      <div class="info-card">
         <h3>Common uses</h3>
         <p>
           This helps with reducer sizing, conveyor design, rotary mechanisms, servo applications, and confirming whether the selected transmission gives enough torque multiplication.
         </p>
       </div>
 
-      <div class="sidebar-card">
+      <div class="info-card">
         <h3>Common next checks</h3>
         <ul>
           <li>Reducer service factor</li>
@@ -539,6 +462,141 @@
         </ul>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Recommended workflow</div>
+    <h2>How to Use This Gearbox Torque Calculator</h2>
+
+    <div class="workflow">
+      <div class="workflow-step">
+        <strong>1. Start with motor torque and RPM</strong>
+        <p>
+          Enter the torque and speed available from the motor or upstream drive before applying the reducer ratio.
+        </p>
+      </div>
+
+      <div class="workflow-step">
+        <strong>2. Enter the gearbox ratio</strong>
+        <p>
+          Use the reducer ratio or calculated gear ratio. Higher ratios increase output torque while reducing output speed.
+        </p>
+      </div>
+
+      <div class="workflow-step">
+        <strong>3. Include gearbox efficiency</strong>
+        <p>
+          Real gearboxes lose power through friction, gear mesh losses, seals, lubrication, and bearings. Efficiency keeps the estimate more realistic.
+        </p>
+      </div>
+
+      <div class="workflow-step">
+        <strong>4. Verify the actual reducer</strong>
+        <p>
+          Compare the output torque and RPM against manufacturer ratings, service factor, duty cycle, thermal limits, and shock load.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Calculator</div>
+    <h2>Estimate Reducer Output Torque and Speed</h2>
+
+    <p class="description">
+      Enter motor torque, motor speed, gear ratio, and gearbox efficiency. The calculator estimates output shaft torque, output speed, and transmitted horsepower.
+    </p>
+
+    <div class="section-label">Quick examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadExample1(); gtag('event','gearbox_torque_example',{'type':'standard'});">Standard Example</button>
+      <button type="button" onclick="loadExample2(); gtag('event','gearbox_torque_example',{'type':'higher_ratio'});">Higher Ratio</button>
+      <button type="button" onclick="loadExample3(); gtag('event','gearbox_torque_example',{'type':'lower_efficiency'});">Lower Efficiency</button>
+    </div>
+
+    <div class="grid">
+      <div class="input-card">
+        <label for="motorTorque">Motor Torque (lb-in)</label>
+        <input id="motorTorque" type="number" value="50" min="0.01" step="0.01">
+      </div>
+
+      <div class="input-card">
+        <label for="motorRPM">Motor Speed (RPM)</label>
+        <input id="motorRPM" type="number" value="1750" min="0.01" step="0.01">
+      </div>
+
+      <div class="input-card">
+        <label for="gearRatio">Gear Ratio</label>
+        <input id="gearRatio" type="number" value="10" min="0.01" step="0.01">
+      </div>
+
+      <div class="input-card">
+        <label for="efficiency">Gearbox Efficiency (%)</label>
+        <input id="efficiency" type="number" value="90" min="0.01" max="100" step="0.01">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateGearboxTorque(); gtag('event','gearbox_torque_calculation');">Calculate</button>
+      <button class="secondary" onclick="loadExample1();">Load Example</button>
+      <button class="ghost" onclick="resetCalculator();">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Design notes</div>
+    <h2>Do Not Treat Output Torque as the Final Reducer Rating</h2>
+
+    <p class="description">
+      Output torque is estimated as motor torque multiplied by gear ratio and efficiency. This is a practical engineering estimate and does not account for shock loading, service factor, thermal limits, backlash, or peak acceleration loads.
+    </p>
+
+    <p class="description">
+      A reducer can appear strong enough based on steady-state output torque but still be wrong for the application if the machine has high inertia, frequent start-stop cycles, product jams, indexing motion, reversing loads, or impact conditions.
+    </p>
+
+    <p class="note">
+      Use this calculator as a first-pass output estimate, then verify the actual reducer against catalog ratings, application service factor, duty cycle, allowable overhung load, mounting orientation, lubrication requirements, and thermal limits.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Continue the design</div>
+    <h2>What to Verify After This</h2>
+
+    <p class="description">
+      This calculator is great for a first-pass estimate, but real gearbox selection still needs more review. After getting output torque and speed, you should check service factor, allowable overhung load, duty cycle, acceleration demand, and the manufacturer’s continuous and peak ratings.
+    </p>
+
+    <p class="description">
+      This matters even more in conveyors, indexing tables, and high-inertia systems where startup loads or repeated reversals can stress the reducer far more than steady-state calculations suggest.
+    </p>
+
+    <div class="internal-links">
+      <a href="/gear-ratio.html" onclick="gtag('event','internal_link_click',{'from':'gearbox_torque','to':'gear_ratio'});">Gear Ratio Calculator</a>
+      <a href="/servo-torque.html" onclick="gtag('event','internal_link_click',{'from':'gearbox_torque','to':'servo_torque'});">Servo Torque Calculator</a>
+      <a href="/motor.html" onclick="gtag('event','internal_link_click',{'from':'gearbox_torque','to':'conveyor_motor'});">Conveyor Motor Sizing</a>
+      <a href="/conveyor-speed.html" onclick="gtag('event','internal_link_click',{'from':'gearbox_torque','to':'conveyor_speed'});">Conveyor Speed Calculator</a>
+      <a href="/motors-motion.html" onclick="gtag('event','internal_link_click',{'from':'gearbox_torque','to':'motors_motion_hub'});">Motors & Motion Hub</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-box">
+      <h3>Need help applying this to a real machine?</h3>
+      <p>
+        Get connected with a qualified automation integrator if you are sizing a reducer, matching a motor to a conveyor, or checking whether a gearbox can support a real application.
+      </p>
+      <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'gearbox_torque_midpage'});">Find an Integrator</a>
+    </div>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
 </div>
 
@@ -645,10 +703,8 @@
     document.getElementById("efficiency").value = "75";
     calculateGearboxTorque();
   }
-</script>
 
-<script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       const nav = document.getElementById("navbar");
