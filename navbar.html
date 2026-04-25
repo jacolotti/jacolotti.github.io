@@ -1,4 +1,9 @@
 <style>
+  .navbar,
+  .navbar * {
+    box-sizing: border-box;
+  }
+
   .navbar {
     background: #ffffff;
     border-bottom: 1px solid #dbe4ee;
@@ -53,6 +58,7 @@
     justify-content: space-between;
     flex: 1;
     gap: 16px;
+    flex-wrap: wrap;
   }
 
   .nav-left,
@@ -60,6 +66,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-wrap: wrap;
   }
 
   .nav-link,
@@ -97,6 +104,7 @@
     font-weight: 700;
     text-decoration: none;
     transition: background 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
   }
 
   .btn-help:hover {
@@ -120,12 +128,14 @@
 
   .dropdown-panel {
     display: none;
-    position: absolute;
-    top: calc(100% + 10px);
-    left: 0;
-    min-width: 760px;
-    max-width: min(1100px, calc(100vw - 40px));
-    max-height: calc(100vh - 120px);
+    position: fixed;
+    top: 68px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100vw - 32px);
+    max-width: 1120px;
+    min-width: 0;
+    max-height: calc(100vh - 90px);
     overflow-y: auto;
     overflow-x: hidden;
     background: #ffffff;
@@ -136,14 +146,9 @@
     z-index: 1100;
   }
 
-  .dropdown-panel.tools-panel {
-    min-width: 980px;
-    max-width: min(1100px, calc(100vw - 40px));
-  }
-
+  .dropdown-panel.tools-panel,
   .dropdown-panel.resources-panel {
-    min-width: 640px;
-    max-width: min(760px, calc(100vw - 40px));
+    min-width: 0;
   }
 
   .dropdown-panel::-webkit-scrollbar {
@@ -220,20 +225,14 @@
   .mega-divider {
     height: 1px;
     background: #e5edf5;
-    margin: 6px 0 2px;
+    margin: 16px 0;
   }
 
   .nav-note {
     font-size: 0.82rem;
     color: #64748b;
-    margin-top: 8px;
+    margin-top: 12px;
     line-height: 1.4;
-  }
-
-  @media (max-width: 1250px) {
-    .dropdown-panel.tools-panel {
-      min-width: 880px;
-    }
   }
 
   @media (max-width: 1250px) {
@@ -241,6 +240,10 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .navbar-inner {
+      flex-wrap: wrap;
     }
 
     .nav-wrap {
@@ -283,8 +286,9 @@
     .dropdown-panel.tools-panel,
     .dropdown-panel.resources-panel {
       position: static;
+      transform: none;
       display: none;
-      min-width: 100%;
+      width: 100%;
       max-width: 100%;
       max-height: none;
       overflow: visible;
@@ -330,7 +334,7 @@
 
         <div class="dropdown">
           <button class="dropbtn" type="button">
-            Tools ▾
+            Tools &amp; Calculators ▾
           </button>
 
           <div class="dropdown-panel tools-panel">
@@ -400,7 +404,7 @@
 
             <div class="mega-divider"></div>
 
-            <div class="mega-grid" style="margin-top: 16px;">
+            <div class="mega-grid">
               <div class="mega-col">
                 <h4>Welding</h4>
                 <a class="group-link" href="/welding.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'welding_group'});">
@@ -439,22 +443,22 @@
                 </div>
               </div>
 
-   <div class="mega-col">
-  <h4>ROI / Planning</h4>
-  <a class="group-link" href="/roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi_group'});">
-    View category overview
-  </a>
-  <div class="mega-links">
-    <a href="/downtime-cost-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'downtime_cost'});">Downtime Cost Calculator</a>
-    <a href="/labor-savings-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'labor_savings'});">Labor Savings Calculator</a>
-    <a href="/automation-roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'automation_roi'});">Automation ROI Calculator</a>
-    <a href="/break-even-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'break_even'});">Break-Even Calculator</a>
-  </div>
-</div>
+              <div class="mega-col">
+                <h4>ROI / Planning</h4>
+                <a class="group-link" href="/roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi_group'});">
+                  View category overview
+                </a>
+                <div class="mega-links">
+                  <a href="/downtime-cost-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'downtime_cost'});">Downtime Cost Calculator</a>
+                  <a href="/labor-savings-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'labor_savings'});">Labor Savings Calculator</a>
+                  <a href="/automation-roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'automation_roi'});">Automation ROI Calculator</a>
+                  <a href="/break-even-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'break_even'});">Break-Even Calculator</a>
+                </div>
+              </div>
             </div>
 
             <div class="nav-note">
-              This menu is meant to surface the full tool library so visitors do not have to guess where a calculator lives.
+              Full tool library organized by category. Use the category overview links when you are not sure which calculator fits the job.
             </div>
           </div>
         </div>
@@ -501,6 +505,7 @@
         <a href="/integrators.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'integrators'});">
           Integrators
         </a>
+
         <a href="/automation-help.html" class="btn-help" onclick="gtag('event','nav_click',{'location':'navbar','item':'get_help'});">
           Get Help
         </a>
@@ -538,9 +543,11 @@
     window.addEventListener('resize', function () {
       if (window.innerWidth > 1250) {
         navbar.classList.remove('open');
+
         if (menuToggle) {
           menuToggle.setAttribute('aria-expanded', 'false');
         }
+
         dropdowns.forEach(function (dropdown) {
           dropdown.classList.remove('open');
         });
