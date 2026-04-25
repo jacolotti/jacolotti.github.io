@@ -22,39 +22,40 @@
   <style>
     body{
       font-family:Arial, sans-serif;
-      background:#f4f4f4;
+      background:#f4f6f9;
       margin:0;
       color:#222;
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:white;
+      padding:48px 20px 34px;
       text-align:center;
+      border-bottom:1px solid #e1e7f0;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:980px;
       margin:auto;
     }
 
     .hero h1{
       margin:0 0 12px;
-      font-size:34px;
+      font-size:36px;
       line-height:1.2;
+      color:#1f2a44;
     }
 
     .hero p{
-      max-width:800px;
+      max-width:860px;
       margin:0 auto 14px;
-      color:#e7ecf7;
+      color:#4f5b70;
       font-size:17px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .hero-cta{
-      margin-top:18px;
+      margin-top:20px;
       display:flex;
       justify-content:center;
       gap:12px;
@@ -71,13 +72,14 @@
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:#1e6bd6;
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
     }
 
     .hero-cta a:hover{
@@ -86,46 +88,29 @@
     }
 
     .page-wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:30px auto;
-      padding:0 18px 40px;
+      padding:0 18px 42px;
     }
 
     .top-note{
       background:#fff7df;
       border:1px solid #f1d98a;
       color:#5c4a12;
-      padding:14px 16px;
+      padding:15px 17px;
       border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
+      margin:0 0 24px;
       font-size:15px;
-      line-height:1.5;
+      line-height:1.55;
       text-align:left;
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
+    .section{
       background:white;
       border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
+      box-shadow:0 0 12px rgba(0,0,0,.06);
       padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin-bottom:24px;
     }
 
     .section-label{
@@ -137,22 +122,68 @@
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
+    .section h2,
+    .section h3{
       margin-top:0;
       color:#1f2a44;
     }
 
+    .section h2{
+      font-size:26px;
+      margin-bottom:12px;
+    }
+
+    .section h3{
+      font-size:21px;
+      margin-bottom:10px;
+    }
+
     .description{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color:#555;
       font-size:16px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
     }
 
+    .card-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:18px;
+      text-align:left;
+    }
+
+    .info-card h3{
+      font-size:18px;
+      margin:0 0 8px;
+      color:#1f2a44;
+    }
+
+    .info-card p{
+      margin:0;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .info-card ul{
+      margin:0;
+      padding-left:18px;
+      color:#444;
+      line-height:1.7;
+      font-size:15px;
+    }
+
     .formula-box{
-      margin:20px 0;
+      margin:20px 0 0;
       padding:18px;
       background:#eef3ff;
       border:1px solid #cfdaf5;
@@ -162,6 +193,17 @@
       font-size:17px;
       line-height:1.7;
       text-align:left;
+    }
+
+    .workflow-list{
+      margin:14px 0 0;
+      padding-left:20px;
+      color:#444;
+      line-height:1.75;
+    }
+
+    .workflow-list strong{
+      color:#1f2a44;
     }
 
     .quick-row{
@@ -280,70 +322,19 @@
       scroll-margin-top:100px;
     }
 
-    .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
-    }
-
-    .cta-box h3{
-      margin:0 0 10px;
-      color:#1f2a44;
-    }
-
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
     .note{
-      margin-top:20px;
+      margin-top:18px;
       color:#666;
       font-size:14px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
     }
 
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .internal-links a{
@@ -361,18 +352,37 @@
       background:#e9eef8;
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+    .cta-box{
+      margin-bottom:24px;
+      padding:26px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+      box-shadow:0 0 12px rgba(0,0,0,.06);
     }
 
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
+    .cta-box h2,
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 auto 16px;
+      color:#4d5a74;
+      line-height:1.6;
+      max-width:760px;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .footer{
@@ -382,20 +392,13 @@
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
     @media (max-width:700px){
-      .card,
-      .sidebar-card{
+      .section{
         padding:20px;
       }
 
       .hero h1{
-        font-size:28px;
+        font-size:29px;
       }
 
       .hero-cta{
@@ -418,6 +421,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <div id="navbar"></div>
@@ -426,193 +430,448 @@
   <div class="hero-inner">
     <h1>Resistance Spot Weld Starting Parameter Calculator</h1>
     <p>
-      Estimate conservative starting current, force, weld time, squeeze time, hold time, tip diameter, and nugget target for common resistance spot welding applications using material, thickness, stack condition, quality target, and machine type.
+      Estimate conservative starting current, electrode force, weld time, squeeze time, hold time, tip diameter, and nugget target for common resistance spot welding applications.
     </p>
+    <p>
+      Use material, sheet thickness, stack condition, quality target, and machine type to create a first-pass schedule direction before production validation.
+    </p>
+
     <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#calculator" class="primary" onclick="gtag('event','hero_cta_click',{'from':'spot_weld','to':'calculator'});">Open Calculator</a>
       <a href="/projection-weld.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'spot_weld_hero','to':'projection_weld'});">Projection Weld Calculator</a>
     </div>
   </div>
 </section>
 
 <div class="page-wrap">
+
   <div class="top-note">
-    <strong>Good starting use case:</strong> use this for first-pass weld schedule direction before full validation. Final production values still need destructive testing, nugget verification, peel tests, button pull review, and confirmation of actual machine capability.
+    <strong>Good starting use case:</strong> use this for first-pass weld schedule direction before full validation. Final production values still need destructive testing, nugget verification, peel tests, button pull review, expulsion review, and confirmation of actual machine capability.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Spot Weld Starting Parameters</h2>
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <h2>What This Spot Weld Calculator Does</h2>
 
-      <p class="description">
-        Estimate conservative starting parameters for resistance spot welding using material type, sheet thickness, stack condition, weld quality target, and machine type.
-      </p>
+    <p class="description">
+      This tool estimates conservative starting parameters for resistance spot welding using material type, sheet thickness, stack condition, weld quality target, and machine type.
+    </p>
 
-      <p class="description">
-        This tool is intended for first-pass setup and planning only. Final weld schedules should always be validated with destructive testing, nugget checks, peel tests, button pull results, and actual machine capability.
-      </p>
+    <p class="description">
+      It is designed for early weld schedule setup, sheet metal process development, equipment review, trial planning, and first-pass production setup direction for common resistance spot welding applications.
+    </p>
 
-      <div class="formula-box">
-        Starting current, force, and time scale primarily with total sheet thickness, material behavior, stack condition, and machine type.<br><br>
-        Final schedule approval always requires testing.
-      </div>
+    <p class="description">
+      The goal is not to replace weld testing. The goal is to give you a reasonable starting range for current, force, weld time, squeeze time, hold time, electrode tip diameter, and nugget target so you are not beginning from a blind guess.
+    </p>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','spot_weld_example',{'type':'galvanized_equal'});">Galvanized Equal Stack</button>
-        <button type="button" onclick="loadExample2(); gtag('event','spot_weld_example',{'type':'mild_uneven'});">Mild Uneven Stack</button>
-        <button type="button" onclick="loadExample3(); gtag('event','spot_weld_example',{'type':'stainless'});">Stainless Example</button>
-      </div>
-
-      <div class="controls">
-        <div class="control-group">
-          <label for="material">Material</label>
-          <select id="material">
-            <option value="mild">Bare Mild Steel</option>
-            <option value="galvanized">Galvanized Steel</option>
-            <option value="galvaneal">Galvaneal Steel</option>
-            <option value="stainless">Stainless Steel</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="thickness1">Sheet 1 Thickness (mm)</label>
-          <input id="thickness1" type="number" value="1.0" min="0.1" max="6" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="thickness2">Sheet 2 Thickness (mm)</label>
-          <input id="thickness2" type="number" value="1.0" min="0.1" max="6" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="stackType">Sheet Stack Type</label>
-          <select id="stackType">
-            <option value="equal">Equal Thickness / Balanced Stack</option>
-            <option value="thin_to_thick">Thin to Thick</option>
-            <option value="thick_to_thin">Thick to Thin</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="quality">Weld Quality Target</label>
-          <select id="quality">
-            <option value="standard">Standard Production</option>
-            <option value="high">High Strength / Cosmetic Focus</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="machine">Machine Type</label>
-          <select id="machine">
-            <option value="ac">AC Welder</option>
-            <option value="mfdc">MFDC Welder</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateSpotWeld();">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="clearCalculator(); gtag('event','spot_weld_clear');">Reset</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Tips wearing fast or cables running hot?</h3>
-        <p>
-          Short tip life, overheating arms, and inconsistent welds are often caused by low coolant flow or undersized lines.
-        </p>
-        <p>
-          Before changing your weld schedule, check whether your cooling circuit is actually delivering enough flow.
-        </p>
-        <a href="/coolant-flow-sizing.html" onclick="gtag('event','guide_cta_click',{'page':'spot_weld','target':'weld_coolant_flow'});">Check Coolant Flow &amp; Line Sizing</a>
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this to a real machine?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you need help with weld setup direction, equipment review, controls integration, or production validation planning.
-        </p>
-        <a href="/integrators.html" onclick="gtag('event','guide_cta_click',{'page':'spot_weld','target':'integrators'});">Find an Integrator</a>
-      </div>
-
-      <p class="note">
-        Coated steels such as galvanized and galvaneal usually require tighter process control because coating affects contact resistance, heat balance, and electrode life.
-      </p>
-
-      <p class="note">
-        Weld time shown in cycles assumes a 60 Hz timing reference. Milliseconds are included as a practical cross-reference when comparing AC and MFDC discussions.
-      </p>
-
-      <div class="learn-more">
-        <h3>What to check next</h3>
-
-        <p>
-          This tool gives a first-pass schedule direction, but real spot welding depends heavily on electrode condition, contact resistance, stack balance, machine stiffness, cooling, coating behavior, and actual dynamic current delivery. A schedule that looks reasonable on paper can still fail in production.
-        </p>
-
-        <p>
-          For real process development, use these values only as a starting range, then confirm with destructive testing, nugget checks, peel testing, button pull review, expulsion monitoring, and confirmation that the machine can actually deliver the required force and current consistently.
-        </p>
-
-        <div class="internal-links">
-          <a href="/projection-weld.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'projection_weld'});">Projection Weld Calculator</a>
-          <a href="/weld-coolant-flow-calculator.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'weld_coolant_flow'});">Coolant Flow &amp; Line Sizing</a>
-          <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'robot_cycle_time'});">Robot Cycle Time</a>
-          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'pneumatic_force'});">Pneumatic Force</a>
-          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'automation_roi'});">Automation ROI</a>
-        </div>
-      </div>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
+    <div class="formula-box">
+      Starting current, force, and time scale primarily with total sheet thickness, material behavior, stack condition, quality target, and machine type.<br><br>
+      Final schedule approval always requires destructive testing and process validation.
     </div>
+  </section>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
-        <ul>
-          <li>Starting current range</li>
-          <li>Starting force range in kN and lbf</li>
-          <li>Starting weld time range</li>
-          <li>Suggested squeeze and hold time</li>
-          <li>Suggested tip diameter</li>
-          <li>Suggested nugget target</li>
-        </ul>
-      </div>
+  <section class="section">
+    <div class="section-label">Outputs</div>
+    <h2>What This Calculator Gives You</h2>
 
-      <div class="sidebar-card">
-        <h3>Where this helps</h3>
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Starting Current Range</h3>
         <p>
-          Useful for early weld schedule setup, sheet metal process development, equipment review, and first-pass production trials for common resistance spot welding applications.
+          A conservative kA range for first-pass weld schedule direction based on the entered material, total thickness, stack type, quality target, and machine type.
         </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
-        <ul>
-          <li>Destructive testing and nugget size</li>
-          <li>Peel test and button pull results</li>
-          <li>Electrode condition and cooling</li>
-          <li>Expulsion behavior and splash control</li>
-          <li>Actual machine force and current capability</li>
-        </ul>
+      <div class="info-card">
+        <h3>Starting Force Range</h3>
+        <p>
+          Electrode force range shown in both kN and lbf so the result can be used with common weld controls, force gauges, and machine documentation.
+        </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Process reminder</h3>
+      <div class="info-card">
+        <h3>Starting Weld Time</h3>
         <p>
-          Spot weld setup is not finished when the calculator looks good. Real approval needs verified weld quality, repeatability, and machine performance under actual production conditions.
+          Weld time range shown in 60 Hz cycles and milliseconds to make it easier to compare AC welders and MFDC discussions.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Squeeze and Hold Time</h3>
+        <p>
+          Suggested starting squeeze and hold timing values to help stabilize force before welding and support the weld after current ends.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Suggested Tip Diameter</h3>
+        <p>
+          A starting electrode tip diameter based on the thinner sheet, intended as a practical first-pass reference.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Suggested Nugget Target</h3>
+        <p>
+          A starting nugget diameter target based on the thinner sheet thickness for validation planning and destructive testing review.
         </p>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Application</div>
+    <h2>Where This Helps</h2>
+
+    <p class="description">
+      Resistance spot welding is sensitive to material coating, stack thickness, electrode condition, machine stiffness, force control, current delivery, cooling, and part fit-up. This calculator is useful when you need a starting direction before formal testing.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Early Weld Schedule Setup</h3>
+        <p>
+          Use the result as a conservative starting range when setting up a new material stack or beginning a weld trial.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Sheet Metal Process Development</h3>
+        <p>
+          Compare how total thickness, material type, coating, and stack balance affect starting force, current, and time.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Equipment Review</h3>
+        <p>
+          Check whether the required force and current are in the general range of what the weld gun, transformer, controller, and cooling circuit can support.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Production Trial Planning</h3>
+        <p>
+          Use the result to plan trial ranges before peel testing, button pull review, nugget checks, and expulsion monitoring.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Maintenance Troubleshooting</h3>
+        <p>
+          When welds become inconsistent, compare the schedule direction with tip condition, coolant flow, cable condition, alignment, and force output.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Robot Weld Cell Review</h3>
+        <p>
+          Use the output when reviewing robot spot weld applications, weld gun selection, process time, tip wear, and cooling needs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Workflow</div>
+    <h2>Recommended Spot Weld Setup Workflow</h2>
+
+    <p class="description">
+      Spot weld setup is not finished when the calculator looks good. Treat the result as the beginning of the process, then validate the schedule with real parts, actual tooling, and production conditions.
+    </p>
+
+    <ol class="workflow-list">
+      <li><strong>Enter the stack:</strong> select material, sheet thicknesses, stack type, quality target, and machine type.</li>
+      <li><strong>Use the result as a starting range:</strong> do not treat the output as final production approval.</li>
+      <li><strong>Check equipment capability:</strong> confirm the machine can deliver the required current, force, cooling, and timing consistently.</li>
+      <li><strong>Inspect electrode condition:</strong> verify tip diameter, face condition, alignment, cooling, and dressing interval.</li>
+      <li><strong>Run trial welds:</strong> adjust schedule while watching expulsion, indentation, appearance, and consistency.</li>
+      <li><strong>Validate destructively:</strong> perform nugget checks, peel tests, button pull review, and any required internal quality checks.</li>
+      <li><strong>Confirm production repeatability:</strong> verify the schedule under real part fit-up, cycle rate, cooling, and operator/robot handling conditions.</li>
+    </ol>
+
+    <div class="internal-links">
+      <a href="/projection-weld.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld_workflow','to':'projection_weld'});">Projection Weld Calculator</a>
+      <a href="/coolant-flow-sizing.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld_workflow','to':'coolant_flow_sizing'});">Coolant Flow &amp; Line Sizing</a>
+      <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld_workflow','to':'robot_cycle_time'});">Robot Cycle Time Calculator</a>
+      <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld_workflow','to':'pneumatic_force'});">Pneumatic Force Calculator</a>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Calculator</div>
+    <h2>Estimate Spot Weld Starting Parameters</h2>
+
+    <p class="description">
+      Enter the material, both sheet thicknesses, stack condition, weld quality target, and machine type. The calculator will estimate conservative starting values for current, electrode force, weld time, squeeze time, hold time, tip diameter, and nugget diameter.
+    </p>
+
+    <p class="description">
+      These are first-pass planning values only. Final weld schedules should always be validated with destructive testing, nugget checks, peel tests, button pull results, and actual machine behavior.
+    </p>
+
+    <div class="section-label">Quick Examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadExample1(); gtag('event','spot_weld_example',{'type':'galvanized_equal'});">Galvanized Equal Stack</button>
+      <button type="button" onclick="loadExample2(); gtag('event','spot_weld_example',{'type':'mild_uneven'});">Mild Uneven Stack</button>
+      <button type="button" onclick="loadExample3(); gtag('event','spot_weld_example',{'type':'stainless'});">Stainless Example</button>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="material">Material</label>
+        <select id="material">
+          <option value="mild">Bare Mild Steel</option>
+          <option value="galvanized">Galvanized Steel</option>
+          <option value="galvaneal">Galvaneal Steel</option>
+          <option value="stainless">Stainless Steel</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="thickness1">Sheet 1 Thickness (mm)</label>
+        <input id="thickness1" type="number" value="1.0" min="0.1" max="6" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="thickness2">Sheet 2 Thickness (mm)</label>
+        <input id="thickness2" type="number" value="1.0" min="0.1" max="6" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="stackType">Sheet Stack Type</label>
+        <select id="stackType">
+          <option value="equal">Equal Thickness / Balanced Stack</option>
+          <option value="thin_to_thick">Thin to Thick</option>
+          <option value="thick_to_thin">Thick to Thin</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="quality">Weld Quality Target</label>
+        <select id="quality">
+          <option value="standard">Standard Production</option>
+          <option value="high">High Strength / Cosmetic Focus</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="machine">Machine Type</label>
+        <select id="machine">
+          <option value="ac">AC Welder</option>
+          <option value="mfdc">MFDC Welder</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateSpotWeld();">Calculate</button>
+      <button class="secondary" onclick="loadExample1(); gtag('event','spot_weld_example',{'type':'galvanized_equal_button'});">Load Example</button>
+      <button class="ghost" onclick="clearCalculator(); gtag('event','spot_weld_clear');">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
+
+    <p class="note">
+      Coated steels such as galvanized and galvaneal usually require tighter process control because coating affects contact resistance, heat balance, and electrode life.
+    </p>
+
+    <p class="note">
+      Weld time shown in cycles assumes a 60 Hz timing reference. Milliseconds are included as a practical cross-reference when comparing AC and MFDC discussions.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Interpretation</div>
+    <h2>How to Read the Results</h2>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Current Range</h3>
+        <p>
+          Treat the current output as a conservative starting range. Too little current may produce undersized nuggets; too much can cause expulsion, indentation, sticking, and poor tip life.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Force Range</h3>
+        <p>
+          Electrode force affects contact resistance, heat generation, expulsion behavior, and indentation. Confirm the machine can actually deliver the force at the weld point.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Weld Time</h3>
+        <p>
+          Weld time should be tuned with current and force together. Longer time is not automatically better if heat balance, cooling, or expulsion becomes unstable.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Tip Diameter</h3>
+        <p>
+          Tip diameter affects current density, heat input, indentation, and nugget formation. Worn or mushroomed tips can invalidate a schedule that was working before.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Nugget Target</h3>
+        <p>
+          The nugget target is a planning reference. Actual acceptance criteria should follow your customer, internal quality standard, weld specification, or tested requirement.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Material, Stack, and Machine Notes</h3>
+        <p>
+          Read the notes in the result carefully. Coated material, unbalanced sheet stacks, and machine type can all change the schedule development direction.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Tips wearing fast or cables running hot?</h2>
+    <p>
+      Short tip life, overheating arms, inconsistent welds, and unstable weld quality are often caused by low coolant flow, plugged circuits, poor water return, or undersized cooling lines.
+    </p>
+    <p>
+      Before changing your weld schedule, check whether your cooling circuit is actually delivering enough flow.
+    </p>
+    <a href="/coolant-flow-sizing.html" onclick="gtag('event','guide_cta_click',{'page':'spot_weld','target':'weld_coolant_flow'});">Check Coolant Flow &amp; Line Sizing</a>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Engineering Notes</div>
+    <h2>Common Next Checks</h2>
+
+    <p class="description">
+      This tool gives a first-pass schedule direction, but real spot welding depends heavily on electrode condition, contact resistance, stack balance, machine stiffness, cooling, coating behavior, and actual dynamic current delivery. A schedule that looks reasonable on paper can still fail in production.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Destructive Testing and Nugget Size</h3>
+        <p>
+          Cut, peel, chisel, or section welds as required to confirm nugget size and actual weld quality before approving production values.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Peel Test and Button Pull Results</h3>
+        <p>
+          Button pull behavior can reveal weak welds, poor fusion, coating issues, or schedule problems that are not obvious from appearance alone.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Electrode Condition and Cooling</h3>
+        <p>
+          Check tip face, dressing interval, water flow, return temperature, plugged lines, and electrode alignment when weld quality changes.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Expulsion Behavior and Splash Control</h3>
+        <p>
+          Expulsion can indicate too much heat, poor fit-up, low force, bad alignment, coating variation, or a schedule that needs adjustment.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Actual Machine Force and Current Capability</h3>
+        <p>
+          Confirm that commanded values match actual force and delivered current. Cables, shunts, transformers, SCR/MFDC performance, and tooling stiffness matter.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Production Conditions</h3>
+        <p>
+          Validate at real cycle rate, with real part fit-up, real tip wear, actual cooling, robot position, gun angle, and normal production variation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Process Reminder</div>
+    <h2>Do Not Skip Validation</h2>
+
+    <p class="description">
+      Spot weld setup is not finished when the calculator output looks reasonable. Real approval needs verified weld quality, repeatability, and machine performance under actual production conditions.
+    </p>
+
+    <p class="description">
+      For real process development, use these values only as a starting range, then confirm with destructive testing, nugget checks, peel testing, button pull review, expulsion monitoring, electrode condition review, and confirmation that the machine can actually deliver the required force and current consistently.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Coated Material Sensitivity</h3>
+        <p>
+          Galvanized and galvaneal coatings affect contact resistance, heat balance, electrode wear, and schedule stability.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Thickness Mismatch</h3>
+        <p>
+          Uneven stacks can shift heat balance toward one sheet. Watch the thinner sheet carefully for overheating, thinning, or expulsion.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Machine Stiffness</h3>
+        <p>
+          Weld gun deflection, throat depth, arm length, alignment, and force response can all change real results.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Cooling Stability</h3>
+        <p>
+          Inconsistent water flow can cause tip wear, heat buildup, unstable nuggets, and schedule drift over the shift.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Related Tools</div>
+    <h2>Continue the Weld Cell Design</h2>
+
+    <p class="description">
+      Use this page with related welding, cooling, robot, pneumatic, and ROI tools to evaluate the full process. A weld schedule is only one part of the application.
+    </p>
+
+    <div class="internal-links">
+      <a href="/projection-weld.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'projection_weld'});">Projection Weld Calculator</a>
+      <a href="/coolant-flow-sizing.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'coolant_flow_sizing'});">Coolant Flow &amp; Line Sizing</a>
+      <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'robot_cycle_time'});">Robot Cycle Time</a>
+      <a href="/robot-payload.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'robot_payload'});">Robot Payload</a>
+      <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'pneumatic_force'});">Pneumatic Force</a>
+      <a href="/safety-distance.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'safety_distance'});">Safety Distance</a>
+      <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'automation_roi'});">Automation ROI</a>
+      <a href="/welding.html" onclick="gtag('event','internal_link_click',{'from':'spot_weld','to':'welding_hub'});">Welding Hub</a>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Need help applying this to a real machine?</h2>
+    <p>
+      Get connected with a qualified automation integrator if you need help with weld setup direction, equipment review, coolant circuit checks, controls integration, robot weld cell layout, or production validation planning.
+    </p>
+    <a href="/integrators.html" onclick="gtag('event','guide_cta_click',{'page':'spot_weld','target':'integrators'});">Find an Integrator</a>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
+
 </div>
 
 <script>
@@ -845,7 +1104,7 @@
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
