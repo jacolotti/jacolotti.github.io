@@ -6,7 +6,6 @@
   <meta name="author" content="AutomationCalculators.net">
   <meta charset="UTF-8">
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -17,679 +16,560 @@
 
   <title>Nordson Adhesive Parameters Explained | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Plain-English guide to common Nordson adhesive system parameters. Learn what tank temperature, hose temperature, gun temperature, adhesive pressure, air pressure, line speed, bead size, and pattern timing actually mean in real applications.">
+  <meta name="description" content="Plain-English guide to adhesive system parameters. Understand temperature zones, adhesive pressure, air pressure, line speed, trigger timing, bead quality, cutoff, stringing, and what to adjust first.">
 
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+      --hero1:#0b66c3;
+      --hero2:#0d79d0;
+      --hero3:#0b3d69;
+      --warning:#fff8df;
+      --warning-border:#f1df95;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+
     body{
-      font-family:Arial, sans-serif;
-      background:#f4f4f4;
       margin:0;
-      color:#222;
-    }
-
-    .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
-      text-align:center;
-    }
-
-    .hero-inner{
-      max-width:950px;
-      margin:auto;
-    }
-
-    .hero h1{
-      margin:0 0 12px;
-      font-size:34px;
-      line-height:1.2;
-    }
-
-    .hero p{
-      max-width:800px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
-      font-size:17px;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
       line-height:1.6;
     }
 
-    .hero-cta{
-      margin-top:18px;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .hero-cta a{
-      display:inline-block;
-      padding:12px 18px;
-      border-radius:8px;
+    a{
+      color:var(--accent);
       text-decoration:none;
-      font-weight:bold;
+    }
+
+    a:hover{text-decoration:underline;}
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hero{
+      background:linear-gradient(135deg,var(--hero1) 0%,var(--hero2) 45%,var(--hero3) 100%);
+      color:#fff;
+      padding:58px 20px 42px;
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:24px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      background:rgba(255,255,255,.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.24);
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      margin-bottom:14px;
+    }
+
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.35rem;
+      line-height:1.12;
+      color:#fff;
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      max-width:780px;
+      color:rgba(255,255,255,.94);
+      font-size:1.04rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:13px 18px;
+      border-radius:10px;
+      font-weight:700;
+      text-decoration:none;
       transition:.2s ease;
+      text-align:center;
     }
 
-    .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+    .btn-primary{
+      background:#fff;
+      color:var(--accent-dark);
     }
 
-    .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+    .btn-secondary{
+      background:rgba(255,255,255,.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.28);
     }
 
-    .hero-cta a:hover{
+    .btn:hover{
       transform:translateY(-1px);
-      opacity:.95;
+      text-decoration:none;
+    }
+
+    .hero-panel{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:18px;
+      padding:22px;
+      backdrop-filter:blur(5px);
+    }
+
+    .hero-panel h3{
+      margin:0 0 12px;
+      color:#fff;
+    }
+
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .hero-panel li{
+      margin-bottom:10px;
+      color:rgba(255,255,255,.95);
+    }
+
+    .back-link-wrap{
+      max-width:var(--max);
+      margin:20px auto 0;
+      padding:0 20px;
+    }
+
+    .back-link-wrap a{
+      font-weight:700;
     }
 
     .page-wrap{
-      max-width:1100px;
-      margin:30px auto;
-      padding:0 18px 40px;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 20px 42px;
     }
 
     .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
+      background:var(--warning);
+      border:1px solid var(--warning-border);
       color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
-      font-size:15px;
-      line-height:1.5;
-      text-align:left;
+      padding:16px 18px;
+      border-radius:14px;
+      margin:0 0 24px;
+      box-shadow:var(--shadow);
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
-      background:white;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
+    .section,
+    .cta-box{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
       padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin:0 0 24px;
     }
 
     .section-label{
       font-size:13px;
-      font-weight:bold;
+      font-weight:700;
       text-transform:uppercase;
       letter-spacing:.08em;
-      color:#5e7197;
+      color:#6a7d95;
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
-      margin-top:0;
-      color:#1f2a44;
+    .section h2{
+      margin:0 0 12px;
+      font-size:2rem;
+      line-height:1.2;
+      color:var(--text);
     }
 
-    .card h3{
-      color:#1f2a44;
-      margin-top:28px;
-      margin-bottom:10px;
+    .section h3{
+      margin:30px 0 10px;
+      font-size:1.35rem;
+      color:var(--text);
     }
 
-    .description{
+    .section p{
       margin:0 0 18px;
-      color:#555;
-      font-size:16px;
-      line-height:1.6;
-      text-align:left;
+      color:var(--muted);
+      line-height:1.7;
     }
 
     .formula-box{
-      margin:20px 0;
-      padding:18px;
-      background:#eef3ff;
-      border:1px solid #cfdaf5;
-      border-radius:10px;
-      color:#1f2a44;
-      font-weight:bold;
-      font-size:17px;
-      line-height:1.7;
-      text-align:left;
-    }
-
-    .quick-row{
-      margin:8px 0 22px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .quick-row a{
-      display:inline-block;
-      padding:10px 12px;
-      border-radius:8px;
-      border:1px solid #cdd8ee;
-      background:#f7f9fd;
-      cursor:pointer;
-      font-weight:600;
-      color:#1f2a44;
-      text-decoration:none;
-    }
-
-    .quick-row a:hover{
-      background:#eef3fc;
-    }
-
-    .parameter-grid{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:16px;
-      margin-top:18px;
-    }
-
-    .parameter-card{
-      background:#f8fbff;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
-      padding:18px;
-    }
-
-    .parameter-card h4{
-      margin-top:0;
-      margin-bottom:10px;
-      color:#1f2a44;
-      font-size:18px;
-    }
-
-    .parameter-card p{
-      margin:0 0 10px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
-    }
-
-    .parameter-card strong{
-      color:#1f2a44;
-    }
-
-    .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
-    }
-
-    .cta-box h3{
-      margin:0 0 10px;
-      color:#1f2a44;
-    }
-
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
-    .note{
-      margin-top:20px;
-      color:#666;
-      font-size:14px;
-      line-height:1.6;
-      text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
+      margin:20px 0 24px;
       padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
+      background:#eef4fb;
+      border:1px solid #d3e1ef;
+      border-radius:14px;
+      color:var(--text);
+      font-weight:700;
+      line-height:1.8;
     }
 
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more ul{
-      margin:0 0 12px 20px;
-      color:#555;
-      line-height:1.7;
-    }
-
-    .learn-more li{
-      margin-bottom:8px;
-    }
-
+    .quick-row,
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
+    .quick-row a,
     .internal-links a{
       display:inline-block;
-      padding:10px 12px;
-      background:white;
-      border:1px solid #d6e0f1;
-      border-radius:8px;
-      color:#1f2a44;
+      padding:10px 13px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--accent-dark);
+      font-weight:700;
       text-decoration:none;
-      font-weight:600;
+      border:1px solid #d9e5f2;
+      transition:.2s ease;
     }
 
+    .quick-row a:hover,
     .internal-links a:hover{
-      background:#e9eef8;
+      background:#dfeefa;
+      text-decoration:none;
     }
 
-    .recommendation-box{
-      background:#e9f1ff;
-      border:1px solid #c8d9ff;
-      border-radius:10px;
+    .grid-2,
+    .grid-3{
+      display:grid;
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr));}
+
+    .info-card,
+    .parameter-card,
+    .decision-card{
+      background:#f8fbff;
+      border:1px solid #dce7f3;
+      border-radius:14px;
       padding:18px;
-      margin-top:0;
-      margin-bottom:20px;
     }
 
-    .recommendation-box h4{
-      margin-top:0;
-      margin-bottom:10px;
-      color:#1f2a44;
+    .info-card h3,
+    .info-card h4,
+    .parameter-card h3,
+    .parameter-card h4,
+    .decision-card h3{
+      margin:0 0 10px;
+      color:var(--text);
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+    .info-card p,
+    .parameter-card p,
+    .decision-card p{
+      margin:0 0 10px;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:.98rem;
     }
 
-    .sidebar-card ul{
-      padding-left:18px;
+    .info-card ul,
+    .parameter-card ul,
+    .decision-card ul,
+    .section ul{
+      padding-left:20px;
       margin:0;
-      color:#444;
+      color:var(--muted);
       line-height:1.7;
     }
 
-    .pneumatic-btn{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      text-decoration:none;
-      padding:10px 14px;
-      border-radius:8px;
-      font-weight:bold;
-      border:none;
-      cursor:pointer;
-      font-size:15px;
+    .info-card li,
+    .parameter-card li,
+    .decision-card li,
+    .section li{
+      margin-bottom:8px;
     }
 
-    .pneumatic-btn:hover{
-      opacity:.95;
+    .workflow{
+      counter-reset:step;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
     }
 
-    .pneumatic-consulting{
-      margin-top:20px;
-      padding:20px;
-      background:#f4f8ff;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
+    .workflow-card{
+      background:#fff;
+      border:1px solid #dbe4f3;
+      border-radius:14px;
+      padding:16px;
+    }
+
+    .workflow-card:before{
+      counter-increment:step;
+      content:counter(step);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:var(--accent);
+      color:#fff;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    .workflow-card h3{
+      margin:0 0 8px;
+      font-size:1.05rem;
+    }
+
+    .workflow-card p{
+      margin:0;
+      font-size:.95rem;
+    }
+
+    .setup-table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      margin-top:18px;
+      background:#fff;
+      border:1px solid #d9e3ee;
+      border-radius:14px;
+      overflow:hidden;
+    }
+
+    .setup-table th,
+    .setup-table td{
+      padding:13px 14px;
+      border-bottom:1px solid #e6edf5;
       text-align:left;
+      vertical-align:top;
+      line-height:1.55;
+      font-size:.96rem;
     }
 
-    .pneumatic-consulting h3{
-      margin-top:0;
-      color:#1f2a44;
+    .setup-table th{
+      background:#eef4fb;
+      color:var(--text);
+      font-weight:700;
     }
 
-    .pneumatic-consulting p{
-      color:#555;
-      line-height:1.6;
-      margin-bottom:14px;
+    .setup-table tr:last-child td{
+      border-bottom:none;
     }
 
-    .pneumatic-consulting ul{
-      padding-left:18px;
-      margin:0 0 18px;
-      color:#444;
+    .callout{
+      background:#eef4fb;
+      border:1px solid #d3e1ef;
+      border-radius:14px;
+      padding:18px;
+      margin-top:18px;
+    }
+
+    .callout.warning{
+      background:var(--warning);
+      border-color:var(--warning-border);
+    }
+
+    .callout p:last-child{
+      margin-bottom:0;
+    }
+
+    .cta-box{
+      background:linear-gradient(135deg,#edf4ff,#f7fbff);
+      text-align:center;
+    }
+
+    .cta-box h2,
+    .cta-box h3{
+      margin:0 0 10px;
+      color:var(--text);
+    }
+
+    .cta-box p{
+      max-width:820px;
+      margin:0 auto 16px;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .cta-box a,
+    .support-btn{
+      display:inline-block;
+      background:#0b66c3;
+      color:#fff;
+      padding:12px 16px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      margin:4px;
+    }
+
+    .cta-box a:hover,
+    .support-btn:hover{
+      background:#084c92;
+      text-decoration:none;
+    }
+
+    .note{
+      color:var(--muted);
+      font-size:.95rem;
       line-height:1.7;
     }
 
     .footer{
-      margin-top:40px;
-      color:#666;
-      font-size:14px;
+      margin-top:30px;
+      color:#64748b;
+      font-size:.95rem;
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
+    @media(max-width:980px){
+      .hero-inner,
+      .grid-3,
+      .workflow{
+        grid-template-columns:1fr 1fr;
       }
     }
 
-    @media (max-width:700px){
-      .card,
-      .sidebar-card{
-        padding:20px;
+    @media(max-width:700px){
+      .hero{padding:46px 16px 34px;}
+      .hero-inner,
+      .grid-2,
+      .grid-3,
+      .workflow{
+        grid-template-columns:1fr;
       }
-
-      .hero h1{
-        font-size:28px;
-      }
-
-      .hero-cta{
-        flex-direction:column;
-        align-items:center;
-      }
-
-      .hero-cta a{
-        width:100%;
-        max-width:320px;
-      }
+      .page-wrap{padding:28px 16px 36px;}
+      .section,
+      .cta-box{padding:20px;}
+      .hero h1{font-size:2rem;}
+      .hero-actions{flex-direction:column;}
+      .hero-actions .btn{width:100%;}
+      .setup-table{display:block; overflow-x:auto;}
     }
   </style>
 </head>
-<body>
 
+<body>
 <div id="navbar"></div>
 
 <section class="hero">
   <div class="hero-inner">
-    <h1>Nordson Adhesive Parameters Explained</h1>
-    <p>
-      Plain-English explanations of the most common adhesive system settings so you can make better process decisions without guessing.
-    </p>
-    <div class="hero-cta">
-      <a href="#parameters" class="primary">Open Guide</a>
-      <a href="/adhesive-system-setup.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'nordson_parameters_hero','to':'adhesive_setup'});">System Setup Guide</a>
+    <div>
+      <div class="eyebrow">Adhesives / Parameter Guide</div>
+      <h1>Nordson Adhesive Parameters Explained</h1>
+      <p>
+        Plain-English explanations of common adhesive system settings so you can understand what each parameter changes before adjusting temperatures, pressure, timing, speed, or hardware.
+      </p>
+      <p>
+        Use this guide when a live machine is producing stringing, short beads, missed placement, dripping, poor cutoff, or inconsistent adhesive flow.
+      </p>
+      <div class="hero-actions">
+        <a href="#parameters" class="btn btn-primary">Open Guide</a>
+        <a href="/adhesive-system-setup.html" class="btn btn-secondary">System Setup Guide</a>
+        <a href="/adhesives.html" class="btn btn-secondary">Adhesives Hub</a>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h3>Best use cases for this page</h3>
+      <ul>
+        <li>Understanding what each adhesive setting affects</li>
+        <li>Knowing what to adjust first</li>
+        <li>Separating temperature, pressure, timing, and hardware problems</li>
+        <li>Reducing random machine-side trial and error</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<div class="page-wrap">
+<div class="back-link-wrap">
+  <a href="/adhesives.html">← Back to Adhesives</a>
+</div>
+
+<main class="page-wrap">
+
   <div class="top-note">
     <strong>Good starting use case:</strong> use this page when you are looking at adhesive settings on a live machine and want to understand what each one actually affects before changing temperatures, pressure, or timing.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="parameters">
-      <div class="section-label">Guide</div>
-      <h2>What the Main Adhesive Parameters Actually Mean</h2>
+  <section class="section" id="parameters">
+    <div class="section-label">Guide</div>
+    <h2>What the main adhesive parameters actually mean</h2>
 
-      <p class="description">
-        Adhesive systems often show a lot of settings, but most process problems come back to a smaller group of core variables. The goal is not just knowing the name of the parameter. The goal is understanding what that setting affects in the real machine.
-      </p>
+    <p>
+      Adhesive systems often show a lot of settings, but most process problems come back to a smaller group of core variables. The goal is not just knowing the name of the parameter. The goal is understanding what that setting affects in the real machine.
+    </p>
 
-      <p class="description">
-        This page explains common adhesive parameters in plain language so you can make more controlled adjustments and avoid changing the wrong setting first.
-      </p>
+    <p>
+      This page explains common adhesive parameters in plain language so you can make more controlled adjustments and avoid changing the wrong setting first.
+    </p>
 
-      <div class="formula-box">
-        Better Adhesive Setup Usually Comes From:<br><br>
-        Knowing What Each Parameter Changes + Adjusting One Variable At A Time + Watching Bead Quality, Placement, and Stability
-      </div>
-
-      <div class="section-label">Quick navigation</div>
-      <div class="quick-row">
-        <a href="#temperature" onclick="gtag('event','adhesive_quick_nav',{'target':'temperature'});">Temperature</a>
-        <a href="#pressure" onclick="gtag('event','adhesive_quick_nav',{'target':'pressure'});">Pressure</a>
-        <a href="#speed-timing" onclick="gtag('event','adhesive_quick_nav',{'target':'speed_timing'});">Speed & Timing</a>
-        <a href="#quality" onclick="gtag('event','adhesive_quick_nav',{'target':'quality'});">Bead Quality</a>
-      </div>
-
-      <h3 id="temperature">Temperature Parameters</h3>
-
-      <div class="parameter-grid">
-        <div class="parameter-card">
-          <h4>Tank Temperature</h4>
-          <p><strong>What it is:</strong> the main melt tank temperature setting.</p>
-          <p><strong>What it affects:</strong> how the adhesive melts, conditions, and flows at the start of the system.</p>
-          <p><strong>Practical meaning:</strong> if tank temperature is too low, the adhesive may be too thick and harder to pump. If it is too high, the adhesive can degrade faster, char more easily, or become more prone to stringing.</p>
-        </div>
-
-        <div class="parameter-card">
-          <h4>Hose Temperature</h4>
-          <p><strong>What it is:</strong> the temperature setting for the heated hose between the melter and the gun.</p>
-          <p><strong>What it affects:</strong> viscosity consistency while the adhesive travels through the system.</p>
-          <p><strong>Practical meaning:</strong> even if the tank temperature is correct, a hose that runs too cool can cause the adhesive to thicken before it reaches the applicator.</p>
-        </div>
-
-        <div class="parameter-card">
-          <h4>Gun Temperature</h4>
-          <p><strong>What it is:</strong> the temperature setting at the applicator or gun.</p>
-          <p><strong>What it affects:</strong> final flow behavior, bead shape, and cutoff quality at the point of application.</p>
-          <p><strong>Practical meaning:</strong> this is one of the most important settings for how the adhesive behaves when it actually leaves the nozzle.</p>
-        </div>
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this in your system?</h3>
-        <p>
-          If you are trying to sort out real adhesive settings on a machine, get help reviewing the process before changing a bunch of variables at once.
-        </p>
-        <a href="/automation-help.html"
-           onclick="gtag('event','cta_click',{'location':'nordson_parameters_main','target':'automation_help'});">
-           Get Help With My System
-        </a>
-      </div>
-
-      <h3 id="pressure">Pressure Parameters</h3>
-
-      <div class="parameter-grid">
-        <div class="parameter-card">
-          <h4>Adhesive Pressure</h4>
-          <p><strong>What it is:</strong> the force pushing adhesive through the heated system toward the applicator.</p>
-          <p><strong>What it affects:</strong> material delivery rate and bead size potential.</p>
-          <p><strong>Practical meaning:</strong> too much pressure can overfeed the application, increase bead size, or worsen stringing. Too little can create weak output, short beads, or intermittent dispense.</p>
-        </div>
-
-        <div class="parameter-card">
-          <h4>Air Pressure</h4>
-          <p><strong>What it is:</strong> the pneumatic pressure used to actuate air-operated guns or modules.</p>
-          <p><strong>What it affects:</strong> how reliably and quickly the applicator opens and closes.</p>
-          <p><strong>Practical meaning:</strong> unstable air pressure can create delayed response, inconsistent starts and stops, poor cutoff, or variation between cycles.</p>
-        </div>
-      </div>
-
-      <h3 id="speed-timing">Speed and Timing Parameters</h3>
-
-      <div class="parameter-grid">
-        <div class="parameter-card">
-          <h4>Line Speed</h4>
-          <p><strong>What it is:</strong> how fast the product moves through the adhesive application point.</p>
-          <p><strong>What it affects:</strong> bead length, placement, and total adhesive laid down over a given distance.</p>
-          <p><strong>Practical meaning:</strong> if line speed increases but adhesive output and timing stay the same, the bead may become shorter or thinner. If line speed drops, the bead may become too large or too long.</p>
-        </div>
-
-        <div class="parameter-card">
-          <h4>Trigger Timing</h4>
-          <p><strong>What it is:</strong> when the gun turns on and off relative to product position.</p>
-          <p><strong>What it affects:</strong> where the adhesive starts and stops on the part.</p>
-          <p><strong>Practical meaning:</strong> timing is often the real reason for misplaced adhesive. A machine can have correct temperature and pressure and still apply the bead in the wrong spot.</p>
-        </div>
-
-        <div class="parameter-card">
-          <h4>Pattern Length</h4>
-          <p><strong>What it is:</strong> the length of adhesive applied during a given trigger event.</p>
-          <p><strong>What it affects:</strong> coverage, bond area, and material usage.</p>
-          <p><strong>Practical meaning:</strong> too short may reduce bond reliability. Too long can create squeeze-out, waste, or contamination of nearby areas.</p>
-        </div>
-      </div>
-
-      <div class="cta-box">
-        <h3>Next Step</h3>
-        <p>
-          Once the parameters make sense, the next useful question is how much adhesive your application is actually consuming.
-        </p>
-        <a href="/adhesive-usage-calculator.html"
-           onclick="gtag('event','next_step_click',{'from':'nordson_parameters','to':'adhesive_usage'});">
-           Go to Adhesive Usage Calculator →
-        </a>
-      </div>
-
-      <h3 id="quality">Bead and Quality Terms</h3>
-
-      <div class="parameter-grid">
-        <div class="parameter-card">
-          <h4>Bead Size</h4>
-          <p><strong>What it is:</strong> the width and apparent size of the adhesive bead after application.</p>
-          <p><strong>What it affects:</strong> coverage, material use, and bond appearance.</p>
-          <p><strong>Practical meaning:</strong> bead size is a visible result, not just one setting. It is affected by temperature, pressure, line speed, nozzle size, and trigger timing together.</p>
-        </div>
-
-        <div class="parameter-card">
-          <h4>Bead Placement</h4>
-          <p><strong>What it is:</strong> where the adhesive lands on the product.</p>
-          <p><strong>What it affects:</strong> bond location, cleanliness, and whether the adhesive actually does its job.</p>
-          <p><strong>Practical meaning:</strong> placement problems are often timing or mechanical alignment problems, not only temperature problems.</p>
-        </div>
-
-        <div class="parameter-card">
-          <h4>Cutoff Quality</h4>
-          <p><strong>What it is:</strong> how cleanly the adhesive stops when the gun closes.</p>
-          <p><strong>What it affects:</strong> stringing, dripping, tails, and edge cleanliness.</p>
-          <p><strong>Practical meaning:</strong> poor cutoff can be caused by temperature, pressure, nozzle condition, worn components, or slow pneumatic response.</p>
-        </div>
-
-        <div class="parameter-card">
-          <h4>Open Time</h4>
-          <p><strong>What it is:</strong> how long the adhesive remains usable for bonding after application.</p>
-          <p><strong>What it affects:</strong> whether parts actually bond correctly before the adhesive skins over or sets too far.</p>
-          <p><strong>Practical meaning:</strong> fast production changes, part delays, or wrong adhesive choice can all create bonding problems even when the pattern itself looks acceptable.</p>
-        </div>
-
-        <div class="parameter-card">
-          <h4>Viscosity Effect</h4>
-          <p><strong>What it is:</strong> how thick or thin the adhesive behaves at current conditions.</p>
-          <p><strong>What it affects:</strong> flow, bead shape, pumping behavior, and cutoff.</p>
-          <p><strong>Practical meaning:</strong> viscosity is heavily influenced by temperature and adhesive condition. It is one of the hidden reasons a system can behave differently from shift to shift.</p>
-        </div>
-      </div>
-
-      <div class="learn-more">
-        <h3>How to make better adjustments</h3>
-        <ul>
-          <li>Change one variable at a time whenever possible</li>
-          <li>Watch bead location and cutoff, not just whether adhesive is present</li>
-          <li>Check whether line speed changed before chasing temperature</li>
-          <li>Inspect nozzle and module condition before assuming the setting is wrong</li>
-          <li>Let the system stabilize before deciding whether a change helped</li>
-        </ul>
-
-        <h3>Common bad troubleshooting habits</h3>
-        <ul>
-          <li>Turning temperatures up first for every issue</li>
-          <li>Changing both pressure and timing at the same time</li>
-          <li>Ignoring air pressure condition on pneumatic guns</li>
-          <li>Judging the system before warmup is complete</li>
-          <li>Trying to solve mechanical alignment problems with process settings</li>
-        </ul>
-
-        <h3>Where this fits in the adhesive section</h3>
-        <p>
-          This page helps you understand what the settings mean. The next layer is using calculators and troubleshooting tools to estimate adhesive usage, convert speed into timing, and isolate bead quality problems more quickly.
-        </p>
-      </div>
-
-      <h3>Continue This Section</h3>
-
-      <div class="internal-links">
-        <a href="/adhesive-system-setup.html"
-           onclick="gtag('event','internal_link_click',{'from':'nordson_parameters','to':'adhesive_setup'});">
-           → Review: Adhesive System Setup
-        </a>
-
-        <a href="/adhesive-usage-calculator.html"
-           onclick="gtag('event','internal_link_click',{'from':'nordson_parameters','to':'adhesive_usage'});">
-           → Step 2: Adhesive Usage Calculator
-        </a>
-
-        <a href="/pattern-timing-calculator.html"
-           onclick="gtag('event','internal_link_click',{'from':'nordson_parameters','to':'pattern_timing'});">
-           → Step 3: Pattern Timing Calculator
-        </a>
-
-        <a href="/hot-melt-troubleshooting.html"
-           onclick="gtag('event','internal_link_click',{'from':'nordson_parameters','to':'hot_melt_troubleshooting'});">
-           Troubleshooting Tool
-        </a>
-      </div>
-
-      <div class="cta-box">
-        <p>Use the next tool to estimate how much adhesive your application is actually consuming per part, per minute, or per shift.</p>
-        <a href="/adhesive-usage-calculator.html">View Adhesive Usage Calculator</a>
-      </div>
-
-      <div class="cta-box">
-        <h3>Need implementation support?</h3>
-        <p>
-          If you need help applying this to a live adhesive process, connect with a qualified automation integrator.
-        </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
-
-      <p class="note">
-        This page is a practical interpretation guide. Exact parameter behavior depends on adhesive type, substrate, gun style, nozzle size, application target, and equipment configuration.
-      </p>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
+    <div class="formula-box">
+      Better Adhesive Setup Usually Comes From:<br><br>
+      Knowing What Each Parameter Changes + Adjusting One Variable At A Time + Watching Bead Quality, Placement, and Stability
     </div>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>Suggested starting point</h3>
-        <div class="recommendation-box">
-          <h4>Best use of this page</h4>
-          <p style="margin:0;">
-            Use this guide before changing live machine settings. Knowing what each parameter actually influences will save time and reduce random trial-and-error adjustments.
-          </p>
-        </div>
+    <div class="section-label">Quick navigation</div>
+    <div class="quick-row">
+      <a href="#temperature">Temperature</a>
+      <a href="#pressure">Pressure</a>
+      <a href="#speed-timing">Speed & Timing</a>
+      <a href="#quality">Bead Quality</a>
+      <a href="#interactions">Parameter Interactions</a>
+      <a href="#what-to-change-first">What to Change First</a>
+      <a href="#troubleshooting">Troubleshooting Scenarios</a>
+      <a href="#next-tools">Related Tools</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Suggested starting point</div>
+    <h2>Do not treat each setting as isolated</h2>
+
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>Best use of this page</h3>
+        <p>
+          Use this guide before changing live machine settings. Knowing what each parameter actually influences will save time and reduce random trial-and-error adjustments.
+        </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>What this guide helps with</h3>
-        <ul>
-          <li>Understanding temperature zones</li>
-          <li>Understanding pressure effects</li>
-          <li>Explaining line speed and timing interaction</li>
-          <li>Interpreting bead quality problems</li>
-          <li>Making more controlled setup changes</li>
-        </ul>
-      </div>
-
-      <div class="sidebar-card">
-        <h3>Most commonly misunderstood settings</h3>
+      <div class="info-card">
+        <h3>Most misunderstood settings</h3>
         <ul>
           <li>Tank temperature</li>
           <li>Gun temperature</li>
@@ -700,44 +580,406 @@
           <li>Line speed effect</li>
         </ul>
       </div>
+    </div>
 
-      <div class="sidebar-card">
-        <h3>Need help validating a real application?</h3>
-        <div class="pneumatic-consulting">
-          <p>
-            Submit your adhesive application details and I can help review likely setup issues, parameter interactions, and practical next checks.
-          </p>
+    <div class="callout warning">
+      <p>
+        <strong>Practical rule:</strong> if you change temperature, pressure, and timing all at once, you may fix the symptom but you will not know what actually fixed it.
+      </p>
+    </div>
+  </section>
 
-          <ul>
-            <li>Temperature setting direction</li>
-            <li>Pressure and bead consistency review</li>
-            <li>Timing and placement review</li>
-            <li>General automation design support</li>
-          </ul>
+  <section class="section">
+    <div class="section-label">Recommended workflow</div>
+    <h2>Recommended adjustment workflow</h2>
 
-          <a href="/automation-help.html" class="pneumatic-btn"
-             onclick="gtag('event','sidebar_help_click',{'from':'nordson_parameters'});">
-             Get Help With Your Application →
-          </a>
-        </div>
+    <div class="workflow">
+      <div class="workflow-card">
+        <h3>Check hardware first</h3>
+        <p>Nozzle restriction, worn modules, dirty filters, and air issues can mimic bad settings.</p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
+      <div class="workflow-card">
+        <h3>Verify temperatures</h3>
+        <p>Confirm tank, hose, and gun are stable before judging bead quality.</p>
+      </div>
+
+      <div class="workflow-card">
+        <h3>Confirm pressure</h3>
+        <p>Review adhesive pressure and pneumatic actuation pressure before chasing timing.</p>
+      </div>
+
+      <div class="workflow-card">
+        <h3>Adjust timing last</h3>
+        <p>Once flow is stable, tune trigger timing, bead length, and placement.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="temperature">
+    <div class="section-label">Temperature</div>
+    <h2>Temperature parameters</h2>
+
+    <div class="grid-3">
+      <div class="parameter-card">
+        <h4>Tank Temperature</h4>
+        <p><strong>What it is:</strong> the main melt tank temperature setting.</p>
+        <p><strong>What it affects:</strong> how the adhesive melts, conditions, and flows at the start of the system.</p>
+        <p><strong>Practical meaning:</strong> if tank temperature is too low, the adhesive may be too thick and harder to pump. If it is too high, the adhesive can degrade faster, char more easily, or become more prone to stringing.</p>
+      </div>
+
+      <div class="parameter-card">
+        <h4>Hose Temperature</h4>
+        <p><strong>What it is:</strong> the temperature setting for the heated hose between the melter and the gun.</p>
+        <p><strong>What it affects:</strong> viscosity consistency while the adhesive travels through the system.</p>
+        <p><strong>Practical meaning:</strong> even if the tank temperature is correct, a hose that runs too cool can cause the adhesive to thicken before it reaches the applicator.</p>
+      </div>
+
+      <div class="parameter-card">
+        <h4>Gun Temperature</h4>
+        <p><strong>What it is:</strong> the temperature setting at the applicator or gun.</p>
+        <p><strong>What it affects:</strong> final flow behavior, bead shape, and cutoff quality at the point of application.</p>
+        <p><strong>Practical meaning:</strong> this is one of the most important settings for how the adhesive behaves when it actually leaves the nozzle.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pressure">
+    <div class="section-label">Pressure</div>
+    <h2>Pressure parameters</h2>
+
+    <div class="grid-2">
+      <div class="parameter-card">
+        <h4>Adhesive Pressure</h4>
+        <p><strong>What it is:</strong> the force pushing adhesive through the heated system toward the applicator.</p>
+        <p><strong>What it affects:</strong> material delivery rate and bead size potential.</p>
+        <p><strong>Practical meaning:</strong> too much pressure can overfeed the application, increase bead size, or worsen stringing. Too little can create weak output, short beads, or intermittent dispense.</p>
+      </div>
+
+      <div class="parameter-card">
+        <h4>Air Pressure</h4>
+        <p><strong>What it is:</strong> the pneumatic pressure used to actuate air-operated guns or modules.</p>
+        <p><strong>What it affects:</strong> how reliably and quickly the applicator opens and closes.</p>
+        <p><strong>Practical meaning:</strong> unstable air pressure can create delayed response, inconsistent starts and stops, poor cutoff, or variation between cycles.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="speed-timing">
+    <div class="section-label">Speed and timing</div>
+    <h2>Speed and timing parameters</h2>
+
+    <div class="grid-3">
+      <div class="parameter-card">
+        <h4>Line Speed</h4>
+        <p><strong>What it is:</strong> how fast the product moves through the adhesive application point.</p>
+        <p><strong>What it affects:</strong> bead length, placement, and total adhesive laid down over a given distance.</p>
+        <p><strong>Practical meaning:</strong> if line speed increases but adhesive output and timing stay the same, the bead may become shorter or thinner. If line speed drops, the bead may become too large or too long.</p>
+      </div>
+
+      <div class="parameter-card">
+        <h4>Trigger Timing</h4>
+        <p><strong>What it is:</strong> when the gun turns on and off relative to product position.</p>
+        <p><strong>What it affects:</strong> where the adhesive starts and stops on the part.</p>
+        <p><strong>Practical meaning:</strong> timing is often the real reason for misplaced adhesive. A machine can have correct temperature and pressure and still apply the bead in the wrong spot.</p>
+      </div>
+
+      <div class="parameter-card">
+        <h4>Pattern Length</h4>
+        <p><strong>What it is:</strong> the length of adhesive applied during a given trigger event.</p>
+        <p><strong>What it affects:</strong> coverage, bond area, and material usage.</p>
+        <p><strong>Practical meaning:</strong> too short may reduce bond reliability. Too long can create squeeze-out, waste, or contamination of nearby areas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quality">
+    <div class="section-label">Bead quality</div>
+    <h2>Bead and quality terms</h2>
+
+    <div class="grid-3">
+      <div class="parameter-card">
+        <h4>Bead Size</h4>
+        <p><strong>What it is:</strong> the width and apparent size of the adhesive bead after application.</p>
+        <p><strong>Practical meaning:</strong> bead size is a visible result, not just one setting. It is affected by temperature, pressure, line speed, nozzle size, and trigger timing together.</p>
+      </div>
+
+      <div class="parameter-card">
+        <h4>Bead Placement</h4>
+        <p><strong>What it is:</strong> where the adhesive lands on the product.</p>
+        <p><strong>Practical meaning:</strong> placement problems are often timing or mechanical alignment problems, not only temperature problems.</p>
+      </div>
+
+      <div class="parameter-card">
+        <h4>Cutoff Quality</h4>
+        <p><strong>What it is:</strong> how cleanly the adhesive stops when the gun closes.</p>
+        <p><strong>Practical meaning:</strong> poor cutoff can be caused by temperature, pressure, nozzle condition, worn components, or slow pneumatic response.</p>
+      </div>
+
+      <div class="parameter-card">
+        <h4>Open Time</h4>
+        <p><strong>What it is:</strong> how long the adhesive remains usable for bonding after application.</p>
+        <p><strong>Practical meaning:</strong> part delays, wrong adhesive selection, or production timing changes can cause bonding problems even when the pattern looks acceptable.</p>
+      </div>
+
+      <div class="parameter-card">
+        <h4>Viscosity Effect</h4>
+        <p><strong>What it is:</strong> how thick or thin the adhesive behaves at current conditions.</p>
+        <p><strong>Practical meaning:</strong> viscosity is heavily influenced by temperature and adhesive condition. It is one hidden reason a system can behave differently from shift to shift.</p>
+      </div>
+
+      <div class="parameter-card">
+        <h4>Stringing / Tailing</h4>
+        <p><strong>What it is:</strong> adhesive trailing after the bead should stop.</p>
+        <p><strong>Practical meaning:</strong> this can come from heat, pressure, nozzle wear, slow cutoff, material condition, or wrong adhesive for the application.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="interactions">
+    <div class="section-label">Parameter interactions</div>
+    <h2>How adhesive settings interact</h2>
+
+    <table class="setup-table">
+      <thead>
+        <tr>
+          <th>Interaction</th>
+          <th>What can happen</th>
+          <th>What to check first</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Higher temperature + high pressure</td>
+          <td>Can increase flow, oversize the bead, worsen stringing, or create more tailing.</td>
+          <td>Nozzle condition, pressure setting, gun cutoff, adhesive recommendation.</td>
+        </tr>
+        <tr>
+          <td>Lower temperature + same pressure</td>
+          <td>Adhesive may thicken, causing weak flow, short beads, or delayed response.</td>
+          <td>Tank/hose/gun actual temperatures and warmup time.</td>
+        </tr>
+        <tr>
+          <td>Line speed change + unchanged timing</td>
+          <td>Bead may shift, shorten, lengthen, or miss the target area.</td>
+          <td>Encoder, speed reference, product detection, trigger delay.</td>
+        </tr>
+        <tr>
+          <td>Restricted nozzle + increased pressure</td>
+          <td>Pressure adjustment may hide the real problem temporarily while cutoff and pattern quality degrade.</td>
+          <td>Nozzle, module, filter, char, contamination.</td>
+        </tr>
+        <tr>
+          <td>Low air pressure + correct adhesive pressure</td>
+          <td>Gun may open late, close late, or behave inconsistently even though adhesive pressure looks fine.</td>
+          <td>Air regulator, valve response, pneumatic tubing, solenoid, exhaust restriction.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section" id="what-to-change-first">
+    <div class="section-label">Decision blocks</div>
+    <h2>What should you change first?</h2>
+
+    <div class="grid-2">
+      <div class="decision-card">
+        <h3>If the bead is in the wrong location</h3>
         <ul>
-          <li>Whether line speed recently changed</li>
-          <li>Whether the nozzle is restricted or worn</li>
-          <li>Whether air pressure is truly stable</li>
-          <li>Whether the hose and gun are fully stabilized</li>
-          <li>Whether the adhesive has been overheated too long</li>
+          <li>Check trigger timing before changing temperature.</li>
+          <li>Check product sensor position and repeatability.</li>
+          <li>Check line speed or encoder reference.</li>
+          <li>Check mechanical gun/nozzle position.</li>
+        </ul>
+      </div>
+
+      <div class="decision-card">
+        <h3>If the bead is too large</h3>
+        <ul>
+          <li>Check adhesive pressure.</li>
+          <li>Check line speed changes.</li>
+          <li>Check nozzle size.</li>
+          <li>Check whether temperature is making the adhesive too thin.</li>
+        </ul>
+      </div>
+
+      <div class="decision-card">
+        <h3>If the bead is short or weak</h3>
+        <ul>
+          <li>Check nozzle restriction.</li>
+          <li>Check hose and gun temperature.</li>
+          <li>Check adhesive pressure.</li>
+          <li>Check whether the gun is opening fully.</li>
+        </ul>
+      </div>
+
+      <div class="decision-card">
+        <h3>If cutoff is poor</h3>
+        <ul>
+          <li>Check nozzle/module condition.</li>
+          <li>Check gun air pressure and response.</li>
+          <li>Check adhesive pressure.</li>
+          <li>Check temperature and adhesive degradation.</li>
         </ul>
       </div>
     </div>
+
+    <div class="callout warning">
+      <p>
+        <strong>Strong recommendation:</strong> write down the original values before changing anything. If the change makes things worse, you need a clean path back.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="troubleshooting">
+    <div class="section-label">Troubleshooting scenarios</div>
+    <h2>Common adhesive problems and likely causes</h2>
+
+    <div class="grid-3">
+      <div class="info-card">
+        <h3>Stringing</h3>
+        <ul>
+          <li>Temperature too high</li>
+          <li>Adhesive pressure too high</li>
+          <li>Worn or dirty nozzle</li>
+          <li>Slow cutoff response</li>
+          <li>Adhesive overheated too long</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Dripping</h3>
+        <ul>
+          <li>Gun not sealing cleanly</li>
+          <li>Contamination in module</li>
+          <li>Pressure too high</li>
+          <li>Air actuation issue</li>
+          <li>Temperature too high</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Short bead</h3>
+        <ul>
+          <li>Trigger off too early</li>
+          <li>Nozzle restriction</li>
+          <li>Pressure too low</li>
+          <li>Gun opening late</li>
+          <li>Line speed increased</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Bead shifted forward/back</h3>
+        <ul>
+          <li>Trigger delay wrong</li>
+          <li>Sensor position changed</li>
+          <li>Speed reference changed</li>
+          <li>Product position variation</li>
+          <li>Mechanical gun alignment issue</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Intermittent dispense</h3>
+        <ul>
+          <li>Air pressure unstable</li>
+          <li>Adhesive supply issue</li>
+          <li>Filter or nozzle restriction</li>
+          <li>Loose signal or bad trigger</li>
+          <li>Temperature not stabilized</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Poor bond</h3>
+        <ul>
+          <li>Wrong adhesive temperature</li>
+          <li>Open time exceeded</li>
+          <li>Wrong adhesive for substrate</li>
+          <li>Not enough adhesive</li>
+          <li>Contaminated surface</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Better adjustment habits</div>
+    <h2>How to make better adhesive adjustments</h2>
+
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>Do this</h3>
+        <ul>
+          <li>Change one variable at a time whenever possible.</li>
+          <li>Watch bead location and cutoff, not just whether adhesive is present.</li>
+          <li>Check whether line speed changed before chasing temperature.</li>
+          <li>Inspect nozzle and module condition before assuming the setting is wrong.</li>
+          <li>Let the system stabilize before deciding whether a change helped.</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Avoid this</h3>
+        <ul>
+          <li>Turning temperatures up first for every issue.</li>
+          <li>Changing pressure and timing at the same time.</li>
+          <li>Ignoring air pressure condition on pneumatic guns.</li>
+          <li>Judging the system before warmup is complete.</li>
+          <li>Trying to solve mechanical alignment problems with process settings.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h3>Need help applying this in your system?</h3>
+    <p>
+      If you are trying to sort out real adhesive settings on a machine, get help reviewing the process before changing a bunch of variables at once.
+    </p>
+    <a href="/automation-help.html">Get Help With My System</a>
+  </section>
+
+  <section class="section" id="next-tools">
+    <div class="section-label">Continue this section</div>
+    <h2>Continue in the adhesives workflow</h2>
+
+    <p>
+      This page helps you understand what the settings mean. The next layer is using calculators and troubleshooting tools to estimate adhesive usage, convert speed into timing, and isolate bead quality problems more quickly.
+    </p>
+
+    <div class="internal-links">
+      <a href="/adhesive-system-setup.html">Review: Adhesive System Setup</a>
+      <a href="/adhesive-usage-calculator.html">Step 2: Adhesive Usage Calculator</a>
+      <a href="/pattern-timing-calculator.html">Step 3: Pattern Timing Calculator</a>
+      <a href="/hot-melt-troubleshooting.html">Troubleshooting Tool</a>
+      <a href="/adhesives.html">Adhesives Hub</a>
+      <a href="/integrators.html">Find an Integrator</a>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Need implementation support?</h2>
+    <p>
+      If you need help applying this to a live adhesive process, connect with a qualified automation integrator.
+    </p>
+    <a href="/integrators.html">Find an Integrator</a>
+    <a href="/adhesives.html">View Adhesive Tools</a>
+  </section>
+
+  <p class="note">
+    This page is a practical interpretation guide. Exact parameter behavior depends on adhesive type, substrate, gun style, nozzle size, application target, equipment configuration, ambient conditions, and production speed.
+  </p>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
-</div>
+
+</main>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
