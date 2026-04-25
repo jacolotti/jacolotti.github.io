@@ -3,6 +3,7 @@
 <head>
   <link rel="canonical" href="https://automationcalculators.net/bolt-tightening-torque.html">
   <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
   <meta charset="UTF-8">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -18,41 +19,81 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --panel:#ffffff;
+      --ink:#1f2a44;
+      --muted:#5d6b84;
+      --line:#d9e2f2;
+      --soft:#eef4ff;
+      --soft2:#f8fbff;
+      --accent:#1e6bd6;
+      --accent-dark:#1555ad;
+      --warn-bg:#fff7df;
+      --warn-line:#f1d98a;
+      --good-bg:#eaf7ef;
+      --good-line:#bfe5cb;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
     body{
       font-family:Arial, sans-serif;
-      background:#f4f4f4;
+      background:var(--bg);
       margin:0;
       color:#222;
     }
 
+    a{
+      color:var(--accent);
+    }
+
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:#ffffff;
+      color:var(--ink);
+      padding:46px 20px 34px;
+      border-bottom:1px solid var(--line);
       text-align:center;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:1050px;
       margin:auto;
     }
 
+    .eyebrow{
+      display:inline-block;
+      background:var(--soft);
+      color:#31527f;
+      border:1px solid #cfddf5;
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:13px;
+      font-weight:bold;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      margin-bottom:14px;
+    }
+
     .hero h1{
-      margin:0 0 12px;
-      font-size:34px;
-      line-height:1.2;
+      margin:0 0 14px;
+      font-size:38px;
+      line-height:1.15;
+      color:var(--ink);
     }
 
     .hero p{
-      max-width:800px;
+      max-width:870px;
       margin:0 auto 14px;
-      color:#e7ecf7;
+      color:#4f5f78;
       font-size:17px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .hero-cta{
-      margin-top:18px;
+      margin-top:22px;
       display:flex;
       justify-content:center;
       gap:12px;
@@ -62,20 +103,21 @@
     .hero-cta a{
       display:inline-block;
       padding:12px 18px;
-      border-radius:8px;
+      border-radius:9px;
       text-decoration:none;
       font-weight:bold;
       transition:.2s ease;
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:var(--accent);
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      color:var(--ink);
+      background:#f4f7fd;
+      border:1px solid #ccd8ee;
     }
 
     .hero-cta a:hover{
@@ -85,35 +127,29 @@
 
     .page-wrap{
       max-width:1150px;
-      margin:30px auto;
-      padding:0 18px 40px;
+      margin:28px auto 0;
+      padding:0 18px 46px;
     }
 
     .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
+      background:var(--warn-bg);
+      border:1px solid var(--warn-line);
       color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1050px;
+      padding:15px 17px;
+      border-radius:12px;
+      margin:0 0 22px;
       font-size:15px;
-      line-height:1.5;
+      line-height:1.55;
       text-align:left;
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card{
-      background:white;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
+    .section{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      box-shadow:0 6px 18px rgba(31,42,68,.06);
       padding:28px;
+      margin:0 0 24px;
     }
 
     .section-label{
@@ -125,19 +161,125 @@
       margin-bottom:10px;
     }
 
-    .card h2{
-      margin-top:0;
-      margin-bottom:10px;
-      color:#1f2a44;
+    .section h2{
+      margin:0 0 14px;
+      color:var(--ink);
+      font-size:26px;
+      line-height:1.25;
     }
 
-    .description{
-      margin-top:0;
-      margin-bottom:18px;
-      color:#555;
+    .section h3{
+      margin:22px 0 10px;
+      color:var(--ink);
+      font-size:20px;
+    }
+
+    .section p{
+      color:#4f5f78;
+      line-height:1.7;
+      margin:0 0 14px;
       font-size:16px;
-      line-height:1.6;
+    }
+
+    .section ul,
+    .section ol{
+      color:#45546d;
+      line-height:1.75;
+      margin-top:8px;
+      padding-left:22px;
+    }
+
+    .grid-2,
+    .grid-3{
+      display:grid;
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .grid-2{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .grid-3{
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+
+    .info-card{
+      background:var(--soft2);
+      border:1px solid #d7e6ff;
+      border-radius:13px;
+      padding:18px;
+    }
+
+    .info-card h3{
+      margin:0 0 10px;
+      font-size:18px;
+      color:var(--ink);
+    }
+
+    .info-card p{
+      margin:0;
+      font-size:15px;
+    }
+
+    .info-card ul{
+      margin:0;
+      padding-left:18px;
+      font-size:15px;
+    }
+
+    .formula-box{
+      margin:20px 0;
+      padding:18px;
+      background:#eef3ff;
+      border:1px solid #cfdaf5;
+      border-radius:12px;
+      color:#1f2a44;
+      font-weight:bold;
+      font-size:17px;
+      line-height:1.7;
       text-align:left;
+    }
+
+    .workflow{
+      counter-reset:step;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .workflow-card{
+      background:#ffffff;
+      border:1px solid #dbe4f3;
+      border-radius:13px;
+      padding:16px;
+      position:relative;
+    }
+
+    .workflow-card:before{
+      counter-increment:step;
+      content:counter(step);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:var(--accent);
+      color:white;
+      font-weight:bold;
+      margin-bottom:10px;
+    }
+
+    .workflow-card h3{
+      margin:0 0 8px;
+      font-size:17px;
+    }
+
+    .workflow-card p{
+      font-size:15px;
+      margin:0;
     }
 
     .quick-row{
@@ -155,6 +297,7 @@
       cursor:pointer;
       font-weight:600;
       color:#1f2a44;
+      font-family:Arial, sans-serif;
     }
 
     .quick-row button:hover{
@@ -165,33 +308,42 @@
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
       gap:16px;
-      margin-bottom:20px;
+      margin:25px 0 20px;
       text-align:left;
     }
 
     .control-group{
       background:#f8fbff;
       border:1px solid #d7e6ff;
-      border-radius:10px;
+      border-radius:12px;
       padding:16px;
     }
 
     .control-group label{
       display:block;
-      font-weight:600;
+      font-weight:700;
       margin-bottom:6px;
       color:#23314f;
+    }
+
+    .control-group small{
+      display:block;
+      color:#6a7890;
+      line-height:1.45;
+      margin-top:7px;
+      font-size:13px;
     }
 
     .control-group input,
     .control-group select{
       width:100%;
-      padding:10px;
+      padding:10px 12px;
       font-size:16px;
       box-sizing:border-box;
       border:1px solid #cfd6e4;
       border-radius:8px;
       background:white;
+      font-family:Arial, sans-serif;
     }
 
     .control-group input:focus,
@@ -211,13 +363,14 @@
     .button-row button{
       padding:13px 22px;
       font-size:16px;
-      background:#1f2a44;
+      background:var(--accent);
       color:white;
       border:none;
-      border-radius:8px;
+      border-radius:9px;
       cursor:pointer;
-      transition:background .2s, transform .2s;
+      transition:.2s ease;
       font-weight:bold;
+      font-family:Arial, sans-serif;
     }
 
     .button-row button.secondary{
@@ -230,21 +383,26 @@
     }
 
     .button-row button:hover{
-      background:#2d3d63;
+      background:var(--accent-dark);
       transform:translateY(-1px);
+    }
+
+    .button-row button.secondary:hover{
+      background:#485772;
+    }
+
+    .button-row button.ghost:hover{
+      background:#dde7f8;
     }
 
     .result{
       margin-top:25px;
-      padding:20px;
+      padding:21px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:10px;
+      border-radius:12px;
       font-size:17px;
       line-height:1.6;
-      max-width:980px;
-      margin-left:auto;
-      margin-right:auto;
       text-align:left;
       overflow-x:auto;
       scroll-margin-top:100px;
@@ -264,6 +422,7 @@
       border:1px solid #d8e3f5;
       padding:10px;
       text-align:left;
+      vertical-align:top;
     }
 
     .result th{
@@ -271,116 +430,119 @@
       color:#1f2a44;
     }
 
-    .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
+    .result-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+      gap:12px;
+      margin:14px 0;
     }
 
-    .cta-box h3{
-      margin:0 0 10px;
+    .result-card{
+      background:white;
+      border:1px solid #cbdcff;
+      border-radius:10px;
+      padding:13px;
+    }
+
+    .result-card strong{
+      display:block;
       color:#1f2a44;
+      margin-bottom:5px;
     }
 
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 18px;
-      border-radius:8px;
-      text-decoration:none;
+    .result-card span{
+      color:#2b3b5e;
+      font-size:19px;
       font-weight:bold;
     }
 
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
+    .callout{
+      background:#f4f8ff;
+      border:1px solid #d7e6ff;
+      border-radius:13px;
+      padding:18px;
+      margin-top:16px;
     }
 
-    .learn-more h3{
-      color:#1f2a44;
-      margin-bottom:10px;
+    .callout.good{
+      background:var(--good-bg);
+      border-color:var(--good-line);
     }
 
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
+    .callout.warning{
+      background:var(--warn-bg);
+      border-color:var(--warn-line);
+    }
+
+    .callout p:last-child{
+      margin-bottom:0;
     }
 
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:10px;
+      margin-top:14px;
     }
 
     .internal-links a{
       display:inline-block;
       padding:10px 12px;
-      background:#f2f5fb;
+      background:white;
       border:1px solid #d6e0f1;
       border-radius:8px;
       color:#1f2a44;
       text-decoration:none;
-      font-weight:600;
+      font-weight:700;
+      font-size:15px;
     }
 
     .internal-links a:hover{
       background:#e9eef8;
     }
 
-    .sidebar-card{
-      background:white;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-      padding:22px;
-      margin-bottom:20px;
+    .note{
+      margin-top:18px;
+      color:#666;
+      font-size:14px;
+      line-height:1.65;
       text-align:left;
     }
 
-    .sidebar-card h3{
+    .cta-box{
       margin-top:0;
-      margin-bottom:10px;
+      padding:26px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:16px;
+      text-align:center;
+    }
+
+    .cta-box h2{
+      margin:0 0 10px;
       color:#1f2a44;
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+    .cta-box p{
+      margin:0 auto 16px;
+      color:#4d5a74;
+      line-height:1.65;
+      max-width:820px;
     }
 
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
-    }
-
-    .note{
-      margin-top:20px;
-      color:#666;
-      font-size:14px;
-      line-height:1.6;
-      max-width:980px;
-      margin-left:auto;
-      margin-right:auto;
-      text-align:left;
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 17px;
+      border-radius:9px;
+      text-decoration:none;
+      font-weight:bold;
+      margin:4px;
     }
 
     .footer{
-      margin-top:40px;
+      margin-top:36px;
       color:#666;
       font-size:14px;
       text-align:center;
@@ -388,41 +550,39 @@
 
     .warn{
       color:#8a4b00;
-      font-weight:600;
+      font-weight:700;
     }
 
     .danger{
       color:#a12626;
-      font-weight:600;
+      font-weight:700;
     }
 
     .good{
       color:#1b6b2a;
-      font-weight:600;
+      font-weight:700;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
+    @media (max-width:980px){
+      .grid-3,
+      .workflow{
+        grid-template-columns:repeat(2,minmax(0,1fr));
       }
     }
 
-    @media (max-width:700px){
-      .card,
-      .sidebar-card{
-        padding:20px;
-      }
-
-      .button-row{
-        flex-direction:column;
-      }
-
-      .button-row button{
-        width:100%;
-      }
-
+    @media (max-width:760px){
       .hero h1{
-        font-size:28px;
+        font-size:30px;
+      }
+
+      .section{
+        padding:21px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .workflow{
+        grid-template-columns:1fr;
       }
 
       .hero-cta{
@@ -432,230 +592,543 @@
 
       .hero-cta a{
         width:100%;
-        max-width:320px;
+        max-width:330px;
+      }
+
+      .button-row{
+        flex-direction:column;
+      }
+
+      .button-row button{
+        width:100%;
       }
     }
   </style>
 </head>
-<body>
 
+<body>
 <div id="navbar"></div>
 
 <section class="hero">
   <div class="hero-inner">
+    <div class="eyebrow">Fastening / Clamp Load</div>
     <h1>Bolt Tightening Torque Calculator</h1>
     <p>
-      Estimate practical starting bolt torque, clamp load target, preload stress, and torque ranges based on metric bolt size, property class, preload target, and assembly condition.
+      Estimate practical starting bolt torque, clamp load target, preload stress, and torque ranges based on metric bolt size, thread series, property class, preload target, joint type, bearing surface, and assembly condition.
+    </p>
+    <p>
+      Built for automation, fixture, tooling, machine build, and assembly planning where you need a responsible starting point before validating the real joint.
     </p>
     <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
-      <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'bolt_torque_hero'});">Find an Integrator</a>
+      <a href="#calculator" class="primary" onclick="gtag('event','hero_cta_click',{'page':'bolt_tightening_torque','target':'calculator'});">Open Calculator</a>
+      <a href="/torque-angle.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'bolt_tightening_hero','to':'torque_angle'});">Torque-Angle Calculator</a>
+      <a href="/fastening.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'bolt_tightening_hero','to':'fastening_hub'});">Fastening Hub</a>
     </div>
   </div>
 </section>
 
-<div class="page-wrap">
+<main class="page-wrap">
+
   <div class="top-note">
     <strong>Good starting use case:</strong> choose bolt size, thread series, property class, preload target, and assembly condition, then compare nominal torque and friction-driven torque spread before setting a starting value for testing.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Starting Tightening Torque</h2>
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <h2>What this calculator does</h2>
+    <p>
+      This calculator estimates a starting tightening torque from a target clamp load. It uses the practical relationship between torque, nut factor, clamp load, and nominal bolt diameter. That makes it useful for early engineering work, assembly planning, fixture design, and tightening strategy review.
+    </p>
+    <p>
+      Bolt torque is only an indirect way to control preload. Real clamp load depends heavily on thread friction, under-head friction, lubrication, plating, coatings, bearing surface condition, washer condition, and joint stiffness. The same torque value can produce very different clamp loads if the assembly condition changes.
+    </p>
 
-      <p class="description">
-        This calculator is intended for rough engineering use in automation, fixtures, tooling, machine build, and assembly planning. It is most useful as a preload-based starting estimate, not as a final validated torque specification.
-      </p>
+    <div class="formula-box">
+      Torque = K × Clamp Load × Nominal Diameter<br><br>
+      Clamp Load Target = Tensile Stress Area × Proof Strength × Target Proof Load %<br><br>
+      Preload Stress = Proof Strength × Target Proof Load %
+    </div>
 
-      <p class="description">
-        Bolt torque is only an indirect way to control preload. Real clamp load depends heavily on thread friction, under-head friction, lubrication, coatings, bearing surface condition, and joint stiffness. That means the same torque can produce very different clamp loads in the real world.
-      </p>
+    <p>
+      The result should be treated as a starting point for testing, not as a final validated torque specification. For critical joints, safety-related applications, and highly variable assemblies, use validated manufacturer data, torque-angle review, direct tension testing, or formal tightening studies.
+    </p>
+  </section>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadGeneralM10Example(); gtag('event','bolt_torque_quick_example',{'type':'general_m10'});">General M10</button>
-        <button type="button" onclick="loadCriticalM12Example(); gtag('event','bolt_torque_quick_example',{'type':'critical_m12'});">Critical M12</button>
-        <button type="button" onclick="loadDryM8Example(); gtag('event','bolt_torque_quick_example',{'type':'dry_m8'});">Dry M8</button>
-      </div>
+  <section class="section">
+    <div class="section-label">Converted from old sidebar content</div>
+    <h2>What this bolt torque calculator gives you</h2>
 
-      <div class="controls">
-        <div class="control-group">
-          <label for="boltSize">Metric Bolt Size</label>
-          <select id="boltSize" onchange="applyBoltData()">
-            <option value="M4">M4</option>
-            <option value="M5">M5</option>
-            <option value="M6">M6</option>
-            <option value="M8">M8</option>
-            <option value="M10" selected>M10</option>
-            <option value="M12">M12</option>
-            <option value="M14">M14</option>
-            <option value="M16">M16</option>
-            <option value="M20">M20</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="threadSeries">Thread Series</label>
-          <select id="threadSeries" onchange="applyBoltData()">
-            <option value="coarse" selected>Coarse</option>
-            <option value="fine">Fine</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="pitch">Thread Pitch (mm)</label>
-          <input id="pitch" type="number" value="1.5" step="0.01" min="0.1">
-        </div>
-
-        <div class="control-group">
-          <label for="tensileArea">Tensile Stress Area (mm²)</label>
-          <input id="tensileArea" type="number" value="58.0" step="0.1" min="0.1">
-        </div>
-
-        <div class="control-group">
-          <label for="propertyClass">Property Class</label>
-          <select id="propertyClass" onchange="applyPropertyClass()">
-            <option value="8.8">8.8</option>
-            <option value="10.9" selected>10.9</option>
-            <option value="12.9">12.9</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="proofStrength">Proof Strength (MPa)</label>
-          <input id="proofStrength" type="number" value="830" step="1" min="1">
-        </div>
-
-        <div class="control-group">
-          <label for="proofPercent">Target Proof Load (%)</label>
-          <input id="proofPercent" type="number" value="75" step="1" min="1" max="100">
-        </div>
-
-        <div class="control-group">
-          <label for="jointType">Joint Type</label>
-          <select id="jointType">
-            <option value="general" selected>General Clamp Joint</option>
-            <option value="hard">Hard Joint / Metal-to-Metal</option>
-            <option value="soft">Soft Joint / Compressible Stack</option>
-            <option value="service">Repeated Service Joint</option>
-            <option value="critical">Critical Joint</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="bearingCondition">Bearing Surface</label>
-          <select id="bearingCondition">
-            <option value="standard" selected>Standard Bearing Surface</option>
-            <option value="washer">With Washer</option>
-            <option value="hardenedWasher">With Hardened Washer</option>
-            <option value="flange">Flange Head / Flange Nut</option>
-            <option value="unknown">Unknown / Variable Surface</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="condition">Assembly Condition</label>
-          <select id="condition" onchange="applyCondition()">
-            <option value="custom">Custom K-Factor</option>
-            <option value="dry_plain">Dry Plain Steel</option>
-            <option value="zinc_dry">Zinc Plated Dry</option>
-            <option value="light_oil" selected>Lightly Oiled</option>
-            <option value="lubricated">Lubricated</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="nutFactor">Nominal K-Factor</label>
-          <input id="nutFactor" type="number" value="0.18" step="0.01" min="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="showUnits">Primary Display Units</label>
-          <select id="showUnits">
-            <option value="Nm" selected>Nm</option>
-            <option value="ft-lb">ft-lb</option>
-            <option value="in-lb">in-lb</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateTorque();">Calculate Torque</button>
-        <button class="secondary" onclick="loadGeneralM10Example();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator();">Reset</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and calculate tightening torque.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this on a real machine or assembly?</h3>
+    <div class="grid-3">
+      <div class="info-card">
+        <h3>Nominal starting torque</h3>
         <p>
-          If you are defining fastening strategy, clamp targets, DC tool setup, or troubleshooting torque issues, connect with an automation integrator or assembly engineering resource.
+          A calculated starting torque based on target clamp load, nominal bolt diameter, and selected K-factor assumptions.
         </p>
-        <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'bolt_torque_midpage'});">Find an Integrator</a>
       </div>
 
-      <div class="learn-more">
-        <h3>Why torque alone can mislead you</h3>
+      <div class="info-card">
+        <h3>Clamp load target</h3>
         <p>
-          Torque is only a proxy for preload. Most of the applied torque is lost to friction, and only a smaller portion becomes useful bolt tension. That is why lubrication, plating, surface condition, and joint behavior can change clamp load dramatically without changing the torque setting very much.
+          Estimated preload force from tensile stress area, proof strength, and selected proof load percentage.
         </p>
-
-        <p>
-          This tool is best used to establish a starting point for testing. For critical joints, safety-related applications, or highly variable assemblies, torque-angle, direct tension methods, or validated tightening studies are better than torque-only assumptions.
-        </p>
-
-        <div class="internal-links">
-          <a href="/torque-angle.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_torque','to':'torque_angle'});">Torque-Angle Calculator</a>
-          <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_torque','to':'torque_clamp_load'});">Torque to Clamp Load Calculator</a>
-          <a href="/multi-stage-torque-sequence.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_torque','to':'torque_sequence'});">Multi-Stage Torque Sequence</a>
-        </div>
       </div>
 
-      <p class="note">
-        This calculator uses a practical preload relationship based on torque = K × clamp load × nominal diameter. Real clamp load depends strongly on thread friction, under-head friction, lubrication, coatings, joint stiffness, washer condition, and assembly variation. For critical joints, validate against manufacturer data or tested tightening procedures.
-      </p>
+      <div class="info-card">
+        <h3>Preload stress</h3>
+        <p>
+          Approximate bolt stress level in MPa, based on the selected proof load target.
+        </p>
+      </div>
 
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators and simulators for real automation work
+      <div class="info-card">
+        <h3>Torque spread table</h3>
+        <p>
+          Low, nominal, and high friction torque estimates so you can see how assembly condition affects tightening torque.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Joint warnings</h3>
+        <p>
+          Engineering warnings tied to preload target, joint type, property class, bearing surface, and custom K-factor assumptions.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Metric bolt presets</h3>
+        <p>
+          Built-in data for common M4 through M20 coarse and fine metric thread combinations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Recommended workflow</div>
+    <h2>Recommended tightening workflow</h2>
+    <p>
+      Use this calculator as part of a fastening workflow, not as a standalone approval method. The right torque number depends on what clamp load you need, what the joint can tolerate, and how repeatable your assembly conditions are.
+    </p>
+
+    <div class="workflow">
+      <div class="workflow-card">
+        <h3>Select bolt data</h3>
+        <p>
+          Choose bolt size, thread series, property class, pitch, and tensile stress area.
+        </p>
+      </div>
+
+      <div class="workflow-card">
+        <h3>Set preload target</h3>
+        <p>
+          Choose a proof load percentage that fits the application and risk level.
+        </p>
+      </div>
+
+      <div class="workflow-card">
+        <h3>Choose assembly condition</h3>
+        <p>
+          Select dry, plated, oiled, lubricated, or custom K-factor assumptions.
+        </p>
+      </div>
+
+      <div class="workflow-card">
+        <h3>Validate in the real joint</h3>
+        <p>
+          Check clamp load, torque scatter, seating, relaxation, tool accuracy, and production variation.
+        </p>
       </div>
     </div>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
-        <ul>
-          <li>Nominal starting torque</li>
-          <li>Clamp load target</li>
-          <li>Approximate preload stress</li>
-          <li>Low / nominal / high friction torque spread</li>
-          <li>Warnings tied to joint assumptions</li>
-        </ul>
-      </div>
+    <div class="internal-links">
+      <a href="/torque-angle.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_workflow','to':'torque_angle'});">Torque-Angle Calculator</a>
+      <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_workflow','to':'torque_clamp_load'});">Torque to Clamp Load</a>
+      <a href="/multi-stage-torque-sequence.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_workflow','to':'multi_stage_torque_sequence'});">Multi-Stage Torque Sequence</a>
+      <a href="/bolt-torque-chart.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_workflow','to':'bolt_torque_chart'});">Bolt Torque Chart</a>
+    </div>
+  </section>
 
-      <div class="sidebar-card">
-        <h3>When to be extra careful</h3>
+  <section class="section">
+    <div class="section-label">Where to be careful</div>
+    <h2>When torque-only control becomes risky</h2>
+
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>Critical joints</h3>
         <p>
-          Torque-only control becomes less reliable when the joint is critical, friction is inconsistent, coatings vary, or the stack contains soft or settling materials.
+          Torque-only control becomes less reliable when the joint is safety-related, structural, customer-critical, high-vibration, or difficult to inspect after assembly.
         </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Common causes of bad clamp consistency</h3>
+      <div class="info-card">
+        <h3>Variable friction</h3>
+        <p>
+          Clamp load can swing heavily when lubrication, coatings, thread condition, washer condition, or under-head bearing surfaces are inconsistent.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Soft or settling stacks</h3>
+        <p>
+          Gaskets, paint, plastic, soft brackets, rough surfaces, and compressible layers can relax after tightening and reduce clamp load.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Reused fasteners</h3>
+        <p>
+          Reuse can change friction, thread quality, coating condition, and bolt behavior. Do not assume reused fasteners behave like new parts.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <p>
+        <strong>Plain truth:</strong> a torque number that looks precise can still produce poor clamp consistency if the joint is unstable or the friction condition is not controlled.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Calculator</div>
+    <h2>Estimate starting bolt tightening torque</h2>
+
+    <p>
+      Enter bolt size, thread series, tensile stress area, proof strength, preload target, joint type, bearing surface, assembly condition, and preferred output units. The calculator estimates clamp load target, nominal torque, preload stress, and torque range across friction assumptions.
+    </p>
+
+    <div class="section-label">Quick examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadGeneralM10Example(); gtag('event','bolt_torque_quick_example',{'type':'general_m10'});">General M10</button>
+      <button type="button" onclick="loadCriticalM12Example(); gtag('event','bolt_torque_quick_example',{'type':'critical_m12'});">Critical M12</button>
+      <button type="button" onclick="loadDryM8Example(); gtag('event','bolt_torque_quick_example',{'type':'dry_m8'});">Dry M8</button>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="boltSize">Metric Bolt Size</label>
+        <select id="boltSize" onchange="applyBoltData()">
+          <option value="M4">M4</option>
+          <option value="M5">M5</option>
+          <option value="M6">M6</option>
+          <option value="M8">M8</option>
+          <option value="M10" selected>M10</option>
+          <option value="M12">M12</option>
+          <option value="M14">M14</option>
+          <option value="M16">M16</option>
+          <option value="M20">M20</option>
+        </select>
+        <small>Selects nominal diameter and preset thread data.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="threadSeries">Thread Series</label>
+        <select id="threadSeries" onchange="applyBoltData()">
+          <option value="coarse" selected>Coarse</option>
+          <option value="fine">Fine</option>
+        </select>
+        <small>Updates pitch and tensile stress area for common metric threads.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="pitch">Thread Pitch (mm)</label>
+        <input id="pitch" type="number" value="1.5" step="0.01" min="0.1">
+        <small>Thread advance per full revolution.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="tensileArea">Tensile Stress Area (mm²)</label>
+        <input id="tensileArea" type="number" value="58.0" step="0.1" min="0.1">
+        <small>Used to calculate clamp load from proof strength.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="propertyClass">Property Class</label>
+        <select id="propertyClass" onchange="applyPropertyClass()">
+          <option value="8.8">8.8</option>
+          <option value="10.9" selected>10.9</option>
+          <option value="12.9">12.9</option>
+        </select>
+        <small>Updates the proof strength preset.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="proofStrength">Proof Strength (MPa)</label>
+        <input id="proofStrength" type="number" value="830" step="1" min="1">
+        <small>You can override this if your fastener data differs.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="proofPercent">Target Proof Load (%)</label>
+        <input id="proofPercent" type="number" value="75" step="1" min="1" max="100">
+        <small>Typical planning values are often below the proof limit.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="jointType">Joint Type</label>
+        <select id="jointType">
+          <option value="general" selected>General Clamp Joint</option>
+          <option value="hard">Hard Joint / Metal-to-Metal</option>
+          <option value="soft">Soft Joint / Compressible Stack</option>
+          <option value="service">Repeated Service Joint</option>
+          <option value="critical">Critical Joint</option>
+        </select>
+        <small>Used for warning guidance and process review.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="bearingCondition">Bearing Surface</label>
+        <select id="bearingCondition">
+          <option value="standard" selected>Standard Bearing Surface</option>
+          <option value="washer">With Washer</option>
+          <option value="hardenedWasher">With Hardened Washer</option>
+          <option value="flange">Flange Head / Flange Nut</option>
+          <option value="unknown">Unknown / Variable Surface</option>
+        </select>
+        <small>Bearing condition affects under-head friction and scatter.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="condition">Assembly Condition</label>
+        <select id="condition" onchange="applyCondition()">
+          <option value="custom">Custom K-Factor</option>
+          <option value="dry_plain">Dry Plain Steel</option>
+          <option value="zinc_dry">Zinc Plated Dry</option>
+          <option value="light_oil" selected>Lightly Oiled</option>
+          <option value="lubricated">Lubricated</option>
+        </select>
+        <small>Selects a practical nut factor and friction spread.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="nutFactor">Nominal K-Factor</label>
+        <input id="nutFactor" type="number" value="0.18" step="0.01" min="0.01">
+        <small>Higher K-factor generally requires more torque for the same clamp load.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="showUnits">Primary Display Units</label>
+        <select id="showUnits">
+          <option value="Nm" selected>Nm</option>
+          <option value="ft-lb">ft-lb</option>
+          <option value="in-lb">in-lb</option>
+        </select>
+        <small>All torque units are still shown in the result table.</small>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateTorque();">Calculate Torque</button>
+      <button class="secondary" onclick="loadGeneralM10Example();">Load Example</button>
+      <button class="ghost" onclick="resetCalculator();">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and calculate tightening torque.
+    </div>
+
+    <p class="note">
+      This calculator uses a practical preload relationship based on torque = K × clamp load × nominal diameter. Real clamp load depends strongly on thread friction, under-head friction, lubrication, coatings, joint stiffness, washer condition, and assembly variation.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Interpretation</div>
+    <h2>How to read the torque results</h2>
+
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>Nominal starting torque</h3>
+        <p>
+          This is the center estimate from the selected nut factor. Use it as a first test value, not as the final specification.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Clamp load target</h3>
+        <p>
+          This is the intended bolt tension based on proof strength and tensile stress area. It is the reason the torque is being applied.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Torque table</h3>
+        <p>
+          The low, nominal, and high rows show how much the torque value can move when friction changes.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Engineering warnings</h3>
+        <p>
+          These warnings are not pass/fail approvals. They flag situations where the assumptions deserve closer review.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>
+        <strong>Best use:</strong> run the calculator with dry, oiled, lubricated, and custom K-factor values to see how much torque changes for the same clamp target. That spread is the lesson.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Design notes</div>
+    <h2>Why torque alone can mislead you</h2>
+    <p>
+      Torque is only a proxy for preload. Most of the applied torque is lost to friction, and only a smaller portion becomes useful bolt tension. That is why lubrication, plating, surface condition, and joint behavior can change clamp load dramatically without changing the torque setting very much.
+    </p>
+    <p>
+      A torque wrench or DC tool may hit the programmed torque value perfectly while the actual clamp load is still too low or too high. This usually happens because the friction condition changed, the joint settled, the fastener was reused, the washer surface changed, or the assembly stack compressed differently than expected.
+    </p>
+
+    <h3>Common causes of bad clamp consistency</h3>
+    <div class="grid-3">
+      <div class="info-card">
+        <h3>Lubrication changes</h3>
+        <p>
+          Oil, dry threads, grease, anti-seize, and coating differences can dramatically change torque-to-preload behavior.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Bearing variation</h3>
+        <p>
+          Washer type, flange heads, rough surfaces, paint, plating, and burrs can change under-head friction.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Mixed fastener condition</h3>
+        <p>
+          Mixed coatings, dirty threads, damaged threads, or reused fasteners can create unpredictable clamp results.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Soft joints</h3>
+        <p>
+          Compressible stacks can settle after tightening, lowering clamp load after the tool has already passed the part.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Wrong K-factor</h3>
+        <p>
+          Assuming one K-factor fits everything is one of the fastest ways to get misleading torque values.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Tool and socket issues</h3>
+        <p>
+          Extensions, adapters, crowfoot use, worn sockets, and poor access can affect repeatability and readings.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <p>
+        <strong>For critical joints:</strong> torque-angle, direct tension methods, load-indicating testing, or validated tightening studies are better than relying on torque-only assumptions.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Process checks</div>
+    <h2>Before using a calculated torque in production</h2>
+
+    <div class="grid-3">
+      <div class="info-card">
+        <h3>Check fastener data</h3>
         <ul>
-          <li>Changing lubrication condition</li>
-          <li>Washer or bearing surface variation</li>
-          <li>Mixed coatings or reused fasteners</li>
-          <li>Soft joints that settle after tightening</li>
-          <li>Assuming one K-factor fits everything</li>
+          <li>Confirm property class</li>
+          <li>Confirm coating and lubrication</li>
+          <li>Confirm thread pitch and engagement</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Review joint behavior</h3>
+        <ul>
+          <li>Hard or soft joint</li>
+          <li>Settling or embedment</li>
+          <li>Stack tolerance and part compression</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Validate clamp load</h3>
+        <ul>
+          <li>Use test washers if practical</li>
+          <li>Review torque-angle signature</li>
+          <li>Compare multiple samples</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Audit the tool</h3>
+        <ul>
+          <li>Check calibration</li>
+          <li>Confirm socket stability</li>
+          <li>Review rundown speed and final speed</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Control friction</h3>
+        <ul>
+          <li>Do not mix coated and uncoated fasteners</li>
+          <li>Control lubrication</li>
+          <li>Avoid unknown washer substitutions</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Document the recipe</h3>
+        <ul>
+          <li>Record torque value</li>
+          <li>Record fastener condition</li>
+          <li>Record validation method</li>
         </ul>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Continue the design</div>
+    <h2>Related fastening and automation tools</h2>
+    <p>
+      Use these related tools to continue from bolt torque into clamp load checks, torque-angle review, tightening sequence planning, and automation process review.
+    </p>
+
+    <div class="internal-links">
+      <a href="/torque-angle.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_related','to':'torque_angle'});">Torque-Angle Calculator</a>
+      <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_related','to':'torque_clamp_load'});">Torque to Clamp Load Calculator</a>
+      <a href="/multi-stage-torque-sequence.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_related','to':'multi_stage_torque_sequence'});">Multi-Stage Torque Sequence</a>
+      <a href="/bolt-torque-chart.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_related','to':'bolt_torque_chart'});">Bolt Torque Chart</a>
+      <a href="/fastening.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_related','to':'fastening_hub'});">Fastening Hub</a>
+      <a href="/automation-roi.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_related','to':'automation_roi'});">Automation ROI Calculator</a>
+      <a href="/downtime-cost-calculator.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_related','to':'downtime_cost'});">Downtime Cost Calculator</a>
+      <a href="/integrators.html" onclick="gtag('event','internal_link_click',{'from':'bolt_tightening_related','to':'integrators'});">Find an Integrator</a>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Need help applying this on a real machine or assembly?</h2>
+    <p>
+      If you are defining fastening strategy, clamp targets, DC tool setup, automated screwdriving, robot-mounted fastening, or troubleshooting torque issues, connect with an automation integrator or assembly engineering resource.
+    </p>
+    <a href="/integrators.html" onclick="gtag('event','integrator_cta_click',{'source':'bolt_torque_bottom'});">Find an Integrator</a>
+    <a href="/fastening.html" onclick="gtag('event','cta_click',{'from':'bolt_tightening_torque','to':'fastening_hub'});">View Fastening Tools</a>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators and simulators for real automation work
   </div>
-</div>
+
+</main>
 
 <script>
   const boltData = {
@@ -816,21 +1289,25 @@
       scrollToOutput();
       return;
     }
+
     if(proofStrength <= 0){
       output.innerHTML = "<strong>Please enter a proof strength greater than 0.</strong>";
       scrollToOutput();
       return;
     }
+
     if(proofPercent <= 0 || proofPercent > 100){
       output.innerHTML = "<strong>Please enter a proof load percentage between 1 and 100.</strong>";
       scrollToOutput();
       return;
     }
+
     if(customK <= 0){
       output.innerHTML = "<strong>Please enter a K-factor greater than 0.</strong>";
       scrollToOutput();
       return;
     }
+
     if(pitch <= 0){
       output.innerHTML = "<strong>Please enter a thread pitch greater than 0.</strong>";
       scrollToOutput();
@@ -898,21 +1375,43 @@
     });
 
     output.innerHTML =
-      "<strong>Nominal Starting Torque</strong><br>" +
-      primaryTorqueText(nominalTorqueNm, primaryUnit) + "<br><br>" +
+      "<strong>Bolt Tightening Torque Estimate</strong>" +
 
-      "<strong>Clamp Load Target</strong><br>" +
-      formatForceMetric(targetClampLoadN) + "<br>" +
-      formatForceImperial(targetClampLoadN) + "<br><br>" +
+      "<div class='result-grid'>" +
 
-      "<strong>Approximate Preload Stress</strong><br>" +
-      preloadStress.toFixed(1) + " MPa<br><br>" +
+      "<div class='result-card'>" +
+      "<strong>Nominal Starting Torque</strong>" +
+      "<span>" + primaryTorqueText(nominalTorqueNm, primaryUnit) + "</span>" +
+      "</div>" +
 
-      "<strong>Preload Utilization</strong><br>" +
-      "<span class='" + util.css + "'>" + util.text + "</span><br><br>" +
+      "<div class='result-card'>" +
+      "<strong>Clamp Load Target</strong>" +
+      "<span>" + formatForceMetric(targetClampLoadN) + "</span>" +
+      "</div>" +
 
-      "<strong>Bolt Data</strong><br>" +
-      boltSize + " " + threadSeries + " thread<br>" +
+      "<div class='result-card'>" +
+      "<strong>Imperial Clamp Load</strong>" +
+      "<span>" + formatForceImperial(targetClampLoadN) + "</span>" +
+      "</div>" +
+
+      "<div class='result-card'>" +
+      "<strong>Approximate Preload Stress</strong>" +
+      "<span>" + preloadStress.toFixed(1) + " MPa</span>" +
+      "</div>" +
+
+      "<div class='result-card'>" +
+      "<strong>Preload Utilization</strong>" +
+      "<span class='" + util.css + "'>" + util.text + "</span>" +
+      "</div>" +
+
+      "<div class='result-card'>" +
+      "<strong>Bolt Data</strong>" +
+      "<span>" + boltSize + " " + threadSeries + "</span>" +
+      "</div>" +
+
+      "</div>" +
+
+      "<strong>Bolt Data Details</strong><br>" +
       "Pitch: " + pitch.toFixed(2) + " mm<br>" +
       "Tensile stress area: " + tensileArea.toFixed(2) + " mm²<br>" +
       "Property class: " + propertyClass + "<br>" +
@@ -997,7 +1496,7 @@
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
