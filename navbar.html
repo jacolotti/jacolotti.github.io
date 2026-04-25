@@ -230,7 +230,7 @@
     line-height: 1.4;
   }
 
-  @media (max-width: 1120px) {
+  @media (max-width: 1250px) {
     .dropdown-panel.tools-panel {
       min-width: 880px;
     }
@@ -527,7 +527,7 @@
 
       if (button) {
         button.addEventListener('click', function (e) {
-          if (window.innerWidth <= 1020) {
+          if (window.innerWidth <= 1250) {
             e.preventDefault();
             dropdown.classList.toggle('open');
           }
@@ -536,7 +536,7 @@
     });
 
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 1020) {
+      if (window.innerWidth > 1250) {
         navbar.classList.remove('open');
         if (menuToggle) {
           menuToggle.setAttribute('aria-expanded', 'false');
