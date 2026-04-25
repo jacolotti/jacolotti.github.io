@@ -22,39 +22,40 @@
   <style>
     body{
       font-family:Arial, sans-serif;
-      background:#f4f4f4;
+      background:#f4f6f9;
       margin:0;
       color:#222;
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:white;
+      padding:48px 20px 34px;
       text-align:center;
+      border-bottom:1px solid #e1e7f0;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:980px;
       margin:auto;
     }
 
     .hero h1{
       margin:0 0 12px;
-      font-size:34px;
+      font-size:36px;
       line-height:1.2;
+      color:#1f2a44;
     }
 
     .hero p{
-      max-width:800px;
+      max-width:860px;
       margin:0 auto 14px;
-      color:#e7ecf7;
+      color:#4f5b70;
       font-size:17px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .hero-cta{
-      margin-top:18px;
+      margin-top:20px;
       display:flex;
       justify-content:center;
       gap:12px;
@@ -71,13 +72,14 @@
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:#1e6bd6;
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
     }
 
     .hero-cta a:hover{
@@ -86,46 +88,29 @@
     }
 
     .page-wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:30px auto;
-      padding:0 18px 40px;
+      padding:0 18px 42px;
     }
 
     .top-note{
       background:#fff7df;
       border:1px solid #f1d98a;
       color:#5c4a12;
-      padding:14px 16px;
+      padding:15px 17px;
       border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
+      margin:0 0 24px;
       font-size:15px;
-      line-height:1.5;
+      line-height:1.55;
       text-align:left;
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
+    .section{
       background:white;
       border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
+      box-shadow:0 0 12px rgba(0,0,0,.06);
       padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin-bottom:24px;
     }
 
     .section-label{
@@ -137,22 +122,68 @@
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
+    .section h2,
+    .section h3{
       margin-top:0;
       color:#1f2a44;
     }
 
+    .section h2{
+      font-size:26px;
+      margin-bottom:12px;
+    }
+
+    .section h3{
+      font-size:21px;
+      margin-bottom:10px;
+    }
+
     .description{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color:#555;
       font-size:16px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
     }
 
+    .card-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:18px;
+      text-align:left;
+    }
+
+    .info-card h3{
+      font-size:18px;
+      margin:0 0 8px;
+      color:#1f2a44;
+    }
+
+    .info-card p{
+      margin:0;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .info-card ul{
+      margin:0;
+      padding-left:18px;
+      color:#444;
+      line-height:1.7;
+      font-size:15px;
+    }
+
     .formula-box{
-      margin:20px 0;
+      margin:20px 0 0;
       padding:18px;
       background:#eef3ff;
       border:1px solid #cfdaf5;
@@ -162,6 +193,17 @@
       font-size:17px;
       line-height:1.7;
       text-align:left;
+    }
+
+    .workflow-list{
+      margin:14px 0 0;
+      padding-left:20px;
+      color:#444;
+      line-height:1.75;
+    }
+
+    .workflow-list strong{
+      color:#1f2a44;
     }
 
     .quick-row{
@@ -280,70 +322,19 @@
       scroll-margin-top:100px;
     }
 
-    .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
-    }
-
-    .cta-box h3{
-      margin:0 0 10px;
-      color:#1f2a44;
-    }
-
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
     .note{
-      margin-top:20px;
+      margin-top:18px;
       color:#666;
       font-size:14px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
     }
 
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .internal-links a{
@@ -361,18 +352,37 @@
       background:#e9eef8;
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+    .cta-box{
+      margin-bottom:24px;
+      padding:26px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+      box-shadow:0 0 12px rgba(0,0,0,.06);
     }
 
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
+    .cta-box h2,
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 auto 16px;
+      color:#4d5a74;
+      line-height:1.6;
+      max-width:760px;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
     }
 
     .footer{
@@ -382,20 +392,13 @@
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
     @media (max-width:700px){
-      .card,
-      .sidebar-card{
+      .section{
         padding:20px;
       }
 
       .hero h1{
-        font-size:28px;
+        font-size:29px;
       }
 
       .hero-cta{
@@ -418,6 +421,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <div id="navbar"></div>
@@ -426,178 +430,434 @@
   <div class="hero-inner">
     <h1>Torque to Clamp Load Calculator</h1>
     <p>
-      Estimate clamp load from applied torque using common metric bolt sizes, tensile stress area, nut factor, and tightening assumptions. Useful for fastening review, assembly setup, fixture design, and automation work where preload matters.
+      Estimate clamp load from applied torque using common metric bolt sizes, tensile stress area, nut factor, and tightening assumptions.
     </p>
+    <p>
+      Use this for fastening review, assembly setup, fixture design, torque strategy discussions, and automation work where preload matters.
+    </p>
+
     <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#calculator" class="primary" onclick="gtag('event','hero_cta_click',{'from':'torque_clamp_load','to':'calculator'});">Open Calculator</a>
       <a href="/torque-angle.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'torque_clamp_load_hero','to':'torque_angle'});">Torque Angle Calculator</a>
     </div>
   </div>
 </section>
 
 <div class="page-wrap">
+
   <div class="top-note">
-    <strong>Good starting use case:</strong> use this for quick preload estimates before deeper fastener validation. Real clamp load can vary significantly because of lubrication, coatings, friction scatter, joint condition, and tightening method.
+    <strong>Good starting use case:</strong> use this for quick preload estimates before deeper fastener validation. Real clamp load can vary significantly because of lubrication, coatings, friction scatter, washer condition, joint condition, embedment, tool accuracy, and tightening method.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Clamp Load from Applied Torque</h2>
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <h2>What This Torque to Clamp Load Calculator Does</h2>
 
-      <p class="description">
-        Estimate clamp load from applied torque using common metric bolt sizes, tensile stress area, nut factor, and tightening assumptions.
-      </p>
+    <p class="description">
+      This calculator estimates clamp load from applied torque using common metric bolt sizes, tensile stress area, nut factor, and tightening assumptions.
+    </p>
 
-      <p class="description">
-        This calculator is useful for fastening review, assembly setup, fixture design, and automation work where preload matters.
-      </p>
+    <p class="description">
+      It is useful for fastening review, assembly setup, fixture design, automation process planning, torque strategy discussions, and understanding whether a torque target is in the right general range for the joint.
+    </p>
 
-      <div class="formula-box">
-        Clamp Load ≈ Torque ÷ (K × Diameter)<br><br>
-        This page uses a simplified clamp load estimate based on applied torque, nut factor, and nominal fastener diameter.
-      </div>
+    <p class="description">
+      The goal is not to guarantee preload from torque alone. The goal is to give you a practical first-pass estimate of clamp force so you can compare torque, bolt size, nut factor, tensile area, and transfer efficiency before deeper validation.
+    </p>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','torque_clamp_load_example',{'type':'m10_nm'});">M10 at 50 Nm</button>
-        <button type="button" onclick="loadExample2(); gtag('event','torque_clamp_load_example',{'type':'m12_ftlb'});">M12 at 60 ft-lb</button>
-        <button type="button" onclick="loadExample3(); gtag('event','torque_clamp_load_example',{'type':'m16_nm'});">M16 at 140 Nm</button>
-      </div>
-
-      <div class="controls">
-        <div class="control-group">
-          <label for="torque">Applied Torque</label>
-          <input id="torque" type="number" value="50" min="0.01" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="torqueUnit">Torque Units</label>
-          <select id="torqueUnit">
-            <option value="Nm">Nm</option>
-            <option value="ft-lb">ft-lb</option>
-            <option value="in-lb">in-lb</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="boltSize">Metric Bolt Size</label>
-          <select id="boltSize" onchange="applyBoltData()">
-            <option value="M10" selected>M10</option>
-            <option value="M12">M12</option>
-            <option value="M16">M16</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="nominalDiameter">Nominal Diameter (mm)</label>
-          <input id="nominalDiameter" type="number" value="10" min="0.1" step="0.1">
-        </div>
-
-        <div class="control-group">
-          <label for="tensileArea">Tensile Stress Area (mm²)</label>
-          <input id="tensileArea" type="number" value="58" min="0.1" step="0.1">
-        </div>
-
-        <div class="control-group">
-          <label for="nutFactor">Nut Factor (K)</label>
-          <input id="nutFactor" type="number" value="0.2" min="0.01" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="efficiency">Efficiency / Transfer (%)</label>
-          <input id="efficiency" type="number" value="100" min="1" max="100" step="1">
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateClampLoad(); gtag('event','torque_clamp_load_calculation');">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator();">Reset</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help validating a fastening setup on a real machine?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you need help with fastening strategy, clamp load review, torque process setup, or assembly equipment development.
-        </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
-
-      <p class="note">
-        This is a simplified estimate. Real clamp load varies significantly with lubrication, coatings, friction, joint condition, torque tool accuracy, and tightening method.
-      </p>
-
-      <p class="note">
-        The output is best used for quick engineering estimates and process planning, not as a replacement for validated fastener testing or audited production tightening data.
-      </p>
-
-      <div class="learn-more">
-        <h3>What to check next</h3>
-
-        <p>
-          This tool gives a fast first-pass preload estimate, but real clamp load is extremely sensitive to friction and joint behavior. Two fasteners tightened to the same torque can end up with very different preload if lubrication, washer condition, coating, or seating changes.
-        </p>
-
-        <p>
-          For real assembly process development, this page usually works best alongside torque-angle review, joint testing, clamp load validation, and tightening strategy work so the process is based on actual joint behavior rather than torque alone.
-        </p>
-
-        <div class="internal-links">
-          <a href="/torque-angle.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'torque_angle'});">Torque Angle</a>
-          <a href="/bolt-torque-chart.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'bolt_torque_chart'});">Bolt Torque Chart</a>
-          <a href="/multi-stage-torque-sequence.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'multi_stage_torque_sequence'});">Multi-Stage Torque Sequence</a>
-          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'automation_roi'});">Automation ROI</a>
-        </div>
-      </div>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
+    <div class="formula-box">
+      Clamp Load ≈ Torque ÷ (K × Diameter)<br><br>
+      This page uses a simplified clamp load estimate based on applied torque, nut factor, nominal fastener diameter, and efficiency/transfer percentage.
     </div>
+  </section>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
-        <ul>
-          <li>Estimated clamp load</li>
-          <li>Clamp load in N, kN, and lbf</li>
-          <li>Approximate preload stress</li>
-          <li>Converted torque in Nm</li>
-          <li>Applied nut factor and efficiency</li>
-        </ul>
-      </div>
+  <section class="section">
+    <div class="section-label">Outputs</div>
+    <h2>What This Calculator Gives You</h2>
 
-      <div class="sidebar-card">
-        <h3>Where this helps</h3>
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Estimated Clamp Load</h3>
         <p>
-          Useful for fastening review, torque strategy discussions, assembly setup, fixture design, and understanding whether a torque target is in the right general range for the joint.
+          The calculated preload estimate created from the adjusted torque, nut factor, and nominal fastener diameter.
         </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
-        <ul>
-          <li>Lubrication and coating condition</li>
-          <li>Joint stiffness and embedment</li>
-          <li>Torque tool calibration</li>
-          <li>Angle monitoring and rundown behavior</li>
-          <li>Real clamp load validation testing</li>
-        </ul>
+      <div class="info-card">
+        <h3>Clamp Load in N, kN, and lbf</h3>
+        <p>
+          The output gives clamp load in multiple units so it is easier to compare against engineering notes, tooling documents, and assembly requirements.
+        </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Fastener reminder</h3>
+      <div class="info-card">
+        <h3>Approximate Preload Stress</h3>
         <p>
-          Torque is a convenient input, not a guarantee of preload. If clamp load matters, the joint should be validated with real testing and a tightening strategy that fits the application.
+          Estimated preload stress based on clamp load divided by tensile stress area. This helps screen whether the preload looks light, moderate, or high.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Converted Torque in Nm</h3>
+        <p>
+          Torque entered in ft-lb or in-lb is converted to Nm so the calculation uses a consistent base unit.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Applied Nut Factor</h3>
+        <p>
+          The nut factor is shown in the output because friction assumptions dominate the relationship between torque and preload.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Efficiency / Transfer Applied</h3>
+        <p>
+          The efficiency input lets you reduce the effective torque used in the calculation when the process does not transfer torque ideally into clamp load.
         </p>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Application</div>
+    <h2>Where This Helps</h2>
+
+    <p class="description">
+      Torque is convenient to measure, but it is only an indirect way to estimate bolt preload. This calculator helps with early checks where you need to understand whether a torque value is likely to create a light, moderate, or high clamp load.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Fastening Review</h3>
+        <p>
+          Use this when reviewing a torque target and trying to estimate whether the resulting clamp force is in the right general range.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Torque Strategy Discussions</h3>
+        <p>
+          Compare how nut factor, bolt diameter, and efficiency change estimated preload before deciding whether torque-only control is good enough.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Assembly Setup</h3>
+        <p>
+          Use the estimate during early process setup to understand what clamp load a torque tool may be producing.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Fixture Design</h3>
+        <p>
+          Estimate fastening preload in fixtures, clamps, tooling plates, weld fixtures, and automation equipment where bolted joints carry load.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Automation Equipment Development</h3>
+        <p>
+          Use this when reviewing automated fastening, screwdriving, nutrunning, press tooling, or mechanical assembly equipment.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Process Planning</h3>
+        <p>
+          Use the output as a first-pass screen before final joint validation, clamp load testing, or production tightening audits.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Workflow</div>
+    <h2>Recommended Fastening Review Workflow</h2>
+
+    <p class="description">
+      This calculator is useful early, but it should not be the final validation step if clamp load matters. Torque-to-preload scatter can be large, especially when friction or joint seating changes.
+    </p>
+
+    <ol class="workflow-list">
+      <li><strong>Select the bolt size:</strong> choose the metric bolt size or manually enter nominal diameter and tensile stress area.</li>
+      <li><strong>Enter applied torque:</strong> use Nm, ft-lb, or in-lb depending on the torque value you are reviewing.</li>
+      <li><strong>Set nut factor:</strong> adjust K based on lubrication, coating, washer condition, and friction assumptions.</li>
+      <li><strong>Set efficiency / transfer:</strong> reduce effective torque if the process has transfer loss or a conservative process assumption.</li>
+      <li><strong>Review clamp load:</strong> compare estimated N, kN, and lbf against what the joint needs.</li>
+      <li><strong>Review preload stress:</strong> make sure the preload stress looks reasonable for the fastener and application.</li>
+      <li><strong>Check tightening method:</strong> compare torque-only control with torque-angle or multi-stage tightening if preload control matters.</li>
+      <li><strong>Validate the real joint:</strong> use testing, torque audits, angle monitoring, clamp load measurement, or production data as needed.</li>
+    </ol>
+
+    <div class="internal-links">
+      <a href="/torque-angle.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load_workflow','to':'torque_angle'});">Torque Angle Calculator</a>
+      <a href="/bolt-tightening-torque.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load_workflow','to':'bolt_tightening_torque'});">Bolt Tightening Torque</a>
+      <a href="/fastening.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load_workflow','to':'fastening_hub'});">Fastening Hub</a>
+      <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load_workflow','to':'automation_roi'});">Automation ROI</a>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Calculator</div>
+    <h2>Estimate Clamp Load from Applied Torque</h2>
+
+    <p class="description">
+      Enter applied torque, torque units, bolt size, nominal diameter, tensile stress area, nut factor, and efficiency. The calculator estimates clamp load, preload stress, converted torque, adjusted torque, and interpretation.
+    </p>
+
+    <p class="description">
+      This calculator is best used for quick engineering estimates and process planning. It is not a replacement for validated fastener testing, clamp load measurement, joint testing, or audited production tightening data.
+    </p>
+
+    <div class="section-label">Quick Examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadExample1(); gtag('event','torque_clamp_load_example',{'type':'m10_nm'});">M10 at 50 Nm</button>
+      <button type="button" onclick="loadExample2(); gtag('event','torque_clamp_load_example',{'type':'m12_ftlb'});">M12 at 60 ft-lb</button>
+      <button type="button" onclick="loadExample3(); gtag('event','torque_clamp_load_example',{'type':'m16_nm'});">M16 at 140 Nm</button>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="torque">Applied Torque</label>
+        <input id="torque" type="number" value="50" min="0.01" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="torqueUnit">Torque Units</label>
+        <select id="torqueUnit">
+          <option value="Nm">Nm</option>
+          <option value="ft-lb">ft-lb</option>
+          <option value="in-lb">in-lb</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="boltSize">Metric Bolt Size</label>
+        <select id="boltSize" onchange="applyBoltData()">
+          <option value="M10" selected>M10</option>
+          <option value="M12">M12</option>
+          <option value="M16">M16</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="nominalDiameter">Nominal Diameter (mm)</label>
+        <input id="nominalDiameter" type="number" value="10" min="0.1" step="0.1">
+      </div>
+
+      <div class="control-group">
+        <label for="tensileArea">Tensile Stress Area (mm²)</label>
+        <input id="tensileArea" type="number" value="58" min="0.1" step="0.1">
+      </div>
+
+      <div class="control-group">
+        <label for="nutFactor">Nut Factor (K)</label>
+        <input id="nutFactor" type="number" value="0.2" min="0.01" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="efficiency">Efficiency / Transfer (%)</label>
+        <input id="efficiency" type="number" value="100" min="1" max="100" step="1">
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateClampLoad(); gtag('event','torque_clamp_load_calculation');">Calculate</button>
+      <button class="secondary" onclick="loadExample1(); gtag('event','torque_clamp_load_example',{'type':'m10_nm_button'});">Load Example</button>
+      <button class="ghost" onclick="resetCalculator(); gtag('event','torque_clamp_load_reset');">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
+
+    <p class="note">
+      This is a simplified estimate. Real clamp load varies significantly with lubrication, coatings, friction, joint condition, washer condition, torque tool accuracy, tightening speed, and tightening method.
+    </p>
+
+    <p class="note">
+      The output is best used for quick engineering estimates and process planning, not as a replacement for validated fastener testing or audited production tightening data.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Interpretation</div>
+    <h2>How to Read the Results</h2>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Converted Torque</h3>
+        <p>
+          This shows the entered torque converted to Nm. Using one base unit keeps the calculation consistent across Nm, ft-lb, and in-lb entries.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Adjusted Torque Used</h3>
+        <p>
+          This is the converted torque multiplied by the efficiency or transfer percentage. It represents the effective torque used for the preload estimate.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Estimated Clamp Load</h3>
+        <p>
+          This is the main output. It estimates preload using the simplified relationship between torque, nut factor, and nominal diameter.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Approximate Preload Stress</h3>
+        <p>
+          This estimates clamp load divided by tensile stress area. It gives a rough stress reference for the selected bolt size.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Nut Factor Used</h3>
+        <p>
+          Nut factor captures friction behavior. Small changes in K can cause large changes in estimated clamp load.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Interpretation Text</h3>
+        <p>
+          The result gives a light, moderate, or higher clamp load interpretation to help you decide whether the torque target deserves deeper review.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Engineering Notes</div>
+    <h2>Common Next Checks</h2>
+
+    <p class="description">
+      Torque-to-clamp-load estimates are useful, but they can be misleading if the friction assumptions are wrong. Two fasteners tightened to the same torque can end up with very different preload if lubrication, washer condition, coating, seating, embedment, or joint stiffness changes.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Lubrication and Coating Condition</h3>
+        <p>
+          Lubricated, dry, plated, coated, and contaminated fasteners can all produce different clamp loads at the same torque.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Joint Stiffness and Embedment</h3>
+        <p>
+          Soft joints, gaskets, paint layers, plated surfaces, washers, and surface embedment can change preload after tightening.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Torque Tool Calibration</h3>
+        <p>
+          A torque target only means something if the tool is calibrated and repeatable under the actual production condition.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Angle Monitoring and Rundown Behavior</h3>
+        <p>
+          Torque-angle data can reveal seating problems, cross-threading, missing washers, soft joints, and inconsistent friction.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Real Clamp Load Validation Testing</h3>
+        <p>
+          If preload matters, validate the joint using direct or indirect clamp load methods, test washers, ultrasonic measurement, joint testing, or production audits.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Fastener Grade and Joint Capacity</h3>
+        <p>
+          Higher estimated clamp load is not automatically better. Make sure the fastener grade, thread engagement, joint material, and mating component can handle the load.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Fastener Reminder</div>
+    <h2>Torque Is Not a Guarantee of Preload</h2>
+
+    <p class="description">
+      Torque is a convenient input, not a guarantee of preload. If clamp load matters, the joint should be validated with real testing and a tightening strategy that fits the application.
+    </p>
+
+    <p class="description">
+      For real assembly process development, this page usually works best alongside torque-angle review, joint testing, clamp load validation, and tightening strategy work so the process is based on actual joint behavior rather than torque alone.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Torque-Only Control</h3>
+        <p>
+          Torque-only control is simple and common, but it is highly sensitive to friction scatter.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Torque-Angle Control</h3>
+        <p>
+          Torque-angle review can improve process insight by showing seating, rotation, and joint stiffness behavior after snug torque.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Multi-Stage Tightening</h3>
+        <p>
+          Multi-stage sequences can help with joint seating, gasket compression, large patterns, and more consistent final tightening.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Validation Required</h3>
+        <p>
+          If clamp load is safety-critical, quality-critical, or warranty-critical, do not rely on this estimate alone.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Need help validating a fastening setup on a real machine?</h2>
+    <p>
+      Get connected with a qualified automation integrator if you need help with fastening strategy, clamp load review, torque process setup, nutrunner integration, torque-angle monitoring, fixture design, or assembly equipment development.
+    </p>
+    <a href="/integrators.html" onclick="gtag('event','guide_cta_click',{'page':'torque_clamp_load','target':'integrators'});">Find an Integrator</a>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Related Tools</div>
+    <h2>Continue the Fastening Review</h2>
+
+    <p class="description">
+      Use this calculator alongside torque-angle review, bolt tightening guidance, fastening tools, and ROI planning when building or improving a fastening process.
+    </p>
+
+    <div class="internal-links">
+      <a href="/torque-angle.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'torque_angle'});">Torque Angle</a>
+      <a href="/bolt-tightening-torque.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'bolt_tightening_torque'});">Bolt Tightening Torque</a>
+      <a href="/fastening.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'fastening_hub'});">Fastening Hub</a>
+      <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'robot_cycle_time'});">Robot Cycle Time</a>
+      <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'pneumatic_force'});">Pneumatic Force</a>
+      <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'torque_clamp_load','to':'automation_roi'});">Automation ROI</a>
+    </div>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
+
 </div>
 
 <script>
@@ -762,7 +1022,7 @@
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(res => res.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
