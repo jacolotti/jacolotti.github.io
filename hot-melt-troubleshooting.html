@@ -17,164 +17,324 @@
 
   <title>Hot Melt Adhesive Troubleshooting Tool | Automation Calculators</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Troubleshoot hot melt adhesive application issues in plain English. Work through no adhesive output, stringing, dripping, poor cutoff, oversized beads, weak beads, nozzle plugging, and placement problems with practical checks and likely causes.">
+  <meta name="description" content="Troubleshoot hot melt adhesive application issues in plain English. Work through no adhesive output, weak output, stringing, dripping, poor cutoff, oversized beads, undersized beads, nozzle plugging, bad placement, poor bonding, charring, and intermittent adhesive problems.">
 
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+      --hero1:#0b66c3;
+      --hero2:#0d79d0;
+      --hero3:#0b3d69;
+      --warning:#fff8df;
+      --warning-border:#f1df95;
+      --good:#eaf7ef;
+      --good-border:#bfe5cb;
+    }
+
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+
     body{
-      font-family:Arial, sans-serif;
-      background:#f4f4f4;
       margin:0;
-      color:#222;
-    }
-
-    .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
-      text-align:center;
-    }
-
-    .hero-inner{
-      max-width:950px;
-      margin:auto;
-    }
-
-    .hero h1{
-      margin:0 0 12px;
-      font-size:34px;
-      line-height:1.2;
-    }
-
-    .hero p{
-      max-width:800px;
-      margin:0 auto 14px;
-      color:#e7ecf7;
-      font-size:17px;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
       line-height:1.6;
     }
 
-    .hero-cta{
-      margin-top:18px;
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-
-    .hero-cta a{
-      display:inline-block;
-      padding:12px 18px;
-      border-radius:8px;
+    a{
+      color:var(--accent);
       text-decoration:none;
-      font-weight:bold;
+    }
+
+    a:hover{text-decoration:underline;}
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hero{
+      background:linear-gradient(135deg,var(--hero1) 0%,var(--hero2) 45%,var(--hero3) 100%);
+      color:#fff;
+      padding:58px 20px 42px;
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:24px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      background:rgba(255,255,255,.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.24);
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+      margin-bottom:14px;
+    }
+
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.35rem;
+      line-height:1.12;
+      color:#fff;
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      max-width:800px;
+      color:rgba(255,255,255,.94);
+      font-size:1.04rem;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:13px 18px;
+      border-radius:10px;
+      font-weight:700;
+      text-decoration:none;
       transition:.2s ease;
+      text-align:center;
     }
 
-    .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+    .btn-primary{
+      background:#fff;
+      color:var(--accent-dark);
     }
 
-    .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+    .btn-secondary{
+      background:rgba(255,255,255,.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.28);
     }
 
-    .hero-cta a:hover{
+    .btn:hover{
       transform:translateY(-1px);
-      opacity:.95;
+      text-decoration:none;
+    }
+
+    .hero-panel{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:18px;
+      padding:22px;
+      backdrop-filter:blur(5px);
+    }
+
+    .hero-panel h3{
+      margin:0 0 12px;
+      color:#fff;
+    }
+
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .hero-panel li{
+      margin-bottom:10px;
+      color:rgba(255,255,255,.95);
+    }
+
+    .back-link-wrap{
+      max-width:var(--max);
+      margin:20px auto 0;
+      padding:0 20px;
+    }
+
+    .back-link-wrap a{
+      font-weight:700;
     }
 
     .page-wrap{
-      max-width:1100px;
-      margin:30px auto;
-      padding:0 18px 40px;
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 20px 42px;
     }
 
     .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
+      background:var(--warning);
+      border:1px solid var(--warning-border);
       color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
-      font-size:15px;
-      line-height:1.5;
-      text-align:left;
+      padding:16px 18px;
+      border-radius:14px;
+      margin:0 0 24px;
+      box-shadow:var(--shadow);
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
-      background:white;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
+    .section,
+    .cta-box{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
       padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin:0 0 24px;
     }
 
     .section-label{
       font-size:13px;
-      font-weight:bold;
+      font-weight:700;
       text-transform:uppercase;
       letter-spacing:.08em;
-      color:#5e7197;
+      color:#6a7d95;
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
-      margin-top:0;
-      color:#1f2a44;
+    .section h2{
+      margin:0 0 12px;
+      font-size:2rem;
+      line-height:1.2;
+      color:var(--text);
     }
 
-    .card h3{
-      color:#1f2a44;
-      margin-top:28px;
-      margin-bottom:10px;
+    .section h3{
+      margin:30px 0 10px;
+      font-size:1.35rem;
+      color:var(--text);
     }
 
-    .description{
+    .section p{
       margin:0 0 18px;
-      color:#555;
-      font-size:16px;
-      line-height:1.6;
-      text-align:left;
+      color:var(--muted);
+      line-height:1.7;
     }
 
     .formula-box{
-      margin:20px 0;
-      padding:18px;
-      background:#eef3ff;
-      border:1px solid #cfdaf5;
-      border-radius:10px;
-      color:#1f2a44;
-      font-weight:bold;
-      font-size:17px;
-      line-height:1.7;
-      text-align:left;
+      margin:20px 0 24px;
+      padding:20px;
+      background:#eef4fb;
+      border:1px solid #d3e1ef;
+      border-radius:14px;
+      color:var(--text);
+      font-weight:700;
+      line-height:1.8;
     }
 
-    .quick-row{
-      margin:8px 0 22px;
+    .grid-2,
+    .grid-3{
+      display:grid;
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr));}
+
+    .info-card,
+    .decision-card{
+      background:#f8fbff;
+      border:1px solid #dce7f3;
+      border-radius:14px;
+      padding:18px;
+    }
+
+    .info-card h3,
+    .info-card h4,
+    .decision-card h3{
+      margin:0 0 10px;
+      color:var(--text);
+    }
+
+    .info-card p,
+    .decision-card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:.98rem;
+    }
+
+    .info-card ul,
+    .decision-card ul,
+    .section ul{
+      padding-left:20px;
+      margin:0;
+      color:var(--muted);
+      line-height:1.7;
+    }
+
+    .info-card li,
+    .decision-card li,
+    .section li{
+      margin-bottom:8px;
+    }
+
+    .workflow{
+      counter-reset:step;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .workflow-card{
+      background:#fff;
+      border:1px solid #dbe4f3;
+      border-radius:14px;
+      padding:16px;
+    }
+
+    .workflow-card:before{
+      counter-increment:step;
+      content:counter(step);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:var(--accent);
+      color:#fff;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    .workflow-card h3{
+      margin:0 0 8px;
+      font-size:1.05rem;
+    }
+
+    .workflow-card p{
+      margin:0;
+      font-size:.95rem;
+    }
+
+    .quick-row,
+    .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
+      margin-top:14px;
     }
 
     .quick-row button{
@@ -185,15 +345,32 @@
       cursor:pointer;
       font-weight:600;
       color:#1f2a44;
+      font-family:Arial, sans-serif;
     }
 
     .quick-row button:hover{
       background:#eef3fc;
     }
 
+    .internal-links a{
+      display:inline-block;
+      padding:10px 12px;
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:8px;
+      color:#1f2a44;
+      text-decoration:none;
+      font-weight:700;
+      font-size:15px;
+    }
+
+    .internal-links a:hover{
+      background:#e9eef8;
+    }
+
     .controls{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns:repeat(auto-fit, minmax(225px, 1fr));
       gap:16px;
       margin:25px 0 20px;
       text-align:left;
@@ -202,15 +379,23 @@
     .control-group{
       background:#f8fbff;
       border:1px solid #d7e6ff;
-      border-radius:10px;
+      border-radius:12px;
       padding:16px;
     }
 
     .control-group label{
       display:block;
-      font-weight:600;
+      font-weight:700;
       margin-bottom:6px;
       color:#23314f;
+    }
+
+    .control-group small{
+      display:block;
+      color:#6a7890;
+      line-height:1.45;
+      margin-top:7px;
+      font-size:13px;
     }
 
     .control-group select,
@@ -229,7 +414,7 @@
     .control-group input:focus{
       outline:none;
       border-color:#5a78b5;
-      box-shadow:0 0 0 3px rgba(90,120,181,0.12);
+      box-shadow:0 0 0 3px rgba(90,120,181,.12);
     }
 
     .button-row{
@@ -245,10 +430,11 @@
       background:#1e6bd6;
       color:white;
       border:none;
-      border-radius:8px;
+      border-radius:9px;
       cursor:pointer;
       font-weight:bold;
       transition:.2s ease;
+      font-family:Arial, sans-serif;
     }
 
     .button-row button.secondary{
@@ -275,10 +461,10 @@
 
     .result{
       margin-top:25px;
-      padding:20px;
+      padding:21px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:10px;
+      border-radius:12px;
       font-size:17px;
       line-height:1.65;
       font-weight:500;
@@ -314,479 +500,561 @@
       line-height:1.7;
     }
 
+    .callout{
+      background:#eef4fb;
+      border:1px solid #d3e1ef;
+      border-radius:14px;
+      padding:18px;
+      margin-top:18px;
+    }
+
+    .callout.warning{
+      background:var(--warning);
+      border-color:var(--warning-border);
+    }
+
+    .callout.good{
+      background:var(--good);
+      border-color:var(--good-border);
+    }
+
+    .callout p:last-child{
+      margin-bottom:0;
+    }
+
+    .trouble-table{
+      width:100%;
+      border-collapse:separate;
+      border-spacing:0;
+      margin-top:18px;
+      background:#fff;
+      border:1px solid #d9e3ee;
+      border-radius:14px;
+      overflow:hidden;
+    }
+
+    .trouble-table th,
+    .trouble-table td{
+      padding:13px 14px;
+      border-bottom:1px solid #e6edf5;
+      text-align:left;
+      vertical-align:top;
+      line-height:1.55;
+      font-size:.96rem;
+    }
+
+    .trouble-table th{
+      background:#eef4fb;
+      color:var(--text);
+      font-weight:700;
+    }
+
+    .trouble-table tr:last-child td{
+      border-bottom:none;
+    }
+
     .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
+      background:linear-gradient(135deg,#edf4ff,#f7fbff);
       text-align:center;
     }
 
+    .cta-box h2,
     .cta-box h3{
       margin:0 0 10px;
-      color:#1f2a44;
+      color:var(--text);
     }
 
     .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
+      max-width:820px;
+      margin:0 auto 16px;
+      color:var(--muted);
+      line-height:1.7;
     }
 
     .cta-box a{
       display:inline-block;
-      background:#1f2a44;
-      color:white;
+      background:#0b66c3;
+      color:#fff;
       padding:12px 16px;
-      border-radius:8px;
+      border-radius:10px;
       text-decoration:none;
-      font-weight:bold;
+      font-weight:700;
+      margin:4px;
+    }
+
+    .cta-box a:hover{
+      background:#084c92;
+      text-decoration:none;
     }
 
     .note{
-      margin-top:20px;
-      color:#666;
-      font-size:14px;
-      line-height:1.6;
-      text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more ul{
-      margin:0 0 12px 20px;
-      color:#555;
-      line-height:1.7;
-    }
-
-    .learn-more li{
-      margin-bottom:8px;
-    }
-
-    .internal-links{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
-    }
-
-    .internal-links a{
-      display:inline-block;
-      padding:10px 12px;
-      background:white;
-      border:1px solid #d6e0f1;
-      border-radius:8px;
-      color:#1f2a44;
-      text-decoration:none;
-      font-weight:600;
-    }
-
-    .internal-links a:hover{
-      background:#e9eef8;
-    }
-
-    .recommendation-box{
-      background:#e9f1ff;
-      border:1px solid #c8d9ff;
-      border-radius:10px;
-      padding:18px;
-      margin-top:0;
-      margin-bottom:20px;
-    }
-
-    .recommendation-box h3{
-      margin-top:0;
-      margin-bottom:10px;
-      color:#1f2a44;
-    }
-
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
-    }
-
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
-    }
-
-    .pneumatic-btn{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      text-decoration:none;
-      padding:10px 14px;
-      border-radius:8px;
-      font-weight:bold;
-      border:none;
-      cursor:pointer;
-      font-size:15px;
-    }
-
-    .pneumatic-btn:hover{
-      opacity:.95;
-    }
-
-    .pneumatic-consulting{
-      margin-top:20px;
-      padding:20px;
-      background:#f4f8ff;
-      border:1px solid #d7e6ff;
-      border-radius:10px;
-      text-align:left;
-    }
-
-    .pneumatic-consulting h3{
-      margin-top:0;
-      color:#1f2a44;
-    }
-
-    .pneumatic-consulting p{
-      color:#555;
-      line-height:1.6;
-      margin-bottom:14px;
-    }
-
-    .pneumatic-consulting ul{
-      padding-left:18px;
-      margin:0 0 18px;
-      color:#444;
+      color:var(--muted);
+      font-size:.95rem;
       line-height:1.7;
     }
 
     .footer{
-      margin-top:40px;
-      color:#666;
-      font-size:14px;
+      margin-top:30px;
+      color:#64748b;
+      font-size:.95rem;
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
+    @media(max-width:980px){
+      .hero-inner,
+      .grid-3,
+      .workflow{
+        grid-template-columns:1fr 1fr;
       }
     }
 
-    @media (max-width:700px){
-      .card,
-      .sidebar-card{
-        padding:20px;
+    @media(max-width:700px){
+      .hero{padding:46px 16px 34px;}
+      .hero-inner,
+      .grid-2,
+      .grid-3,
+      .workflow{
+        grid-template-columns:1fr;
       }
-
-      .hero h1{
-        font-size:28px;
-      }
-
-      .hero-cta{
-        flex-direction:column;
-        align-items:center;
-      }
-
-      .hero-cta a{
-        width:100%;
-        max-width:320px;
-      }
-
-      .button-row{
-        flex-direction:column;
-      }
-
-      .button-row button{
-        width:100%;
-      }
+      .page-wrap{padding:28px 16px 36px;}
+      .section,
+      .cta-box{padding:20px;}
+      .hero h1{font-size:2rem;}
+      .hero-actions{flex-direction:column;}
+      .hero-actions .btn{width:100%;}
+      .button-row{flex-direction:column;}
+      .button-row button{width:100%;}
+      .trouble-table{display:block; overflow-x:auto;}
     }
   </style>
 </head>
-<body>
 
+<body>
 <div id="navbar"></div>
 
 <section class="hero">
   <div class="hero-inner">
-    <h1>Hot Melt Adhesive Troubleshooting Tool</h1>
-    <p>
-      Work through common adhesive application problems using practical checks for temperature, pressure, timing, hardware condition, and process stability.
-    </p>
-    <div class="hero-cta">
-      <a href="#troubleshooter" class="primary">Open Troubleshooter</a>
-      <a href="/nordson-parameters-explained.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'hot_melt_troubleshooter_hero','to':'nordson_parameters'});">Parameter Explanations</a>
+    <div>
+      <div class="eyebrow">Adhesives / Troubleshooting</div>
+      <h1>Hot Melt Adhesive Troubleshooting Tool</h1>
+      <p>
+        Work through common hot melt adhesive application problems using practical checks for temperature, pressure, timing, hardware condition, material condition, air supply, and process stability.
+      </p>
+      <p>
+        Use this when the system has no output, weak output, stringing, dripping, poor cutoff, bad placement, plugging, weak bonds, charring, or random variation.
+      </p>
+      <div class="hero-actions">
+        <a href="#troubleshooter" class="btn btn-primary" onclick="gtag('event','hero_cta_click',{'page':'hot_melt_troubleshooting','target':'troubleshooter'});">Open Troubleshooter</a>
+        <a href="/nordson-parameters-explained.html" class="btn btn-secondary" onclick="gtag('event','related_tool_click',{'from':'hot_melt_troubleshooter_hero','to':'nordson_parameters'});">Parameter Explanations</a>
+        <a href="/adhesives.html" class="btn btn-secondary" onclick="gtag('event','related_tool_click',{'from':'hot_melt_troubleshooter_hero','to':'adhesives_hub'});">Adhesives Hub</a>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <h3>Best use cases for this page</h3>
+      <ul>
+        <li>Choosing the first thing to check</li>
+        <li>Separating process issues from hardware issues</li>
+        <li>Reducing random temperature and pressure changes</li>
+        <li>Building a repeatable troubleshooting habit</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<div class="page-wrap">
+<div class="back-link-wrap">
+  <a href="/adhesives.html" onclick="gtag('event','internal_nav',{'from':'hot_melt_troubleshooting','to':'adhesives_hub'});">← Back to Adhesives</a>
+</div>
+
+<main class="page-wrap">
+
   <div class="top-note">
     <strong>Good starting use case:</strong> use this tool when the adhesive system is running poorly and you need a structured starting point before randomly changing temperature, pressure, timing, or hardware.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="troubleshooter">
-      <div class="section-label">Troubleshooter</div>
-      <h2>Diagnose Common Hot Melt Problems</h2>
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <h2>What this troubleshooting page does</h2>
 
-      <p class="description">
-        Most adhesive issues are not solved by turning the temperature up and hoping for the best. Real troubleshooting usually comes down to checking the right combination of process variables, hardware condition, and machine timing.
-      </p>
+    <p>
+      Most adhesive issues are not solved by turning the temperature up and hoping for the best. Real troubleshooting usually comes down to checking the right combination of process variables, hardware condition, material condition, air supply, and machine timing.
+    </p>
 
-      <p class="description">
-        Choose the main symptom you are seeing, then use the result as a practical starting point for what to verify first.
-      </p>
+    <p>
+      This tool asks for the main symptom and a few key process conditions, then gives likely causes, best first checks, and a practical direction. It is designed to help maintenance, controls, process engineering, and production teams start in the right place.
+    </p>
 
-      <div class="formula-box">
-        Better Troubleshooting Usually Comes From:<br><br>
-        Identifying The Main Symptom → Checking The Most Likely Causes First → Changing One Variable At A Time
+    <div class="formula-box">
+      Better Troubleshooting Usually Comes From:<br><br>
+      Identifying The Main Symptom → Checking The Most Likely Causes First → Changing One Variable At A Time → Verifying The Result On The Machine
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Recommended workflow</div>
+    <h2>Recommended hot melt troubleshooting workflow</h2>
+
+    <div class="workflow">
+      <div class="workflow-card">
+        <h3>Name the symptom</h3>
+        <p>Decide whether the issue is no output, weak output, stringing, placement, bond quality, plugging, or variation.</p>
       </div>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadSymptom('no_output'); gtag('event','hot_melt_example',{'type':'no_output'});">No Adhesive Output</button>
-        <button type="button" onclick="loadSymptom('stringing'); gtag('event','hot_melt_example',{'type':'stringing'});">Stringing</button>
-        <button type="button" onclick="loadSymptom('placement'); gtag('event','hot_melt_example',{'type':'placement'});">Bad Placement</button>
+      <div class="workflow-card">
+        <h3>Check stability</h3>
+        <p>Confirm temperature, air, pressure, product tracking, and line speed are stable enough to judge.</p>
       </div>
 
-      <div class="controls">
-        <div class="control-group">
-          <label for="symptom">Main Symptom</label>
-          <select id="symptom">
-            <option value="no_output">No adhesive output</option>
-            <option value="weak_output">Weak or inconsistent adhesive output</option>
-            <option value="stringing">Stringing or tails</option>
-            <option value="dripping">Dripping after shutoff</option>
-            <option value="poor_cutoff">Poor cutoff / messy stop</option>
-            <option value="oversized_bead">Bead too large</option>
-            <option value="undersized_bead">Bead too small</option>
-            <option value="placement">Bead in wrong location</option>
-            <option value="plugging">Nozzle plugging / restriction</option>
-            <option value="bonding">Weak bond / poor adhesion</option>
-            <option value="char">Charring / burnt adhesive</option>
-            <option value="intermittent">Intermittent application / random variation</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="systemTemp">System Warmed Up and Stable?</label>
-          <select id="systemTemp">
-            <option value="yes">Yes</option>
-            <option value="no">No / not sure</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="airStable">Air Pressure Stable?</label>
-          <select id="airStable">
-            <option value="yes">Yes</option>
-            <option value="no">No / not sure</option>
-            <option value="na">Not applicable / not sure</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="speedChanged">Line Speed Changed Recently?</label>
-          <select id="speedChanged">
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-            <option value="unknown">Not sure</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="hardwareCondition">Nozzle / Gun Condition</label>
-          <select id="hardwareCondition">
-            <option value="good">Looks good</option>
-            <option value="dirty">Dirty / char / buildup visible</option>
-            <option value="worn">Possibly worn</option>
-            <option value="unknown">Not checked</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="materialCondition">Adhesive Condition</label>
-          <select id="materialCondition">
-            <option value="normal">Seems normal</option>
-            <option value="old">Old / overheated / questionable</option>
-            <option value="changed">Recently changed adhesive</option>
-            <option value="unknown">Not sure</option>
-          </select>
-        </div>
+      <div class="workflow-card">
+        <h3>Inspect hardware</h3>
+        <p>Look at nozzle, module, filters, gun response, buildup, wear, and char before blaming settings.</p>
       </div>
 
-      <div class="button-row">
-        <button onclick="troubleshoot(); gtag('event','hot_melt_troubleshoot_run');">Troubleshoot</button>
-        <button class="secondary" onclick="loadSymptom('no_output');">Load Example</button>
-        <button class="ghost" onclick="resetTroubleshooter(); gtag('event','hot_melt_troubleshoot_clear');">Reset</button>
+      <div class="workflow-card">
+        <h3>Change one thing</h3>
+        <p>Make one controlled change, run the process, and compare the symptom before changing the next variable.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">What this tool helps with</div>
+    <h2>Common adhesive issues covered</h2>
+
+    <div class="grid-3">
+      <div class="info-card"><h3>No adhesive output</h3><p>Separate material flow issues from gun actuation and control problems.</p></div>
+      <div class="info-card"><h3>Stringing and dripping</h3><p>Review temperature, cutoff, pressure, adhesive condition, and hardware wear.</p></div>
+      <div class="info-card"><h3>Poor cutoff</h3><p>Check closing response, nozzle condition, air pressure, and gun behavior.</p></div>
+      <div class="info-card"><h3>Weak or oversized beads</h3><p>Connect bead size to pressure, speed, nozzle restriction, timing, and temperature.</p></div>
+      <div class="info-card"><h3>Placement problems</h3><p>Separate timing, tracking, sensor, line speed, and alignment issues.</p></div>
+      <div class="info-card"><h3>Bond quality issues</h3><p>Review substrate, open time, adhesive choice, application amount, and placement.</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="troubleshooter">
+    <div class="section-label">Troubleshooter</div>
+    <h2>Diagnose common hot melt problems</h2>
+
+    <p>
+      Choose the main symptom you are seeing, then add a few system conditions. The result gives a practical starting point for what to verify first.
+    </p>
+
+    <div class="section-label">Quick examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadSymptom('no_output'); gtag('event','hot_melt_example',{'type':'no_output'});">No Adhesive Output</button>
+      <button type="button" onclick="loadSymptom('stringing'); gtag('event','hot_melt_example',{'type':'stringing'});">Stringing</button>
+      <button type="button" onclick="loadSymptom('placement'); gtag('event','hot_melt_example',{'type':'placement'});">Bad Placement</button>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="symptom">Main Symptom</label>
+        <select id="symptom">
+          <option value="no_output">No adhesive output</option>
+          <option value="weak_output">Weak or inconsistent adhesive output</option>
+          <option value="stringing">Stringing or tails</option>
+          <option value="dripping">Dripping after shutoff</option>
+          <option value="poor_cutoff">Poor cutoff / messy stop</option>
+          <option value="oversized_bead">Bead too large</option>
+          <option value="undersized_bead">Bead too small</option>
+          <option value="placement">Bead in wrong location</option>
+          <option value="plugging">Nozzle plugging / restriction</option>
+          <option value="bonding">Weak bond / poor adhesion</option>
+          <option value="char">Charring / burnt adhesive</option>
+          <option value="intermittent">Intermittent application / random variation</option>
+        </select>
+        <small>Pick the most obvious symptom first. Do not try to solve every symptom at once.</small>
       </div>
 
-      <div class="result" id="output">
-        Choose the symptom and press <strong>Troubleshoot</strong>.
+      <div class="control-group">
+        <label for="systemTemp">System Warmed Up and Stable?</label>
+        <select id="systemTemp">
+          <option value="yes">Yes</option>
+          <option value="no">No / not sure</option>
+        </select>
+        <small>Temperature instability can make good settings look wrong.</small>
       </div>
 
-      <div class="cta-box">
-        <h3>Need help applying this in your system?</h3>
-        <p>
-          If you are troubleshooting a live adhesive issue and need a better direction than trial and error, get help reviewing the process.
-        </p>
-        <a href="/automation-help.html"
-           onclick="gtag('event','cta_click',{'location':'hot_melt_troubleshooter_main','target':'automation_help'});">
-           Get Help With My System
-        </a>
+      <div class="control-group">
+        <label for="airStable">Air Pressure Stable?</label>
+        <select id="airStable">
+          <option value="yes">Yes</option>
+          <option value="no">No / not sure</option>
+          <option value="na">Not applicable / not sure</option>
+        </select>
+        <small>Air-operated guns need stable air for clean opening and cutoff.</small>
       </div>
 
-      <div class="cta-box">
-        <h3>Next Step</h3>
-        <p>
-          If the issue may be related to line speed or product spacing, use the timing page to convert distance into real gun timing.
-        </p>
-        <a href="/pattern-timing-calculator.html"
-           onclick="gtag('event','next_step_click',{'from':'hot_melt_troubleshooting','to':'pattern_timing'});">
-           Go to Pattern Timing Calculator →
-        </a>
+      <div class="control-group">
+        <label for="speedChanged">Line Speed Changed Recently?</label>
+        <select id="speedChanged">
+          <option value="no">No</option>
+          <option value="yes">Yes</option>
+          <option value="unknown">Not sure</option>
+        </select>
+        <small>Speed changes can make timing and bead size look wrong.</small>
       </div>
 
-      <h3>Continue This Section</h3>
-
-      <div class="internal-links">
-        <a href="/adhesive-system-setup.html"
-           onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'adhesive_setup'});">
-           → Setup Guide
-        </a>
-
-        <a href="/nordson-parameters-explained.html"
-           onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'nordson_parameters'});">
-           → Parameter Explanations
-        </a>
-
-        <a href="/adhesive-usage-calculator.html"
-           onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'adhesive_usage'});">
-           → Adhesive Usage Calculator
-        </a>
-
-        <a href="/pattern-timing-calculator.html"
-           onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'pattern_timing'});">
-           → Pattern Timing Calculator
-        </a>
+      <div class="control-group">
+        <label for="hardwareCondition">Nozzle / Gun Condition</label>
+        <select id="hardwareCondition">
+          <option value="good">Looks good</option>
+          <option value="dirty">Dirty / char / buildup visible</option>
+          <option value="worn">Possibly worn</option>
+          <option value="unknown">Not checked</option>
+        </select>
+        <small>Hardware issues often mimic process-setting problems.</small>
       </div>
 
-      <div class="learn-more">
-        <h3>How to use this tool well</h3>
-        <p>
-          This tool is meant to help you choose a better first direction. It does not replace machine knowledge, adhesive supplier guidance, or equipment manuals, but it does help narrow down the most likely checks.
-        </p>
-
-        <h3>Strong troubleshooting habits</h3>
-        <ul>
-          <li>Start with the main visible symptom, not every symptom at once</li>
-          <li>Confirm warmup and stabilization before changing settings</li>
-          <li>Check hardware condition before assuming the process number is wrong</li>
-          <li>Ask whether line speed changed before chasing temperature</li>
-          <li>Change one variable at a time when possible</li>
-        </ul>
-
-        <h3>Weak troubleshooting habits</h3>
-        <ul>
-          <li>Turning all temperatures up first</li>
-          <li>Changing pressure and timing at the same time</li>
-          <li>Ignoring air quality or actuation pressure on pneumatic guns</li>
-          <li>Assuming the nozzle is clean without checking</li>
-          <li>Trying to solve bad alignment or timing with heat alone</li>
-        </ul>
-      </div>
-
-      <p class="note">
-        This troubleshooting page is a practical starting tool. Real root cause depends on adhesive type, substrate, ambient conditions, equipment model, maintenance condition, process speed, and control timing.
-      </p>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
+      <div class="control-group">
+        <label for="materialCondition">Adhesive Condition</label>
+        <select id="materialCondition">
+          <option value="normal">Seems normal</option>
+          <option value="old">Old / overheated / questionable</option>
+          <option value="changed">Recently changed adhesive</option>
+          <option value="unknown">Not sure</option>
+        </select>
+        <small>Material age, overheating, or adhesive changes can shift behavior.</small>
       </div>
     </div>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>Suggested starting point</h3>
-        <div class="recommendation-box">
-          <div id="recommendationText">
-            Run the troubleshooter to get a practical starting direction based on the symptom and conditions you selected.
-          </div>
-        </div>
-      </div>
+    <div class="button-row">
+      <button onclick="troubleshoot(); gtag('event','hot_melt_troubleshoot_run');">Troubleshoot</button>
+      <button class="secondary" onclick="loadSymptom('no_output');">Load Example</button>
+      <button class="ghost" onclick="resetTroubleshooter(); gtag('event','hot_melt_troubleshoot_clear');">Reset</button>
+    </div>
 
-      <div class="sidebar-card">
-        <h3>What this tool helps with</h3>
-        <ul>
-          <li>No adhesive output</li>
-          <li>Stringing and dripping</li>
-          <li>Poor cutoff</li>
-          <li>Weak or oversized beads</li>
-          <li>Placement problems</li>
-          <li>Nozzle restriction and hardware issues</li>
-          <li>Bond quality issues</li>
-        </ul>
-      </div>
+    <div class="result" id="output">
+      Choose the symptom and press <strong>Troubleshoot</strong>.
+    </div>
+  </section>
 
-      <div class="sidebar-card">
-        <h3>Most common first checks</h3>
+  <section class="section">
+    <div class="section-label">Suggested starting point</div>
+    <h2>Main troubleshooting direction</h2>
+
+    <div class="callout good">
+      <div id="recommendationText">
+        Run the troubleshooter to get a practical starting direction based on the symptom and conditions you selected.
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">First checks</div>
+    <h2>Most common first checks</h2>
+
+    <div class="grid-3">
+      <div class="info-card">
+        <h3>Warmup and stability</h3>
         <ul>
           <li>Was the system fully warmed up?</li>
-          <li>Did line speed change?</li>
-          <li>Is the nozzle clean and open?</li>
-          <li>Is air pressure stable?</li>
-          <li>Did the adhesive type change?</li>
-          <li>Is the gun actually opening and closing correctly?</li>
+          <li>Are tank, hose, and gun zones stable?</li>
+          <li>Is actual temperature matching the expected behavior?</li>
         </ul>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Need help validating a real application?</h3>
-        <div class="pneumatic-consulting">
-          <p>
-            Submit your adhesive application details and I can help review likely causes, next checks, and process direction.
-          </p>
-
-          <ul>
-            <li>Symptom-based troubleshooting review</li>
-            <li>Timing, pressure, and temperature direction</li>
-            <li>Hardware condition reality check</li>
-            <li>General automation design support</li>
-          </ul>
-
-          <a href="/automation-help.html" class="pneumatic-btn"
-             onclick="gtag('event','sidebar_help_click',{'from':'hot_melt_troubleshooting'});">
-             Get Help With Your Application →
-          </a>
-        </div>
+      <div class="info-card">
+        <h3>Hardware condition</h3>
+        <ul>
+          <li>Is the nozzle clean and open?</li>
+          <li>Is the module worn or contaminated?</li>
+          <li>Is char visible around the nozzle or gun?</li>
+        </ul>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
+      <div class="info-card">
+        <h3>Actuation and timing</h3>
         <ul>
-          <li>Watch the gun physically cycle if safe to do so</li>
-          <li>Verify temperature zones are actually stable, not only set correctly</li>
-          <li>Inspect the nozzle for char or partial restriction</li>
-          <li>Confirm product tracking and trigger timing against line motion</li>
-          <li>Check whether adhesive has been overheated too long in the system</li>
+          <li>Is air pressure stable?</li>
+          <li>Is the gun actually opening and closing?</li>
+          <li>Did line speed or product spacing change?</li>
         </ul>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Decision blocks</div>
+    <h2>What to check based on what you see</h2>
+
+    <div class="grid-2">
+      <div class="decision-card">
+        <h3>If there is no adhesive</h3>
+        <ul>
+          <li>Confirm warmup and material supply first.</li>
+          <li>Watch whether the gun physically cycles.</li>
+          <li>Check nozzle or module blockage.</li>
+          <li>Separate control/air problems from material-flow problems.</li>
+        </ul>
+      </div>
+
+      <div class="decision-card">
+        <h3>If there is adhesive but poor cutoff</h3>
+        <ul>
+          <li>Inspect nozzle, module, and sealing condition.</li>
+          <li>Check gun air pressure and closure response.</li>
+          <li>Review gun temperature and pressure.</li>
+          <li>Check for adhesive degradation or char.</li>
+        </ul>
+      </div>
+
+      <div class="decision-card">
+        <h3>If placement is wrong</h3>
+        <ul>
+          <li>Check line speed and trigger timing before temperature.</li>
+          <li>Verify sensor position and product tracking.</li>
+          <li>Confirm gun alignment.</li>
+          <li>Use distance-to-time thinking.</li>
+        </ul>
+      </div>
+
+      <div class="decision-card">
+        <h3>If bead size is wrong</h3>
+        <ul>
+          <li>Check nozzle size and restriction.</li>
+          <li>Review adhesive pressure.</li>
+          <li>Check line speed changes.</li>
+          <li>Verify temperature stability at hose and gun.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Symptom map</div>
+    <h2>Fast symptom-to-check map</h2>
+
+    <table class="trouble-table">
+      <thead>
+        <tr>
+          <th>Symptom</th>
+          <th>Most likely area</th>
+          <th>First practical check</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>No adhesive output</td>
+          <td>Warmup, blockage, material supply, gun actuation</td>
+          <td>Confirm gun cycles and nozzle is not blocked.</td>
+        </tr>
+        <tr>
+          <td>Stringing or tails</td>
+          <td>Cutoff, temperature, nozzle condition, material condition</td>
+          <td>Inspect nozzle/module and check gun closing behavior.</td>
+        </tr>
+        <tr>
+          <td>Dripping</td>
+          <td>Gun sealing, pressure, heat, contamination</td>
+          <td>Inspect gun/module sealing surfaces.</td>
+        </tr>
+        <tr>
+          <td>Bead in wrong location</td>
+          <td>Timing, speed, sensor, tracking, alignment</td>
+          <td>Check line speed and trigger reference.</td>
+        </tr>
+        <tr>
+          <td>Weak bond</td>
+          <td>Adhesive selection, open time, substrate, bead coverage</td>
+          <td>Confirm material, surface condition, and assembly timing.</td>
+        </tr>
+        <tr>
+          <td>Random variation</td>
+          <td>Pressure instability, sensing, restriction, temperature drift</td>
+          <td>Watch pressures, product tracking, and gun response cycle-to-cycle.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Troubleshooting habits</div>
+    <h2>Strong and weak troubleshooting habits</h2>
+
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>Strong troubleshooting habits</h3>
+        <ul>
+          <li>Start with the main visible symptom, not every symptom at once.</li>
+          <li>Confirm warmup and stabilization before changing settings.</li>
+          <li>Check hardware condition before assuming the process number is wrong.</li>
+          <li>Ask whether line speed changed before chasing temperature.</li>
+          <li>Change one variable at a time when possible.</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Weak troubleshooting habits</h3>
+        <ul>
+          <li>Turning all temperatures up first.</li>
+          <li>Changing pressure and timing at the same time.</li>
+          <li>Ignoring air quality or actuation pressure on pneumatic guns.</li>
+          <li>Assuming the nozzle is clean without checking.</li>
+          <li>Trying to solve bad alignment or timing with heat alone.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h3>Need help applying this in your system?</h3>
+    <p>
+      If you are troubleshooting a live adhesive issue and need a better direction than trial and error, get help reviewing the process.
+    </p>
+    <a href="/automation-help.html"
+       onclick="gtag('event','cta_click',{'location':'hot_melt_troubleshooter_main','target':'automation_help'});">
+       Get Help With My System
+    </a>
+  </section>
+
+  <section class="cta-box">
+    <h3>Next step</h3>
+    <p>
+      If the issue may be related to line speed or product spacing, use the timing page to convert distance into real gun timing.
+    </p>
+    <a href="/pattern-timing-calculator.html"
+       onclick="gtag('event','next_step_click',{'from':'hot_melt_troubleshooting','to':'pattern_timing'});">
+       Go to Pattern Timing Calculator →
+    </a>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Continue this section</div>
+    <h2>Continue in the adhesives workflow</h2>
+
+    <p>
+      Use the adhesive workflow in order: understand the system, understand the parameters, estimate usage, calculate timing, then troubleshoot the real bead behavior.
+    </p>
+
+    <div class="internal-links">
+      <a href="/adhesives.html" onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'adhesives_hub'});">Adhesives Overview</a>
+      <a href="/adhesive-system-setup.html" onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'adhesive_setup'});">Setup Guide</a>
+      <a href="/nordson-parameters-explained.html" onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'nordson_parameters'});">Parameter Explanations</a>
+      <a href="/adhesive-usage-calculator.html" onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'adhesive_usage'});">Adhesive Usage Calculator</a>
+      <a href="/pattern-timing-calculator.html" onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'pattern_timing'});">Pattern Timing Calculator</a>
+      <a href="/integrators.html" onclick="gtag('event','internal_link_click',{'from':'hot_melt_troubleshooting','to':'integrators'});">Find an Integrator</a>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Need implementation support?</h2>
+    <p>
+      If you need help applying adhesive equipment or troubleshooting a live process issue, connect with a qualified automation integrator.
+    </p>
+    <a href="/integrators.html" onclick="gtag('event','cta_click',{'from':'hot_melt_troubleshooting','to':'integrators'});">Find an Integrator</a>
+    <a href="/adhesives.html" onclick="gtag('event','cta_click',{'from':'hot_melt_troubleshooting','to':'adhesives_hub'});">View Adhesive Tools</a>
+  </section>
+
+  <p class="note">
+    This troubleshooting page is a practical starting tool. Real root cause depends on adhesive type, substrate, ambient conditions, equipment model, maintenance condition, process speed, material age, and control timing.
+  </p>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
-</div>
+
+</main>
 
 <script>
   function scrollToOutput(){
@@ -1149,6 +1417,16 @@
       "<strong>Main Direction:</strong> " + recommendation + "<br><br>" +
       "Most likely symptom path: " + title + ".";
 
+    gtag('event','tool_calculation',{
+      tool:'hot_melt_troubleshooting',
+      symptom:symptom,
+      system_temp:systemTemp,
+      air_stable:airStable,
+      speed_changed:speedChanged,
+      hardware_condition:hardwareCondition,
+      material_condition:materialCondition
+    });
+
     document.getElementById("output").innerHTML =
       "<h3>" + title + "</h3>" +
       "<strong>What this usually means</strong><br>" +
@@ -1179,7 +1457,7 @@
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
