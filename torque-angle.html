@@ -15,46 +15,86 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <title>Torque Angle Calculator | Automation Calculators</title>
-  <meta name="description" content="Free torque angle calculator for fastener tightening. Estimate thread advance, effective joint movement, and approximate clamp load change from bolt pitch, angle, and joint stiffness assumptions.">
+  <title>Torque Angle Calculator | Fastener Tightening Movement & Clamp Load Estimate</title>
+  <meta name="description" content="Free torque angle calculator for fastener tightening. Estimate thread advance, effective joint movement, approximate clamp load change, and preload stress increase from bolt pitch, tightening angle, joint transfer, and joint stiffness assumptions.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
+    :root{
+      --bg:#f5f7fb;
+      --panel:#ffffff;
+      --ink:#1f2a44;
+      --muted:#5f6f89;
+      --line:#d9e2f2;
+      --soft:#eef4ff;
+      --soft2:#f8fbff;
+      --accent:#1e6bd6;
+      --accent-dark:#1555ad;
+      --warn:#fff7df;
+      --warn-line:#f1d98a;
+      --good:#eaf7ef;
+      --good-line:#bfe5cb;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
     body{
       font-family:Arial, sans-serif;
-      background:#f4f4f4;
+      background:var(--bg);
       margin:0;
       color:#222;
     }
 
+    a{
+      color:var(--accent);
+    }
+
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:#ffffff;
+      color:var(--ink);
+      padding:46px 20px 34px;
+      border-bottom:1px solid var(--line);
       text-align:center;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:1050px;
       margin:auto;
     }
 
+    .eyebrow{
+      display:inline-block;
+      background:var(--soft);
+      color:#31527f;
+      border:1px solid #cfddf5;
+      border-radius:999px;
+      padding:7px 12px;
+      font-size:13px;
+      font-weight:bold;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      margin-bottom:14px;
+    }
+
     .hero h1{
-      margin:0 0 12px;
-      font-size:34px;
-      line-height:1.2;
+      margin:0 0 14px;
+      font-size:38px;
+      line-height:1.15;
+      color:var(--ink);
     }
 
     .hero p{
-      max-width:800px;
+      max-width:850px;
       margin:0 auto 14px;
-      color:#e7ecf7;
+      color:#4f5f78;
       font-size:17px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .hero-cta{
-      margin-top:18px;
+      margin-top:22px;
       display:flex;
       justify-content:center;
       gap:12px;
@@ -64,20 +104,21 @@
     .hero-cta a{
       display:inline-block;
       padding:12px 18px;
-      border-radius:8px;
+      border-radius:9px;
       text-decoration:none;
       font-weight:bold;
       transition:.2s ease;
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:var(--accent);
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      color:var(--ink);
+      background:#f4f7fd;
+      border:1px solid #ccd8ee;
     }
 
     .hero-cta a:hover{
@@ -86,46 +127,30 @@
     }
 
     .page-wrap{
-      max-width:1100px;
-      margin:30px auto;
-      padding:0 18px 40px;
+      max-width:1120px;
+      margin:28px auto 0;
+      padding:0 18px 46px;
     }
 
     .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
+      background:var(--warn);
+      border:1px solid var(--warn-line);
       color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
-      font-size:15px;
-      line-height:1.5;
-      text-align:left;
-    }
-
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
-      background:white;
+      padding:15px 17px;
       border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
-      padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
+      margin:0 0 22px;
+      font-size:15px;
+      line-height:1.55;
       text-align:left;
+    }
+
+    .section{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:16px;
+      box-shadow:0 6px 18px rgba(31,42,68,.06);
+      padding:28px;
+      margin:0 0 24px;
     }
 
     .section-label{
@@ -137,18 +162,71 @@
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
-      margin-top:0;
-      color:#1f2a44;
+    .section h2{
+      margin:0 0 14px;
+      color:var(--ink);
+      font-size:26px;
+      line-height:1.25;
     }
 
-    .description{
-      margin:0 0 18px;
-      color:#555;
+    .section h3{
+      margin:22px 0 10px;
+      color:var(--ink);
+      font-size:20px;
+    }
+
+    .section p{
+      color:#4f5f78;
+      line-height:1.7;
+      margin:0 0 14px;
       font-size:16px;
-      line-height:1.6;
-      text-align:left;
+    }
+
+    .section ul,
+    .section ol{
+      color:#45546d;
+      line-height:1.75;
+      margin-top:8px;
+      padding-left:22px;
+    }
+
+    .grid-2,
+    .grid-3{
+      display:grid;
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .grid-2{
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .grid-3{
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+
+    .info-card{
+      background:var(--soft2);
+      border:1px solid #d7e6ff;
+      border-radius:13px;
+      padding:18px;
+    }
+
+    .info-card h3{
+      margin:0 0 10px;
+      font-size:18px;
+      color:var(--ink);
+    }
+
+    .info-card p{
+      margin:0;
+      font-size:15px;
+    }
+
+    .info-card ul{
+      margin:0;
+      padding-left:18px;
+      font-size:15px;
     }
 
     .formula-box{
@@ -156,12 +234,53 @@
       padding:18px;
       background:#eef3ff;
       border:1px solid #cfdaf5;
-      border-radius:10px;
+      border-radius:12px;
       color:#1f2a44;
       font-weight:bold;
       font-size:17px;
       line-height:1.7;
       text-align:left;
+    }
+
+    .workflow{
+      counter-reset:step;
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .workflow-card{
+      background:#ffffff;
+      border:1px solid #dbe4f3;
+      border-radius:13px;
+      padding:16px;
+      position:relative;
+    }
+
+    .workflow-card:before{
+      counter-increment:step;
+      content:counter(step);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:var(--accent);
+      color:white;
+      font-weight:bold;
+      margin-bottom:10px;
+    }
+
+    .workflow-card h3{
+      margin:0 0 8px;
+      font-size:17px;
+    }
+
+    .workflow-card p{
+      font-size:15px;
+      margin:0;
     }
 
     .quick-row{
@@ -179,6 +298,7 @@
       cursor:pointer;
       font-weight:600;
       color:#1f2a44;
+      font-family:Arial, sans-serif;
     }
 
     .quick-row button:hover{
@@ -187,7 +307,7 @@
 
     .controls{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns:repeat(auto-fit, minmax(225px, 1fr));
       gap:16px;
       margin:25px 0 20px;
       text-align:left;
@@ -196,15 +316,23 @@
     .control-group{
       background:#f8fbff;
       border:1px solid #d7e6ff;
-      border-radius:10px;
+      border-radius:12px;
       padding:16px;
     }
 
     .control-group label{
       display:block;
-      font-weight:600;
+      font-weight:700;
       margin-bottom:6px;
       color:#23314f;
+    }
+
+    .control-group small{
+      display:block;
+      color:#6a7890;
+      line-height:1.45;
+      margin-top:7px;
+      font-size:13px;
     }
 
     .control-group input,
@@ -236,13 +364,14 @@
     .button-row button{
       padding:13px 22px;
       font-size:16px;
-      background:#1e6bd6;
+      background:var(--accent);
       color:white;
       border:none;
-      border-radius:8px;
+      border-radius:9px;
       cursor:pointer;
       font-weight:bold;
       transition:.2s ease;
+      font-family:Arial, sans-serif;
     }
 
     .button-row button.secondary{
@@ -255,7 +384,7 @@
     }
 
     .button-row button:hover{
-      background:#1555ad;
+      background:var(--accent-dark);
       transform:translateY(-1px);
     }
 
@@ -269,10 +398,10 @@
 
     .result{
       margin-top:25px;
-      padding:20px;
+      padding:21px;
       background:#e9f1ff;
       border:1px solid #c8d9ff;
-      border-radius:10px;
+      border-radius:12px;
       font-size:18px;
       line-height:1.6;
       font-weight:500;
@@ -280,70 +409,67 @@
       scroll-margin-top:100px;
     }
 
-    .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
+    .result-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+      gap:12px;
+      margin:14px 0;
     }
 
-    .cta-box h3{
-      margin:0 0 10px;
+    .result-card{
+      background:white;
+      border:1px solid #cbdcff;
+      border-radius:10px;
+      padding:13px;
+    }
+
+    .result-card strong{
+      display:block;
       color:#1f2a44;
+      margin-bottom:5px;
     }
 
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
+    .result-card span{
+      color:#2b3b5e;
+      font-size:19px;
       font-weight:bold;
     }
 
     .note{
-      margin-top:20px;
+      margin-top:18px;
       color:#666;
       font-size:14px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
     }
 
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
+    .callout{
       background:#f4f8ff;
-      border-radius:10px;
       border:1px solid #d7e6ff;
+      border-radius:13px;
+      padding:18px;
+      margin-top:16px;
     }
 
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
+    .callout.good{
+      background:var(--good);
+      border-color:var(--good-line);
     }
 
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
+    .callout.warning{
+      background:var(--warn);
+      border-color:var(--warn-line);
+    }
+
+    .callout p:last-child{
+      margin-bottom:0;
     }
 
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .internal-links a{
@@ -354,48 +480,73 @@
       border-radius:8px;
       color:#1f2a44;
       text-decoration:none;
-      font-weight:600;
+      font-weight:700;
+      font-size:15px;
     }
 
     .internal-links a:hover{
       background:#e9eef8;
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+    .cta-box{
+      margin-top:0;
+      padding:26px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:16px;
+      text-align:center;
     }
 
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
+    .cta-box h2{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 auto 16px;
+      color:#4d5a74;
+      line-height:1.65;
+      max-width:820px;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 17px;
+      border-radius:9px;
+      text-decoration:none;
+      font-weight:bold;
+      margin:4px;
     }
 
     .footer{
-      margin-top:40px;
+      margin-top:36px;
       color:#666;
       font-size:14px;
       text-align:center;
     }
 
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
+    @media (max-width:980px){
+      .grid-3,
+      .workflow{
+        grid-template-columns:repeat(2,minmax(0,1fr));
       }
     }
 
-    @media (max-width:700px){
-      .card,
-      .sidebar-card{
-        padding:20px;
+    @media (max-width:760px){
+      .hero h1{
+        font-size:30px;
       }
 
-      .hero h1{
-        font-size:28px;
+      .section{
+        padding:21px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .workflow{
+        grid-template-columns:1fr;
       }
 
       .hero-cta{
@@ -405,7 +556,7 @@
 
       .hero-cta a{
         width:100%;
-        max-width:320px;
+        max-width:330px;
       }
 
       .button-row{
@@ -418,184 +569,477 @@
     }
   </style>
 </head>
-<body>
 
+<body>
 <div id="navbar"></div>
 
 <section class="hero">
   <div class="hero-inner">
+    <div class="eyebrow">Fastening / Torque Strategy</div>
     <h1>Torque Angle Calculator</h1>
     <p>
-      Estimate thread advance, effective joint movement, and approximate clamp load change from angle after torque using bolt pitch, tensile stress area, joint transfer assumptions, and joint stiffness.
+      Estimate theoretical thread advance, effective joint movement, approximate clamp load increase, and preload stress increase from bolt pitch, tightening angle, joint transfer, and joint stiffness assumptions.
+    </p>
+    <p>
+      This tool is intended for torque-angle planning, fastener process review, and first-pass assembly setup work before validating the real joint with actual parts and tooling.
     </p>
     <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#calculator" class="primary" onclick="gtag('event','hero_cta_click',{'page':'torque_angle','target':'calculator'});">Open Calculator</a>
       <a href="/torque-clamp-load.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'torque_angle_hero','to':'torque_clamp_load'});">Torque Clamp Load Calculator</a>
+      <a href="/fastening.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'torque_angle_hero','to':'fastening_hub'});">Fastening Hub</a>
     </div>
   </div>
 </section>
 
-<div class="page-wrap">
+<main class="page-wrap">
+
   <div class="top-note">
-    <strong>Good starting use case:</strong> use this for first-pass torque-angle strategy planning and fastener movement estimates before you rely on it for real clamp load control. Final results still depend heavily on seating, friction, joint embedment, bolt stretch, and tool accuracy.
+    <strong>Good starting use case:</strong> use this calculator for first-pass torque-angle strategy planning and fastener movement estimates before relying on it for real clamp load control. Final results still depend heavily on seating, friction, joint embedment, bolt stretch, part compression, and tightening tool accuracy.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Torque Angle Thread Advance</h2>
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <h2>What this calculator does</h2>
+    <p>
+      A torque-angle tightening process applies an initial torque or snug torque, then turns the fastener an additional number of degrees. Once the joint is seated, the angle portion can be a more repeatable way to control fastener stretch than torque alone because the angle is tied to thread movement.
+    </p>
+    <p>
+      This calculator converts the angle after torque into theoretical thread advance. It then applies an effective joint transfer percentage and an assumed joint rate to estimate how much clamp load may be added during that angle move.
+    </p>
 
-      <p class="description">
-        Estimate thread advance, effective joint movement, and approximate clamp load change from angle after torque using bolt pitch and simplified joint assumptions.
-      </p>
-
-      <p class="description">
-        This calculator is useful for torque-angle strategy planning, tightening setup review, and fastener movement estimates in manufacturing and automation applications.
-      </p>
-
-      <div class="formula-box">
-        Theoretical Thread Advance = Thread Pitch × (Angle / 360)<br><br>
-        Approximate Clamp Load Change = Effective Joint Advance × Joint Rate
-      </div>
-
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','torque_angle_example',{'type':'m10_60_deg'});">M10 at 60°</button>
-        <button type="button" onclick="loadExample2(); gtag('event','torque_angle_example',{'type':'m8_90_deg'});">M8 at 90°</button>
-        <button type="button" onclick="loadExample3(); gtag('event','torque_angle_example',{'type':'m12_120_deg'});">M12 at 120°</button>
-      </div>
-
-      <div class="controls">
-        <div class="control-group">
-          <label for="boltSize">Metric Bolt Size</label>
-          <select id="boltSize" onchange="applyBoltData()">
-            <option value="M4">M4</option>
-            <option value="M5">M5</option>
-            <option value="M6">M6</option>
-            <option value="M8">M8</option>
-            <option value="M10" selected>M10</option>
-            <option value="M12">M12</option>
-            <option value="M14">M14</option>
-            <option value="M16">M16</option>
-            <option value="M20">M20</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="pitch">Thread Pitch (mm)</label>
-          <input id="pitch" type="number" value="1.5" step="0.01" min="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="tensileArea">Tensile Stress Area (mm²)</label>
-          <input id="tensileArea" type="number" value="58.0" step="0.1" min="0.1">
-        </div>
-
-        <div class="control-group">
-          <label for="angle">Angle After Torque (deg)</label>
-          <input id="angle" type="number" value="60" step="1" min="0">
-        </div>
-
-        <div class="control-group">
-          <label for="jointEfficiency">Effective Joint Transfer (%)</label>
-          <input id="jointEfficiency" type="number" value="85" step="1" min="1" max="100">
-        </div>
-
-        <div class="control-group">
-          <label for="jointRate">Approximate Joint Rate (N/mm)</label>
-          <input id="jointRate" type="number" value="120000" step="1000" min="1">
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateTorqueAngle();">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator();">Reset</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this to a real machine?</h3>
-        <p>
-          Get connected with a qualified automation integrator if you need help with tightening strategy, torque-angle review, assembly equipment setup, or fastener process development.
-        </p>
-        <a href="/integrators.html">Find an Integrator</a>
-      </div>
-
-      <p class="note">
-        This is a simplified estimate only. Actual clamp load increase during torque-angle tightening depends on joint stiffness, bolt stretch, embedment, friction, seating behavior, and tooling accuracy.
-      </p>
-
-      <p class="note">
-        This calculator is most useful as a first-pass planning tool, not as a substitute for real fastener validation, torque-angle signature review, or production torque audit work.
-      </p>
-
-      <div class="learn-more">
-        <h3>What to check next</h3>
-
-        <p>
-          This tool gives a quick estimate of movement and preload change, but real torque-angle behavior is driven by more than pitch alone. Seating, friction scatter, joint settlement, part compression, under-head friction, and bolt material behavior can all change the actual clamp load result.
-        </p>
-
-        <p>
-          For real assembly development, this page usually works best alongside clamp load checks, torque review, joint testing, and tightening strategy validation so the process works on the actual parts, not just in theory.
-        </p>
-
-        <div class="internal-links">
-          <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle','to':'torque_clamp_load'});">Torque Clamp Load</a>
-          <a href="/bolt-torque-chart.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle','to':'bolt_torque_chart'});">Bolt Torque Chart</a>
-          <a href="/multi-stage-torque-sequence.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle','to':'multi_stage_torque_sequence'});">Multi-Stage Torque Sequence</a>
-          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle','to':'automation_roi'});">Automation ROI</a>
-        </div>
-      </div>
-
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
-      </div>
+    <div class="formula-box">
+      Theoretical Thread Advance = Thread Pitch × (Angle / 360)<br><br>
+      Estimated Effective Joint Advance = Theoretical Thread Advance × Joint Transfer<br><br>
+      Approximate Clamp Load Change = Effective Joint Advance × Joint Rate
     </div>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
-        <ul>
-          <li>Theoretical thread advance</li>
-          <li>Estimated effective joint advance</li>
-          <li>Approximate clamp load increase</li>
-          <li>Approximate preload stress increase</li>
-          <li>Bolt preset data by metric size</li>
-        </ul>
-      </div>
+    <p>
+      The calculation is intentionally practical. It is not a complete bolted-joint finite element model. It gives a usable engineering estimate for comparing angle moves, reviewing tightening setups, and understanding how much movement a selected angle represents.
+    </p>
+  </section>
 
-      <div class="sidebar-card">
-        <h3>Where this helps</h3>
+  <section class="section">
+    <div class="section-label">Converted from old sidebar content</div>
+    <h2>What this torque-angle estimate gives you</h2>
+
+    <div class="grid-3">
+      <div class="info-card">
+        <h3>Thread advance</h3>
         <p>
-          Useful for tightening strategy planning, assembly tool setup review, fastener process development, and checking how much movement a given angle might represent after snug torque.
+          The calculator shows how far the fastener would theoretically advance based on thread pitch and angle of rotation.
         </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
-        <ul>
-          <li>Real torque-angle signature behavior</li>
-          <li>Clamp load verification testing</li>
-          <li>Joint embedment and relaxation</li>
-          <li>Tool accuracy and angle tracking</li>
-          <li>Bolt grade and lubrication condition</li>
-        </ul>
+      <div class="info-card">
+        <h3>Effective joint advance</h3>
+        <p>
+          The joint transfer percentage reduces theoretical movement to represent losses from seating, embedment, compression, and non-ideal joint behavior.
+        </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Fastener reminder</h3>
+      <div class="info-card">
+        <h3>Clamp load change</h3>
         <p>
-          Torque-angle can be a strong strategy, but only when the joint is stable and the process is validated. If the joint is inconsistent, the angle result can look good while the clamp load is still wrong.
+          The tool estimates the added clamp load by multiplying effective movement by the assumed joint rate.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Preload stress increase</h3>
+        <p>
+          The estimated clamp load increase is divided by tensile stress area to estimate added preload stress in MPa.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Metric bolt presets</h3>
+        <p>
+          Built-in presets fill common coarse metric thread pitch and tensile stress area values for M4 through M20.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Process interpretation</h3>
+        <p>
+          The output explains whether the angle move is relatively small, moderate, or large so you can review the setup more intelligently.
         </p>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Where this helps</div>
+    <h2>When to use a torque angle calculator</h2>
+
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>Tightening strategy planning</h3>
+        <p>
+          Use this when you are reviewing whether 30°, 60°, 90°, 120°, or another angle move is reasonable for the fastener size and joint behavior.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Assembly tool setup review</h3>
+        <p>
+          The estimate helps compare tightening recipes before installing them into a DC tool, nutrunning system, torque controller, or automated fastening station.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Fastener process development</h3>
+        <p>
+          The results can support early decisions before running validation trials, clamp load checks, torque-angle signature reviews, or production torque audits.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Movement sanity checks</h3>
+        <p>
+          A small angular move on a fine thread creates less movement than the same angle on a coarse thread. This tool makes that difference visible.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout warning">
+      <p>
+        <strong>Important:</strong> torque-angle can be a strong tightening strategy, but only when the joint is stable and the process is validated. If the joint is inconsistent, the angle result can look good while the actual clamp load is still wrong.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Recommended workflow</div>
+    <h2>Recommended fastening workflow</h2>
+    <p>
+      For real assembly development, use this calculator as one step in a larger tightening review. Do not treat the angle estimate by itself as proof that the joint is safe, stable, or production-ready.
+    </p>
+
+    <div class="workflow">
+      <div class="workflow-card">
+        <h3>Start with bolt and pitch</h3>
+        <p>
+          Select the bolt size or manually enter the thread pitch and tensile stress area if you are using a non-standard fastener.
+        </p>
+      </div>
+
+      <div class="workflow-card">
+        <h3>Estimate angle movement</h3>
+        <p>
+          Enter the angle after torque to see theoretical thread advance and effective joint advance.
+        </p>
+      </div>
+
+      <div class="workflow-card">
+        <h3>Review clamp load</h3>
+        <p>
+          Use the assumed joint rate to estimate clamp load increase and preload stress increase.
+        </p>
+      </div>
+
+      <div class="workflow-card">
+        <h3>Validate the joint</h3>
+        <p>
+          Check actual torque-angle signatures, clamp load behavior, seating, embedment, relaxation, and production tool repeatability.
+        </p>
+      </div>
+    </div>
+
+    <div class="internal-links">
+      <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_workflow','to':'torque_clamp_load'});">Torque Clamp Load</a>
+      <a href="/bolt-tightening-torque.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_workflow','to':'bolt_tightening_torque'});">Bolt Tightening Torque</a>
+      <a href="/bolt-torque-chart.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_workflow','to':'bolt_torque_chart'});">Bolt Torque Chart</a>
+      <a href="/multi-stage-torque-sequence.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_workflow','to':'multi_stage_torque_sequence'});">Multi-Stage Torque Sequence</a>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Calculator</div>
+    <h2>Estimate torque-angle thread advance and clamp load change</h2>
+
+    <p>
+      Enter the bolt size, thread pitch, tensile stress area, angle after torque, effective joint transfer, and approximate joint rate. The calculator will estimate thread movement and approximate preload change.
+    </p>
+
+    <div class="section-label">Quick examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadExample1(); gtag('event','torque_angle_example',{'type':'m10_60_deg'});">M10 at 60°</button>
+      <button type="button" onclick="loadExample2(); gtag('event','torque_angle_example',{'type':'m8_90_deg'});">M8 at 90°</button>
+      <button type="button" onclick="loadExample3(); gtag('event','torque_angle_example',{'type':'m12_120_deg'});">M12 at 120°</button>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="boltSize">Metric Bolt Size</label>
+        <select id="boltSize" onchange="applyBoltData()">
+          <option value="M4">M4</option>
+          <option value="M5">M5</option>
+          <option value="M6">M6</option>
+          <option value="M8">M8</option>
+          <option value="M10" selected>M10</option>
+          <option value="M12">M12</option>
+          <option value="M14">M14</option>
+          <option value="M16">M16</option>
+          <option value="M20">M20</option>
+        </select>
+        <small>Preset fills common coarse metric pitch and tensile stress area values.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="pitch">Thread Pitch (mm)</label>
+        <input id="pitch" type="number" value="1.5" step="0.01" min="0.01">
+        <small>Distance the fastener advances in one full revolution.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="tensileArea">Tensile Stress Area (mm²)</label>
+        <input id="tensileArea" type="number" value="58.0" step="0.1" min="0.1">
+        <small>Used to estimate preload stress increase from clamp load increase.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="angle">Angle After Torque (deg)</label>
+        <input id="angle" type="number" value="60" step="1" min="0">
+        <small>Additional rotation after snug torque, seating torque, or threshold torque.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="jointEfficiency">Effective Joint Transfer (%)</label>
+        <input id="jointEfficiency" type="number" value="85" step="1" min="1" max="100">
+        <small>Represents how much of theoretical movement becomes useful joint/bolt stretch.</small>
+      </div>
+
+      <div class="control-group">
+        <label for="jointRate">Approximate Joint Rate (N/mm)</label>
+        <input id="jointRate" type="number" value="120000" step="1000" min="1">
+        <small>Assumed stiffness relationship between movement and clamp load change.</small>
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button onclick="calculateTorqueAngle();">Calculate</button>
+      <button class="secondary" onclick="loadExample1();">Load Example</button>
+      <button class="ghost" onclick="resetCalculator();">Reset</button>
+    </div>
+
+    <div class="result" id="output">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
+
+    <p class="note">
+      This is a simplified estimate only. Actual clamp load increase during torque-angle tightening depends on joint stiffness, bolt stretch, embedment, friction, seating behavior, part compression, lubrication condition, and tooling accuracy.
+    </p>
+
+    <p class="note">
+      This calculator is most useful as a first-pass planning tool, not as a substitute for real fastener validation, torque-angle signature review, clamp load testing, or production torque audit work.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">How to read the results</div>
+    <h2>Interpreting torque-angle output</h2>
+
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>Theoretical thread advance</h3>
+        <p>
+          This is the pure geometric movement from pitch and angle. For example, 60° is one-sixth of a turn, so an M10 × 1.5 thread theoretically advances 0.25 mm.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Effective joint advance</h3>
+        <p>
+          This reduces theoretical advance by the transfer percentage. It is meant to represent that not all movement becomes useful bolt stretch or clamp load.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Clamp load increase</h3>
+        <p>
+          This is the estimated additional clamp force from the angle move. It is only as accurate as the assumed joint rate and transfer percentage.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Preload stress increase</h3>
+        <p>
+          This shows the clamp load increase divided by tensile stress area. Use it as a warning indicator when comparing bolt sizes and large angle moves.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p>
+        <strong>Practical reading:</strong> if the theoretical advance looks high for the joint, or the preload stress increase looks aggressive for the fastener size, slow down and validate before using that tightening recipe in production.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Engineering notes</div>
+    <h2>Design notes, limitations, and real-world checks</h2>
+
+    <h3>Torque-angle depends on a stable starting point</h3>
+    <p>
+      The angle portion only works well after the fastener and joint are properly seated. If the snug torque is too low, the angle may be spent pulling parts together instead of stretching the bolt. If the snug torque is too high, the fastener may already be near the target preload before the angle starts.
+    </p>
+
+    <h3>Friction still matters</h3>
+    <p>
+      Torque-angle reduces some of the variation caused by friction, but it does not eliminate friction effects. Under-head friction, thread friction, coating condition, lubrication, washer behavior, and surface condition can still change final clamp load.
+    </p>
+
+    <h3>Embedment and relaxation can steal clamp load</h3>
+    <p>
+      Joint surfaces settle after tightening. Paint, coatings, soft material, gasket layers, burrs, rough surfaces, and stacked brackets can relax after the tool stops. That means the clamp load immediately after tightening may not be the same as clamp load later.
+    </p>
+
+    <h3>Joint rate is an assumption</h3>
+    <p>
+      The joint rate value is a simplified stiffness input. Real joints are a combination of bolt stiffness, clamped-part stiffness, compression, bending, and geometry. Use conservative assumptions until you have test data.
+    </p>
+
+    <h3>Angle monitoring needs a capable tool</h3>
+    <p>
+      A torque-angle strategy requires reliable angle tracking. If the tool misses movement, slips, starts counting too early, or counts rundown instability as useful angle, the tightening result may not match the recipe.
+    </p>
+
+    <div class="callout warning">
+      <p>
+        <strong>Do not use this calculator as the only approval method for a critical joint.</strong> Safety-critical, structural, automotive, lifting, pressure, or high-liability joints need proper engineering validation and approved tightening specifications.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Common next checks</div>
+    <h2>What to check before locking in a torque-angle recipe</h2>
+
+    <div class="grid-3">
+      <div class="info-card">
+        <h3>Torque-angle signature</h3>
+        <ul>
+          <li>Look for consistent seating behavior</li>
+          <li>Check rundown stability</li>
+          <li>Watch for yield or abnormal slope changes</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Clamp load verification</h3>
+        <ul>
+          <li>Use test washers or joint testing when possible</li>
+          <li>Compare multiple samples</li>
+          <li>Check variation across part lots</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Joint relaxation</h3>
+        <ul>
+          <li>Retest after dwell time</li>
+          <li>Review coatings and soft layers</li>
+          <li>Check embedment and settling</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Tool accuracy</h3>
+        <ul>
+          <li>Verify torque calibration</li>
+          <li>Verify angle tracking</li>
+          <li>Confirm socket and fixturing stability</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Bolt condition</h3>
+        <ul>
+          <li>Confirm grade and material</li>
+          <li>Check coating or lubrication</li>
+          <li>Watch reuse restrictions</li>
+        </ul>
+      </div>
+
+      <div class="info-card">
+        <h3>Production variation</h3>
+        <ul>
+          <li>Review operator or robot access</li>
+          <li>Check part stack tolerance</li>
+          <li>Audit real station data</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Examples</div>
+    <h2>Example torque-angle scenarios</h2>
+
+    <div class="grid-3">
+      <div class="info-card">
+        <h3>M10 at 60°</h3>
+        <p>
+          A moderate example for an M10 coarse thread. This is useful for seeing how a common 60° angle move converts into theoretical movement and estimated clamp load increase.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>M8 at 90°</h3>
+        <p>
+          A 90° angle on a smaller bolt can still create meaningful movement. This example is useful for comparing bolt size and joint rate sensitivity.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>M12 at 120°</h3>
+        <p>
+          A larger angle move on a larger bolt can create a high estimated preload change. This is the kind of recipe that deserves careful validation.
+        </p>
+      </div>
+    </div>
+
+    <div class="callout good">
+      <p>
+        <strong>Tip:</strong> run the same bolt size at several angles, then compare the estimated clamp load increase. That gives you a better feel for how sensitive the joint is to angle changes.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Continue the design</div>
+    <h2>Related fastening and automation tools</h2>
+    <p>
+      Torque-angle is only one piece of a fastening process. Use the related tools below to review clamp load, torque assumptions, bolt torque references, tightening sequences, and the business impact of process improvements.
+    </p>
+
+    <div class="internal-links">
+      <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_related','to':'torque_clamp_load'});">Torque to Clamp Load Calculator</a>
+      <a href="/bolt-tightening-torque.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_related','to':'bolt_tightening_torque'});">Bolt Tightening Torque Calculator</a>
+      <a href="/bolt-torque-chart.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_related','to':'bolt_torque_chart'});">Bolt Torque Chart</a>
+      <a href="/multi-stage-torque-sequence.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_related','to':'multi_stage_torque_sequence'});">Multi-Stage Torque Sequence</a>
+      <a href="/fastening.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_related','to':'fastening_hub'});">Fastening Hub</a>
+      <a href="/automation-roi.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_related','to':'automation_roi'});">Automation ROI Calculator</a>
+      <a href="/downtime-cost-calculator.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_related','to':'downtime_cost'});">Downtime Cost Calculator</a>
+      <a href="/integrators.html" onclick="gtag('event','internal_link_click',{'from':'torque_angle_related','to':'integrators'});">Find an Integrator</a>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Need help applying this to a real machine?</h2>
+    <p>
+      If you need help with tightening strategy, torque-angle review, assembly equipment setup, DC tool integration, robot-mounted fastening, or fastener process development, you can connect with an automation integrator.
+    </p>
+    <a href="/integrators.html" onclick="gtag('event','cta_click',{'from':'torque_angle','to':'integrators'});">Find an Integrator</a>
+    <a href="/fastening.html" onclick="gtag('event','cta_click',{'from':'torque_angle','to':'fastening_hub'});">View Fastening Tools</a>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
-</div>
+
+</main>
 
 <script>
   const boltData = {
@@ -641,21 +1085,25 @@
       scrollToOutput();
       return;
     }
+
     if(tensileArea <= 0){
       document.getElementById("output").innerHTML = "<strong>Please enter a tensile stress area greater than 0.</strong>";
       scrollToOutput();
       return;
     }
+
     if(angle < 0){
       document.getElementById("output").innerHTML = "<strong>Please enter an angle of 0 or greater.</strong>";
       scrollToOutput();
       return;
     }
+
     if(jointEfficiency <= 0 || jointEfficiency > 100){
       document.getElementById("output").innerHTML = "<strong>Please enter a joint transfer value between 1 and 100.</strong>";
       scrollToOutput();
       return;
     }
+
     if(jointRate <= 0){
       document.getElementById("output").innerHTML = "<strong>Please enter a joint rate greater than 0.</strong>";
       scrollToOutput();
@@ -669,9 +1117,9 @@
 
     let interpretation = "";
     if(angle <= 30){
-      interpretation = "This is a relatively small torque-angle move. It may be useful for fine adjustment or low-angle tightening strategies, but preload change can still vary widely with seating and joint behavior.";
+      interpretation = "This is a relatively small torque-angle move. It may be useful for fine adjustment or low-angle tightening strategies, but preload change can still vary widely with seating, friction, and joint behavior.";
     } else if(angle <= 90){
-      interpretation = "This is a moderate angle move that is common in many practical tightening strategies. Real clamp load still depends strongly on joint consistency and seating behavior.";
+      interpretation = "This is a moderate angle move that is common in many practical tightening strategies. Real clamp load still depends strongly on joint consistency, seating behavior, and the accuracy of the assumed joint rate.";
     } else {
       interpretation = "This is a larger angle move. Make sure the joint, bolt, and tightening strategy are validated so the fastener is not being over-stretched or driven into unstable joint behavior.";
     }
@@ -683,32 +1131,55 @@
     });
 
     document.getElementById("output").innerHTML =
-      "<strong>Theoretical Thread Advance</strong><br>" +
-      theoreticalAdvanceMm.toFixed(4) + " mm<br><br>" +
+      "<strong>Torque-Angle Estimate</strong>" +
+      "<div class='result-grid'>" +
 
-      "<strong>Estimated Effective Joint Advance</strong><br>" +
-      effectiveAdvanceMm.toFixed(4) + " mm<br><br>" +
+      "<div class='result-card'>" +
+      "<strong>Theoretical Thread Advance</strong>" +
+      "<span>" + theoreticalAdvanceMm.toFixed(4) + " mm</span>" +
+      "</div>" +
 
-      "<strong>Approximate Clamp Load Increase</strong><br>" +
-      clampLoadChangeN.toFixed(0) + " N<br><br>" +
+      "<div class='result-card'>" +
+      "<strong>Estimated Effective Joint Advance</strong>" +
+      "<span>" + effectiveAdvanceMm.toFixed(4) + " mm</span>" +
+      "</div>" +
 
-      "<strong>Approximate Preload Stress Increase</strong><br>" +
-      preloadStressMPa.toFixed(1) + " MPa<br><br>" +
+      "<div class='result-card'>" +
+      "<strong>Approximate Clamp Load Increase</strong>" +
+      "<span>" + clampLoadChangeN.toFixed(0) + " N</span>" +
+      "</div>" +
 
-      "<strong>Bolt Size</strong><br>" +
-      boltSize + "<br><br>" +
+      "<div class='result-card'>" +
+      "<strong>Approximate Preload Stress Increase</strong>" +
+      "<span>" + preloadStressMPa.toFixed(1) + " MPa</span>" +
+      "</div>" +
 
-      "<strong>Thread Pitch</strong><br>" +
-      pitch.toFixed(2) + " mm<br><br>" +
+      "<div class='result-card'>" +
+      "<strong>Bolt Size</strong>" +
+      "<span>" + boltSize + "</span>" +
+      "</div>" +
 
-      "<strong>Tensile Stress Area</strong><br>" +
-      tensileArea.toFixed(2) + " mm²<br><br>" +
+      "<div class='result-card'>" +
+      "<strong>Thread Pitch</strong>" +
+      "<span>" + pitch.toFixed(2) + " mm</span>" +
+      "</div>" +
 
-      "<strong>Joint Transfer Applied</strong><br>" +
-      jointEfficiency.toFixed(1) + "%<br><br>" +
+      "<div class='result-card'>" +
+      "<strong>Tensile Stress Area</strong>" +
+      "<span>" + tensileArea.toFixed(2) + " mm²</span>" +
+      "</div>" +
 
-      "<strong>Joint Rate Used</strong><br>" +
-      jointRate.toFixed(0) + " N/mm<br><br>" +
+      "<div class='result-card'>" +
+      "<strong>Joint Transfer Applied</strong>" +
+      "<span>" + jointEfficiency.toFixed(1) + "%</span>" +
+      "</div>" +
+
+      "<div class='result-card'>" +
+      "<strong>Joint Rate Used</strong>" +
+      "<span>" + jointRate.toFixed(0) + " N/mm</span>" +
+      "</div>" +
+
+      "</div>" +
 
       "<strong>Interpretation</strong><br>" +
       interpretation;
@@ -756,7 +1227,7 @@
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
