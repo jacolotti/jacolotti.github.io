@@ -22,39 +22,40 @@
   <style>
     body{
       font-family:Arial, sans-serif;
-      background:#f4f4f4;
+      background:#f4f6f9;
       margin:0;
       color:#222;
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:42px 20px 32px;
+      background:white;
+      padding:48px 20px 34px;
       text-align:center;
+      border-bottom:1px solid #e1e7f0;
     }
 
     .hero-inner{
-      max-width:950px;
+      max-width:980px;
       margin:auto;
     }
 
     .hero h1{
       margin:0 0 12px;
-      font-size:34px;
+      font-size:36px;
       line-height:1.2;
+      color:#1f2a44;
     }
 
     .hero p{
-      max-width:800px;
+      max-width:860px;
       margin:0 auto 14px;
-      color:#e7ecf7;
+      color:#4f5b70;
       font-size:17px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .hero-cta{
-      margin-top:18px;
+      margin-top:20px;
       display:flex;
       justify-content:center;
       gap:12px;
@@ -71,13 +72,14 @@
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:#1e6bd6;
+      color:white;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
     }
 
     .hero-cta a:hover{
@@ -86,46 +88,29 @@
     }
 
     .page-wrap{
-      max-width:1100px;
+      max-width:1120px;
       margin:30px auto;
-      padding:0 18px 40px;
+      padding:0 18px 42px;
     }
 
     .top-note{
       background:#fff7df;
       border:1px solid #f1d98a;
       color:#5c4a12;
-      padding:14px 16px;
+      padding:15px 17px;
       border-radius:10px;
-      margin:0 auto 22px;
-      max-width:1000px;
+      margin:0 0 24px;
       font-size:15px;
-      line-height:1.5;
+      line-height:1.55;
       text-align:left;
     }
 
-    .main-grid{
-      display:grid;
-      grid-template-columns:2fr 1fr;
-      gap:24px;
-      align-items:start;
-    }
-
-    .card,
-    .sidebar-card{
+    .section{
       background:white;
       border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
-    }
-
-    .card{
+      box-shadow:0 0 12px rgba(0,0,0,.06);
       padding:28px;
-    }
-
-    .sidebar-card{
-      padding:22px;
-      margin-bottom:20px;
-      text-align:left;
+      margin-bottom:24px;
     }
 
     .section-label{
@@ -137,22 +122,68 @@
       margin-bottom:10px;
     }
 
-    .card h2,
-    .sidebar-card h3{
+    .section h2,
+    .section h3{
       margin-top:0;
       color:#1f2a44;
     }
 
+    .section h2{
+      font-size:26px;
+      margin-bottom:12px;
+    }
+
+    .section h3{
+      font-size:21px;
+      margin-bottom:10px;
+    }
+
     .description{
-      margin:0 0 18px;
+      margin:0 0 16px;
       color:#555;
       font-size:16px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
     }
 
+    .card-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(245px,1fr));
+      gap:16px;
+      margin-top:18px;
+    }
+
+    .info-card{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:18px;
+      text-align:left;
+    }
+
+    .info-card h3{
+      font-size:18px;
+      margin:0 0 8px;
+      color:#1f2a44;
+    }
+
+    .info-card p{
+      margin:0;
+      color:#555;
+      line-height:1.6;
+      font-size:15px;
+    }
+
+    .info-card ul{
+      margin:0;
+      padding-left:18px;
+      color:#444;
+      line-height:1.7;
+      font-size:15px;
+    }
+
     .formula-box{
-      margin:20px 0;
+      margin:20px 0 0;
       padding:18px;
       background:#eef3ff;
       border:1px solid #cfdaf5;
@@ -162,6 +193,17 @@
       font-size:17px;
       line-height:1.7;
       text-align:left;
+    }
+
+    .workflow-list{
+      margin:14px 0 0;
+      padding-left:20px;
+      color:#444;
+      line-height:1.75;
+    }
+
+    .workflow-list strong{
+      color:#1f2a44;
     }
 
     .quick-row{
@@ -280,70 +322,19 @@
       scroll-margin-top:100px;
     }
 
-    .cta-box{
-      margin-top:26px;
-      padding:22px;
-      background:linear-gradient(135deg,#edf4ff,#e3edff);
-      border:1px solid #cadcff;
-      border-radius:12px;
-      text-align:center;
-    }
-
-    .cta-box h3{
-      margin:0 0 10px;
-      color:#1f2a44;
-    }
-
-    .cta-box p{
-      margin:0 0 16px;
-      color:#4d5a74;
-      line-height:1.6;
-    }
-
-    .cta-box a{
-      display:inline-block;
-      background:#1f2a44;
-      color:white;
-      padding:12px 16px;
-      border-radius:8px;
-      text-decoration:none;
-      font-weight:bold;
-    }
-
     .note{
-      margin-top:20px;
+      margin-top:18px;
       color:#666;
       font-size:14px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
-    }
-
-    .learn-more{
-      margin-top:28px;
-      text-align:left;
-      padding:20px;
-      background:#f4f8ff;
-      border-radius:10px;
-      border:1px solid #d7e6ff;
-    }
-
-    .learn-more h3{
-      color:#1f2a44;
-      margin-top:0;
-      margin-bottom:10px;
-    }
-
-    .learn-more p{
-      color:#555;
-      line-height:1.7;
-      margin-bottom:12px;
     }
 
     .internal-links{
       display:flex;
       flex-wrap:wrap;
       gap:10px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .internal-links a{
@@ -361,18 +352,41 @@
       background:#e9eef8;
     }
 
-    .sidebar-card p{
-      margin:0 0 14px;
-      color:#555;
-      line-height:1.6;
-      font-size:15px;
+    .cta-box{
+      margin-bottom:24px;
+      padding:26px;
+      background:linear-gradient(135deg,#edf4ff,#e3edff);
+      border:1px solid #cadcff;
+      border-radius:12px;
+      text-align:center;
+      box-shadow:0 0 12px rgba(0,0,0,.06);
     }
 
-    .sidebar-card ul{
-      padding-left:18px;
-      margin:0;
-      color:#444;
-      line-height:1.7;
+    .cta-box h2,
+    .cta-box h3{
+      margin:0 0 10px;
+      color:#1f2a44;
+    }
+
+    .cta-box p{
+      margin:0 auto 16px;
+      color:#4d5a74;
+      line-height:1.6;
+      max-width:760px;
+    }
+
+    .cta-box a{
+      display:inline-block;
+      background:#1f2a44;
+      color:white;
+      padding:12px 16px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:bold;
+    }
+
+    .hidden{
+      display:none;
     }
 
     .footer{
@@ -382,24 +396,13 @@
       text-align:center;
     }
 
-    .hidden{
-      display:none;
-    }
-
-    @media (max-width:900px){
-      .main-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
     @media (max-width:700px){
-      .card,
-      .sidebar-card{
+      .section{
         padding:20px;
       }
 
       .hero h1{
-        font-size:28px;
+        font-size:29px;
       }
 
       .hero-cta{
@@ -422,6 +425,7 @@
     }
   </style>
 </head>
+
 <body>
 
 <div id="navbar"></div>
@@ -430,197 +434,461 @@
   <div class="hero-inner">
     <h1>Projection Weld Starting Parameter Calculator</h1>
     <p>
-      Estimate conservative starting current, force, and weld time for weld nuts, weld studs, weld bolts, and multi-projection stamped parts using fastener size, base material, thickness, and machine type.
+      Estimate conservative starting current, force, and weld time for weld nuts, weld studs, weld bolts, and stamped multi-projection parts.
     </p>
+    <p>
+      Use fastener type, part size, base material, base thickness, projection count, quality target, and machine type to create a first-pass projection weld setup direction before full validation.
+    </p>
+
     <div class="hero-cta">
-      <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#calculator" class="primary" onclick="gtag('event','hero_cta_click',{'from':'projection_weld','to':'calculator'});">Open Calculator</a>
       <a href="/spot-weld.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'projection_weld_hero','to':'spot_weld'});">Spot Weld Calculator</a>
     </div>
   </div>
 </section>
 
 <div class="page-wrap">
+
   <div class="top-note">
-    <strong>Good starting use case:</strong> use this for first-pass setup direction before full weld development. Final production values still need collapse checks, destructive testing, thread quality checks, and confirmation of actual machine capability.
+    <strong>Good starting use case:</strong> use this for first-pass setup direction before full weld development. Final production values still need projection collapse checks, destructive testing, thread quality checks, fastener retention review, and confirmation of actual machine capability.
   </div>
 
-  <div class="main-grid">
-    <div class="card" id="calculator">
-      <div class="section-label">Calculator</div>
-      <h2>Estimate Projection Weld Starting Parameters</h2>
+  <section class="section">
+    <div class="section-label">Overview</div>
+    <h2>What This Projection Weld Calculator Does</h2>
 
-      <p class="description">
-        Estimate conservative starting projection weld parameters for weld nuts, weld studs, weld bolts, and stamped multi-projection parts using fastener type, size, base metal thickness, material, and machine type.
-      </p>
+    <p class="description">
+      This tool estimates conservative starting projection weld parameters for weld nuts, weld studs, weld bolts, and stamped multi-projection parts using fastener type, size, base metal thickness, material, projection count, weld quality target, and machine type.
+    </p>
 
-      <p class="description">
-        This tool is intended for first-pass setup only. Final production values should always be validated with projection collapse checks, destructive testing, thread quality verification, and actual machine capability.
-      </p>
+    <p class="description">
+      It is intended for first-pass setup only. Final production values should always be validated with projection collapse checks, destructive testing, thread quality verification, fastener push-out or torque review where applicable, and confirmation that the actual machine can deliver the required force and current at the part.
+    </p>
 
-      <div class="formula-box">
-        Total Current = Current per Projection × Number of Projections<br><br>
-        Total Force = Force per Projection × Number of Projections
-      </div>
+    <p class="description">
+      The goal is not to approve a weld schedule automatically. The goal is to give you a reasonable starting range for current, force, and weld time so you can begin weld development with a structured direction instead of guessing.
+    </p>
 
-      <div class="section-label">Quick examples</div>
-      <div class="quick-row">
-        <button type="button" onclick="loadExample1(); gtag('event','projection_weld_example',{'type':'weld_nut'});">Weld Nut Example</button>
-        <button type="button" onclick="loadExample2(); gtag('event','projection_weld_example',{'type':'weld_stud'});">Weld Stud Example</button>
-        <button type="button" onclick="loadExample3(); gtag('event','projection_weld_example',{'type':'custom'});">Custom Example</button>
-      </div>
+    <div class="formula-box">
+      Total Current = Current per Projection × Number of Projections<br><br>
+      Total Force = Force per Projection × Number of Projections
+    </div>
+  </section>
 
-      <div class="controls">
-        <div class="control-group">
-          <label for="partType">Fastener / Part Type</label>
-          <select id="partType" onchange="applyPreset()">
-            <option value="weldNut">Weld Nut</option>
-            <option value="weldStud">Weld Stud</option>
-            <option value="weldBolt">Weld Bolt</option>
-            <option value="stampedPart">Multi-Projection Stamped Part</option>
-            <option value="custom">Custom Projection Part</option>
-          </select>
-        </div>
+  <section class="section">
+    <div class="section-label">Outputs</div>
+    <h2>What This Calculator Gives You</h2>
 
-        <div class="control-group">
-          <label for="size">Fastener Size / Part Size</label>
-          <select id="size" onchange="applyPreset()">
-            <option value="M5">M5</option>
-            <option value="M6" selected>M6</option>
-            <option value="M8">M8</option>
-            <option value="M10">M10</option>
-            <option value="M12">M12</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="material">Base Material</label>
-          <select id="material" onchange="applyPreset()">
-            <option value="mild">Bare Mild Steel</option>
-            <option value="galvanized">Galvanized Steel</option>
-            <option value="galvaneal">Galvaneal Steel</option>
-            <option value="stainless">Stainless Steel</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="baseThickness">Base Material Thickness (mm)</label>
-          <input id="baseThickness" type="number" value="2.0" min="0.3" max="8" step="0.01">
-        </div>
-
-        <div class="control-group">
-          <label for="projections">Number of Projections</label>
-          <input id="projections" type="number" value="3" min="1" max="12" step="1">
-        </div>
-
-        <div class="control-group">
-          <label for="quality">Weld Quality Target</label>
-          <select id="quality">
-            <option value="standard">Standard Production</option>
-            <option value="high">High Strength / Cosmetic Focus</option>
-          </select>
-        </div>
-
-        <div class="control-group">
-          <label for="machine">Machine Type</label>
-          <select id="machine">
-            <option value="ac">AC Welder</option>
-            <option value="mfdc">MFDC Welder</option>
-          </select>
-        </div>
-
-        <div class="control-group hidden" id="customCurrentField">
-          <label for="customCurrentPerProjection">Custom Current per Projection (kA)</label>
-          <input id="customCurrentPerProjection" type="number" value="4.5" min="0.1" max="50" step="0.1">
-        </div>
-
-        <div class="control-group hidden" id="customForceField">
-          <label for="customForcePerProjection">Custom Force per Projection (kN)</label>
-          <input id="customForcePerProjection" type="number" value="1.0" min="0.1" max="20" step="0.1">
-        </div>
-      </div>
-
-      <div class="button-row">
-        <button onclick="calculateProjectionWeld();">Calculate</button>
-        <button class="secondary" onclick="loadExample1();">Load Example</button>
-        <button class="ghost" onclick="resetCalculator(); gtag('event','projection_weld_clear');">Reset</button>
-      </div>
-
-      <div class="result" id="output">
-        Enter values and press <strong>Calculate</strong>.
-      </div>
-
-      <div class="cta-box">
-        <h3>Need help applying this to a real machine?</h3>
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Total Starting Current Range</h3>
         <p>
-          Get connected with a qualified automation integrator if you need help with weld setup direction, tooling review, controls integration, or production validation planning.
+          A conservative total current range based on current per projection multiplied by the number of projections, then adjusted for material, base thickness, quality target, and machine type.
         </p>
-        <a href="/integrators.html">Find an Integrator</a>
       </div>
 
-      <p class="note">
-        Projection welding is highly sensitive to projection geometry, fastener design, coating, machine stiffness, force follow-up, electrode face condition, and secondary impedance. These values are conservative starting ranges, not guaranteed production settings.
-      </p>
-
-      <p class="note">
-        Weld time shown in cycles assumes a 60 Hz timing reference. Milliseconds are included as a practical cross-reference, especially when comparing AC and MFDC discussions.
-      </p>
-
-      <div class="learn-more">
-        <h3>What to check next</h3>
-
+      <div class="info-card">
+        <h3>Current per Projection</h3>
         <p>
-          This tool gives a first-pass setup direction, but real projection welding depends heavily on collapse behavior, force distribution, current balance, part rigidity, coating behavior, and actual machine follow-up. A setup that looks correct on paper can still fail in production if the projections do not collapse evenly.
+          A per-projection current range to help you understand whether the total current is being driven by part size, projection count, material coating, or custom input values.
         </p>
-
-        <p>
-          For real process development, use these values as a starting range only, then confirm with destructive testing, collapse observation, thread quality checks, and confirmation that the machine can actually deliver the required current and force at the part.
-        </p>
-
-        <div class="internal-links">
-          <a href="/spot-weld.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'spot_weld'});">Spot Weld Calculator</a>
-          <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'robot_cycle_time'});">Robot Cycle Time</a>
-          <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'pneumatic_force'});">Pneumatic Force</a>
-          <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'automation_roi'});">Automation ROI</a>
-        </div>
       </div>
 
-      <div class="footer">
-        Automation Engineering Tools • Practical calculators for real automation work
+      <div class="info-card">
+        <h3>Total Force Range</h3>
+        <p>
+          Total starting force shown in both kN and lbf so the result can be compared against weld machine capability, force gauges, weld gun ratings, and documentation.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Force per Projection</h3>
+        <p>
+          Per-projection force helps identify whether the tooling and part design can collapse the projections consistently instead of crushing one area first.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Starting Weld Time</h3>
+        <p>
+          Weld time is shown in 60 Hz cycles and milliseconds to make the output useful when comparing AC welders, MFDC welders, and controls documentation.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Application and Process Notes</h3>
+        <p>
+          The output includes application, thickness, projection loading, material, and machine notes to help guide what needs to be checked next.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Application</div>
+    <h2>Where This Helps</h2>
+
+    <p class="description">
+      Projection welding is commonly used for weld nuts, weld studs, weld bolts, and formed or stamped projection parts. It can be fast and repeatable, but it depends heavily on projection geometry, tooling flatness, force follow-up, current balance, coating behavior, and machine stiffness.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>First-Pass Weld Nut Setup</h3>
+        <p>
+          Use this when setting up weld nuts and comparing size, projection count, base thickness, material coating, and machine type.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Projection Stud and Bolt Setup</h3>
+        <p>
+          Estimate starting values for studs and bolts where thread quality, fastener alignment, push-out, torque, and expulsion control all matter.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Stamped Part Development</h3>
+        <p>
+          Use the stamped part option as a starting reference when formed projections are built into a bracket, tab, reinforcement, or stamped component.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Equipment Review</h3>
+        <p>
+          Compare total required current and force against welder capability, transformer size, tooling stiffness, and secondary circuit condition.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Early Production Trials</h3>
+        <p>
+          Use the output to plan trial ranges before destructive testing, collapse observation, thread checks, and production repeatability review.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Custom Projection Parts</h3>
+        <p>
+          For nonstandard parts, enter custom current and force per projection to create a starting estimate based on the projection count.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Workflow</div>
+    <h2>Recommended Projection Weld Setup Workflow</h2>
+
+    <p class="description">
+      Projection welding setup is not finished when the calculator output looks reasonable. Treat the output as the beginning of the process, then confirm the schedule with real parts, actual tooling, and production conditions.
+    </p>
+
+    <ol class="workflow-list">
+      <li><strong>Select the part type:</strong> choose weld nut, weld stud, weld bolt, stamped part, or custom projection part.</li>
+      <li><strong>Set the size and projection count:</strong> verify the number of projections matches the actual fastener or part geometry.</li>
+      <li><strong>Enter base material and thickness:</strong> coating, stainless behavior, and sheet thickness can all change the starting range.</li>
+      <li><strong>Choose machine type:</strong> AC and MFDC welders can use different effective timing and process response.</li>
+      <li><strong>Use the output as a starting range:</strong> do not treat it as final production approval.</li>
+      <li><strong>Watch projection collapse:</strong> confirm the projections collapse evenly and consistently without excessive splash or push-through.</li>
+      <li><strong>Verify fastener quality:</strong> check thread condition, alignment, push-out, torque, destructive results, and customer requirements.</li>
+      <li><strong>Confirm machine capability:</strong> verify actual delivered force and current under production conditions.</li>
+    </ol>
+
+    <div class="internal-links">
+      <a href="/spot-weld.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld_workflow','to':'spot_weld'});">Spot Weld Calculator</a>
+      <a href="/coolant-flow-sizing.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld_workflow','to':'coolant_flow_sizing'});">Coolant Flow &amp; Line Sizing</a>
+      <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld_workflow','to':'robot_cycle_time'});">Robot Cycle Time</a>
+      <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld_workflow','to':'pneumatic_force'});">Pneumatic Force</a>
+    </div>
+  </section>
+
+  <section class="section" id="calculator">
+    <div class="section-label">Calculator</div>
+    <h2>Estimate Projection Weld Starting Parameters</h2>
+
+    <p class="description">
+      Enter the fastener or part type, size, base material, base thickness, number of projections, weld quality target, and machine type. The calculator estimates total current, current per projection, total force, force per projection, weld time, and process notes.
+    </p>
+
+    <p class="description">
+      These are conservative starting ranges only. Projection welding is highly sensitive to projection geometry, part rigidity, coating, machine stiffness, force follow-up, electrode face condition, tooling flatness, and secondary impedance.
+    </p>
+
+    <div class="section-label">Quick Examples</div>
+    <div class="quick-row">
+      <button type="button" onclick="loadExample1(); gtag('event','projection_weld_example',{'type':'weld_nut'});">Weld Nut Example</button>
+      <button type="button" onclick="loadExample2(); gtag('event','projection_weld_example',{'type':'weld_stud'});">Weld Stud Example</button>
+      <button type="button" onclick="loadExample3(); gtag('event','projection_weld_example',{'type':'custom'});">Custom Example</button>
+    </div>
+
+    <div class="controls">
+      <div class="control-group">
+        <label for="partType">Fastener / Part Type</label>
+        <select id="partType" onchange="applyPreset()">
+          <option value="weldNut">Weld Nut</option>
+          <option value="weldStud">Weld Stud</option>
+          <option value="weldBolt">Weld Bolt</option>
+          <option value="stampedPart">Multi-Projection Stamped Part</option>
+          <option value="custom">Custom Projection Part</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="size">Fastener Size / Part Size</label>
+        <select id="size" onchange="applyPreset()">
+          <option value="M5">M5</option>
+          <option value="M6" selected>M6</option>
+          <option value="M8">M8</option>
+          <option value="M10">M10</option>
+          <option value="M12">M12</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="material">Base Material</label>
+        <select id="material" onchange="applyPreset()">
+          <option value="mild">Bare Mild Steel</option>
+          <option value="galvanized">Galvanized Steel</option>
+          <option value="galvaneal">Galvaneal Steel</option>
+          <option value="stainless">Stainless Steel</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="baseThickness">Base Material Thickness (mm)</label>
+        <input id="baseThickness" type="number" value="2.0" min="0.3" max="8" step="0.01">
+      </div>
+
+      <div class="control-group">
+        <label for="projections">Number of Projections</label>
+        <input id="projections" type="number" value="3" min="1" max="12" step="1">
+      </div>
+
+      <div class="control-group">
+        <label for="quality">Weld Quality Target</label>
+        <select id="quality">
+          <option value="standard">Standard Production</option>
+          <option value="high">High Strength / Cosmetic Focus</option>
+        </select>
+      </div>
+
+      <div class="control-group">
+        <label for="machine">Machine Type</label>
+        <select id="machine">
+          <option value="ac">AC Welder</option>
+          <option value="mfdc">MFDC Welder</option>
+        </select>
+      </div>
+
+      <div class="control-group hidden" id="customCurrentField">
+        <label for="customCurrentPerProjection">Custom Current per Projection (kA)</label>
+        <input id="customCurrentPerProjection" type="number" value="4.5" min="0.1" max="50" step="0.1">
+      </div>
+
+      <div class="control-group hidden" id="customForceField">
+        <label for="customForcePerProjection">Custom Force per Projection (kN)</label>
+        <input id="customForcePerProjection" type="number" value="1.0" min="0.1" max="20" step="0.1">
       </div>
     </div>
 
-    <div>
-      <div class="sidebar-card">
-        <h3>What this calculator gives you</h3>
-        <ul>
-          <li>Total starting current range</li>
-          <li>Current per projection</li>
-          <li>Total force range in kN and lbf</li>
-          <li>Force per projection</li>
-          <li>Starting weld time range</li>
-          <li>Application and process notes</li>
-        </ul>
-      </div>
+    <div class="button-row">
+      <button onclick="calculateProjectionWeld();">Calculate</button>
+      <button class="secondary" onclick="loadExample1(); gtag('event','projection_weld_example',{'type':'weld_nut_button'});">Load Example</button>
+      <button class="ghost" onclick="resetCalculator(); gtag('event','projection_weld_clear');">Reset</button>
+    </div>
 
-      <div class="sidebar-card">
-        <h3>Where this helps</h3>
+    <div class="result" id="output">
+      Enter values and press <strong>Calculate</strong>.
+    </div>
+
+    <p class="note">
+      Projection welding is highly sensitive to projection geometry, fastener design, coating, machine stiffness, force follow-up, electrode face condition, tooling flatness, and secondary impedance. These values are conservative starting ranges, not guaranteed production settings.
+    </p>
+
+    <p class="note">
+      Weld time shown in cycles assumes a 60 Hz timing reference. Milliseconds are included as a practical cross-reference, especially when comparing AC and MFDC discussions.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Interpretation</div>
+    <h2>How to Read the Results</h2>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Total Current</h3>
         <p>
-          Useful for first-pass weld nut setup, projection stud and bolt setup, stamped part process development, equipment review, and early production trials.
+          Total current is the estimated combined current needed across all projections. Higher projection counts increase total current demand and can expose machine or secondary circuit limits.
         </p>
       </div>
 
-      <div class="sidebar-card">
-        <h3>Common next checks</h3>
-        <ul>
-          <li>Projection collapse consistency</li>
-          <li>Thread quality after welding</li>
-          <li>Expulsion and splash control</li>
-          <li>Machine current delivery capability</li>
-          <li>Force follow-up and tooling flatness</li>
-        </ul>
+      <div class="info-card">
+        <h3>Current per Projection</h3>
+        <p>
+          Current per projection gives a better view of how aggressively each projection is being heated. Too little can cause weak collapse; too much can cause expulsion or thread damage.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Total Force</h3>
+        <p>
+          Total force must be enough to seat the part, collapse projections, and control expulsion without crushing the fastener or distorting the base material.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Force per Projection</h3>
+        <p>
+          Force per projection helps you judge whether each projection is being loaded evenly. Uneven force distribution is one of the biggest causes of inconsistent projection welds.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Weld Time</h3>
+        <p>
+          Weld time should be adjusted with current and force together. A longer time is not automatically safer if projections collapse too early or heat builds unevenly.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Process Notes</h3>
+        <p>
+          Read the application, thickness, projection loading, material, and machine notes in the result. Those notes point to the likely validation concerns for the selected setup.
+        </p>
       </div>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Engineering Notes</div>
+    <h2>Common Next Checks</h2>
+
+    <p class="description">
+      A projection weld schedule that looks correct on paper can still fail in production if the projections do not collapse evenly, the fastener shifts, the threads distort, the tooling is not flat, or the machine cannot follow up with force correctly.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Projection Collapse Consistency</h3>
+        <p>
+          Confirm that all projections collapse evenly. If one projection collapses first, it can steal current and force from the others and create weak or inconsistent welds.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Thread Quality After Welding</h3>
+        <p>
+          Weld nuts, studs, and bolts should be checked for thread distortion, spatter, heat damage, and fit with the mating fastener or gauge.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Expulsion and Splash Control</h3>
+        <p>
+          Expulsion may indicate excessive heat, low force, poor fit-up, coating variation, poor projection geometry, or weak force follow-up.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Machine Current Delivery Capability</h3>
+        <p>
+          Confirm that the weld control, transformer, cables, shunts, arms, and secondary circuit can deliver the current at the part under real conditions.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Force Follow-Up and Tooling Flatness</h3>
+        <p>
+          Projection welding needs the tooling to follow the collapse. Poor follow-up or uneven tooling flatness can cause partial welds and inconsistent collapse.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Base Material Support</h3>
+        <p>
+          Thin base material can push through, distort, or overheat. Heavy base material can act as a heat sink and require more machine capability.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Process Reminder</div>
+    <h2>Do Not Approve Projection Welds From Calculator Output Alone</h2>
+
+    <p class="description">
+      This tool gives a first-pass setup direction, but real projection welding depends heavily on collapse behavior, force distribution, current balance, part rigidity, coating behavior, electrode condition, and actual machine follow-up.
+    </p>
+
+    <p class="description">
+      For real process development, use these values as a starting range only, then confirm with destructive testing, collapse observation, thread quality checks, push-out or torque checks where required, and confirmation that the machine can actually deliver the required current and force at the part.
+    </p>
+
+    <div class="card-grid">
+      <div class="info-card">
+        <h3>Projection Geometry Matters</h3>
+        <p>
+          Projection height, shape, contact area, consistency, and placement can change the weld result even when the calculator inputs are unchanged.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Coating Changes Behavior</h3>
+        <p>
+          Galvanized and galvaneal materials can change contact resistance, electrode wear, heat balance, and expulsion sensitivity.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Part Rigidity Matters</h3>
+        <p>
+          Flexible parts can deflect during force application and prevent all projections from loading evenly.
+        </p>
+      </div>
+
+      <div class="info-card">
+        <h3>Secondary Impedance Matters</h3>
+        <p>
+          Cable condition, shunts, arms, transformer setup, gun geometry, and poor connections can affect actual delivered current.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-box">
+    <h2>Need help applying this to a real machine?</h2>
+    <p>
+      Get connected with a qualified automation integrator if you need help with projection weld setup direction, tooling review, controls integration, weld validation planning, fastener testing, or production troubleshooting.
+    </p>
+    <a href="/integrators.html" onclick="gtag('event','guide_cta_click',{'page':'projection_weld','target':'integrators'});">Find an Integrator</a>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Related Tools</div>
+    <h2>Continue the Weld Cell Design</h2>
+
+    <p class="description">
+      Projection welding is only one part of the process. Use the related tools to check spot weld schedules, robot timing, pneumatic force, coolant flow, safety distance, and ROI.
+    </p>
+
+    <div class="internal-links">
+      <a href="/spot-weld.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'spot_weld'});">Spot Weld Calculator</a>
+      <a href="/coolant-flow-sizing.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'coolant_flow_sizing'});">Coolant Flow &amp; Line Sizing</a>
+      <a href="/robot.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'robot_cycle_time'});">Robot Cycle Time</a>
+      <a href="/robot-payload.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'robot_payload'});">Robot Payload</a>
+      <a href="/pneumatic.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'pneumatic_force'});">Pneumatic Force</a>
+      <a href="/safety-distance.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'safety_distance'});">Safety Distance</a>
+      <a href="/roi.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'automation_roi'});">Automation ROI</a>
+      <a href="/welding.html" onclick="gtag('event','internal_link_click',{'from':'projection_weld','to':'welding_hub'});">Welding Hub</a>
+    </div>
+  </section>
+
+  <div class="footer">
+    Automation Engineering Tools • Practical calculators for real automation work
   </div>
+
 </div>
 
 <script>
@@ -980,7 +1248,7 @@
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
