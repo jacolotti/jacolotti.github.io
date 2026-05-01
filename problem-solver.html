@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Start With Your Issue | AutomationCalculators.net</title>
-  <meta name="description" content="Describe your automation issue and get routed to the right calculator, troubleshooting page, or engineering guide.">
+  <meta name="description" content="Describe your automation, controls, motion, welding, fastening, or machine design issue and get routed to the right calculator, troubleshooting page, or engineering guide.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
@@ -250,19 +250,20 @@
 
     <p class="description">
       Real users usually start with a symptom, not a calculator category. They know the cylinder is too slow,
-      the PLC is missing a signal, the weld is weak, or the conveyor motor seems undersized.
+      the PLC is missing a signal, the weld is weak, the conveyor motor seems undersized, or a machine frame is flexing.
       This page helps them get to the right tool faster.
     </p>
 
     <div class="search-box">
       <h2>Search by Problem</h2>
       <p class="description">
-        Type your issue in plain language. Examples: “cylinder too slow”, “PLC missing input”, “weak spot weld”, “conveyor motor undersized”.
+        Type your issue in plain language. Examples: “cylinder too slow”, “PLC missing input”, “weak spot weld”,
+        “conveyor motor undersized”, “beam bending too much”, “shaft vibrating”, or “bracket flexing”.
       </p>
 
       <div class="field">
         <label for="keywordInput">Describe the issue</label>
-        <input type="text" id="keywordInput" placeholder="Example: sensor turns on but PLC misses it">
+        <input type="text" id="keywordInput" placeholder="Example: frame flexes when the cylinder pushes">
       </div>
 
       <div class="button-row">
@@ -282,6 +283,7 @@
           <option value="pneumatics">Pneumatics</option>
           <option value="plc">PLC / Electrical</option>
           <option value="motion">Motors & Motion</option>
+          <option value="machineDesign">Machine Design</option>
           <option value="robotics">Robotics</option>
           <option value="welding">Welding</option>
           <option value="fastening">Fastening</option>
@@ -314,11 +316,13 @@
       <h2>Why This Works</h2>
       <p class="description">
         This gives your site a problem-based entry point instead of forcing users to guess which calculator category fits their issue.
+        It now covers controls, pneumatics, motion, robotics, welding, fastening, and machine design problems.
       </p>
       <ul>
         <li>Better user experience for first-time visitors</li>
         <li>Faster path to the right engineering tool</li>
         <li>Stronger internal linking between calculators and guides</li>
+        <li>Better routing for structural, shaft, bracket, weld, and bolted joint issues</li>
         <li>Better conversion potential for help requests</li>
       </ul>
     </div>
@@ -335,13 +339,19 @@
         <li><a href="/motor.html" onclick="gtag('event','problem_solver_quick_link',{'target':'motor_sizing'});">Conveyor Motor Sizing Calculator</a></li>
         <li><a href="/robot.html" onclick="gtag('event','problem_solver_quick_link',{'target':'robot_cycle_time'});">Robot Cycle Time Calculator</a></li>
         <li><a href="/spot-weld.html" onclick="gtag('event','problem_solver_quick_link',{'target':'spot_weld'});">Resistance Spot Weld Starting Parameter Calculator</a></li>
+        <li><a href="/machine-design.html" onclick="gtag('event','problem_solver_quick_link',{'target':'machine_design_hub'});">Machine Design Hub</a></li>
+        <li><a href="/beam-deflection-calculator.html" onclick="gtag('event','problem_solver_quick_link',{'target':'beam_deflection'});">Beam Deflection Calculator</a></li>
+        <li><a href="/bending-stress-calculator.html" onclick="gtag('event','problem_solver_quick_link',{'target':'bending_stress'});">Bending Stress Calculator</a></li>
+        <li><a href="/shaft-deflection-calculator.html" onclick="gtag('event','problem_solver_quick_link',{'target':'shaft_deflection'});">Shaft Deflection Calculator</a></li>
+        <li><a href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','problem_solver_quick_link',{'target':'bolt_shear_joint_separation'});">Bolt Shear & Joint Separation Calculator</a></li>
       </ul>
     </div>
 
     <div class="cta-box">
       <h3>Still not sure where to start?</h3>
       <p>
-        If you are working through a real machine or process problem, use the automation help page and describe the issue directly.
+        If you are working through a real machine, process, controls, motion, tooling, frame, shaft, weld, or bolted joint problem,
+        use the automation help page and describe the issue directly.
       </p>
       <a href="/automation-help.html" onclick="gtag('event','problem_solver_cta',{'location':'bottom_help'});">Get Help With My System</a>
     </div>
@@ -352,10 +362,13 @@
   </div>
 
   <script>
-    fetch('/navbar.html')
+    fetch('/navbar.html?v=20260422')
       .then(response => response.text())
       .then(data => {
         document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Navbar failed to load:', error);
       });
 
     const issueMap = {
@@ -413,6 +426,7 @@
           keywords: ["air line size", "line size", "pressure drop air", "pressure loss pneumatic", "pneumatic line size", "hose too small", "air starvation"]
         }
       ],
+
       plc: [
         {
           label: "PLC is not seeing the sensor input",
@@ -512,6 +526,7 @@
           ]
         }
       ],
+
       motion: [
         {
           label: "Conveyor motor may be undersized",
@@ -566,6 +581,183 @@
           keywords: ["gear ratio", "ratio check", "gearbox ratio", "reduce speed increase torque", "reducer sizing", "gear reduction"]
         }
       ],
+
+      machineDesign: [
+        {
+          label: "Beam is bending too much",
+          title: "Beam Deflection Calculator",
+          description: "Use this to estimate beam deflection for machine frames, stands, supports, tooling arms, and loaded members.",
+          reason: "Best when the issue is too much flex, sag, movement, or visible deflection under load.",
+          primaryText: "Open Beam Deflection Calculator",
+          primaryUrl: "/beam-deflection-calculator.html",
+          related: [
+            { text: "Beam Load Calculator", url: "/beam-load-calculator.html" },
+            { text: "Bending Stress Calculator", url: "/bending-stress-calculator.html" },
+            { text: "Section Modulus Calculator", url: "/section-modulus-calculator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["beam bending", "beam deflection", "too much flex", "beam sag", "frame flex", "support bending", "member deflection", "beam moving", "beam bows", "beam bowing"]
+        },
+        {
+          label: "Need to estimate beam load, reactions, or bending moment",
+          title: "Beam Load Calculator",
+          description: "Use this to estimate reactions, bending moment, and shear behavior for common beam loading cases.",
+          reason: "Best when the first question is how the applied load is distributed through the beam or support points.",
+          primaryText: "Open Beam Load Calculator",
+          primaryUrl: "/beam-load-calculator.html",
+          related: [
+            { text: "Beam Deflection Calculator", url: "/beam-deflection-calculator.html" },
+            { text: "Bending Stress Calculator", url: "/bending-stress-calculator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["beam load", "beam reaction", "support reaction", "bending moment", "shear force", "load on beam", "beam loading"]
+        },
+        {
+          label: "Need to check bending stress",
+          title: "Bending Stress Calculator",
+          description: "Use this to estimate bending stress from moment and section modulus.",
+          reason: "Best when the member may be stiff enough but still needs a strength check against stress or yield.",
+          primaryText: "Open Bending Stress Calculator",
+          primaryUrl: "/bending-stress-calculator.html",
+          related: [
+            { text: "Section Modulus Calculator", url: "/section-modulus-calculator.html" },
+            { text: "Beam Deflection Calculator", url: "/beam-deflection-calculator.html" },
+            { text: "Beam Load Calculator", url: "/beam-load-calculator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["bending stress", "stress check", "beam stress", "member stress", "yield stress", "too much stress", "will it bend", "will it fail"]
+        },
+        {
+          label: "Need section modulus or member shape check",
+          title: "Section Modulus Calculator",
+          description: "Use this to estimate section modulus for common shapes used in frames, brackets, and supports.",
+          reason: "Best when comparing tube, bar, round, or rectangular sections for bending strength.",
+          primaryText: "Open Section Modulus Calculator",
+          primaryUrl: "/section-modulus-calculator.html",
+          related: [
+            { text: "Bending Stress Calculator", url: "/bending-stress-calculator.html" },
+            { text: "Frame Rigidity Estimator", url: "/frame-rigidity-estimator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["section modulus", "member shape", "tube size", "rectangular tube", "beam shape", "stronger beam", "steel tube", "square tube"]
+        },
+        {
+          label: "Frame or bracket feels too flexible",
+          title: "Frame Rigidity Estimator",
+          description: "Use this to compare frame stiffness, member size, bracing, and support choices.",
+          reason: "Best when a machine frame, stand, bracket, or welded structure moves more than expected.",
+          primaryText: "Open Frame Rigidity Estimator",
+          primaryUrl: "/frame-rigidity-estimator.html",
+          related: [
+            { text: "Gusset Plate & Bracket Calculator", url: "/gusset-plate-bracket-calculator.html" },
+            { text: "Beam Deflection Calculator", url: "/beam-deflection-calculator.html" },
+            { text: "Weld Size Calculator", url: "/weld-size-calculator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["frame rigidity", "frame flex", "bracket flex", "machine frame moving", "stand flexing", "not rigid", "needs bracing", "machine shakes", "frame moves"]
+        },
+        {
+          label: "Plate is bending or flexing",
+          title: "Plate Deflection Calculator",
+          description: "Use this to estimate plate bending and deflection for tooling plates, covers, brackets, and support surfaces.",
+          reason: "Best when a flat plate, fixture plate, mounting plate, or cover is bending under load.",
+          primaryText: "Open Plate Deflection Calculator",
+          primaryUrl: "/plate-deflection-calculator.html",
+          related: [
+            { text: "Beam Deflection Calculator", url: "/beam-deflection-calculator.html" },
+            { text: "Gusset Plate & Bracket Calculator", url: "/gusset-plate-bracket-calculator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["plate deflection", "plate bending", "plate flex", "mounting plate flex", "tooling plate bending", "fixture plate bending", "flat plate"]
+        },
+        {
+          label: "Column or post may buckle",
+          title: "Column Buckling Calculator",
+          description: "Use this to check slender vertical supports, posts, legs, and compression members against buckling risk.",
+          reason: "Best when a vertical member is carrying compression load and may fail by buckling before material strength is reached.",
+          primaryText: "Open Column Buckling Calculator",
+          primaryUrl: "/column-buckling-calculator.html",
+          related: [
+            { text: "Frame Rigidity Estimator", url: "/frame-rigidity-estimator.html" },
+            { text: "Section Modulus Calculator", url: "/section-modulus-calculator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["column buckling", "post buckling", "leg buckling", "compression member", "vertical support", "machine leg", "support post"]
+        },
+        {
+          label: "Bracket or gusset needs checked",
+          title: "Gusset Plate & Bracket Calculator",
+          description: "Use this to estimate bracket loading, gusset support needs, and design checks for fabricated machine supports.",
+          reason: "Best when a bracket, arm, plate, or fabricated support may need a gusset or stronger connection.",
+          primaryText: "Open Gusset Plate & Bracket Calculator",
+          primaryUrl: "/gusset-plate-bracket-calculator.html",
+          related: [
+            { text: "Frame Rigidity Estimator", url: "/frame-rigidity-estimator.html" },
+            { text: "Weld Size Calculator", url: "/weld-size-calculator.html" },
+            { text: "Bolt Shear & Joint Separation Calculator", url: "/bolt-shear-joint-separation-calculator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["gusset plate", "bracket calculator", "bracket bending", "bracket support", "bracket flex", "need gusset", "fabricated bracket", "support bracket"]
+        },
+        {
+          label: "Shaft may be bending or vibrating",
+          title: "Shaft Deflection Calculator",
+          description: "Use this to estimate shaft bending and deflection for rollers, driven shafts, support spans, and rotating assemblies.",
+          reason: "Best when a shaft appears to sag, whip, rub, vibrate, or run unevenly under load.",
+          primaryText: "Open Shaft Deflection Calculator",
+          primaryUrl: "/shaft-deflection-calculator.html",
+          related: [
+            { text: "Shaft Critical Speed Calculator", url: "/shaft-critical-speed-calculator.html" },
+            { text: "Bearing Life Calculator", url: "/bearing-life-calculator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["shaft deflection", "shaft bending", "shaft sag", "shaft vibration", "shaft whip", "roller shaft bending", "shaft flex", "shaft rubbing"]
+        },
+        {
+          label: "Shaft speed may be near critical speed",
+          title: "Shaft Critical Speed Calculator",
+          description: "Use this to estimate first critical speed and review whether a rotating shaft may be operating too close to resonance.",
+          reason: "Best when a rotating shaft vibrates at speed, whips, resonates, or becomes unstable near a certain RPM.",
+          primaryText: "Open Shaft Critical Speed Calculator",
+          primaryUrl: "/shaft-critical-speed-calculator.html",
+          related: [
+            { text: "Shaft Deflection Calculator", url: "/shaft-deflection-calculator.html" },
+            { text: "Bearing Life Calculator", url: "/bearing-life-calculator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["critical speed", "shaft critical speed", "shaft resonance", "shaft whipping", "shaft vibrates at rpm", "rotating shaft vibration", "shaft rpm"]
+        },
+        {
+          label: "Bolted joint may shear or separate",
+          title: "Bolt Shear & Joint Separation Calculator",
+          description: "Use this to check bolted joints for shear loading, clamp force concerns, and separation risk.",
+          reason: "Best when a bracket, plate, or machine joint is held by bolts and the load may shear the fasteners or open the joint.",
+          primaryText: "Open Bolt Shear & Joint Separation Calculator",
+          primaryUrl: "/bolt-shear-joint-separation-calculator.html",
+          related: [
+            { text: "Weld Size Calculator", url: "/weld-size-calculator.html" },
+            { text: "Gusset Plate & Bracket Calculator", url: "/gusset-plate-bracket-calculator.html" },
+            { text: "Torque to Clamp Load Calculator", url: "/torque-clamp-load.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["bolt shear", "joint separation", "bolted joint", "bracket bolts", "bolt failure", "joint opening", "bolts shearing", "bolt load"]
+        },
+        {
+          label: "Weld size needs checked",
+          title: "Weld Size Calculator",
+          description: "Use this to estimate practical weld size needs for brackets, plates, frames, and fabricated machine supports.",
+          reason: "Best when a welded bracket, frame, tab, or plate connection needs a quick weld sizing check.",
+          primaryText: "Open Weld Size Calculator",
+          primaryUrl: "/weld-size-calculator.html",
+          related: [
+            { text: "Gusset Plate & Bracket Calculator", url: "/gusset-plate-bracket-calculator.html" },
+            { text: "Bolt Shear & Joint Separation Calculator", url: "/bolt-shear-joint-separation-calculator.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" }
+          ],
+          keywords: ["weld size", "fillet weld", "weld strength", "weld calculator", "welded bracket", "welded frame", "weld failure", "weld too small"]
+        }
+      ],
+
       robotics: [
         {
           label: "Robot cycle time is too long",
@@ -607,6 +799,7 @@
           keywords: ["robot payload", "payload too heavy", "tool too heavy", "robot weight limit", "eoat too heavy"]
         }
       ],
+
       welding: [
         {
           label: "Spot weld seems weak",
@@ -648,6 +841,7 @@
           keywords: ["coolant flow", "coolant size", "cooling line size", "weld cooling", "water line sizing", "coolant too low"]
         }
       ],
+
       fastening: [
         {
           label: "Need torque to clamp load estimate",
@@ -658,7 +852,8 @@
           primaryUrl: "/torque-clamp-load.html",
           related: [
             { text: "Torque Angle Calculator", url: "/torque-angle.html" },
-            { text: "Bolt Tightening Torque Calculator", url: "/bolt-tightening-torque.html" }
+            { text: "Bolt Tightening Torque Calculator", url: "/bolt-tightening-torque.html" },
+            { text: "Bolt Shear & Joint Separation Calculator", url: "/bolt-shear-joint-separation-calculator.html" }
           ],
           keywords: ["clamp load", "torque clamp", "bolt clamp load", "fastener clamp", "joint preload"]
         },
@@ -684,7 +879,8 @@
           primaryUrl: "/bolt-tightening-torque.html",
           related: [
             { text: "Torque to Clamp Load Calculator", url: "/torque-clamp-load.html" },
-            { text: "Torque Angle Calculator", url: "/torque-angle.html" }
+            { text: "Torque Angle Calculator", url: "/torque-angle.html" },
+            { text: "Bolt Shear & Joint Separation Calculator", url: "/bolt-shear-joint-separation-calculator.html" }
           ],
           keywords: ["bolt torque", "tightening torque", "fastener torque", "what torque", "bolt tightening"]
         }
@@ -766,9 +962,6 @@
         return;
       }
 
-      // Priority rule:
-      // If a field device is ON but PLC/HMI/input/part-present is OFF,
-      // send user to PLC Troubleshooter first.
       const hasSensorWord =
         input.includes("sensor") ||
         input.includes("prox") ||
@@ -877,7 +1070,7 @@
           primaryUrl: "/automation-help.html",
           related: [
             { text: "PLC Troubleshooter", url: "/plc-troubleshooter.html" },
-            { text: "PLC Communication Troubleshooter", url: "/plc-communication-troubleshooting.html" },
+            { text: "Machine Design Hub", url: "/machine-design.html" },
             { text: "Automation Calculators Overview", url: "/automation-calculators.html" }
           ]
         };
