@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Shaft Critical Speed Calculator | Rotating Shaft RPM, Deflection & Whirling Speed</title>
+  <meta name="description" content="Calculate estimated shaft critical speed for rotating shafts, rollers, conveyor shafts, pulleys, and machine design checks using static deflection and shaft geometry." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/shaft-critical-speed-calculator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root {
+      --blue-900:#0f172a;
+      --blue-800:#1e3a8a;
+      --blue-700:#1d4ed8;
+      --blue-600:#2563eb;
+      --blue-100:#dbeafe;
+      --slate-900:#0f172a;
+      --slate-800:#1e293b;
+      --slate-700:#334155;
+      --slate-600:#475569;
+      --slate-500:#64748b;
+      --slate-200:#e2e8f0;
+      --green-100:#dcfce7;
+      --green-700:#15803d;
+      --amber-100:#fef3c7;
+      --amber-700:#b45309;
+      --red-100:#fee2e2;
+      --red-700:#b91c1c;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(15,23,42,0.10);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f8fafc;
+      color:var(--slate-800);
+      line-height:1.6;
+    }
+
+    a {
+      color:var(--blue-700);
+      text-decoration:none;
+    }
+
+    a:hover { text-decoration:underline; }
+
+    #navbar {
+      position:relative;
+      z-index:50;
+    }
+
+    .hero {
+      background:white;
+      border-bottom:1px solid var(--slate-200);
+      padding:56px 20px 44px;
+    }
+
+    .hero-inner {
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,0.75fr);
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:var(--blue-100);
+      color:var(--blue-800);
+      font-size:0.9rem;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .hero h1 {
+      margin:0 0 16px;
+      color:var(--slate-900);
+      font-size:clamp(2.1rem,5vw,4rem);
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+
+    .hero p {
+      margin:0 0 22px;
+      max-width:780px;
+      color:var(--slate-600);
+      font-size:1.08rem;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:800;
+      border:1px solid transparent;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .btn-primary {
+      background:var(--blue-700);
+      color:white;
+      box-shadow:0 8px 24px rgba(29,78,216,0.25);
+    }
+
+    .btn-secondary {
+      background:white;
+      color:var(--blue-700);
+      border-color:var(--slate-200);
+    }
+
+    .hero-panel {
+      background:#f8fafc;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin:0 0 12px;
+      color:var(--slate-900);
+      font-size:1.25rem;
+    }
+
+    .hero-panel ul {
+      margin:0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .hero-panel li { margin:8px 0; }
+
+    .page {
+      max-width:1180px;
+      margin:0 auto;
+      padding:42px 20px 70px;
+    }
+
+    .section { margin-bottom:44px; }
+
+    .section-header { margin-bottom:22px; }
+
+    .section-header h2 {
+      margin:0 0 8px;
+      color:var(--slate-900);
+      font-size:clamp(1.55rem,3vw,2.25rem);
+      line-height:1.15;
+      letter-spacing:-0.025em;
+    }
+
+    .section-header p {
+      margin:0;
+      max-width:900px;
+      color:var(--slate-600);
+    }
+
+    .calculator-shell {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .calculator-top {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      padding:24px;
+    }
+
+    .calculator-top h2 {
+      margin:0 0 8px;
+      font-size:1.7rem;
+    }
+
+    .calculator-top p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+    }
+
+    .calculator-body {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,0.8fr);
+      gap:0;
+    }
+
+    .inputs {
+      padding:24px;
+      border-right:1px solid var(--slate-200);
+    }
+
+    .results {
+      padding:24px;
+      background:#f8fafc;
+    }
+
+    .input-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .field.full { grid-column:1 / -1; }
+
+    label {
+      font-weight:800;
+      color:var(--slate-900);
+      font-size:0.94rem;
+    }
+
+    input, select {
+      width:100%;
+      border:1px solid var(--slate-200);
+      border-radius:12px;
+      padding:11px 12px;
+      font-size:1rem;
+      color:var(--slate-800);
+      background:white;
+    }
+
+    input:focus, select:focus {
+      outline:3px solid rgba(37,99,235,0.16);
+      border-color:var(--blue-600);
+    }
+
+    .hint {
+      color:var(--slate-500);
+      font-size:0.86rem;
+    }
+
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .result-box {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    .result-box h3 {
+      margin:0 0 6px;
+      color:var(--slate-900);
+      font-size:1rem;
+    }
+
+    .result-value {
+      font-size:1.6rem;
+      font-weight:900;
+      color:var(--blue-800);
+      line-height:1.15;
+      overflow-wrap:anywhere;
+    }
+
+    .result-sub {
+      color:var(--slate-500);
+      font-size:0.92rem;
+      margin-top:4px;
+    }
+
+    .status {
+      border-radius:18px;
+      padding:16px;
+      font-weight:800;
+      margin-top:14px;
+    }
+
+    .status.good {
+      background:var(--green-100);
+      color:var(--green-700);
+      border:1px solid #86efac;
+    }
+
+    .status.warn {
+      background:var(--amber-100);
+      color:var(--amber-700);
+      border:1px solid #fcd34d;
+    }
+
+    .status.bad {
+      background:var(--red-100);
+      color:var(--red-700);
+      border:1px solid #fca5a5;
+    }
+
+    .formula {
+      background:#0f172a;
+      color:white;
+      border-radius:18px;
+      padding:20px;
+      overflow-x:auto;
+    }
+
+    .formula code {
+      font-size:1.05rem;
+      color:white;
+      white-space:pre-wrap;
+    }
+
+    .card-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card-grid.two {
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .card {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    }
+
+    .card h3 {
+      margin:0 0 9px;
+      color:var(--slate-900);
+      line-height:1.25;
+    }
+
+    .card p {
+      margin:0 0 14px;
+      color:var(--slate-600);
+    }
+
+    .card ul {
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .card li { margin:6px 0; }
+
+    .note {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .warning {
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .workflow {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .workflow-row {
+      display:grid;
+      grid-template-columns:82px minmax(0,1fr) minmax(220px,0.5fr);
+      gap:18px;
+      padding:22px;
+      border-bottom:1px solid var(--slate-200);
+      align-items:center;
+    }
+
+    .workflow-row:last-child { border-bottom:none; }
+
+    .step-number {
+      width:48px;
+      height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--blue-800),var(--blue-600));
+      color:white;
+      font-weight:900;
+    }
+
+    .workflow-row h3 {
+      margin:0 0 5px;
+      color:var(--slate-900);
+    }
+
+    .workflow-row p {
+      margin:0;
+      color:var(--slate-600);
+    }
+
+    .workflow-link { font-weight:900; }
+
+    .bottom-cta {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+
+    .bottom-cta h2 {
+      margin:0 0 10px;
+      font-size:1.85rem;
+    }
+
+    .bottom-cta p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+      max-width:760px;
+    }
+
+    footer {
+      text-align:center;
+      color:var(--slate-500);
+      padding:34px 20px 44px;
+      border-top:1px solid var(--slate-200);
+      background:white;
+    }
+
+    @media (max-width:980px) {
+      .hero-inner,
+      .calculator-body,
+      .bottom-cta {
+        grid-template-columns:1fr;
+      }
+
+      .inputs {
+        border-right:none;
+        border-bottom:1px solid var(--slate-200);
+      }
+
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .workflow-row {
+        grid-template-columns:64px 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:2;
+      }
+    }
+
+    @media (max-width:680px) {
+      .hero {
+        padding:44px 16px 34px;
+      }
+
+      .page {
+        padding:32px 16px 54px;
+      }
+
+      .input-grid,
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:auto;
+      }
+
+      .hero-actions,
+      .button-row {
+        flex-direction:column;
+      }
+
+      .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Machine Design Calculator</div>
+        <h1>Shaft Critical Speed Calculator</h1>
+        <p>
+          Estimate the first critical speed of a rotating shaft using shaft deflection, geometry, material,
+          and operating RPM. Use this for conveyor rollers, drive shafts, long unsupported shafts, pulleys,
+          sprockets, spindles, and rotating machine components.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta_click',{'page':'shaft_critical_speed','target':'calculator','location':'hero'});">
+            Open Calculator
+          </a>
+          <a class="btn btn-secondary" href="/shaft-deflection-calculator.html" onclick="gtag('event','page_cta_click',{'page':'shaft_critical_speed','target':'shaft_deflection','location':'hero'});">
+            Check Shaft Deflection
+          </a>
+          <a class="btn btn-secondary" href="/machine-design.html" onclick="gtag('event','page_cta_click',{'page':'shaft_critical_speed','target':'machine_design','location':'hero'});">
+            Machine Design Hub
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Use this calculator when checking:</h2>
+        <ul>
+          <li>Long rotating shafts and rollers</li>
+          <li>Conveyor shafts, driven rollers, pulleys, and sprockets</li>
+          <li>Vibration risk from operating near critical speed</li>
+          <li>Whether shaft stiffness needs improvement</li>
+          <li>Whether RPM should be reduced or shaft diameter increased</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="calculator" class="section">
+      <div class="calculator-shell">
+        <div class="calculator-top">
+          <h2>Calculate Estimated Shaft Critical Speed</h2>
+          <p>
+            Use either the quick deflection method or calculate shaft deflection from a supported shaft
+            load case. The calculator estimates first critical speed and compares it to operating RPM.
+          </p>
+        </div>
+
+        <div class="calculator-body">
+          <div class="inputs">
+            <div class="input-grid">
+              <div class="field">
+                <label for="unitSystem">Unit System</label>
+                <select id="unitSystem" onchange="updateUnits(); calculateCriticalSpeed();">
+                  <option value="imperial">Imperial — lb, in, psi</option>
+                  <option value="metric">Metric — N, mm, MPa</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="method">Calculation Method</label>
+                <select id="method" onchange="toggleMethodFields(); calculateCriticalSpeed();">
+                  <option value="deflection">Use known static deflection</option>
+                  <option value="shaft">Estimate deflection from shaft geometry</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="operatingRpm">Operating Speed (RPM)</label>
+                <input id="operatingRpm" type="number" value="600" min="0" step="any" oninput="calculateCriticalSpeed();" />
+                <span class="hint">Actual shaft operating speed.</span>
+              </div>
+
+              <div class="field">
+                <label for="targetSeparation">Target Separation from Critical Speed (%)</label>
+                <input id="targetSeparation" type="number" value="25" min="0" step="any" oninput="calculateCriticalSpeed();" />
+                <span class="hint">Common starting point: stay at least 20–30% away from critical speed.</span>
+              </div>
+
+              <div class="field deflection-method">
+                <label for="knownDeflection">Static Deflection <span class="unit-length">(in)</span></label>
+                <input id="knownDeflection" type="number" value="0.020" min="0" step="any" oninput="calculateCriticalSpeed();" />
+                <span class="hint">Use shaft deflection under the rotating load.</span>
+              </div>
+
+              <div class="field shaft-method" style="display:none;">
+                <label for="loadCase">Shaft Load Case</label>
+                <select id="loadCase" onchange="toggleLoadFields(); calculateCriticalSpeed();">
+                  <option value="simple_center">Between bearings, center point load</option>
+                  <option value="simple_udl">Between bearings, uniform load</option>
+                  <option value="overhung_end">Overhung end load</option>
+                </select>
+              </div>
+
+              <div class="field shaft-method" style="display:none;">
+                <label for="shaftType">Shaft Type</label>
+                <select id="shaftType" onchange="toggleShaftFields(); calculateCriticalSpeed();">
+                  <option value="solid">Solid round shaft</option>
+                  <option value="tube">Hollow round shaft / tube</option>
+                </select>
+              </div>
+
+              <div class="field shaft-method" style="display:none;">
+                <label for="material">Material / Modulus Preset</label>
+                <select id="material" onchange="setMaterialModulus(); calculateCriticalSpeed();">
+                  <option value="steel">Steel — 29,000,000 psi / 200,000 MPa</option>
+                  <option value="aluminum">Aluminum — 10,000,000 psi / 69,000 MPa</option>
+                  <option value="stainless">Stainless Steel — 28,000,000 psi / 193,000 MPa</option>
+                  <option value="custom">Custom modulus</option>
+                </select>
+              </div>
+
+              <div class="field shaft-method" style="display:none;">
+                <label for="span">Bearing Span / Shaft Length <span class="unit-length">(in)</span></label>
+                <input id="span" type="number" value="36" min="0" step="any" oninput="calculateCriticalSpeed();" />
+              </div>
+
+              <div class="field shaft-method point-load-field" style="display:none;">
+                <label for="pointLoad">Point Load <span class="unit-force">(lb)</span></label>
+                <input id="pointLoad" type="number" value="300" min="0" step="any" oninput="calculateCriticalSpeed();" />
+              </div>
+
+              <div class="field shaft-method uniform-load-field" style="display:none;">
+                <label for="uniformLoad">Uniform Load <span class="unit-uniform">(lb/in)</span></label>
+                <input id="uniformLoad" type="number" value="8" min="0" step="any" oninput="calculateCriticalSpeed();" />
+              </div>
+
+              <div class="field shaft-method overhung-field" style="display:none;">
+                <label for="overhang">Overhung Distance <span class="unit-length">(in)</span></label>
+                <input id="overhang" type="number" value="8" min="0" step="any" oninput="calculateCriticalSpeed();" />
+              </div>
+
+              <div class="field shaft-method solid-field" style="display:none;">
+                <label for="diameter">Shaft Diameter <span class="unit-length">(in)</span></label>
+                <input id="diameter" type="number" value="1.5" min="0" step="any" oninput="calculateCriticalSpeed();" />
+              </div>
+
+              <div class="field shaft-method tube-field" style="display:none;">
+                <label for="outerDiameter">Outer Diameter <span class="unit-length">(in)</span></label>
+                <input id="outerDiameter" type="number" value="2" min="0" step="any" oninput="calculateCriticalSpeed();" />
+              </div>
+
+              <div class="field shaft-method tube-field" style="display:none;">
+                <label for="innerDiameter">Inner Diameter <span class="unit-length">(in)</span></label>
+                <input id="innerDiameter" type="number" value="1.25" min="0" step="any" oninput="calculateCriticalSpeed();" />
+              </div>
+
+              <div class="field shaft-method" style="display:none;">
+                <label for="modulus">Elastic Modulus, E <span class="unit-modulus">(psi)</span></label>
+                <input id="modulus" type="number" value="29000000" min="0" step="any" oninput="calculateCriticalSpeed();" />
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateCriticalSpeed(); gtag('event','calculator_run',{'calculator':'shaft_critical_speed'});">
+                Calculate
+              </button>
+              <button class="btn btn-secondary" type="button" onclick="resetCalculator(); gtag('event','calculator_reset',{'calculator':'shaft_critical_speed'});">
+                Reset Example
+              </button>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="result-box">
+              <h3>Estimated First Critical Speed</h3>
+              <div id="criticalSpeedResult" class="result-value">—</div>
+              <div class="result-sub">Approximate first whirling speed.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Operating Speed Ratio</h3>
+              <div id="speedRatioResult" class="result-value">—</div>
+              <div class="result-sub">Operating RPM ÷ critical RPM.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Separation Margin</h3>
+              <div id="separationResult" class="result-value">—</div>
+              <div class="result-sub">Distance from estimated critical speed.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Static Deflection Used</h3>
+              <div id="deflectionResult" class="result-value">—</div>
+              <div class="result-sub">Deflection used for critical speed estimate.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Moment of Inertia</h3>
+              <div id="inertiaResult" class="result-value">—</div>
+              <div class="result-sub">Shown when geometry method is used.</div>
+            </div>
+
+            <div id="statusBox" class="status warn">
+              Enter values to calculate critical speed.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>What Critical Speed Means</h2>
+        <p>
+          Shaft critical speed is the RPM where a rotating shaft can begin to whirl or resonate. Running
+          too close to critical speed can create vibration, noise, bearing damage, seal issues, belt
+          tracking problems, and fatigue failures.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Critical Speed Is a Vibration Limit</h3>
+          <p>
+            It is not a torque limit or a horsepower limit. A shaft can have enough torque capacity and
+            still vibrate badly if it runs near its critical speed.
+          </p>
+          <ul>
+            <li>Longer shafts usually have lower critical speed.</li>
+            <li>Larger diameter usually raises critical speed.</li>
+            <li>More deflection usually lowers critical speed.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Static Deflection Drives the Estimate</h3>
+          <p>
+            The simple critical-speed estimate is based on static deflection. Less deflection usually
+            means higher critical speed.
+          </p>
+          <ul>
+            <li>Stiffer shafts run safer at higher RPM.</li>
+            <li>Heavy loads reduce margin.</li>
+            <li>Overhung loads deserve extra caution.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Stay Away From the Critical Zone</h3>
+          <p>
+            For practical machine design, avoid operating near the calculated critical speed. The
+            calculator uses a separation target to help flag risky speeds.
+          </p>
+          <ul>
+            <li>20–30% separation is a common starting point.</li>
+            <li>Precision systems may need more margin.</li>
+            <li>Actual testing may still be required.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Formula Reference</h2>
+        <p>
+          This calculator uses a practical first-mode estimate based on static deflection. It is useful
+          for early design checks, but real shafts may need detailed rotordynamic review.
+        </p>
+      </div>
+
+      <div class="formula">
+        <code>Approximate First Critical Speed:
+Ncritical ≈ 187.7 / √δ
+
+Where:
+Ncritical = critical speed in RPM
+δ = static deflection in inches
+
+Metric conversion used:
+δ(in) = δ(mm) / 25.4
+
+Solid Round Shaft:
+I = πd⁴ / 64
+
+Hollow Round Shaft:
+I = π(OD⁴ - ID⁴) / 64
+
+Center Point Load Deflection:
+δ = P × L³ / (48 × E × I)
+
+Uniform Load Deflection:
+δ = 5 × w × L⁴ / (384 × E × I)
+
+Overhung End Load Deflection:
+δ = P × a³ / (3 × E × I)</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Recommended Rotating Shaft Workflow</h2>
+        <p>
+          Do not check critical speed by itself. A rotating shaft also needs checks for deflection,
+          bearing loading, torque, alignment, and operating duty.
+        </p>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-row">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Check static shaft deflection</h3>
+            <p>
+              Deflection is the best first signal. If the shaft bends too much, the critical speed will
+              usually be lower and the bearings may see poor loading.
+            </p>
+          </div>
+          <a class="workflow-link" href="/shaft-deflection-calculator.html" onclick="gtag('event','workflow_click',{'page':'shaft_critical_speed','step':'shaft_deflection'});">Shaft Deflection →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Compare operating RPM to critical RPM</h3>
+            <p>
+              Use the separation margin to decide whether the shaft is comfortably below critical speed
+              or too close for a practical machine design.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'shaft_critical_speed','step':'critical_speed'});">Use Calculator →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Check bearing life and load</h3>
+            <p>
+              A shaft running near a vibration condition can damage bearings even when the static load
+              rating looks acceptable.
+            </p>
+          </div>
+          <a class="workflow-link" href="/bearing-life-calculator.html" onclick="gtag('event','workflow_click',{'page':'shaft_critical_speed','step':'bearing_life'});">Bearing Life →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Check speed, torque, and drive layout</h3>
+            <p>
+              If the shaft is part of a conveyor, gearbox, pulley, or servo-driven axis, check motion
+              speed and torque after the shaft stiffness looks reasonable.
+            </p>
+          </div>
+          <a class="workflow-link" href="/motors-motion.html" onclick="gtag('event','workflow_click',{'page':'shaft_critical_speed','step':'motion'});">Motors & Motion →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Practical Design Guidance</h2>
+        <p>
+          If operating speed is too close to critical speed, the most effective fixes usually change
+          stiffness, span, support location, or operating RPM.
+        </p>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card">
+          <h3>If critical speed is too low</h3>
+          <ul>
+            <li>Increase shaft diameter.</li>
+            <li>Reduce bearing span.</li>
+            <li>Reduce overhung load distance.</li>
+            <li>Add an intermediate or outboard support bearing.</li>
+            <li>Reduce supported rotating mass where possible.</li>
+            <li>Use a stiffer shaft layout before increasing RPM.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>If vibration happens near operating RPM</h3>
+          <ul>
+            <li>Check actual shaft speed with a tachometer.</li>
+            <li>Inspect runout, balance, couplings, keys, and pulleys.</li>
+            <li>Check bearing fit and housing stiffness.</li>
+            <li>Verify belt or chain tension is not excessive.</li>
+            <li>Check whether the shaft is bent or misaligned.</li>
+            <li>Reduce speed until the mechanical issue is understood.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="warning">
+        <strong>Important:</strong>
+        This calculator is a simplified first critical speed estimate. Real rotating systems can be
+        affected by bearing stiffness, support flexibility, rotor mass distribution, couplings, gears,
+        pulleys, imbalance, damping, shaft shoulders, keyways, mounted components, variable speed drives,
+        and multiple vibration modes. Use conservative margins and verify critical equipment with
+        appropriate engineering review or testing.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">
+        <strong>Good next step:</strong>
+        check the same shaft with the
+        <a href="/shaft-deflection-calculator.html" onclick="gtag('event','internal_link',{'from':'shaft_critical_speed','to':'shaft_deflection'});">Shaft Deflection Calculator</a>,
+        use reaction forces in the
+        <a href="/bearing-life-calculator.html" onclick="gtag('event','internal_link',{'from':'shaft_critical_speed','to':'bearing_life'});">Bearing Life Calculator</a>,
+        and review the full
+        <a href="/machine-design.html" onclick="gtag('event','internal_link',{'from':'shaft_critical_speed','to':'machine_design'});">Machine Design Hub</a>.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Related Tools</h2>
+        <p>
+          Critical speed is one part of rotating shaft design. Use these related tools to check the rest
+          of the system.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Shaft Deflection Calculator</h3>
+          <p>Estimate shaft deflection from bearing span, load, diameter, and material stiffness.</p>
+          <a href="/shaft-deflection-calculator.html" onclick="gtag('event','related_tool_click',{'from':'shaft_critical_speed','to':'shaft_deflection'});">Open Shaft Deflection →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bearing Life Calculator</h3>
+          <p>Check bearing life when shaft loads and vibration may reduce service life.</p>
+          <a href="/bearing-life-calculator.html" onclick="gtag('event','related_tool_click',{'from':'shaft_critical_speed','to':'bearing_life'});">Open Bearing Life →</a>
+        </article>
+
+        <article class="card">
+          <h3>Conveyor Speed Calculator</h3>
+          <p>Convert roller diameter and RPM into conveyor speed for rotating shaft systems.</p>
+          <a href="/conveyor-speed.html" onclick="gtag('event','related_tool_click',{'from':'shaft_critical_speed','to':'conveyor_speed'});">Open Conveyor Speed →</a>
+        </article>
+
+        <article class="card">
+          <h3>Gearbox Torque Calculator</h3>
+          <p>Check output torque when the shaft is driven by a gearbox or reducer.</p>
+          <a href="/gearbox-torque.html" onclick="gtag('event','related_tool_click',{'from':'shaft_critical_speed','to':'gearbox_torque'});">Open Gearbox Torque →</a>
+        </article>
+
+        <article class="card">
+          <h3>Gear Ratio Calculator</h3>
+          <p>Calculate speed reduction, output RPM, and torque relationship for driven shafts.</p>
+          <a href="/gear-ratio.html" onclick="gtag('event','related_tool_click',{'from':'shaft_critical_speed','to':'gear_ratio'});">Open Gear Ratio →</a>
+        </article>
+
+        <article class="card">
+          <h3>Machine Design Hub</h3>
+          <p>Return to the full workflow for structures, shafts, bearings, motion, and fastening.</p>
+          <a href="/machine-design.html" onclick="gtag('event','related_tool_click',{'from':'shaft_critical_speed','to':'machine_design'});">Open Machine Design Hub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom-cta">
+        <div>
+          <h2>Do not run a shaft close to its critical speed without a real review.</h2>
+          <p>
+            If the margin is tight, improve shaft stiffness, shorten the span, reduce overhung load,
+            lower RPM, or get the rotating assembly reviewed before it becomes a vibration problem.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="/shaft-deflection-calculator.html" onclick="gtag('event','bottom_cta_click',{'page':'shaft_critical_speed','target':'shaft_deflection'});">
+          Check Shaft Deflection
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators for real automation work
+  </footer>
+
+  <script>
+    function getValue(id) {
+      var value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatNumber(value, decimals) {
+      if (!isFinite(value)) return '—';
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function updateUnits() {
+      var system = document.getElementById('unitSystem').value;
+
+      document.querySelectorAll('.unit-length').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in)' : '(mm)';
+      });
+
+      document.querySelectorAll('.unit-force').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb)' : '(N)';
+      });
+
+      document.querySelectorAll('.unit-uniform').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb/in)' : '(N/mm)';
+      });
+
+      document.querySelectorAll('.unit-modulus').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      if (system === 'imperial') {
+        document.getElementById('knownDeflection').value = 0.020;
+        document.getElementById('span').value = 36;
+        document.getElementById('pointLoad').value = 300;
+        document.getElementById('uniformLoad').value = 8;
+        document.getElementById('overhang').value = 8;
+        document.getElementById('diameter').value = 1.5;
+        document.getElementById('outerDiameter').value = 2;
+        document.getElementById('innerDiameter').value = 1.25;
+      } else {
+        document.getElementById('knownDeflection').value = 0.5;
+        document.getElementById('span').value = 900;
+        document.getElementById('pointLoad').value = 1300;
+        document.getElementById('uniformLoad').value = 1.5;
+        document.getElementById('overhang').value = 200;
+        document.getElementById('diameter').value = 38;
+        document.getElementById('outerDiameter').value = 50;
+        document.getElementById('innerDiameter').value = 32;
+      }
+
+      setMaterialModulus();
+    }
+
+    function setMaterialModulus() {
+      var system = document.getElementById('unitSystem').value;
+      var material = document.getElementById('material').value;
+      var modulus = document.getElementById('modulus');
+
+      if (material === 'custom') {
+        return;
+      }
+
+      if (system === 'imperial') {
+        if (material === 'steel') modulus.value = 29000000;
+        if (material === 'aluminum') modulus.value = 10000000;
+        if (material === 'stainless') modulus.value = 28000000;
+      } else {
+        if (material === 'steel') modulus.value = 200000;
+        if (material === 'aluminum') modulus.value = 69000;
+        if (material === 'stainless') modulus.value = 193000;
+      }
+    }
+
+    function toggleMethodFields() {
+      var method = document.getElementById('method').value;
+
+      document.querySelectorAll('.deflection-method').forEach(function(el) {
+        el.style.display = method === 'deflection' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.shaft-method').forEach(function(el) {
+        el.style.display = method === 'shaft' ? 'flex' : 'none';
+      });
+
+      toggleLoadFields();
+      toggleShaftFields();
+    }
+
+    function toggleLoadFields() {
+      var method = document.getElementById('method').value;
+      var loadCase = document.getElementById('loadCase').value;
+
+      document.querySelectorAll('.point-load-field').forEach(function(el) {
+        el.style.display = method === 'shaft' && (loadCase === 'simple_center' || loadCase === 'overhung_end') ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.uniform-load-field').forEach(function(el) {
+        el.style.display = method === 'shaft' && loadCase === 'simple_udl' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.overhung-field').forEach(function(el) {
+        el.style.display = method === 'shaft' && loadCase === 'overhung_end' ? 'flex' : 'none';
+      });
+    }
+
+    function toggleShaftFields() {
+      var method = document.getElementById('method').value;
+      var shaftType = document.getElementById('shaftType').value;
+
+      document.querySelectorAll('.solid-field').forEach(function(el) {
+        el.style.display = method === 'shaft' && shaftType === 'solid' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.tube-field').forEach(function(el) {
+        el.style.display = method === 'shaft' && shaftType === 'tube' ? 'flex' : 'none';
+      });
+    }
+
+    function calculateShaftInertia() {
+      var shaftType = document.getElementById('shaftType').value;
+      var I = 0;
+      var valid = true;
+      var message = '';
+
+      if (shaftType === 'solid') {
+        var d = getValue('diameter');
+        if (d <= 0) {
+          valid = false;
+          message = 'Shaft diameter must be greater than zero.';
+        } else {
+          I = Math.PI * Math.pow(d, 4) / 64;
+        }
+      }
+
+      if (shaftType === 'tube') {
+        var od = getValue('outerDiameter');
+        var id = getValue('innerDiameter');
+
+        if (od <= 0 || id < 0 || od <= id) {
+          valid = false;
+          message = 'Outer diameter must be larger than inner diameter.';
+        } else {
+          I = Math.PI * (Math.pow(od, 4) - Math.pow(id, 4)) / 64;
+        }
+      }
+
+      return {
+        I: I,
+        valid: valid,
+        message: message
+      };
+    }
+
+    function calculateCriticalSpeed() {
+      var system = document.getElementById('unitSystem').value;
+      var method = document.getElementById('method').value;
+      var operatingRpm = getValue('operatingRpm');
+      var targetSeparation = getValue('targetSeparation');
+      var deflection = 0;
+      var inertia = 0;
+      var valid = true;
+      var message = 'Critical speed estimated. Keep operating speed comfortably away from this value.';
+
+      if (method === 'deflection') {
+        deflection = getValue('knownDeflection');
+        if (system === 'metric') {
+          deflection = deflection / 25.4;
+        }
+      }
+
+      if (method === 'shaft') {
+        var props = calculateShaftInertia();
+        var loadCase = document.getElementById('loadCase').value;
+        var L = getValue('span');
+        var P = getValue('pointLoad');
+        var w = getValue('uniformLoad');
+        var a = getValue('overhang');
+        var E = getValue('modulus');
+
+        inertia = props.I;
+
+        if (!props.valid) {
+          valid = false;
+          message = props.message;
+        }
+
+        if (L <= 0 || E <= 0) {
+          valid = false;
+          message = 'Length and elastic modulus must be greater than zero.';
+        }
+
+        if (valid && loadCase === 'simple_center') {
+          deflection = (P * Math.pow(L, 3)) / (48 * E * inertia);
+        }
+
+        if (valid && loadCase === 'simple_udl') {
+          deflection = (5 * w * Math.pow(L, 4)) / (384 * E * inertia);
+        }
+
+        if (valid && loadCase === 'overhung_end') {
+          if (a <= 0) {
+            valid = false;
+            message = 'Overhung distance must be greater than zero.';
+          } else {
+            deflection = (P * Math.pow(a, 3)) / (3 * E * inertia);
+          }
+        }
+
+        if (system === 'metric') {
+          deflection = deflection / 25.4;
+        }
+      }
+
+      if (deflection <= 0 || !isFinite(deflection)) {
+        valid = false;
+        message = 'Static deflection must be greater than zero.';
+      }
+
+      var criticalSpeed = valid ? 187.7 / Math.sqrt(deflection) : 0;
+      var speedRatio = criticalSpeed > 0 ? operatingRpm / criticalSpeed : 0;
+      var separation = criticalSpeed > 0 ? Math.abs(criticalSpeed - operatingRpm) / criticalSpeed * 100 : 0;
+
+      var displayDeflection = system === 'imperial' ? deflection : deflection * 25.4;
+      var lengthUnit = system === 'imperial' ? 'in' : 'mm';
+      var inertiaUnit = system === 'imperial' ? 'in⁴' : 'mm⁴';
+
+      if (!valid) {
+        document.getElementById('criticalSpeedResult').textContent = '—';
+        document.getElementById('speedRatioResult').textContent = '—';
+        document.getElementById('separationResult').textContent = '—';
+        document.getElementById('deflectionResult').textContent = '—';
+        document.getElementById('inertiaResult').textContent = method === 'shaft' && inertia > 0 ? formatNumber(inertia, 5) + ' ' + inertiaUnit : 'N/A';
+      } else {
+        document.getElementById('criticalSpeedResult').textContent = formatNumber(criticalSpeed, 0) + ' RPM';
+        document.getElementById('speedRatioResult').textContent = formatNumber(speedRatio * 100, 1) + '% of critical';
+        document.getElementById('separationResult').textContent = formatNumber(separation, 1) + '%';
+        document.getElementById('deflectionResult').textContent = formatNumber(displayDeflection, 5) + ' ' + lengthUnit;
+        document.getElementById('inertiaResult').textContent = method === 'shaft' ? formatNumber(inertia, 5) + ' ' + inertiaUnit : 'N/A';
+      }
+
+      var statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status';
+
+      if (!valid) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = message;
+      } else if (operatingRpm >= criticalSpeed) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Operating speed is at or above the estimated critical speed. Reduce RPM, increase shaft stiffness, shorten the span, or redesign the support layout.';
+      } else if (separation < targetSeparation) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Operating speed is too close to the estimated critical speed for the entered separation target. Increase margin before relying on this shaft.';
+      } else if (separation < 35) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = 'Operating speed is below critical speed, but margin is not large. Review balance, bearing stiffness, support rigidity, and real operating conditions.';
+      } else {
+        statusBox.classList.add('good');
+        statusBox.textContent = message;
+      }
+    }
+
+    function resetCalculator() {
+      document.getElementById('unitSystem').value = 'imperial';
+      document.getElementById('method').value = 'deflection';
+      document.getElementById('operatingRpm').value = 600;
+      document.getElementById('targetSeparation').value = 25;
+      document.getElementById('loadCase').value = 'simple_center';
+      document.getElementById('shaftType').value = 'solid';
+      document.getElementById('material').value = 'steel';
+      updateUnits();
+      toggleMethodFields();
+      calculateCriticalSpeed();
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
+      })
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    toggleMethodFields();
+    calculateCriticalSpeed();
+  </script>
+</body>
+</html>
