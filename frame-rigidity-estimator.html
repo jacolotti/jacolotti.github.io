@@ -1,0 +1,1509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Frame Rigidity Estimator | Machine Frame Deflection, Stiffness & Support Check</title>
+  <meta name="description" content="Estimate machine frame rigidity, beam deflection, support stiffness, load path risk, and structural improvement options for automation frames, brackets, rails, bases, and tooling supports." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/frame-rigidity-estimator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root {
+      --blue-800:#1e3a8a;
+      --blue-700:#1d4ed8;
+      --blue-600:#2563eb;
+      --blue-100:#dbeafe;
+      --slate-900:#0f172a;
+      --slate-800:#1e293b;
+      --slate-700:#334155;
+      --slate-600:#475569;
+      --slate-500:#64748b;
+      --slate-200:#e2e8f0;
+      --green-100:#dcfce7;
+      --green-700:#15803d;
+      --amber-100:#fef3c7;
+      --amber-700:#b45309;
+      --red-100:#fee2e2;
+      --red-700:#b91c1c;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(15,23,42,0.10);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f8fafc;
+      color:var(--slate-800);
+      line-height:1.6;
+    }
+
+    a {
+      color:var(--blue-700);
+      text-decoration:none;
+    }
+
+    a:hover { text-decoration:underline; }
+
+    #navbar {
+      position:relative;
+      z-index:50;
+    }
+
+    .hero {
+      background:white;
+      border-bottom:1px solid var(--slate-200);
+      padding:56px 20px 44px;
+    }
+
+    .hero-inner {
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,0.75fr);
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:var(--blue-100);
+      color:var(--blue-800);
+      font-size:0.9rem;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .hero h1 {
+      margin:0 0 16px;
+      color:var(--slate-900);
+      font-size:clamp(2.1rem,5vw,4rem);
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+
+    .hero p {
+      margin:0 0 22px;
+      max-width:780px;
+      color:var(--slate-600);
+      font-size:1.08rem;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:800;
+      border:1px solid transparent;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .btn-primary {
+      background:var(--blue-700);
+      color:white;
+      box-shadow:0 8px 24px rgba(29,78,216,0.25);
+    }
+
+    .btn-secondary {
+      background:white;
+      color:var(--blue-700);
+      border-color:var(--slate-200);
+    }
+
+    .hero-panel {
+      background:#f8fafc;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin:0 0 12px;
+      color:var(--slate-900);
+      font-size:1.25rem;
+    }
+
+    .hero-panel ul {
+      margin:0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .hero-panel li { margin:8px 0; }
+
+    .page {
+      max-width:1180px;
+      margin:0 auto;
+      padding:42px 20px 70px;
+    }
+
+    .section { margin-bottom:44px; }
+
+    .section-header { margin-bottom:22px; }
+
+    .section-header h2 {
+      margin:0 0 8px;
+      color:var(--slate-900);
+      font-size:clamp(1.55rem,3vw,2.25rem);
+      line-height:1.15;
+      letter-spacing:-0.025em;
+    }
+
+    .section-header p {
+      margin:0;
+      max-width:900px;
+      color:var(--slate-600);
+    }
+
+    .calculator-shell {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .calculator-top {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      padding:24px;
+    }
+
+    .calculator-top h2 {
+      margin:0 0 8px;
+      font-size:1.7rem;
+    }
+
+    .calculator-top p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+    }
+
+    .calculator-body {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,0.8fr);
+      gap:0;
+    }
+
+    .inputs {
+      padding:24px;
+      border-right:1px solid var(--slate-200);
+    }
+
+    .results {
+      padding:24px;
+      background:#f8fafc;
+    }
+
+    .input-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .field.full { grid-column:1 / -1; }
+
+    label {
+      font-weight:800;
+      color:var(--slate-900);
+      font-size:0.94rem;
+    }
+
+    input, select {
+      width:100%;
+      border:1px solid var(--slate-200);
+      border-radius:12px;
+      padding:11px 12px;
+      font-size:1rem;
+      color:var(--slate-800);
+      background:white;
+    }
+
+    input:focus, select:focus {
+      outline:3px solid rgba(37,99,235,0.16);
+      border-color:var(--blue-600);
+    }
+
+    .hint {
+      color:var(--slate-500);
+      font-size:0.86rem;
+    }
+
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .result-box {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    .result-box h3 {
+      margin:0 0 6px;
+      color:var(--slate-900);
+      font-size:1rem;
+    }
+
+    .result-value {
+      font-size:1.55rem;
+      font-weight:900;
+      color:var(--blue-800);
+      line-height:1.15;
+      overflow-wrap:anywhere;
+    }
+
+    .result-sub {
+      color:var(--slate-500);
+      font-size:0.92rem;
+      margin-top:4px;
+    }
+
+    .status {
+      border-radius:18px;
+      padding:16px;
+      font-weight:800;
+      margin-top:14px;
+    }
+
+    .status.good {
+      background:var(--green-100);
+      color:var(--green-700);
+      border:1px solid #86efac;
+    }
+
+    .status.warn {
+      background:var(--amber-100);
+      color:var(--amber-700);
+      border:1px solid #fcd34d;
+    }
+
+    .status.bad {
+      background:var(--red-100);
+      color:var(--red-700);
+      border:1px solid #fca5a5;
+    }
+
+    .formula {
+      background:#0f172a;
+      color:white;
+      border-radius:18px;
+      padding:20px;
+      overflow-x:auto;
+    }
+
+    .formula code {
+      font-size:1.05rem;
+      color:white;
+      white-space:pre-wrap;
+    }
+
+    .card-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card-grid.two {
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .card {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    }
+
+    .card h3 {
+      margin:0 0 9px;
+      color:var(--slate-900);
+      line-height:1.25;
+    }
+
+    .card p {
+      margin:0 0 14px;
+      color:var(--slate-600);
+    }
+
+    .card ul {
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .card li { margin:6px 0; }
+
+    .note {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .warning {
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .workflow {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .workflow-row {
+      display:grid;
+      grid-template-columns:82px minmax(0,1fr) minmax(220px,0.5fr);
+      gap:18px;
+      padding:22px;
+      border-bottom:1px solid var(--slate-200);
+      align-items:center;
+    }
+
+    .workflow-row:last-child { border-bottom:none; }
+
+    .step-number {
+      width:48px;
+      height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--blue-800),var(--blue-600));
+      color:white;
+      font-weight:900;
+    }
+
+    .workflow-row h3 {
+      margin:0 0 5px;
+      color:var(--slate-900);
+    }
+
+    .workflow-row p {
+      margin:0;
+      color:var(--slate-600);
+    }
+
+    .workflow-link { font-weight:900; }
+
+    .bottom-cta {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+
+    .bottom-cta h2 {
+      margin:0 0 10px;
+      font-size:1.85rem;
+    }
+
+    .bottom-cta p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+      max-width:760px;
+    }
+
+    footer {
+      text-align:center;
+      color:var(--slate-500);
+      padding:34px 20px 44px;
+      border-top:1px solid var(--slate-200);
+      background:white;
+    }
+
+    @media (max-width:980px) {
+      .hero-inner,
+      .calculator-body,
+      .bottom-cta {
+        grid-template-columns:1fr;
+      }
+
+      .inputs {
+        border-right:none;
+        border-bottom:1px solid var(--slate-200);
+      }
+
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .workflow-row {
+        grid-template-columns:64px 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:2;
+      }
+    }
+
+    @media (max-width:680px) {
+      .hero {
+        padding:44px 16px 34px;
+      }
+
+      .page {
+        padding:32px 16px 54px;
+      }
+
+      .input-grid,
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:auto;
+      }
+
+      .hero-actions,
+      .button-row {
+        flex-direction:column;
+      }
+
+      .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Machine Design Calculator</div>
+        <h1>Frame Rigidity Estimator</h1>
+        <p>
+          Estimate basic machine frame rigidity, member deflection, support stiffness, and load-path risk
+          for automation frames, brackets, tooling plates, crossmembers, sensor stands, guards, and machine
+          bases. Use this early when a machine structure feels too flexible, vibrates, or loses alignment.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta_click',{'page':'frame_rigidity','target':'calculator','location':'hero'});">
+            Open Estimator
+          </a>
+          <a class="btn btn-secondary" href="/beam-deflection-calculator.html" onclick="gtag('event','page_cta_click',{'page':'frame_rigidity','target':'beam_deflection','location':'hero'});">
+            Beam Deflection
+          </a>
+          <a class="btn btn-secondary" href="/machine-design.html" onclick="gtag('event','page_cta_click',{'page':'frame_rigidity','target':'machine_design','location':'hero'});">
+            Machine Design Hub
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Use this estimator when checking:</h2>
+        <ul>
+          <li>Machine frames, stands, rails, bases, brackets, and tooling plates</li>
+          <li>Whether a support is too flexible for sensors, vision, or robot tooling</li>
+          <li>Approximate stiffness from load and deflection</li>
+          <li>Frame improvement options before redesigning everything</li>
+          <li>Whether to run deeper beam, stress, bolt, or bearing checks</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="calculator" class="section">
+      <div class="calculator-shell">
+        <div class="calculator-top">
+          <h2>Estimate Frame Rigidity and Deflection</h2>
+          <p>
+            Pick a simplified load case and enter the frame/member dimensions. The estimator calculates
+            deflection, approximate stiffness, bending moment, bending stress, and a practical rigidity rating.
+          </p>
+        </div>
+
+        <div class="calculator-body">
+          <div class="inputs">
+            <div class="input-grid">
+              <div class="field">
+                <label for="unitSystem">Unit System</label>
+                <select id="unitSystem" onchange="updateUnits(); calculateFrameRigidity();">
+                  <option value="imperial">Imperial — lb, in, psi</option>
+                  <option value="metric">Metric — N, mm, MPa</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="loadCase">Simplified Frame / Member Case</label>
+                <select id="loadCase" onchange="toggleLoadFields(); calculateFrameRigidity();">
+                  <option value="simple_center">Crossmember supported at both ends, center load</option>
+                  <option value="simple_udl">Crossmember supported at both ends, uniform load</option>
+                  <option value="cantilever_end">Cantilever bracket / arm, end load</option>
+                  <option value="cantilever_udl">Cantilever bracket / arm, uniform load</option>
+                  <option value="direct_deflection">Known load and measured deflection</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="material">Material / Modulus Preset</label>
+                <select id="material" onchange="setMaterialModulus(); calculateFrameRigidity();">
+                  <option value="steel">Steel — 29,000,000 psi / 200,000 MPa</option>
+                  <option value="aluminum">Aluminum — 10,000,000 psi / 69,000 MPa</option>
+                  <option value="stainless">Stainless Steel — 28,000,000 psi / 193,000 MPa</option>
+                  <option value="custom">Custom modulus</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="sectionType">Section Type</label>
+                <select id="sectionType" onchange="toggleSectionFields(); calculateFrameRigidity();">
+                  <option value="rectangle">Rectangular bar / plate</option>
+                  <option value="rect_tube">Rectangular tube</option>
+                  <option value="solid_round">Solid round</option>
+                  <option value="round_tube">Round tube</option>
+                  <option value="custom">Custom I and c</option>
+                </select>
+              </div>
+
+              <div class="field load-field">
+                <label for="span">Span / Length <span class="unit-length">(in)</span></label>
+                <input id="span" type="number" value="48" min="0" step="any" oninput="calculateFrameRigidity();" />
+                <span class="hint">Unsupported length, span, or cantilever length.</span>
+              </div>
+
+              <div class="field point-load-field">
+                <label for="pointLoad">Point Load <span class="unit-force">(lb)</span></label>
+                <input id="pointLoad" type="number" value="300" min="0" step="any" oninput="calculateFrameRigidity();" />
+                <span class="hint">Tooling, actuator, product, bracket, or concentrated load.</span>
+              </div>
+
+              <div class="field uniform-load-field" style="display:none;">
+                <label for="uniformLoad">Uniform Load <span class="unit-uniform">(lb/in)</span></label>
+                <input id="uniformLoad" type="number" value="8" min="0" step="any" oninput="calculateFrameRigidity();" />
+                <span class="hint">Distributed load across the member length.</span>
+              </div>
+
+              <div class="field measured-field" style="display:none;">
+                <label for="measuredLoad">Measured / Applied Load <span class="unit-force">(lb)</span></label>
+                <input id="measuredLoad" type="number" value="300" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field measured-field" style="display:none;">
+                <label for="measuredDeflection">Measured Deflection <span class="unit-length">(in)</span></label>
+                <input id="measuredDeflection" type="number" value="0.050" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field">
+                <label for="modulus">Elastic Modulus, E <span class="unit-modulus">(psi)</span></label>
+                <input id="modulus" type="number" value="29000000" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field">
+                <label for="yieldStrength">Yield Strength <span class="unit-strength">(psi)</span></label>
+                <input id="yieldStrength" type="number" value="36000" min="0" step="any" oninput="calculateFrameRigidity();" />
+                <span class="hint">Used for a rough bending stress safety factor.</span>
+              </div>
+
+              <div class="field rectangle-field">
+                <label for="rectWidth">Width, b <span class="unit-length">(in)</span></label>
+                <input id="rectWidth" type="number" value="2" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field rectangle-field">
+                <label for="rectHeight">Height in Bending Direction, h <span class="unit-length">(in)</span></label>
+                <input id="rectHeight" type="number" value="4" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field rect-tube-field" style="display:none;">
+                <label for="tubeWidth">Tube Width, b <span class="unit-length">(in)</span></label>
+                <input id="tubeWidth" type="number" value="3" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field rect-tube-field" style="display:none;">
+                <label for="tubeHeight">Tube Height, h <span class="unit-length">(in)</span></label>
+                <input id="tubeHeight" type="number" value="4" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field rect-tube-field" style="display:none;">
+                <label for="wallThickness">Wall Thickness, t <span class="unit-length">(in)</span></label>
+                <input id="wallThickness" type="number" value="0.25" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field solid-round-field" style="display:none;">
+                <label for="diameter">Round Diameter <span class="unit-length">(in)</span></label>
+                <input id="diameter" type="number" value="2" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field round-tube-field" style="display:none;">
+                <label for="outerDiameter">Outer Diameter <span class="unit-length">(in)</span></label>
+                <input id="outerDiameter" type="number" value="2" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field round-tube-field" style="display:none;">
+                <label for="innerDiameter">Inner Diameter <span class="unit-length">(in)</span></label>
+                <input id="innerDiameter" type="number" value="1.5" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field custom-field" style="display:none;">
+                <label for="customI">Moment of Inertia, I <span class="unit-inertia">(in⁴)</span></label>
+                <input id="customI" type="number" value="10" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field custom-field" style="display:none;">
+                <label for="customC">Outer Fiber Distance, c <span class="unit-length">(in)</span></label>
+                <input id="customC" type="number" value="2" min="0" step="any" oninput="calculateFrameRigidity();" />
+              </div>
+
+              <div class="field">
+                <label for="deflectionLimit">Target Deflection Limit <span class="unit-length">(in)</span></label>
+                <input id="deflectionLimit" type="number" value="0.030" min="0" step="any" oninput="calculateFrameRigidity();" />
+                <span class="hint">Use real process tolerance when known.</span>
+              </div>
+
+              <div class="field">
+                <label for="dynamicFactor">Shock / Dynamic Factor</label>
+                <input id="dynamicFactor" type="number" value="1.5" min="1" step="any" oninput="calculateFrameRigidity();" />
+                <span class="hint">Use 1.0 for static. Increase for impact, vibration, starts/stops, or uncertainty.</span>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateFrameRigidity(); gtag('event','calculator_run',{'calculator':'frame_rigidity'});">
+                Calculate
+              </button>
+              <button class="btn btn-secondary" type="button" onclick="resetCalculator(); gtag('event','calculator_reset',{'calculator':'frame_rigidity'});">
+                Reset Example
+              </button>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="result-box">
+              <h3>Estimated Deflection</h3>
+              <div id="deflectionResult" class="result-value">—</div>
+              <div class="result-sub">Predicted or measured frame/member deflection.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Approximate Stiffness</h3>
+              <div id="stiffnessResult" class="result-value">—</div>
+              <div class="result-sub">Load divided by deflection.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Maximum Bending Moment</h3>
+              <div id="momentResult" class="result-value">—</div>
+              <div class="result-sub">Used for rough bending stress check.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Bending Stress</h3>
+              <div id="stressResult" class="result-value">—</div>
+              <div class="result-sub">Approximate bending stress with dynamic factor.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Safety Factor Against Yield</h3>
+              <div id="safetyFactorResult" class="result-value">—</div>
+              <div class="result-sub">Yield strength divided by estimated stress.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Section Property Used</h3>
+              <div id="sectionResult" class="result-value">—</div>
+              <div class="result-sub">Moment of inertia used in the estimate.</div>
+            </div>
+
+            <div id="statusBox" class="status warn">
+              Enter frame values to estimate rigidity.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>What Frame Rigidity Means</h2>
+        <p>
+          Rigidity is about how much the structure moves under load. In automation, movement that looks
+          small on paper can still ruin sensor repeatability, robot pickup position, weld quality, press
+          alignment, conveyor tracking, or camera inspection stability.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Deflection</h3>
+          <p>
+            Deflection is the actual movement under load. A frame can be strong enough and still move too
+            much for the process.
+          </p>
+          <ul>
+            <li>Critical for tooling, nests, sensors, and robot fixtures.</li>
+            <li>Often worse on long spans and cantilevered brackets.</li>
+            <li>Should be compared to process tolerance, not just material strength.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Stiffness</h3>
+          <p>
+            Stiffness is load divided by deflection. Higher stiffness means less movement for the same load.
+          </p>
+          <ul>
+            <li>Useful for comparing frame options.</li>
+            <li>Improves by increasing section height and reducing span.</li>
+            <li>Can be measured directly with known load and deflection.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Load Path</h3>
+          <p>
+            The load path is where the force actually travels through the machine. Weak links may be bolts,
+            plates, welds, brackets, feet, leveling pads, or floor anchors.
+          </p>
+          <ul>
+            <li>Do not only check the visible beam.</li>
+            <li>Follow the load into supports and fasteners.</li>
+            <li>Look for cantilevers and unsupported overhangs.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Formula Reference</h2>
+        <p>
+          This estimator uses simplified beam formulas and section properties. Real frames are usually
+          more complex, but these calculations are useful for early design and troubleshooting.
+        </p>
+      </div>
+
+      <div class="formula">
+        <code>Stiffness:
+k = F / δ
+
+Simply Supported, Center Point Load:
+δ = P × L³ / (48 × E × I)
+Mmax = P × L / 4
+
+Simply Supported, Uniform Load:
+δ = 5 × w × L⁴ / (384 × E × I)
+Mmax = w × L² / 8
+
+Cantilever End Load:
+δ = P × L³ / (3 × E × I)
+Mmax = P × L
+
+Cantilever Uniform Load:
+δ = w × L⁴ / (8 × E × I)
+Mmax = w × L² / 2
+
+Bending Stress:
+σ = M / S
+S = I / c</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Recommended Frame Design Workflow</h2>
+        <p>
+          Use this workflow when a structure feels flexible, shifts under load, vibrates, or causes
+          repeatability problems.
+        </p>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-row">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Define the real load and load path</h3>
+            <p>
+              Identify the load, where it enters the frame, where it leaves through supports, and whether
+              it is static, cyclic, impact, or acceleration-based.
+            </p>
+          </div>
+          <a class="workflow-link" href="/beam-load-calculator.html" onclick="gtag('event','workflow_click',{'page':'frame_rigidity','step':'beam_load'});">Beam Load →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Estimate stiffness and deflection</h3>
+            <p>
+              Use this estimator to see if the member is likely stiff enough for the process, fixture,
+              sensor, robot, or tooling requirement.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'frame_rigidity','step':'calculator'});">Use Estimator →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Check stress and section shape</h3>
+            <p>
+              If deflection or stress is high, compare section modulus and moment of inertia before
+              simply changing material.
+            </p>
+          </div>
+          <a class="workflow-link" href="/section-modulus-calculator.html" onclick="gtag('event','workflow_click',{'page':'frame_rigidity','step':'section_modulus'});">Section Modulus →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Check bolts, supports, and joints</h3>
+            <p>
+              A stiff beam does not help if the bolted joint slips, the base plate flexes, or the support
+              feet move under load.
+            </p>
+          </div>
+          <a class="workflow-link" href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','workflow_click',{'page':'frame_rigidity','step':'bolt_joint'});">Bolt Joint Check →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Where Frame Flex Shows Up in Automation</h2>
+        <p>
+          Frame stiffness problems often get mistaken for controls, robot, sensor, or process problems.
+          Before chasing tuning or replacing components, check whether the structure is moving.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Robot Fixtures and EOAT</h3>
+          <p>
+            A robot can repeat accurately while the fixture, nest, or end-of-arm tooling flexes. That
+            looks like robot repeatability trouble, but the root cause may be mechanical stiffness.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Vision and Sensor Mounts</h3>
+          <p>
+            Camera brackets, laser mounts, proximity sensors, and inspection stands need stiffness. A
+            small movement can change focus, trigger position, or measurement accuracy.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Presses and Clamping Stations</h3>
+          <p>
+            Press frames, cylinder mounts, locating plates, and clamps can deflect under load. This can
+            affect part seating, force readings, and final position.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Conveyors and Transfers</h3>
+          <p>
+            A flexible conveyor frame can cause tracking issues, inconsistent transfer height, roller
+            misalignment, and product handling problems.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Welding and Fastening Fixtures</h3>
+          <p>
+            Weld fixtures, nut-runner brackets, and clamp supports must hold position under process load.
+            Flex can show up as weld variation or fastener alignment problems.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Machine Bases and Guarding</h3>
+          <p>
+            Guarding, bases, stands, and access platforms can shake or move if long unsupported spans or
+            weak brackets are used.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>How to Improve Frame Rigidity</h2>
+        <p>
+          The best fix is usually geometry, support, or load path — not just stronger material. Steel
+          is not magic if the shape and support layout are poor.
+        </p>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card">
+          <h3>If deflection is too high</h3>
+          <ul>
+            <li>Increase section height in the bending direction.</li>
+            <li>Shorten unsupported spans.</li>
+            <li>Add intermediate supports or gussets.</li>
+            <li>Convert flat plates into formed shapes, tubes, or boxed sections.</li>
+            <li>Move loads closer to supports.</li>
+            <li>Reduce cantilever length and overhung mass.</li>
+            <li>Triangulate frames where practical.</li>
+            <li>Stiffen the base and mounting points, not only the crossmember.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>If the frame vibrates</h3>
+          <ul>
+            <li>Check whether the frame is being excited by motor, conveyor, or process frequency.</li>
+            <li>Look for loose bolts, poor leveling, or weak floor anchors.</li>
+            <li>Check rotating shafts, pulleys, rollers, and imbalance.</li>
+            <li>Increase stiffness before adding mass blindly.</li>
+            <li>Check whether a bracket acts like a tuning fork.</li>
+            <li>Move sensors and cameras closer to rigid structure.</li>
+            <li>Separate lightweight guarding from precision tooling when possible.</li>
+            <li>Measure movement under real operating load.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="warning">
+        <strong>Important:</strong>
+        This estimator is a simplified design and troubleshooting tool. Real machine frames may involve
+        torsion, weld flexibility, bolted joint slip, base plate flex, floor anchor movement, dynamic
+        vibration, impact, fatigue, buckling, stress concentrations, thermal growth, and multi-member
+        load sharing. Use this for early screening and compare critical structures with proper engineering
+        review, measurement, or detailed analysis.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">
+        <strong>Good next step:</strong>
+        use the
+        <a href="/beam-load-calculator.html" onclick="gtag('event','internal_link',{'from':'frame_rigidity','to':'beam_load'});">Beam Load Calculator</a>
+        to check reactions, the
+        <a href="/beam-deflection-calculator.html" onclick="gtag('event','internal_link',{'from':'frame_rigidity','to':'beam_deflection'});">Beam Deflection Calculator</a>
+        for a deeper beam check, the
+        <a href="/section-modulus-calculator.html" onclick="gtag('event','internal_link',{'from':'frame_rigidity','to':'section_modulus'});">Section Modulus Calculator</a>
+        to compare shapes, and the
+        <a href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','internal_link',{'from':'frame_rigidity','to':'bolt_joint'});">Bolt Shear & Joint Separation Calculator</a>
+        to check the joint.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Related Tools</h2>
+        <p>
+          Frame rigidity is part of the larger machine design workflow. Use these tools to finish the
+          structural and mechanical check.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Beam Load Calculator</h3>
+          <p>Calculate reactions, shear, and maximum moment before checking frame stiffness.</p>
+          <a href="/beam-load-calculator.html" onclick="gtag('event','related_tool_click',{'from':'frame_rigidity','to':'beam_load'});">Open Beam Load →</a>
+        </article>
+
+        <article class="card">
+          <h3>Beam Deflection Calculator</h3>
+          <p>Check beam deflection in more detail for common support and load cases.</p>
+          <a href="/beam-deflection-calculator.html" onclick="gtag('event','related_tool_click',{'from':'frame_rigidity','to':'beam_deflection'});">Open Beam Deflection →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bending Stress Calculator</h3>
+          <p>Estimate bending stress and safety factor for the loaded frame member.</p>
+          <a href="/bending-stress-calculator.html" onclick="gtag('event','related_tool_click',{'from':'frame_rigidity','to':'bending_stress'});">Open Bending Stress →</a>
+        </article>
+
+        <article class="card">
+          <h3>Section Modulus Calculator</h3>
+          <p>Compare shapes and section properties before changing material or oversizing the design.</p>
+          <a href="/section-modulus-calculator.html" onclick="gtag('event','related_tool_click',{'from':'frame_rigidity','to':'section_modulus'});">Open Section Modulus →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bolt Shear & Joint Separation</h3>
+          <p>Check whether the bolted joint can handle shear and separating loads.</p>
+          <a href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','related_tool_click',{'from':'frame_rigidity','to':'bolt_joint'});">Open Bolt Joint Check →</a>
+        </article>
+
+        <article class="card">
+          <h3>Machine Design Hub</h3>
+          <p>Return to the full workflow for structures, shafts, bearings, motion, and fasteners.</p>
+          <a href="/machine-design.html" onclick="gtag('event','related_tool_click',{'from':'frame_rigidity','to':'machine_design'});">Open Machine Design Hub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom-cta">
+        <div>
+          <h2>A machine frame can be strong and still not be rigid enough.</h2>
+          <p>
+            Check deflection, stiffness, section shape, joints, and supports before blaming controls,
+            sensors, robots, bearings, or operators.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="/machine-design.html" onclick="gtag('event','bottom_cta_click',{'page':'frame_rigidity','target':'machine_design'});">
+          Machine Design Hub
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators for real automation work
+  </footer>
+
+  <script>
+    function getValue(id) {
+      var value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatNumber(value, decimals) {
+      if (!isFinite(value)) return '—';
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function updateUnits() {
+      var system = document.getElementById('unitSystem').value;
+
+      document.querySelectorAll('.unit-length').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in)' : '(mm)';
+      });
+
+      document.querySelectorAll('.unit-force').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb)' : '(N)';
+      });
+
+      document.querySelectorAll('.unit-uniform').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb/in)' : '(N/mm)';
+      });
+
+      document.querySelectorAll('.unit-modulus').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      document.querySelectorAll('.unit-strength').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      document.querySelectorAll('.unit-inertia').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in⁴)' : '(mm⁴)';
+      });
+
+      if (system === 'imperial') {
+        document.getElementById('span').value = 48;
+        document.getElementById('pointLoad').value = 300;
+        document.getElementById('uniformLoad').value = 8;
+        document.getElementById('measuredLoad').value = 300;
+        document.getElementById('measuredDeflection').value = 0.050;
+        document.getElementById('yieldStrength').value = 36000;
+        document.getElementById('rectWidth').value = 2;
+        document.getElementById('rectHeight').value = 4;
+        document.getElementById('tubeWidth').value = 3;
+        document.getElementById('tubeHeight').value = 4;
+        document.getElementById('wallThickness').value = 0.25;
+        document.getElementById('diameter').value = 2;
+        document.getElementById('outerDiameter').value = 2;
+        document.getElementById('innerDiameter').value = 1.5;
+        document.getElementById('customI').value = 10;
+        document.getElementById('customC').value = 2;
+        document.getElementById('deflectionLimit').value = 0.030;
+      } else {
+        document.getElementById('span').value = 1200;
+        document.getElementById('pointLoad').value = 1300;
+        document.getElementById('uniformLoad').value = 1.5;
+        document.getElementById('measuredLoad').value = 1300;
+        document.getElementById('measuredDeflection').value = 1.25;
+        document.getElementById('yieldStrength').value = 250;
+        document.getElementById('rectWidth').value = 50;
+        document.getElementById('rectHeight').value = 100;
+        document.getElementById('tubeWidth').value = 75;
+        document.getElementById('tubeHeight').value = 100;
+        document.getElementById('wallThickness').value = 6;
+        document.getElementById('diameter').value = 50;
+        document.getElementById('outerDiameter').value = 50;
+        document.getElementById('innerDiameter').value = 38;
+        document.getElementById('customI').value = 1000000;
+        document.getElementById('customC').value = 50;
+        document.getElementById('deflectionLimit').value = 0.75;
+      }
+
+      setMaterialModulus();
+    }
+
+    function setMaterialModulus() {
+      var system = document.getElementById('unitSystem').value;
+      var material = document.getElementById('material').value;
+      var modulus = document.getElementById('modulus');
+
+      if (material === 'custom') {
+        return;
+      }
+
+      if (system === 'imperial') {
+        if (material === 'steel') modulus.value = 29000000;
+        if (material === 'aluminum') modulus.value = 10000000;
+        if (material === 'stainless') modulus.value = 28000000;
+      } else {
+        if (material === 'steel') modulus.value = 200000;
+        if (material === 'aluminum') modulus.value = 69000;
+        if (material === 'stainless') modulus.value = 193000;
+      }
+    }
+
+    function toggleLoadFields() {
+      var loadCase = document.getElementById('loadCase').value;
+
+      document.querySelectorAll('.load-field').forEach(function(el) {
+        el.style.display = loadCase === 'direct_deflection' ? 'none' : 'flex';
+      });
+
+      document.querySelectorAll('.point-load-field').forEach(function(el) {
+        el.style.display = (loadCase === 'simple_center' || loadCase === 'cantilever_end') ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.uniform-load-field').forEach(function(el) {
+        el.style.display = (loadCase === 'simple_udl' || loadCase === 'cantilever_udl') ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.measured-field').forEach(function(el) {
+        el.style.display = loadCase === 'direct_deflection' ? 'flex' : 'none';
+      });
+    }
+
+    function toggleSectionFields() {
+      var sectionType = document.getElementById('sectionType').value;
+
+      document.querySelectorAll('.rectangle-field').forEach(function(el) {
+        el.style.display = sectionType === 'rectangle' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.rect-tube-field').forEach(function(el) {
+        el.style.display = sectionType === 'rect_tube' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.solid-round-field').forEach(function(el) {
+        el.style.display = sectionType === 'solid_round' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.round-tube-field').forEach(function(el) {
+        el.style.display = sectionType === 'round_tube' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.custom-field').forEach(function(el) {
+        el.style.display = sectionType === 'custom' ? 'flex' : 'none';
+      });
+    }
+
+    function calculateSectionProperties() {
+      var sectionType = document.getElementById('sectionType').value;
+      var I = 0;
+      var c = 0;
+      var valid = true;
+      var message = '';
+
+      if (sectionType === 'rectangle') {
+        var b = getValue('rectWidth');
+        var h = getValue('rectHeight');
+        if (b <= 0 || h <= 0) {
+          valid = false;
+          message = 'Rectangle width and height must be greater than zero.';
+        } else {
+          I = b * Math.pow(h, 3) / 12;
+          c = h / 2;
+        }
+      }
+
+      if (sectionType === 'rect_tube') {
+        var bw = getValue('tubeWidth');
+        var h2 = getValue('tubeHeight');
+        var t = getValue('wallThickness');
+        var innerB = bw - 2 * t;
+        var innerH = h2 - 2 * t;
+
+        if (bw <= 0 || h2 <= 0 || t <= 0 || innerB <= 0 || innerH <= 0) {
+          valid = false;
+          message = 'Tube dimensions are invalid. Wall thickness must be smaller than half the width and height.';
+        } else {
+          I = (bw * Math.pow(h2, 3) - innerB * Math.pow(innerH, 3)) / 12;
+          c = h2 / 2;
+        }
+      }
+
+      if (sectionType === 'solid_round') {
+        var d = getValue('diameter');
+        if (d <= 0) {
+          valid = false;
+          message = 'Round diameter must be greater than zero.';
+        } else {
+          I = Math.PI * Math.pow(d, 4) / 64;
+          c = d / 2;
+        }
+      }
+
+      if (sectionType === 'round_tube') {
+        var od = getValue('outerDiameter');
+        var id = getValue('innerDiameter');
+
+        if (od <= 0 || id < 0 || od <= id) {
+          valid = false;
+          message = 'Outer diameter must be larger than inner diameter.';
+        } else {
+          I = Math.PI * (Math.pow(od, 4) - Math.pow(id, 4)) / 64;
+          c = od / 2;
+        }
+      }
+
+      if (sectionType === 'custom') {
+        I = getValue('customI');
+        c = getValue('customC');
+
+        if (I <= 0 || c <= 0) {
+          valid = false;
+          message = 'Custom moment of inertia and c value must be greater than zero.';
+        }
+      }
+
+      return {
+        I: I,
+        c: c,
+        S: c > 0 ? I / c : 0,
+        valid: valid,
+        message: message
+      };
+    }
+
+    function calculateFrameRigidity() {
+      var system = document.getElementById('unitSystem').value;
+      var loadCase = document.getElementById('loadCase').value;
+      var L = getValue('span');
+      var P = getValue('pointLoad');
+      var w = getValue('uniformLoad');
+      var measuredLoad = getValue('measuredLoad');
+      var measuredDeflection = getValue('measuredDeflection');
+      var E = getValue('modulus');
+      var yieldStrength = getValue('yieldStrength');
+      var deflectionLimit = getValue('deflectionLimit');
+      var dynamicFactor = getValue('dynamicFactor');
+
+      var props = calculateSectionProperties();
+      var deflection = 0;
+      var loadForStiffness = 0;
+      var moment = 0;
+      var stress = 0;
+      var safetyFactor = 0;
+      var stiffness = 0;
+      var valid = true;
+      var message = 'Frame rigidity estimated. Compare deflection to the actual process tolerance, not just a general rule.';
+
+      if (!props.valid) {
+        valid = false;
+        message = props.message;
+      }
+
+      if (loadCase !== 'direct_deflection' && (L <= 0 || E <= 0)) {
+        valid = false;
+        message = 'Span or length and elastic modulus must be greater than zero.';
+      }
+
+      if (dynamicFactor < 1) {
+        valid = false;
+        message = 'Dynamic factor should be 1.0 or greater.';
+      }
+
+      if (valid && loadCase === 'simple_center') {
+        var effectiveP = P * dynamicFactor;
+        loadForStiffness = effectiveP;
+        deflection = effectiveP * Math.pow(L, 3) / (48 * E * props.I);
+        moment = effectiveP * L / 4;
+      }
+
+      if (valid && loadCase === 'simple_udl') {
+        var effectiveW = w * dynamicFactor;
+        loadForStiffness = effectiveW * L;
+        deflection = 5 * effectiveW * Math.pow(L, 4) / (384 * E * props.I);
+        moment = effectiveW * Math.pow(L, 2) / 8;
+      }
+
+      if (valid && loadCase === 'cantilever_end') {
+        var effectiveCantileverP = P * dynamicFactor;
+        loadForStiffness = effectiveCantileverP;
+        deflection = effectiveCantileverP * Math.pow(L, 3) / (3 * E * props.I);
+        moment = effectiveCantileverP * L;
+      }
+
+      if (valid && loadCase === 'cantilever_udl') {
+        var effectiveCantileverW = w * dynamicFactor;
+        loadForStiffness = effectiveCantileverW * L;
+        deflection = effectiveCantileverW * Math.pow(L, 4) / (8 * E * props.I);
+        moment = effectiveCantileverW * Math.pow(L, 2) / 2;
+      }
+
+      if (valid && loadCase === 'direct_deflection') {
+        if (measuredLoad <= 0 || measuredDeflection <= 0) {
+          valid = false;
+          message = 'Measured load and measured deflection must be greater than zero.';
+        } else {
+          loadForStiffness = measuredLoad;
+          deflection = measuredDeflection;
+          moment = 0;
+        }
+      }
+
+      if (valid && deflection > 0) {
+        stiffness = loadForStiffness / deflection;
+      }
+
+      if (valid && props.S > 0 && moment > 0) {
+        stress = moment / props.S;
+        safetyFactor = stress > 0 ? yieldStrength / stress : 0;
+      }
+
+      var lengthUnit = system === 'imperial' ? 'in' : 'mm';
+      var forceUnit = system === 'imperial' ? 'lb' : 'N';
+      var stiffnessUnit = system === 'imperial' ? 'lb/in' : 'N/mm';
+      var momentUnit = system === 'imperial' ? 'lb-in' : 'N-mm';
+      var stressUnit = system === 'imperial' ? 'psi' : 'MPa';
+      var inertiaUnit = system === 'imperial' ? 'in⁴' : 'mm⁴';
+
+      if (!valid || deflection <= 0) {
+        document.getElementById('deflectionResult').textContent = '—';
+        document.getElementById('stiffnessResult').textContent = '—';
+        document.getElementById('momentResult').textContent = '—';
+        document.getElementById('stressResult').textContent = '—';
+        document.getElementById('safetyFactorResult').textContent = '—';
+        document.getElementById('sectionResult').textContent = props.I > 0 ? formatNumber(props.I, 5) + ' ' + inertiaUnit : '—';
+      } else {
+        document.getElementById('deflectionResult').textContent = formatNumber(deflection, 5) + ' ' + lengthUnit;
+        document.getElementById('stiffnessResult').textContent = formatNumber(stiffness, 2) + ' ' + stiffnessUnit;
+        document.getElementById('momentResult').textContent = moment > 0 ? formatNumber(moment, 2) + ' ' + momentUnit : 'N/A';
+        document.getElementById('stressResult').textContent = stress > 0 ? formatNumber(stress, 2) + ' ' + stressUnit : 'N/A';
+        document.getElementById('safetyFactorResult').textContent = safetyFactor > 0 ? formatNumber(safetyFactor, 2) + ':1' : 'N/A';
+        document.getElementById('sectionResult').textContent = formatNumber(props.I, 5) + ' ' + inertiaUnit;
+      }
+
+      var statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status';
+
+      if (!valid) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = message;
+      } else if (deflectionLimit > 0 && deflection > deflectionLimit) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Deflection is above the entered target. Improve stiffness by reducing span, increasing section height, adding supports, reducing cantilever length, or improving the load path.';
+      } else if (safetyFactor > 0 && safetyFactor < 1.5) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Estimated stress safety factor is low. Increase section size, reduce load, shorten span, or redesign the support before relying on this frame member.';
+      } else if (safetyFactor > 0 && safetyFactor < 3) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = 'Deflection may be acceptable, but stress margin is moderate. Review fatigue, shock loading, welds, holes, bolted joints, and real machine conditions.';
+      } else {
+        statusBox.classList.add('good');
+        statusBox.textContent = message;
+      }
+    }
+
+    function resetCalculator() {
+      document.getElementById('unitSystem').value = 'imperial';
+      document.getElementById('loadCase').value = 'simple_center';
+      document.getElementById('material').value = 'steel';
+      document.getElementById('sectionType').value = 'rectangle';
+      document.getElementById('dynamicFactor').value = 1.5;
+      updateUnits();
+      toggleLoadFields();
+      toggleSectionFields();
+      calculateFrameRigidity();
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
+      })
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    toggleLoadFields();
+    toggleSectionFields();
+    calculateFrameRigidity();
+  </script>
+</body>
+</html>
