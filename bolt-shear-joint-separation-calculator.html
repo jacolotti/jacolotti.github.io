@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Bolt Shear & Joint Separation Calculator | Fastener Load, Clamp Load & Safety Factor</title>
+  <meta name="description" content="Calculate bolt shear stress, shear safety factor, joint clamp load margin, and separation risk for bolted machine brackets, frames, fixtures, plates, and automation structures." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/bolt-shear-joint-separation-calculator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root {
+      --blue-800:#1e3a8a;
+      --blue-700:#1d4ed8;
+      --blue-600:#2563eb;
+      --blue-100:#dbeafe;
+      --slate-900:#0f172a;
+      --slate-800:#1e293b;
+      --slate-700:#334155;
+      --slate-600:#475569;
+      --slate-500:#64748b;
+      --slate-200:#e2e8f0;
+      --green-100:#dcfce7;
+      --green-700:#15803d;
+      --amber-100:#fef3c7;
+      --amber-700:#b45309;
+      --red-100:#fee2e2;
+      --red-700:#b91c1c;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(15,23,42,0.10);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f8fafc;
+      color:var(--slate-800);
+      line-height:1.6;
+    }
+
+    a {
+      color:var(--blue-700);
+      text-decoration:none;
+    }
+
+    a:hover { text-decoration:underline; }
+
+    #navbar {
+      position:relative;
+      z-index:50;
+    }
+
+    .hero {
+      background:white;
+      border-bottom:1px solid var(--slate-200);
+      padding:56px 20px 44px;
+    }
+
+    .hero-inner {
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,0.75fr);
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:var(--blue-100);
+      color:var(--blue-800);
+      font-size:0.9rem;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .hero h1 {
+      margin:0 0 16px;
+      color:var(--slate-900);
+      font-size:clamp(2.1rem,5vw,4rem);
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+
+    .hero p {
+      margin:0 0 22px;
+      max-width:780px;
+      color:var(--slate-600);
+      font-size:1.08rem;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:800;
+      border:1px solid transparent;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .btn-primary {
+      background:var(--blue-700);
+      color:white;
+      box-shadow:0 8px 24px rgba(29,78,216,0.25);
+    }
+
+    .btn-secondary {
+      background:white;
+      color:var(--blue-700);
+      border-color:var(--slate-200);
+    }
+
+    .hero-panel {
+      background:#f8fafc;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin:0 0 12px;
+      color:var(--slate-900);
+      font-size:1.25rem;
+    }
+
+    .hero-panel ul {
+      margin:0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .hero-panel li { margin:8px 0; }
+
+    .page {
+      max-width:1180px;
+      margin:0 auto;
+      padding:42px 20px 70px;
+    }
+
+    .section { margin-bottom:44px; }
+
+    .section-header { margin-bottom:22px; }
+
+    .section-header h2 {
+      margin:0 0 8px;
+      color:var(--slate-900);
+      font-size:clamp(1.55rem,3vw,2.25rem);
+      line-height:1.15;
+      letter-spacing:-0.025em;
+    }
+
+    .section-header p {
+      margin:0;
+      max-width:900px;
+      color:var(--slate-600);
+    }
+
+    .calculator-shell {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .calculator-top {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      padding:24px;
+    }
+
+    .calculator-top h2 {
+      margin:0 0 8px;
+      font-size:1.7rem;
+    }
+
+    .calculator-top p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+    }
+
+    .calculator-body {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,0.8fr);
+      gap:0;
+    }
+
+    .inputs {
+      padding:24px;
+      border-right:1px solid var(--slate-200);
+    }
+
+    .results {
+      padding:24px;
+      background:#f8fafc;
+    }
+
+    .input-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .field.full { grid-column:1 / -1; }
+
+    label {
+      font-weight:800;
+      color:var(--slate-900);
+      font-size:0.94rem;
+    }
+
+    input, select {
+      width:100%;
+      border:1px solid var(--slate-200);
+      border-radius:12px;
+      padding:11px 12px;
+      font-size:1rem;
+      color:var(--slate-800);
+      background:white;
+    }
+
+    input:focus, select:focus {
+      outline:3px solid rgba(37,99,235,0.16);
+      border-color:var(--blue-600);
+    }
+
+    .hint {
+      color:var(--slate-500);
+      font-size:0.86rem;
+    }
+
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .result-box {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    .result-box h3 {
+      margin:0 0 6px;
+      color:var(--slate-900);
+      font-size:1rem;
+    }
+
+    .result-value {
+      font-size:1.55rem;
+      font-weight:900;
+      color:var(--blue-800);
+      line-height:1.15;
+      overflow-wrap:anywhere;
+    }
+
+    .result-sub {
+      color:var(--slate-500);
+      font-size:0.92rem;
+      margin-top:4px;
+    }
+
+    .status {
+      border-radius:18px;
+      padding:16px;
+      font-weight:800;
+      margin-top:14px;
+    }
+
+    .status.good {
+      background:var(--green-100);
+      color:var(--green-700);
+      border:1px solid #86efac;
+    }
+
+    .status.warn {
+      background:var(--amber-100);
+      color:var(--amber-700);
+      border:1px solid #fcd34d;
+    }
+
+    .status.bad {
+      background:var(--red-100);
+      color:var(--red-700);
+      border:1px solid #fca5a5;
+    }
+
+    .formula {
+      background:#0f172a;
+      color:white;
+      border-radius:18px;
+      padding:20px;
+      overflow-x:auto;
+    }
+
+    .formula code {
+      font-size:1.05rem;
+      color:white;
+      white-space:pre-wrap;
+    }
+
+    .card-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card-grid.two {
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .card {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    }
+
+    .card h3 {
+      margin:0 0 9px;
+      color:var(--slate-900);
+      line-height:1.25;
+    }
+
+    .card p {
+      margin:0 0 14px;
+      color:var(--slate-600);
+    }
+
+    .card ul {
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .card li { margin:6px 0; }
+
+    .note {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .warning {
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .workflow {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .workflow-row {
+      display:grid;
+      grid-template-columns:82px minmax(0,1fr) minmax(220px,0.5fr);
+      gap:18px;
+      padding:22px;
+      border-bottom:1px solid var(--slate-200);
+      align-items:center;
+    }
+
+    .workflow-row:last-child { border-bottom:none; }
+
+    .step-number {
+      width:48px;
+      height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--blue-800),var(--blue-600));
+      color:white;
+      font-weight:900;
+    }
+
+    .workflow-row h3 {
+      margin:0 0 5px;
+      color:var(--slate-900);
+    }
+
+    .workflow-row p {
+      margin:0;
+      color:var(--slate-600);
+    }
+
+    .workflow-link { font-weight:900; }
+
+    .bottom-cta {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+
+    .bottom-cta h2 {
+      margin:0 0 10px;
+      font-size:1.85rem;
+    }
+
+    .bottom-cta p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+      max-width:760px;
+    }
+
+    footer {
+      text-align:center;
+      color:var(--slate-500);
+      padding:34px 20px 44px;
+      border-top:1px solid var(--slate-200);
+      background:white;
+    }
+
+    @media (max-width:980px) {
+      .hero-inner,
+      .calculator-body,
+      .bottom-cta {
+        grid-template-columns:1fr;
+      }
+
+      .inputs {
+        border-right:none;
+        border-bottom:1px solid var(--slate-200);
+      }
+
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .workflow-row {
+        grid-template-columns:64px 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:2;
+      }
+    }
+
+    @media (max-width:680px) {
+      .hero {
+        padding:44px 16px 34px;
+      }
+
+      .page {
+        padding:32px 16px 54px;
+      }
+
+      .input-grid,
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:auto;
+      }
+
+      .hero-actions,
+      .button-row {
+        flex-direction:column;
+      }
+
+      .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Machine Design / Fastening Calculator</div>
+        <h1>Bolt Shear & Joint Separation Calculator</h1>
+        <p>
+          Estimate bolt shear stress, shear safety factor, clamp load margin, and joint separation risk
+          for machine brackets, plates, fixtures, guarding, frames, tooling, and automation structures.
+          Use this after calculating beam reactions, bracket loads, or external forces on a bolted joint.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta_click',{'page':'bolt_shear_joint_separation','target':'calculator','location':'hero'});">
+            Open Calculator
+          </a>
+          <a class="btn btn-secondary" href="/torque-clamp-load.html" onclick="gtag('event','page_cta_click',{'page':'bolt_shear_joint_separation','target':'torque_clamp_load','location':'hero'});">
+            Torque to Clamp Load
+          </a>
+          <a class="btn btn-secondary" href="/machine-design.html" onclick="gtag('event','page_cta_click',{'page':'bolt_shear_joint_separation','target':'machine_design','location':'hero'});">
+            Machine Design Hub
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Use this calculator when checking:</h2>
+        <ul>
+          <li>Bolted brackets, plates, machine bases, and support arms</li>
+          <li>External shear load carried by a bolt group</li>
+          <li>Estimated bolt shear stress and safety factor</li>
+          <li>Whether clamp load is enough to resist joint separation</li>
+          <li>Fastener checks after beam load or bracket load calculations</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="calculator" class="section">
+      <div class="calculator-shell">
+        <div class="calculator-top">
+          <h2>Calculate Bolt Shear and Joint Separation Risk</h2>
+          <p>
+            Enter the external load, bolt count, bolt size, strength, and estimated clamp load. The
+            calculator checks direct shear per bolt and compares separating load against total clamp load.
+          </p>
+        </div>
+
+        <div class="calculator-body">
+          <div class="inputs">
+            <div class="input-grid">
+              <div class="field">
+                <label for="unitSystem">Unit System</label>
+                <select id="unitSystem" onchange="updateUnits(); calculateBoltJoint();">
+                  <option value="imperial">Imperial — lb, in, psi</option>
+                  <option value="metric">Metric — N, mm, MPa</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="boltInputMode">Bolt Area Input</label>
+                <select id="boltInputMode" onchange="toggleBoltFields(); calculateBoltJoint();">
+                  <option value="diameter">Use bolt diameter</option>
+                  <option value="area">Enter shear area directly</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="boltCount">Number of Bolts Sharing Load</label>
+                <input id="boltCount" type="number" value="4" min="1" step="1" oninput="calculateBoltJoint();" />
+                <span class="hint">Use only bolts that realistically share the load.</span>
+              </div>
+
+              <div class="field diameter-field">
+                <label for="boltDiameter">Bolt Diameter <span class="unit-length">(in)</span></label>
+                <input id="boltDiameter" type="number" value="0.5" min="0" step="any" oninput="calculateBoltJoint();" />
+                <span class="hint">For threaded shear planes, use a reduced effective area when needed.</span>
+              </div>
+
+              <div class="field area-field" style="display:none;">
+                <label for="boltArea">Shear Area per Bolt <span class="unit-area">(in²)</span></label>
+                <input id="boltArea" type="number" value="0.1963" min="0" step="any" oninput="calculateBoltJoint();" />
+              </div>
+
+              <div class="field">
+                <label for="shearPlanes">Shear Planes per Bolt</label>
+                <select id="shearPlanes" onchange="calculateBoltJoint();">
+                  <option value="1">Single shear</option>
+                  <option value="2">Double shear</option>
+                </select>
+                <span class="hint">Most simple brackets are single shear.</span>
+              </div>
+
+              <div class="field">
+                <label for="externalShearLoad">External Shear Load <span class="unit-force">(lb)</span></label>
+                <input id="externalShearLoad" type="number" value="2000" min="0" step="any" oninput="calculateBoltJoint();" />
+                <span class="hint">Side load trying to slide the joint.</span>
+              </div>
+
+              <div class="field">
+                <label for="separatingLoad">Separating / Tensile Load <span class="unit-force">(lb)</span></label>
+                <input id="separatingLoad" type="number" value="1200" min="0" step="any" oninput="calculateBoltJoint();" />
+                <span class="hint">Load trying to pull the joint apart.</span>
+              </div>
+
+              <div class="field">
+                <label for="clampLoadPerBolt">Estimated Clamp Load per Bolt <span class="unit-force">(lb)</span></label>
+                <input id="clampLoadPerBolt" type="number" value="9000" min="0" step="any" oninput="calculateBoltJoint();" />
+                <span class="hint">Use your torque-to-clamp-load result here.</span>
+              </div>
+
+              <div class="field">
+                <label for="jointFactor">Joint Load Factor for Separation</label>
+                <input id="jointFactor" type="number" value="0.25" min="0" max="1" step="any" oninput="calculateBoltJoint();" />
+                <span class="hint">Approximate portion of separating load that unloads clamp. 0.2–0.4 is a rough starting range.</span>
+              </div>
+
+              <div class="field">
+                <label for="boltShearStrength">Bolt Allowable / Shear Strength <span class="unit-stress">(psi)</span></label>
+                <input id="boltShearStrength" type="number" value="45000" min="0" step="any" oninput="calculateBoltJoint();" />
+                <span class="hint">Use allowable shear stress or conservative shear strength.</span>
+              </div>
+
+              <div class="field">
+                <label for="frictionCoefficient">Joint Friction Coefficient</label>
+                <input id="frictionCoefficient" type="number" value="0.20" min="0" step="any" oninput="calculateBoltJoint();" />
+                <span class="hint">Dry steel can vary widely. Use conservative values.</span>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateBoltJoint(); gtag('event','calculator_run',{'calculator':'bolt_shear_joint_separation'});">
+                Calculate
+              </button>
+              <button class="btn btn-secondary" type="button" onclick="resetCalculator(); gtag('event','calculator_reset',{'calculator':'bolt_shear_joint_separation'});">
+                Reset Example
+              </button>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="result-box">
+              <h3>Shear Load per Bolt</h3>
+              <div id="shearPerBoltResult" class="result-value">—</div>
+              <div class="result-sub">External shear divided by bolt count.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Bolt Shear Stress</h3>
+              <div id="shearStressResult" class="result-value">—</div>
+              <div class="result-sub">Shear load divided by total shear area.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Shear Safety Factor</h3>
+              <div id="shearSafetyResult" class="result-value">—</div>
+              <div class="result-sub">Shear strength ÷ calculated shear stress.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Total Clamp Load</h3>
+              <div id="totalClampResult" class="result-value">—</div>
+              <div class="result-sub">Estimated clamp load from all bolts.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Joint Separation Margin</h3>
+              <div id="separationMarginResult" class="result-value">—</div>
+              <div class="result-sub">Remaining clamp margin after separating load effect.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Friction Slip Capacity</h3>
+              <div id="slipCapacityResult" class="result-value">—</div>
+              <div class="result-sub">Estimated clamp friction capacity before sliding.</div>
+            </div>
+
+            <div id="statusBox" class="status warn">
+              Enter bolt and load values to calculate joint risk.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>What This Calculator Checks</h2>
+        <p>
+          A bolted joint can fail or loosen in more than one way. Direct bolt shear, joint slip, clamp
+          loss, separation, bolt bending, plate bearing, and fatigue are different problems. This page
+          gives a practical starting check for direct shear and clamp-load margin.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Direct Bolt Shear</h3>
+          <p>
+            Direct shear assumes the external side load is carried by the bolt shanks or threaded area.
+            This is common when the joint slips or when the bolts are intentionally designed to carry shear.
+          </p>
+          <ul>
+            <li>Load per bolt depends on load sharing.</li>
+            <li>Threaded shear planes reduce effective area.</li>
+            <li>Double shear increases available shear area.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Joint Separation</h3>
+          <p>
+            Separation risk is about whether external tensile load unloads the clamped joint enough for
+            the plates to open, shift, or lose stiffness.
+          </p>
+          <ul>
+            <li>Clamp load is created by bolt preload.</li>
+            <li>Separating load reduces clamp margin.</li>
+            <li>Flexible joints separate more easily.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Friction Slip</h3>
+          <p>
+            If clamp load and friction are high enough, the plates may resist sliding by friction before
+            the bolts see large direct shear.
+          </p>
+          <ul>
+            <li>Surface condition matters heavily.</li>
+            <li>Oil, paint, plating, and vibration change behavior.</li>
+            <li>Do not overtrust friction for critical joints.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Formula Reference</h2>
+        <p>
+          These are simplified checks for machine-design estimating. Use conservative values, especially
+          when load sharing, preload, friction, or joint stiffness is uncertain.
+        </p>
+      </div>
+
+      <div class="formula">
+        <code>Bolt Shear Area from Diameter:
+A = πd² / 4
+
+Total Shear Area:
+Atotal = A × number of bolts × shear planes
+
+Shear Load per Bolt:
+Vbolt = Vexternal / number of bolts
+
+Bolt Shear Stress:
+τ = Vexternal / Atotal
+
+Shear Safety Factor:
+SFshear = bolt shear strength / τ
+
+Total Clamp Load:
+Fclamp,total = clamp load per bolt × number of bolts
+
+Clamp Load Reduced by Separating Load:
+Fremaining = Fclamp,total - (separating load × joint load factor)
+
+Joint Separation Margin:
+Margin = Fremaining / Fclamp,total
+
+Estimated Friction Slip Capacity:
+Fslip = μ × Fclamp,total</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Recommended Joint Design Workflow</h2>
+        <p>
+          Bolted joints should be checked after the external load path is understood. Guessing bolt size
+          before calculating reactions and moments is how brackets loosen, plates shift, and machines
+          develop repeat problems.
+        </p>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-row">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Find the external load</h3>
+            <p>
+              Use beam reactions, bracket loads, cylinder force, conveyor pull, or fixture load to estimate
+              the force trying to shear or separate the joint.
+            </p>
+          </div>
+          <a class="workflow-link" href="/beam-load-calculator.html" onclick="gtag('event','workflow_click',{'page':'bolt_shear_joint_separation','step':'beam_load'});">Beam Load →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Estimate clamp load from torque</h3>
+            <p>
+              Tightening torque is only a rough way to create preload. Friction, lubrication, washers,
+              thread condition, and torque method all change actual clamp load.
+            </p>
+          </div>
+          <a class="workflow-link" href="/torque-clamp-load.html" onclick="gtag('event','workflow_click',{'page':'bolt_shear_joint_separation','step':'clamp_load'});">Clamp Load →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Check shear and separation</h3>
+            <p>
+              Use this calculator to compare direct shear stress, friction slip capacity, and remaining
+              clamp margin under separating load.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'bolt_shear_joint_separation','step':'calculator'});">Use Calculator →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Check the physical joint details</h3>
+            <p>
+              Plate thickness, edge distance, hole clearance, dowel pins, washers, thread engagement,
+              bracket stiffness, and vibration can matter as much as bolt diameter.
+            </p>
+          </div>
+          <a class="workflow-link" href="/fastening.html" onclick="gtag('event','workflow_click',{'page':'bolt_shear_joint_separation','step':'fastening_hub'});">Fastening Hub →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>When the Result Looks Bad</h2>
+        <p>
+          A weak bolted joint should not always be fixed by simply using a larger bolt. Often the better
+          fix is improving the joint layout, load path, or clamp behavior.
+        </p>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card">
+          <h3>If bolt shear stress is too high</h3>
+          <ul>
+            <li>Add more bolts that genuinely share the load.</li>
+            <li>Use a larger bolt diameter or stronger fastener grade.</li>
+            <li>Move the load closer to the bolt group.</li>
+            <li>Add dowel pins or keys to carry shear.</li>
+            <li>Increase bracket stiffness so load sharing improves.</li>
+            <li>Avoid putting threads in the shear plane when possible.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>If joint separation margin is too low</h3>
+          <ul>
+            <li>Increase clamp load using proper torque procedure.</li>
+            <li>Use more bolts or larger bolts.</li>
+            <li>Improve joint stiffness with thicker plates or better support.</li>
+            <li>Reduce prying action and bracket leverage.</li>
+            <li>Use washers or hardened surfaces where appropriate.</li>
+            <li>Review fatigue if the separating load cycles repeatedly.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Common Machine Design Mistakes</h2>
+        <p>
+          Most bolted-joint problems in automation equipment are not because someone forgot that bolts
+          have strength. They usually come from load path, stiffness, vibration, preload, or installation issues.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Assuming Every Bolt Shares Load Equally</h3>
+          <p>
+            Real bolt groups do not always share load evenly. Clearance holes, plate flexibility, uneven
+            tightening, and bracket geometry can overload one or two bolts.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Ignoring Prying Action</h3>
+          <p>
+            A bracket can act like a lever and greatly increase bolt tension. This is common with
+            cantilevered plates, sensor arms, actuator mounts, and guard brackets.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Trusting Torque Too Much</h3>
+          <p>
+            Torque is a rough proxy for clamp load. Lubrication, thread condition, plating, washers, and
+            operator technique can change actual preload dramatically.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Letting Threads Carry Shear</h3>
+          <p>
+            A threaded section in the shear plane has less effective area and more stress concentration
+            than a smooth shank. This can matter in high-load or cyclic joints.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Forgetting Plate Bearing</h3>
+          <p>
+            Even if the bolt is strong enough, the hole or plate material can deform. Thin brackets,
+            soft material, and slotted holes need extra attention.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Using Bolts Instead of Dowel Pins</h3>
+          <p>
+            For repeatable locating or high shear, dowel pins, keys, or shoulders may be better than
+            relying on bolt friction or clearance holes alone.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="warning">
+        <strong>Important:</strong>
+        This calculator is a simplified estimating tool. It does not fully account for eccentric bolt
+        groups, prying forces, fatigue, preload scatter, thread engagement, plate bearing, edge distance,
+        bolt bending, hole deformation, weld interaction, vibration loosening, thermal expansion, or
+        uneven load sharing. Critical lifting, guarding, safety, structural, or high-energy machine joints
+        should be reviewed by a qualified engineer.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">
+        <strong>Good next step:</strong>
+        estimate clamp load with the
+        <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link',{'from':'bolt_shear_joint_separation','to':'torque_clamp_load'});">Torque to Clamp Load Calculator</a>,
+        check external reactions with the
+        <a href="/beam-load-calculator.html" onclick="gtag('event','internal_link',{'from':'bolt_shear_joint_separation','to':'beam_load'});">Beam Load Calculator</a>,
+        and return to the
+        <a href="/machine-design.html" onclick="gtag('event','internal_link',{'from':'bolt_shear_joint_separation','to':'machine_design'});">Machine Design Hub</a>
+        for the full structural workflow.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Related Tools</h2>
+        <p>
+          Use these tools to complete the joint and structure check around the bolt calculation.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Torque to Clamp Load</h3>
+          <p>Estimate bolt preload from tightening torque, diameter, and nut factor.</p>
+          <a href="/torque-clamp-load.html" onclick="gtag('event','related_tool_click',{'from':'bolt_shear_joint_separation','to':'torque_clamp_load'});">Open Clamp Load →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bolt Tightening Torque</h3>
+          <p>Estimate practical bolt torque values for common assembly and machine build work.</p>
+          <a href="/bolt-tightening-torque.html" onclick="gtag('event','related_tool_click',{'from':'bolt_shear_joint_separation','to':'bolt_tightening_torque'});">Open Bolt Torque →</a>
+        </article>
+
+        <article class="card">
+          <h3>Multi-Stage Torque Sequence</h3>
+          <p>Plan tightening stages for plates, machine bases, tooling, and bolted assemblies.</p>
+          <a href="/multi-stage-torque-sequence.html" onclick="gtag('event','related_tool_click',{'from':'bolt_shear_joint_separation','to':'multi_stage_torque_sequence'});">Open Torque Sequence →</a>
+        </article>
+
+        <article class="card">
+          <h3>Beam Load Calculator</h3>
+          <p>Calculate reactions and loads that may feed into bracket and joint checks.</p>
+          <a href="/beam-load-calculator.html" onclick="gtag('event','related_tool_click',{'from':'bolt_shear_joint_separation','to':'beam_load'});">Open Beam Load →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bending Stress Calculator</h3>
+          <p>Check whether the bracket or plate itself is overstressed before only changing bolts.</p>
+          <a href="/bending-stress-calculator.html" onclick="gtag('event','related_tool_click',{'from':'bolt_shear_joint_separation','to':'bending_stress'});">Open Bending Stress →</a>
+        </article>
+
+        <article class="card">
+          <h3>Machine Design Hub</h3>
+          <p>Return to the full machine design workflow for structures, shafts, bearings, and fasteners.</p>
+          <a href="/machine-design.html" onclick="gtag('event','related_tool_click',{'from':'bolt_shear_joint_separation','to':'machine_design'});">Open Machine Design Hub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom-cta">
+        <div>
+          <h2>Bolts are not just hardware — they are part of the load path.</h2>
+          <p>
+            Check the external load, clamp load, shear stress, separation margin, and physical joint
+            layout before trusting a bracket, fixture, guard, or machine base.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="/torque-clamp-load.html" onclick="gtag('event','bottom_cta_click',{'page':'bolt_shear_joint_separation','target':'torque_clamp_load'});">
+          Estimate Clamp Load
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators for real automation work
+  </footer>
+
+  <script>
+    function getValue(id) {
+      var value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatNumber(value, decimals) {
+      if (!isFinite(value)) return '—';
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function updateUnits() {
+      var system = document.getElementById('unitSystem').value;
+
+      document.querySelectorAll('.unit-length').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in)' : '(mm)';
+      });
+
+      document.querySelectorAll('.unit-force').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb)' : '(N)';
+      });
+
+      document.querySelectorAll('.unit-area').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in²)' : '(mm²)';
+      });
+
+      document.querySelectorAll('.unit-stress').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      if (system === 'imperial') {
+        document.getElementById('boltDiameter').value = 0.5;
+        document.getElementById('boltArea').value = 0.1963;
+        document.getElementById('externalShearLoad').value = 2000;
+        document.getElementById('separatingLoad').value = 1200;
+        document.getElementById('clampLoadPerBolt').value = 9000;
+        document.getElementById('boltShearStrength').value = 45000;
+      } else {
+        document.getElementById('boltDiameter').value = 12;
+        document.getElementById('boltArea').value = 113;
+        document.getElementById('externalShearLoad').value = 9000;
+        document.getElementById('separatingLoad').value = 5500;
+        document.getElementById('clampLoadPerBolt').value = 40000;
+        document.getElementById('boltShearStrength').value = 310;
+      }
+    }
+
+    function toggleBoltFields() {
+      var mode = document.getElementById('boltInputMode').value;
+
+      document.querySelectorAll('.diameter-field').forEach(function(el) {
+        el.style.display = mode === 'diameter' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.area-field').forEach(function(el) {
+        el.style.display = mode === 'area' ? 'flex' : 'none';
+      });
+    }
+
+    function calculateBoltArea() {
+      var mode = document.getElementById('boltInputMode').value;
+
+      if (mode === 'area') {
+        return getValue('boltArea');
+      }
+
+      var diameter = getValue('boltDiameter');
+      return Math.PI * Math.pow(diameter, 2) / 4;
+    }
+
+    function calculateBoltJoint() {
+      var system = document.getElementById('unitSystem').value;
+      var boltCount = Math.max(1, Math.floor(getValue('boltCount')));
+      var shearPlanes = parseFloat(document.getElementById('shearPlanes').value);
+      var boltArea = calculateBoltArea();
+      var externalShearLoad = getValue('externalShearLoad');
+      var separatingLoad = getValue('separatingLoad');
+      var clampLoadPerBolt = getValue('clampLoadPerBolt');
+      var jointFactor = getValue('jointFactor');
+      var boltShearStrength = getValue('boltShearStrength');
+      var frictionCoefficient = getValue('frictionCoefficient');
+
+      var totalShearArea = boltArea * boltCount * shearPlanes;
+      var shearLoadPerBolt = externalShearLoad / boltCount;
+      var shearStress = totalShearArea > 0 ? externalShearLoad / totalShearArea : 0;
+      var shearSafetyFactor = shearStress > 0 ? boltShearStrength / shearStress : 0;
+
+      var totalClampLoad = clampLoadPerBolt * boltCount;
+      var clampReduction = separatingLoad * jointFactor;
+      var remainingClampLoad = totalClampLoad - clampReduction;
+      var separationMargin = totalClampLoad > 0 ? remainingClampLoad / totalClampLoad : 0;
+      var slipCapacity = frictionCoefficient * totalClampLoad;
+      var slipSafetyFactor = externalShearLoad > 0 ? slipCapacity / externalShearLoad : 0;
+
+      var forceUnit = system === 'imperial' ? 'lb' : 'N';
+      var stressUnit = system === 'imperial' ? 'psi' : 'MPa';
+
+      var valid = true;
+      var message = 'Bolt joint estimate calculated. Review load sharing, preload scatter, plate bearing, and joint stiffness before using this design.';
+
+      if (boltArea <= 0 || boltCount <= 0 || totalShearArea <= 0) {
+        valid = false;
+        message = 'Bolt area and bolt count must be greater than zero.';
+      }
+
+      if (boltShearStrength <= 0) {
+        valid = false;
+        message = 'Bolt shear strength must be greater than zero.';
+      }
+
+      if (clampLoadPerBolt < 0 || frictionCoefficient < 0 || jointFactor < 0) {
+        valid = false;
+        message = 'Clamp load, friction coefficient, and joint factor cannot be negative.';
+      }
+
+      if (!valid) {
+        document.getElementById('shearPerBoltResult').textContent = '—';
+        document.getElementById('shearStressResult').textContent = '—';
+        document.getElementById('shearSafetyResult').textContent = '—';
+        document.getElementById('totalClampResult').textContent = '—';
+        document.getElementById('separationMarginResult').textContent = '—';
+        document.getElementById('slipCapacityResult').textContent = '—';
+      } else {
+        document.getElementById('shearPerBoltResult').textContent = formatNumber(shearLoadPerBolt, 2) + ' ' + forceUnit;
+        document.getElementById('shearStressResult').textContent = formatNumber(shearStress, 2) + ' ' + stressUnit;
+        document.getElementById('shearSafetyResult').textContent = shearSafetyFactor > 0 ? formatNumber(shearSafetyFactor, 2) + ':1' : '—';
+        document.getElementById('totalClampResult').textContent = formatNumber(totalClampLoad, 2) + ' ' + forceUnit;
+        document.getElementById('separationMarginResult').textContent = formatNumber(separationMargin * 100, 1) + '% clamp remaining';
+        document.getElementById('slipCapacityResult').textContent = formatNumber(slipCapacity, 2) + ' ' + forceUnit + ' / SF ' + formatNumber(slipSafetyFactor, 2);
+      }
+
+      var statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status';
+
+      if (!valid) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = message;
+      } else if (shearSafetyFactor < 1.5 || separationMargin <= 0) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'High risk result. Shear safety factor is low or the separating load can overcome clamp margin. Redesign the joint before relying on it.';
+      } else if (shearSafetyFactor < 3 || separationMargin < 0.5 || slipSafetyFactor < 1.25) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = 'Moderate margin. Review preload scatter, vibration, fatigue, joint stiffness, friction assumptions, and whether bolts truly share the load.';
+      } else {
+        statusBox.classList.add('good');
+        statusBox.textContent = message;
+      }
+    }
+
+    function resetCalculator() {
+      document.getElementById('unitSystem').value = 'imperial';
+      document.getElementById('boltInputMode').value = 'diameter';
+      document.getElementById('boltCount').value = 4;
+      document.getElementById('shearPlanes').value = 1;
+      document.getElementById('jointFactor').value = 0.25;
+      document.getElementById('frictionCoefficient').value = 0.20;
+      updateUnits();
+      toggleBoltFields();
+      calculateBoltJoint();
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
+      })
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    toggleBoltFields();
+    calculateBoltJoint();
+  </script>
+</body>
+</html>
