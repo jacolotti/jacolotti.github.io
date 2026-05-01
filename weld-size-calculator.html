@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Weld Size Calculator | Fillet Weld Load, Stress & Safety Factor</title>
+  <meta name="description" content="Estimate fillet weld throat area, weld stress, allowable load, and safety factor for brackets, gussets, machine frames, tabs, plates, and welded automation structures." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/weld-size-calculator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root {
+      --blue-800:#1e3a8a;
+      --blue-700:#1d4ed8;
+      --blue-600:#2563eb;
+      --blue-100:#dbeafe;
+      --slate-900:#0f172a;
+      --slate-800:#1e293b;
+      --slate-700:#334155;
+      --slate-600:#475569;
+      --slate-500:#64748b;
+      --slate-200:#e2e8f0;
+      --green-100:#dcfce7;
+      --green-700:#15803d;
+      --amber-100:#fef3c7;
+      --amber-700:#b45309;
+      --red-100:#fee2e2;
+      --red-700:#b91c1c;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(15,23,42,0.10);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f8fafc;
+      color:var(--slate-800);
+      line-height:1.6;
+    }
+
+    a {
+      color:var(--blue-700);
+      text-decoration:none;
+    }
+
+    a:hover { text-decoration:underline; }
+
+    #navbar {
+      position:relative;
+      z-index:50;
+    }
+
+    .hero {
+      background:white;
+      border-bottom:1px solid var(--slate-200);
+      padding:56px 20px 44px;
+    }
+
+    .hero-inner {
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,0.75fr);
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:var(--blue-100);
+      color:var(--blue-800);
+      font-size:0.9rem;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .hero h1 {
+      margin:0 0 16px;
+      color:var(--slate-900);
+      font-size:clamp(2.1rem,5vw,4rem);
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+
+    .hero p {
+      margin:0 0 22px;
+      max-width:780px;
+      color:var(--slate-600);
+      font-size:1.08rem;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:800;
+      border:1px solid transparent;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .btn-primary {
+      background:var(--blue-700);
+      color:white;
+      box-shadow:0 8px 24px rgba(29,78,216,0.25);
+    }
+
+    .btn-secondary {
+      background:white;
+      color:var(--blue-700);
+      border-color:var(--slate-200);
+    }
+
+    .hero-panel {
+      background:#f8fafc;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin:0 0 12px;
+      color:var(--slate-900);
+      font-size:1.25rem;
+    }
+
+    .hero-panel ul {
+      margin:0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .hero-panel li { margin:8px 0; }
+
+    .page {
+      max-width:1180px;
+      margin:0 auto;
+      padding:42px 20px 70px;
+    }
+
+    .section { margin-bottom:44px; }
+
+    .section-header { margin-bottom:22px; }
+
+    .section-header h2 {
+      margin:0 0 8px;
+      color:var(--slate-900);
+      font-size:clamp(1.55rem,3vw,2.25rem);
+      line-height:1.15;
+      letter-spacing:-0.025em;
+    }
+
+    .section-header p {
+      margin:0;
+      max-width:900px;
+      color:var(--slate-600);
+    }
+
+    .calculator-shell {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .calculator-top {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      padding:24px;
+    }
+
+    .calculator-top h2 {
+      margin:0 0 8px;
+      font-size:1.7rem;
+    }
+
+    .calculator-top p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+    }
+
+    .calculator-body {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,0.8fr);
+      gap:0;
+    }
+
+    .inputs {
+      padding:24px;
+      border-right:1px solid var(--slate-200);
+    }
+
+    .results {
+      padding:24px;
+      background:#f8fafc;
+    }
+
+    .input-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .field.full { grid-column:1 / -1; }
+
+    label {
+      font-weight:800;
+      color:var(--slate-900);
+      font-size:0.94rem;
+    }
+
+    input, select {
+      width:100%;
+      border:1px solid var(--slate-200);
+      border-radius:12px;
+      padding:11px 12px;
+      font-size:1rem;
+      color:var(--slate-800);
+      background:white;
+    }
+
+    input:focus, select:focus {
+      outline:3px solid rgba(37,99,235,0.16);
+      border-color:var(--blue-600);
+    }
+
+    .hint {
+      color:var(--slate-500);
+      font-size:0.86rem;
+    }
+
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .result-box {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    .result-box h3 {
+      margin:0 0 6px;
+      color:var(--slate-900);
+      font-size:1rem;
+    }
+
+    .result-value {
+      font-size:1.55rem;
+      font-weight:900;
+      color:var(--blue-800);
+      line-height:1.15;
+      overflow-wrap:anywhere;
+    }
+
+    .result-sub {
+      color:var(--slate-500);
+      font-size:0.92rem;
+      margin-top:4px;
+    }
+
+    .status {
+      border-radius:18px;
+      padding:16px;
+      font-weight:800;
+      margin-top:14px;
+    }
+
+    .status.good {
+      background:var(--green-100);
+      color:var(--green-700);
+      border:1px solid #86efac;
+    }
+
+    .status.warn {
+      background:var(--amber-100);
+      color:var(--amber-700);
+      border:1px solid #fcd34d;
+    }
+
+    .status.bad {
+      background:var(--red-100);
+      color:var(--red-700);
+      border:1px solid #fca5a5;
+    }
+
+    .formula {
+      background:#0f172a;
+      color:white;
+      border-radius:18px;
+      padding:20px;
+      overflow-x:auto;
+    }
+
+    .formula code {
+      font-size:1.05rem;
+      color:white;
+      white-space:pre-wrap;
+    }
+
+    .card-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card-grid.two {
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .card {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    }
+
+    .card h3 {
+      margin:0 0 9px;
+      color:var(--slate-900);
+      line-height:1.25;
+    }
+
+    .card p {
+      margin:0 0 14px;
+      color:var(--slate-600);
+    }
+
+    .card ul {
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .card li { margin:6px 0; }
+
+    .note {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .warning {
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .workflow {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .workflow-row {
+      display:grid;
+      grid-template-columns:82px minmax(0,1fr) minmax(220px,0.5fr);
+      gap:18px;
+      padding:22px;
+      border-bottom:1px solid var(--slate-200);
+      align-items:center;
+    }
+
+    .workflow-row:last-child { border-bottom:none; }
+
+    .step-number {
+      width:48px;
+      height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--blue-800),var(--blue-600));
+      color:white;
+      font-weight:900;
+    }
+
+    .workflow-row h3 {
+      margin:0 0 5px;
+      color:var(--slate-900);
+    }
+
+    .workflow-row p {
+      margin:0;
+      color:var(--slate-600);
+    }
+
+    .workflow-link { font-weight:900; }
+
+    .bottom-cta {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+
+    .bottom-cta h2 {
+      margin:0 0 10px;
+      font-size:1.85rem;
+    }
+
+    .bottom-cta p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+      max-width:760px;
+    }
+
+    footer {
+      text-align:center;
+      color:var(--slate-500);
+      padding:34px 20px 44px;
+      border-top:1px solid var(--slate-200);
+      background:white;
+    }
+
+    @media (max-width:980px) {
+      .hero-inner,
+      .calculator-body,
+      .bottom-cta {
+        grid-template-columns:1fr;
+      }
+
+      .inputs {
+        border-right:none;
+        border-bottom:1px solid var(--slate-200);
+      }
+
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .workflow-row {
+        grid-template-columns:64px 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:2;
+      }
+    }
+
+    @media (max-width:680px) {
+      .hero {
+        padding:44px 16px 34px;
+      }
+
+      .page {
+        padding:32px 16px 54px;
+      }
+
+      .input-grid,
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:auto;
+      }
+
+      .hero-actions,
+      .button-row {
+        flex-direction:column;
+      }
+
+      .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Machine Design / Welding Calculator</div>
+        <h1>Weld Size Calculator</h1>
+        <p>
+          Estimate fillet weld throat area, weld stress, allowable load, and safety factor for brackets,
+          gussets, tabs, frames, plates, machine bases, and welded automation structures. Use this after
+          checking bracket load, plate deflection, frame rigidity, or gusset reinforcement.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta_click',{'page':'weld_size','target':'calculator','location':'hero'});">
+            Open Calculator
+          </a>
+          <a class="btn btn-secondary" href="/gusset-plate-bracket-calculator.html" onclick="gtag('event','page_cta_click',{'page':'weld_size','target':'gusset_bracket','location':'hero'});">
+            Gusset / Bracket Check
+          </a>
+          <a class="btn btn-secondary" href="/machine-design.html" onclick="gtag('event','page_cta_click',{'page':'weld_size','target':'machine_design','location':'hero'});">
+            Machine Design Hub
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Use this calculator when checking:</h2>
+        <ul>
+          <li>Fillet welds on brackets, gussets, tabs, plates, and machine frames</li>
+          <li>Direct shear load on weld length</li>
+          <li>Approximate weld throat stress and safety factor</li>
+          <li>Whether weld length or weld size needs to increase</li>
+          <li>Weld checks after beam, bracket, plate, or frame calculations</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="calculator" class="section">
+      <div class="calculator-shell">
+        <div class="calculator-top">
+          <h2>Calculate Fillet Weld Stress and Safety Factor</h2>
+          <p>
+            Enter weld size, weld length, load, and allowable weld stress. The calculator estimates
+            effective throat, throat area, weld stress, allowable load, and safety factor.
+          </p>
+        </div>
+
+        <div class="calculator-body">
+          <div class="inputs">
+            <div class="input-grid">
+              <div class="field">
+                <label for="unitSystem">Unit System</label>
+                <select id="unitSystem" onchange="updateUnits(); calculateWeldSize();">
+                  <option value="imperial">Imperial — lb, in, psi</option>
+                  <option value="metric">Metric — N, mm, MPa</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="weldCase">Weld Load Case</label>
+                <select id="weldCase" onchange="toggleMomentFields(); calculateWeldSize();">
+                  <option value="direct_shear">Direct shear on weld group</option>
+                  <option value="eccentric_load">Eccentric bracket load, simplified moment check</option>
+                  <option value="allowable_load">Find allowable load from weld size</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="weldSize">Fillet Weld Leg Size <span class="unit-length">(in)</span></label>
+                <input id="weldSize" type="number" value="0.25" min="0" step="any" oninput="calculateWeldSize();" />
+                <span class="hint">Nominal fillet leg size. Effective throat ≈ 0.707 × leg size.</span>
+              </div>
+
+              <div class="field">
+                <label for="totalWeldLength">Total Effective Weld Length <span class="unit-length">(in)</span></label>
+                <input id="totalWeldLength" type="number" value="8" min="0" step="any" oninput="calculateWeldSize();" />
+                <span class="hint">Add only weld length that realistically carries the load.</span>
+              </div>
+
+              <div class="field load-field">
+                <label for="appliedLoad">Applied Load <span class="unit-force">(lb)</span></label>
+                <input id="appliedLoad" type="number" value="2000" min="0" step="any" oninput="calculateWeldSize();" />
+                <span class="hint">Use bracket reaction, shear load, or external force.</span>
+              </div>
+
+              <div class="field eccentric-field" style="display:none;">
+                <label for="eccentricDistance">Load Offset / Moment Arm <span class="unit-length">(in)</span></label>
+                <input id="eccentricDistance" type="number" value="6" min="0" step="any" oninput="calculateWeldSize();" />
+                <span class="hint">Distance from weld group centerline to load line.</span>
+              </div>
+
+              <div class="field eccentric-field" style="display:none;">
+                <label for="weldGroupDepth">Weld Group Depth / Separation <span class="unit-length">(in)</span></label>
+                <input id="weldGroupDepth" type="number" value="4" min="0" step="any" oninput="calculateWeldSize();" />
+                <span class="hint">Approximate distance between upper and lower weld lines.</span>
+              </div>
+
+              <div class="field">
+                <label for="allowableWeldStress">Allowable Weld Stress <span class="unit-stress">(psi)</span></label>
+                <input id="allowableWeldStress" type="number" value="18000" min="0" step="any" oninput="calculateWeldSize();" />
+                <span class="hint">Use your approved design value or conservative shop standard.</span>
+              </div>
+
+              <div class="field">
+                <label for="dynamicFactor">Shock / Dynamic Factor</label>
+                <input id="dynamicFactor" type="number" value="1.5" min="1" step="any" oninput="calculateWeldSize();" />
+                <span class="hint">Use 1.0 for static. Increase for vibration, impact, starts/stops, or uncertainty.</span>
+              </div>
+
+              <div class="field">
+                <label for="qualityFactor">Weld Quality / Load Sharing Factor</label>
+                <input id="qualityFactor" type="number" value="0.85" min="0.1" max="1" step="any" oninput="calculateWeldSize();" />
+                <span class="hint">Reduces effective capacity for fit-up, access, start/stop quality, and uneven load sharing.</span>
+              </div>
+
+              <div class="field">
+                <label for="targetSafetyFactor">Target Safety Factor</label>
+                <input id="targetSafetyFactor" type="number" value="3" min="1" step="any" oninput="calculateWeldSize();" />
+                <span class="hint">Common screening target. Use your actual design requirement when known.</span>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateWeldSize(); gtag('event','calculator_run',{'calculator':'weld_size'});">
+                Calculate
+              </button>
+              <button class="btn btn-secondary" type="button" onclick="resetCalculator(); gtag('event','calculator_reset',{'calculator':'weld_size'});">
+                Reset Example
+              </button>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="result-box">
+              <h3>Effective Throat</h3>
+              <div id="throatResult" class="result-value">—</div>
+              <div class="result-sub">Approximate throat size for a 45° fillet weld.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Effective Throat Area</h3>
+              <div id="areaResult" class="result-value">—</div>
+              <div class="result-sub">Throat area adjusted by quality/load sharing factor.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Calculated Weld Stress</h3>
+              <div id="stressResult" class="result-value">—</div>
+              <div class="result-sub">Factored load divided by effective throat area.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Estimated Allowable Load</h3>
+              <div id="allowableLoadResult" class="result-value">—</div>
+              <div class="result-sub">Approximate load capacity using allowable weld stress.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Safety Factor</h3>
+              <div id="safetyFactorResult" class="result-value">—</div>
+              <div class="result-sub">Allowable weld stress divided by calculated weld stress.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Eccentric Moment Load Add-On</h3>
+              <div id="momentAddOnResult" class="result-value">—</div>
+              <div class="result-sub">Shown for simplified eccentric load case.</div>
+            </div>
+
+            <div id="statusBox" class="status warn">
+              Enter weld values to estimate weld stress.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>What This Calculator Checks</h2>
+        <p>
+          A weld is part of the load path. The bracket, gusset, plate, and frame can be sized correctly,
+          but the assembly can still fail if the weld throat area, weld length, access, or load direction
+          is not adequate.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Effective Throat Area</h3>
+          <p>
+            Fillet weld capacity is usually based on throat area, not the visible leg size. For a standard
+            equal-leg fillet weld, throat is approximately 0.707 times the leg size.
+          </p>
+          <ul>
+            <li>Larger weld size increases throat area.</li>
+            <li>Longer weld length increases total capacity.</li>
+            <li>Only effective weld length should be counted.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Direct Shear Load</h3>
+          <p>
+            Direct shear is the simplest weld check. The applied force is divided by the effective weld
+            throat area to estimate weld stress.
+          </p>
+          <ul>
+            <li>Useful for tabs, brackets, and simple supports.</li>
+            <li>Assumes load is shared reasonably across the weld.</li>
+            <li>Does not fully capture eccentric weld groups.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Eccentric Bracket Load</h3>
+          <p>
+            Bracket loads often create a moment at the weld group. This calculator includes a simplified
+            moment add-on for early screening, but critical weld groups need deeper review.
+          </p>
+          <ul>
+            <li>Offset load increases weld demand.</li>
+            <li>Weld group depth improves moment resistance.</li>
+            <li>Prying and plate bending still matter.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Formula Reference</h2>
+        <p>
+          These are simplified fillet weld formulas for estimating weld load capacity and stress. They are
+          intended for early design and troubleshooting, not formal code qualification.
+        </p>
+      </div>
+
+      <div class="formula">
+        <code>Effective Fillet Weld Throat:
+te = 0.707 × weld leg size
+
+Gross Throat Area:
+A = te × total weld length
+
+Adjusted Effective Area:
+Aeff = A × quality factor
+
+Factored Load:
+Pfactored = applied load × dynamic factor
+
+Direct Weld Stress:
+τ = Pfactored / Aeff
+
+Allowable Load:
+Pallowable = allowable weld stress × Aeff
+
+Safety Factor:
+SF = allowable weld stress / calculated weld stress
+
+Simplified Eccentric Moment:
+M = P × e
+
+Approximate Moment Load Add-On:
+Pmoment ≈ M / weld group depth
+
+Combined Screening Load:
+Pcombined ≈ P + Pmoment</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Recommended Weld Design Workflow</h2>
+        <p>
+          Use this flow when adding welds to a bracket, gusset, frame member, tab, or machine support.
+        </p>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-row">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Find the load going into the weld</h3>
+            <p>
+              Use beam reactions, bracket loads, plate loads, actuator force, product weight, or process
+              force to estimate what the weld must transfer.
+            </p>
+          </div>
+          <a class="workflow-link" href="/beam-load-calculator.html" onclick="gtag('event','workflow_click',{'page':'weld_size','step':'beam_load'});">Beam Load →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Check the bracket or gusset first</h3>
+            <p>
+              If the bracket itself bends too much, a bigger weld may not solve the real problem. Check
+              member stiffness before only increasing weld size.
+            </p>
+          </div>
+          <a class="workflow-link" href="/gusset-plate-bracket-calculator.html" onclick="gtag('event','workflow_click',{'page':'weld_size','step':'gusset_bracket'});">Bracket / Gusset →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Calculate weld throat stress</h3>
+            <p>
+              Use weld size, weld length, load factor, and allowable weld stress to estimate whether the
+              weld has enough capacity.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'weld_size','step':'calculator'});">Use Calculator →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Check the whole load path</h3>
+            <p>
+              The weld may be strong enough while the base plate, parent material, bolt group, or frame
+              member is still the weak link.
+            </p>
+          </div>
+          <a class="workflow-link" href="/machine-design.html" onclick="gtag('event','workflow_click',{'page':'weld_size','step':'machine_design'});">Machine Design Hub →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Practical Weld Design Guidance</h2>
+        <p>
+          Bigger welds are not always better. Oversized welds can distort thin plates, create fit-up
+          problems, add heat, and still fail if the load path or parent material is weak.
+        </p>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card">
+          <h3>If weld stress is too high</h3>
+          <ul>
+            <li>Increase effective weld length.</li>
+            <li>Increase fillet weld size where practical.</li>
+            <li>Add a second weld line or opposite-side weld.</li>
+            <li>Reduce the moment arm by moving the load closer.</li>
+            <li>Add a gusset or brace to reduce weld group moment.</li>
+            <li>Use a thicker base plate or stronger parent material.</li>
+            <li>Spread load into more structure.</li>
+            <li>Review weld access and real weld quality.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>If the weld is fine but the bracket still fails</h3>
+          <ul>
+            <li>Check base plate deflection.</li>
+            <li>Check bracket bending stress and stiffness.</li>
+            <li>Look for fatigue cracks at weld toes.</li>
+            <li>Check twisting, not only vertical shear.</li>
+            <li>Inspect heat-affected zone and parent metal thickness.</li>
+            <li>Check whether the load is cyclic or impact-loaded.</li>
+            <li>Verify fit-up, weld length, and weld placement.</li>
+            <li>Check the frame member behind the weld.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Common Welded Machine Details</h2>
+        <p>
+          These are common places where a quick weld-size check helps catch design issues before the
+          assembly reaches production.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Gusseted Brackets</h3>
+          <p>
+            Gussets reduce bracket flex, but they push more force into the welds and base structure. Check
+            both the bracket and the weld group.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Sensor and Guard Tabs</h3>
+          <p>
+            Small tabs can crack from vibration if weld length is short, the bracket is flexible, or the
+            weld toe becomes a fatigue point.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Actuator Mounts</h3>
+          <p>
+            Cylinder and actuator mounts see repeated loading. Use dynamic factors and review fatigue,
+            not only static weld stress.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Machine Frame Corners</h3>
+          <p>
+            Frame corners may see bending, torsion, and vibration. Weld size is only one part of the
+            connection behavior.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Tooling Plates and Nests</h3>
+          <p>
+            Welded plates can distort from heat or flex under clamp load. Check both weld capacity and
+            plate stiffness.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Base Plates and Feet</h3>
+          <p>
+            Welded feet and base plates transfer load into anchors or leveling pads. Check plate bending,
+            weld stress, and bolt/joint behavior together.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="warning">
+        <strong>Important:</strong>
+        This calculator is a simplified weld sizing tool. It does not replace AWS, ISO, company standards,
+        qualified welding procedures, fatigue design, inspection requirements, or professional structural
+        review. Real welds can be affected by weld profile, penetration, start/stop defects, undercut,
+        porosity, heat input, residual stress, parent metal thickness, weld access, load direction, eccentric
+        weld groups, torsion, cyclic loading, impact, and inspection quality.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">
+        <strong>Good next step:</strong>
+        check the bracket with the
+        <a href="/gusset-plate-bracket-calculator.html" onclick="gtag('event','internal_link',{'from':'weld_size','to':'gusset_bracket'});">Gusset Plate & Bracket Calculator</a>,
+        check plate support with the
+        <a href="/plate-deflection-calculator.html" onclick="gtag('event','internal_link',{'from':'weld_size','to':'plate_deflection'});">Plate Deflection Calculator</a>,
+        and return to the
+        <a href="/machine-design.html" onclick="gtag('event','internal_link',{'from':'weld_size','to':'machine_design'});">Machine Design Hub</a>
+        for the full structural workflow.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Related Tools</h2>
+        <p>
+          Weld sizing should be used with bracket, frame, plate, and load-path checks.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Gusset Plate & Bracket Calculator</h3>
+          <p>Estimate bracket deflection and gusset improvement before only increasing weld size.</p>
+          <a href="/gusset-plate-bracket-calculator.html" onclick="gtag('event','related_tool_click',{'from':'weld_size','to':'gusset_bracket'});">Open Bracket Calculator →</a>
+        </article>
+
+        <article class="card">
+          <h3>Frame Rigidity Estimator</h3>
+          <p>Check whether the frame receiving the welded bracket is stiff enough.</p>
+          <a href="/frame-rigidity-estimator.html" onclick="gtag('event','related_tool_click',{'from':'weld_size','to':'frame_rigidity'});">Open Frame Rigidity →</a>
+        </article>
+
+        <article class="card">
+          <h3>Plate Deflection Calculator</h3>
+          <p>Check whether the welded plate or base plate is flexing under load.</p>
+          <a href="/plate-deflection-calculator.html" onclick="gtag('event','related_tool_click',{'from':'weld_size','to':'plate_deflection'});">Open Plate Deflection →</a>
+        </article>
+
+        <article class="card">
+          <h3>Beam Load Calculator</h3>
+          <p>Calculate reactions and loads before sending forces into a weld group.</p>
+          <a href="/beam-load-calculator.html" onclick="gtag('event','related_tool_click',{'from':'weld_size','to':'beam_load'});">Open Beam Load →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bending Stress Calculator</h3>
+          <p>Check whether the welded member itself is overstressed.</p>
+          <a href="/bending-stress-calculator.html" onclick="gtag('event','related_tool_click',{'from':'weld_size','to':'bending_stress'});">Open Bending Stress →</a>
+        </article>
+
+        <article class="card">
+          <h3>Machine Design Hub</h3>
+          <p>Return to the full workflow for structures, plates, welds, shafts, bearings, and fasteners.</p>
+          <a href="/machine-design.html" onclick="gtag('event','related_tool_click',{'from':'weld_size','to':'machine_design'});">Open Machine Design Hub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom-cta">
+        <div>
+          <h2>The weld is only as strong as the load path around it.</h2>
+          <p>
+            Check weld throat area, bracket stiffness, plate bending, frame rigidity, and fatigue risk
+            before trusting a welded machine support.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="/gusset-plate-bracket-calculator.html" onclick="gtag('event','bottom_cta_click',{'page':'weld_size','target':'gusset_bracket'});">
+          Check Bracket Stiffness
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators for real automation work
+  </footer>
+
+  <script>
+    function getValue(id) {
+      var value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatNumber(value, decimals) {
+      if (!isFinite(value)) return '—';
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function updateUnits() {
+      var system = document.getElementById('unitSystem').value;
+
+      document.querySelectorAll('.unit-length').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in)' : '(mm)';
+      });
+
+      document.querySelectorAll('.unit-force').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb)' : '(N)';
+      });
+
+      document.querySelectorAll('.unit-stress').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      if (system === 'imperial') {
+        document.getElementById('weldSize').value = 0.25;
+        document.getElementById('totalWeldLength').value = 8;
+        document.getElementById('appliedLoad').value = 2000;
+        document.getElementById('eccentricDistance').value = 6;
+        document.getElementById('weldGroupDepth').value = 4;
+        document.getElementById('allowableWeldStress').value = 18000;
+      } else {
+        document.getElementById('weldSize').value = 6;
+        document.getElementById('totalWeldLength').value = 200;
+        document.getElementById('appliedLoad').value = 9000;
+        document.getElementById('eccentricDistance').value = 150;
+        document.getElementById('weldGroupDepth').value = 100;
+        document.getElementById('allowableWeldStress').value = 125;
+      }
+    }
+
+    function toggleMomentFields() {
+      var weldCase = document.getElementById('weldCase').value;
+
+      document.querySelectorAll('.eccentric-field').forEach(function(el) {
+        el.style.display = weldCase === 'eccentric_load' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.load-field').forEach(function(el) {
+        el.style.display = weldCase === 'allowable_load' ? 'none' : 'flex';
+      });
+    }
+
+    function calculateWeldSize() {
+      var system = document.getElementById('unitSystem').value;
+      var weldCase = document.getElementById('weldCase').value;
+      var weldSize = getValue('weldSize');
+      var totalWeldLength = getValue('totalWeldLength');
+      var appliedLoad = getValue('appliedLoad');
+      var eccentricDistance = getValue('eccentricDistance');
+      var weldGroupDepth = getValue('weldGroupDepth');
+      var allowableWeldStress = getValue('allowableWeldStress');
+      var dynamicFactor = getValue('dynamicFactor');
+      var qualityFactor = getValue('qualityFactor');
+      var targetSafetyFactor = getValue('targetSafetyFactor');
+
+      var throat = 0.707 * weldSize;
+      var grossArea = throat * totalWeldLength;
+      var effectiveArea = grossArea * qualityFactor;
+      var moment = 0;
+      var momentAddOnLoad = 0;
+      var combinedLoad = appliedLoad;
+      var factoredLoad = 0;
+      var weldStress = 0;
+      var allowableLoad = 0;
+      var safetyFactor = 0;
+      var valid = true;
+      var message = 'Weld estimate calculated. Review weld access, quality, fatigue, parent material, and load direction before relying on this design.';
+
+      if (weldSize <= 0 || totalWeldLength <= 0 || allowableWeldStress <= 0) {
+        valid = false;
+        message = 'Weld size, weld length, and allowable weld stress must be greater than zero.';
+      }
+
+      if (dynamicFactor < 1) {
+        valid = false;
+        message = 'Dynamic factor must be 1.0 or greater.';
+      }
+
+      if (qualityFactor <= 0 || qualityFactor > 1) {
+        valid = false;
+        message = 'Weld quality/load sharing factor must be greater than 0 and no more than 1.';
+      }
+
+      if (targetSafetyFactor < 1) {
+        valid = false;
+        message = 'Target safety factor must be 1.0 or greater.';
+      }
+
+      if (valid && weldCase === 'eccentric_load') {
+        if (eccentricDistance <= 0 || weldGroupDepth <= 0) {
+          valid = false;
+          message = 'Eccentric distance and weld group depth must be greater than zero.';
+        } else {
+          moment = appliedLoad * eccentricDistance;
+          momentAddOnLoad = moment / weldGroupDepth;
+          combinedLoad = appliedLoad + momentAddOnLoad;
+        }
+      }
+
+      if (valid && weldCase === 'allowable_load') {
+        allowableLoad = allowableWeldStress * effectiveArea / dynamicFactor;
+        weldStress = 0;
+        safetyFactor = 0;
+      }
+
+      if (valid && weldCase !== 'allowable_load') {
+        factoredLoad = combinedLoad * dynamicFactor;
+        weldStress = effectiveArea > 0 ? factoredLoad / effectiveArea : 0;
+        allowableLoad = allowableWeldStress * effectiveArea / dynamicFactor;
+        safetyFactor = weldStress > 0 ? allowableWeldStress / weldStress : 0;
+      }
+
+      var lengthUnit = system === 'imperial' ? 'in' : 'mm';
+      var areaUnit = system === 'imperial' ? 'in²' : 'mm²';
+      var forceUnit = system === 'imperial' ? 'lb' : 'N';
+      var stressUnit = system === 'imperial' ? 'psi' : 'MPa';
+
+      if (!valid) {
+        document.getElementById('throatResult').textContent = '—';
+        document.getElementById('areaResult').textContent = '—';
+        document.getElementById('stressResult').textContent = '—';
+        document.getElementById('allowableLoadResult').textContent = '—';
+        document.getElementById('safetyFactorResult').textContent = '—';
+        document.getElementById('momentAddOnResult').textContent = '—';
+      } else {
+        document.getElementById('throatResult').textContent = formatNumber(throat, 4) + ' ' + lengthUnit;
+        document.getElementById('areaResult').textContent = formatNumber(effectiveArea, 4) + ' ' + areaUnit;
+        document.getElementById('stressResult').textContent = weldCase === 'allowable_load' ? 'N/A' : formatNumber(weldStress, 2) + ' ' + stressUnit;
+        document.getElementById('allowableLoadResult').textContent = formatNumber(allowableLoad, 2) + ' ' + forceUnit;
+        document.getElementById('safetyFactorResult').textContent = weldCase === 'allowable_load' ? 'N/A' : formatNumber(safetyFactor, 2) + ':1';
+        document.getElementById('momentAddOnResult').textContent = weldCase === 'eccentric_load' ? formatNumber(momentAddOnLoad, 2) + ' ' + forceUnit : 'N/A';
+      }
+
+      var statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status';
+
+      if (!valid) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = message;
+      } else if (weldCase === 'allowable_load') {
+        statusBox.classList.add('good');
+        statusBox.textContent = 'Allowable load estimated from weld size, length, allowable stress, quality factor, and dynamic factor.';
+      } else if (safetyFactor < 1.5) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Low weld safety margin. Increase weld size, increase weld length, reduce load, add gussets, reduce moment arm, or redesign the connection.';
+      } else if (safetyFactor < targetSafetyFactor) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = 'Weld safety factor is below the entered target. Review fatigue, load direction, weld quality, parent material, access, and inspection requirements.';
+      } else {
+        statusBox.classList.add('good');
+        statusBox.textContent = message;
+      }
+    }
+
+    function resetCalculator() {
+      document.getElementById('unitSystem').value = 'imperial';
+      document.getElementById('weldCase').value = 'direct_shear';
+      document.getElementById('dynamicFactor').value = 1.5;
+      document.getElementById('qualityFactor').value = 0.85;
+      document.getElementById('targetSafetyFactor').value = 3;
+      updateUnits();
+      toggleMomentFields();
+      calculateWeldSize();
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
+      })
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    toggleMomentFields();
+    calculateWeldSize();
+  </script>
+</body>
+</html>
