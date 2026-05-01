@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Gusset Plate & Bracket Stiffness Calculator | Machine Design Support Check</title>
+  <meta name="description" content="Estimate bracket deflection, gusset improvement, bending moment, bending stress, and stiffness for machine brackets, sensor arms, actuator mounts, support plates, and welded automation frames." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/gusset-plate-bracket-calculator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root {
+      --blue-800:#1e3a8a;
+      --blue-700:#1d4ed8;
+      --blue-600:#2563eb;
+      --blue-100:#dbeafe;
+      --slate-900:#0f172a;
+      --slate-800:#1e293b;
+      --slate-700:#334155;
+      --slate-600:#475569;
+      --slate-500:#64748b;
+      --slate-200:#e2e8f0;
+      --green-100:#dcfce7;
+      --green-700:#15803d;
+      --amber-100:#fef3c7;
+      --amber-700:#b45309;
+      --red-100:#fee2e2;
+      --red-700:#b91c1c;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(15,23,42,0.10);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f8fafc;
+      color:var(--slate-800);
+      line-height:1.6;
+    }
+
+    a {
+      color:var(--blue-700);
+      text-decoration:none;
+    }
+
+    a:hover { text-decoration:underline; }
+
+    #navbar {
+      position:relative;
+      z-index:50;
+    }
+
+    .hero {
+      background:white;
+      border-bottom:1px solid var(--slate-200);
+      padding:56px 20px 44px;
+    }
+
+    .hero-inner {
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,0.75fr);
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:var(--blue-100);
+      color:var(--blue-800);
+      font-size:0.9rem;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .hero h1 {
+      margin:0 0 16px;
+      color:var(--slate-900);
+      font-size:clamp(2.1rem,5vw,4rem);
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+
+    .hero p {
+      margin:0 0 22px;
+      max-width:780px;
+      color:var(--slate-600);
+      font-size:1.08rem;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:800;
+      border:1px solid transparent;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .btn-primary {
+      background:var(--blue-700);
+      color:white;
+      box-shadow:0 8px 24px rgba(29,78,216,0.25);
+    }
+
+    .btn-secondary {
+      background:white;
+      color:var(--blue-700);
+      border-color:var(--slate-200);
+    }
+
+    .hero-panel {
+      background:#f8fafc;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin:0 0 12px;
+      color:var(--slate-900);
+      font-size:1.25rem;
+    }
+
+    .hero-panel ul {
+      margin:0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .hero-panel li { margin:8px 0; }
+
+    .page {
+      max-width:1180px;
+      margin:0 auto;
+      padding:42px 20px 70px;
+    }
+
+    .section { margin-bottom:44px; }
+
+    .section-header { margin-bottom:22px; }
+
+    .section-header h2 {
+      margin:0 0 8px;
+      color:var(--slate-900);
+      font-size:clamp(1.55rem,3vw,2.25rem);
+      line-height:1.15;
+      letter-spacing:-0.025em;
+    }
+
+    .section-header p {
+      margin:0;
+      max-width:900px;
+      color:var(--slate-600);
+    }
+
+    .calculator-shell {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .calculator-top {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      padding:24px;
+    }
+
+    .calculator-top h2 {
+      margin:0 0 8px;
+      font-size:1.7rem;
+    }
+
+    .calculator-top p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+    }
+
+    .calculator-body {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,0.8fr);
+      gap:0;
+    }
+
+    .inputs {
+      padding:24px;
+      border-right:1px solid var(--slate-200);
+    }
+
+    .results {
+      padding:24px;
+      background:#f8fafc;
+    }
+
+    .input-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .field.full { grid-column:1 / -1; }
+
+    label {
+      font-weight:800;
+      color:var(--slate-900);
+      font-size:0.94rem;
+    }
+
+    input, select {
+      width:100%;
+      border:1px solid var(--slate-200);
+      border-radius:12px;
+      padding:11px 12px;
+      font-size:1rem;
+      color:var(--slate-800);
+      background:white;
+    }
+
+    input:focus, select:focus {
+      outline:3px solid rgba(37,99,235,0.16);
+      border-color:var(--blue-600);
+    }
+
+    .hint {
+      color:var(--slate-500);
+      font-size:0.86rem;
+    }
+
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .result-box {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    .result-box h3 {
+      margin:0 0 6px;
+      color:var(--slate-900);
+      font-size:1rem;
+    }
+
+    .result-value {
+      font-size:1.55rem;
+      font-weight:900;
+      color:var(--blue-800);
+      line-height:1.15;
+      overflow-wrap:anywhere;
+    }
+
+    .result-sub {
+      color:var(--slate-500);
+      font-size:0.92rem;
+      margin-top:4px;
+    }
+
+    .status {
+      border-radius:18px;
+      padding:16px;
+      font-weight:800;
+      margin-top:14px;
+    }
+
+    .status.good {
+      background:var(--green-100);
+      color:var(--green-700);
+      border:1px solid #86efac;
+    }
+
+    .status.warn {
+      background:var(--amber-100);
+      color:var(--amber-700);
+      border:1px solid #fcd34d;
+    }
+
+    .status.bad {
+      background:var(--red-100);
+      color:var(--red-700);
+      border:1px solid #fca5a5;
+    }
+
+    .formula {
+      background:#0f172a;
+      color:white;
+      border-radius:18px;
+      padding:20px;
+      overflow-x:auto;
+    }
+
+    .formula code {
+      font-size:1.05rem;
+      color:white;
+      white-space:pre-wrap;
+    }
+
+    .card-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card-grid.two {
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .card {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    }
+
+    .card h3 {
+      margin:0 0 9px;
+      color:var(--slate-900);
+      line-height:1.25;
+    }
+
+    .card p {
+      margin:0 0 14px;
+      color:var(--slate-600);
+    }
+
+    .card ul {
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .card li { margin:6px 0; }
+
+    .note {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .warning {
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .workflow {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .workflow-row {
+      display:grid;
+      grid-template-columns:82px minmax(0,1fr) minmax(220px,0.5fr);
+      gap:18px;
+      padding:22px;
+      border-bottom:1px solid var(--slate-200);
+      align-items:center;
+    }
+
+    .workflow-row:last-child { border-bottom:none; }
+
+    .step-number {
+      width:48px;
+      height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--blue-800),var(--blue-600));
+      color:white;
+      font-weight:900;
+    }
+
+    .workflow-row h3 {
+      margin:0 0 5px;
+      color:var(--slate-900);
+    }
+
+    .workflow-row p {
+      margin:0;
+      color:var(--slate-600);
+    }
+
+    .workflow-link { font-weight:900; }
+
+    .bottom-cta {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+
+    .bottom-cta h2 {
+      margin:0 0 10px;
+      font-size:1.85rem;
+    }
+
+    .bottom-cta p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+      max-width:760px;
+    }
+
+    footer {
+      text-align:center;
+      color:var(--slate-500);
+      padding:34px 20px 44px;
+      border-top:1px solid var(--slate-200);
+      background:white;
+    }
+
+    @media (max-width:980px) {
+      .hero-inner,
+      .calculator-body,
+      .bottom-cta {
+        grid-template-columns:1fr;
+      }
+
+      .inputs {
+        border-right:none;
+        border-bottom:1px solid var(--slate-200);
+      }
+
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .workflow-row {
+        grid-template-columns:64px 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:2;
+      }
+    }
+
+    @media (max-width:680px) {
+      .hero {
+        padding:44px 16px 34px;
+      }
+
+      .page {
+        padding:32px 16px 54px;
+      }
+
+      .input-grid,
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:auto;
+      }
+
+      .hero-actions,
+      .button-row {
+        flex-direction:column;
+      }
+
+      .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Machine Design Calculator</div>
+        <h1>Gusset Plate & Bracket Stiffness Calculator</h1>
+        <p>
+          Estimate how much a gusset plate can improve a cantilevered bracket, arm, post, or support.
+          Use this for sensor arms, actuator mounts, robot fixture brackets, guard supports, welded frames,
+          and machine details where a flat bracket bends too much.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta_click',{'page':'gusset_bracket','target':'calculator','location':'hero'});">
+            Open Calculator
+          </a>
+          <a class="btn btn-secondary" href="/frame-rigidity-estimator.html" onclick="gtag('event','page_cta_click',{'page':'gusset_bracket','target':'frame_rigidity','location':'hero'});">
+            Frame Rigidity
+          </a>
+          <a class="btn btn-secondary" href="/machine-design.html" onclick="gtag('event','page_cta_click',{'page':'gusset_bracket','target':'machine_design','location':'hero'});">
+            Machine Design Hub
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Use this calculator when checking:</h2>
+        <ul>
+          <li>Cantilevered brackets, tabs, arms, sensor mounts, and tooling supports</li>
+          <li>Whether adding gussets is better than simply thickening a plate</li>
+          <li>Bracket deflection before and after a gusset-style reinforcement</li>
+          <li>Approximate bending stress and safety factor</li>
+          <li>Practical improvement options for weak machine supports</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="calculator" class="section">
+      <div class="calculator-shell">
+        <div class="calculator-top">
+          <h2>Estimate Bracket Deflection and Gusset Improvement</h2>
+          <p>
+            Enter bracket geometry, load, material, and a gusset effectiveness factor. The calculator
+            estimates original deflection, improved deflection, stiffness gain, bending moment, stress,
+            and safety factor.
+          </p>
+        </div>
+
+        <div class="calculator-body">
+          <div class="inputs">
+            <div class="input-grid">
+              <div class="field">
+                <label for="unitSystem">Unit System</label>
+                <select id="unitSystem" onchange="updateUnits(); calculateGussetBracket();">
+                  <option value="imperial">Imperial — lb, in, psi</option>
+                  <option value="metric">Metric — N, mm, MPa</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="loadCase">Bracket Load Case</label>
+                <select id="loadCase" onchange="toggleLoadFields(); calculateGussetBracket();">
+                  <option value="end_load">Cantilever bracket, end point load</option>
+                  <option value="uniform_load">Cantilever bracket, uniform load</option>
+                  <option value="known_deflection">Known load and measured deflection</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="material">Material / Modulus Preset</label>
+                <select id="material" onchange="setMaterialProperties(); calculateGussetBracket();">
+                  <option value="steel">Steel — 29,000,000 psi / 200,000 MPa</option>
+                  <option value="aluminum">Aluminum — 10,000,000 psi / 69,000 MPa</option>
+                  <option value="stainless">Stainless Steel — 28,000,000 psi / 193,000 MPa</option>
+                  <option value="custom">Custom material</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="bracketLength">Bracket / Arm Length <span class="unit-length">(in)</span></label>
+                <input id="bracketLength" type="number" value="12" min="0" step="any" oninput="calculateGussetBracket();" />
+                <span class="hint">Distance from fixed face to load location or free end.</span>
+              </div>
+
+              <div class="field point-load-field">
+                <label for="pointLoad">End Load <span class="unit-force">(lb)</span></label>
+                <input id="pointLoad" type="number" value="150" min="0" step="any" oninput="calculateGussetBracket();" />
+                <span class="hint">Tooling, sensor, cylinder, guard, part, or applied process load.</span>
+              </div>
+
+              <div class="field uniform-load-field" style="display:none;">
+                <label for="uniformLoad">Uniform Load <span class="unit-uniform">(lb/in)</span></label>
+                <input id="uniformLoad" type="number" value="10" min="0" step="any" oninput="calculateGussetBracket();" />
+              </div>
+
+              <div class="field measured-field" style="display:none;">
+                <label for="measuredLoad">Measured / Applied Load <span class="unit-force">(lb)</span></label>
+                <input id="measuredLoad" type="number" value="150" min="0" step="any" oninput="calculateGussetBracket();" />
+              </div>
+
+              <div class="field measured-field" style="display:none;">
+                <label for="measuredDeflection">Measured Deflection <span class="unit-length">(in)</span></label>
+                <input id="measuredDeflection" type="number" value="0.050" min="0" step="any" oninput="calculateGussetBracket();" />
+              </div>
+
+              <div class="field">
+                <label for="bracketWidth">Bracket Width <span class="unit-length">(in)</span></label>
+                <input id="bracketWidth" type="number" value="2" min="0" step="any" oninput="calculateGussetBracket();" />
+                <span class="hint">Width of the plate or arm.</span>
+              </div>
+
+              <div class="field">
+                <label for="bracketThickness">Bracket Thickness / Height in Bending Direction <span class="unit-length">(in)</span></label>
+                <input id="bracketThickness" type="number" value="0.5" min="0" step="any" oninput="calculateGussetBracket();" />
+                <span class="hint">Use the dimension resisting bending.</span>
+              </div>
+
+              <div class="field">
+                <label for="gussetEffectiveness">Gusset Stiffness Multiplier</label>
+                <input id="gussetEffectiveness" type="number" value="4" min="1" step="any" oninput="calculateGussetBracket();" />
+                <span class="hint">Rough estimate. 2–6 is common for practical gusset improvement screening.</span>
+              </div>
+
+              <div class="field">
+                <label for="gussetCoverage">Gusset Coverage of Bracket Length (%)</label>
+                <input id="gussetCoverage" type="number" value="65" min="0" max="100" step="any" oninput="calculateGussetBracket();" />
+                <span class="hint">Longer gussets generally help more than short tabs near the base.</span>
+              </div>
+
+              <div class="field">
+                <label for="modulus">Elastic Modulus, E <span class="unit-modulus">(psi)</span></label>
+                <input id="modulus" type="number" value="29000000" min="0" step="any" oninput="calculateGussetBracket();" />
+              </div>
+
+              <div class="field">
+                <label for="yieldStrength">Yield Strength <span class="unit-strength">(psi)</span></label>
+                <input id="yieldStrength" type="number" value="36000" min="0" step="any" oninput="calculateGussetBracket();" />
+              </div>
+
+              <div class="field">
+                <label for="deflectionLimit">Target Deflection Limit <span class="unit-length">(in)</span></label>
+                <input id="deflectionLimit" type="number" value="0.020" min="0" step="any" oninput="calculateGussetBracket();" />
+                <span class="hint">Use the actual process tolerance when known.</span>
+              </div>
+
+              <div class="field">
+                <label for="dynamicFactor">Shock / Dynamic Factor</label>
+                <input id="dynamicFactor" type="number" value="1.5" min="1" step="any" oninput="calculateGussetBracket();" />
+                <span class="hint">Use 1.0 for static. Increase for vibration, impact, clamp force, or uncertainty.</span>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateGussetBracket(); gtag('event','calculator_run',{'calculator':'gusset_bracket'});">
+                Calculate
+              </button>
+              <button class="btn btn-secondary" type="button" onclick="resetCalculator(); gtag('event','calculator_reset',{'calculator':'gusset_bracket'});">
+                Reset Example
+              </button>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="result-box">
+              <h3>Original Bracket Deflection</h3>
+              <div id="originalDeflectionResult" class="result-value">—</div>
+              <div class="result-sub">Estimated deflection before gusset improvement.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Estimated Deflection With Gusset</h3>
+              <div id="gussetDeflectionResult" class="result-value">—</div>
+              <div class="result-sub">Approximate improved deflection.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Estimated Improvement</h3>
+              <div id="improvementResult" class="result-value">—</div>
+              <div class="result-sub">Percent deflection reduction from gusset estimate.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Bending Moment at Fixed End</h3>
+              <div id="momentResult" class="result-value">—</div>
+              <div class="result-sub">Highest bending moment at bracket root.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Estimated Bending Stress</h3>
+              <div id="stressResult" class="result-value">—</div>
+              <div class="result-sub">Approximate stress in ungusseted bracket section.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Safety Factor Against Yield</h3>
+              <div id="safetyFactorResult" class="result-value">—</div>
+              <div class="result-sub">Yield strength divided by estimated stress.</div>
+            </div>
+
+            <div id="statusBox" class="status warn">
+              Enter bracket values to calculate gusset improvement.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Why Gussets Help</h2>
+        <p>
+          A cantilevered bracket is usually weakest at the fixed end. A gusset helps by shortening the
+          effective bending span, adding a load path into the base, and increasing local stiffness where
+          the bracket wants to rotate.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Reduces Cantilever Behavior</h3>
+          <p>
+            Long unsupported arms bend quickly. A gusset changes the bracket from a simple flat cantilever
+            into a more triangular support path.
+          </p>
+          <ul>
+            <li>Most helpful near the fixed end.</li>
+            <li>Longer gussets usually help more.</li>
+            <li>Works best when welded or bolted into stiff structure.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Improves Sensor and Tooling Stability</h3>
+          <p>
+            Sensor mounts, camera arms, flag brackets, tooling tabs, and small actuator mounts often fail
+            by flexing or vibrating, not by breaking.
+          </p>
+          <ul>
+            <li>Reduces movement under vibration.</li>
+            <li>Improves repeatability.</li>
+            <li>Can prevent tuning and false-trigger problems.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Transfers Load Into the Frame</h3>
+          <p>
+            A gusset is only as good as the structure it connects to. If the base plate, weld, bolts, or
+            frame member flexes, the gusset may not solve the real problem.
+          </p>
+          <ul>
+            <li>Check the base plate.</li>
+            <li>Check welds or bolts.</li>
+            <li>Check frame rigidity after adding gussets.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Formula Reference</h2>
+        <p>
+          This calculator uses simplified cantilever beam formulas for the original bracket and applies
+          a practical gusset stiffness multiplier for early design comparison.
+        </p>
+      </div>
+
+      <div class="formula">
+        <code>Bracket Section:
+I = b × h³ / 12
+c = h / 2
+S = I / c
+
+Cantilever End Load:
+δ = P × L³ / (3 × E × I)
+Mmax = P × L
+
+Cantilever Uniform Load:
+δ = w × L⁴ / (8 × E × I)
+Mmax = w × L² / 2
+
+Bending Stress:
+σ = M / S
+
+Estimated Gusset Improvement:
+Effective Multiplier = 1 + [(Multiplier - 1) × Coverage Factor]
+δgusset ≈ δoriginal / Effective Multiplier
+
+Improvement:
+Reduction % = (1 - δgusset / δoriginal) × 100</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Recommended Bracket Reinforcement Workflow</h2>
+        <p>
+          Use this process when a bracket, support arm, sensor mount, or small machine structure is moving
+          more than expected.
+        </p>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-row">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Check the bracket as a cantilever</h3>
+            <p>
+              Start with the simple bending case. Many real bracket problems are just long overhangs with
+              too little section height.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'gusset_bracket','step':'calculator'});">Use Calculator →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Compare gusset improvement</h3>
+            <p>
+              Estimate whether a gusset gets deflection under the target or whether the bracket needs a
+              different shape, shorter arm, or stronger support.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'gusset_bracket','step':'gusset'});">Estimate Gusset →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Check plate and frame support</h3>
+            <p>
+              If the gusset ties into a flexible plate or weak frame member, the problem may simply move
+              somewhere else.
+            </p>
+          </div>
+          <a class="workflow-link" href="/frame-rigidity-estimator.html" onclick="gtag('event','workflow_click',{'page':'gusset_bracket','step':'frame_rigidity'});">Frame Rigidity →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Check fasteners or welds</h3>
+            <p>
+              A gusset increases load transfer into the joint. Check bolts, welds, base plates, and edge
+              distances before assuming the reinforcement is complete.
+            </p>
+          </div>
+          <a class="workflow-link" href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','workflow_click',{'page':'gusset_bracket','step':'bolt_joint'});">Bolt Joint Check →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Where Gussets Are Useful</h2>
+        <p>
+          Gussets are not just for heavy frames. They are often the simplest fix for small automation
+          problems that keep showing up as vibration, sensor drift, or poor repeatability.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Sensor and Camera Arms</h3>
+          <p>
+            Thin sensor brackets and camera arms can vibrate like tuning forks. A triangular gusset can
+            greatly reduce motion at the end.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Cylinder and Actuator Mounts</h3>
+          <p>
+            Cylinder brackets see force every cycle. If the bracket bends, the cylinder may misalign,
+            bind, or wear prematurely.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Robot Fixture Details</h3>
+          <p>
+            A robot fixture may look rigid until the part, clamp, or EOAT load is applied. Gussets can
+            stabilize nests and locating brackets.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Guard Brackets</h3>
+          <p>
+            Long guard brackets can shake or sag. Gussets can stiffen them without adding a bulky frame.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Conveyor Guides and Transfers</h3>
+          <p>
+            Guide rail stands, transfer brackets, and small support tabs may need gussets when product
+            load or vibration causes movement.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Machine Frame Corners</h3>
+          <p>
+            Gussets can improve frame corners and uprights, but only when the welds, bolts, and attached
+            members are also strong enough.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Design Guidance</h2>
+        <p>
+          Gussets are useful, but they are not magic. The best gusset reinforces the load path without
+          creating a new crack point, weld problem, clearance issue, or stress concentration.
+        </p>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card">
+          <h3>If the bracket is too flexible</h3>
+          <ul>
+            <li>Add a triangular gusset near the fixed end.</li>
+            <li>Increase bracket height in the bending direction.</li>
+            <li>Shorten the cantilever length.</li>
+            <li>Move the load closer to the support.</li>
+            <li>Use tube or angle instead of flat plate.</li>
+            <li>Add a second support or brace if possible.</li>
+            <li>Use two side gussets for twisting resistance.</li>
+            <li>Check if the base plate is also bending.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>If the gusset does not solve it</h3>
+          <ul>
+            <li>Check the frame member the gusset ties into.</li>
+            <li>Check weld size and weld location.</li>
+            <li>Check the bolted joint for slip or separation.</li>
+            <li>Check twisting, not just vertical bending.</li>
+            <li>Look for vibration from nearby motors or conveyors.</li>
+            <li>Check if the load is actually impact-loaded.</li>
+            <li>Increase support spacing or add a diagonal brace.</li>
+            <li>Measure real deflection during the cycle.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="warning">
+        <strong>Important:</strong>
+        This calculator is a simplified screening tool. Real gusseted brackets may fail from weld stress,
+        bolt slip, base-plate bending, fatigue, torsion, out-of-plane loading, local buckling, stress
+        concentrations, poor fit-up, heat distortion, vibration, impact, or cracked weld toes. Use this
+        for early comparison and verify critical supports with proper engineering review.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">
+        <strong>Good next step:</strong>
+        check the surrounding structure with the
+        <a href="/frame-rigidity-estimator.html" onclick="gtag('event','internal_link',{'from':'gusset_bracket','to':'frame_rigidity'});">Frame Rigidity Estimator</a>,
+        check plate support with the
+        <a href="/plate-deflection-calculator.html" onclick="gtag('event','internal_link',{'from':'gusset_bracket','to':'plate_deflection'});">Plate Deflection Calculator</a>,
+        and check bolted mounting with the
+        <a href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','internal_link',{'from':'gusset_bracket','to':'bolt_joint'});">Bolt Shear & Joint Separation Calculator</a>.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Related Tools</h2>
+        <p>
+          Gussets are one fix in the larger machine design workflow. Use these tools to check the rest
+          of the structure.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Frame Rigidity Estimator</h3>
+          <p>Check whether the frame supporting the gusseted bracket is stiff enough.</p>
+          <a href="/frame-rigidity-estimator.html" onclick="gtag('event','related_tool_click',{'from':'gusset_bracket','to':'frame_rigidity'});">Open Frame Rigidity →</a>
+        </article>
+
+        <article class="card">
+          <h3>Plate Deflection Calculator</h3>
+          <p>Check whether the mounting plate or base plate is flexing under the bracket load.</p>
+          <a href="/plate-deflection-calculator.html" onclick="gtag('event','related_tool_click',{'from':'gusset_bracket','to':'plate_deflection'});">Open Plate Deflection →</a>
+        </article>
+
+        <article class="card">
+          <h3>Beam Deflection Calculator</h3>
+          <p>Check general beam deflection for rails, supports, and structural members.</p>
+          <a href="/beam-deflection-calculator.html" onclick="gtag('event','related_tool_click',{'from':'gusset_bracket','to':'beam_deflection'});">Open Beam Deflection →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bending Stress Calculator</h3>
+          <p>Estimate bending stress and safety factor for the bracket section.</p>
+          <a href="/bending-stress-calculator.html" onclick="gtag('event','related_tool_click',{'from':'gusset_bracket','to':'bending_stress'});">Open Bending Stress →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bolt Shear & Joint Separation</h3>
+          <p>Check whether bolted bracket joints can resist shear, slip, and separation.</p>
+          <a href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','related_tool_click',{'from':'gusset_bracket','to':'bolt_joint'});">Open Bolt Joint Check →</a>
+        </article>
+
+        <article class="card">
+          <h3>Machine Design Hub</h3>
+          <p>Return to the full workflow for structures, plates, columns, shafts, bearings, and fasteners.</p>
+          <a href="/machine-design.html" onclick="gtag('event','related_tool_click',{'from':'gusset_bracket','to':'machine_design'});">Open Machine Design Hub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom-cta">
+        <div>
+          <h2>A good gusset fixes the load path, not just the appearance of the bracket.</h2>
+          <p>
+            Check the bracket, gusset, base plate, welds, bolts, and frame member together before trusting
+            a reinforced support in production.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="/frame-rigidity-estimator.html" onclick="gtag('event','bottom_cta_click',{'page':'gusset_bracket','target':'frame_rigidity'});">
+          Check Frame Rigidity
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators for real automation work
+  </footer>
+
+  <script>
+    function getValue(id) {
+      var value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatNumber(value, decimals) {
+      if (!isFinite(value)) return '—';
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function updateUnits() {
+      var system = document.getElementById('unitSystem').value;
+
+      document.querySelectorAll('.unit-length').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in)' : '(mm)';
+      });
+
+      document.querySelectorAll('.unit-force').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb)' : '(N)';
+      });
+
+      document.querySelectorAll('.unit-uniform').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb/in)' : '(N/mm)';
+      });
+
+      document.querySelectorAll('.unit-modulus').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      document.querySelectorAll('.unit-strength').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      if (system === 'imperial') {
+        document.getElementById('bracketLength').value = 12;
+        document.getElementById('pointLoad').value = 150;
+        document.getElementById('uniformLoad').value = 10;
+        document.getElementById('measuredLoad').value = 150;
+        document.getElementById('measuredDeflection').value = 0.050;
+        document.getElementById('bracketWidth').value = 2;
+        document.getElementById('bracketThickness').value = 0.5;
+        document.getElementById('deflectionLimit').value = 0.020;
+      } else {
+        document.getElementById('bracketLength').value = 300;
+        document.getElementById('pointLoad').value = 650;
+        document.getElementById('uniformLoad').value = 1.8;
+        document.getElementById('measuredLoad').value = 650;
+        document.getElementById('measuredDeflection').value = 1.25;
+        document.getElementById('bracketWidth').value = 50;
+        document.getElementById('bracketThickness').value = 12;
+        document.getElementById('deflectionLimit').value = 0.5;
+      }
+
+      setMaterialProperties();
+    }
+
+    function setMaterialProperties() {
+      var system = document.getElementById('unitSystem').value;
+      var material = document.getElementById('material').value;
+      var modulus = document.getElementById('modulus');
+      var yieldStrength = document.getElementById('yieldStrength');
+
+      if (material === 'custom') {
+        return;
+      }
+
+      if (system === 'imperial') {
+        if (material === 'steel') {
+          modulus.value = 29000000;
+          yieldStrength.value = 36000;
+        }
+        if (material === 'aluminum') {
+          modulus.value = 10000000;
+          yieldStrength.value = 35000;
+        }
+        if (material === 'stainless') {
+          modulus.value = 28000000;
+          yieldStrength.value = 30000;
+        }
+      } else {
+        if (material === 'steel') {
+          modulus.value = 200000;
+          yieldStrength.value = 250;
+        }
+        if (material === 'aluminum') {
+          modulus.value = 69000;
+          yieldStrength.value = 240;
+        }
+        if (material === 'stainless') {
+          modulus.value = 193000;
+          yieldStrength.value = 205;
+        }
+      }
+    }
+
+    function toggleLoadFields() {
+      var loadCase = document.getElementById('loadCase').value;
+
+      document.querySelectorAll('.point-load-field').forEach(function(el) {
+        el.style.display = loadCase === 'end_load' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.uniform-load-field').forEach(function(el) {
+        el.style.display = loadCase === 'uniform_load' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.measured-field').forEach(function(el) {
+        el.style.display = loadCase === 'known_deflection' ? 'flex' : 'none';
+      });
+    }
+
+    function calculateGussetBracket() {
+      var system = document.getElementById('unitSystem').value;
+      var loadCase = document.getElementById('loadCase').value;
+      var L = getValue('bracketLength');
+      var P = getValue('pointLoad');
+      var w = getValue('uniformLoad');
+      var measuredLoad = getValue('measuredLoad');
+      var measuredDeflection = getValue('measuredDeflection');
+      var b = getValue('bracketWidth');
+      var h = getValue('bracketThickness');
+      var E = getValue('modulus');
+      var yieldStrength = getValue('yieldStrength');
+      var deflectionLimit = getValue('deflectionLimit');
+      var dynamicFactor = getValue('dynamicFactor');
+      var gussetMultiplier = getValue('gussetEffectiveness');
+      var gussetCoverage = getValue('gussetCoverage');
+
+      var I = 0;
+      var c = 0;
+      var S = 0;
+      var originalDeflection = 0;
+      var gussetDeflection = 0;
+      var improvement = 0;
+      var moment = 0;
+      var stress = 0;
+      var safetyFactor = 0;
+      var valid = true;
+      var message = 'Gusset improvement estimated. Verify welds, bolts, base plate, and frame stiffness before relying on the bracket.';
+
+      if (dynamicFactor < 1) {
+        valid = false;
+        message = 'Dynamic factor must be 1.0 or greater.';
+      }
+
+      if (gussetMultiplier < 1) {
+        valid = false;
+        message = 'Gusset stiffness multiplier must be 1.0 or greater.';
+      }
+
+      if (gussetCoverage < 0 || gussetCoverage > 100) {
+        valid = false;
+        message = 'Gusset coverage must be between 0 and 100 percent.';
+      }
+
+      if (loadCase !== 'known_deflection') {
+        if (L <= 0 || b <= 0 || h <= 0 || E <= 0) {
+          valid = false;
+          message = 'Bracket length, width, thickness, and elastic modulus must be greater than zero.';
+        } else {
+          I = b * Math.pow(h, 3) / 12;
+          c = h / 2;
+          S = I / c;
+        }
+      }
+
+      if (valid && loadCase === 'end_load') {
+        var effectiveP = P * dynamicFactor;
+        originalDeflection = effectiveP * Math.pow(L, 3) / (3 * E * I);
+        moment = effectiveP * L;
+      }
+
+      if (valid && loadCase === 'uniform_load') {
+        var effectiveW = w * dynamicFactor;
+        originalDeflection = effectiveW * Math.pow(L, 4) / (8 * E * I);
+        moment = effectiveW * Math.pow(L, 2) / 2;
+      }
+
+      if (valid && loadCase === 'known_deflection') {
+        if (measuredLoad <= 0 || measuredDeflection <= 0) {
+          valid = false;
+          message = 'Measured load and measured deflection must be greater than zero.';
+        } else {
+          originalDeflection = measuredDeflection;
+          moment = 0;
+        }
+      }
+
+      if (valid && originalDeflection > 0) {
+        var coverageFactor = gussetCoverage / 100;
+        var effectiveMultiplier = 1 + ((gussetMultiplier - 1) * coverageFactor);
+        gussetDeflection = originalDeflection / effectiveMultiplier;
+        improvement = (1 - (gussetDeflection / originalDeflection)) * 100;
+      }
+
+      if (valid && S > 0 && moment > 0) {
+        stress = moment / S;
+        safetyFactor = stress > 0 ? yieldStrength / stress : 0;
+      }
+
+      var lengthUnit = system === 'imperial' ? 'in' : 'mm';
+      var momentUnit = system === 'imperial' ? 'lb-in' : 'N-mm';
+      var stressUnit = system === 'imperial' ? 'psi' : 'MPa';
+
+      if (!valid || originalDeflection <= 0) {
+        document.getElementById('originalDeflectionResult').textContent = '—';
+        document.getElementById('gussetDeflectionResult').textContent = '—';
+        document.getElementById('improvementResult').textContent = '—';
+        document.getElementById('momentResult').textContent = '—';
+        document.getElementById('stressResult').textContent = '—';
+        document.getElementById('safetyFactorResult').textContent = '—';
+      } else {
+        document.getElementById('originalDeflectionResult').textContent = formatNumber(originalDeflection, 5) + ' ' + lengthUnit;
+        document.getElementById('gussetDeflectionResult').textContent = formatNumber(gussetDeflection, 5) + ' ' + lengthUnit;
+        document.getElementById('improvementResult').textContent = formatNumber(improvement, 1) + '% reduction';
+        document.getElementById('momentResult').textContent = moment > 0 ? formatNumber(moment, 2) + ' ' + momentUnit : 'N/A';
+        document.getElementById('stressResult').textContent = stress > 0 ? formatNumber(stress, 2) + ' ' + stressUnit : 'N/A';
+        document.getElementById('safetyFactorResult').textContent = safetyFactor > 0 ? formatNumber(safetyFactor, 2) + ':1' : 'N/A';
+      }
+
+      var statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status';
+
+      if (!valid) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = message;
+      } else if (deflectionLimit > 0 && gussetDeflection > deflectionLimit) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Even with the estimated gusset, deflection is above the target. Shorten the bracket, increase section height, add a second support, or redesign the load path.';
+      } else if (safetyFactor > 0 && safetyFactor < 1.5) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Estimated bending stress safety factor is low. Increase bracket size, reduce load, shorten the cantilever, or redesign the support.';
+      } else if (safetyFactor > 0 && safetyFactor < 3) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = 'Deflection may improve, but stress margin is moderate. Review welds, fatigue, vibration, base plate flex, and real load direction.';
+      } else {
+        statusBox.classList.add('good');
+        statusBox.textContent = message;
+      }
+    }
+
+    function resetCalculator() {
+      document.getElementById('unitSystem').value = 'imperial';
+      document.getElementById('loadCase').value = 'end_load';
+      document.getElementById('material').value = 'steel';
+      document.getElementById('gussetEffectiveness').value = 4;
+      document.getElementById('gussetCoverage').value = 65;
+      document.getElementById('dynamicFactor').value = 1.5;
+      updateUnits();
+      toggleLoadFields();
+      calculateGussetBracket();
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
+      })
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    toggleLoadFields();
+    calculateGussetBracket();
+  </script>
+</body>
+</html>
