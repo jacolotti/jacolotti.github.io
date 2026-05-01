@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Column Buckling Calculator | Machine Frame Post, Leg & Compression Member Check</title>
+  <meta name="description" content="Estimate Euler buckling load, compression stress, slenderness ratio, and safety factor for machine frame posts, columns, legs, supports, actuator stands, and structural members." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/column-buckling-calculator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root {
+      --blue-800:#1e3a8a;
+      --blue-700:#1d4ed8;
+      --blue-600:#2563eb;
+      --blue-100:#dbeafe;
+      --slate-900:#0f172a;
+      --slate-800:#1e293b;
+      --slate-700:#334155;
+      --slate-600:#475569;
+      --slate-500:#64748b;
+      --slate-200:#e2e8f0;
+      --green-100:#dcfce7;
+      --green-700:#15803d;
+      --amber-100:#fef3c7;
+      --amber-700:#b45309;
+      --red-100:#fee2e2;
+      --red-700:#b91c1c;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(15,23,42,0.10);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f8fafc;
+      color:var(--slate-800);
+      line-height:1.6;
+    }
+
+    a {
+      color:var(--blue-700);
+      text-decoration:none;
+    }
+
+    a:hover { text-decoration:underline; }
+
+    #navbar {
+      position:relative;
+      z-index:50;
+    }
+
+    .hero {
+      background:white;
+      border-bottom:1px solid var(--slate-200);
+      padding:56px 20px 44px;
+    }
+
+    .hero-inner {
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,0.75fr);
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:var(--blue-100);
+      color:var(--blue-800);
+      font-size:0.9rem;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .hero h1 {
+      margin:0 0 16px;
+      color:var(--slate-900);
+      font-size:clamp(2.1rem,5vw,4rem);
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+
+    .hero p {
+      margin:0 0 22px;
+      max-width:780px;
+      color:var(--slate-600);
+      font-size:1.08rem;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:800;
+      border:1px solid transparent;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .btn-primary {
+      background:var(--blue-700);
+      color:white;
+      box-shadow:0 8px 24px rgba(29,78,216,0.25);
+    }
+
+    .btn-secondary {
+      background:white;
+      color:var(--blue-700);
+      border-color:var(--slate-200);
+    }
+
+    .hero-panel {
+      background:#f8fafc;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin:0 0 12px;
+      color:var(--slate-900);
+      font-size:1.25rem;
+    }
+
+    .hero-panel ul {
+      margin:0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .hero-panel li { margin:8px 0; }
+
+    .page {
+      max-width:1180px;
+      margin:0 auto;
+      padding:42px 20px 70px;
+    }
+
+    .section { margin-bottom:44px; }
+
+    .section-header { margin-bottom:22px; }
+
+    .section-header h2 {
+      margin:0 0 8px;
+      color:var(--slate-900);
+      font-size:clamp(1.55rem,3vw,2.25rem);
+      line-height:1.15;
+      letter-spacing:-0.025em;
+    }
+
+    .section-header p {
+      margin:0;
+      max-width:900px;
+      color:var(--slate-600);
+    }
+
+    .calculator-shell {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .calculator-top {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      padding:24px;
+    }
+
+    .calculator-top h2 {
+      margin:0 0 8px;
+      font-size:1.7rem;
+    }
+
+    .calculator-top p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+    }
+
+    .calculator-body {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,0.8fr);
+      gap:0;
+    }
+
+    .inputs {
+      padding:24px;
+      border-right:1px solid var(--slate-200);
+    }
+
+    .results {
+      padding:24px;
+      background:#f8fafc;
+    }
+
+    .input-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .field.full { grid-column:1 / -1; }
+
+    label {
+      font-weight:800;
+      color:var(--slate-900);
+      font-size:0.94rem;
+    }
+
+    input, select {
+      width:100%;
+      border:1px solid var(--slate-200);
+      border-radius:12px;
+      padding:11px 12px;
+      font-size:1rem;
+      color:var(--slate-800);
+      background:white;
+    }
+
+    input:focus, select:focus {
+      outline:3px solid rgba(37,99,235,0.16);
+      border-color:var(--blue-600);
+    }
+
+    .hint {
+      color:var(--slate-500);
+      font-size:0.86rem;
+    }
+
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .result-box {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    .result-box h3 {
+      margin:0 0 6px;
+      color:var(--slate-900);
+      font-size:1rem;
+    }
+
+    .result-value {
+      font-size:1.55rem;
+      font-weight:900;
+      color:var(--blue-800);
+      line-height:1.15;
+      overflow-wrap:anywhere;
+    }
+
+    .result-sub {
+      color:var(--slate-500);
+      font-size:0.92rem;
+      margin-top:4px;
+    }
+
+    .status {
+      border-radius:18px;
+      padding:16px;
+      font-weight:800;
+      margin-top:14px;
+    }
+
+    .status.good {
+      background:var(--green-100);
+      color:var(--green-700);
+      border:1px solid #86efac;
+    }
+
+    .status.warn {
+      background:var(--amber-100);
+      color:var(--amber-700);
+      border:1px solid #fcd34d;
+    }
+
+    .status.bad {
+      background:var(--red-100);
+      color:var(--red-700);
+      border:1px solid #fca5a5;
+    }
+
+    .formula {
+      background:#0f172a;
+      color:white;
+      border-radius:18px;
+      padding:20px;
+      overflow-x:auto;
+    }
+
+    .formula code {
+      font-size:1.05rem;
+      color:white;
+      white-space:pre-wrap;
+    }
+
+    .card-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card-grid.two {
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .card {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    }
+
+    .card h3 {
+      margin:0 0 9px;
+      color:var(--slate-900);
+      line-height:1.25;
+    }
+
+    .card p {
+      margin:0 0 14px;
+      color:var(--slate-600);
+    }
+
+    .card ul {
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .card li { margin:6px 0; }
+
+    .note {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .warning {
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .workflow {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .workflow-row {
+      display:grid;
+      grid-template-columns:82px minmax(0,1fr) minmax(220px,0.5fr);
+      gap:18px;
+      padding:22px;
+      border-bottom:1px solid var(--slate-200);
+      align-items:center;
+    }
+
+    .workflow-row:last-child { border-bottom:none; }
+
+    .step-number {
+      width:48px;
+      height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--blue-800),var(--blue-600));
+      color:white;
+      font-weight:900;
+    }
+
+    .workflow-row h3 {
+      margin:0 0 5px;
+      color:var(--slate-900);
+    }
+
+    .workflow-row p {
+      margin:0;
+      color:var(--slate-600);
+    }
+
+    .workflow-link { font-weight:900; }
+
+    .bottom-cta {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+
+    .bottom-cta h2 {
+      margin:0 0 10px;
+      font-size:1.85rem;
+    }
+
+    .bottom-cta p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+      max-width:760px;
+    }
+
+    footer {
+      text-align:center;
+      color:var(--slate-500);
+      padding:34px 20px 44px;
+      border-top:1px solid var(--slate-200);
+      background:white;
+    }
+
+    @media (max-width:980px) {
+      .hero-inner,
+      .calculator-body,
+      .bottom-cta {
+        grid-template-columns:1fr;
+      }
+
+      .inputs {
+        border-right:none;
+        border-bottom:1px solid var(--slate-200);
+      }
+
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .workflow-row {
+        grid-template-columns:64px 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:2;
+      }
+    }
+
+    @media (max-width:680px) {
+      .hero {
+        padding:44px 16px 34px;
+      }
+
+      .page {
+        padding:32px 16px 54px;
+      }
+
+      .input-grid,
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:auto;
+      }
+
+      .hero-actions,
+      .button-row {
+        flex-direction:column;
+      }
+
+      .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Machine Design Calculator</div>
+        <h1>Column Buckling Calculator</h1>
+        <p>
+          Estimate Euler buckling load, compression stress, slenderness ratio, and safety factor for
+          machine frame posts, legs, vertical supports, actuator stands, press columns, guard posts,
+          and compression members. Use this when a member is loaded in compression and failure may come
+          from instability instead of simple material strength.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta_click',{'page':'column_buckling','target':'calculator','location':'hero'});">
+            Open Calculator
+          </a>
+          <a class="btn btn-secondary" href="/frame-rigidity-estimator.html" onclick="gtag('event','page_cta_click',{'page':'column_buckling','target':'frame_rigidity','location':'hero'});">
+            Frame Rigidity
+          </a>
+          <a class="btn btn-secondary" href="/machine-design.html" onclick="gtag('event','page_cta_click',{'page':'column_buckling','target':'machine_design','location':'hero'});">
+            Machine Design Hub
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Use this calculator when checking:</h2>
+        <ul>
+          <li>Machine legs, posts, columns, uprights, and compression members</li>
+          <li>Actuator stands, press supports, guards, and vertical frames</li>
+          <li>Whether a column may buckle before material yield</li>
+          <li>Effective length factor from end support conditions</li>
+          <li>Slenderness and compression safety factor</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="calculator" class="section">
+      <div class="calculator-shell">
+        <div class="calculator-top">
+          <h2>Calculate Column Buckling and Compression Margin</h2>
+          <p>
+            Enter column length, load, section shape, material, and end condition. The calculator estimates
+            Euler critical buckling load, compression stress, slenderness ratio, and safety factors.
+          </p>
+        </div>
+
+        <div class="calculator-body">
+          <div class="inputs">
+            <div class="input-grid">
+              <div class="field">
+                <label for="unitSystem">Unit System</label>
+                <select id="unitSystem" onchange="updateUnits(); calculateColumnBuckling();">
+                  <option value="imperial">Imperial — lb, in, psi</option>
+                  <option value="metric">Metric — N, mm, MPa</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="sectionType">Column Section Type</label>
+                <select id="sectionType" onchange="toggleSectionFields(); calculateColumnBuckling();">
+                  <option value="rectangle">Rectangular bar / plate</option>
+                  <option value="rect_tube">Rectangular tube</option>
+                  <option value="solid_round">Solid round</option>
+                  <option value="round_tube">Round tube</option>
+                  <option value="custom">Custom area and moment of inertia</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="endCondition">End Condition</label>
+                <select id="endCondition" onchange="calculateColumnBuckling();">
+                  <option value="1.0">Pinned - Pinned, K = 1.0</option>
+                  <option value="0.7">Fixed - Pinned, K = 0.7</option>
+                  <option value="0.5">Fixed - Fixed, K = 0.5</option>
+                  <option value="2.0">Fixed - Free / Cantilever, K = 2.0</option>
+                  <option value="custom">Custom K factor</option>
+                </select>
+                <span class="hint">When unsure, be conservative. Poorly braced posts behave worse.</span>
+              </div>
+
+              <div class="field custom-k-field" style="display:none;">
+                <label for="customK">Custom Effective Length Factor, K</label>
+                <input id="customK" type="number" value="1.0" min="0.1" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field">
+                <label for="columnLength">Unsupported Column Length <span class="unit-length">(in)</span></label>
+                <input id="columnLength" type="number" value="48" min="0" step="any" oninput="calculateColumnBuckling();" />
+                <span class="hint">Unsupported length between braces, mounts, or effective end restraints.</span>
+              </div>
+
+              <div class="field">
+                <label for="appliedLoad">Applied Compression Load <span class="unit-force">(lb)</span></label>
+                <input id="appliedLoad" type="number" value="2000" min="0" step="any" oninput="calculateColumnBuckling();" />
+                <span class="hint">Include supported machine weight, actuator force, clamp force, and dynamic load.</span>
+              </div>
+
+              <div class="field">
+                <label for="material">Material / Modulus Preset</label>
+                <select id="material" onchange="setMaterialProperties(); calculateColumnBuckling();">
+                  <option value="steel">Steel — 29,000,000 psi / 200,000 MPa</option>
+                  <option value="aluminum">Aluminum — 10,000,000 psi / 69,000 MPa</option>
+                  <option value="stainless">Stainless Steel — 28,000,000 psi / 193,000 MPa</option>
+                  <option value="custom">Custom material</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="modulus">Elastic Modulus, E <span class="unit-modulus">(psi)</span></label>
+                <input id="modulus" type="number" value="29000000" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field">
+                <label for="yieldStrength">Yield Strength <span class="unit-strength">(psi)</span></label>
+                <input id="yieldStrength" type="number" value="36000" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field">
+                <label for="dynamicFactor">Shock / Dynamic Factor</label>
+                <input id="dynamicFactor" type="number" value="1.5" min="1" step="any" oninput="calculateColumnBuckling();" />
+                <span class="hint">Use 1.0 for static. Increase for impact, vibration, clamp force, starts/stops, or uncertainty.</span>
+              </div>
+
+              <div class="field rectangle-field">
+                <label for="rectWidth">Rectangle Width, b <span class="unit-length">(in)</span></label>
+                <input id="rectWidth" type="number" value="2" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field rectangle-field">
+                <label for="rectHeight">Rectangle Height, h <span class="unit-length">(in)</span></label>
+                <input id="rectHeight" type="number" value="3" min="0" step="any" oninput="calculateColumnBuckling();" />
+                <span class="hint">Buckling uses the weaker axis automatically.</span>
+              </div>
+
+              <div class="field rect-tube-field" style="display:none;">
+                <label for="tubeWidth">Tube Width, b <span class="unit-length">(in)</span></label>
+                <input id="tubeWidth" type="number" value="3" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field rect-tube-field" style="display:none;">
+                <label for="tubeHeight">Tube Height, h <span class="unit-length">(in)</span></label>
+                <input id="tubeHeight" type="number" value="3" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field rect-tube-field" style="display:none;">
+                <label for="wallThickness">Wall Thickness, t <span class="unit-length">(in)</span></label>
+                <input id="wallThickness" type="number" value="0.25" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field solid-round-field" style="display:none;">
+                <label for="diameter">Round Diameter <span class="unit-length">(in)</span></label>
+                <input id="diameter" type="number" value="2" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field round-tube-field" style="display:none;">
+                <label for="outerDiameter">Outer Diameter <span class="unit-length">(in)</span></label>
+                <input id="outerDiameter" type="number" value="2" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field round-tube-field" style="display:none;">
+                <label for="innerDiameter">Inner Diameter <span class="unit-length">(in)</span></label>
+                <input id="innerDiameter" type="number" value="1.5" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field custom-field" style="display:none;">
+                <label for="customArea">Area, A <span class="unit-area">(in²)</span></label>
+                <input id="customArea" type="number" value="4" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+
+              <div class="field custom-field" style="display:none;">
+                <label for="customI">Weak-Axis Moment of Inertia, I <span class="unit-inertia">(in⁴)</span></label>
+                <input id="customI" type="number" value="3" min="0" step="any" oninput="calculateColumnBuckling();" />
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateColumnBuckling(); gtag('event','calculator_run',{'calculator':'column_buckling'});">
+                Calculate
+              </button>
+              <button class="btn btn-secondary" type="button" onclick="resetCalculator(); gtag('event','calculator_reset',{'calculator':'column_buckling'});">
+                Reset Example
+              </button>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="result-box">
+              <h3>Euler Critical Buckling Load</h3>
+              <div id="criticalLoadResult" class="result-value">—</div>
+              <div class="result-sub">Estimated ideal elastic buckling load.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Effective Length</h3>
+              <div id="effectiveLengthResult" class="result-value">—</div>
+              <div class="result-sub">K × unsupported length.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Compression Stress</h3>
+              <div id="compressionStressResult" class="result-value">—</div>
+              <div class="result-sub">Applied compression load divided by area.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Buckling Safety Factor</h3>
+              <div id="bucklingSafetyResult" class="result-value">—</div>
+              <div class="result-sub">Critical buckling load ÷ factored applied load.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Yield Safety Factor</h3>
+              <div id="yieldSafetyResult" class="result-value">—</div>
+              <div class="result-sub">Yield strength ÷ compression stress.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Slenderness Ratio</h3>
+              <div id="slendernessResult" class="result-value">—</div>
+              <div class="result-sub">Effective length ÷ radius of gyration.</div>
+            </div>
+
+            <div id="statusBox" class="status warn">
+              Enter column values to calculate buckling margin.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>What Column Buckling Means</h2>
+        <p>
+          Buckling is an instability failure. A long, slender post can bend sideways and fail before the
+          material reaches its yield strength. That is why machine legs, uprights, actuator supports,
+          and press columns should be checked for both compression stress and buckling load.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Buckling Is Not the Same as Crushing</h3>
+          <p>
+            A short block usually fails by material stress. A long slender column can fail by sideways
+            instability at a much lower load.
+          </p>
+          <ul>
+            <li>Length matters heavily.</li>
+            <li>End support condition matters heavily.</li>
+            <li>Weak-axis inertia controls buckling.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Effective Length Matters</h3>
+          <p>
+            A column with poor bracing behaves longer than it looks. A well-fixed column behaves shorter.
+            The K factor adjusts for that end condition.
+          </p>
+          <ul>
+            <li>Fixed-fixed is stronger than pinned-pinned.</li>
+            <li>Cantilever posts are much weaker.</li>
+            <li>Loose mounts reduce real restraint.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Weak Axis Usually Controls</h3>
+          <p>
+            Rectangular shapes buckle about the weaker direction first. A tube or boxed member is often
+            better than a flat bar when compression stability matters.
+          </p>
+          <ul>
+            <li>Use the smaller I value.</li>
+            <li>Watch tall flat plates used as posts.</li>
+            <li>Bracing can change the controlling length.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Formula Reference</h2>
+        <p>
+          This calculator uses Euler buckling for ideal elastic columns. Real columns can be affected by
+          crookedness, eccentric loading, welded joints, imperfect end restraints, and combined bending.
+        </p>
+      </div>
+
+      <div class="formula">
+        <code>Euler Critical Buckling Load:
+Pcr = π² × E × I / (K × L)²
+
+Effective Length:
+Le = K × L
+
+Compression Stress:
+σc = P / A
+
+Radius of Gyration:
+r = √(I / A)
+
+Slenderness Ratio:
+λ = Le / r
+
+Buckling Safety Factor:
+SFbuckling = Pcr / Pfactored
+
+Yield Safety Factor:
+SFyield = yield strength / σc</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Recommended Compression Member Workflow</h2>
+        <p>
+          Use this process before trusting vertical supports, machine legs, actuator posts, or press columns
+          that carry compression load.
+        </p>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-row">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Find the real compression load</h3>
+            <p>
+              Include machine weight, tooling, product load, actuator thrust, clamp force, process force,
+              and dynamic load where applicable.
+            </p>
+          </div>
+          <a class="workflow-link" href="/beam-load-calculator.html" onclick="gtag('event','workflow_click',{'page':'column_buckling','step':'beam_load'});">Beam Load →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Pick the correct end condition</h3>
+            <p>
+              Do not assume fixed ends if the mounts are light, bolted through thin plate, or able to rotate
+              under load.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'column_buckling','step':'end_condition'});">Use Calculator →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Check buckling and compression stress</h3>
+            <p>
+              The limiting condition may be buckling or yield. Long members usually need buckling attention;
+              short members may be controlled by compression stress.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'column_buckling','step':'buckling'});">Calculate Margin →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Check frame rigidity and joints</h3>
+            <p>
+              A strong column still needs a stiff frame, base plate, bolted joint, and support path. Check
+              the whole structure, not only the post.
+            </p>
+          </div>
+          <a class="workflow-link" href="/frame-rigidity-estimator.html" onclick="gtag('event','workflow_click',{'page':'column_buckling','step':'frame_rigidity'});">Frame Rigidity →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Practical Design Guidance</h2>
+        <p>
+          If buckling margin is low, the best solution is often bracing, shorter unsupported length, or a
+          better section shape—not just stronger material.
+        </p>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card">
+          <h3>If buckling load is too low</h3>
+          <ul>
+            <li>Shorten the unsupported length.</li>
+            <li>Add diagonal bracing or intermediate supports.</li>
+            <li>Use tube or boxed sections instead of flat bar.</li>
+            <li>Increase weak-axis moment of inertia.</li>
+            <li>Improve end restraint if it is truly rigid enough.</li>
+            <li>Reduce eccentric loading and side loads.</li>
+            <li>Use multiple posts instead of one slender post.</li>
+            <li>Move actuator forces closer to the support path.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>If compression stress is high</h3>
+          <ul>
+            <li>Increase cross-sectional area.</li>
+            <li>Reduce applied load or dynamic factor.</li>
+            <li>Use a stronger material only after checking buckling.</li>
+            <li>Distribute load through more supports.</li>
+            <li>Check local crushing at feet, base plates, and pads.</li>
+            <li>Check welds, bolt groups, and floor anchors.</li>
+            <li>Review off-center loading that adds bending stress.</li>
+            <li>Check whether the load is actually cyclic or shock-loaded.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Where Buckling Shows Up in Automation</h2>
+        <p>
+          Column buckling risk is easy to miss because many machine members look strong in compression
+          but are weak in sideways stability.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Actuator and Cylinder Stands</h3>
+          <p>
+            A vertical stand carrying cylinder force may be loaded in compression and bending at the same
+            time. Long unsupported stands deserve a buckling check.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Machine Legs and Leveling Feet</h3>
+          <p>
+            Tall legs, light tube frames, and poorly braced bases can shift, bow, or vibrate under load.
+            Buckling and frame rigidity should both be reviewed.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Press and Clamp Frames</h3>
+          <p>
+            Press forces and clamp loads can push through columns or posts. If the load path is not aligned,
+            bending and buckling combine.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Guard Posts and Sensor Stands</h3>
+          <p>
+            Long guard posts and sensor stands may not carry huge loads, but they can sway, vibrate, and
+            lose alignment if they are too slender.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Robot and Tooling Supports</h3>
+          <p>
+            Robot fixtures, EOAT storage stands, and tooling posts may see vertical load plus off-center
+            moment. Buckling checks should include realistic support conditions.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Stacked Frames and Uprights</h3>
+          <p>
+            Upper frames, risers, and stacked tooling supports may transfer compression into lower posts.
+            Check the entire load path down to the base.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="warning">
+        <strong>Important:</strong>
+        This calculator is a simplified Euler buckling estimate. Real columns may fail due to eccentric
+        loading, combined bending and compression, local wall buckling, welds, holes, imperfect straightness,
+        residual stress, fatigue, base plate flexibility, loose bolts, weak end restraints, impact, vibration,
+        or floor-anchor movement. Use conservative assumptions and verify critical structures with qualified
+        engineering review.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">
+        <strong>Good next step:</strong>
+        check the surrounding structure with the
+        <a href="/frame-rigidity-estimator.html" onclick="gtag('event','internal_link',{'from':'column_buckling','to':'frame_rigidity'});">Frame Rigidity Estimator</a>,
+        compare shapes with the
+        <a href="/section-modulus-calculator.html" onclick="gtag('event','internal_link',{'from':'column_buckling','to':'section_modulus'});">Section Modulus Calculator</a>,
+        and check base or bracket joints with the
+        <a href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','internal_link',{'from':'column_buckling','to':'bolt_joint'});">Bolt Shear & Joint Separation Calculator</a>.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Related Tools</h2>
+        <p>
+          Column buckling is part of the larger machine design workflow. Use these tools to finish the
+          structural check.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Frame Rigidity Estimator</h3>
+          <p>Check whether the full frame is stiff enough under load, not just the compression member.</p>
+          <a href="/frame-rigidity-estimator.html" onclick="gtag('event','related_tool_click',{'from':'column_buckling','to':'frame_rigidity'});">Open Frame Rigidity →</a>
+        </article>
+
+        <article class="card">
+          <h3>Section Modulus Calculator</h3>
+          <p>Calculate area, moment of inertia, section modulus, and radius of gyration for shapes.</p>
+          <a href="/section-modulus-calculator.html" onclick="gtag('event','related_tool_click',{'from':'column_buckling','to':'section_modulus'});">Open Section Modulus →</a>
+        </article>
+
+        <article class="card">
+          <h3>Beam Load Calculator</h3>
+          <p>Estimate reactions and loads that may feed into posts, legs, columns, and supports.</p>
+          <a href="/beam-load-calculator.html" onclick="gtag('event','related_tool_click',{'from':'column_buckling','to':'beam_load'});">Open Beam Load →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bolt Shear & Joint Separation</h3>
+          <p>Check whether the base plate, bracket, or post mounting bolts can hold the load path.</p>
+          <a href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','related_tool_click',{'from':'column_buckling','to':'bolt_joint'});">Open Bolt Joint Check →</a>
+        </article>
+
+        <article class="card">
+          <h3>Plate Deflection Calculator</h3>
+          <p>Check whether the base plate or mounting plate under the column is flexing.</p>
+          <a href="/plate-deflection-calculator.html" onclick="gtag('event','related_tool_click',{'from':'column_buckling','to':'plate_deflection'});">Open Plate Deflection →</a>
+        </article>
+
+        <article class="card">
+          <h3>Machine Design Hub</h3>
+          <p>Return to the full workflow for structures, plates, shafts, bearings, motion, and fasteners.</p>
+          <a href="/machine-design.html" onclick="gtag('event','related_tool_click',{'from':'column_buckling','to':'machine_design'});">Open Machine Design Hub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom-cta">
+        <div>
+          <h2>A post can fail from instability before it fails from stress.</h2>
+          <p>
+            Check compression load, effective length, weak-axis inertia, base stiffness, and bracing before
+            trusting a tall support, machine leg, or actuator stand.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="/frame-rigidity-estimator.html" onclick="gtag('event','bottom_cta_click',{'page':'column_buckling','target':'frame_rigidity'});">
+          Check Frame Rigidity
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators for real automation work
+  </footer>
+
+  <script>
+    function getValue(id) {
+      var value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatNumber(value, decimals) {
+      if (!isFinite(value)) return '—';
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function updateUnits() {
+      var system = document.getElementById('unitSystem').value;
+
+      document.querySelectorAll('.unit-length').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in)' : '(mm)';
+      });
+
+      document.querySelectorAll('.unit-force').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb)' : '(N)';
+      });
+
+      document.querySelectorAll('.unit-modulus').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      document.querySelectorAll('.unit-strength').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      document.querySelectorAll('.unit-area').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in²)' : '(mm²)';
+      });
+
+      document.querySelectorAll('.unit-inertia').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in⁴)' : '(mm⁴)';
+      });
+
+      if (system === 'imperial') {
+        document.getElementById('columnLength').value = 48;
+        document.getElementById('appliedLoad').value = 2000;
+        document.getElementById('rectWidth').value = 2;
+        document.getElementById('rectHeight').value = 3;
+        document.getElementById('tubeWidth').value = 3;
+        document.getElementById('tubeHeight').value = 3;
+        document.getElementById('wallThickness').value = 0.25;
+        document.getElementById('diameter').value = 2;
+        document.getElementById('outerDiameter').value = 2;
+        document.getElementById('innerDiameter').value = 1.5;
+        document.getElementById('customArea').value = 4;
+        document.getElementById('customI').value = 3;
+      } else {
+        document.getElementById('columnLength').value = 1200;
+        document.getElementById('appliedLoad').value = 9000;
+        document.getElementById('rectWidth').value = 50;
+        document.getElementById('rectHeight').value = 75;
+        document.getElementById('tubeWidth').value = 75;
+        document.getElementById('tubeHeight').value = 75;
+        document.getElementById('wallThickness').value = 6;
+        document.getElementById('diameter').value = 50;
+        document.getElementById('outerDiameter').value = 50;
+        document.getElementById('innerDiameter').value = 38;
+        document.getElementById('customArea').value = 2500;
+        document.getElementById('customI').value = 900000;
+      }
+
+      setMaterialProperties();
+    }
+
+    function setMaterialProperties() {
+      var system = document.getElementById('unitSystem').value;
+      var material = document.getElementById('material').value;
+      var modulus = document.getElementById('modulus');
+      var yieldStrength = document.getElementById('yieldStrength');
+
+      if (material === 'custom') {
+        return;
+      }
+
+      if (system === 'imperial') {
+        if (material === 'steel') {
+          modulus.value = 29000000;
+          yieldStrength.value = 36000;
+        }
+        if (material === 'aluminum') {
+          modulus.value = 10000000;
+          yieldStrength.value = 35000;
+        }
+        if (material === 'stainless') {
+          modulus.value = 28000000;
+          yieldStrength.value = 30000;
+        }
+      } else {
+        if (material === 'steel') {
+          modulus.value = 200000;
+          yieldStrength.value = 250;
+        }
+        if (material === 'aluminum') {
+          modulus.value = 69000;
+          yieldStrength.value = 240;
+        }
+        if (material === 'stainless') {
+          modulus.value = 193000;
+          yieldStrength.value = 205;
+        }
+      }
+    }
+
+    function toggleSectionFields() {
+      var sectionType = document.getElementById('sectionType').value;
+
+      document.querySelectorAll('.rectangle-field').forEach(function(el) {
+        el.style.display = sectionType === 'rectangle' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.rect-tube-field').forEach(function(el) {
+        el.style.display = sectionType === 'rect_tube' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.solid-round-field').forEach(function(el) {
+        el.style.display = sectionType === 'solid_round' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.round-tube-field').forEach(function(el) {
+        el.style.display = sectionType === 'round_tube' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.custom-field').forEach(function(el) {
+        el.style.display = sectionType === 'custom' ? 'flex' : 'none';
+      });
+
+      toggleCustomKField();
+    }
+
+    function toggleCustomKField() {
+      var endCondition = document.getElementById('endCondition').value;
+      document.querySelectorAll('.custom-k-field').forEach(function(el) {
+        el.style.display = endCondition === 'custom' ? 'flex' : 'none';
+      });
+    }
+
+    function calculateSectionProperties() {
+      var sectionType = document.getElementById('sectionType').value;
+      var A = 0;
+      var I = 0;
+      var valid = true;
+      var message = '';
+
+      if (sectionType === 'rectangle') {
+        var b = getValue('rectWidth');
+        var h = getValue('rectHeight');
+
+        if (b <= 0 || h <= 0) {
+          valid = false;
+          message = 'Rectangle dimensions must be greater than zero.';
+        } else {
+          A = b * h;
+          var Ix = b * Math.pow(h, 3) / 12;
+          var Iy = h * Math.pow(b, 3) / 12;
+          I = Math.min(Ix, Iy);
+        }
+      }
+
+      if (sectionType === 'rect_tube') {
+        var bw = getValue('tubeWidth');
+        var ht = getValue('tubeHeight');
+        var t = getValue('wallThickness');
+        var innerB = bw - 2 * t;
+        var innerH = ht - 2 * t;
+
+        if (bw <= 0 || ht <= 0 || t <= 0 || innerB <= 0 || innerH <= 0) {
+          valid = false;
+          message = 'Tube dimensions are invalid. Wall thickness must be smaller than half the width and height.';
+        } else {
+          A = (bw * ht) - (innerB * innerH);
+          var tubeIx = (bw * Math.pow(ht, 3) - innerB * Math.pow(innerH, 3)) / 12;
+          var tubeIy = (ht * Math.pow(bw, 3) - innerH * Math.pow(innerB, 3)) / 12;
+          I = Math.min(tubeIx, tubeIy);
+        }
+      }
+
+      if (sectionType === 'solid_round') {
+        var d = getValue('diameter');
+
+        if (d <= 0) {
+          valid = false;
+          message = 'Round diameter must be greater than zero.';
+        } else {
+          A = Math.PI * Math.pow(d, 2) / 4;
+          I = Math.PI * Math.pow(d, 4) / 64;
+        }
+      }
+
+      if (sectionType === 'round_tube') {
+        var od = getValue('outerDiameter');
+        var id = getValue('innerDiameter');
+
+        if (od <= 0 || id < 0 || od <= id) {
+          valid = false;
+          message = 'Outer diameter must be larger than inner diameter.';
+        } else {
+          A = Math.PI * (Math.pow(od, 2) - Math.pow(id, 2)) / 4;
+          I = Math.PI * (Math.pow(od, 4) - Math.pow(id, 4)) / 64;
+        }
+      }
+
+      if (sectionType === 'custom') {
+        A = getValue('customArea');
+        I = getValue('customI');
+
+        if (A <= 0 || I <= 0) {
+          valid = false;
+          message = 'Custom area and moment of inertia must be greater than zero.';
+        }
+      }
+
+      return {
+        A: A,
+        I: I,
+        r: A > 0 && I > 0 ? Math.sqrt(I / A) : 0,
+        valid: valid,
+        message: message
+      };
+    }
+
+    function getKFactor() {
+      var endCondition = document.getElementById('endCondition').value;
+      if (endCondition === 'custom') {
+        return getValue('customK');
+      }
+      return parseFloat(endCondition);
+    }
+
+    function calculateColumnBuckling() {
+      toggleCustomKField();
+
+      var system = document.getElementById('unitSystem').value;
+      var L = getValue('columnLength');
+      var appliedLoad = getValue('appliedLoad');
+      var E = getValue('modulus');
+      var yieldStrength = getValue('yieldStrength');
+      var dynamicFactor = getValue('dynamicFactor');
+      var K = getKFactor();
+      var props = calculateSectionProperties();
+
+      var factoredLoad = appliedLoad * dynamicFactor;
+      var effectiveLength = K * L;
+      var criticalLoad = 0;
+      var compressionStress = 0;
+      var bucklingSafetyFactor = 0;
+      var yieldSafetyFactor = 0;
+      var slendernessRatio = 0;
+      var valid = true;
+      var message = 'Column buckling estimate calculated. Check end restraints, eccentric loading, base stiffness, and bracing before relying on this result.';
+
+      if (!props.valid) {
+        valid = false;
+        message = props.message;
+      }
+
+      if (L <= 0 || E <= 0 || K <= 0) {
+        valid = false;
+        message = 'Column length, elastic modulus, and K factor must be greater than zero.';
+      }
+
+      if (dynamicFactor < 1) {
+        valid = false;
+        message = 'Dynamic factor must be 1.0 or greater.';
+      }
+
+      if (valid) {
+        criticalLoad = Math.PI * Math.PI * E * props.I / Math.pow(effectiveLength, 2);
+        compressionStress = props.A > 0 ? factoredLoad / props.A : 0;
+        bucklingSafetyFactor = factoredLoad > 0 ? criticalLoad / factoredLoad : 0;
+        yieldSafetyFactor = compressionStress > 0 ? yieldStrength / compressionStress : 0;
+        slendernessRatio = props.r > 0 ? effectiveLength / props.r : 0;
+      }
+
+      var forceUnit = system === 'imperial' ? 'lb' : 'N';
+      var lengthUnit = system === 'imperial' ? 'in' : 'mm';
+      var stressUnit = system === 'imperial' ? 'psi' : 'MPa';
+
+      if (!valid || criticalLoad <= 0) {
+        document.getElementById('criticalLoadResult').textContent = '—';
+        document.getElementById('effectiveLengthResult').textContent = '—';
+        document.getElementById('compressionStressResult').textContent = '—';
+        document.getElementById('bucklingSafetyResult').textContent = '—';
+        document.getElementById('yieldSafetyResult').textContent = '—';
+        document.getElementById('slendernessResult').textContent = '—';
+      } else {
+        document.getElementById('criticalLoadResult').textContent = formatNumber(criticalLoad, 2) + ' ' + forceUnit;
+        document.getElementById('effectiveLengthResult').textContent = formatNumber(effectiveLength, 2) + ' ' + lengthUnit;
+        document.getElementById('compressionStressResult').textContent = formatNumber(compressionStress, 2) + ' ' + stressUnit;
+        document.getElementById('bucklingSafetyResult').textContent = bucklingSafetyFactor > 0 ? formatNumber(bucklingSafetyFactor, 2) + ':1' : '—';
+        document.getElementById('yieldSafetyResult').textContent = yieldSafetyFactor > 0 ? formatNumber(yieldSafetyFactor, 2) + ':1' : '—';
+        document.getElementById('slendernessResult').textContent = formatNumber(slendernessRatio, 1);
+      }
+
+      var statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status';
+
+      if (!valid) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = message;
+      } else if (bucklingSafetyFactor < 1.5 || yieldSafetyFactor < 1.5) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Low safety margin. Increase section size, shorten unsupported length, improve bracing, reduce load, or redesign the support before relying on this column.';
+      } else if (bucklingSafetyFactor < 3 || yieldSafetyFactor < 3 || slendernessRatio > 120) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = 'Moderate margin or slender member. Review eccentric loading, end restraint, bracing, vibration, and combined bending before using this design.';
+      } else {
+        statusBox.classList.add('good');
+        statusBox.textContent = message;
+      }
+    }
+
+    function resetCalculator() {
+      document.getElementById('unitSystem').value = 'imperial';
+      document.getElementById('sectionType').value = 'rectangle';
+      document.getElementById('endCondition').value = '1.0';
+      document.getElementById('material').value = 'steel';
+      document.getElementById('dynamicFactor').value = 1.5;
+      document.getElementById('customK').value = 1.0;
+      updateUnits();
+      toggleSectionFields();
+      calculateColumnBuckling();
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
+      })
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    toggleSectionFields();
+    calculateColumnBuckling();
+  </script>
+</body>
+</html>
