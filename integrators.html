@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
 
   <title>Preferred Automation Integrators | Automation Calculators</title>
-  <meta name="description" content="Find trusted automation integrators, motion specialists, pneumatic experts, controls engineers, panel shops, and fabrication partners for industrial automation projects.">
+  <meta name="description" content="Find trusted automation integrators, motion specialists, pneumatic experts, controls engineers, panel shops, fabrication partners, machine builders, and project support partners for industrial automation work.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
@@ -21,15 +21,15 @@
   <style>
     body{
       font-family:Arial, sans-serif;
-      background:#f4f4f4;
+      background:#f7f9fc;
       margin:0;
       color:#222;
     }
 
     .hero{
-      background:linear-gradient(135deg,#1f2a44,#2d3d63);
-      color:white;
-      padding:44px 20px 34px;
+      background:white;
+      border-bottom:1px solid #e4eaf3;
+      padding:54px 20px 42px;
       text-align:center;
     }
 
@@ -38,22 +38,33 @@
       margin:auto;
     }
 
+    .eyebrow{
+      display:inline-block;
+      color:#5d6f8d;
+      font-weight:bold;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+      margin-bottom:10px;
+    }
+
     .hero h1{
-      margin:0 0 12px;
-      font-size:36px;
-      line-height:1.2;
+      margin:0 0 14px;
+      font-size:40px;
+      line-height:1.15;
+      color:#1f2a44;
     }
 
     .hero p{
-      max-width:820px;
+      max-width:860px;
       margin:0 auto 14px;
-      color:#e7ecf7;
+      color:#4f5d73;
       font-size:17px;
-      line-height:1.6;
+      line-height:1.7;
     }
 
     .hero-cta{
-      margin-top:18px;
+      margin-top:22px;
       display:flex;
       justify-content:center;
       gap:12px;
@@ -63,129 +74,157 @@
     .hero-cta a{
       display:inline-block;
       padding:12px 18px;
-      border-radius:8px;
+      border-radius:9px;
       text-decoration:none;
       font-weight:bold;
       transition:.2s ease;
     }
 
     .hero-cta .primary{
-      background:white;
-      color:#1f2a44;
+      background:#1f2a44;
+      color:white;
+      border:1px solid #1f2a44;
     }
 
     .hero-cta .secondary{
-      color:white;
-      border:1px solid rgba(255,255,255,.35);
+      background:white;
+      color:#1f2a44;
+      border:1px solid #cbd8ee;
     }
 
     .hero-cta a:hover{
       transform:translateY(-1px);
-      opacity:.95;
+      box-shadow:0 8px 18px rgba(31,42,68,.12);
     }
 
     .page-wrap{
       max-width:1150px;
       margin:30px auto;
-      padding:0 18px 40px;
+      padding:0 18px 44px;
     }
 
     .top-note{
-      background:#fff7df;
-      border:1px solid #f1d98a;
+      background:#fff8df;
+      border:1px solid #efd88d;
       color:#5c4a12;
-      padding:14px 16px;
-      border-radius:10px;
+      padding:15px 18px;
+      border-radius:12px;
       margin:0 auto 24px;
       max-width:1080px;
       font-size:15px;
-      line-height:1.6;
+      line-height:1.65;
       text-align:left;
     }
 
-    .intro-card{
+    .section{
       background:white;
       max-width:1080px;
       margin:0 auto 26px;
       padding:26px;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
+      border-radius:14px;
+      border:1px solid #e2e9f4;
+      box-shadow:0 8px 20px rgba(31,42,68,.06);
       text-align:left;
     }
 
-    .intro-card h2{
-      margin-top:0;
+    .section h2{
+      margin:0 0 10px;
+      color:#1f2a44;
+      font-size:26px;
+      line-height:1.25;
+    }
+
+    .section h3{
       color:#1f2a44;
     }
 
-    .intro-card p{
-      color:#555;
+    .section p{
+      color:#4c5668;
       line-height:1.7;
       margin:0 0 12px;
     }
 
-    .benefit-grid{
+    .section-label{
+      font-size:13px;
+      font-weight:bold;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      color:#5e7197;
+      margin-bottom:10px;
+    }
+
+    .benefit-grid,
+    .decision-grid,
+    .workflow-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
       gap:16px;
       margin-top:20px;
     }
 
-    .benefit-card{
+    .benefit-card,
+    .decision-card,
+    .workflow-card{
       background:#f8fbff;
       border:1px solid #d7e6ff;
-      border-radius:10px;
+      border-radius:12px;
       padding:18px;
     }
 
-    .benefit-card h3{
+    .benefit-card h3,
+    .decision-card h3,
+    .workflow-card h3{
       margin:0 0 8px;
       color:#1f2a44;
       font-size:18px;
     }
 
-    .benefit-card p{
+    .benefit-card p,
+    .decision-card p,
+    .workflow-card p{
       margin:0;
-      color:#555;
+      color:#536174;
       line-height:1.6;
       font-size:15px;
     }
 
     .category{
+      background:white;
       max-width:1080px;
       margin:28px auto 0;
-      background:white;
-      padding:24px;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
+      padding:26px;
+      border-radius:14px;
+      border:1px solid #e2e9f4;
+      box-shadow:0 8px 20px rgba(31,42,68,.06);
     }
 
     .category h2{
       color:#1f2a44;
       margin:0 0 10px;
-      border-bottom:2px solid #e9f1ff;
-      padding-bottom:8px;
+      border-bottom:2px solid #eef3fb;
+      padding-bottom:10px;
       text-align:left;
+      font-size:25px;
     }
 
     .category p.category-intro{
-      color:#555;
+      color:#4c5668;
       text-align:left;
       margin:0 0 18px;
-      line-height:1.6;
+      line-height:1.7;
     }
 
     .grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+      grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
       gap:18px;
       margin-top:15px;
     }
 
     .card{
-      background:#f8fafe;
+      background:#f8fbff;
       border:1px solid #d9e5ff;
-      border-radius:10px;
+      border-radius:12px;
       padding:18px;
       text-align:left;
       transition:transform .15s ease, box-shadow .15s ease;
@@ -193,7 +232,7 @@
 
     .card:hover{
       transform:translateY(-2px);
-      box-shadow:0 8px 18px rgba(0,0,0,.07);
+      box-shadow:0 10px 22px rgba(31,42,68,.09);
     }
 
     .featured-card{
@@ -225,18 +264,19 @@
       margin-top:0;
       color:#1f2a44;
       margin-bottom:10px;
+      font-size:20px;
     }
 
     .card p{
-      color:#555;
+      color:#4f5d73;
       margin:8px 0;
-      line-height:1.5;
+      line-height:1.55;
     }
 
     .card ul{
       margin:8px 0 12px 18px;
       padding:0;
-      color:#444;
+      color:#3f4858;
       line-height:1.6;
     }
 
@@ -244,7 +284,7 @@
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .card a,
@@ -257,6 +297,7 @@
       border-radius:8px;
       font-weight:bold;
       font-size:14px;
+      border:1px solid #1f2a44;
     }
 
     .card a:hover,
@@ -264,14 +305,30 @@
       background:#2d3d63;
     }
 
-    .section-label{
-      font-size:13px;
-      font-weight:bold;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      color:#5e7197;
-      margin-bottom:10px;
-      text-align:left;
+    .support-list{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .support-item{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:10px;
+      padding:15px;
+    }
+
+    .support-item strong{
+      color:#1f2a44;
+      display:block;
+      margin-bottom:6px;
+    }
+
+    .support-item span{
+      color:#536174;
+      line-height:1.55;
+      font-size:15px;
     }
 
     .form-section{
@@ -286,9 +343,9 @@
     .cta-box{
       padding:24px;
       background:white;
-      border:1px solid #c8d9ff;
-      border-radius:12px;
-      box-shadow:0 0 12px rgba(0,0,0,.08);
+      border:1px solid #d8e4f6;
+      border-radius:14px;
+      box-shadow:0 8px 20px rgba(31,42,68,.06);
       text-align:left;
     }
 
@@ -296,11 +353,12 @@
       margin-top:0;
       color:#1f2a44;
       text-align:left;
+      font-size:23px;
     }
 
     .cta-box p{
-      color:#444;
-      line-height:1.6;
+      color:#4c5668;
+      line-height:1.65;
       text-align:left;
     }
 
@@ -384,10 +442,10 @@
     .disclosure{
       margin-top:18px;
       padding:14px 16px;
-      background:#f4f4f4;
+      background:#f7f9fc;
       border-left:4px solid #1f2a44;
-      border-radius:6px;
-      color:#666;
+      border-radius:8px;
+      color:#626d7c;
       font-size:14px;
       line-height:1.6;
     }
@@ -395,7 +453,7 @@
     .footer{
       margin-top:34px;
       text-align:center;
-      color:#666;
+      color:#667085;
       font-size:14px;
       line-height:1.6;
     }
@@ -408,7 +466,7 @@
 
     @media (max-width:700px){
       .hero h1{
-        font-size:29px;
+        font-size:31px;
       }
 
       .hero-cta{
@@ -422,7 +480,7 @@
       }
 
       .category,
-      .intro-card,
+      .section,
       .cta-box{
         padding:20px;
       }
@@ -434,18 +492,27 @@
       .card-buttons{
         flex-direction:column;
       }
+
+      .card a{
+        text-align:center;
+      }
     }
   </style>
 </head>
+
 <body>
 
 <div id="navbar"></div>
 
 <section class="hero">
   <div class="hero-inner">
+    <div class="eyebrow">Automation Project Support</div>
     <h1>Preferred Automation Integrators</h1>
     <p>
-      Looking for help beyond calculators? These integrators and specialists can assist with real-world automation projects including controls, motion systems, pneumatic tooling, panel work, full system integration, and fabrication support.
+      Looking for help beyond calculators? These integrators and specialists can assist with real-world automation projects including controls, motion systems, pneumatic tooling, panel work, full system integration, machine design, machine building, fabrication support, and project troubleshooting.
+    </p>
+    <p>
+      Use this page when you need a practical project partner, not just a formula. The goal is to help connect engineers, plant teams, builders, and shops with the type of support that fits the work.
     </p>
     <div class="hero-cta">
       <a href="#integrator-form" class="primary" onclick="gtag('event','integrator_page_cta',{'location':'hero_request'});">Request Help</a>
@@ -455,18 +522,22 @@
 </section>
 
 <div class="page-wrap">
+
   <div class="top-note">
-    <strong>Best use of this page:</strong> if you need real project help, submit the request form with your process, machine type, timing, and region. If you are an integrator, fabricator, or panel shop, apply to be listed in the category that fits your strengths best.
+    <strong>Best use of this page:</strong> if you need real project help, submit the request form with your process, machine type, timing, and region. If you are an integrator, fabricator, machine builder, or panel shop, apply to be listed in the category that fits your strengths best.
   </div>
 
-  <div class="intro-card">
+  <div class="section">
     <div class="section-label">How This Works</div>
     <h2>Connecting Engineering Tools with Real-World Support</h2>
     <p>
       Automation calculators help you estimate and compare. Integrators and build partners help you turn those numbers into a working machine, cell, retrofit, tooling package, or controls solution. This page is designed to connect people who need help with the right type of specialist.
     </p>
     <p>
-      Whether you need motion programming, pneumatic tooling, control panel support, fabrication, machining, or a full machine integration partner, the goal is to help you make a faster, better match.
+      Whether you need motion programming, pneumatic tooling, control panel support, fabrication, machining, machine design review, structural build support, or a full machine integration partner, the goal is to help you make a faster, better match.
+    </p>
+    <p>
+      Some projects need a full automation integrator. Others need a focused partner such as a servo specialist, panel shop, fabricator, machine builder, pneumatic tooling resource, or controls troubleshooter. Separating those categories makes the request easier to route and helps avoid wasting time with partners that do not fit the job.
     </p>
 
     <div class="benefit-grid">
@@ -480,7 +551,77 @@
       </div>
       <div class="benefit-card">
         <h3>For Better Fit</h3>
-        <p>Separate motion, pneumatics, controls, fabrication, and general integration so requests land closer to the right expertise.</p>
+        <p>Separate motion, pneumatics, controls, fabrication, machine design, and general integration so requests land closer to the right expertise.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Choosing the Right Category</div>
+    <h2>What Type of Help Do You Actually Need?</h2>
+    <p>
+      A common mistake is treating every automation problem like it needs the same kind of provider. A robot cell, a servo axis issue, a welded frame, a panel build, and a pneumatic clamp problem may all be part of automation, but they usually need different skills.
+    </p>
+
+    <div class="decision-grid">
+      <div class="decision-card">
+        <h3>Use General Automation Integrators When...</h3>
+        <p>You need PLC programming, machine integration, troubleshooting, equipment upgrades, or a partner that can coordinate multiple parts of a system.</p>
+      </div>
+      <div class="decision-card">
+        <h3>Use Motion & Servo Specialists When...</h3>
+        <p>The project depends on positioning, indexing, servo tuning, torque, acceleration, gearing, coordinated motion, or repeatable axis performance.</p>
+      </div>
+      <div class="decision-card">
+        <h3>Use Pneumatic & Tooling Specialists When...</h3>
+        <p>The problem involves cylinders, clamps, grippers, valve manifolds, air consumption, cycle speed, pneumatic force, or machine tooling.</p>
+      </div>
+      <div class="decision-card">
+        <h3>Use Controls & Panel Shops When...</h3>
+        <p>You need panels built, electrical cabinets updated, field wiring support, schematics, controls hardware layout, or production electrical support.</p>
+      </div>
+      <div class="decision-card">
+        <h3>Use Machine Design / Builders When...</h3>
+        <p>You need a frame, mechanism, fixture, guarding concept, custom station, machine structure, or mechanical design support before controls work begins.</p>
+      </div>
+      <div class="decision-card">
+        <h3>Use Fabrication & Machine Shops When...</h3>
+        <p>You need machined parts, weldments, brackets, fixtures, tooling plates, structural work, or physical build support for automation equipment.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Request Quality</div>
+    <h2>What to Include Before You Submit a Project Request</h2>
+    <p>
+      A good request gets a better response. You do not need a finished design, but you should describe the process clearly enough that a provider can understand the type of work, risk, and timing.
+    </p>
+
+    <div class="support-list">
+      <div class="support-item">
+        <strong>Process or Machine Type</strong>
+        <span>Describe what the equipment does, what product it handles, and where the problem occurs.</span>
+      </div>
+      <div class="support-item">
+        <strong>Current Situation</strong>
+        <span>Explain whether this is a new build, retrofit, production issue, repair, upgrade, or early planning request.</span>
+      </div>
+      <div class="support-item">
+        <strong>Controls Platform</strong>
+        <span>Include PLC, HMI, robot, servo, vision, safety, or communication platforms if you know them.</span>
+      </div>
+      <div class="support-item">
+        <strong>Mechanical Scope</strong>
+        <span>Mention frames, tooling, fixtures, guarding, cylinders, motors, conveyors, weldments, or machining needs.</span>
+      </div>
+      <div class="support-item">
+        <strong>Timing</strong>
+        <span>State whether this is urgent downtime, a planned upgrade, a budget quote, or a future project.</span>
+      </div>
+      <div class="support-item">
+        <strong>Region</strong>
+        <span>Include whether you need local onsite support, remote help, or a partner who can travel.</span>
       </div>
     </div>
   </div>
@@ -488,7 +629,7 @@
   <div class="category">
     <h2>General Automation Integrators</h2>
     <p class="category-intro">
-      Good fit for broader machine integration, controls upgrades, PLC programming, system troubleshooting, and general automation support.
+      Good fit for broader machine integration, controls upgrades, PLC programming, system troubleshooting, machine retrofits, production support, and projects that touch multiple automation disciplines.
     </p>
 
     <div class="grid">
@@ -508,6 +649,10 @@
           <li>Machine Automation &amp; System Upgrades</li>
           <li>Troubleshooting &amp; Production Support</li>
         </ul>
+
+        <p>
+          Best fit for manufacturers that need practical controls support, machine improvement, production troubleshooting, or automation integration work.
+        </p>
 
         <div class="card-buttons">
           <a href="https://www.rdcontrolsllc.com/" target="_blank" rel="noopener noreferrer" onclick="gtag('event','integrator_click',{'name':'R&D Controls','action':'website'});">
@@ -537,6 +682,9 @@
           <li>Beckhoff, Siemens, Festo, Schneider Electric, and Allen-Bradley PLC Systems</li>
         </ul>
         <p><strong>Details:</strong> ControlX is authorized by Professional Engineers Ontario (PEO) to provide professional engineering services to clients in Ontario and Canada.</p>
+        <p>
+          Best fit for projects requiring professional engineering support, controls architecture, machine safety, robotics, vision, software, or multi-platform automation development.
+        </p>
         <div class="card-buttons">
           <a href="https://www.controlxengineering.com/" target="_blank" rel="noopener noreferrer" onclick="gtag('event','integrator_click',{'name':'ControlX Engineering Inc','action':'website'});">
             Visit Website
@@ -553,6 +701,9 @@
         <p>Get listed here and receive qualified automation project leads.</p>
         <p><strong>Region:</strong> Open</p>
         <p><strong>Focus:</strong> General automation integration</p>
+        <p>
+          Ideal for integrators who handle PLCs, HMIs, controls upgrades, machine retrofits, production support, troubleshooting, and multi-discipline automation work.
+        </p>
         <a href="#apply-form" onclick="setApplyType('General Automation Integration'); gtag('event','integrator_open_spot_click',{'type':'general'});" rel="noopener noreferrer">
           Inquire About This Spot
         </a>
@@ -563,7 +714,7 @@
   <div class="category">
     <h2>Motion &amp; Servo Specialists</h2>
     <p class="category-intro">
-      Best for servo sizing, motion tuning, coordinated axes, indexing, positioning systems, and higher-performance motion applications.
+      Best for servo sizing, motion tuning, coordinated axes, indexing, positioning systems, gearbox selection, torque problems, and higher-performance motion applications.
     </p>
 
     <div class="grid">
@@ -573,6 +724,12 @@
         <p>Get listed here and receive qualified automation project leads.</p>
         <p><strong>Region:</strong> Open</p>
         <p><strong>Focus:</strong> Motion and servo applications</p>
+        <ul>
+          <li>Servo sizing and axis review</li>
+          <li>Motion tuning and repeatability issues</li>
+          <li>Indexing tables, conveyors, actuators, and gantries</li>
+          <li>Gearbox, motor, and drive support</li>
+        </ul>
         <a href="#apply-form" onclick="setApplyType('Motion / Servo Specialist'); gtag('event','integrator_open_spot_click',{'type':'motion'});" rel="noopener noreferrer">
           Inquire About This Spot
         </a>
@@ -584,6 +741,12 @@
         <p>Get listed here and receive qualified automation project leads.</p>
         <p><strong>Region:</strong> Open</p>
         <p><strong>Focus:</strong> Motion and servo applications</p>
+        <ul>
+          <li>Machine motion troubleshooting</li>
+          <li>Servo drive replacement or upgrades</li>
+          <li>Acceleration, speed, and torque review</li>
+          <li>High-speed positioning support</li>
+        </ul>
         <a href="#apply-form" onclick="setApplyType('Motion / Servo Specialist'); gtag('event','integrator_open_spot_click',{'type':'motion'});" rel="noopener noreferrer">
           Inquire About This Spot
         </a>
@@ -594,7 +757,7 @@
   <div class="category">
     <h2>Pneumatic &amp; Tooling Specialists</h2>
     <p class="category-intro">
-      Best for air circuits, cylinder tooling, clamps, grippers, valve manifolds, and tooling concepts that depend on practical pneumatic performance.
+      Best for air circuits, cylinder tooling, clamps, grippers, valve manifolds, cycle-time issues, compressed air usage, and tooling concepts that depend on practical pneumatic performance.
     </p>
 
     <div class="grid">
@@ -604,6 +767,12 @@
         <p>Get listed here and receive qualified automation project leads.</p>
         <p><strong>Region:</strong> Open</p>
         <p><strong>Focus:</strong> Pneumatics, tooling, and air systems</p>
+        <ul>
+          <li>Cylinder force and speed review</li>
+          <li>Clamp, gripper, and tooling support</li>
+          <li>Valve manifold and air circuit support</li>
+          <li>Compressed air sizing and troubleshooting</li>
+        </ul>
         <a href="#apply-form" onclick="setApplyType('Pneumatic / Tooling Specialist'); gtag('event','integrator_open_spot_click',{'type':'pneumatic'});" rel="noopener noreferrer">
           Inquire About This Spot
         </a>
@@ -615,6 +784,12 @@
         <p>Get listed here and receive qualified automation project leads.</p>
         <p><strong>Region:</strong> Open</p>
         <p><strong>Focus:</strong> Pneumatics, tooling, and air systems</p>
+        <ul>
+          <li>Air leak and pressure drop review</li>
+          <li>Fixture actuation troubleshooting</li>
+          <li>End-of-arm tooling support</li>
+          <li>Production tooling improvement</li>
+        </ul>
         <a href="#apply-form" onclick="setApplyType('Pneumatic / Tooling Specialist'); gtag('event','integrator_open_spot_click',{'type':'pneumatic'});" rel="noopener noreferrer">
           Inquire About This Spot
         </a>
@@ -625,7 +800,7 @@
   <div class="category">
     <h2>Controls &amp; Panel Shops</h2>
     <p class="category-intro">
-      Best for panel building, electrical integration, retrofit support, controls hardware, and custom cabinet work.
+      Best for panel building, electrical integration, retrofit support, controls hardware, cabinet layout, field wiring, and custom control cabinet work.
     </p>
 
     <div class="grid">
@@ -635,6 +810,12 @@
         <p>Get listed here and receive qualified automation project leads.</p>
         <p><strong>Region:</strong> Open</p>
         <p><strong>Focus:</strong> Controls panels and electrical integration</p>
+        <ul>
+          <li>Control panel design and build</li>
+          <li>Electrical cabinet upgrades</li>
+          <li>Wiring, layout, and component support</li>
+          <li>Machine retrofit panel support</li>
+        </ul>
         <a href="#apply-form" onclick="setApplyType('Controls / Panel Shop'); gtag('event','integrator_open_spot_click',{'type':'panel_shop'});" rel="noopener noreferrer">
           Inquire About This Spot
         </a>
@@ -646,7 +827,56 @@
         <p>Get listed here and receive qualified automation project leads.</p>
         <p><strong>Region:</strong> Open</p>
         <p><strong>Focus:</strong> Controls panels and electrical integration</p>
+        <ul>
+          <li>Industrial electrical support</li>
+          <li>Panel modification and troubleshooting</li>
+          <li>Controls hardware replacement</li>
+          <li>Cabinet documentation and cleanup</li>
+        </ul>
         <a href="#apply-form" onclick="setApplyType('Controls / Panel Shop'); gtag('event','integrator_open_spot_click',{'type':'panel_shop'});" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="category">
+    <h2>Machine Design &amp; Machine Builders</h2>
+    <p class="category-intro">
+      Best for custom equipment concepts, fixture design, mechanical layouts, frame design, guarding concepts, station builds, mechanism review, and machine build support before or alongside controls integration.
+    </p>
+
+    <div class="grid">
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Get listed here and receive qualified machine design and machine building project leads.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Machine design, custom equipment, fixtures, and machine building</p>
+        <ul>
+          <li>Custom machine and station design</li>
+          <li>Frame, bracket, plate, shaft, and fixture review</li>
+          <li>Mechanical build support</li>
+          <li>Automation equipment layout support</li>
+        </ul>
+        <a href="#apply-form" onclick="setApplyType('Machine Design / Machine Builder'); gtag('event','integrator_open_spot_click',{'type':'machine_design'});" rel="noopener noreferrer">
+          Inquire About This Spot
+        </a>
+      </div>
+
+      <div class="card spot-open">
+        <div class="badge open-badge">Open Spot</div>
+        <h3>This Spot Is Available</h3>
+        <p>Get listed here and receive qualified machine design and custom equipment project leads.</p>
+        <p><strong>Region:</strong> Open</p>
+        <p><strong>Focus:</strong> Machine builders, mechanical design, and automation build support</p>
+        <ul>
+          <li>Machine frames and structures</li>
+          <li>Tooling plates and brackets</li>
+          <li>Custom mechanisms and stations</li>
+          <li>Build support for integrators and manufacturers</li>
+        </ul>
+        <a href="#apply-form" onclick="setApplyType('Machine Design / Machine Builder'); gtag('event','integrator_open_spot_click',{'type':'machine_design'});" rel="noopener noreferrer">
           Inquire About This Spot
         </a>
       </div>
@@ -656,7 +886,7 @@
   <div class="category">
     <h2>Fabrication &amp; Machine Shops</h2>
     <p class="category-intro">
-      Best for custom tooling, machined components, weldments, structural fabrication, fixture support, and general build support for automation systems and equipment.
+      Best for custom tooling, machined components, weldments, structural fabrication, fixture support, brackets, plates, shafts, and general build support for automation systems and equipment.
     </p>
 
     <div class="grid">
@@ -681,6 +911,10 @@
         <p><strong>Address:</strong> 110 Division St, Manchester, MI 48158</p>
         <p><strong>Phone:</strong> (734) 428-7000</p>
 
+        <p>
+          Best fit for teams that need practical shop support for fabricated structures, machined automation parts, fixture components, weldments, brackets, tooling, and equipment build support.
+        </p>
+
         <div class="card-buttons">
           <a href="https://www.google.com/search?q=Post+Production+Solutions+Manchester+MI" target="_blank" rel="noopener noreferrer" onclick="gtag('event','integrator_click',{'name':'Post Production Solutions','action':'business_view'});">
             View Business
@@ -697,9 +931,50 @@
         <p>Get listed here and receive qualified fabrication and machining-related project leads.</p>
         <p><strong>Region:</strong> Open</p>
         <p><strong>Focus:</strong> Fabrication, machining, tooling, fixture support</p>
+        <ul>
+          <li>Weldments and structural fabrication</li>
+          <li>Machined details and tooling components</li>
+          <li>Fixture and bracket support</li>
+          <li>Automation equipment build support</li>
+        </ul>
         <a href="#apply-form" onclick="setApplyType('Fabrication / Machine Shop'); gtag('event','integrator_open_spot_click',{'type':'fabrication'});" rel="noopener noreferrer">
           Inquire About This Spot
         </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Project Examples</div>
+    <h2>Common Projects This Page Can Help Route</h2>
+    <p>
+      This directory is meant for practical automation work. Not every project needs a large turnkey integrator, and not every problem can be solved by a single calculator. These are the kinds of requests that fit this page well.
+    </p>
+
+    <div class="workflow-grid">
+      <div class="workflow-card">
+        <h3>Controls Retrofit</h3>
+        <p>PLC upgrade, HMI replacement, panel cleanup, communication troubleshooting, safety integration, or production support.</p>
+      </div>
+      <div class="workflow-card">
+        <h3>Custom Machine or Station</h3>
+        <p>New fixture, frame, actuator station, guarded workstation, assembly machine, test stand, or production aid.</p>
+      </div>
+      <div class="workflow-card">
+        <h3>Motion System Problem</h3>
+        <p>Servo sizing, axis tuning, motor torque concern, gearbox selection, conveyor speed review, or indexing issue.</p>
+      </div>
+      <div class="workflow-card">
+        <h3>Pneumatic Tooling Problem</h3>
+        <p>Weak cylinder, slow actuator, clamp sizing issue, air usage concern, valve manifold issue, or end-of-arm tooling support.</p>
+      </div>
+      <div class="workflow-card">
+        <h3>Fabrication or Machining Need</h3>
+        <p>Welded frame, machined plate, custom bracket, tooling detail, fixture component, or automation build support.</p>
+      </div>
+      <div class="workflow-card">
+        <h3>Early Project Planning</h3>
+        <p>Budget planning, concept review, equipment feasibility, supplier fit, project timing, or deciding who should quote the work.</p>
       </div>
     </div>
   </div>
@@ -711,22 +986,27 @@
       <p>
         Submit your project details and I can help point you toward a qualified integrator based on your application, region, and type of support needed.
       </p>
+      <p>
+        The more specific you are, the easier it is to route the request. Include machine type, process description, urgency, preferred region, and whether you need controls, motion, pneumatics, mechanical design, fabrication, machining, or full integration support.
+      </p>
 
       <div id="integrator-form">
         <form action="https://formspree.io/f/mzdjqzqe" method="POST" class="integrator-form">
           <div class="form-grid">
             <div class="field">
-            <label for="applyPartnerType">Partner Type</label>
-            <select id="applyPartnerType" name="partner_type" required>
-             <option value="">Select one</option>
-             <option value="General Automation Integrator">General Automation Integrator</option>
-             <option value="Motion / Servo Specialist">Motion / Servo Specialist</option>
-             <option value="Pneumatic / Tooling Specialist">Pneumatic / Tooling Specialist</option>
-             <option value="Controls / Panel Shop">Controls / Panel Shop</option>
-             <option value="Fabrication / Machine Shop">Fabrication / Machine Shop</option>
-             <option value="Other Specialized Support">Other Specialized Support</option>
-           </select>
-         </div>
+              <label for="applyPartnerType">Partner Type</label>
+              <select id="applyPartnerType" name="partner_type" required>
+                <option value="">Select one</option>
+                <option value="General Automation Integrator">General Automation Integrator</option>
+                <option value="Motion / Servo Specialist">Motion / Servo Specialist</option>
+                <option value="Pneumatic / Tooling Specialist">Pneumatic / Tooling Specialist</option>
+                <option value="Controls / Panel Shop">Controls / Panel Shop</option>
+                <option value="Machine Design / Machine Builder">Machine Design / Machine Builder</option>
+                <option value="Fabrication / Machine Shop">Fabrication / Machine Shop</option>
+                <option value="Other Specialized Support">Other Specialized Support</option>
+              </select>
+            </div>
+
             <div class="field">
               <label for="intName">Name</label>
               <input id="intName" type="text" name="name" required>
@@ -761,6 +1041,7 @@
                 <option value="Pneumatic / Tooling">Pneumatic / Tooling</option>
                 <option value="General Automation Integration">General Automation Integration</option>
                 <option value="Controls / Panel Shop">Controls / Panel Shop</option>
+                <option value="Machine Design / Machine Builder">Machine Design / Machine Builder</option>
                 <option value="Fabrication / Machine Shop">Fabrication / Machine Shop</option>
                 <option value="Not Sure Yet">Not Sure Yet</option>
               </select>
@@ -803,11 +1084,11 @@
       <div class="section-label">Integrator Application</div>
       <h3>Are You a Project Support Partner?</h3>
       <p>
-        Apply to be listed as a preferred project support partner and get connected with real project leads from people already working through automation needs, including integration, controls, fabrication, machining, and related support work.
+        Apply to be listed as a preferred project support partner and get connected with real project leads from people already working through automation needs, including integration, controls, fabrication, machining, machine building, and related support work.
       </p>
 
       <p style="font-size:14px;color:#666;margin-bottom:10px;">
-        Integrators, panel shops, fabrication shops, and specialized automation support providers are all welcome to apply.
+        Integrators, panel shops, machine builders, fabrication shops, and specialized automation support providers are all welcome to apply.
       </p>
 
       <form action="https://formspree.io/f/mvzwnzar" method="POST" class="integrator-form">
@@ -830,6 +1111,20 @@
           <div class="field">
             <label for="applyWebsite">Website</label>
             <input id="applyWebsite" type="text" name="website">
+          </div>
+
+          <div class="field full">
+            <label for="applyPartnerTypeVisible">Partner Type</label>
+            <select id="applyPartnerTypeVisible" name="partner_type_visible">
+              <option value="">Select one</option>
+              <option value="General Automation Integrator">General Automation Integrator</option>
+              <option value="Motion / Servo Specialist">Motion / Servo Specialist</option>
+              <option value="Pneumatic / Tooling Specialist">Pneumatic / Tooling Specialist</option>
+              <option value="Controls / Panel Shop">Controls / Panel Shop</option>
+              <option value="Machine Design / Machine Builder">Machine Design / Machine Builder</option>
+              <option value="Fabrication / Machine Shop">Fabrication / Machine Shop</option>
+              <option value="Other Specialized Support">Other Specialized Support</option>
+            </select>
           </div>
 
           <div class="field full">
@@ -862,6 +1157,20 @@
     </div>
   </div>
 
+  <div class="section">
+    <div class="section-label">Disclosures</div>
+    <h2>Important Notes About Listings</h2>
+    <p>
+      AutomationCalculators.net is intended to help engineers, technicians, manufacturers, and project teams find useful tools and relevant support options. Listed companies should still be evaluated directly by the person or company requesting work.
+    </p>
+    <p>
+      Final provider selection, pricing, schedule, travel, terms, insurance, safety requirements, engineering responsibility, and project scope are between the requester and the provider. Submit enough detail to help determine fit, then confirm all requirements directly before authorizing work.
+    </p>
+    <p>
+      Open spots are available for qualified automation integrators, controls providers, panel shops, machine builders, pneumatic tooling specialists, fabrication shops, machine shops, and related industrial project support companies.
+    </p>
+  </div>
+
   <div class="footer">
     Automation Calculators • Connecting engineering tools with real-world solutions
   </div>
@@ -874,9 +1183,13 @@
 
   function setApplyType(type){
     document.getElementById("applyType").value = type;
+    var visibleType = document.getElementById("applyPartnerTypeVisible");
+    if(visibleType){
+      visibleType.value = type;
+    }
   }
 
-  fetch("navbar.html?v=20260314")
+  fetch('/navbar.html?v=20260422')
     .then(res => res.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
