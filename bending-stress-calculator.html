@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Bending Stress Calculator | Beam Stress, Moment, Section Modulus & Safety Factor</title>
+  <meta name="description" content="Calculate bending stress for beams, shafts, tubes, plates, and machine frames. Includes common load cases, section properties, safety factor, design notes, and related machine design tools." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/bending-stress-calculator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root {
+      --blue-900: #0f172a;
+      --blue-800: #1e3a8a;
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --blue-100: #dbeafe;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --white: #ffffff;
+      --green-100: #dcfce7;
+      --green-700: #15803d;
+      --amber-100: #fef3c7;
+      --amber-700: #b45309;
+      --red-100: #fee2e2;
+      --red-700: #b91c1c;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fafc;
+      color: var(--slate-800);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--blue-700);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    #navbar {
+      position: relative;
+      z-index: 50;
+    }
+
+    .hero {
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 56px 20px 44px;
+    }
+
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.75fr);
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--blue-100);
+      color: var(--blue-800);
+      font-size: 0.9rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      color: var(--slate-900);
+      font-size: clamp(2.15rem, 5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin: 0 0 22px;
+      max-width: 780px;
+      color: var(--slate-600);
+      font-size: 1.08rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--blue-700);
+      color: white;
+      box-shadow: 0 8px 24px rgba(29, 78, 216, 0.25);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--blue-700);
+      border-color: var(--slate-200);
+    }
+
+    .hero-panel {
+      background: #f8fafc;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin: 0 0 12px;
+      color: var(--slate-900);
+      font-size: 1.25rem;
+    }
+
+    .hero-panel ul {
+      margin: 0;
+      padding-left: 20px;
+      color: var(--slate-600);
+    }
+
+    .hero-panel li { margin: 8px 0; }
+
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 42px 20px 70px;
+    }
+
+    .section {
+      margin-bottom: 44px;
+    }
+
+    .section-header {
+      margin-bottom: 22px;
+    }
+
+    .section-header h2 {
+      margin: 0 0 8px;
+      color: var(--slate-900);
+      font-size: clamp(1.55rem, 3vw, 2.25rem);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+
+    .section-header p {
+      margin: 0;
+      max-width: 900px;
+      color: var(--slate-600);
+    }
+
+    .calculator-shell {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .calculator-top {
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
+      color: white;
+      padding: 24px;
+    }
+
+    .calculator-top h2 {
+      margin: 0 0 8px;
+      font-size: 1.7rem;
+    }
+
+    .calculator-top p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .calculator-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+      gap: 0;
+    }
+
+    .inputs {
+      padding: 24px;
+      border-right: 1px solid var(--slate-200);
+    }
+
+    .results {
+      padding: 24px;
+      background: #f8fafc;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-weight: 800;
+      color: var(--slate-900);
+      font-size: 0.94rem;
+    }
+
+    input, select {
+      width: 100%;
+      border: 1px solid var(--slate-200);
+      border-radius: 12px;
+      padding: 11px 12px;
+      font-size: 1rem;
+      color: var(--slate-800);
+      background: white;
+    }
+
+    input:focus, select:focus {
+      outline: 3px solid rgba(37, 99, 235, 0.16);
+      border-color: var(--blue-600);
+    }
+
+    .hint {
+      color: var(--slate-500);
+      font-size: 0.86rem;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .result-box {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .result-box h3 {
+      margin: 0 0 6px;
+      color: var(--slate-900);
+      font-size: 1rem;
+    }
+
+    .result-value {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--blue-800);
+      line-height: 1.15;
+    }
+
+    .result-sub {
+      color: var(--slate-500);
+      font-size: 0.92rem;
+      margin-top: 4px;
+    }
+
+    .status {
+      border-radius: 18px;
+      padding: 16px;
+      font-weight: 800;
+      margin-top: 14px;
+    }
+
+    .status.good {
+      background: var(--green-100);
+      color: var(--green-700);
+      border: 1px solid #86efac;
+    }
+
+    .status.warn {
+      background: var(--amber-100);
+      color: var(--amber-700);
+      border: 1px solid #fcd34d;
+    }
+
+    .status.bad {
+      background: var(--red-100);
+      color: var(--red-700);
+      border: 1px solid #fca5a5;
+    }
+
+    .formula {
+      background: #0f172a;
+      color: white;
+      border-radius: 18px;
+      padding: 20px;
+      overflow-x: auto;
+    }
+
+    .formula code {
+      font-size: 1.05rem;
+      color: white;
+      white-space: pre-wrap;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card-grid.two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 9px;
+      color: var(--slate-900);
+      line-height: 1.25;
+    }
+
+    .card p {
+      margin: 0 0 14px;
+      color: var(--slate-600);
+    }
+
+    .card ul {
+      margin: 10px 0 0;
+      padding-left: 20px;
+      color: var(--slate-600);
+    }
+
+    .card li { margin: 6px 0; }
+
+    .note {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 18px;
+      padding: 18px;
+      color: var(--slate-700);
+    }
+
+    .warning {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 18px;
+      padding: 18px;
+      color: var(--slate-700);
+    }
+
+    .workflow {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .workflow-row {
+      display: grid;
+      grid-template-columns: 82px minmax(0, 1fr) minmax(220px, 0.5fr);
+      gap: 18px;
+      padding: 22px;
+      border-bottom: 1px solid var(--slate-200);
+      align-items: center;
+    }
+
+    .workflow-row:last-child {
+      border-bottom: none;
+    }
+
+    .step-number {
+      width: 48px;
+      height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--blue-800), var(--blue-600));
+      color: white;
+      font-weight: 900;
+    }
+
+    .workflow-row h3 {
+      margin: 0 0 5px;
+      color: var(--slate-900);
+    }
+
+    .workflow-row p {
+      margin: 0;
+      color: var(--slate-600);
+    }
+
+    .workflow-link {
+      font-weight: 900;
+    }
+
+    .bottom-cta {
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
+      color: white;
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .bottom-cta h2 {
+      margin: 0 0 10px;
+      font-size: 1.85rem;
+    }
+
+    .bottom-cta p {
+      margin: 0;
+      color: rgba(255,255,255,0.9);
+      max-width: 760px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--slate-500);
+      padding: 34px 20px 44px;
+      border-top: 1px solid var(--slate-200);
+      background: white;
+    }
+
+    @media (max-width: 980px) {
+      .hero-inner,
+      .calculator-body,
+      .bottom-cta {
+        grid-template-columns: 1fr;
+      }
+
+      .inputs {
+        border-right: none;
+        border-bottom: 1px solid var(--slate-200);
+      }
+
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .workflow-row {
+        grid-template-columns: 64px 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column: 2;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .hero {
+        padding: 44px 16px 34px;
+      }
+
+      .page {
+        padding: 32px 16px 54px;
+      }
+
+      .input-grid,
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns: 1fr;
+      }
+
+      .workflow-row {
+        grid-template-columns: 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column: auto;
+      }
+
+      .hero-actions,
+      .button-row {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Machine Design Calculator</div>
+        <h1>Bending Stress Calculator</h1>
+        <p>
+          Calculate bending stress for beams, shafts, tubes, bars, brackets, rails, machine frames,
+          and automation structures. Use this with beam deflection to check both strength and stiffness.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta_click',{'page':'bending_stress','target':'calculator','location':'hero'});">
+            Open Calculator
+          </a>
+          <a class="btn btn-secondary" href="/beam-deflection-calculator.html" onclick="gtag('event','page_cta_click',{'page':'bending_stress','target':'beam_deflection','location':'hero'});">
+            Check Beam Deflection
+          </a>
+          <a class="btn btn-secondary" href="/machine-design.html" onclick="gtag('event','page_cta_click',{'page':'bending_stress','target':'machine_design_hub','location':'hero'});">
+            Machine Design Hub
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Use this calculator when checking:</h2>
+        <ul>
+          <li>Machine frames, brackets, tooling rails, and support beams</li>
+          <li>Round shafts, tubes, rectangular bars, and plates</li>
+          <li>Whether a part is overstressed under bending load</li>
+          <li>Safety factor against yield strength</li>
+          <li>Mechanical problems before blaming controls or servo tuning</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="calculator" class="section">
+      <div class="calculator-shell">
+        <div class="calculator-top">
+          <h2>Calculate Bending Stress</h2>
+          <p>
+            Choose a load case, shape, material strength, and dimensions. The calculator estimates
+            maximum bending moment, section properties, bending stress, and safety factor.
+          </p>
+        </div>
+
+        <div class="calculator-body">
+          <div class="inputs">
+            <div class="input-grid">
+              <div class="field">
+                <label for="unitSystem">Unit System</label>
+                <select id="unitSystem" onchange="updateUnits(); calculateBendingStress();">
+                  <option value="imperial">Imperial — lb, in, psi</option>
+                  <option value="metric">Metric — N, mm, MPa</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="loadCase">Load Case</label>
+                <select id="loadCase" onchange="toggleDirectMoment(); calculateBendingStress();">
+                  <option value="simple_center">Simply supported, center point load</option>
+                  <option value="simple_offset">Simply supported, off-center point load</option>
+                  <option value="simple_udl">Simply supported, uniform load</option>
+                  <option value="cantilever_end">Cantilever, end point load</option>
+                  <option value="cantilever_udl">Cantilever, uniform load</option>
+                  <option value="direct_moment">Enter bending moment directly</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="shape">Cross-Section Shape</label>
+                <select id="shape" onchange="toggleShapeFields(); calculateBendingStress();">
+                  <option value="rectangle">Rectangular bar / plate</option>
+                  <option value="solid_round">Solid round shaft</option>
+                  <option value="round_tube">Round tube</option>
+                  <option value="custom">Custom moment of inertia</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="yieldStrength">Yield Strength <span class="unit-strength">(psi)</span></label>
+                <input id="yieldStrength" type="number" value="36000" min="0" step="any" oninput="calculateBendingStress();" />
+                <span class="hint">Example: A36 steel ≈ 36,000 psi or 250 MPa.</span>
+              </div>
+
+              <div class="field load-input">
+                <label for="span">Span / Length <span class="unit-length">(in)</span></label>
+                <input id="span" type="number" value="48" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field load-input force-input">
+                <label for="load">Point Load <span class="unit-force">(lb)</span></label>
+                <input id="load" type="number" value="500" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field load-input uniform-input" style="display:none;">
+                <label for="uniformLoad">Uniform Load <span class="unit-uniform">(lb/in)</span></label>
+                <input id="uniformLoad" type="number" value="10" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field offset-input" style="display:none;">
+                <label for="loadPosition">Load Position from Left Support <span class="unit-length">(in)</span></label>
+                <input id="loadPosition" type="number" value="24" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field direct-moment-input" style="display:none;">
+                <label for="directMoment">Bending Moment <span class="unit-moment">(lb-in)</span></label>
+                <input id="directMoment" type="number" value="6000" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field rectangle-field">
+                <label for="rectWidth">Rectangle Width <span class="unit-length">(in)</span></label>
+                <input id="rectWidth" type="number" value="2" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field rectangle-field">
+                <label for="rectHeight">Rectangle Height in Bending Direction <span class="unit-length">(in)</span></label>
+                <input id="rectHeight" type="number" value="4" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field solid-round-field" style="display:none;">
+                <label for="diameter">Solid Round Diameter <span class="unit-length">(in)</span></label>
+                <input id="diameter" type="number" value="2" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field tube-field" style="display:none;">
+                <label for="outerDiameter">Tube Outer Diameter <span class="unit-length">(in)</span></label>
+                <input id="outerDiameter" type="number" value="2" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field tube-field" style="display:none;">
+                <label for="innerDiameter">Tube Inner Diameter <span class="unit-length">(in)</span></label>
+                <input id="innerDiameter" type="number" value="1.5" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field custom-field" style="display:none;">
+                <label for="customI">Moment of Inertia, I <span class="unit-inertia">(in⁴)</span></label>
+                <input id="customI" type="number" value="10" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+
+              <div class="field custom-field" style="display:none;">
+                <label for="customC">Distance to Outer Fiber, c <span class="unit-length">(in)</span></label>
+                <input id="customC" type="number" value="2" min="0" step="any" oninput="calculateBendingStress();" />
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateBendingStress(); gtag('event','calculator_run',{'calculator':'bending_stress'});">
+                Calculate
+              </button>
+              <button class="btn btn-secondary" type="button" onclick="resetCalculator(); gtag('event','calculator_reset',{'calculator':'bending_stress'});">
+                Reset Example
+              </button>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="result-box">
+              <h3>Maximum Bending Moment</h3>
+              <div id="momentResult" class="result-value">—</div>
+              <div class="result-sub" id="momentSub">Calculated from selected load case.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Moment of Inertia</h3>
+              <div id="inertiaResult" class="result-value">—</div>
+              <div class="result-sub">Section stiffness property for bending.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Section Modulus</h3>
+              <div id="sectionModulusResult" class="result-value">—</div>
+              <div class="result-sub">S = I / c</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Bending Stress</h3>
+              <div id="stressResult" class="result-value">—</div>
+              <div class="result-sub">σ = M / S</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Safety Factor Against Yield</h3>
+              <div id="safetyFactorResult" class="result-value">—</div>
+              <div class="result-sub">Yield strength ÷ bending stress</div>
+            </div>
+
+            <div id="statusBox" class="status warn">
+              Enter values to calculate bending stress.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Formula Used</h2>
+        <p>
+          Bending stress compares the bending moment against the cross-section’s resistance to bending.
+          A larger section modulus lowers stress for the same moment.
+        </p>
+      </div>
+
+      <div class="formula">
+        <code>σ = M × c / I
+
+S = I / c
+
+σ = M / S
+
+Where:
+σ = bending stress
+M = maximum bending moment
+c = distance from neutral axis to outer fiber
+I = moment of inertia
+S = section modulus</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>How to Use This in Machine Design</h2>
+        <p>
+          Bending stress is only one part of the design check. A part can be below yield stress and still
+          flex too much, vibrate, lose alignment, or cause sensor and tooling problems.
+        </p>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-row">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Define the load case</h3>
+            <p>
+              Identify whether the load is a point load, uniform load, cantilever load, or an estimated
+              moment from another machine component.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'bending_stress','step':'load_case'});">Use Calculator →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Check bending stress</h3>
+            <p>
+              Compare calculated stress to material yield strength. For production equipment, use a
+              conservative safety factor when shock, fatigue, or uncertainty is present.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'bending_stress','step':'stress'});">Calculate Stress →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Check beam deflection</h3>
+            <p>
+              Strength is not the same as stiffness. After stress looks acceptable, check deflection to
+              make sure the part does not sag or lose alignment.
+            </p>
+          </div>
+          <a class="workflow-link" href="/beam-deflection-calculator.html" onclick="gtag('event','workflow_click',{'page':'bending_stress','step':'deflection','target':'beam_deflection'});">Beam Deflection →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Check the connected hardware</h3>
+            <p>
+              If the member carries a shaft, motor, tooling plate, cylinder, or robot fixture, check
+              bearings, fasteners, and motion loads too.
+            </p>
+          </div>
+          <a class="workflow-link" href="/machine-design.html" onclick="gtag('event','workflow_click',{'page':'bending_stress','step':'related_tools','target':'machine_design'});">Machine Design Hub →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Common Load Cases</h2>
+        <p>
+          The selected load case controls the maximum bending moment. If the real machine condition is
+          more complicated, use the calculator as a starting point and verify the final design separately.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Simply Supported, Center Point Load</h3>
+          <p>
+            Common for rails, crossmembers, rollers, or beams supported at both ends with a load near
+            the center.
+          </p>
+          <ul>
+            <li>Maximum moment occurs at center.</li>
+            <li>Moment increases with both load and span.</li>
+            <li>A good starting case for general support beams.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Simply Supported, Uniform Load</h3>
+          <p>
+            Use this for distributed weight such as tooling plates, guarding, cable trays, light frames,
+            or evenly spread loads.
+          </p>
+          <ul>
+            <li>Load is entered as force per unit length.</li>
+            <li>Total load equals distributed load times span.</li>
+            <li>Often more realistic than one large point load.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Cantilever Load</h3>
+          <p>
+            Use this for brackets, overhung tooling, sensor arms, extended shafts, EOAT fingers, and
+            unsupported machine details.
+          </p>
+          <ul>
+            <li>Cantilevers create high stress near the fixed end.</li>
+            <li>Small increases in length can greatly increase bending.</li>
+            <li>Often the weak point in automation fixtures.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Shape and Section Notes</h2>
+        <p>
+          Cross-section shape matters heavily. Increasing height in the bending direction usually reduces
+          bending stress much more effectively than only adding width.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Rectangular Bar or Plate</h3>
+          <p>
+            The calculator assumes bending about the strong or weak axis based on the entered height.
+            Height should be the dimension measured in the bending direction.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Solid Round Shaft</h3>
+          <p>
+            Useful for basic shaft, pin, roller, and round-bar checks. If the shaft rotates, also consider
+            fatigue, keyways, shoulders, bearing spacing, and overhung load.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Round Tube</h3>
+          <p>
+            Tubes can be efficient in bending because material is moved away from the neutral axis.
+            Make sure wall thickness, weld seams, local crushing, and mounting details are acceptable.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="warning">
+        <strong>Important:</strong>
+        This calculator provides an engineering starting point, not a stamped structural approval.
+        Real machines may include fatigue, impact, welds, holes, stress concentrations, buckling,
+        dynamic loads, poor load sharing, misalignment, temperature effects, or material defects.
+        Use conservative safety factors and verify critical designs with qualified engineering review.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Practical Design Guidance</h2>
+        <p>
+          When bending stress is too high, do not automatically switch to a stronger material first.
+          Geometry and support changes usually give better improvement per dollar.
+        </p>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card">
+          <h3>If bending stress is too high</h3>
+          <ul>
+            <li>Increase section height in the bending direction.</li>
+            <li>Shorten the unsupported span.</li>
+            <li>Add a support closer to the load.</li>
+            <li>Use tube, channel, or structural shapes instead of flat plate.</li>
+            <li>Reduce overhung distance on brackets and shafts.</li>
+            <li>Check whether the load is actually shock-loaded.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>If stress is acceptable but the machine still has issues</h3>
+          <ul>
+            <li>Check deflection and vibration, not just stress.</li>
+            <li>Inspect bolted joints for preload and slipping.</li>
+            <li>Check bearing alignment and overhung load.</li>
+            <li>Look for twisting, not only vertical bending.</li>
+            <li>Verify tooling loads during the real cycle, not just static weight.</li>
+            <li>Check if the load is being applied off-center.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">
+        <strong>Good machine design workflow:</strong>
+        use this bending stress calculator with the
+        <a href="/beam-deflection-calculator.html" onclick="gtag('event','internal_link',{'from':'bending_stress','to':'beam_deflection'});">Beam Deflection Calculator</a>,
+        <a href="/bearing-life-calculator.html" onclick="gtag('event','internal_link',{'from':'bending_stress','to':'bearing_life'});">Bearing Life Calculator</a>,
+        <a href="/torque-clamp-load.html" onclick="gtag('event','internal_link',{'from':'bending_stress','to':'torque_clamp_load'});">Torque to Clamp Load Calculator</a>,
+        and
+        <a href="/machine-design.html" onclick="gtag('event','internal_link',{'from':'bending_stress','to':'machine_design_hub'});">Machine Design Hub</a>.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Related Tools</h2>
+        <p>
+          Bending stress is strongest when used as part of a complete mechanical design check.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Beam Deflection Calculator</h3>
+          <p>
+            Check whether the part bends too much, even if bending stress is below yield.
+          </p>
+          <a href="/beam-deflection-calculator.html" onclick="gtag('event','related_tool_click',{'from':'bending_stress','to':'beam_deflection'});">Open Beam Deflection →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bearing Life Calculator</h3>
+          <p>
+            Estimate bearing life when bending loads feed into shafts, rollers, or rotating supports.
+          </p>
+          <a href="/bearing-life-calculator.html" onclick="gtag('event','related_tool_click',{'from':'bending_stress','to':'bearing_life'});">Open Bearing Life →</a>
+        </article>
+
+        <article class="card">
+          <h3>Servo Torque Calculator</h3>
+          <p>
+            Check torque demand when the loaded member is part of a moving axis or servo system.
+          </p>
+          <a href="/servo-torque.html" onclick="gtag('event','related_tool_click',{'from':'bending_stress','to':'servo_torque'});">Open Servo Torque →</a>
+        </article>
+
+        <article class="card">
+          <h3>Torque to Clamp Load</h3>
+          <p>
+            Check whether bolted joints have enough preload to keep machine parts from slipping.
+          </p>
+          <a href="/torque-clamp-load.html" onclick="gtag('event','related_tool_click',{'from':'bending_stress','to':'torque_clamp_load'});">Open Clamp Load →</a>
+        </article>
+
+        <article class="card">
+          <h3>Reference Charts</h3>
+          <p>
+            Use engineering reference pages for bolts, taps, wire, symbols, and shop values.
+          </p>
+          <a href="/reference-charts.html" onclick="gtag('event','related_tool_click',{'from':'bending_stress','to':'reference_charts'});">Open Reference Charts →</a>
+        </article>
+
+        <article class="card">
+          <h3>Machine Design Hub</h3>
+          <p>
+            Return to the full machine design workflow for structures, motion, bearings, and fastening.
+          </p>
+          <a href="/machine-design.html" onclick="gtag('event','related_tool_click',{'from':'bending_stress','to':'machine_design'});">Open Machine Design Hub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom-cta">
+        <div>
+          <h2>Stress tells you if it may yield. Deflection tells you if it will behave.</h2>
+          <p>
+            For machine design, check both. A part can survive the load and still move enough to cause
+            alignment, sensor, robot, bearing, or fixture problems.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="/beam-deflection-calculator.html" onclick="gtag('event','bottom_cta_click',{'page':'bending_stress','target':'beam_deflection'});">
+          Check Deflection Next
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators for real automation work
+  </footer>
+
+  <script>
+    function getValue(id) {
+      var value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatNumber(value, decimals) {
+      if (!isFinite(value)) return '—';
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function updateUnits() {
+      var system = document.getElementById('unitSystem').value;
+
+      var lengthLabels = document.querySelectorAll('.unit-length');
+      var forceLabels = document.querySelectorAll('.unit-force');
+      var uniformLabels = document.querySelectorAll('.unit-uniform');
+      var momentLabels = document.querySelectorAll('.unit-moment');
+      var inertiaLabels = document.querySelectorAll('.unit-inertia');
+      var strengthLabels = document.querySelectorAll('.unit-strength');
+
+      lengthLabels.forEach(function(el){ el.textContent = system === 'imperial' ? '(in)' : '(mm)'; });
+      forceLabels.forEach(function(el){ el.textContent = system === 'imperial' ? '(lb)' : '(N)'; });
+      uniformLabels.forEach(function(el){ el.textContent = system === 'imperial' ? '(lb/in)' : '(N/mm)'; });
+      momentLabels.forEach(function(el){ el.textContent = system === 'imperial' ? '(lb-in)' : '(N-mm)'; });
+      inertiaLabels.forEach(function(el){ el.textContent = system === 'imperial' ? '(in⁴)' : '(mm⁴)'; });
+      strengthLabels.forEach(function(el){ el.textContent = system === 'imperial' ? '(psi)' : '(MPa)'; });
+
+      if (system === 'imperial') {
+        document.getElementById('yieldStrength').value = 36000;
+        document.getElementById('span').value = 48;
+        document.getElementById('load').value = 500;
+        document.getElementById('uniformLoad').value = 10;
+        document.getElementById('loadPosition').value = 24;
+        document.getElementById('directMoment').value = 6000;
+        document.getElementById('rectWidth').value = 2;
+        document.getElementById('rectHeight').value = 4;
+        document.getElementById('diameter').value = 2;
+        document.getElementById('outerDiameter').value = 2;
+        document.getElementById('innerDiameter').value = 1.5;
+        document.getElementById('customI').value = 10;
+        document.getElementById('customC').value = 2;
+      } else {
+        document.getElementById('yieldStrength').value = 250;
+        document.getElementById('span').value = 1200;
+        document.getElementById('load').value = 2200;
+        document.getElementById('uniformLoad').value = 2;
+        document.getElementById('loadPosition').value = 600;
+        document.getElementById('directMoment').value = 675000;
+        document.getElementById('rectWidth').value = 50;
+        document.getElementById('rectHeight').value = 100;
+        document.getElementById('diameter').value = 50;
+        document.getElementById('outerDiameter').value = 50;
+        document.getElementById('innerDiameter').value = 38;
+        document.getElementById('customI').value = 1000000;
+        document.getElementById('customC').value = 50;
+      }
+    }
+
+    function toggleDirectMoment() {
+      var loadCase = document.getElementById('loadCase').value;
+
+      document.querySelectorAll('.load-input').forEach(function(el) {
+        el.style.display = loadCase === 'direct_moment' ? 'none' : 'flex';
+      });
+
+      document.querySelectorAll('.direct-moment-input').forEach(function(el) {
+        el.style.display = loadCase === 'direct_moment' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.offset-input').forEach(function(el) {
+        el.style.display = loadCase === 'simple_offset' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.uniform-input').forEach(function(el) {
+        el.style.display = (loadCase === 'simple_udl' || loadCase === 'cantilever_udl') ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.force-input').forEach(function(el) {
+        el.style.display = (loadCase === 'simple_udl' || loadCase === 'cantilever_udl' || loadCase === 'direct_moment') ? 'none' : 'flex';
+      });
+    }
+
+    function toggleShapeFields() {
+      var shape = document.getElementById('shape').value;
+
+      document.querySelectorAll('.rectangle-field').forEach(function(el) {
+        el.style.display = shape === 'rectangle' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.solid-round-field').forEach(function(el) {
+        el.style.display = shape === 'solid_round' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.tube-field').forEach(function(el) {
+        el.style.display = shape === 'round_tube' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.custom-field').forEach(function(el) {
+        el.style.display = shape === 'custom' ? 'flex' : 'none';
+      });
+    }
+
+    function calculateMoment() {
+      var loadCase = document.getElementById('loadCase').value;
+      var L = getValue('span');
+      var P = getValue('load');
+      var w = getValue('uniformLoad');
+      var a = getValue('loadPosition');
+      var M = 0;
+
+      if (loadCase === 'simple_center') {
+        M = P * L / 4;
+      } else if (loadCase === 'simple_offset') {
+        var b = L - a;
+        if (L > 0 && a >= 0 && b >= 0) {
+          M = P * a * b / L;
+        }
+      } else if (loadCase === 'simple_udl') {
+        M = w * L * L / 8;
+      } else if (loadCase === 'cantilever_end') {
+        M = P * L;
+      } else if (loadCase === 'cantilever_udl') {
+        M = w * L * L / 2;
+      } else if (loadCase === 'direct_moment') {
+        M = getValue('directMoment');
+      }
+
+      return M;
+    }
+
+    function calculateSectionProperties() {
+      var shape = document.getElementById('shape').value;
+      var I = 0;
+      var c = 0;
+
+      if (shape === 'rectangle') {
+        var b = getValue('rectWidth');
+        var h = getValue('rectHeight');
+        I = b * Math.pow(h, 3) / 12;
+        c = h / 2;
+      } else if (shape === 'solid_round') {
+        var d = getValue('diameter');
+        I = Math.PI * Math.pow(d, 4) / 64;
+        c = d / 2;
+      } else if (shape === 'round_tube') {
+        var od = getValue('outerDiameter');
+        var id = getValue('innerDiameter');
+        if (od > id) {
+          I = Math.PI * (Math.pow(od, 4) - Math.pow(id, 4)) / 64;
+          c = od / 2;
+        }
+      } else if (shape === 'custom') {
+        I = getValue('customI');
+        c = getValue('customC');
+      }
+
+      return { I: I, c: c, S: c > 0 ? I / c : 0 };
+    }
+
+    function calculateBendingStress() {
+      var system = document.getElementById('unitSystem').value;
+      var yieldStrength = getValue('yieldStrength');
+      var M = calculateMoment();
+      var props = calculateSectionProperties();
+      var stress = props.S > 0 ? M / props.S : 0;
+      var safetyFactor = stress > 0 ? yieldStrength / stress : 0;
+
+      var momentUnit = system === 'imperial' ? 'lb-in' : 'N-mm';
+      var inertiaUnit = system === 'imperial' ? 'in⁴' : 'mm⁴';
+      var sectionUnit = system === 'imperial' ? 'in³' : 'mm³';
+      var stressUnit = system === 'imperial' ? 'psi' : 'MPa';
+
+      document.getElementById('momentResult').textContent = formatNumber(M, 2) + ' ' + momentUnit;
+      document.getElementById('inertiaResult').textContent = formatNumber(props.I, 4) + ' ' + inertiaUnit;
+      document.getElementById('sectionModulusResult').textContent = formatNumber(props.S, 4) + ' ' + sectionUnit;
+      document.getElementById('stressResult').textContent = formatNumber(stress, 2) + ' ' + stressUnit;
+      document.getElementById('safetyFactorResult').textContent = safetyFactor > 0 ? formatNumber(safetyFactor, 2) + ':1' : '—';
+
+      var statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status';
+
+      if (M <= 0 || props.I <= 0 || props.c <= 0 || stress <= 0) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = 'Enter valid load, span, and section values to calculate bending stress.';
+      } else if (safetyFactor >= 3) {
+        statusBox.classList.add('good');
+        statusBox.textContent = 'Result looks conservative for basic static bending. Still check deflection, fatigue, shock loading, mounting details, and real machine conditions.';
+      } else if (safetyFactor >= 1.5) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = 'Moderate safety factor. Review shock loading, fatigue, welds, holes, stress concentrations, and deflection before using this design.';
+      } else {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Low safety factor. Increase section size, reduce span, reduce load, change geometry, or select a stronger design before relying on this part.';
+      }
+    }
+
+    function resetCalculator() {
+      document.getElementById('unitSystem').value = 'imperial';
+      document.getElementById('loadCase').value = 'simple_center';
+      document.getElementById('shape').value = 'rectangle';
+      updateUnits();
+      toggleDirectMoment();
+      toggleShapeFields();
+      calculateBendingStress();
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
+      })
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    toggleDirectMoment();
+    toggleShapeFields();
+    calculateBendingStress();
+  </script>
+</body>
+</html>
