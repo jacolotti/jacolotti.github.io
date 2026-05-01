@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Shaft Deflection Calculator | Roller, Bearing Span, Overhung Load & Drive Shaft Sizing</title>
+  <meta name="description" content="Calculate shaft deflection for simply supported shafts, center loads, off-center loads, and overhung loads. Useful for rollers, conveyors, pulleys, sprockets, bearings, and machine design." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/shaft-deflection-calculator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root {
+      --blue-900:#0f172a;
+      --blue-800:#1e3a8a;
+      --blue-700:#1d4ed8;
+      --blue-600:#2563eb;
+      --blue-100:#dbeafe;
+      --slate-900:#0f172a;
+      --slate-800:#1e293b;
+      --slate-700:#334155;
+      --slate-600:#475569;
+      --slate-500:#64748b;
+      --slate-200:#e2e8f0;
+      --slate-100:#f1f5f9;
+      --green-100:#dcfce7;
+      --green-700:#15803d;
+      --amber-100:#fef3c7;
+      --amber-700:#b45309;
+      --red-100:#fee2e2;
+      --red-700:#b91c1c;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(15,23,42,0.10);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f8fafc;
+      color:var(--slate-800);
+      line-height:1.6;
+    }
+
+    a {
+      color:var(--blue-700);
+      text-decoration:none;
+    }
+
+    a:hover { text-decoration:underline; }
+
+    #navbar {
+      position:relative;
+      z-index:50;
+    }
+
+    .hero {
+      background:white;
+      border-bottom:1px solid var(--slate-200);
+      padding:56px 20px 44px;
+    }
+
+    .hero-inner {
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,0.75fr);
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:var(--blue-100);
+      color:var(--blue-800);
+      font-size:0.9rem;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .hero h1 {
+      margin:0 0 16px;
+      color:var(--slate-900);
+      font-size:clamp(2.1rem,5vw,4rem);
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+
+    .hero p {
+      margin:0 0 22px;
+      max-width:780px;
+      color:var(--slate-600);
+      font-size:1.08rem;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:800;
+      border:1px solid transparent;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .btn-primary {
+      background:var(--blue-700);
+      color:white;
+      box-shadow:0 8px 24px rgba(29,78,216,0.25);
+    }
+
+    .btn-secondary {
+      background:white;
+      color:var(--blue-700);
+      border-color:var(--slate-200);
+    }
+
+    .hero-panel {
+      background:#f8fafc;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin:0 0 12px;
+      color:var(--slate-900);
+      font-size:1.25rem;
+    }
+
+    .hero-panel ul {
+      margin:0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .hero-panel li { margin:8px 0; }
+
+    .page {
+      max-width:1180px;
+      margin:0 auto;
+      padding:42px 20px 70px;
+    }
+
+    .section { margin-bottom:44px; }
+
+    .section-header { margin-bottom:22px; }
+
+    .section-header h2 {
+      margin:0 0 8px;
+      color:var(--slate-900);
+      font-size:clamp(1.55rem,3vw,2.25rem);
+      line-height:1.15;
+      letter-spacing:-0.025em;
+    }
+
+    .section-header p {
+      margin:0;
+      max-width:900px;
+      color:var(--slate-600);
+    }
+
+    .calculator-shell {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .calculator-top {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      padding:24px;
+    }
+
+    .calculator-top h2 {
+      margin:0 0 8px;
+      font-size:1.7rem;
+    }
+
+    .calculator-top p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+    }
+
+    .calculator-body {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,0.8fr);
+      gap:0;
+    }
+
+    .inputs {
+      padding:24px;
+      border-right:1px solid var(--slate-200);
+    }
+
+    .results {
+      padding:24px;
+      background:#f8fafc;
+    }
+
+    .input-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .field.full { grid-column:1 / -1; }
+
+    label {
+      font-weight:800;
+      color:var(--slate-900);
+      font-size:0.94rem;
+    }
+
+    input, select {
+      width:100%;
+      border:1px solid var(--slate-200);
+      border-radius:12px;
+      padding:11px 12px;
+      font-size:1rem;
+      color:var(--slate-800);
+      background:white;
+    }
+
+    input:focus, select:focus {
+      outline:3px solid rgba(37,99,235,0.16);
+      border-color:var(--blue-600);
+    }
+
+    .hint {
+      color:var(--slate-500);
+      font-size:0.86rem;
+    }
+
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .result-box {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    .result-box h3 {
+      margin:0 0 6px;
+      color:var(--slate-900);
+      font-size:1rem;
+    }
+
+    .result-value {
+      font-size:1.6rem;
+      font-weight:900;
+      color:var(--blue-800);
+      line-height:1.15;
+      overflow-wrap:anywhere;
+    }
+
+    .result-sub {
+      color:var(--slate-500);
+      font-size:0.92rem;
+      margin-top:4px;
+    }
+
+    .status {
+      border-radius:18px;
+      padding:16px;
+      font-weight:800;
+      margin-top:14px;
+    }
+
+    .status.good {
+      background:var(--green-100);
+      color:var(--green-700);
+      border:1px solid #86efac;
+    }
+
+    .status.warn {
+      background:var(--amber-100);
+      color:var(--amber-700);
+      border:1px solid #fcd34d;
+    }
+
+    .status.bad {
+      background:var(--red-100);
+      color:var(--red-700);
+      border:1px solid #fca5a5;
+    }
+
+    .formula {
+      background:#0f172a;
+      color:white;
+      border-radius:18px;
+      padding:20px;
+      overflow-x:auto;
+    }
+
+    .formula code {
+      font-size:1.05rem;
+      color:white;
+      white-space:pre-wrap;
+    }
+
+    .card-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card-grid.two {
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .card {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    }
+
+    .card h3 {
+      margin:0 0 9px;
+      color:var(--slate-900);
+      line-height:1.25;
+    }
+
+    .card p {
+      margin:0 0 14px;
+      color:var(--slate-600);
+    }
+
+    .card ul {
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .card li { margin:6px 0; }
+
+    .note {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .warning {
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .workflow {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .workflow-row {
+      display:grid;
+      grid-template-columns:82px minmax(0,1fr) minmax(220px,0.5fr);
+      gap:18px;
+      padding:22px;
+      border-bottom:1px solid var(--slate-200);
+      align-items:center;
+    }
+
+    .workflow-row:last-child { border-bottom:none; }
+
+    .step-number {
+      width:48px;
+      height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--blue-800),var(--blue-600));
+      color:white;
+      font-weight:900;
+    }
+
+    .workflow-row h3 {
+      margin:0 0 5px;
+      color:var(--slate-900);
+    }
+
+    .workflow-row p {
+      margin:0;
+      color:var(--slate-600);
+    }
+
+    .workflow-link { font-weight:900; }
+
+    .bottom-cta {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+
+    .bottom-cta h2 {
+      margin:0 0 10px;
+      font-size:1.85rem;
+    }
+
+    .bottom-cta p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+      max-width:760px;
+    }
+
+    footer {
+      text-align:center;
+      color:var(--slate-500);
+      padding:34px 20px 44px;
+      border-top:1px solid var(--slate-200);
+      background:white;
+    }
+
+    @media (max-width:980px) {
+      .hero-inner,
+      .calculator-body,
+      .bottom-cta {
+        grid-template-columns:1fr;
+      }
+
+      .inputs {
+        border-right:none;
+        border-bottom:1px solid var(--slate-200);
+      }
+
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .workflow-row {
+        grid-template-columns:64px 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:2;
+      }
+    }
+
+    @media (max-width:680px) {
+      .hero {
+        padding:44px 16px 34px;
+      }
+
+      .page {
+        padding:32px 16px 54px;
+      }
+
+      .input-grid,
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:auto;
+      }
+
+      .hero-actions,
+      .button-row {
+        flex-direction:column;
+      }
+
+      .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Machine Design Calculator</div>
+        <h1>Shaft Deflection Calculator</h1>
+        <p>
+          Estimate shaft deflection for rollers, drive shafts, conveyor shafts, overhung pulleys,
+          sprockets, gears, and bearing-supported rotating parts. Use this to catch shaft stiffness
+          problems before they become bearing failures, belt tracking issues, vibration problems, or
+          alignment headaches.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta_click',{'page':'shaft_deflection','target':'calculator','location':'hero'});">
+            Open Calculator
+          </a>
+          <a class="btn btn-secondary" href="/bearing-life-calculator.html" onclick="gtag('event','page_cta_click',{'page':'shaft_deflection','target':'bearing_life','location':'hero'});">
+            Check Bearing Life
+          </a>
+          <a class="btn btn-secondary" href="/machine-design.html" onclick="gtag('event','page_cta_click',{'page':'shaft_deflection','target':'machine_design','location':'hero'});">
+            Machine Design Hub
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Use this calculator for:</h2>
+        <ul>
+          <li>Conveyor rollers and drive shafts</li>
+          <li>Overhung pulley, sprocket, or gear loads</li>
+          <li>Bearing span and shaft diameter checks</li>
+          <li>Quick stiffness comparison before upsizing a shaft</li>
+          <li>Mechanical checks before blaming motors, belts, or bearings</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="calculator" class="section">
+      <div class="calculator-shell">
+        <div class="calculator-top">
+          <h2>Calculate Shaft Deflection</h2>
+          <p>
+            Select a shaft load case, enter the span, shaft size, material stiffness, and load. The
+            calculator estimates maximum deflection, bending moment, support reactions, and bending stress.
+          </p>
+        </div>
+
+        <div class="calculator-body">
+          <div class="inputs">
+            <div class="input-grid">
+              <div class="field">
+                <label for="unitSystem">Unit System</label>
+                <select id="unitSystem" onchange="updateUnits(); calculateShaftDeflection();">
+                  <option value="imperial">Imperial — lb, in, psi</option>
+                  <option value="metric">Metric — N, mm, MPa</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="loadCase">Shaft Load Case</label>
+                <select id="loadCase" onchange="toggleLoadFields(); calculateShaftDeflection();">
+                  <option value="simple_center">Between bearings, center point load</option>
+                  <option value="simple_offset">Between bearings, off-center point load</option>
+                  <option value="simple_udl">Between bearings, uniform load</option>
+                  <option value="overhung_end">Overhung load past one bearing</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="shaftType">Shaft Type</label>
+                <select id="shaftType" onchange="toggleShaftFields(); calculateShaftDeflection();">
+                  <option value="solid">Solid round shaft</option>
+                  <option value="tube">Hollow round shaft / tube</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="material">Material / Modulus Preset</label>
+                <select id="material" onchange="setMaterialModulus(); calculateShaftDeflection();">
+                  <option value="steel">Steel — 29,000,000 psi / 200,000 MPa</option>
+                  <option value="aluminum">Aluminum — 10,000,000 psi / 69,000 MPa</option>
+                  <option value="stainless">Stainless Steel — 28,000,000 psi / 193,000 MPa</option>
+                  <option value="custom">Custom modulus</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="span">Bearing Span / Supported Length <span class="unit-length">(in)</span></label>
+                <input id="span" type="number" value="36" min="0" step="any" oninput="calculateShaftDeflection();" />
+                <span class="hint">Distance between bearing centers for supported cases.</span>
+              </div>
+
+              <div class="field overhung-field" style="display:none;">
+                <label for="overhang">Overhung Distance from Bearing <span class="unit-length">(in)</span></label>
+                <input id="overhang" type="number" value="8" min="0" step="any" oninput="calculateShaftDeflection();" />
+                <span class="hint">Distance from outer bearing to pulley, sprocket, gear, or load center.</span>
+              </div>
+
+              <div class="field point-load-field">
+                <label for="pointLoad">Point Load <span class="unit-force">(lb)</span></label>
+                <input id="pointLoad" type="number" value="300" min="0" step="any" oninput="calculateShaftDeflection();" />
+                <span class="hint">Radial load from belt tension, sprocket force, roller load, or mounted component.</span>
+              </div>
+
+              <div class="field offset-field" style="display:none;">
+                <label for="loadPosition">Load Position from Left Bearing <span class="unit-length">(in)</span></label>
+                <input id="loadPosition" type="number" value="18" min="0" step="any" oninput="calculateShaftDeflection();" />
+              </div>
+
+              <div class="field uniform-field" style="display:none;">
+                <label for="uniformLoad">Uniform Load <span class="unit-uniform">(lb/in)</span></label>
+                <input id="uniformLoad" type="number" value="8" min="0" step="any" oninput="calculateShaftDeflection();" />
+                <span class="hint">Distributed weight across the supported shaft length.</span>
+              </div>
+
+              <div class="field solid-field">
+                <label for="diameter">Shaft Diameter <span class="unit-length">(in)</span></label>
+                <input id="diameter" type="number" value="1.5" min="0" step="any" oninput="calculateShaftDeflection();" />
+              </div>
+
+              <div class="field tube-field" style="display:none;">
+                <label for="outerDiameter">Outer Diameter <span class="unit-length">(in)</span></label>
+                <input id="outerDiameter" type="number" value="2" min="0" step="any" oninput="calculateShaftDeflection();" />
+              </div>
+
+              <div class="field tube-field" style="display:none;">
+                <label for="innerDiameter">Inner Diameter <span class="unit-length">(in)</span></label>
+                <input id="innerDiameter" type="number" value="1.25" min="0" step="any" oninput="calculateShaftDeflection();" />
+              </div>
+
+              <div class="field">
+                <label for="modulus">Elastic Modulus, E <span class="unit-modulus">(psi)</span></label>
+                <input id="modulus" type="number" value="29000000" min="0" step="any" oninput="calculateShaftDeflection();" />
+              </div>
+
+              <div class="field">
+                <label for="yieldStrength">Yield Strength <span class="unit-strength">(psi)</span></label>
+                <input id="yieldStrength" type="number" value="36000" min="0" step="any" oninput="calculateShaftDeflection();" />
+                <span class="hint">Used for a rough bending-stress safety factor.</span>
+              </div>
+
+              <div class="field">
+                <label for="deflectionLimit">Suggested Deflection Limit <span class="unit-length">(in)</span></label>
+                <input id="deflectionLimit" type="number" value="0.030" min="0" step="any" oninput="calculateShaftDeflection();" />
+                <span class="hint">Use your actual machine tolerance when known.</span>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateShaftDeflection(); gtag('event','calculator_run',{'calculator':'shaft_deflection'});">
+                Calculate
+              </button>
+              <button class="btn btn-secondary" type="button" onclick="resetCalculator(); gtag('event','calculator_reset',{'calculator':'shaft_deflection'});">
+                Reset Example
+              </button>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="result-box">
+              <h3>Estimated Maximum Deflection</h3>
+              <div id="deflectionResult" class="result-value">—</div>
+              <div class="result-sub">Largest calculated shaft deflection.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Moment of Inertia</h3>
+              <div id="inertiaResult" class="result-value">—</div>
+              <div class="result-sub">Shaft section stiffness property.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Maximum Bending Moment</h3>
+              <div id="momentResult" class="result-value">—</div>
+              <div class="result-sub">Used to estimate bending stress.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Estimated Bending Stress</h3>
+              <div id="stressResult" class="result-value">—</div>
+              <div class="result-sub">Approximate stress from bending only.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Safety Factor Against Yield</h3>
+              <div id="safetyFactorResult" class="result-value">—</div>
+              <div class="result-sub">Yield strength ÷ bending stress.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Bearing Reactions</h3>
+              <div id="reactionResult" class="result-value">—</div>
+              <div class="result-sub">Useful for bearing and mounting checks.</div>
+            </div>
+
+            <div id="statusBox" class="status warn">
+              Enter shaft values to calculate deflection.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>What Shaft Deflection Tells You</h2>
+        <p>
+          Shaft deflection is a stiffness check. A shaft can be strong enough not to yield and still bend
+          enough to damage bearings, misalign belts, shift sprockets, create vibration, or cause tracking
+          problems on a conveyor.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Roller and Conveyor Shafts</h3>
+          <p>
+            Excessive shaft deflection can create roller sag, belt tracking issues, uneven loading, and
+            bearing edge loading.
+          </p>
+          <ul>
+            <li>Check bearing span.</li>
+            <li>Check shaft diameter.</li>
+            <li>Check distributed and point loads separately.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Overhung Pulleys and Sprockets</h3>
+          <p>
+            Loads outside the bearing span create high bending near the bearing. This is one of the most
+            common reasons small shafts and bearings fail early.
+          </p>
+          <ul>
+            <li>Reduce overhung distance.</li>
+            <li>Move the pulley closer to the bearing.</li>
+            <li>Add an outboard bearing when needed.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Bearing Life Connection</h3>
+          <p>
+            Shaft deflection and bearing life are tied together. A deflected shaft can load bearings
+            unevenly, even if the calculated bearing rating looks acceptable.
+          </p>
+          <ul>
+            <li>Use reactions as bearing loads.</li>
+            <li>Check misalignment sensitivity.</li>
+            <li>Review mounting stiffness and shaft fit.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Formula Reference</h2>
+        <p>
+          This calculator uses simplified beam formulas for shaft-style bending checks. These are useful
+          for early sizing and troubleshooting, but they do not replace detailed rotating shaft design.
+        </p>
+      </div>
+
+      <div class="formula">
+        <code>Solid Round Shaft:
+I = πd⁴ / 64
+S = I / c
+c = d / 2
+
+Hollow Round Shaft:
+I = π(OD⁴ - ID⁴) / 64
+S = I / c
+c = OD / 2
+
+Simply Supported, Center Point Load:
+δmax = P × L³ / (48 × E × I)
+Mmax = P × L / 4
+
+Simply Supported, Uniform Load:
+δmax = 5 × w × L⁴ / (384 × E × I)
+Mmax = w × L² / 8
+
+Cantilever / Overhung End Load:
+δmax = P × a³ / (3 × E × I)
+Mmax = P × a
+
+Bending Stress:
+σ = M / S</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Recommended Shaft Design Workflow</h2>
+        <p>
+          Shaft problems usually involve more than one calculation. Deflection, stress, bearing load,
+          speed, torque, and mounting stiffness all work together.
+        </p>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-row">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Define the load and bearing layout</h3>
+            <p>
+              Identify whether the shaft load is between bearings or overhung outside the bearing span.
+              Overhung loads usually deserve extra attention.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'shaft_deflection','step':'layout'});">Use Calculator →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Check shaft deflection</h3>
+            <p>
+              Compare calculated deflection to the actual machine tolerance. Belts, sprockets, seals,
+              gears, and bearings may require tighter limits than a general structure.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'shaft_deflection','step':'deflection'});">Calculate Deflection →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Check bearing life</h3>
+            <p>
+              Use reaction forces as a starting estimate for bearing radial load, then account for speed,
+              environment, shock, and duty cycle.
+            </p>
+          </div>
+          <a class="workflow-link" href="/bearing-life-calculator.html" onclick="gtag('event','workflow_click',{'page':'shaft_deflection','step':'bearing_life','target':'bearing_life'});">Bearing Life →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Check torque and drive sizing</h3>
+            <p>
+              If this shaft is driven, check gearbox torque, gear ratio, conveyor speed, and motor sizing
+              so the shaft is not only stiff, but also properly driven.
+            </p>
+          </div>
+          <a class="workflow-link" href="/motors-motion.html" onclick="gtag('event','workflow_click',{'page':'shaft_deflection','step':'motion','target':'motors_motion'});">Motors & Motion →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Load Case Selection Notes</h2>
+        <p>
+          The same load can cause very different deflection depending on where it is applied. A load at
+          the middle of a supported span behaves very differently than a pulley hanging outside the bearing.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Center Load Between Bearings</h3>
+          <p>
+            Use this when the main radial load is near the middle of the bearing span, such as a roller
+            with load centered between supports.
+          </p>
+          <ul>
+            <li>Common for rollers and simple shafts.</li>
+            <li>Maximum deflection occurs near center.</li>
+            <li>Both bearings share load evenly when centered.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Off-Center Load Between Bearings</h3>
+          <p>
+            Use this when the load is closer to one bearing, such as a pulley, sprocket, gear, or wheel
+            located inside the bearing span but not centered.
+          </p>
+          <ul>
+            <li>Closer bearing carries more reaction load.</li>
+            <li>Deflection shape is no longer symmetric.</li>
+            <li>Useful for real machine layouts.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Overhung Load</h3>
+          <p>
+            Use this when the load is outside the bearing span. This is common with pulleys, sprockets,
+            gears, couplings, and driven rollers.
+          </p>
+          <ul>
+            <li>Creates high bending near the bearing.</li>
+            <li>Can shorten bearing life quickly.</li>
+            <li>Often improved by reducing overhang.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="warning">
+        <strong>Important:</strong>
+        This calculator gives simplified static shaft deflection estimates. Real rotating shaft design
+        may require checks for fatigue, torsion, keyways, shoulders, snap-ring grooves, stress
+        concentrations, dynamic balance, critical speed, bearing fit, shaft straightness, belt tension,
+        gear forces, shock loading, and combined bending plus torque. Use conservative assumptions and
+        verify critical designs with qualified engineering review.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Practical Shaft Design Guidance</h2>
+        <p>
+          When a shaft bends too much, do not jump straight to a stronger material. Diameter, bearing
+          spacing, and overhung distance usually matter more.
+        </p>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card">
+          <h3>If shaft deflection is too high</h3>
+          <ul>
+            <li>Increase shaft diameter.</li>
+            <li>Shorten the bearing span when possible.</li>
+            <li>Move the load closer to a bearing.</li>
+            <li>Reduce overhung pulley or sprocket distance.</li>
+            <li>Add an outboard support bearing.</li>
+            <li>Use a tube or larger diameter section when weight matters.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>If bearings keep failing</h3>
+          <ul>
+            <li>Check shaft deflection before blaming the bearing.</li>
+            <li>Check whether the load is overhung.</li>
+            <li>Verify bearing alignment and housing stiffness.</li>
+            <li>Check belt or chain tension.</li>
+            <li>Review contamination and lubrication.</li>
+            <li>Use reaction loads in the bearing life calculator.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">
+        <strong>Good next step:</strong>
+        use the reaction loads from this page in the
+        <a href="/bearing-life-calculator.html" onclick="gtag('event','internal_link',{'from':'shaft_deflection','to':'bearing_life'});">Bearing Life Calculator</a>.
+        If the shaft is part of a conveyor or driven axis, also check
+        <a href="/gearbox-torque.html" onclick="gtag('event','internal_link',{'from':'shaft_deflection','to':'gearbox_torque'});">Gearbox Torque</a>,
+        <a href="/gear-ratio.html" onclick="gtag('event','internal_link',{'from':'shaft_deflection','to':'gear_ratio'});">Gear Ratio</a>,
+        and the
+        <a href="/machine-design.html" onclick="gtag('event','internal_link',{'from':'shaft_deflection','to':'machine_design'});">Machine Design Hub</a>.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Related Tools</h2>
+        <p>
+          Shaft deflection is strongest when used with bearing, torque, speed, and machine design checks.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Bearing Life Calculator</h3>
+          <p>Use reaction forces as a starting point for bearing radial load and life estimates.</p>
+          <a href="/bearing-life-calculator.html" onclick="gtag('event','related_tool_click',{'from':'shaft_deflection','to':'bearing_life'});">Open Bearing Life →</a>
+        </article>
+
+        <article class="card">
+          <h3>Beam Load Calculator</h3>
+          <p>Calculate reactions and bending moment for general beam-style load cases.</p>
+          <a href="/beam-load-calculator.html" onclick="gtag('event','related_tool_click',{'from':'shaft_deflection','to':'beam_load'});">Open Beam Load →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bending Stress Calculator</h3>
+          <p>Check bending stress and safety factor when shaft bending moment is known.</p>
+          <a href="/bending-stress-calculator.html" onclick="gtag('event','related_tool_click',{'from':'shaft_deflection','to':'bending_stress'});">Open Bending Stress →</a>
+        </article>
+
+        <article class="card">
+          <h3>Gearbox Torque Calculator</h3>
+          <p>Check output torque when the shaft is driven through a gearbox or reducer.</p>
+          <a href="/gearbox-torque.html" onclick="gtag('event','related_tool_click',{'from':'shaft_deflection','to':'gearbox_torque'});">Open Gearbox Torque →</a>
+        </article>
+
+        <article class="card">
+          <h3>Conveyor Speed Calculator</h3>
+          <p>Check shaft speed, roller speed, pulley diameter, and conveyor line speed.</p>
+          <a href="/conveyor-speed.html" onclick="gtag('event','related_tool_click',{'from':'shaft_deflection','to':'conveyor_speed'});">Open Conveyor Speed →</a>
+        </article>
+
+        <article class="card">
+          <h3>Machine Design Hub</h3>
+          <p>Return to the full workflow for structures, shafts, bearings, motion, and fastening.</p>
+          <a href="/machine-design.html" onclick="gtag('event','related_tool_click',{'from':'shaft_deflection','to':'machine_design'});">Open Machine Design Hub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom-cta">
+        <div>
+          <h2>A shaft can be strong enough and still bend too much.</h2>
+          <p>
+            Check shaft deflection, then use the bearing reactions to validate bearing life. This catches
+            many roller, pulley, sprocket, and conveyor failures before they become repeat maintenance issues.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="/bearing-life-calculator.html" onclick="gtag('event','bottom_cta_click',{'page':'shaft_deflection','target':'bearing_life'});">
+          Check Bearing Life
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators for real automation work
+  </footer>
+
+  <script>
+    function getValue(id) {
+      var value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatNumber(value, decimals) {
+      if (!isFinite(value)) return '—';
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function updateUnits() {
+      var system = document.getElementById('unitSystem').value;
+
+      document.querySelectorAll('.unit-length').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in)' : '(mm)';
+      });
+
+      document.querySelectorAll('.unit-force').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb)' : '(N)';
+      });
+
+      document.querySelectorAll('.unit-uniform').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb/in)' : '(N/mm)';
+      });
+
+      document.querySelectorAll('.unit-modulus').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      document.querySelectorAll('.unit-strength').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(psi)' : '(MPa)';
+      });
+
+      if (system === 'imperial') {
+        document.getElementById('span').value = 36;
+        document.getElementById('overhang').value = 8;
+        document.getElementById('pointLoad').value = 300;
+        document.getElementById('loadPosition').value = 18;
+        document.getElementById('uniformLoad').value = 8;
+        document.getElementById('diameter').value = 1.5;
+        document.getElementById('outerDiameter').value = 2;
+        document.getElementById('innerDiameter').value = 1.25;
+        document.getElementById('deflectionLimit').value = 0.030;
+        document.getElementById('yieldStrength').value = 36000;
+      } else {
+        document.getElementById('span').value = 900;
+        document.getElementById('overhang').value = 200;
+        document.getElementById('pointLoad').value = 1300;
+        document.getElementById('loadPosition').value = 450;
+        document.getElementById('uniformLoad').value = 1.5;
+        document.getElementById('diameter').value = 38;
+        document.getElementById('outerDiameter').value = 50;
+        document.getElementById('innerDiameter').value = 32;
+        document.getElementById('deflectionLimit').value = 0.75;
+        document.getElementById('yieldStrength').value = 250;
+      }
+
+      setMaterialModulus();
+    }
+
+    function setMaterialModulus() {
+      var system = document.getElementById('unitSystem').value;
+      var material = document.getElementById('material').value;
+      var modulus = document.getElementById('modulus');
+
+      if (material === 'custom') {
+        return;
+      }
+
+      if (system === 'imperial') {
+        if (material === 'steel') modulus.value = 29000000;
+        if (material === 'aluminum') modulus.value = 10000000;
+        if (material === 'stainless') modulus.value = 28000000;
+      } else {
+        if (material === 'steel') modulus.value = 200000;
+        if (material === 'aluminum') modulus.value = 69000;
+        if (material === 'stainless') modulus.value = 193000;
+      }
+    }
+
+    function toggleLoadFields() {
+      var loadCase = document.getElementById('loadCase').value;
+
+      document.querySelectorAll('.overhung-field').forEach(function(el) {
+        el.style.display = loadCase === 'overhung_end' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.offset-field').forEach(function(el) {
+        el.style.display = loadCase === 'simple_offset' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.uniform-field').forEach(function(el) {
+        el.style.display = loadCase === 'simple_udl' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.point-load-field').forEach(function(el) {
+        el.style.display = loadCase === 'simple_udl' ? 'none' : 'flex';
+      });
+    }
+
+    function toggleShaftFields() {
+      var shaftType = document.getElementById('shaftType').value;
+
+      document.querySelectorAll('.solid-field').forEach(function(el) {
+        el.style.display = shaftType === 'solid' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.tube-field').forEach(function(el) {
+        el.style.display = shaftType === 'tube' ? 'flex' : 'none';
+      });
+    }
+
+    function calculateShaftProperties() {
+      var shaftType = document.getElementById('shaftType').value;
+      var I = 0;
+      var c = 0;
+      var S = 0;
+      var valid = true;
+      var message = '';
+
+      if (shaftType === 'solid') {
+        var d = getValue('diameter');
+        if (d <= 0) {
+          valid = false;
+          message = 'Shaft diameter must be greater than zero.';
+        } else {
+          I = Math.PI * Math.pow(d, 4) / 64;
+          c = d / 2;
+        }
+      }
+
+      if (shaftType === 'tube') {
+        var od = getValue('outerDiameter');
+        var id = getValue('innerDiameter');
+        if (od <= 0 || id < 0 || od <= id) {
+          valid = false;
+          message = 'Outer diameter must be larger than inner diameter.';
+        } else {
+          I = Math.PI * (Math.pow(od, 4) - Math.pow(id, 4)) / 64;
+          c = od / 2;
+        }
+      }
+
+      if (valid && c > 0) {
+        S = I / c;
+      }
+
+      return {
+        I: I,
+        c: c,
+        S: S,
+        valid: valid,
+        message: message
+      };
+    }
+
+    function calculateShaftDeflection() {
+      var system = document.getElementById('unitSystem').value;
+      var loadCase = document.getElementById('loadCase').value;
+      var L = getValue('span');
+      var a = getValue('loadPosition');
+      var overhang = getValue('overhang');
+      var P = getValue('pointLoad');
+      var w = getValue('uniformLoad');
+      var E = getValue('modulus');
+      var yieldStrength = getValue('yieldStrength');
+      var deflectionLimit = getValue('deflectionLimit');
+      var props = calculateShaftProperties();
+
+      var deflection = 0;
+      var moment = 0;
+      var stress = 0;
+      var safetyFactor = 0;
+      var leftReaction = 0;
+      var rightReaction = 0;
+      var valid = true;
+      var message = 'Shaft deflection calculated. Check bearing life and drive torque next.';
+
+      if (L <= 0) {
+        valid = false;
+        message = 'Bearing span or shaft length must be greater than zero.';
+      }
+
+      if (E <= 0) {
+        valid = false;
+        message = 'Elastic modulus must be greater than zero.';
+      }
+
+      if (!props.valid) {
+        valid = false;
+        message = props.message;
+      }
+
+      if (valid && loadCase === 'simple_center') {
+        leftReaction = P / 2;
+        rightReaction = P / 2;
+        moment = P * L / 4;
+        deflection = (P * Math.pow(L, 3)) / (48 * E * props.I);
+      }
+
+      if (valid && loadCase === 'simple_offset') {
+        if (a < 0 || a > L) {
+          valid = false;
+          message = 'Load position must be between 0 and the bearing span.';
+        } else {
+          var b = L - a;
+          leftReaction = P * b / L;
+          rightReaction = P * a / L;
+          moment = P * a * b / L;
+
+          var maxSide = Math.max(a, b);
+          var minSide = Math.min(a, b);
+
+          deflection = (P * minSide * (Math.pow(L, 2) - Math.pow(minSide, 2)) * Math.sqrt(3 * Math.pow(L, 2) - 4 * Math.pow(minSide, 2))) / (27 * E * props.I * L);
+
+          if (!isFinite(deflection) || deflection <= 0) {
+            deflection = (P * a * b * (L + maxSide)) / (27 * E * props.I);
+          }
+        }
+      }
+
+      if (valid && loadCase === 'simple_udl') {
+        var totalLoad = w * L;
+        leftReaction = totalLoad / 2;
+        rightReaction = totalLoad / 2;
+        moment = w * Math.pow(L, 2) / 8;
+        deflection = (5 * w * Math.pow(L, 4)) / (384 * E * props.I);
+      }
+
+      if (valid && loadCase === 'overhung_end') {
+        if (overhang <= 0) {
+          valid = false;
+          message = 'Overhung distance must be greater than zero.';
+        } else {
+          leftReaction = P;
+          rightReaction = 0;
+          moment = P * overhang;
+          deflection = (P * Math.pow(overhang, 3)) / (3 * E * props.I);
+        }
+      }
+
+      if (valid && props.S > 0) {
+        stress = moment / props.S;
+      }
+
+      if (valid && stress > 0) {
+        safetyFactor = yieldStrength / stress;
+      }
+
+      var lengthUnit = system === 'imperial' ? 'in' : 'mm';
+      var forceUnit = system === 'imperial' ? 'lb' : 'N';
+      var momentUnit = system === 'imperial' ? 'lb-in' : 'N-mm';
+      var stressUnit = system === 'imperial' ? 'psi' : 'MPa';
+      var inertiaUnit = system === 'imperial' ? 'in⁴' : 'mm⁴';
+
+      if (!valid || deflection <= 0 || props.I <= 0) {
+        document.getElementById('deflectionResult').textContent = '—';
+        document.getElementById('inertiaResult').textContent = '—';
+        document.getElementById('momentResult').textContent = '—';
+        document.getElementById('stressResult').textContent = '—';
+        document.getElementById('safetyFactorResult').textContent = '—';
+        document.getElementById('reactionResult').textContent = '—';
+      } else {
+        document.getElementById('deflectionResult').textContent = formatNumber(deflection, 5) + ' ' + lengthUnit;
+        document.getElementById('inertiaResult').textContent = formatNumber(props.I, 5) + ' ' + inertiaUnit;
+        document.getElementById('momentResult').textContent = formatNumber(moment, 2) + ' ' + momentUnit;
+        document.getElementById('stressResult').textContent = formatNumber(stress, 2) + ' ' + stressUnit;
+        document.getElementById('safetyFactorResult').textContent = safetyFactor > 0 ? formatNumber(safetyFactor, 2) + ':1' : '—';
+
+        if (loadCase === 'overhung_end') {
+          document.getElementById('reactionResult').textContent = 'Fixed-side reaction ≈ ' + formatNumber(leftReaction, 2) + ' ' + forceUnit;
+        } else {
+          document.getElementById('reactionResult').textContent = 'Left ' + formatNumber(leftReaction, 2) + ' ' + forceUnit + ' / Right ' + formatNumber(rightReaction, 2) + ' ' + forceUnit;
+        }
+      }
+
+      var statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status';
+
+      if (!valid) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = message;
+      } else if (deflectionLimit > 0 && deflection > deflectionLimit) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Deflection is above the entered limit. Increase shaft diameter, reduce span, reduce overhang, move the load closer to a bearing, or add support.';
+      } else if (safetyFactor > 0 && safetyFactor < 1.5) {
+        statusBox.classList.add('bad');
+        statusBox.textContent = 'Bending stress safety factor is low. Increase shaft size, reduce load, shorten span, or review the design before use.';
+      } else if (safetyFactor > 0 && safetyFactor < 3) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = 'Deflection may be acceptable, but safety factor is moderate. Review fatigue, keyways, shock loading, and real machine conditions.';
+      } else {
+        statusBox.classList.add('good');
+        statusBox.textContent = message;
+      }
+    }
+
+    function resetCalculator() {
+      document.getElementById('unitSystem').value = 'imperial';
+      document.getElementById('loadCase').value = 'simple_center';
+      document.getElementById('shaftType').value = 'solid';
+      document.getElementById('material').value = 'steel';
+      updateUnits();
+      toggleLoadFields();
+      toggleShaftFields();
+      calculateShaftDeflection();
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
+      })
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    toggleLoadFields();
+    toggleShaftFields();
+    calculateShaftDeflection();
+  </script>
+</body>
+</html>
