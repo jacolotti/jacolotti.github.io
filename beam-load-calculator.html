@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Beam Load & Reaction Calculator | Reactions, Shear and Maximum Moment</title>
+  <meta name="description" content="Calculate beam reactions, maximum shear, and maximum bending moment for simply supported and cantilever beam load cases. Use with beam deflection and bending stress calculators." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/beam-load-calculator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root {
+      --blue-900:#0f172a;
+      --blue-800:#1e3a8a;
+      --blue-700:#1d4ed8;
+      --blue-600:#2563eb;
+      --blue-100:#dbeafe;
+      --slate-900:#0f172a;
+      --slate-800:#1e293b;
+      --slate-700:#334155;
+      --slate-600:#475569;
+      --slate-500:#64748b;
+      --slate-200:#e2e8f0;
+      --slate-100:#f1f5f9;
+      --green-100:#dcfce7;
+      --green-700:#15803d;
+      --amber-100:#fef3c7;
+      --amber-700:#b45309;
+      --red-100:#fee2e2;
+      --red-700:#b91c1c;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(15,23,42,0.10);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f8fafc;
+      color:var(--slate-800);
+      line-height:1.6;
+    }
+
+    a {
+      color:var(--blue-700);
+      text-decoration:none;
+    }
+
+    a:hover { text-decoration:underline; }
+
+    #navbar {
+      position:relative;
+      z-index:50;
+    }
+
+    .hero {
+      background:white;
+      border-bottom:1px solid var(--slate-200);
+      padding:56px 20px 44px;
+    }
+
+    .hero-inner {
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,0.75fr);
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:var(--blue-100);
+      color:var(--blue-800);
+      font-size:0.9rem;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .hero h1 {
+      margin:0 0 16px;
+      color:var(--slate-900);
+      font-size:clamp(2.1rem,5vw,4rem);
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+
+    .hero p {
+      margin:0 0 22px;
+      max-width:780px;
+      color:var(--slate-600);
+      font-size:1.08rem;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:800;
+      border:1px solid transparent;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .btn-primary {
+      background:var(--blue-700);
+      color:white;
+      box-shadow:0 8px 24px rgba(29,78,216,0.25);
+    }
+
+    .btn-secondary {
+      background:white;
+      color:var(--blue-700);
+      border-color:var(--slate-200);
+    }
+
+    .hero-panel {
+      background:#f8fafc;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin:0 0 12px;
+      color:var(--slate-900);
+      font-size:1.25rem;
+    }
+
+    .hero-panel ul {
+      margin:0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .hero-panel li { margin:8px 0; }
+
+    .page {
+      max-width:1180px;
+      margin:0 auto;
+      padding:42px 20px 70px;
+    }
+
+    .section { margin-bottom:44px; }
+
+    .section-header { margin-bottom:22px; }
+
+    .section-header h2 {
+      margin:0 0 8px;
+      color:var(--slate-900);
+      font-size:clamp(1.55rem,3vw,2.25rem);
+      line-height:1.15;
+      letter-spacing:-0.025em;
+    }
+
+    .section-header p {
+      margin:0;
+      max-width:900px;
+      color:var(--slate-600);
+    }
+
+    .calculator-shell {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .calculator-top {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      padding:24px;
+    }
+
+    .calculator-top h2 {
+      margin:0 0 8px;
+      font-size:1.7rem;
+    }
+
+    .calculator-top p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+    }
+
+    .calculator-body {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,0.8fr);
+      gap:0;
+    }
+
+    .inputs {
+      padding:24px;
+      border-right:1px solid var(--slate-200);
+    }
+
+    .results {
+      padding:24px;
+      background:#f8fafc;
+    }
+
+    .input-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .field.full { grid-column:1 / -1; }
+
+    label {
+      font-weight:800;
+      color:var(--slate-900);
+      font-size:0.94rem;
+    }
+
+    input, select {
+      width:100%;
+      border:1px solid var(--slate-200);
+      border-radius:12px;
+      padding:11px 12px;
+      font-size:1rem;
+      color:var(--slate-800);
+      background:white;
+    }
+
+    input:focus, select:focus {
+      outline:3px solid rgba(37,99,235,0.16);
+      border-color:var(--blue-600);
+    }
+
+    .hint {
+      color:var(--slate-500);
+      font-size:0.86rem;
+    }
+
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .result-box {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    .result-box h3 {
+      margin:0 0 6px;
+      color:var(--slate-900);
+      font-size:1rem;
+    }
+
+    .result-value {
+      font-size:1.6rem;
+      font-weight:900;
+      color:var(--blue-800);
+      line-height:1.15;
+      overflow-wrap:anywhere;
+    }
+
+    .result-sub {
+      color:var(--slate-500);
+      font-size:0.92rem;
+      margin-top:4px;
+    }
+
+    .status {
+      border-radius:18px;
+      padding:16px;
+      font-weight:800;
+      margin-top:14px;
+    }
+
+    .status.good {
+      background:var(--green-100);
+      color:var(--green-700);
+      border:1px solid #86efac;
+    }
+
+    .status.warn {
+      background:var(--amber-100);
+      color:var(--amber-700);
+      border:1px solid #fcd34d;
+    }
+
+    .formula {
+      background:#0f172a;
+      color:white;
+      border-radius:18px;
+      padding:20px;
+      overflow-x:auto;
+    }
+
+    .formula code {
+      font-size:1.05rem;
+      color:white;
+      white-space:pre-wrap;
+    }
+
+    .card-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card-grid.two {
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .card {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    }
+
+    .card h3 {
+      margin:0 0 9px;
+      color:var(--slate-900);
+      line-height:1.25;
+    }
+
+    .card p {
+      margin:0 0 14px;
+      color:var(--slate-600);
+    }
+
+    .card ul {
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .card li { margin:6px 0; }
+
+    .note {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .warning {
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .workflow {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .workflow-row {
+      display:grid;
+      grid-template-columns:82px minmax(0,1fr) minmax(220px,0.5fr);
+      gap:18px;
+      padding:22px;
+      border-bottom:1px solid var(--slate-200);
+      align-items:center;
+    }
+
+    .workflow-row:last-child { border-bottom:none; }
+
+    .step-number {
+      width:48px;
+      height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--blue-800),var(--blue-600));
+      color:white;
+      font-weight:900;
+    }
+
+    .workflow-row h3 {
+      margin:0 0 5px;
+      color:var(--slate-900);
+    }
+
+    .workflow-row p {
+      margin:0;
+      color:var(--slate-600);
+    }
+
+    .workflow-link { font-weight:900; }
+
+    .bottom-cta {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+
+    .bottom-cta h2 {
+      margin:0 0 10px;
+      font-size:1.85rem;
+    }
+
+    .bottom-cta p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+      max-width:760px;
+    }
+
+    footer {
+      text-align:center;
+      color:var(--slate-500);
+      padding:34px 20px 44px;
+      border-top:1px solid var(--slate-200);
+      background:white;
+    }
+
+    @media (max-width:980px) {
+      .hero-inner,
+      .calculator-body,
+      .bottom-cta {
+        grid-template-columns:1fr;
+      }
+
+      .inputs {
+        border-right:none;
+        border-bottom:1px solid var(--slate-200);
+      }
+
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .workflow-row {
+        grid-template-columns:64px 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:2;
+      }
+    }
+
+    @media (max-width:680px) {
+      .hero {
+        padding:44px 16px 34px;
+      }
+
+      .page {
+        padding:32px 16px 54px;
+      }
+
+      .input-grid,
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:auto;
+      }
+
+      .hero-actions,
+      .button-row {
+        flex-direction:column;
+      }
+
+      .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Machine Design Calculator</div>
+        <h1>Beam Load & Reaction Calculator</h1>
+        <p>
+          Calculate support reactions, total load, maximum shear, and maximum bending moment for common
+          beam load cases. Use this as the first step before checking bending stress, beam deflection,
+          section modulus, and machine frame stiffness.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta_click',{'page':'beam_load','target':'calculator','location':'hero'});">
+            Open Calculator
+          </a>
+          <a class="btn btn-secondary" href="/bending-stress-calculator.html" onclick="gtag('event','page_cta_click',{'page':'beam_load','target':'bending_stress','location':'hero'});">
+            Check Bending Stress
+          </a>
+          <a class="btn btn-secondary" href="/beam-deflection-calculator.html" onclick="gtag('event','page_cta_click',{'page':'beam_load','target':'beam_deflection','location':'hero'});">
+            Check Deflection
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Use this calculator for:</h2>
+        <ul>
+          <li>Simply supported beams with point or uniform loads</li>
+          <li>Cantilever brackets, arms, rails, and tooling supports</li>
+          <li>Reaction force estimates at supports or mounts</li>
+          <li>Maximum moment input for bending stress checks</li>
+          <li>Early machine frame, bracket, and structure sizing</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="calculator" class="section">
+      <div class="calculator-shell">
+        <div class="calculator-top">
+          <h2>Calculate Beam Reactions and Maximum Moment</h2>
+          <p>
+            Select a load case and enter the span, load, and load position. The calculator returns
+            reactions, total load, maximum shear, and maximum bending moment.
+          </p>
+        </div>
+
+        <div class="calculator-body">
+          <div class="inputs">
+            <div class="input-grid">
+              <div class="field">
+                <label for="unitSystem">Unit System</label>
+                <select id="unitSystem" onchange="updateUnits(); calculateBeamLoad();">
+                  <option value="imperial">Imperial — lb, in</option>
+                  <option value="metric">Metric — N, mm</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="loadCase">Load Case</label>
+                <select id="loadCase" onchange="toggleLoadFields(); calculateBeamLoad();">
+                  <option value="simple_center">Simply supported, center point load</option>
+                  <option value="simple_offset">Simply supported, off-center point load</option>
+                  <option value="simple_two_point">Simply supported, two point loads</option>
+                  <option value="simple_udl">Simply supported, uniform load</option>
+                  <option value="cantilever_end">Cantilever, end point load</option>
+                  <option value="cantilever_offset">Cantilever, point load at distance</option>
+                  <option value="cantilever_udl">Cantilever, uniform load across full length</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="span">Span / Beam Length <span class="unit-length">(in)</span></label>
+                <input id="span" type="number" value="48" min="0" step="any" oninput="calculateBeamLoad();" />
+                <span class="hint">Distance between supports, or cantilever length.</span>
+              </div>
+
+              <div class="field point-load-one">
+                <label for="load1">Point Load 1 <span class="unit-force">(lb)</span></label>
+                <input id="load1" type="number" value="500" min="0" step="any" oninput="calculateBeamLoad();" />
+              </div>
+
+              <div class="field position-one" style="display:none;">
+                <label for="position1">Load 1 Position from Left / Fixed End <span class="unit-length">(in)</span></label>
+                <input id="position1" type="number" value="24" min="0" step="any" oninput="calculateBeamLoad();" />
+              </div>
+
+              <div class="field point-load-two" style="display:none;">
+                <label for="load2">Point Load 2 <span class="unit-force">(lb)</span></label>
+                <input id="load2" type="number" value="250" min="0" step="any" oninput="calculateBeamLoad();" />
+              </div>
+
+              <div class="field position-two" style="display:none;">
+                <label for="position2">Load 2 Position from Left Support <span class="unit-length">(in)</span></label>
+                <input id="position2" type="number" value="36" min="0" step="any" oninput="calculateBeamLoad();" />
+              </div>
+
+              <div class="field uniform-load" style="display:none;">
+                <label for="uniformLoad">Uniform Load <span class="unit-uniform">(lb/in)</span></label>
+                <input id="uniformLoad" type="number" value="10" min="0" step="any" oninput="calculateBeamLoad();" />
+                <span class="hint">Load per unit length across the full span.</span>
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateBeamLoad(); gtag('event','calculator_run',{'calculator':'beam_load'});">
+                Calculate
+              </button>
+              <button class="btn btn-secondary" type="button" onclick="resetCalculator(); gtag('event','calculator_reset',{'calculator':'beam_load'});">
+                Reset Example
+              </button>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="result-box">
+              <h3>Total Applied Load</h3>
+              <div id="totalLoadResult" class="result-value">—</div>
+              <div class="result-sub">Total downward load used in the selected case.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Left / Fixed Reaction</h3>
+              <div id="leftReactionResult" class="result-value">—</div>
+              <div class="result-sub">Support reaction at left support or fixed end.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Right Reaction</h3>
+              <div id="rightReactionResult" class="result-value">—</div>
+              <div class="result-sub">Right support reaction for simply supported cases.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Maximum Shear</h3>
+              <div id="maxShearResult" class="result-value">—</div>
+              <div class="result-sub">Largest reaction or shear magnitude.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Maximum Bending Moment</h3>
+              <div id="maxMomentResult" class="result-value">—</div>
+              <div class="result-sub">Use this in the bending stress calculator.</div>
+            </div>
+
+            <div id="statusBox" class="status warn">
+              Enter values to calculate beam reactions.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>What This Calculator Gives You</h2>
+        <p>
+          Beam reactions and maximum moment are usually the first calculations in a structural check.
+          They tell you how much force the supports must carry and how much bending the member must resist.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Support Reactions</h3>
+          <p>
+            Reactions estimate the force pushed back into supports, bolts, welds, bearings, brackets,
+            and machine-frame mounting points.
+          </p>
+          <ul>
+            <li>Useful for sizing mounting hardware.</li>
+            <li>Helpful for checking load paths.</li>
+            <li>Important for frames and tooling supports.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Maximum Bending Moment</h3>
+          <p>
+            Maximum moment is the key input for bending stress. The larger the moment, the more the beam
+            wants to bend or yield.
+          </p>
+          <ul>
+            <li>Use in σ = M / S.</li>
+            <li>Depends strongly on span and load position.</li>
+            <li>Often highest at center or fixed support.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Maximum Shear</h3>
+          <p>
+            Maximum shear helps identify the largest vertical force near a support or fixed end. It is
+            not a complete shear stress design, but it is useful for practical machine checks.
+          </p>
+          <ul>
+            <li>Helpful for support bolts and mounts.</li>
+            <li>Useful when checking brackets and tabs.</li>
+            <li>Watch shock loads and dynamic loads.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Formula Reference</h2>
+        <p>
+          These are simplified common load cases. More complex machine structures may need combined
+          loads, torsion, finite element analysis, or formal engineering review.
+        </p>
+      </div>
+
+      <div class="formula">
+        <code>Simply Supported, Center Point Load:
+RA = P / 2
+RB = P / 2
+Mmax = P × L / 4
+
+Simply Supported, Off-Center Point Load:
+RA = P × (L - a) / L
+RB = P × a / L
+Mmax = P × a × (L - a) / L
+
+Simply Supported, Uniform Load:
+Total Load = w × L
+RA = w × L / 2
+RB = w × L / 2
+Mmax = w × L² / 8
+
+Cantilever, End Point Load:
+Fixed Reaction = P
+Mmax = P × L
+
+Cantilever, Point Load at Distance:
+Fixed Reaction = P
+Mmax = P × a
+
+Cantilever, Uniform Load:
+Total Load = w × L
+Fixed Reaction = w × L
+Mmax = w × L² / 2</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Recommended Structural Workflow</h2>
+        <p>
+          Do not start with deflection or stress until the load case makes sense. The load path comes first.
+        </p>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-row">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Define the load and supports</h3>
+            <p>
+              Decide whether the member is simply supported, cantilevered, point loaded, uniformly loaded,
+              or carrying multiple concentrated loads.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'beam_load','step':'define_load'});">Use Calculator →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Calculate maximum moment</h3>
+            <p>
+              Use the maximum bending moment as the main input for checking bending stress and comparing
+              section modulus.
+            </p>
+          </div>
+          <a class="workflow-link" href="/bending-stress-calculator.html" onclick="gtag('event','workflow_click',{'page':'beam_load','step':'bending_stress','target':'bending_stress'});">Bending Stress →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Check beam deflection</h3>
+            <p>
+              Strength is not enough. A machine member can be below yield stress and still flex enough
+              to cause alignment, sensor, robot, or tooling problems.
+            </p>
+          </div>
+          <a class="workflow-link" href="/beam-deflection-calculator.html" onclick="gtag('event','workflow_click',{'page':'beam_load','step':'beam_deflection','target':'beam_deflection'});">Beam Deflection →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Compare section shapes</h3>
+            <p>
+              If stress or deflection is too high, compare tubes, bars, shafts, and plates using section
+              modulus and moment of inertia.
+            </p>
+          </div>
+          <a class="workflow-link" href="/section-modulus-calculator.html" onclick="gtag('event','workflow_click',{'page':'beam_load','step':'section_modulus','target':'section_modulus'});">Section Modulus →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Load Case Selection Notes</h2>
+        <p>
+          Picking the closest load case matters. The same total weight can create very different support
+          reactions and bending moments depending on where the load is applied.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Center Point Load</h3>
+          <p>
+            Use this when one concentrated load is near the middle of a beam supported at both ends.
+          </p>
+          <ul>
+            <li>Common for cross rails and simple supports.</li>
+            <li>Maximum moment occurs at center.</li>
+            <li>Symmetric reactions at both supports.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Off-Center Point Load</h3>
+          <p>
+            Use this when a motor, cylinder, gearbox, bracket, tooling nest, or fixture load is closer
+            to one support than the other.
+          </p>
+          <ul>
+            <li>Closer support carries more reaction force.</li>
+            <li>Load position changes moment and reaction balance.</li>
+            <li>Very common in real automation frames.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Uniform Load</h3>
+          <p>
+            Use this for distributed weight such as plates, guarding, light conveyors, trays, or evenly
+            supported machine components.
+          </p>
+          <ul>
+            <li>Load is entered per unit length.</li>
+            <li>Total load equals w × L.</li>
+            <li>Often more realistic than one point load.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Two Point Loads</h3>
+          <p>
+            Use this for two mounted components on the same rail or beam, such as two cylinders, two
+            tooling stations, or two support loads.
+          </p>
+          <ul>
+            <li>Reactions are based on each load location.</li>
+            <li>Maximum moment is estimated by checking critical load points.</li>
+            <li>Useful for quick machine layout checks.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Cantilever Point Load</h3>
+          <p>
+            Use this for overhung brackets, tooling arms, sensor mounts, extended shafts, or unsupported
+            machine details.
+          </p>
+          <ul>
+            <li>Maximum moment occurs at the fixed end.</li>
+            <li>Long overhangs increase moment quickly.</li>
+            <li>Often a weak spot in automation equipment.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Cantilever Uniform Load</h3>
+          <p>
+            Use this for a cantilevered member with weight spread over the full length, such as a guard,
+            tray, cover, or extended support.
+          </p>
+          <ul>
+            <li>Fixed end carries total vertical reaction.</li>
+            <li>Fixed end also carries the highest moment.</li>
+            <li>Deflection should usually be checked next.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="warning">
+        <strong>Important:</strong>
+        This calculator is a practical starting point for common static beam load cases. It does not
+        account for fatigue, impact, torsion, combined loading, welds, bolt-hole weakening, stress
+        concentrations, buckling, local crushing, moving loads, vibration, or uneven support conditions.
+        Use conservative assumptions and verify critical machine structures with qualified engineering review.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Practical Machine Design Guidance</h2>
+        <p>
+          If reactions or moments are higher than expected, the best fix is often geometry, not just
+          stronger material.
+        </p>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card">
+          <h3>If the bending moment is too high</h3>
+          <ul>
+            <li>Shorten the unsupported span.</li>
+            <li>Move the load closer to a support.</li>
+            <li>Add an intermediate support or gusset.</li>
+            <li>Reduce overhung distance on cantilevered brackets.</li>
+            <li>Split one large load into better-supported locations.</li>
+            <li>Use a section with higher section modulus.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>If support reactions are too high</h3>
+          <ul>
+            <li>Check whether the load is positioned too close to one support.</li>
+            <li>Review bolt size, clamp load, and mounting plate thickness.</li>
+            <li>Check welds, tabs, and brackets at the reaction point.</li>
+            <li>Consider spreading the load through a larger base plate.</li>
+            <li>Check the machine frame under the support, not just the beam.</li>
+            <li>Account for shock, acceleration, and dynamic loading.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">
+        <strong>Good next step:</strong>
+        use the maximum moment from this page in the
+        <a href="/bending-stress-calculator.html" onclick="gtag('event','internal_link',{'from':'beam_load','to':'bending_stress'});">Bending Stress Calculator</a>,
+        then check stiffness with the
+        <a href="/beam-deflection-calculator.html" onclick="gtag('event','internal_link',{'from':'beam_load','to':'beam_deflection'});">Beam Deflection Calculator</a>.
+        If you need section properties, use the
+        <a href="/section-modulus-calculator.html" onclick="gtag('event','internal_link',{'from':'beam_load','to':'section_modulus'});">Section Modulus Calculator</a>.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Related Tools</h2>
+        <p>
+          Beam reactions are the first step. Use these related tools to finish the mechanical design check.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Bending Stress Calculator</h3>
+          <p>Use maximum bending moment to estimate bending stress and safety factor against yield.</p>
+          <a href="/bending-stress-calculator.html" onclick="gtag('event','related_tool_click',{'from':'beam_load','to':'bending_stress'});">Open Bending Stress →</a>
+        </article>
+
+        <article class="card">
+          <h3>Beam Deflection Calculator</h3>
+          <p>Check whether the member bends too much under load, even if stress is acceptable.</p>
+          <a href="/beam-deflection-calculator.html" onclick="gtag('event','related_tool_click',{'from':'beam_load','to':'beam_deflection'});">Open Beam Deflection →</a>
+        </article>
+
+        <article class="card">
+          <h3>Section Modulus Calculator</h3>
+          <p>Calculate I and S values for rectangles, shafts, tubes, and custom sections.</p>
+          <a href="/section-modulus-calculator.html" onclick="gtag('event','related_tool_click',{'from':'beam_load','to':'section_modulus'});">Open Section Modulus →</a>
+        </article>
+
+        <article class="card">
+          <h3>Torque to Clamp Load</h3>
+          <p>Check whether mounting bolts provide enough clamp load for brackets and supports.</p>
+          <a href="/torque-clamp-load.html" onclick="gtag('event','related_tool_click',{'from':'beam_load','to':'torque_clamp_load'});">Open Clamp Load →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bearing Life Calculator</h3>
+          <p>Check bearing life when beam loads feed into shafts, rollers, or rotating supports.</p>
+          <a href="/bearing-life-calculator.html" onclick="gtag('event','related_tool_click',{'from':'beam_load','to':'bearing_life'});">Open Bearing Life →</a>
+        </article>
+
+        <article class="card">
+          <h3>Machine Design Hub</h3>
+          <p>Return to the full structural and mechanical sizing workflow.</p>
+          <a href="/machine-design.html" onclick="gtag('event','related_tool_click',{'from':'beam_load','to':'machine_design'});">Open Machine Design Hub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom-cta">
+        <div>
+          <h2>Start with the load path before changing the part.</h2>
+          <p>
+            Reactions and maximum moment tell you where the force goes. Once those are known, check
+            bending stress, deflection, section properties, fasteners, and supports.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="/bending-stress-calculator.html" onclick="gtag('event','bottom_cta_click',{'page':'beam_load','target':'bending_stress'});">
+          Check Bending Stress
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators for real automation work
+  </footer>
+
+  <script>
+    function getValue(id) {
+      var value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatNumber(value, decimals) {
+      if (!isFinite(value)) return '—';
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function updateUnits() {
+      var system = document.getElementById('unitSystem').value;
+
+      document.querySelectorAll('.unit-length').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(in)' : '(mm)';
+      });
+
+      document.querySelectorAll('.unit-force').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb)' : '(N)';
+      });
+
+      document.querySelectorAll('.unit-uniform').forEach(function(el) {
+        el.textContent = system === 'imperial' ? '(lb/in)' : '(N/mm)';
+      });
+
+      if (system === 'imperial') {
+        document.getElementById('span').value = 48;
+        document.getElementById('load1').value = 500;
+        document.getElementById('load2').value = 250;
+        document.getElementById('position1').value = 24;
+        document.getElementById('position2').value = 36;
+        document.getElementById('uniformLoad').value = 10;
+      } else {
+        document.getElementById('span').value = 1200;
+        document.getElementById('load1').value = 2200;
+        document.getElementById('load2').value = 1100;
+        document.getElementById('position1').value = 600;
+        document.getElementById('position2').value = 900;
+        document.getElementById('uniformLoad').value = 2;
+      }
+    }
+
+    function toggleLoadFields() {
+      var loadCase = document.getElementById('loadCase').value;
+
+      document.querySelectorAll('.point-load-one').forEach(function(el) {
+        el.style.display = (
+          loadCase === 'simple_center' ||
+          loadCase === 'simple_offset' ||
+          loadCase === 'simple_two_point' ||
+          loadCase === 'cantilever_end' ||
+          loadCase === 'cantilever_offset'
+        ) ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.position-one').forEach(function(el) {
+        el.style.display = (
+          loadCase === 'simple_offset' ||
+          loadCase === 'simple_two_point' ||
+          loadCase === 'cantilever_offset'
+        ) ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.point-load-two').forEach(function(el) {
+        el.style.display = loadCase === 'simple_two_point' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.position-two').forEach(function(el) {
+        el.style.display = loadCase === 'simple_two_point' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.uniform-load').forEach(function(el) {
+        el.style.display = (
+          loadCase === 'simple_udl' ||
+          loadCase === 'cantilever_udl'
+        ) ? 'flex' : 'none';
+      });
+    }
+
+    function calculateMomentAtPoint(x, loads, leftReaction) {
+      var moment = leftReaction * x;
+
+      loads.forEach(function(load) {
+        if (x >= load.position) {
+          moment -= load.force * (x - load.position);
+        }
+      });
+
+      return moment;
+    }
+
+    function calculateBeamLoad() {
+      var system = document.getElementById('unitSystem').value;
+      var loadCase = document.getElementById('loadCase').value;
+      var L = getValue('span');
+      var P1 = getValue('load1');
+      var P2 = getValue('load2');
+      var a1 = getValue('position1');
+      var a2 = getValue('position2');
+      var w = getValue('uniformLoad');
+
+      var totalLoad = 0;
+      var leftReaction = 0;
+      var rightReaction = 0;
+      var maxShear = 0;
+      var maxMoment = 0;
+      var valid = true;
+      var message = 'Beam reactions calculated. Use maximum moment for bending stress and deflection checks.';
+
+      if (L <= 0) {
+        valid = false;
+        message = 'Span or beam length must be greater than zero.';
+      }
+
+      if (valid && loadCase === 'simple_center') {
+        totalLoad = P1;
+        leftReaction = P1 / 2;
+        rightReaction = P1 / 2;
+        maxShear = Math.max(Math.abs(leftReaction), Math.abs(rightReaction));
+        maxMoment = P1 * L / 4;
+      }
+
+      if (valid && loadCase === 'simple_offset') {
+        if (a1 < 0 || a1 > L) {
+          valid = false;
+          message = 'Load position must be between 0 and the span length.';
+        } else {
+          totalLoad = P1;
+          leftReaction = P1 * (L - a1) / L;
+          rightReaction = P1 * a1 / L;
+          maxShear = Math.max(Math.abs(leftReaction), Math.abs(rightReaction));
+          maxMoment = P1 * a1 * (L - a1) / L;
+        }
+      }
+
+      if (valid && loadCase === 'simple_two_point') {
+        if (a1 < 0 || a1 > L || a2 < 0 || a2 > L) {
+          valid = false;
+          message = 'Both load positions must be between 0 and the span length.';
+        } else {
+          totalLoad = P1 + P2;
+          rightReaction = ((P1 * a1) + (P2 * a2)) / L;
+          leftReaction = totalLoad - rightReaction;
+          maxShear = Math.max(Math.abs(leftReaction), Math.abs(rightReaction));
+
+          var loads = [
+            { force: P1, position: a1 },
+            { force: P2, position: a2 }
+          ];
+
+          var criticalPoints = [0, L, a1, a2];
+          maxMoment = 0;
+
+          criticalPoints.forEach(function(x) {
+            var moment = calculateMomentAtPoint(x, loads, leftReaction);
+            maxMoment = Math.max(maxMoment, Math.abs(moment));
+          });
+        }
+      }
+
+      if (valid && loadCase === 'simple_udl') {
+        totalLoad = w * L;
+        leftReaction = totalLoad / 2;
+        rightReaction = totalLoad / 2;
+        maxShear = Math.max(Math.abs(leftReaction), Math.abs(rightReaction));
+        maxMoment = w * L * L / 8;
+      }
+
+      if (valid && loadCase === 'cantilever_end') {
+        totalLoad = P1;
+        leftReaction = P1;
+        rightReaction = 0;
+        maxShear = P1;
+        maxMoment = P1 * L;
+      }
+
+      if (valid && loadCase === 'cantilever_offset') {
+        if (a1 < 0 || a1 > L) {
+          valid = false;
+          message = 'Load position must be between 0 and the cantilever length.';
+        } else {
+          totalLoad = P1;
+          leftReaction = P1;
+          rightReaction = 0;
+          maxShear = P1;
+          maxMoment = P1 * a1;
+        }
+      }
+
+      if (valid && loadCase === 'cantilever_udl') {
+        totalLoad = w * L;
+        leftReaction = totalLoad;
+        rightReaction = 0;
+        maxShear = totalLoad;
+        maxMoment = w * L * L / 2;
+      }
+
+      var forceUnit = system === 'imperial' ? 'lb' : 'N';
+      var momentUnit = system === 'imperial' ? 'lb-in' : 'N-mm';
+
+      if (!valid || totalLoad < 0 || maxMoment < 0) {
+        document.getElementById('totalLoadResult').textContent = '—';
+        document.getElementById('leftReactionResult').textContent = '—';
+        document.getElementById('rightReactionResult').textContent = '—';
+        document.getElementById('maxShearResult').textContent = '—';
+        document.getElementById('maxMomentResult').textContent = '—';
+      } else {
+        document.getElementById('totalLoadResult').textContent = formatNumber(totalLoad, 2) + ' ' + forceUnit;
+        document.getElementById('leftReactionResult').textContent = formatNumber(leftReaction, 2) + ' ' + forceUnit;
+        document.getElementById('rightReactionResult').textContent = loadCase.indexOf('cantilever') === 0 ? 'N/A' : formatNumber(rightReaction, 2) + ' ' + forceUnit;
+        document.getElementById('maxShearResult').textContent = formatNumber(maxShear, 2) + ' ' + forceUnit;
+        document.getElementById('maxMomentResult').textContent = formatNumber(maxMoment, 2) + ' ' + momentUnit;
+      }
+
+      var statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status';
+
+      if (!valid) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = message;
+      } else {
+        statusBox.classList.add('good');
+        statusBox.textContent = message;
+      }
+    }
+
+    function resetCalculator() {
+      document.getElementById('unitSystem').value = 'imperial';
+      document.getElementById('loadCase').value = 'simple_center';
+      updateUnits();
+      toggleLoadFields();
+      calculateBeamLoad();
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
+      })
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    toggleLoadFields();
+    calculateBeamLoad();
+  </script>
+</body>
+</html>
