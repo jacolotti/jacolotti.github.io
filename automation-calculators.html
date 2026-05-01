@@ -6,8 +6,9 @@
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Automation Calculators Index | PLC, Pneumatics, Robotics, Motion, Welding, ROI</title>
-  <meta name="description" content="Browse all automation engineering calculators, troubleshooting tools, guides, and category hubs in one place. PLC, electrical, pneumatics, robotics, motion, welding, fastening, adhesives, ROI, and reference tools.">
+
+  <title>Automation Calculators Index | PLC, Pneumatics, Robotics, Motion, Machine Design, Welding, ROI</title>
+  <meta name="description" content="Browse automation engineering calculators, troubleshooting tools, guides, and category hubs in one place. PLC, electrical, pneumatics, robotics, motors, motion, machine design, welding, fastening, adhesives, ROI, and reference tools.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -34,9 +35,7 @@
 
     *{box-sizing:border-box;}
 
-    html{
-      scroll-behavior:smooth;
-    }
+    html{scroll-behavior:smooth;}
 
     body{
       margin:0;
@@ -51,9 +50,7 @@
       text-decoration:none;
     }
 
-    a:hover{
-      text-decoration:underline;
-    }
+    a:hover{text-decoration:underline;}
 
     #navbar{
       position:sticky;
@@ -148,9 +145,7 @@
       color:var(--muted);
     }
 
-    .hero-panel li{
-      margin-bottom:8px;
-    }
+    .hero-panel li{margin-bottom:8px;}
 
     .section{
       max-width:var(--max);
@@ -187,9 +182,7 @@
       text-decoration:none;
     }
 
-    .jump-links a:hover{
-      background:#e2edf9;
-    }
+    .jump-links a:hover{background:#e2edf9;}
 
     .grid-4,
     .grid-3,
@@ -198,9 +191,9 @@
       gap:18px;
     }
 
-    .grid-4{ grid-template-columns:repeat(4, 1fr); }
-    .grid-3{ grid-template-columns:repeat(3, 1fr); }
-    .grid-2{ grid-template-columns:repeat(2, 1fr); }
+    .grid-4{grid-template-columns:repeat(4, 1fr);}
+    .grid-3{grid-template-columns:repeat(3, 1fr);}
+    .grid-2{grid-template-columns:repeat(2, 1fr);}
 
     .mini-card,
     .tool-card,
@@ -274,13 +267,9 @@
       text-decoration:none;
     }
 
-    .flow-steps a:hover{
-      background:#e2edf9;
-    }
+    .flow-steps a:hover{background:#e2edf9;}
 
-    .arrow{
-      color:#8695a3;
-    }
+    .arrow{color:#8695a3;}
 
     .category-section{
       margin-top:34px;
@@ -319,13 +308,9 @@
       border-bottom:1px solid var(--border);
     }
 
-    .note-card{
-      padding:24px;
-    }
+    .note-card{padding:24px;}
 
-    .note-card h2{
-      margin-top:0;
-    }
+    .note-card h2{margin-top:0;}
 
     .footer-note{
       text-align:center;
@@ -334,7 +319,7 @@
       padding:6px 0 10px;
     }
 
-    @media (max-width: 1020px){
+    @media (max-width:1020px){
       .hero-inner,
       .grid-4,
       .grid-3,
@@ -343,22 +328,11 @@
       }
     }
 
-    @media (max-width: 700px){
-      .hero-inner{
-        padding:40px 16px 30px;
-      }
-
-      .section{
-        padding:30px 16px;
-      }
-
-      .hero h1{
-        font-size:1.95rem;
-      }
-
-      .section h2{
-        font-size:1.55rem;
-      }
+    @media (max-width:700px){
+      .hero-inner{padding:40px 16px 30px;}
+      .section{padding:30px 16px;}
+      .hero h1{font-size:1.95rem;}
+      .section h2{font-size:1.55rem;}
 
       .mini-card,
       .tool-card,
@@ -369,6 +343,7 @@
     }
   </style>
 </head>
+
 <body>
   <div id="navbar"></div>
 
@@ -377,10 +352,10 @@
       <div>
         <h1>Automation Engineering Tools in One Place</h1>
         <p>
-          Browse calculators, troubleshooting tools, setup guides, and category hubs across PLCs, pneumatics, robotics, motion, welding, fastening, adhesives, ROI, and supporting references.
+          Browse calculators, troubleshooting tools, setup guides, and category hubs across PLCs, pneumatics, robotics, motors, motion, machine design, welding, fastening, adhesives, ROI, and supporting references.
         </p>
         <p>
-          This page is the main index for the full site so people can either enter through a category hub or jump directly into the specific tool they need.
+          This page is the main index for the full site. Use it to enter through a category hub, follow a workflow, or jump directly into the specific calculator or guide you need.
         </p>
 
         <div class="hero-actions">
@@ -414,10 +389,10 @@
       <a href="#motion" onclick="gtag('event','index_jump',{'category':'motion'});">Motors &amp; Motion</a>
       <a href="#pneumatics" onclick="gtag('event','index_jump',{'category':'pneumatics'});">Pneumatics</a>
       <a href="#plc-electrical" onclick="gtag('event','index_jump',{'category':'plc_electrical'});">PLC &amp; Electrical</a>
+      <a href="#machine-design" onclick="gtag('event','index_jump',{'category':'machine_design'});">Machine Design</a>
       <a href="#welding" onclick="gtag('event','index_jump',{'category':'welding'});">Welding</a>
       <a href="#fastening" onclick="gtag('event','index_jump',{'category':'fastening'});">Fastening</a>
       <a href="#adhesives" onclick="gtag('event','index_jump',{'category':'adhesives'});">Adhesives</a>
-      <a href="#mechanical" onclick="gtag('event','index_jump',{'category':'mechanical'});">Mechanical</a>
       <a href="#roi" onclick="gtag('event','index_jump',{'category':'roi'});">ROI / Planning</a>
       <a href="#resources" onclick="gtag('event','index_jump',{'category':'resources'});">Reference Tools</a>
     </div>
@@ -445,9 +420,9 @@
         <p>Quick starting point for project justification, annual savings, and payback review.</p>
       </a>
 
-      <a class="mini-card" href="/robot-simulator.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'robot_simulator'});">
-        <h3>Robot Simulator</h3>
-        <p>Interactive robot positioning and layout concept tool for quick reach and placement checks.</p>
+      <a class="mini-card" href="/machine-design.html" onclick="gtag('event','tool_open',{'location':'popular','tool':'machine_design_hub'});">
+        <h3>Machine Design Hub</h3>
+        <p>Start here for beams, frames, plates, shafts, columns, weld sizing, and bolted joint checks.</p>
       </a>
     </div>
   </section>
@@ -477,6 +452,11 @@
       <a class="mini-card" href="/motors-motion.html" onclick="gtag('event','hub_open',{'hub':'motors_motion'});">
         <h3>Motors &amp; Motion Hub</h3>
         <p>Conveyor speed, motor sizing, servo torque, gearing, and power relationships.</p>
+      </a>
+
+      <a class="mini-card" href="/machine-design.html" onclick="gtag('event','hub_open',{'hub':'machine_design'});">
+        <h3>Machine Design Hub</h3>
+        <p>Beam loads, deflection, stress, section modulus, plate checks, shafts, columns, brackets, welds, and bolted joints.</p>
       </a>
 
       <a class="mini-card" href="/welding.html" onclick="gtag('event','hub_open',{'hub':'welding'});">
@@ -538,6 +518,20 @@
         </div>
 
         <div class="workflow">
+          <h3>Machine Design Flow</h3>
+          <p>Start with loading, then check deflection, stress, member shape, and connection details.</p>
+          <div class="flow-steps">
+            <a href="/beam-load-calculator.html">Load</a>
+            <span class="arrow">→</span>
+            <a href="/beam-deflection-calculator.html">Deflection</a>
+            <span class="arrow">→</span>
+            <a href="/bending-stress-calculator.html">Stress</a>
+            <span class="arrow">→</span>
+            <a href="/weld-size-calculator.html">Welds</a>
+          </div>
+        </div>
+
+        <div class="workflow">
           <h3>ROI Flow</h3>
           <p>Start with current loss, estimate labor savings, then review payback and break-even.</p>
           <div class="flow-steps">
@@ -565,27 +559,33 @@
         <h3>Robotics</h3>
         <p>Robot cycle time, reach, payload, simulation, and layout-related tools.</p>
       </div>
+
       <div class="tool-grid">
         <a class="tool-card" href="/robotics.html" onclick="gtag('event','tool_open',{tool:'robotics_hub'});">
           <h4>Robotics Hub</h4>
           <p>Main robotics landing page with grouped tools, workflow guidance, and stronger internal navigation.</p>
         </a>
+
         <a class="tool-card" href="/robot.html" onclick="gtag('event','tool_open',{tool:'robot_cycle'});">
           <h4>Robot Cycle Time Calculator</h4>
           <p>Estimate cycle time, throughput per minute, and shift output for robot applications.</p>
         </a>
+
         <a class="tool-card" href="/robot-reach.html" onclick="gtag('event','tool_open',{tool:'robot_reach'});">
           <h4>Robot Reach Calculator</h4>
           <p>Check whether a robot can physically reach a target point with margin.</p>
         </a>
+
         <a class="tool-card" href="/robot-payload.html" onclick="gtag('event','tool_open',{tool:'robot_payload'});">
           <h4>Robot Payload Calculator</h4>
           <p>Estimate required robot payload using part, gripper, tooling, and safety factor.</p>
         </a>
+
         <a class="tool-card" href="/robot-simulator.html" onclick="gtag('event','tool_open',{tool:'robot_simulator'});">
           <h4>Robot Simulator</h4>
           <p>Interactive robot visualization tool for concepting and placement checks.</p>
         </a>
+
         <a class="tool-card" href="/bin-simulator.html" onclick="gtag('event','tool_open',{tool:'bin_simulator'});">
           <h4>Bin Loading Simulator</h4>
           <p>Preview stacking and loading behavior for simple bin loading concepts.</p>
@@ -598,39 +598,48 @@
         <h3>Motors &amp; Motion</h3>
         <p>Motion sizing, gearing, conveyor calculations, motor references, and drive power relationships.</p>
       </div>
+
       <div class="tool-grid">
         <a class="tool-card" href="/motors-motion.html" onclick="gtag('event','tool_open',{tool:'motors_motion_hub'});">
           <h4>Motors &amp; Motion Hub</h4>
           <p>Main motion landing page with sizing paths, related tools, and internal workflow links.</p>
         </a>
+
         <a class="tool-card" href="/servo-torque.html" onclick="gtag('event','tool_open',{tool:'servo_torque'});">
           <h4>Servo Torque Calculator</h4>
           <p>Estimate running torque, acceleration torque, and recommended servo sizing.</p>
         </a>
+
         <a class="tool-card" href="/motor.html" onclick="gtag('event','tool_open',{tool:'motor_sizing'});">
           <h4>Conveyor Motor Sizing Calculator</h4>
           <p>Estimate required force, torque, RPM, and drive power for conveyor applications.</p>
         </a>
+
         <a class="tool-card" href="/conveyor-speed.html" onclick="gtag('event','tool_open',{tool:'conveyor_speed'});">
           <h4>Conveyor Speed Calculator</h4>
           <p>Calculate conveyor speed, travel time, and throughput from spacing and rate.</p>
         </a>
+
         <a class="tool-card" href="/gear-ratio.html" onclick="gtag('event','tool_open',{tool:'gear_ratio'});">
           <h4>Gear Ratio Calculator</h4>
           <p>Calculate gear ratio, output speed, output torque, and speed reduction effects.</p>
         </a>
+
         <a class="tool-card" href="/gearbox-torque.html" onclick="gtag('event','tool_open',{tool:'gearbox_torque'});">
           <h4>Gearbox Output Torque Calculator</h4>
           <p>Estimate output torque, output speed, and drivetrain performance from motor inputs.</p>
         </a>
+
         <a class="tool-card" href="/hp-torque-rpm-calculator.html" onclick="gtag('event','tool_open',{tool:'hp_torque_rpm'});">
           <h4>HP / Torque / RPM Calculator</h4>
           <p>Convert horsepower, torque, and speed relationships for mechanical drive systems.</p>
         </a>
+
         <a class="tool-card" href="/motor-fla-calculator.html" onclick="gtag('event','tool_open',{tool:'motor_fla'});">
           <h4>Motor FLA Calculator</h4>
           <p>Estimate full-load current for motors as a practical sizing reference.</p>
         </a>
+
         <a class="tool-card" href="/nema-motor-frame-chart.html" onclick="gtag('event','tool_open',{tool:'nema_motor_frame'});">
           <h4>NEMA Motor Frame Chart</h4>
           <p>Reference common NEMA motor frame sizes for replacement and sizing work.</p>
@@ -663,30 +672,37 @@
           <h4>Pneumatics Hub</h4>
           <p>Main pneumatic landing page with workflow guidance and internal links between related sizing tools.</p>
         </a>
+
         <a class="tool-card" href="/pneumatic.html" onclick="gtag('event','tool_open',{tool:'pneumatic_force'});">
           <h4>Pneumatic Force Calculator</h4>
           <p>Estimate extend force, retract force, derated force, and output for cylinders.</p>
         </a>
+
         <a class="tool-card" href="/pneumatic-speed.html" onclick="gtag('event','tool_open',{tool:'pneumatic_speed'});">
           <h4>Pneumatic Cylinder Speed Calculator</h4>
           <p>Estimate cylinder extend and retract speed using flow rate, size, and stroke.</p>
         </a>
+
         <a class="tool-card" href="/air-consumption.html" onclick="gtag('event','tool_open',{tool:'air_consumption'});">
           <h4>Pneumatic Air Consumption Calculator</h4>
           <p>Estimate cylinder air use per cycle and SCFM demand for production rates.</p>
         </a>
+
         <a class="tool-card" href="/air-line-size-calculator.html" onclick="gtag('event','tool_open',{tool:'air_line_size'});">
           <h4>Air Line Size Calculator</h4>
           <p>Estimate compressed air line size using airflow demand and application needs.</p>
         </a>
+
         <a class="tool-card" href="/psi-to-force-calculator.html" onclick="gtag('event','tool_open',{tool:'psi_to_force'});">
           <h4>PSI to Force Calculator</h4>
           <p>Convert pressure and diameter into theoretical force for tooling and actuators.</p>
         </a>
+
         <a class="tool-card" href="/cfm-scfm-psi-calculator.html" onclick="gtag('event','tool_open',{tool:'cfm_scfm_psi'});">
           <h4>CFM / SCFM / PSI Calculator</h4>
           <p>Review airflow and pressure relationships in compressed air systems.</p>
         </a>
+
         <a class="tool-card" href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','tool_open',{tool:'pneumatic_system_guide'});">
           <h4>Pneumatic System Sizing Guide</h4>
           <p>Follow a step-by-step path for sizing force, speed, air use, and line demand together.</p>
@@ -719,57 +735,165 @@
           <h4>PLC &amp; Electrical Hub</h4>
           <p>Main controls landing page with troubleshooting paths, related tools, and stronger internal linking.</p>
         </a>
+
         <a class="tool-card" href="/problem-solver.html" onclick="gtag('event','tool_open',{tool:'problem_solver'});">
           <h4>Problem Solver</h4>
           <p>Start from the symptom and work toward the right calculator, guide, or troubleshooting path.</p>
         </a>
+
         <a class="tool-card" href="/plc-communication-troubleshooting.html" onclick="gtag('event','tool_open',{tool:'plc_comm_troubleshooting'});">
           <h4>PLC Communication Troubleshooter</h4>
           <p>Work through PLC, HMI, remote I/O, network, and field-device communication issues.</p>
         </a>
+
         <a class="tool-card" href="/plc-troubleshooter.html" onclick="gtag('event','tool_open',{tool:'plc_troubleshooter'});">
           <h4>PLC Troubleshooter</h4>
           <p>General PLC issue path for machine-side troubleshooting and logic investigation.</p>
         </a>
+
         <a class="tool-card" href="/plc-troubleshooting-guide.html" onclick="gtag('event','tool_open',{tool:'plc_troubleshooting_guide'});">
           <h4>PLC Troubleshooting Guide</h4>
           <p>Structured guide content for working through live PLC and controls problems.</p>
         </a>
+
         <a class="tool-card" href="/plc-not-communicating.html" onclick="gtag('event','tool_open',{tool:'plc_not_communicating'});">
           <h4>PLC Not Communicating</h4>
           <p>Focused troubleshooting page for communication-related faults and connection issues.</p>
         </a>
+
         <a class="tool-card" href="/plc-inputs-not-working.html" onclick="gtag('event','tool_open',{tool:'plc_inputs_not_working'});">
           <h4>PLC Inputs Not Working</h4>
           <p>Targeted troubleshooting help for missing input signals and field-device issues.</p>
         </a>
+
         <a class="tool-card" href="/plc-pulse-capture.html" onclick="gtag('event','tool_open',{tool:'plc_pulse_capture'});">
           <h4>PLC Scan Time &amp; Pulse Capture</h4>
           <p>Check whether signal duration is too short for reliable PLC detection.</p>
         </a>
+
         <a class="tool-card" href="/analog-scaling.html" onclick="gtag('event','tool_open',{tool:'analog_scaling'});">
           <h4>PLC Analog Scaling Calculator</h4>
           <p>Convert raw counts, current, or voltage signals into engineering units.</p>
         </a>
+
         <a class="tool-card" href="/voltage-drop.html" onclick="gtag('event','tool_open',{tool:'voltage_drop'});">
           <h4>Voltage Drop Calculator</h4>
           <p>Calculate resistance, voltage drop, percent drop, and final load voltage.</p>
         </a>
+
         <a class="tool-card" href="/wire-size-calculator.html" onclick="gtag('event','tool_open',{tool:'wire_size'});">
           <h4>Wire Size Calculator</h4>
           <p>Estimate recommended AWG wire size using current, voltage, distance, and allowable drop.</p>
         </a>
+
         <a class="tool-card" href="/wire-gauge-amps.html" onclick="gtag('event','tool_open',{tool:'wire_gauge_amps'});">
           <h4>Wire Gauge vs Amps Chart</h4>
           <p>Quick AWG ampacity and resistance reference for electrical and controls work.</p>
         </a>
+
         <a class="tool-card" href="/awg-wire-gauge-chart.html" onclick="gtag('event','tool_open',{tool:'awg_wire_gauge_chart'});">
           <h4>AWG Wire Gauge Chart</h4>
           <p>Reference AWG sizes, diameters, and comparison data in one place.</p>
         </a>
+
         <a class="tool-card" href="/safety-distance.html" onclick="gtag('event','tool_open',{tool:'safety_distance'});">
           <h4>Safety Distance Calculator</h4>
           <p>Estimate safety distance for light curtains, scanners, and safeguarding devices.</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="category-section" id="machine-design">
+      <div class="category-head">
+        <h3>Machine Design</h3>
+        <p>Structural and mechanical design calculators for beams, frames, plates, shafts, columns, brackets, welds, and bolted joints.</p>
+      </div>
+
+      <div class="workflow">
+        <h3>Machine Design Check Flow</h3>
+        <p>Start with the applied load, check deflection and stress, then review supporting members, joints, welds, and shaft behavior.</p>
+        <div class="flow-steps">
+          <a href="/beam-load-calculator.html">Beam Load</a>
+          <span class="arrow">→</span>
+          <a href="/beam-deflection-calculator.html">Deflection</a>
+          <span class="arrow">→</span>
+          <a href="/bending-stress-calculator.html">Stress</a>
+          <span class="arrow">→</span>
+          <a href="/section-modulus-calculator.html">Section Modulus</a>
+          <span class="arrow">→</span>
+          <a href="/machine-design.html">Hub</a>
+        </div>
+      </div>
+
+      <div class="tool-grid">
+        <a class="tool-card" href="/machine-design.html" onclick="gtag('event','tool_open',{tool:'machine_design_hub'});">
+          <h4>Machine Design Hub</h4>
+          <p>Main machine design landing page with structural sizing workflows, related calculators, and practical design guidance.</p>
+        </a>
+
+        <a class="tool-card" href="/beam-load-calculator.html" onclick="gtag('event','tool_open',{tool:'beam_load'});">
+          <h4>Beam Load Calculator</h4>
+          <p>Estimate reactions, bending moment, and shear behavior for common beam loading cases.</p>
+        </a>
+
+        <a class="tool-card" href="/beam-deflection-calculator.html" onclick="gtag('event','tool_open',{tool:'beam_deflection'});">
+          <h4>Beam Deflection Calculator</h4>
+          <p>Estimate beam deflection for quick structural checks, tooling frames, stands, and machine supports.</p>
+        </a>
+
+        <a class="tool-card" href="/bending-stress-calculator.html" onclick="gtag('event','tool_open',{tool:'bending_stress'});">
+          <h4>Bending Stress Calculator</h4>
+          <p>Check bending stress using moment and section modulus so beam strength is reviewed alongside deflection.</p>
+        </a>
+
+        <a class="tool-card" href="/section-modulus-calculator.html" onclick="gtag('event','tool_open',{tool:'section_modulus'});">
+          <h4>Section Modulus Calculator</h4>
+          <p>Estimate section modulus for rectangular, round, tube, and structural shapes used in machine frames.</p>
+        </a>
+
+        <a class="tool-card" href="/frame-rigidity-estimator.html" onclick="gtag('event','tool_open',{tool:'frame_rigidity'});">
+          <h4>Frame Rigidity Estimator</h4>
+          <p>Compare frame stiffness, member size, bracing, and support choices during early machine design.</p>
+        </a>
+
+        <a class="tool-card" href="/plate-deflection-calculator.html" onclick="gtag('event','tool_open',{tool:'plate_deflection'});">
+          <h4>Plate Deflection Calculator</h4>
+          <p>Estimate plate bending and deflection for tooling plates, covers, brackets, and support surfaces.</p>
+        </a>
+
+        <a class="tool-card" href="/column-buckling-calculator.html" onclick="gtag('event','tool_open',{tool:'column_buckling'});">
+          <h4>Column Buckling Calculator</h4>
+          <p>Check slender vertical supports, posts, legs, and compression members against buckling risk.</p>
+        </a>
+
+        <a class="tool-card" href="/gusset-plate-bracket-calculator.html" onclick="gtag('event','tool_open',{tool:'gusset_plate_bracket'});">
+          <h4>Gusset Plate &amp; Bracket Calculator</h4>
+          <p>Estimate bracket loading, gusset support needs, and design checks for fabricated machine supports.</p>
+        </a>
+
+        <a class="tool-card" href="/shaft-deflection-calculator.html" onclick="gtag('event','tool_open',{tool:'shaft_deflection'});">
+          <h4>Shaft Deflection Calculator</h4>
+          <p>Estimate shaft bending and deflection for rollers, driven shafts, support spans, and rotating assemblies.</p>
+        </a>
+
+        <a class="tool-card" href="/shaft-critical-speed-calculator.html" onclick="gtag('event','tool_open',{tool:'shaft_critical_speed'});">
+          <h4>Shaft Critical Speed Calculator</h4>
+          <p>Estimate first critical speed and review whether a rotating shaft may be operating too close to resonance.</p>
+        </a>
+
+        <a class="tool-card" href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','tool_open',{tool:'bolt_shear_joint_separation'});">
+          <h4>Bolt Shear &amp; Joint Separation Calculator</h4>
+          <p>Check bolted joints for shear loading, clamp force concerns, and separation risk.</p>
+        </a>
+
+        <a class="tool-card" href="/weld-size-calculator.html" onclick="gtag('event','tool_open',{tool:'weld_size'});">
+          <h4>Weld Size Calculator</h4>
+          <p>Estimate practical weld size needs for brackets, plates, frames, and fabricated machine supports.</p>
+        </a>
+
+        <a class="tool-card" href="/bearing-life-calculator.html" onclick="gtag('event','tool_open',{tool:'bearing_life'});">
+          <h4>Bearing Life Calculator</h4>
+          <p>Estimate bearing life for rotating equipment, shafts, rollers, and driven mechanical systems.</p>
         </a>
       </div>
     </div>
@@ -779,19 +903,23 @@
         <h3>Welding</h3>
         <p>Resistance welding setup calculators and weld support tools for process planning and troubleshooting.</p>
       </div>
+
       <div class="tool-grid">
         <a class="tool-card" href="/welding.html" onclick="gtag('event','tool_open',{tool:'welding_hub'});">
           <h4>Welding Hub</h4>
           <p>Main welding landing page with grouped resistance welding tools and related process support pages.</p>
         </a>
+
         <a class="tool-card" href="/spot-weld.html" onclick="gtag('event','tool_open',{tool:'spot_weld'});">
           <h4>Spot Weld Calculator</h4>
           <p>Estimate current, force, weld time, squeeze time, hold time, and tip diameter.</p>
         </a>
+
         <a class="tool-card" href="/projection-weld.html" onclick="gtag('event','tool_open',{tool:'projection_weld'});">
           <h4>Projection Weld Calculator</h4>
           <p>Estimate current, force, weld time, and starting values for projection welds.</p>
         </a>
+
         <a class="tool-card" href="/coolant-flow-sizing.html" onclick="gtag('event','tool_open',{tool:'coolant_flow_sizing'});">
           <h4>Coolant Flow Sizing</h4>
           <p>Estimate coolant flow needs for weld circuits, guns, transformers, and supporting cooling loops.</p>
@@ -804,27 +932,33 @@
         <h3>Fastening</h3>
         <p>Torque strategy, clamp load, tightening references, and multi-stage fastening tools.</p>
       </div>
+
       <div class="tool-grid">
         <a class="tool-card" href="/fastening.html" onclick="gtag('event','tool_open',{tool:'fastening_hub'});">
           <h4>Fastening Hub</h4>
           <p>Main fastening landing page with tightening workflow guidance and grouped torque-related tools.</p>
         </a>
+
         <a class="tool-card" href="/multi-stage-torque-sequence.html" onclick="gtag('event','tool_open',{tool:'multi_stage_torque_sequence'});">
           <h4>Multi-Stage Torque Sequence Calculator</h4>
           <p>Build multi-stage tightening setups for DC tools and nutrunner strategies.</p>
         </a>
+
         <a class="tool-card" href="/torque-clamp-load.html" onclick="gtag('event','tool_open',{tool:'torque_clamp_load'});">
           <h4>Torque to Clamp Load Calculator</h4>
           <p>Estimate clamp load from applied torque, nut factor, bolt size, and assumptions.</p>
         </a>
+
         <a class="tool-card" href="/bolt-tightening-torque.html" onclick="gtag('event','tool_open',{tool:'bolt_tightening_torque'});">
           <h4>Bolt Tightening Torque Calculator</h4>
           <p>Estimate recommended torque from bolt size, proof load percentage, and nut factor.</p>
         </a>
+
         <a class="tool-card" href="/torque-angle.html" onclick="gtag('event','tool_open',{tool:'torque_angle'});">
           <h4>Torque Angle Calculator</h4>
           <p>Estimate movement and approximate clamp load increase from tightening angle.</p>
         </a>
+
         <a class="tool-card" href="/bolt-torque-chart.html" onclick="gtag('event','tool_open',{tool:'bolt_torque_chart'});">
           <h4>Bolt Torque Chart</h4>
           <p>Quick metric and SAE torque reference values for common fastener sizes.</p>
@@ -857,46 +991,35 @@
           <h4>Adhesives Hub</h4>
           <p>Main adhesive landing page with grouped setup, usage, timing, and troubleshooting paths.</p>
         </a>
+
         <a class="tool-card" href="/adhesive-system-setup.html" onclick="gtag('event','tool_open',{tool:'adhesive_system_setup'});">
           <h4>Adhesive System Setup</h4>
           <p>Starting point for setting up industrial adhesive systems and basic process settings.</p>
         </a>
+
         <a class="tool-card" href="/adhesive-usage-calculator.html" onclick="gtag('event','tool_open',{tool:'adhesive_usage'});">
           <h4>Adhesive Usage Calculator</h4>
           <p>Estimate adhesive consumption using bead size, cycle rate, and production volume.</p>
         </a>
+
         <a class="tool-card" href="/adhesives-dispensing.html" onclick="gtag('event','tool_open',{tool:'adhesives_dispensing'});">
           <h4>Adhesives Dispensing Guide</h4>
           <p>Review dispensing behavior, bead control, and application consistency guidance.</p>
         </a>
+
         <a class="tool-card" href="/nordson-parameters-explained.html" onclick="gtag('event','tool_open',{tool:'nordson_parameters'});">
           <h4>Nordson Parameters Explained</h4>
           <p>Break down key Nordson settings such as pressure, temperature, timers, and behavior.</p>
         </a>
+
         <a class="tool-card" href="/pattern-timing-calculator.html" onclick="gtag('event','tool_open',{tool:'pattern_timing'});">
           <h4>Pattern Timing Calculator</h4>
           <p>Calculate on/off timing for adhesive patterns using line speed and spacing.</p>
         </a>
+
         <a class="tool-card" href="/hot-melt-troubleshooting.html" onclick="gtag('event','tool_open',{tool:'hot_melt_troubleshooting'});">
           <h4>Hot Melt Troubleshooting</h4>
           <p>Diagnose stringing, poor adhesion, inconsistent flow, and common hot melt problems.</p>
-        </a>
-      </div>
-    </div>
-
-    <div class="category-section" id="mechanical">
-      <div class="category-head">
-        <h3>Mechanical &amp; Engineering</h3>
-        <p>General mechanical engineering support tools that do not fit neatly into one automation category.</p>
-      </div>
-      <div class="tool-grid">
-        <a class="tool-card" href="/beam-deflection-calculator.html" onclick="gtag('event','tool_open',{tool:'beam_deflection'});">
-          <h4>Beam Deflection Calculator</h4>
-          <p>Estimate beam deflection for quick structural checks and concept work.</p>
-        </a>
-        <a class="tool-card" href="/bearing-life-calculator.html" onclick="gtag('event','tool_open',{tool:'bearing_life'});">
-          <h4>Bearing Life Calculator</h4>
-          <p>Estimate bearing life for rotating equipment and driven mechanical systems.</p>
         </a>
       </div>
     </div>
@@ -926,26 +1049,32 @@
           <h4>ROI Hub</h4>
           <p>Main planning landing page with a recommended workflow for automation project justification.</p>
         </a>
+
         <a class="tool-card" href="/downtime-cost-calculator.html" onclick="gtag('event','tool_open',{tool:'downtime_cost_calculator'});">
           <h4>Downtime Cost Calculator</h4>
           <p>Estimate the real production cost of downtime using shift, rate, value, and loss assumptions.</p>
         </a>
+
         <a class="tool-card" href="/labor-savings-calculator.html" onclick="gtag('event','tool_open',{tool:'labor_savings_calculator'});">
           <h4>Labor Savings Calculator</h4>
           <p>Estimate labor reduction, annual savings, and staffing-related justification for automation projects.</p>
         </a>
+
         <a class="tool-card" href="/automation-roi.html" onclick="gtag('event','tool_open',{tool:'automation_roi'});">
           <h4>Automation ROI Calculator</h4>
           <p>Estimate annual savings, net annual benefit, payback period, and project return.</p>
         </a>
+
         <a class="tool-card" href="/break-even-calculator.html" onclick="gtag('event','tool_open',{tool:'break_even_calculator'});">
           <h4>Break-Even Calculator</h4>
           <p>Estimate how long it takes for savings or contribution to recover project cost.</p>
         </a>
+
         <a class="tool-card" href="/automation-help.html" onclick="gtag('event','tool_open',{tool:'automation_help'});">
           <h4>Automation Help</h4>
           <p>Use the support path if you need help turning calculator results into a real machine or project decision.</p>
         </a>
+
         <a class="tool-card" href="/integrators.html" onclick="gtag('event','tool_open',{tool:'integrators'});">
           <h4>Find an Integrator</h4>
           <p>Connect with integrators and application support resources when a project needs outside help.</p>
@@ -958,23 +1087,28 @@
         <h3>Reference Tools &amp; Supporting Pages</h3>
         <p>Reference charts, guides, and support pages that help engineers move faster in real work.</p>
       </div>
+
       <div class="tool-grid">
         <a class="tool-card" href="/reference-charts.html" onclick="gtag('event','tool_open',{tool:'reference_charts'});">
           <h4>Reference Charts Hub</h4>
           <p>Open quick engineering reference charts and supporting lookup pages.</p>
         </a>
+
         <a class="tool-card" href="/metric-tap-drill-chart.html" onclick="gtag('event','tool_open',{tool:'metric_tap_drill_chart'});">
           <h4>Metric Tap Drill Chart</h4>
           <p>Quick reference for common metric tap drill sizes used in fabrication and tooling.</p>
         </a>
+
         <a class="tool-card" href="/electrical-symbols-reference-chart.html" onclick="gtag('event','tool_open',{tool:'electrical_symbols_chart'});">
           <h4>Electrical Symbols Reference Chart</h4>
           <p>Reference common electrical symbols used in controls and machine documentation.</p>
         </a>
+
         <a class="tool-card" href="/nema-motor-frame-chart.html" onclick="gtag('event','tool_open',{tool:'nema_motor_frame_resource'});">
           <h4>NEMA Motor Frame Chart</h4>
           <p>Useful motor frame reference for maintenance, replacement, and sizing work.</p>
         </a>
+
         <a class="tool-card" href="/feedback.html" onclick="gtag('event','tool_open',{tool:'feedback'});">
           <h4>Feedback</h4>
           <p>Send input on tools, pages, and improvements you would like to see added to the site.</p>
@@ -989,6 +1123,7 @@
       <p class="section-intro" style="margin-bottom:16px;">
         Calculators can get you to an answer faster, but some jobs still need real application help. If you need help turning these numbers into a machine decision, tooling choice, controls change, or automation concept, use the support options below.
       </p>
+
       <div class="hero-actions">
         <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','index_cta',{'location':'bottom_cta','action':'automation_help'});">Request Help</a>
         <a class="btn btn-secondary" href="/integrators.html" onclick="gtag('event','index_cta',{'location':'bottom_cta','action':'find_integrator'});">Find an Integrator</a>
