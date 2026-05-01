@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Section Modulus & Moment of Inertia Calculator | Machine Design Beam Shapes</title>
+  <meta name="description" content="Calculate moment of inertia, section modulus, area, neutral axis distance, and radius of gyration for rectangles, solid rounds, round tubes, square tubes, and custom beam sections." />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="AutomationCalculators.net" />
+  <link rel="canonical" href="https://automationcalculators.net/section-modulus-calculator.html" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root {
+      --blue-900:#0f172a;
+      --blue-800:#1e3a8a;
+      --blue-700:#1d4ed8;
+      --blue-600:#2563eb;
+      --blue-100:#dbeafe;
+      --slate-900:#0f172a;
+      --slate-800:#1e293b;
+      --slate-700:#334155;
+      --slate-600:#475569;
+      --slate-500:#64748b;
+      --slate-200:#e2e8f0;
+      --slate-100:#f1f5f9;
+      --white:#ffffff;
+      --green-100:#dcfce7;
+      --green-700:#15803d;
+      --amber-100:#fef3c7;
+      --amber-700:#b45309;
+      --red-100:#fee2e2;
+      --red-700:#b91c1c;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(15,23,42,0.10);
+    }
+
+    * { box-sizing:border-box; }
+
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:#f8fafc;
+      color:var(--slate-800);
+      line-height:1.6;
+    }
+
+    a {
+      color:var(--blue-700);
+      text-decoration:none;
+    }
+
+    a:hover { text-decoration:underline; }
+
+    #navbar {
+      position:relative;
+      z-index:50;
+    }
+
+    .hero {
+      background:white;
+      border-bottom:1px solid var(--slate-200);
+      padding:56px 20px 44px;
+    }
+
+    .hero-inner {
+      max-width:1180px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:minmax(0,1.35fr) minmax(300px,0.75fr);
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow {
+      display:inline-flex;
+      align-items:center;
+      padding:7px 12px;
+      border-radius:999px;
+      background:var(--blue-100);
+      color:var(--blue-800);
+      font-size:0.9rem;
+      font-weight:800;
+      margin-bottom:16px;
+    }
+
+    .hero h1 {
+      margin:0 0 16px;
+      color:var(--slate-900);
+      font-size:clamp(2.1rem,5vw,4rem);
+      line-height:1.05;
+      letter-spacing:-0.04em;
+    }
+
+    .hero p {
+      margin:0 0 22px;
+      max-width:780px;
+      color:var(--slate-600);
+      font-size:1.08rem;
+    }
+
+    .hero-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+    }
+
+    .btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:12px;
+      font-weight:800;
+      border:1px solid transparent;
+      cursor:pointer;
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
+    }
+
+    .btn:hover {
+      transform:translateY(-1px);
+      text-decoration:none;
+    }
+
+    .btn-primary {
+      background:var(--blue-700);
+      color:white;
+      box-shadow:0 8px 24px rgba(29,78,216,0.25);
+    }
+
+    .btn-secondary {
+      background:white;
+      color:var(--blue-700);
+      border-color:var(--slate-200);
+    }
+
+    .hero-panel {
+      background:#f8fafc;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .hero-panel h2 {
+      margin:0 0 12px;
+      color:var(--slate-900);
+      font-size:1.25rem;
+    }
+
+    .hero-panel ul {
+      margin:0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .hero-panel li { margin:8px 0; }
+
+    .page {
+      max-width:1180px;
+      margin:0 auto;
+      padding:42px 20px 70px;
+    }
+
+    .section { margin-bottom:44px; }
+
+    .section-header { margin-bottom:22px; }
+
+    .section-header h2 {
+      margin:0 0 8px;
+      color:var(--slate-900);
+      font-size:clamp(1.55rem,3vw,2.25rem);
+      line-height:1.15;
+      letter-spacing:-0.025em;
+    }
+
+    .section-header p {
+      margin:0;
+      max-width:900px;
+      color:var(--slate-600);
+    }
+
+    .calculator-shell {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .calculator-top {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      padding:24px;
+    }
+
+    .calculator-top h2 {
+      margin:0 0 8px;
+      font-size:1.7rem;
+    }
+
+    .calculator-top p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+    }
+
+    .calculator-body {
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,0.8fr);
+      gap:0;
+    }
+
+    .inputs {
+      padding:24px;
+      border-right:1px solid var(--slate-200);
+    }
+
+    .results {
+      padding:24px;
+      background:#f8fafc;
+    }
+
+    .input-grid {
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:16px;
+    }
+
+    .field {
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .field.full { grid-column:1 / -1; }
+
+    label {
+      font-weight:800;
+      color:var(--slate-900);
+      font-size:0.94rem;
+    }
+
+    input, select {
+      width:100%;
+      border:1px solid var(--slate-200);
+      border-radius:12px;
+      padding:11px 12px;
+      font-size:1rem;
+      color:var(--slate-800);
+      background:white;
+    }
+
+    input:focus, select:focus {
+      outline:3px solid rgba(37,99,235,0.16);
+      border-color:var(--blue-600);
+    }
+
+    .hint {
+      color:var(--slate-500);
+      font-size:0.86rem;
+    }
+
+    .button-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:20px;
+    }
+
+    .result-box {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:18px;
+      padding:18px;
+      margin-bottom:14px;
+    }
+
+    .result-box h3 {
+      margin:0 0 6px;
+      color:var(--slate-900);
+      font-size:1rem;
+    }
+
+    .result-value {
+      font-size:1.65rem;
+      font-weight:900;
+      color:var(--blue-800);
+      line-height:1.15;
+      overflow-wrap:anywhere;
+    }
+
+    .result-sub {
+      color:var(--slate-500);
+      font-size:0.92rem;
+      margin-top:4px;
+    }
+
+    .status {
+      border-radius:18px;
+      padding:16px;
+      font-weight:800;
+      margin-top:14px;
+    }
+
+    .status.good {
+      background:var(--green-100);
+      color:var(--green-700);
+      border:1px solid #86efac;
+    }
+
+    .status.warn {
+      background:var(--amber-100);
+      color:var(--amber-700);
+      border:1px solid #fcd34d;
+    }
+
+    .formula {
+      background:#0f172a;
+      color:white;
+      border-radius:18px;
+      padding:20px;
+      overflow-x:auto;
+    }
+
+    .formula code {
+      font-size:1.05rem;
+      color:white;
+      white-space:pre-wrap;
+    }
+
+    .card-grid {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card-grid.two {
+      grid-template-columns:repeat(2,minmax(0,1fr));
+    }
+
+    .card {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow:0 6px 20px rgba(15,23,42,0.06);
+    }
+
+    .card h3 {
+      margin:0 0 9px;
+      color:var(--slate-900);
+      line-height:1.25;
+    }
+
+    .card p {
+      margin:0 0 14px;
+      color:var(--slate-600);
+    }
+
+    .card ul {
+      margin:10px 0 0;
+      padding-left:20px;
+      color:var(--slate-600);
+    }
+
+    .card li { margin:6px 0; }
+
+    .note {
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .warning {
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      border-radius:18px;
+      padding:18px;
+      color:var(--slate-700);
+    }
+
+    .workflow {
+      background:white;
+      border:1px solid var(--slate-200);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+
+    .workflow-row {
+      display:grid;
+      grid-template-columns:82px minmax(0,1fr) minmax(220px,0.5fr);
+      gap:18px;
+      padding:22px;
+      border-bottom:1px solid var(--slate-200);
+      align-items:center;
+    }
+
+    .workflow-row:last-child { border-bottom:none; }
+
+    .step-number {
+      width:48px;
+      height:48px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:16px;
+      background:linear-gradient(135deg,var(--blue-800),var(--blue-600));
+      color:white;
+      font-weight:900;
+    }
+
+    .workflow-row h3 {
+      margin:0 0 5px;
+      color:var(--slate-900);
+    }
+
+    .workflow-row p {
+      margin:0;
+      color:var(--slate-600);
+    }
+
+    .workflow-link { font-weight:900; }
+
+    .bottom-cta {
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:white;
+      border-radius:28px;
+      padding:32px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:minmax(0,1fr) auto;
+      gap:24px;
+      align-items:center;
+    }
+
+    .bottom-cta h2 {
+      margin:0 0 10px;
+      font-size:1.85rem;
+    }
+
+    .bottom-cta p {
+      margin:0;
+      color:rgba(255,255,255,0.9);
+      max-width:760px;
+    }
+
+    footer {
+      text-align:center;
+      color:var(--slate-500);
+      padding:34px 20px 44px;
+      border-top:1px solid var(--slate-200);
+      background:white;
+    }
+
+    @media (max-width:980px) {
+      .hero-inner,
+      .calculator-body,
+      .bottom-cta {
+        grid-template-columns:1fr;
+      }
+
+      .inputs {
+        border-right:none;
+        border-bottom:1px solid var(--slate-200);
+      }
+
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+
+      .workflow-row {
+        grid-template-columns:64px 1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:2;
+      }
+    }
+
+    @media (max-width:680px) {
+      .hero {
+        padding:44px 16px 34px;
+      }
+
+      .page {
+        padding:32px 16px 54px;
+      }
+
+      .input-grid,
+      .card-grid,
+      .card-grid.two {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row {
+        grid-template-columns:1fr;
+      }
+
+      .workflow-row > a {
+        grid-column:auto;
+      }
+
+      .hero-actions,
+      .button-row {
+        flex-direction:column;
+      }
+
+      .btn {
+        width:100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="eyebrow">Machine Design Calculator</div>
+        <h1>Section Modulus & Moment of Inertia Calculator</h1>
+        <p>
+          Calculate area, moment of inertia, section modulus, neutral axis distance, and radius of
+          gyration for common machine-design shapes. Use these values with beam deflection and bending
+          stress checks when sizing brackets, rails, shafts, tubes, frames, and automation structures.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta_click',{'page':'section_modulus','target':'calculator','location':'hero'});">
+            Open Calculator
+          </a>
+          <a class="btn btn-secondary" href="/bending-stress-calculator.html" onclick="gtag('event','page_cta_click',{'page':'section_modulus','target':'bending_stress','location':'hero'});">
+            Check Bending Stress
+          </a>
+          <a class="btn btn-secondary" href="/beam-deflection-calculator.html" onclick="gtag('event','page_cta_click',{'page':'section_modulus','target':'beam_deflection','location':'hero'});">
+            Check Beam Deflection
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <h2>Use this calculator when you need:</h2>
+        <ul>
+          <li>Moment of inertia for beam deflection calculations</li>
+          <li>Section modulus for bending stress calculations</li>
+          <li>Shape comparison for bars, shafts, tubes, and plates</li>
+          <li>Quick geometry checks before changing material</li>
+          <li>A practical machine-design starting point for structural sizing</li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="calculator" class="section">
+      <div class="calculator-shell">
+        <div class="calculator-top">
+          <h2>Calculate Section Properties</h2>
+          <p>
+            Select a shape and enter its dimensions. The calculator returns area, moment of inertia,
+            distance to the outer fiber, section modulus, and radius of gyration.
+          </p>
+        </div>
+
+        <div class="calculator-body">
+          <div class="inputs">
+            <div class="input-grid">
+              <div class="field">
+                <label for="unitSystem">Unit System</label>
+                <select id="unitSystem" onchange="updateUnits(); calculateSectionProperties();">
+                  <option value="imperial">Imperial — inches</option>
+                  <option value="metric">Metric — millimeters</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="shape">Cross-Section Shape</label>
+                <select id="shape" onchange="toggleShapeFields(); calculateSectionProperties();">
+                  <option value="rectangle">Rectangle / flat bar</option>
+                  <option value="solid_round">Solid round shaft</option>
+                  <option value="round_tube">Round tube</option>
+                  <option value="square_tube">Square / rectangular tube</option>
+                  <option value="custom">Custom area, I, and c</option>
+                </select>
+              </div>
+
+              <div class="field rectangle-field">
+                <label for="rectWidth">Width, b <span class="unit-length">(in)</span></label>
+                <input id="rectWidth" type="number" value="2" min="0" step="any" oninput="calculateSectionProperties();" />
+                <span class="hint">Width across the section.</span>
+              </div>
+
+              <div class="field rectangle-field">
+                <label for="rectHeight">Height, h <span class="unit-length">(in)</span></label>
+                <input id="rectHeight" type="number" value="4" min="0" step="any" oninput="calculateSectionProperties();" />
+                <span class="hint">Height in the bending direction.</span>
+              </div>
+
+              <div class="field solid-round-field" style="display:none;">
+                <label for="diameter">Diameter, d <span class="unit-length">(in)</span></label>
+                <input id="diameter" type="number" value="2" min="0" step="any" oninput="calculateSectionProperties();" />
+              </div>
+
+              <div class="field round-tube-field" style="display:none;">
+                <label for="outerDiameter">Outer Diameter, OD <span class="unit-length">(in)</span></label>
+                <input id="outerDiameter" type="number" value="2" min="0" step="any" oninput="calculateSectionProperties();" />
+              </div>
+
+              <div class="field round-tube-field" style="display:none;">
+                <label for="innerDiameter">Inner Diameter, ID <span class="unit-length">(in)</span></label>
+                <input id="innerDiameter" type="number" value="1.5" min="0" step="any" oninput="calculateSectionProperties();" />
+              </div>
+
+              <div class="field square-tube-field" style="display:none;">
+                <label for="tubeWidth">Tube Width, b <span class="unit-length">(in)</span></label>
+                <input id="tubeWidth" type="number" value="3" min="0" step="any" oninput="calculateSectionProperties();" />
+              </div>
+
+              <div class="field square-tube-field" style="display:none;">
+                <label for="tubeHeight">Tube Height, h <span class="unit-length">(in)</span></label>
+                <input id="tubeHeight" type="number" value="4" min="0" step="any" oninput="calculateSectionProperties();" />
+              </div>
+
+              <div class="field square-tube-field" style="display:none;">
+                <label for="wallThickness">Wall Thickness, t <span class="unit-length">(in)</span></label>
+                <input id="wallThickness" type="number" value="0.25" min="0" step="any" oninput="calculateSectionProperties();" />
+              </div>
+
+              <div class="field custom-field" style="display:none;">
+                <label for="customArea">Area, A <span class="unit-area">(in²)</span></label>
+                <input id="customArea" type="number" value="4" min="0" step="any" oninput="calculateSectionProperties();" />
+              </div>
+
+              <div class="field custom-field" style="display:none;">
+                <label for="customI">Moment of Inertia, I <span class="unit-inertia">(in⁴)</span></label>
+                <input id="customI" type="number" value="10" min="0" step="any" oninput="calculateSectionProperties();" />
+              </div>
+
+              <div class="field custom-field" style="display:none;">
+                <label for="customC">Distance to Outer Fiber, c <span class="unit-length">(in)</span></label>
+                <input id="customC" type="number" value="2" min="0" step="any" oninput="calculateSectionProperties();" />
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="button" onclick="calculateSectionProperties(); gtag('event','calculator_run',{'calculator':'section_modulus'});">
+                Calculate
+              </button>
+              <button class="btn btn-secondary" type="button" onclick="resetCalculator(); gtag('event','calculator_reset',{'calculator':'section_modulus'});">
+                Reset Example
+              </button>
+            </div>
+          </div>
+
+          <div class="results">
+            <div class="result-box">
+              <h3>Area</h3>
+              <div id="areaResult" class="result-value">—</div>
+              <div class="result-sub">Cross-sectional area.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Moment of Inertia, I</h3>
+              <div id="inertiaResult" class="result-value">—</div>
+              <div class="result-sub">Used for deflection and stiffness.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Outer Fiber Distance, c</h3>
+              <div id="cResult" class="result-value">—</div>
+              <div class="result-sub">Distance from neutral axis to outer surface.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Section Modulus, S</h3>
+              <div id="sectionModulusResult" class="result-value">—</div>
+              <div class="result-sub">S = I / c, used for bending stress.</div>
+            </div>
+
+            <div class="result-box">
+              <h3>Radius of Gyration, r</h3>
+              <div id="radiusResult" class="result-value">—</div>
+              <div class="result-sub">r = √(I / A), useful for shape comparison.</div>
+            </div>
+
+            <div id="statusBox" class="status warn">
+              Enter dimensions to calculate section properties.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>What These Values Mean</h2>
+        <p>
+          These section properties describe how the shape resists bending. They do not depend on the
+          material strength. Steel, aluminum, and plastic with the same shape have the same section
+          modulus and moment of inertia, but they behave differently because their material properties differ.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Moment of Inertia, I</h3>
+          <p>
+            Moment of inertia is a geometric stiffness property. Higher I means the shape is harder to
+            bend for a given material, span, and load.
+          </p>
+          <ul>
+            <li>Used heavily in beam deflection formulas.</li>
+            <li>Increases strongly when material is moved away from the neutral axis.</li>
+            <li>Very sensitive to height in the bending direction.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Section Modulus, S</h3>
+          <p>
+            Section modulus is used to estimate bending stress. Higher S means lower bending stress for
+            the same bending moment.
+          </p>
+          <ul>
+            <li>S = I / c.</li>
+            <li>Used in σ = M / S.</li>
+            <li>Helpful when comparing shapes for strength.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Outer Fiber Distance, c</h3>
+          <p>
+            The c value is the distance from the neutral axis to the farthest outside surface where
+            bending stress is highest.
+          </p>
+          <ul>
+            <li>For symmetric sections, c is usually half the height.</li>
+            <li>The outer surface sees the highest bending stress.</li>
+            <li>Incorrect c gives incorrect stress results.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Formula Reference</h2>
+        <p>
+          The calculator uses standard geometric formulas for common symmetric sections. The bending
+          direction matters, especially for rectangular bars and rectangular tubes.
+        </p>
+      </div>
+
+      <div class="formula">
+        <code>Rectangle:
+A = b × h
+I = b × h³ / 12
+c = h / 2
+S = I / c
+
+Solid Round:
+A = πd² / 4
+I = πd⁴ / 64
+c = d / 2
+S = I / c
+
+Round Tube:
+A = π(OD² - ID²) / 4
+I = π(OD⁴ - ID⁴) / 64
+c = OD / 2
+S = I / c
+
+Rectangular Tube:
+A = b×h - (b - 2t)(h - 2t)
+I = [b×h³ - (b - 2t)(h - 2t)³] / 12
+c = h / 2
+S = I / c
+
+Radius of Gyration:
+r = √(I / A)</code>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Recommended Machine Design Workflow</h2>
+        <p>
+          Section properties are not the final answer. They are the bridge between shape selection,
+          bending stress, and deflection.
+        </p>
+      </div>
+
+      <div class="workflow">
+        <div class="workflow-row">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Choose a possible shape</h3>
+            <p>
+              Start with a flat bar, tube, shaft, or structural member that fits your space, mounting,
+              and manufacturing constraints.
+            </p>
+          </div>
+          <a class="workflow-link" href="#calculator" onclick="gtag('event','workflow_click',{'page':'section_modulus','step':'choose_shape'});">Calculate Shape →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Use I for deflection</h3>
+            <p>
+              Moment of inertia feeds directly into beam deflection checks. If I is too small, the part
+              may sag, bounce, vibrate, or lose alignment.
+            </p>
+          </div>
+          <a class="workflow-link" href="/beam-deflection-calculator.html" onclick="gtag('event','workflow_click',{'page':'section_modulus','step':'deflection','target':'beam_deflection'});">Beam Deflection →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Use S for bending stress</h3>
+            <p>
+              Section modulus feeds directly into bending stress. If S is too small, the part may be
+              overstressed even if it looks physically large.
+            </p>
+          </div>
+          <a class="workflow-link" href="/bending-stress-calculator.html" onclick="gtag('event','workflow_click',{'page':'section_modulus','step':'stress','target':'bending_stress'});">Bending Stress →</a>
+        </div>
+
+        <div class="workflow-row">
+          <div class="step-number">4</div>
+          <div>
+            <h3>Check the connected mechanical system</h3>
+            <p>
+              If this member supports a shaft, gearbox, conveyor, cylinder, or robot fixture, check the
+              related motion, bearing, and fastening calculations too.
+            </p>
+          </div>
+          <a class="workflow-link" href="/machine-design.html" onclick="gtag('event','workflow_click',{'page':'section_modulus','step':'system_check','target':'machine_design'});">Machine Design Hub →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Shape Selection Notes</h2>
+        <p>
+          A common mistake is adding material in the wrong direction. For bending, material farther from
+          the neutral axis usually helps more than simply making the part wider.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Rectangular Bar or Plate</h3>
+          <p>
+            For a rectangular section, height in the bending direction has a much stronger effect than
+            width because height is cubed in the moment-of-inertia formula.
+          </p>
+          <ul>
+            <li>Turning a flat bar on edge can greatly increase stiffness.</li>
+            <li>Wide and thin may be weak in the wrong bending direction.</li>
+            <li>Good for simple brackets, plates, and support tabs.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Round Shafts</h3>
+          <p>
+            Solid round sections are common for pins, rollers, shafts, and pivots. They are simple, but
+            may not be the most efficient option for bending stiffness per weight.
+          </p>
+          <ul>
+            <li>Diameter changes strongly affect stiffness and stress.</li>
+            <li>Watch keyways, snap-ring grooves, shoulders, and holes.</li>
+            <li>Check fatigue if the shaft rotates under load.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Tubes</h3>
+          <p>
+            Tubes are often efficient because they move material away from the center. This can improve
+            stiffness without making a solid, heavy part.
+          </p>
+          <ul>
+            <li>Great for frames, guards, rails, and light structures.</li>
+            <li>Wall thickness matters for local crushing and fastening.</li>
+            <li>Welds, holes, and notches still require judgment.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="warning">
+        <strong>Important:</strong>
+        This calculator gives basic section properties for idealized shapes. It does not account for
+        weld quality, holes, slots, stress concentrations, buckling, local wall crippling, corrosion,
+        fatigue, heat treatment, unsupported length, torsion, or combined loading. Use this as a design
+        starting point and verify critical machine structures with proper engineering review.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Practical Design Guidance</h2>
+        <p>
+          If a machine component is not stiff enough or has high bending stress, geometry usually matters
+          more than material changes.
+        </p>
+      </div>
+
+      <div class="card-grid two">
+        <article class="card">
+          <h3>If stiffness is too low</h3>
+          <ul>
+            <li>Increase height in the bending direction.</li>
+            <li>Use tube, channel, or structural profiles instead of flat plate.</li>
+            <li>Shorten the unsupported span.</li>
+            <li>Add a gusset, rib, or intermediate support.</li>
+            <li>Move the load closer to the support.</li>
+            <li>Reduce overhung brackets and cantilever arms.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>If the shape looks oversized</h3>
+          <ul>
+            <li>Compare section modulus instead of only comparing weight.</li>
+            <li>Check whether tube or formed material can replace solid stock.</li>
+            <li>Verify the actual bending direction.</li>
+            <li>Separate strength requirements from stiffness requirements.</li>
+            <li>Check mounting holes, welds, and local load introduction.</li>
+            <li>Use the bending stress and deflection calculators next.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="note">
+        <strong>Good next step:</strong>
+        take the moment of inertia value to the
+        <a href="/beam-deflection-calculator.html" onclick="gtag('event','internal_link',{'from':'section_modulus','to':'beam_deflection'});">Beam Deflection Calculator</a>
+        and the section modulus value to the
+        <a href="/bending-stress-calculator.html" onclick="gtag('event','internal_link',{'from':'section_modulus','to':'bending_stress'});">Bending Stress Calculator</a>.
+        For the full workflow, return to the
+        <a href="/machine-design.html" onclick="gtag('event','internal_link',{'from':'section_modulus','to':'machine_design'});">Machine Design Hub</a>.
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Related Tools</h2>
+        <p>
+          Section properties are most useful when paired with load, stress, deflection, bearing, and
+          fastening checks.
+        </p>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <h3>Beam Deflection Calculator</h3>
+          <p>Use moment of inertia to estimate how much a beam, rail, bracket, or frame member will bend.</p>
+          <a href="/beam-deflection-calculator.html" onclick="gtag('event','related_tool_click',{'from':'section_modulus','to':'beam_deflection'});">Open Beam Deflection →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bending Stress Calculator</h3>
+          <p>Use section modulus to estimate bending stress and safety factor against yield.</p>
+          <a href="/bending-stress-calculator.html" onclick="gtag('event','related_tool_click',{'from':'section_modulus','to':'bending_stress'});">Open Bending Stress →</a>
+        </article>
+
+        <article class="card">
+          <h3>Bearing Life Calculator</h3>
+          <p>Check bearing life when shafts, rollers, or rotating supports are part of the design.</p>
+          <a href="/bearing-life-calculator.html" onclick="gtag('event','related_tool_click',{'from':'section_modulus','to':'bearing_life'});">Open Bearing Life →</a>
+        </article>
+
+        <article class="card">
+          <h3>Servo Torque Calculator</h3>
+          <p>Check torque demand when the structural member is part of a moving axis.</p>
+          <a href="/servo-torque.html" onclick="gtag('event','related_tool_click',{'from':'section_modulus','to':'servo_torque'});">Open Servo Torque →</a>
+        </article>
+
+        <article class="card">
+          <h3>Torque to Clamp Load</h3>
+          <p>Check bolted joints when plates, brackets, frames, or tooling mounts are clamped together.</p>
+          <a href="/torque-clamp-load.html" onclick="gtag('event','related_tool_click',{'from':'section_modulus','to':'torque_clamp_load'});">Open Clamp Load →</a>
+        </article>
+
+        <article class="card">
+          <h3>Machine Design Hub</h3>
+          <p>Return to the full machine design workflow for structures, motion, bearings, and fastening.</p>
+          <a href="/machine-design.html" onclick="gtag('event','related_tool_click',{'from':'section_modulus','to':'machine_design'});">Open Machine Design Hub →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="bottom-cta">
+        <div>
+          <h2>Use geometry before guessing at material.</h2>
+          <p>
+            The right shape can reduce bending stress and deflection more effectively than simply picking
+            a stronger material. Calculate the section first, then check stress and deflection.
+          </p>
+        </div>
+
+        <a class="btn btn-primary" href="/bending-stress-calculator.html" onclick="gtag('event','bottom_cta_click',{'page':'section_modulus','target':'bending_stress'});">
+          Check Bending Stress
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    Automation Engineering Tools • Practical calculators for real automation work
+  </footer>
+
+  <script>
+    function getValue(id) {
+      var value = parseFloat(document.getElementById(id).value);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatNumber(value, decimals) {
+      if (!isFinite(value)) return '—';
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: 0
+      });
+    }
+
+    function updateUnits() {
+      var system = document.getElementById('unitSystem').value;
+      var length = system === 'imperial' ? '(in)' : '(mm)';
+      var area = system === 'imperial' ? '(in²)' : '(mm²)';
+      var inertia = system === 'imperial' ? '(in⁴)' : '(mm⁴)';
+
+      document.querySelectorAll('.unit-length').forEach(function(el){ el.textContent = length; });
+      document.querySelectorAll('.unit-area').forEach(function(el){ el.textContent = area; });
+      document.querySelectorAll('.unit-inertia').forEach(function(el){ el.textContent = inertia; });
+
+      if (system === 'imperial') {
+        document.getElementById('rectWidth').value = 2;
+        document.getElementById('rectHeight').value = 4;
+        document.getElementById('diameter').value = 2;
+        document.getElementById('outerDiameter').value = 2;
+        document.getElementById('innerDiameter').value = 1.5;
+        document.getElementById('tubeWidth').value = 3;
+        document.getElementById('tubeHeight').value = 4;
+        document.getElementById('wallThickness').value = 0.25;
+        document.getElementById('customArea').value = 4;
+        document.getElementById('customI').value = 10;
+        document.getElementById('customC').value = 2;
+      } else {
+        document.getElementById('rectWidth').value = 50;
+        document.getElementById('rectHeight').value = 100;
+        document.getElementById('diameter').value = 50;
+        document.getElementById('outerDiameter').value = 50;
+        document.getElementById('innerDiameter').value = 38;
+        document.getElementById('tubeWidth').value = 75;
+        document.getElementById('tubeHeight').value = 100;
+        document.getElementById('wallThickness').value = 6;
+        document.getElementById('customArea').value = 2500;
+        document.getElementById('customI').value = 1000000;
+        document.getElementById('customC').value = 50;
+      }
+    }
+
+    function toggleShapeFields() {
+      var shape = document.getElementById('shape').value;
+
+      document.querySelectorAll('.rectangle-field').forEach(function(el) {
+        el.style.display = shape === 'rectangle' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.solid-round-field').forEach(function(el) {
+        el.style.display = shape === 'solid_round' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.round-tube-field').forEach(function(el) {
+        el.style.display = shape === 'round_tube' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.square-tube-field').forEach(function(el) {
+        el.style.display = shape === 'square_tube' ? 'flex' : 'none';
+      });
+
+      document.querySelectorAll('.custom-field').forEach(function(el) {
+        el.style.display = shape === 'custom' ? 'flex' : 'none';
+      });
+    }
+
+    function calculateSectionProperties() {
+      var shape = document.getElementById('shape').value;
+      var system = document.getElementById('unitSystem').value;
+
+      var A = 0;
+      var I = 0;
+      var c = 0;
+      var S = 0;
+      var r = 0;
+      var valid = true;
+      var message = 'Section properties calculated. Use I for deflection and S for bending stress.';
+
+      if (shape === 'rectangle') {
+        var b = getValue('rectWidth');
+        var h = getValue('rectHeight');
+        A = b * h;
+        I = b * Math.pow(h, 3) / 12;
+        c = h / 2;
+      }
+
+      if (shape === 'solid_round') {
+        var d = getValue('diameter');
+        A = Math.PI * Math.pow(d, 2) / 4;
+        I = Math.PI * Math.pow(d, 4) / 64;
+        c = d / 2;
+      }
+
+      if (shape === 'round_tube') {
+        var od = getValue('outerDiameter');
+        var id = getValue('innerDiameter');
+
+        if (od <= id) {
+          valid = false;
+          message = 'Outer diameter must be larger than inner diameter.';
+        } else {
+          A = Math.PI * (Math.pow(od, 2) - Math.pow(id, 2)) / 4;
+          I = Math.PI * (Math.pow(od, 4) - Math.pow(id, 4)) / 64;
+          c = od / 2;
+        }
+      }
+
+      if (shape === 'square_tube') {
+        var bw = getValue('tubeWidth');
+        var h2 = getValue('tubeHeight');
+        var t = getValue('wallThickness');
+        var innerB = bw - 2 * t;
+        var innerH = h2 - 2 * t;
+
+        if (innerB <= 0 || innerH <= 0) {
+          valid = false;
+          message = 'Wall thickness is too large for the entered tube width or height.';
+        } else {
+          A = (bw * h2) - (innerB * innerH);
+          I = (bw * Math.pow(h2, 3) - innerB * Math.pow(innerH, 3)) / 12;
+          c = h2 / 2;
+        }
+      }
+
+      if (shape === 'custom') {
+        A = getValue('customArea');
+        I = getValue('customI');
+        c = getValue('customC');
+      }
+
+      if (I > 0 && c > 0) {
+        S = I / c;
+      }
+
+      if (I > 0 && A > 0) {
+        r = Math.sqrt(I / A);
+      }
+
+      if (A <= 0 || I <= 0 || c <= 0 || !valid) {
+        document.getElementById('areaResult').textContent = '—';
+        document.getElementById('inertiaResult').textContent = '—';
+        document.getElementById('cResult').textContent = '—';
+        document.getElementById('sectionModulusResult').textContent = '—';
+        document.getElementById('radiusResult').textContent = '—';
+      } else {
+        var areaUnit = system === 'imperial' ? 'in²' : 'mm²';
+        var inertiaUnit = system === 'imperial' ? 'in⁴' : 'mm⁴';
+        var lengthUnit = system === 'imperial' ? 'in' : 'mm';
+        var sectionUnit = system === 'imperial' ? 'in³' : 'mm³';
+
+        document.getElementById('areaResult').textContent = formatNumber(A, 4) + ' ' + areaUnit;
+        document.getElementById('inertiaResult').textContent = formatNumber(I, 4) + ' ' + inertiaUnit;
+        document.getElementById('cResult').textContent = formatNumber(c, 4) + ' ' + lengthUnit;
+        document.getElementById('sectionModulusResult').textContent = formatNumber(S, 4) + ' ' + sectionUnit;
+        document.getElementById('radiusResult').textContent = formatNumber(r, 4) + ' ' + lengthUnit;
+      }
+
+      var statusBox = document.getElementById('statusBox');
+      statusBox.className = 'status';
+
+      if (!valid || A <= 0 || I <= 0 || c <= 0) {
+        statusBox.classList.add('warn');
+        statusBox.textContent = message;
+      } else {
+        statusBox.classList.add('good');
+        statusBox.textContent = message;
+      }
+    }
+
+    function resetCalculator() {
+      document.getElementById('unitSystem').value = 'imperial';
+      document.getElementById('shape').value = 'rectangle';
+      updateUnits();
+      toggleShapeFields();
+      calculateSectionProperties();
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
+      })
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
+      });
+
+    toggleShapeFields();
+    calculateSectionProperties();
+  </script>
+</body>
+</html>
