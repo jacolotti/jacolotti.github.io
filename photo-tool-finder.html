@@ -169,13 +169,23 @@
       This will analyze your image and recommend the closest matching tool or guide.
     </p>
 
-    <input type="file" id="photoUpload" accept="image/*">
+<input type="file" id="photoUpload" accept="image/*">
 
-    <br>
+<p style="color:var(--muted); font-size:0.95rem;">
+  Tip: Add a few words like "PLC panel" or "air cylinder" to improve results.
+</p>
 
-    <button class="btn btn-dark" onclick="analyzePhoto()">
-      Find Related Tool
-    </button>
+<label for="photoHint"><strong>Optional:</strong> describe what is in the photo</label>
+<input 
+  type="text" 
+  id="photoHint" 
+  placeholder="Example: PLC panel, air cylinder, robot, conveyor motor, weld fixture"
+  style="width:100%; padding:12px; margin:10px 0 16px; border:1px solid var(--border); border-radius:10px;"
+>
+
+<button class="btn btn-dark" onclick="analyzePhoto()">
+  Find Related Tool
+</button>
 
     <div id="result" class="result"></div>
   </div>
@@ -185,7 +195,7 @@
   <div class="card">
     <h2>How This Works</h2>
     <p>
-      This tool uses image recognition to identify what you're working on and route you to the best calculator or troubleshooting page.
+      This first version uses your photo file name and short description to recommend the closest matching calculator or troubleshooting page.
     </p>
     <p>
       It’s designed to eliminate guessing and get you to the right tool faster.
@@ -200,6 +210,7 @@
 <script>
 function analyzePhoto() {
   const file = document.getElementById("photoUpload").files[0];
+  const hint = document.getElementById("photoHint")?.value.toLowerCase() || "";
   const result = document.getElementById("result");
 
   if (!file) {
@@ -208,20 +219,83 @@ function analyzePhoto() {
     return;
   }
 
-  // TEMP MOCK (before AI is connected)
+  const fileName = file.name.toLowerCase();
+  const text = fileName + " " + hint;
+
+  const routes = [
+    {
+      category: "PLC / Electrical",
+      page: "/plc-electrical.html",
+      eventResult: "plc_electrical",
+      keywords: ["plc", "panel", "cabinet", "input", "output", "sensor", "photoeye", "prox", "relay", "contactor", "hmi", "ethernet", "module", "safety relay", "light curtain", "wire", "wiring", "24v", "120v"]
+    },
+    {
+      category: "Pneumatics",
+      page: "/pneumatics.html",
+      eventResult: "pneumatics",
+      keywords: ["air cylinder", "cylinder", "valve", "solenoid", "pneumatic", "air line", "regulator", "frl", "fitting", "air hose", "flow control"]
+    },
+    {
+      category: "Robotics",
+      page: "/robot.html",
+      eventResult: "robotics",
+      keywords: ["robot", "fanuc", "abb", "yaskawa", "gripper", "end effector", "eoat", "teach pendant", "robot arm"]
+    },
+    {
+      category: "Motors & Motion",
+      page: "/motor.html",
+      eventResult: "motors_motion",
+      keywords: ["motor", "conveyor", "gearbox", "servo", "vfd", "drive", "belt", "chain", "sprocket", "roller"]
+    },
+    {
+      category: "Welding",
+      page: "/spot-weld.html",
+      eventResult: "welding",
+      keywords: ["weld", "welder", "spot weld", "projection weld", "electrode", "nugget", "copper tip", "weld gun"]
+    },
+    {
+      category: "Machine Design",
+      page: "/machine-design.html",
+      eventResult: "machine_design",
+      keywords: ["beam", "frame", "plate", "bracket", "shaft", "gusset", "fixture", "deflection", "bending", "load"]
+    }
+  ];
+
+  let match = null;
+
+  for (const route of routes) {
+    if (route.keywords.some(keyword => text.includes(keyword))) {
+      match = route;
+      break;
+    }
+  }
+
+  if (!match) {
+    match = {
+      category: "Problem Solver",
+      page: "/problem-solver.html",
+      eventResult: "problem_solver"
+    };
+  }
+
   result.style.display = "block";
   result.innerHTML = `
-    <strong>Sample Result:</strong><br><br>
-    This looks like a pneumatic component.<br><br>
-    <a href="/pneumatics.html" onclick="gtag('event','photo_tool_result',{'result':'pneumatics'});">
-      → Go to Pneumatics Tools
+    <strong>Recommended section:</strong> ${match.category}<br><br>
+    <p>This first version uses the photo file name and your short description to recommend the closest matching section.</p>
+    <a class="btn btn-dark" href="${match.page}" onclick="gtag('event','photo_tool_result_click',{'result':'${match.eventResult}'});">
+      Go to ${match.category}
     </a>
   `;
+
+  gtag('event','photo_tool_used',{
+    result: match.eventResult
+  });
 }
 
 fetch('/navbar.html?v=20260422')
   .then(res => res.text())
-  .then(data => document.getElementById('navbar').innerHTML = data);
+  .then(data => document.getElementById('navbar').innerHTML = data)
+  .catch(error => console.error('Navbar failed to load:', error));
 </script>
 
 </body>
