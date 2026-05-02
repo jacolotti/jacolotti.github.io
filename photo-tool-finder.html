@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/photo-tool-finder.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Photo Tool Finder | Upload a Machine Image and Find the Right Automation Tool</title>
+  <meta name="description" content="Upload a photo of your machine, PLC cabinet, air cylinder, robot, motor, or weld setup. Get directed to the most relevant automation calculator or troubleshooting page.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hero{
+      background:linear-gradient(135deg, #0b66c3 0%, #0d79d0 45%, #0b3d69 100%);
+      color:#fff;
+      padding:60px 20px 42px;
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:26px;
+      align-items:center;
+    }
+
+    .hero h1{
+      margin:0 0 16px;
+      font-size:2.4rem;
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      color:rgba(255,255,255,0.95);
+    }
+
+    .hero-panel{
+      background:rgba(255,255,255,0.12);
+      border-radius:18px;
+      padding:22px;
+    }
+
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:38px 20px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:#fff;
+      color:var(--accent-dark);
+    }
+
+    .btn-dark{
+      background:var(--accent);
+      color:#fff;
+    }
+
+    input[type="file"]{
+      margin-top:12px;
+      margin-bottom:16px;
+    }
+
+    .result{
+      margin-top:18px;
+      padding:16px;
+      border-radius:12px;
+      background:var(--soft);
+      display:none;
+    }
+
+  </style>
+</head>
+
+<body>
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Photo Tool Finder</h1>
+      <p>
+        Upload a picture of what you're working on — PLC cabinet, air cylinder, robot,
+        motor, weld setup, or machine — and get pointed to the most relevant calculator or troubleshooting page.
+      </p>
+      <p>
+        Built for real plant-floor situations where you don’t know the exact tool name yet.
+      </p>
+
+      <button class="btn btn-primary" onclick="document.getElementById('upload').scrollIntoView();">
+        Upload Photo
+      </button>
+    </div>
+
+    <div class="hero-panel">
+      <h3>Works best for:</h3>
+      <ul>
+        <li>PLC panels and electrical cabinets</li>
+        <li>Pneumatic cylinders and valves</li>
+        <li>Robots and end-of-arm tooling</li>
+        <li>Motors, conveyors, and gearboxes</li>
+        <li>Weld fixtures and tooling</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="upload">
+  <div class="card">
+    <h2>Upload Your Photo</h2>
+    <p>
+      This will analyze your image and recommend the closest matching tool or guide.
+    </p>
+
+    <input type="file" id="photoUpload" accept="image/*">
+
+    <br>
+
+    <button class="btn btn-dark" onclick="analyzePhoto()">
+      Find Related Tool
+    </button>
+
+    <div id="result" class="result"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="card">
+    <h2>How This Works</h2>
+    <p>
+      This tool uses image recognition to identify what you're working on and route you to the best calculator or troubleshooting page.
+    </p>
+    <p>
+      It’s designed to eliminate guessing and get you to the right tool faster.
+    </p>
+  </div>
+</section>
+
+<footer style="text-align:center; padding:30px;">
+  Automation Engineering Tools • Practical calculators for real automation work
+</footer>
+
+<script>
+function analyzePhoto() {
+  const file = document.getElementById("photoUpload").files[0];
+  const result = document.getElementById("result");
+
+  if (!file) {
+    result.style.display = "block";
+    result.innerHTML = "<strong>Please upload a photo first.</strong>";
+    return;
+  }
+
+  // TEMP MOCK (before AI is connected)
+  result.style.display = "block";
+  result.innerHTML = `
+    <strong>Sample Result:</strong><br><br>
+    This looks like a pneumatic component.<br><br>
+    <a href="/pneumatics.html" onclick="gtag('event','photo_tool_result',{'result':'pneumatics'});">
+      → Go to Pneumatics Tools
+    </a>
+  `;
+}
+
+fetch('/navbar.html?v=20260422')
+  .then(res => res.text())
+  .then(data => document.getElementById('navbar').innerHTML = data);
+</script>
+
+</body>
+</html>
