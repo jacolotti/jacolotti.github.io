@@ -31,11 +31,19 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    const resultText = data.output?.[0]?.content?.[0]?.text || "";
+
+// Debug log (helps us if it breaks again)
+console.log("OpenAI response:", JSON.stringify(data));
+
+const resultText =
+  data.output_text ||
+  data.output?.[0]?.content?.find(c => c.type === "output_text")?.text ||
+  "";
 
     return res.status(200).json({ result: resultText });
 
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    console.error("API ERROR:", err);
+return res.status(500).json({ error: err.message || "Unknown error" });
   }
 }
