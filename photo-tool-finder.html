@@ -229,7 +229,7 @@ async function analyzePhoto() {
     result.innerHTML = "<p>Analyzing image...</p>";
 
     try {
-      const response = await fetch("/api/photo-tool-finder", {
+      const response = await fetch("https://jacolotti-github-io.vercel.app/api/photo-tool-finder", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
