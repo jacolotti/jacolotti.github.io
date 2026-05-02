@@ -218,14 +218,35 @@ async function analyzePhoto() {
     return;
   }
 
-  // Convert image to base64
+  result.style.display = "block";
+  result.innerHTML = "<p>Compressing image...</p>";
+
+  // Compress image using canvas
+  const img = new Image();
   const reader = new FileReader();
-  reader.readAsDataURL(file);
 
-  reader.onload = async function () {
-    const base64 = reader.result.split(",")[1];
+  reader.onload = function (e) {
+    img.src = e.target.result;
+  };
 
-    result.style.display = "block";
+  img.onload = async function () {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    // Resize (max width 800px)
+    const maxWidth = 800;
+    const scale = maxWidth / img.width;
+
+    canvas.width = maxWidth;
+    canvas.height = img.height * scale;
+
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    // Convert to compressed base64
+    const compressedBase64 = canvas
+      .toDataURL("image/jpeg", 0.6) // quality 60%
+      .split(",")[1];
+
     result.innerHTML = "<p>Analyzing image...</p>";
 
     try {
@@ -235,11 +256,16 @@ async function analyzePhoto() {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          imageBase64: base64
+          imageBase64: compressedBase64
         })
       });
 
       const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || JSON.stringify(data));
+      }
+
       const category = data.result.trim().toLowerCase();
 
       let pageMap = {
@@ -261,9 +287,14 @@ async function analyzePhoto() {
       `;
 
     } catch (err) {
-      result.innerHTML = "<strong>Error analyzing image.</strong>";
+      result.innerHTML = `
+        <strong>Error analyzing image.</strong><br><br>
+        <small>${err.message}</small>
+      `;
     }
   };
+
+  reader.readAsDataURL(file);
 }
 </script>
 
