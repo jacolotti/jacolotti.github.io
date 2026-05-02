@@ -23,8 +23,8 @@ export default async function handler(req, res) {
             },
             {
               type: "input_image",
-              image_base64: imageBase64
-            }
+              image_url: `data:image/jpeg;base64,${imageBase64}`
+          }
           ]
         }]
       })
