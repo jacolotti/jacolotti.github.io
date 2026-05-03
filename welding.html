@@ -6,8 +6,9 @@
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Welding Tools | Spot Weld, Projection Weld, Coolant Flow & Setup Support</title>
-  <meta name="description" content="Welding tools for automation engineers. Explore resistance spot weld starting parameters, projection weld setup, coolant flow and line sizing, and practical welding workflows for real production systems.">
+  <meta name="description" content="Welding tools for automation engineers. Explore resistance spot weld starting parameters, projection weld setup, coolant flow and line sizing, weld troubleshooting paths, and practical welding workflows for real production systems.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -75,6 +76,18 @@
       align-items:center;
     }
 
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:14px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.25);
+      color:#fff;
+      font-weight:700;
+      font-size:0.9rem;
+    }
+
     .hero h1{
       margin:0 0 16px;
       font-size:2.45rem;
@@ -84,7 +97,7 @@
 
     .hero p{
       margin:0 0 14px;
-      max-width:760px;
+      max-width:780px;
       color:rgba(255,255,255,0.95);
       font-size:1.05rem;
     }
@@ -175,7 +188,7 @@
     .section-intro{
       margin:0 0 24px;
       color:var(--muted);
-      max-width:860px;
+      max-width:920px;
       font-size:1.02rem;
     }
 
@@ -199,7 +212,7 @@
     .grid-3{grid-template-columns:repeat(3,1fr);}
     .grid-2{grid-template-columns:repeat(2,1fr);}
     .tool-grid{grid-template-columns:repeat(3,1fr);}
-    .feature-list{grid-template-columns:repeat(4,1fr);}
+    .feature-list{grid-template-columns:repeat(3,1fr);}
 
     .card,
     .tool-card,
@@ -222,6 +235,8 @@
     .tool-card{
       padding:22px;
       height:100%;
+      display:flex;
+      flex-direction:column;
     }
 
     .card h3,
@@ -239,6 +254,16 @@
     .cta-section p{
       margin:0 0 12px;
       color:var(--muted);
+    }
+
+    .card ul{
+      margin:8px 0 0;
+      padding-left:20px;
+      color:var(--muted);
+    }
+
+    .card li{
+      margin-bottom:8px;
     }
 
     .card-links{
@@ -295,6 +320,7 @@
 
     .tool-card .label{
       display:inline-block;
+      align-self:flex-start;
       margin-bottom:10px;
       padding:6px 10px;
       border-radius:999px;
@@ -306,8 +332,20 @@
 
     .tool-card .tool-link{
       display:inline-block;
-      margin-top:10px;
+      margin-top:auto;
       font-weight:700;
+    }
+
+    .decision-block{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .decision-block h2{
+      margin-top:0;
     }
 
     .feature-band{
@@ -380,7 +418,8 @@
       .tool-card,
       .workflow,
       .feature-item,
-      .cta-section{
+      .cta-section,
+      .decision-block{
         padding:18px;
       }
 
@@ -402,12 +441,13 @@
   <section class="hero">
     <div class="hero-inner">
       <div>
+        <div class="eyebrow">Welding Process Support</div>
         <h1>Welding Tools for Spot Weld, Projection Weld, and Cooling Support</h1>
         <p>
           Use this section to estimate resistance spot weld starting parameters, projection weld setup values, and coolant flow and line sizing for welding systems.
         </p>
         <p>
-          This is built for practical welding support work — starting values, troubleshooting direction, and cooling system checks for real production equipment.
+          This is built for practical welding support work — starting values, troubleshooting direction, cooling checks, process comparison, and real production equipment decisions.
         </p>
 
         <div class="trust-line">
@@ -416,6 +456,7 @@
 
         <div class="hero-actions">
           <a class="btn btn-primary" href="#start-here" onclick="gtag('event','welding_cta',{'location':'hero','action':'start_here'});">Start Here</a>
+          <a class="btn btn-secondary" href="#tools" onclick="gtag('event','welding_cta',{'location':'hero','action':'view_tools'});">View Welding Tools</a>
           <a class="btn btn-secondary" href="/problem-solver.html" onclick="gtag('event','welding_cta',{'location':'hero','action':'problem_solver'});">Start With Your Issue</a>
         </div>
       </div>
@@ -427,7 +468,7 @@
           <li>Projection weld setup direction</li>
           <li>Cooling and line sizing checks</li>
           <li>Weld process troubleshooting support</li>
-          <li>Organizing the welding tools into one discoverable section</li>
+          <li>Separating weld schedule problems from cooling, tooling, and machine issues</li>
         </ul>
       </div>
     </div>
@@ -435,7 +476,7 @@
 
   <section class="section">
     <div class="note-box">
-      <strong>Best way to use this section:</strong> if the weld itself is weak or inconsistent, start with the weld parameter tool first. If the concern is heat, cooling, or line sizing around the weld equipment, start with coolant flow and line sizing.
+      <strong>Best way to use this section:</strong> if the weld itself is weak or inconsistent, start with the weld parameter tool first. If the concern is heat, sticking, electrode life, transformer load, or line sizing around the weld equipment, start with coolant flow and line sizing. Do not change weld schedules blindly before checking material stack, force, electrode condition, cooling, and part fit-up.
     </div>
   </section>
 
@@ -469,10 +510,10 @@
       <div class="card">
         <h3>The system may have a cooling or line sizing issue</h3>
         <p>
-          Use this when the weld equipment is running hot, coolant flow is questionable, or the line size needs checked.
+          Use this when the weld equipment is running hot, coolant flow is questionable, electrode life is poor, or the line size needs checked.
         </p>
         <div class="card-links">
-          <a class="pill-link" href="/coolant-flow-sizing.html" onclick="gtag('event','welding_start_path',{'path':'coolant','target':'coolant_flow_sizing'});">Coolant Flow & Line Sizing</a>
+          <a class="pill-link" href="/coolant-flow-sizing.html" onclick="gtag('event','welding_start_path',{'path':'coolant','target':'coolant_flow_sizing'});">Coolant Flow &amp; Line Sizing</a>
         </div>
       </div>
     </div>
@@ -512,6 +553,128 @@
   </section>
 
   <section class="section">
+    <h2>Most Common Welding Problems in Real Production</h2>
+    <p class="section-intro">
+      Welding problems usually show up as weak nuggets, expulsion, sticking, inconsistent quality, excessive heat, poor electrode life, projection collapse problems, or cooling issues. The fastest path is to separate weld schedule, force, material stack, tooling, cooling, and machine condition.
+    </p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Weak or Small Spot Weld Nugget</h3>
+        <p>
+          Weak spot welds can come from low current, short weld time, low force, poor electrode contact, dirty material, incorrect stack assumptions, poor fit-up, or excessive shunting through nearby welds.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/spot-weld.html" onclick="gtag('event','welding_authority_link',{'section':'common_problems','target':'spot_weld'});">Check Spot Weld</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Expulsion or Excessive Spatter</h3>
+        <p>
+          Expulsion usually means the heat input, force, timing, stack fit-up, or surface condition is not balanced. Raising current without checking force and contact condition can make this worse.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/spot-weld.html" onclick="gtag('event','welding_authority_link',{'section':'common_problems','target':'spot_weld_expulsion'});">Review Spot Weld Setup</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Projection Weld Inconsistent</h3>
+        <p>
+          Projection weld problems often come from projection height, part fit-up, collapse timing, force, heat balance, tooling support, and whether multiple projections share current evenly.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/projection-weld.html" onclick="gtag('event','welding_authority_link',{'section':'common_problems','target':'projection_weld'});">Check Projection Weld</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Electrodes Stick or Wear Too Fast</h3>
+        <p>
+          Sticking and short electrode life can point to excessive heat, poor cooling, bad dressing practice, wrong electrode face, poor water flow, incorrect force, or material coating issues.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/coolant-flow-sizing.html" onclick="gtag('event','welding_authority_link',{'section':'common_problems','target':'coolant_flow_sizing'});">Check Cooling</a>
+          <a class="pill-link" href="/spot-weld.html" onclick="gtag('event','welding_authority_link',{'section':'common_problems','target':'spot_weld'});">Review Weld Setup</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Weld Quality Changes During the Shift</h3>
+        <p>
+          Quality drift can come from electrode wear, coolant temperature, dressing intervals, material variation, part fit-up, transformer heating, cable condition, or inconsistent force.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/coolant-flow-sizing.html" onclick="gtag('event','welding_authority_link',{'section':'common_problems','target':'coolant_flow_sizing'});">Cooling Check</a>
+          <a class="pill-link" href="/automation-help.html" onclick="gtag('event','welding_authority_link',{'section':'common_problems','target':'automation_help'});">Get Help</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Welder Runs Hot or Cooling Seems Marginal</h3>
+        <p>
+          Heat problems may be caused by insufficient flow, undersized lines, plugged strainers, poor water quality, blocked passages, long hose runs, or shared cooling demand.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/coolant-flow-sizing.html" onclick="gtag('event','welding_authority_link',{'section':'common_problems','target':'coolant_flow_sizing'});">Check Coolant Flow</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>What People Commonly Misdiagnose in Welding Systems</h2>
+    <p class="section-intro">
+      Welding issues get expensive when every problem is treated like a weld schedule problem. Current, force, and time matter, but so do part fit-up, electrode condition, cooling, tooling, transformer health, and process stability.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Changing Current Before Checking Force and Contact</h3>
+        <p>
+          Current changes will not fix poor electrode contact, bad part fit-up, low force, dirty material, or inconsistent projection collapse. Verify the physical process before chasing schedule numbers.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Ignoring Cooling Until Electrodes Fail</h3>
+        <p>
+          Cooling issues can look like weld schedule problems. If electrode temperature drifts, weld quality can change even if the program and current command never changed.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Treating Projection Weld Like Spot Weld</h3>
+        <p>
+          Projection welds depend heavily on projection geometry, collapse behavior, part support, and current sharing. A generic spot weld mindset can give misleading starting values.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Forgetting About Shunting and Weld Spacing</h3>
+        <p>
+          Nearby welds and conductive paths can steal current from the intended weld location. This can make a schedule look weak even when the current setting appears reasonable.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Blaming the Welder When the Part Stack Changed</h3>
+        <p>
+          Coating, thickness, gap, material grade, stack count, and fit-up can all change weld behavior. Always confirm the actual stack before adjusting a known-good process.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Skipping Mechanical Tooling Checks</h3>
+        <p>
+          Loose tooling, worn electrodes, poor fixture support, bad alignment, and moving nest details can all create inconsistent welds even when the weld controller works correctly.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tools">
     <h2>Welding Tools</h2>
     <p class="section-intro">
       These are the current welding pages in the section. Together, they cover weld starting values and cooling support for real systems.
@@ -538,7 +701,7 @@
 
       <div class="tool-card">
         <div class="label">Support Tool</div>
-        <h3>Coolant Flow & Line Sizing</h3>
+        <h3>Coolant Flow &amp; Line Sizing</h3>
         <p>
           Check coolant requirements and line sizing when weld equipment heat or cooling consistency may be part of the problem.
         </p>
@@ -555,12 +718,75 @@
       </div>
 
       <div class="tool-card">
+        <div class="label">Machine Design</div>
+        <h3>Mechanical Fixture and Tooling Checks</h3>
+        <p>
+          Use Machine Design when weld inconsistency may be caused by fixture flex, weak brackets, poor part support, or moving tooling.
+        </p>
+        <a class="tool-link" href="/machine-design.html" onclick="gtag('event','welding_tool_open',{'tool':'machine_design'});">Open machine design →</a>
+      </div>
+
+      <div class="tool-card">
         <div class="label">Help</div>
         <h3>Need Help With a Real Welding Application?</h3>
         <p>
           Use the help page when the weld problem is machine-specific, production-critical, or needs more review than a calculator can provide.
         </p>
         <a class="tool-link" href="/automation-help.html" onclick="gtag('event','welding_tool_open',{'tool':'automation_help'});">Request help →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="decision-block">
+      <h2>Welding Troubleshooting Decision Checks</h2>
+      <p class="section-intro">
+        Use these checks when you need to decide whether the next step is a weld schedule change, cooling check, tooling inspection, or process review.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>If the weld is weak but consistent</h3>
+          <p>
+            Start with material stack, force, weld time, current, electrode face, and part fit-up. This is usually where starting values and schedule review help.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/spot-weld.html">Spot Weld</a>
+            <a class="pill-link" href="/projection-weld.html">Projection Weld</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>If weld quality changes over time</h3>
+          <p>
+            Check electrode wear, cooling flow, water temperature, dressing interval, cable heating, transformer temperature, and part variation.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/coolant-flow-sizing.html">Cooling Check</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>If welds are inconsistent part to part</h3>
+          <p>
+            Check fit-up, projection height, fixture support, material stack, clamp repeatability, electrode alignment, and whether parts are seating the same way every cycle.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/projection-weld.html">Projection Weld</a>
+            <a class="pill-link" href="/machine-design.html">Fixture Checks</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>If electrodes stick or overheat</h3>
+          <p>
+            Check cooling, force, electrode material, weld schedule heat input, water passages, tubing size, and whether the weld face is dressed correctly.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/coolant-flow-sizing.html">Coolant Flow</a>
+            <a class="pill-link" href="/spot-weld.html">Spot Weld Setup</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -575,12 +801,12 @@
       <div class="feature-list">
         <div class="feature-item">
           <h3>Problem-First Entry</h3>
-          <p>Users usually know the weld is weak, inconsistent, or hot before they know which exact tool they need.</p>
+          <p>Users usually know the weld is weak, inconsistent, hot, sticking, or drifting before they know which exact tool they need.</p>
         </div>
 
         <div class="feature-item">
           <h3>Cleaner Setup Flow</h3>
-          <p>It helps users move from weld setup questions into cooling and support checks in a logical order.</p>
+          <p>It helps users move from weld setup questions into cooling, tooling, and support checks in a logical order.</p>
         </div>
 
         <div class="feature-item">
@@ -590,7 +816,67 @@
 
         <div class="feature-item">
           <h3>Useful Production Support</h3>
-          <p>Built for real manufacturing environments where weld quality, repeatability, and equipment temperature all matter.</p>
+          <p>Built for real manufacturing environments where weld quality, repeatability, electrode condition, and equipment temperature all matter.</p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Cooling Context</h3>
+          <p>Cooling issues can create weld quality drift, short electrode life, overheated equipment, and inconsistent process behavior.</p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Tooling Awareness</h3>
+          <p>Fixture support, part fit-up, electrode alignment, and mechanical repeatability matter just as much as schedule values.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Related Engineering Areas</h2>
+    <p class="section-intro">
+      Welding problems often overlap with machine design, PLC sequencing, cooling, robotics, and integrator support.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Machine Design</h3>
+        <p>
+          Use this when weld inconsistency may be caused by fixture flex, weak brackets, tooling movement, poor part support, or mechanical load path problems.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/machine-design.html" onclick="gtag('event','related_hub_click',{'page':'welding','target':'machine_design'});">Open Machine Design Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Robotics</h3>
+        <p>
+          Use this when weld quality or timing depends on robot reach, path, EOAT, fixture position, or robot cycle time.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/robotics.html" onclick="gtag('event','related_hub_click',{'page':'welding','target':'robotics'});">Open Robotics Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>PLC / Electrical</h3>
+        <p>
+          Use this when weld timing, fault resets, interlocks, cooling confirmation, or machine sequence signals affect the weld process.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-electrical.html" onclick="gtag('event','related_hub_click',{'page':'welding','target':'plc_electrical'});">Open PLC / Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Automation Help</h3>
+        <p>
+          Use this when a production welding issue needs real review of the machine, process, cooling, tooling, or controls.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/automation-help.html" onclick="gtag('event','related_hub_click',{'page':'welding','target':'automation_help'});">Request Help</a>
+          <a class="pill-link" href="/integrators.html" onclick="gtag('event','related_hub_click',{'page':'welding','target':'integrators'});">Find an Integrator</a>
         </div>
       </div>
     </div>
@@ -600,7 +886,7 @@
     <div class="cta-section">
       <h2>Need Help Applying This on a Real Machine?</h2>
       <p>
-        Welding calculators help with starting values, but real applications still depend on material, tooling, electrode condition, cooling, and machine behavior. If you need help on a live system, describe the process and the symptoms.
+        Welding calculators help with starting values, but real applications still depend on material, tooling, electrode condition, cooling, machine force, timing, and production behavior. If you need help on a live system, describe the process and the symptoms.
       </p>
       <div class="cta-actions">
         <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','welding_cta',{'location':'bottom','action':'automation_help'});">Get Help With My Welding System</a>
@@ -614,13 +900,18 @@
   </footer>
 
   <script>
-    fetch('/navbar.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar').innerHTML = data;
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
       })
-      .catch(error => {
-        console.error('Navbar failed to load:', error);
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
       });
   </script>
 </body>
