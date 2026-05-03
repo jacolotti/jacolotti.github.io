@@ -436,6 +436,7 @@
   <section class="section">
     <div class="note-box">
       <strong>Best way to use this section:</strong> start with the symptom first. If you are not sure where to begin, open the PLC Troubleshooting Guide. If the issue is a field device on but PLC or HMI status off, go to PLC Troubleshooter. If the device or module is offline, start with communication troubleshooting. If the input is correct but the machine does not respond, check PLC outputs and field power.
+    </div>
   </section>
 
   <section class="section" id="start-here">
@@ -462,21 +463,10 @@
           Start here when the prox, photoeye, switch, or input condition does not match what the PLC or HMI is showing.
         </p>
         <div class="card-links">
-  <a class="pill-link" href="/plc-troubleshooter.html"
-     onclick="gtag('event','plc_electrical_start_path',{'path':'plc_troubleshooter','target':'plc_troubleshooter'});">
-     PLC Troubleshooter
-  </a>
-
-  <a class="pill-link" href="/plc-inputs-not-working.html"
-     onclick="gtag('event','plc_electrical_start_path',{'path':'inputs','target':'plc_inputs_not_working'});">
-     PLC Inputs Not Working
-  </a>
-
-  <a class="pill-link" href="/plc-outputs-not-working.html"
-     onclick="gtag('event','plc_electrical_start_path',{'path':'outputs','target':'plc_outputs_not_working'});">
-     PLC Outputs Not Working
-  </a>
-</div>
+          <a class="pill-link" href="/plc-troubleshooter.html" onclick="gtag('event','plc_electrical_start_path',{'path':'plc_troubleshooter','target':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <a class="pill-link" href="/plc-inputs-not-working.html" onclick="gtag('event','plc_electrical_start_path',{'path':'inputs','target':'plc_inputs_not_working'});">PLC Inputs Not Working</a>
+          <a class="pill-link" href="/plc-outputs-not-working.html" onclick="gtag('event','plc_electrical_start_path',{'path':'outputs','target':'plc_outputs_not_working'});">PLC Outputs Not Working</a>
+        </div>
       </div>
 
       <div class="card">
@@ -496,7 +486,7 @@
           Use this when the PLC seems to miss a pulse, a short signal, or a fast event that is physically happening.
         </p>
         <div class="card-links">
-          <a class="pill-link" href="/plc-pulse-capture.html" onclick="gtag('event','plc_electrical_start_path',{'path':'pulse_capture','target':'plc_pulse_capture'});">PLC Scan Time & Pulse Capture</a>
+          <a class="pill-link" href="/plc-pulse-capture.html" onclick="gtag('event','plc_electrical_start_path',{'path':'pulse_capture','target':'plc_pulse_capture'});">PLC Scan Time &amp; Pulse Capture</a>
         </div>
       </div>
 
@@ -516,15 +506,12 @@
         <p>
           Use these when the question is more electrical than PLC logic — wire sizing, voltage drop, ampacity, or reference charts.
         </p>
-      <div class="card-links">
-  <a class="pill-link" href="/voltage-drop.html" onclick="gtag('event','plc_electrical_start_path',{'path':'voltage_drop','target':'voltage_drop'});">Voltage Drop</a>
-
-  <a class="pill-link" href="/wire-size-calculator.html" onclick="gtag('event','plc_electrical_start_path',{'path':'wire_size','target':'wire_size_calculator'});">Wire Size Calculator</a>
-
-  <a class="pill-link" href="/wire-gauge-amps.html" onclick="gtag('event','plc_electrical_start_path',{'path':'wire_gauge','target':'wire_gauge_amps'});">Wire Gauge vs Amps</a>
-
-  <a class="pill-link" href="/reference-charts.html" onclick="gtag('event','plc_electrical_start_path',{'path':'reference','target':'reference_charts'});">Reference Charts</a>
-</div>
+        <div class="card-links">
+          <a class="pill-link" href="/voltage-drop.html" onclick="gtag('event','plc_electrical_start_path',{'path':'voltage_drop','target':'voltage_drop'});">Voltage Drop</a>
+          <a class="pill-link" href="/wire-size-calculator.html" onclick="gtag('event','plc_electrical_start_path',{'path':'wire_size','target':'wire_size_calculator'});">Wire Size Calculator</a>
+          <a class="pill-link" href="/wire-gauge-amps.html" onclick="gtag('event','plc_electrical_start_path',{'path':'wire_gauge','target':'wire_gauge_amps'});">Wire Gauge vs Amps</a>
+          <a class="pill-link" href="/reference-charts.html" onclick="gtag('event','plc_electrical_start_path',{'path':'reference','target':'reference_charts'});">Reference Charts</a>
+        </div>
       </div>
     </div>
   </section>
@@ -552,14 +539,14 @@
         <h3>Input / Sensor Troubleshooting Workflow</h3>
         <p>Use this when a sensor or input state is not matching what the machine is doing.</p>
         <div class="flow-steps">
-  <a href="/plc-troubleshooter.html">PLC Troubleshooter</a>
-  <span class="arrow">→</span>
-  <a href="/plc-inputs-not-working.html">Inputs Not Working</a>
-  <span class="arrow">→</span>
-  <a href="/plc-outputs-not-working.html">Outputs Not Working</a>
-  <span class="arrow">→</span>
-  <a href="/plc-pulse-capture.html">Scan Time & Pulse Capture</a>
-</div>
+          <a href="/plc-troubleshooter.html" onclick="gtag('event','plc_electrical_flow',{'flow':'input_sensor','step':'plc_troubleshooter'});">PLC Troubleshooter</a>
+          <span class="arrow">→</span>
+          <a href="/plc-inputs-not-working.html" onclick="gtag('event','plc_electrical_flow',{'flow':'input_sensor','step':'inputs_not_working'});">Inputs Not Working</a>
+          <span class="arrow">→</span>
+          <a href="/plc-outputs-not-working.html" onclick="gtag('event','plc_electrical_flow',{'flow':'input_sensor','step':'outputs_not_working'});">Outputs Not Working</a>
+          <span class="arrow">→</span>
+          <a href="/plc-pulse-capture.html" onclick="gtag('event','plc_electrical_flow',{'flow':'input_sensor','step':'pulse_capture'});">Scan Time &amp; Pulse Capture</a>
+        </div>
       </div>
 
       <div class="workflow">
@@ -585,6 +572,232 @@
           <a href="/wire-gauge-amps.html" onclick="gtag('event','plc_electrical_flow',{'flow':'electrical','step':'wire_gauge_amps'});">Wire Gauge vs Amps</a>
           <span class="arrow">→</span>
           <a href="/reference-charts.html" onclick="gtag('event','plc_electrical_flow',{'flow':'electrical','step':'reference_charts'});">Reference Charts</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Most Common PLC Failures in Real Machines</h2>
+    <p class="section-intro">
+      Most PLC issues are not random. They usually fall into a handful of repeatable failure patterns: field signal mismatch, missing power, bad commons, fast signals, failed communication, scaling errors, safety interlocks, or logic conditions that are not satisfied.
+    </p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Input ON Physically, OFF in PLC</h3>
+        <p>
+          This is one of the most common troubleshooting problems. The sensor or switch appears to be working in the field, but the PLC input bit does not change. Common causes include wiring faults, incorrect sourcing or sinking configuration, missing common, incorrect input address, failed input point, loose terminals, or field power problems.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-inputs-not-working.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'plc_inputs_not_working'});">Troubleshoot Inputs</a>
+          <a class="pill-link" href="/plc-troubleshooter.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'plc_troubleshooter'});">Use PLC Troubleshooter</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Output ON in PLC, Device Not Responding</h3>
+        <p>
+          If the PLC output bit is on but the solenoid, relay, contactor, valve, or light does not respond, the problem is often outside the PLC logic. Check output card status, field power, blown fuses, load-side wiring, relay contacts, output type, and whether the device has the correct return path.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-outputs-not-working.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'plc_outputs_not_working'});">Check Outputs</a>
+          <a class="pill-link" href="/sourcing-vs-sinking.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'sourcing_vs_sinking'});">Sourcing vs Sinking</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Intermittent or Flickering Signals</h3>
+        <p>
+          Intermittent signals are often caused by loose wiring, vibration, electrical noise, poor grounding, damaged cables, marginal sensors, or a pulse that is too short for the PLC scan to catch reliably. Do not assume a flickering signal is always logic related.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-pulse-capture.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'plc_pulse_capture'});">Scan Time &amp; Pulse Capture</a>
+          <a class="pill-link" href="/voltage-drop.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'voltage_drop'});">Check Voltage Drop</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>PLC Not Communicating</h3>
+        <p>
+          Communication faults usually come from IP conflicts, wrong subnet, incorrect gateway, bad Ethernet cable, unmanaged switch issues, duplicate addresses, wrong driver path, disabled adapter, failed module, or a controller that is not reachable from the current network.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-not-communicating.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'plc_not_communicating'});">Communication Guide</a>
+          <a class="pill-link" href="/plc-communication-troubleshooting.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'plc_communication_troubleshooting'});">Comm Troubleshooter</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Analog Values Do Not Match Reality</h3>
+        <p>
+          Analog issues are often scaling problems, not sensor failures. Check the raw value, card range, signal type, engineering unit range, sensor configuration, broken loop wiring, shield grounding, and whether the HMI is using the same scaled value as the PLC.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/analog-scaling.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'analog_scaling'});">Analog Scaling</a>
+          <a class="pill-link" href="/voltage-drop.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'voltage_drop'});">Voltage Drop</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Everything Looks Right, But Machine Will Not Run</h3>
+        <p>
+          When inputs and outputs look normal but the machine will not cycle, the issue is usually a missing permissive, sequence step, safety condition, mode condition, reset requirement, HMI command, robot ready signal, drive ready bit, or interlock that has not been satisfied.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-troubleshooter.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'plc_troubleshooter'});">Start Troubleshooter</a>
+          <a class="pill-link" href="/automation-help.html" onclick="gtag('event','plc_authority_link',{'section':'common_failures','target':'automation_help'});">Get Help</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>What Engineers and Technicians Commonly Misdiagnose</h2>
+    <p class="section-intro">
+      Many PLC issues get misdiagnosed because the visible symptom is not the root cause. A PLC may show the symptom, but the actual problem may be wiring, field power, addressing, safety, communication, or mechanical movement.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Assuming the PLC Is the Problem</h3>
+        <p>
+          A lot of problems blamed on the PLC are actually outside the controller. Before changing code, verify the physical signal, field voltage, common, device state, and input or output module indication. Changing logic too early can hide the real fault and create a second problem.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Ignoring Commons and Reference Points</h3>
+        <p>
+          Inputs and outputs need the correct electrical reference. A missing common, incorrect common, floating reference, or mixed wiring style can make a good sensor appear dead. Always measure between the correct points, not just to a nearby ground that may not be part of the circuit.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Forgetting About Scan Time</h3>
+        <p>
+          A signal can happen physically and still be missed by the PLC. Short pulses, prox triggers, encoder-related events, and fast reject signals may need input filtering review, high-speed input hardware, latch logic, interrupt handling, or a different sensing strategy.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Misunderstanding Sourcing vs Sinking</h3>
+        <p>
+          Sourcing and sinking mismatches are a common reason inputs and outputs do not behave as expected. The device may be good, the card may be good, and the wire may be connected — but the current path may still be wrong.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Trusting the HMI Before the PLC</h3>
+        <p>
+          HMI values can be delayed, mapped wrong, stale, or pointed at the wrong tag. When troubleshooting a real issue, confirm the PLC tag, module status, and field device before assuming the HMI display is telling the whole story.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Replacing Parts Without Proving the Fault</h3>
+        <p>
+          Swapping sensors, cards, power supplies, relays, or cables can work, but it can also waste time if the root cause is configuration, wiring, or logic. Prove whether the fault follows the device, the wire, the input point, the output point, or the program condition.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>When the Problem Is NOT the PLC</h2>
+    <p class="section-intro">
+      The PLC is often where the problem becomes visible, but it is not always where the problem starts. These outside issues can look like controller faults if you only look at the logic.
+    </p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Field Device Failure</h3>
+        <p>
+          Sensors, switches, valves, relays, contactors, drives, and actuators can fail while the PLC is working normally. Check device LEDs, output voltage, actual actuation, connector damage, and whether the device changes state under real machine conditions.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Power Distribution Problems</h3>
+        <p>
+          Weak 24 VDC power, overloaded supplies, blown fuses, shared commons, voltage drop, bad terminals, and loose conductors can all cause PLC-side symptoms. Measure voltage while the load is active, not only when the circuit is idle.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Network Infrastructure Issues</h3>
+        <p>
+          Ethernet switches, unmanaged loops, IP conflicts, damaged cables, wrong subnets, bad gateways, or overloaded networks can make a PLC, HMI, robot, drive, or remote I/O rack appear faulty when the infrastructure is the real issue.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Mechanical Failures</h3>
+        <p>
+          Binding cylinders, jammed slides, misaligned tooling, worn bearings, part-present errors, and physical obstructions can make the logic look wrong. Always compare commanded state, output state, and actual machine motion.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Safety Circuit Lockouts</h3>
+        <p>
+          Guard doors, light curtains, E-stops, safety relays, safety PLC zones, robot safety, and drive safe-off conditions can block motion while standard PLC logic appears ready. Confirm safety status before chasing normal outputs.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Operator Interface or Tag Mapping Issues</h3>
+        <p>
+          Incorrect HMI tags, stale values, bad aliases, wrong PLC shortcuts, or mismatched arrays can make a system look broken even when the actual PLC state is correct. Compare HMI value, PLC tag, and physical machine state.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>PLC Troubleshooting Decision Checks</h2>
+    <p class="section-intro">
+      Use these quick decision checks when you are standing at the machine and need to decide which direction to troubleshoot first.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>If the Field Device LED Changes But the PLC Bit Does Not</h3>
+        <p>
+          Focus on wiring, input card, common, addressing, terminal assignment, and sourcing or sinking configuration. Do not start by rewriting logic.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-inputs-not-working.html" onclick="gtag('event','plc_decision_check',{'target':'plc_inputs_not_working'});">Go to Input Guide</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>If the PLC Output Bit Is ON But Nothing Moves</h3>
+        <p>
+          Focus on output card indication, load power, fuse, relay, solenoid, contactor, return path, and whether another safety or permissive circuit is blocking the device.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-outputs-not-working.html" onclick="gtag('event','plc_decision_check',{'target':'plc_outputs_not_working'});">Go to Output Guide</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>If the Device Is Offline or Not Found</h3>
+        <p>
+          Focus on IP address, subnet, gateway, Ethernet cable, switch, driver path, module configuration, and whether the device is reachable from the same network.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-not-communicating.html" onclick="gtag('event','plc_decision_check',{'target':'plc_not_communicating'});">Go to Communication Guide</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>If the Value Is Wrong But the Signal Exists</h3>
+        <p>
+          Focus on raw value, input range, engineering scaling, sensor range, broken loop wiring, voltage drop, and whether the HMI is reading the correct scaled tag.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/analog-scaling.html" onclick="gtag('event','plc_decision_check',{'target':'analog_scaling'});">Go to Analog Scaling</a>
         </div>
       </div>
     </div>
@@ -653,7 +866,7 @@
 
       <div class="tool-card">
         <div class="label">Calculator / Guide</div>
-        <h3>PLC Scan Time & Pulse Capture</h3>
+        <h3>PLC Scan Time &amp; Pulse Capture</h3>
         <p>
           Evaluate whether short pulses or fast signals are getting missed because the PLC scan is not catching them consistently.
         </p>
@@ -783,7 +996,7 @@
   </footer>
 
   <script>
-    fetch('/navbar.html')
+    fetch('/navbar.html?v=20260422')
       .then(response => response.text())
       .then(data => {
         document.getElementById('navbar').innerHTML = data;
