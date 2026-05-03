@@ -31,8 +31,6 @@
       --shadow:0 8px 24px rgba(15,35,60,0.08);
       --radius:16px;
       --max:1180px;
-      --success:#147a3d;
-      --warn:#9a6200;
     }
 
     *{box-sizing:border-box;}
@@ -87,14 +85,8 @@
       padding:22px;
     }
 
-    .hero-panel h3{
-      margin-top:0;
-    }
-
-    .hero-panel ul{
-      margin-bottom:0;
-      padding-left:20px;
-    }
+    .hero-panel h3{margin-top:0;}
+    .hero-panel ul{margin-bottom:0;padding-left:20px;}
 
     .section{
       max-width:var(--max);
@@ -117,9 +109,7 @@
     }
 
     .card h2,
-    .card h3{
-      margin-top:0;
-    }
+    .card h3{margin-top:0;}
 
     .btn{
       display:inline-block;
@@ -235,17 +225,9 @@
     }
 
     @media(max-width:850px){
-      .hero-inner{
-        grid-template-columns:1fr;
-      }
-
-      .grid{
-        grid-template-columns:1fr;
-      }
-
-      .hero h1{
-        font-size:2rem;
-      }
+      .hero-inner{grid-template-columns:1fr;}
+      .grid{grid-template-columns:1fr;}
+      .hero h1{font-size:2rem;}
     }
   </style>
 </head>
@@ -262,7 +244,7 @@
         motor, weld setup, machine frame, or tooling — and get pointed to the most relevant calculator or troubleshooting page.
       </p>
       <p>
-        This is built for real plant-floor situations where you may not know the exact tool name yet.
+        Built for real plant-floor situations where you may not know the exact tool name yet.
       </p>
 
       <button class="btn btn-primary" onclick="document.getElementById('upload').scrollIntoView({behavior:'smooth'});">
@@ -300,7 +282,7 @@
     <input
       type="text"
       id="photoHint"
-      placeholder="Example: weld electrode, PLC panel, air cylinder, robot gripper, conveyor motor"
+      placeholder="Example: Allen-Bradley PLC, weld electrode, PLC panel, air cylinder, robot gripper, conveyor motor"
     >
 
     <button class="btn btn-dark" onclick="analyzePhoto()">
@@ -317,14 +299,14 @@
       <h3>Why the hint helps</h3>
       <p>
         Some industrial parts look similar in photos. A weld electrode, motor shaft, pneumatic rod, and tooling pin can all look cylindrical.
-        The hint helps the classifier prioritize function instead of shape.
+        A short hint helps the classifier prioritize function instead of shape.
       </p>
     </div>
 
     <div class="card">
       <h3>Low-confidence results</h3>
       <p>
-        If the tool is not confident, it will show two likely categories instead of forcing you into the wrong page.
+        If the tool is not confident, it shows two likely categories instead of forcing you into the wrong page.
         That is better for plant-floor troubleshooting where photos can be dark, cropped, or taken at odd angles.
       </p>
     </div>
@@ -332,7 +314,7 @@
     <div class="card">
       <h3>Feedback improves routing</h3>
       <p>
-        After a result appears, you can mark whether the classification was useful.
+        After a result appears, mark whether the classification was useful.
         Those feedback events help identify which categories need better rules.
       </p>
     </div>
@@ -342,9 +324,7 @@
 <section class="section">
   <div class="card">
     <h2>Available Routing Categories</h2>
-    <p>
-      The photo finder currently routes images into these main site sections:
-    </p>
+    <p>The photo finder currently routes images into these main site sections:</p>
 
     <span class="pill">PLC / Electrical</span>
     <span class="pill">Pneumatics</span>
@@ -400,7 +380,7 @@ async function analyzePhoto() {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    const maxWidth = 900;
+    const maxWidth = 1100;
     const scale = Math.min(1, maxWidth / img.width);
 
     canvas.width = Math.round(img.width * scale);
@@ -409,7 +389,7 @@ async function analyzePhoto() {
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
     const compressedBase64 = canvas
-      .toDataURL("image/jpeg", 0.65)
+      .toDataURL("image/jpeg", 0.72)
       .split(",")[1];
 
     result.innerHTML = "<p>Analyzing image...</p>";
@@ -432,10 +412,24 @@ async function analyzePhoto() {
         throw new Error(data.error || JSON.stringify(data));
       }
 
+      // Backward compatibility if Vercel is still serving the old API response.
+      if (data.result && !data.primary_category) {
+        data.primary_category = String(data.result).trim().toLowerCase();
+        data.primary_confidence = 0.9;
+        data.secondary_category = "unknown";
+        data.secondary_confidence = 0;
+        data.primary_url = fallbackUrl(data.primary_category);
+        data.secondary_url = fallbackUrl("unknown");
+        data.reason = "Classified using the legacy single-category API response.";
+        data.visible_clues = [];
+      }
+
       const primary = normalizeCategory(data.primary_category);
       const secondary = normalizeCategory(data.secondary_category);
-      const primaryConfRaw = Number(data.primary_confidence || 0);
-      const secondaryConfRaw = Number(data.secondary_confidence || 0);
+
+      const primaryConfRaw = normalizeConfidence(data.primary_confidence);
+      const secondaryConfRaw = normalizeConfidence(data.secondary_confidence);
+
       const primaryConf = Math.round(primaryConfRaw * 100);
       const secondaryConf = Math.round(secondaryConfRaw * 100);
 
@@ -542,6 +536,13 @@ async function analyzePhoto() {
   reader.readAsDataURL(file);
 }
 
+function normalizeConfidence(value) {
+  const num = Number(value || 0);
+  if (Number.isNaN(num)) return 0;
+  if (num > 1) return Math.min(num / 100, 1);
+  return Math.max(0, Math.min(num, 1));
+}
+
 function normalizeCategory(category) {
   const allowed = [
     "welding",
@@ -554,7 +555,6 @@ function normalizeCategory(category) {
   ];
 
   const cleaned = String(category || "unknown").trim().toLowerCase();
-
   return allowed.includes(cleaned) ? cleaned : "unknown";
 }
 
