@@ -328,7 +328,19 @@
       Automation Tools
     </a>
 
-    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Navigation Menu" aria-expanded="false">
+    <button class="menu-toggle" id="menuToggle" type="button" aria-label="Navigation Menu" aria-expanded="false"
+      onclick="
+        const nav = document.getElementById('siteNavbar');
+        const isOpen = nav.classList.toggle('open');
+        this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (!isOpen) {
+          nav.querySelectorAll('.dropdown').forEach(function(d){
+            d.classList.remove('open');
+            const b = d.querySelector('.dropbtn');
+            if (b) b.setAttribute('aria-expanded','false');
+          });
+        }
+      ">
       Menu
     </button>
 
@@ -349,7 +361,22 @@
         </a>
 
         <div class="dropdown">
-          <button class="dropbtn" type="button" aria-expanded="false">
+          <button class="dropbtn" type="button" aria-expanded="false"
+            onclick="
+              if (window.innerWidth <= 1250) {
+                const dropdown = this.closest('.dropdown');
+                const navbar = document.getElementById('siteNavbar');
+                navbar.querySelectorAll('.dropdown').forEach(function(d){
+                  if (d !== dropdown) {
+                    d.classList.remove('open');
+                    const b = d.querySelector('.dropbtn');
+                    if (b) b.setAttribute('aria-expanded','false');
+                  }
+                });
+                const isOpen = dropdown.classList.toggle('open');
+                this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              }
+            ">
             Tools &amp; Calculators ▾
           </button>
 
@@ -357,7 +384,9 @@
             <div class="mega-grid">
               <div class="mega-col">
                 <h4>Pneumatics</h4>
-                <a class="group-link" href="/pneumatics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatics_group'});">View category overview</a>
+                <a class="group-link" href="/pneumatics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatics_group'});">
+                  View category overview
+                </a>
                 <div class="mega-links">
                   <a href="/pneumatic.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_force'});">Pneumatic Force</a>
                   <a href="/pneumatic-speed.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_speed'});">Pneumatic Speed</a>
@@ -369,7 +398,9 @@
 
               <div class="mega-col">
                 <h4>PLC / Electrical</h4>
-                <a class="group-link" href="/plc-electrical.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_group'});">View category overview</a>
+                <a class="group-link" href="/plc-electrical.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_group'});">
+                  View category overview
+                </a>
                 <div class="mega-links">
                   <a href="/plc-troubleshooter.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_troubleshooter'});">PLC Troubleshooter</a>
                   <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_communication_troubleshooter'});">PLC Communication Troubleshooter</a>
@@ -388,7 +419,9 @@
 
               <div class="mega-col">
                 <h4>Motors &amp; Motion</h4>
-                <a class="group-link" href="/motors-motion.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'motion_group'});">View category overview</a>
+                <a class="group-link" href="/motors-motion.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'motion_group'});">
+                  View category overview
+                </a>
                 <div class="mega-links">
                   <a href="/motor.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'motor_sizing'});">Conveyor Motor Sizing</a>
                   <a href="/conveyor-speed.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'conveyor_speed'});">Conveyor Speed</a>
@@ -400,7 +433,9 @@
 
               <div class="mega-col">
                 <h4>Machine Design</h4>
-                <a class="group-link" href="/machine-design.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'machine_design_group'});">View category overview</a>
+                <a class="group-link" href="/machine-design.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'machine_design_group'});">
+                  View category overview
+                </a>
                 <div class="mega-links">
                   <a href="/beam-load-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'beam_load'});">Beam Load &amp; Reactions</a>
                   <a href="/section-modulus-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'section_modulus'});">Section Modulus</a>
@@ -419,7 +454,9 @@
 
               <div class="mega-col">
                 <h4>Robotics</h4>
-                <a class="group-link" href="/robotics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robotics_group'});">View category overview</a>
+                <a class="group-link" href="/robotics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robotics_group'});">
+                  View category overview
+                </a>
                 <div class="mega-links">
                   <a href="/robot.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robot_cycle_time'});">Robot Cycle Time</a>
                   <a href="/robot-reach.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robot_reach'});">Robot Reach</a>
@@ -434,7 +471,9 @@
             <div class="mega-grid">
               <div class="mega-col">
                 <h4>Welding</h4>
-                <a class="group-link" href="/welding.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'welding_group'});">View category overview</a>
+                <a class="group-link" href="/welding.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'welding_group'});">
+                  View category overview
+                </a>
                 <div class="mega-links">
                   <a href="/spot-weld.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'spot_weld'});">Resistance Spot Weld</a>
                   <a href="/projection-weld.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'projection_weld'});">Projection Weld</a>
@@ -444,7 +483,9 @@
 
               <div class="mega-col">
                 <h4>Fastening</h4>
-                <a class="group-link" href="/fastening.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'fastening_group'});">View category overview</a>
+                <a class="group-link" href="/fastening.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'fastening_group'});">
+                  View category overview
+                </a>
                 <div class="mega-links">
                   <a href="/torque-clamp-load.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'torque_clamp_load'});">Torque to Clamp Load</a>
                   <a href="/torque-angle.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'torque_angle'});">Torque Angle</a>
@@ -454,7 +495,9 @@
 
               <div class="mega-col">
                 <h4>Adhesives</h4>
-                <a class="group-link" href="/adhesives.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesives_group'});">View category overview</a>
+                <a class="group-link" href="/adhesives.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesives_group'});">
+                  View category overview
+                </a>
                 <div class="mega-links">
                   <a href="/adhesive-system-setup.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesive_setup'});">Adhesive System Setup</a>
                   <a href="/nordson-parameters-explained.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'nordson_parameters_explained'});">Nordson Parameters Explained</a>
@@ -466,7 +509,9 @@
 
               <div class="mega-col">
                 <h4>ROI / Planning</h4>
-                <a class="group-link" href="/roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi_group'});">View category overview</a>
+                <a class="group-link" href="/roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi_group'});">
+                  View category overview
+                </a>
                 <div class="mega-links">
                   <a href="/downtime-cost-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'downtime_cost'});">Downtime Cost Calculator</a>
                   <a href="/labor-savings-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'labor_savings'});">Labor Savings Calculator</a>
@@ -483,7 +528,22 @@
         </div>
 
         <div class="dropdown">
-          <button class="dropbtn" type="button" aria-expanded="false">
+          <button class="dropbtn" type="button" aria-expanded="false"
+            onclick="
+              if (window.innerWidth <= 1250) {
+                const dropdown = this.closest('.dropdown');
+                const navbar = document.getElementById('siteNavbar');
+                navbar.querySelectorAll('.dropdown').forEach(function(d){
+                  if (d !== dropdown) {
+                    d.classList.remove('open');
+                    const b = d.querySelector('.dropbtn');
+                    if (b) b.setAttribute('aria-expanded','false');
+                  }
+                });
+                const isOpen = dropdown.classList.toggle('open');
+                this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+              }
+            ">
             Guides &amp; Resources ▾
           </button>
 
@@ -534,77 +594,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  (function () {
-    const navbar = document.getElementById('siteNavbar');
-    const menuToggle = document.getElementById('menuToggle');
-    const dropdowns = navbar ? navbar.querySelectorAll('.dropdown') : [];
-
-    if (!navbar || !menuToggle) return;
-
-    menuToggle.addEventListener('click', function () {
-      const isOpen = navbar.classList.toggle('open');
-      menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-
-      if (!isOpen) {
-        dropdowns.forEach(function (dropdown) {
-          dropdown.classList.remove('open');
-          const btn = dropdown.querySelector('.dropbtn');
-          if (btn) btn.setAttribute('aria-expanded', 'false');
-        });
-      }
-    });
-
-    dropdowns.forEach(function (dropdown) {
-      const button = dropdown.querySelector('.dropbtn');
-
-      if (!button) return;
-
-      button.addEventListener('click', function (e) {
-        if (window.innerWidth <= 1250) {
-          e.preventDefault();
-
-          dropdowns.forEach(function (otherDropdown) {
-            if (otherDropdown !== dropdown) {
-              otherDropdown.classList.remove('open');
-              const otherBtn = otherDropdown.querySelector('.dropbtn');
-              if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
-            }
-          });
-
-          const isOpen = dropdown.classList.toggle('open');
-          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
-      });
-    });
-
-    navbar.querySelectorAll('a').forEach(function (link) {
-      link.addEventListener('click', function () {
-        if (window.innerWidth <= 1250) {
-          navbar.classList.remove('open');
-          menuToggle.setAttribute('aria-expanded', 'false');
-
-          dropdowns.forEach(function (dropdown) {
-            dropdown.classList.remove('open');
-            const btn = dropdown.querySelector('.dropbtn');
-            if (btn) btn.setAttribute('aria-expanded', 'false');
-          });
-        }
-      });
-    });
-
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 1250) {
-        navbar.classList.remove('open');
-        menuToggle.setAttribute('aria-expanded', 'false');
-
-        dropdowns.forEach(function (dropdown) {
-          dropdown.classList.remove('open');
-          const btn = dropdown.querySelector('.dropbtn');
-          if (btn) btn.setAttribute('aria-expanded', 'false');
-        });
-      }
-    });
-  })();
-</script>
