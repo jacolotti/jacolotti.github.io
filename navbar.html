@@ -265,7 +265,8 @@
     .dropdown:hover .dropdown-panel,
     .dropdown:focus-within .dropdown-panel {
       display: none;
-      position: static;
+      top: auto;
+      position: relative;
       transform: none;
       width: 100%;
       max-width: 100%;
@@ -297,7 +298,19 @@
       border-bottom: none;
       padding-bottom: 0;
     }
+
+    .navbar.open {
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+  .nav-wrap {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 60px;
   }
+}
 
   @media (max-width: 520px) {
     .navbar-inner {
