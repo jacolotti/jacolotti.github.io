@@ -31,6 +31,8 @@
       --shadow:0 8px 24px rgba(15,35,60,0.08);
       --radius:16px;
       --max:1180px;
+      --success:#147a3d;
+      --warn:#9a6200;
     }
 
     *{box-sizing:border-box;}
@@ -144,13 +146,15 @@
       margin-bottom:16px;
     }
 
-    input[type="text"]{
+    input[type="text"],
+    select{
       width:100%;
       padding:12px;
       margin:10px 0 16px;
       border:1px solid var(--border);
       border-radius:10px;
       font-size:1rem;
+      background:#fff;
     }
 
     .hint{
@@ -185,6 +189,34 @@
       font-weight:400;
     }
 
+    .suggestion-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .suggestion-card{
+      display:block;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;
+      text-decoration:none;
+      color:var(--text);
+    }
+
+    .suggestion-card strong{
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .suggestion-card span{
+      display:block;
+      color:var(--muted);
+      font-size:0.92rem;
+    }
+
     .feedback-box{
       margin-top:18px;
       padding-top:14px;
@@ -199,6 +231,15 @@
       margin-top:10px;
       color:var(--muted);
       font-size:0.95rem;
+    }
+
+    .correction-box{
+      display:none;
+      margin-top:14px;
+      background:#fff;
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:14px;
     }
 
     .small-list{
@@ -227,6 +268,7 @@
     @media(max-width:850px){
       .hero-inner{grid-template-columns:1fr;}
       .grid{grid-template-columns:1fr;}
+      .suggestion-grid{grid-template-columns:1fr;}
       .hero h1{font-size:2rem;}
     }
   </style>
@@ -296,26 +338,23 @@
 <section class="section">
   <div class="grid">
     <div class="card">
-      <h3>Why the hint helps</h3>
+      <h3>Smarter routing</h3>
       <p>
-        Some industrial parts look similar in photos. A weld electrode, motor shaft, pneumatic rod, and tooling pin can all look cylindrical.
-        A short hint helps the classifier prioritize function instead of shape.
+        The tool now recommends the main category and also suggests more specific pages when the image clues point to wiring, sensors, pneumatics, welding, motors, robots, or machine design.
       </p>
     </div>
 
     <div class="card">
-      <h3>Low-confidence results</h3>
+      <h3>Low-confidence protection</h3>
       <p>
-        If the tool is not confident, it shows two likely categories instead of forcing you into the wrong page.
-        That is better for plant-floor troubleshooting where photos can be dark, cropped, or taken at odd angles.
+        If the tool is not confident, it shows multiple choices instead of forcing the wrong page. The backend also performs a second pass on weak classifications.
       </p>
     </div>
 
     <div class="card">
-      <h3>Feedback improves routing</h3>
+      <h3>Correction feedback</h3>
       <p>
-        After a result appears, mark whether the classification was useful.
-        Those feedback events help identify which categories need better rules.
+        If the result is wrong, you can select the correct category. Those GA4 events help tune the prompt and routing rules over time.
       </p>
     </div>
   </div>
@@ -344,6 +383,8 @@
 </footer>
 
 <script>
+let lastPhotoResult = null;
+
 async function analyzePhoto() {
   const file = document.getElementById("photoUpload").files[0];
   const hint = document.getElementById("photoHint")?.value || "";
@@ -354,6 +395,8 @@ async function analyzePhoto() {
     result.innerHTML = "<strong>Please upload a photo first.</strong>";
     return;
   }
+
+  lastPhotoResult = null;
 
   if (typeof gtag === "function") {
     gtag("event", "photo_tool_upload_started", {
@@ -412,7 +455,6 @@ async function analyzePhoto() {
         throw new Error(data.error || JSON.stringify(data));
       }
 
-      // Backward compatibility if Vercel is still serving the old API response.
       if (data.result && !data.primary_category) {
         data.primary_category = String(data.result).trim().toLowerCase();
         data.primary_confidence = 0.9;
@@ -422,6 +464,7 @@ async function analyzePhoto() {
         data.secondary_url = fallbackUrl("unknown");
         data.reason = "Classified using the legacy single-category API response.";
         data.visible_clues = [];
+        data.suggested_links = buildSuggestedLinks(data.primary_category, []);
       }
 
       const primary = normalizeCategory(data.primary_category);
@@ -436,6 +479,24 @@ async function analyzePhoto() {
       const primaryUrl = data.primary_url || fallbackUrl(primary);
       const secondaryUrl = data.secondary_url || fallbackUrl(secondary);
 
+      const suggestedLinks = Array.isArray(data.suggested_links) && data.suggested_links.length
+        ? data.suggested_links
+        : buildSuggestedLinks(primary, data.visible_clues || []);
+
+      lastPhotoResult = {
+        primary,
+        secondary,
+        primaryConfidence: primaryConfRaw,
+        secondaryConfidence: secondaryConfRaw,
+        primaryUrl,
+        secondaryUrl,
+        suggestedLinks,
+        reason: data.reason || "",
+        visibleClues: data.visible_clues || [],
+        hasHint: hint.trim().length > 0,
+        retryUsed: Boolean(data.retry_used)
+      };
+
       if (typeof gtag === "function") {
         gtag("event", "photo_tool_classification", {
           primary_category: primary,
@@ -443,6 +504,7 @@ async function analyzePhoto() {
           primary_confidence: primaryConfRaw,
           secondary_confidence: secondaryConfRaw,
           has_hint: hint.trim().length > 0,
+          retry_used: Boolean(data.retry_used),
           page_location: window.location.href
         });
       }
@@ -459,19 +521,9 @@ async function analyzePhoto() {
             Go to Recommended Tool
           </a>
 
-          <div class="feedback-box">
-            <strong>Was this correct?</strong><br><br>
+          ${renderSuggestedLinks(suggestedLinks)}
 
-            <button class="btn btn-dark" onclick="sendPhotoFeedback('correct', '${primary}', '${secondary}', ${primaryConfRaw});">
-              Yes
-            </button>
-
-            <button class="btn btn-light" onclick="sendPhotoFeedback('wrong', '${primary}', '${secondary}', ${primaryConfRaw});">
-              No
-            </button>
-
-            <div id="feedbackMsg" class="feedback-msg"></div>
-          </div>
+          ${renderFeedbackBox(primary, secondary, primaryConfRaw)}
         `;
         return;
       }
@@ -499,23 +551,9 @@ async function analyzePhoto() {
 
         ${renderVisibleClues(data.visible_clues)}
 
-        <div class="feedback-box">
-          <strong>Which one was closer?</strong><br><br>
+        ${renderSuggestedLinks(suggestedLinks)}
 
-          <button class="btn btn-dark" onclick="sendPhotoFeedback('primary_selected', '${primary}', '${secondary}', ${primaryConfRaw});">
-            ${formatCategory(primary)}
-          </button>
-
-          <button class="btn btn-light" onclick="sendPhotoFeedback('secondary_selected', '${primary}', '${secondary}', ${primaryConfRaw});">
-            ${formatCategory(secondary)}
-          </button>
-
-          <button class="btn btn-light" onclick="sendPhotoFeedback('neither', '${primary}', '${secondary}', ${primaryConfRaw});">
-            Neither
-          </button>
-
-          <div id="feedbackMsg" class="feedback-msg"></div>
-        </div>
+        ${renderFeedbackBox(primary, secondary, primaryConfRaw, true)}
       `;
 
     } catch (err) {
@@ -534,6 +572,158 @@ async function analyzePhoto() {
   };
 
   reader.readAsDataURL(file);
+}
+
+function renderFeedbackBox(primary, secondary, confidence, lowConfidenceMode = false) {
+  const prompt = lowConfidenceMode ? "Which one was closer?" : "Was this correct?";
+
+  return `
+    <div class="feedback-box">
+      <strong>${prompt}</strong><br><br>
+
+      <button class="btn btn-dark" onclick="sendPhotoFeedback('${lowConfidenceMode ? "primary_selected" : "correct"}', '${primary}', '${secondary}', ${confidence});">
+        ${lowConfidenceMode ? formatCategory(primary) : "Yes"}
+      </button>
+
+      <button class="btn btn-light" onclick="showCorrectionBox('${primary}', '${secondary}', ${confidence});">
+        ${lowConfidenceMode ? "Neither / Something Else" : "No"}
+      </button>
+
+      ${lowConfidenceMode ? `
+        <button class="btn btn-light" onclick="sendPhotoFeedback('secondary_selected', '${primary}', '${secondary}', ${confidence});">
+          ${formatCategory(secondary)}
+        </button>
+      ` : ""}
+
+      <div id="correctionBox" class="correction-box">
+        <label for="actualCategory"><strong>What was it actually?</strong></label>
+        <select id="actualCategory">
+          <option value="">Choose correct category</option>
+          <option value="plc_electrical">PLC / Electrical</option>
+          <option value="pneumatics">Pneumatics</option>
+          <option value="welding">Welding</option>
+          <option value="robotics">Robotics</option>
+          <option value="motors_motion">Motors / Motion</option>
+          <option value="machine_design">Machine Design</option>
+          <option value="unknown">Not Sure / Other</option>
+        </select>
+
+        <button class="btn btn-dark" onclick="submitCorrection('${primary}', '${secondary}', ${confidence});">
+          Submit Correction
+        </button>
+      </div>
+
+      <div id="feedbackMsg" class="feedback-msg"></div>
+    </div>
+  `;
+}
+
+function showCorrectionBox(primaryCategory, secondaryCategory, confidence) {
+  const box = document.getElementById("correctionBox");
+  if (box) {
+    box.style.display = "block";
+  }
+
+  sendPhotoFeedback("wrong_opened_correction", primaryCategory, secondaryCategory, confidence, false);
+}
+
+function submitCorrection(primaryCategory, secondaryCategory, confidence) {
+  const actual = document.getElementById("actualCategory")?.value || "";
+  const msg = document.getElementById("feedbackMsg");
+
+  if (!actual) {
+    if (msg) {
+      msg.innerHTML = "Choose the correct category first.";
+    }
+    return;
+  }
+
+  sendPhotoFeedback("correction_submitted", primaryCategory, secondaryCategory, confidence, false, actual);
+
+  if (msg) {
+    msg.innerHTML = "Thanks — correction saved to analytics.";
+  }
+}
+
+function renderSuggestedLinks(links) {
+  if (!Array.isArray(links) || links.length === 0) {
+    return "";
+  }
+
+  const cards = links.slice(0, 4).map(link => `
+    <a class="suggestion-card" href="${escapeHtml(link.url)}" onclick="trackSuggestedLink('${escapeJs(link.label)}', '${escapeJs(link.url)}');">
+      <strong>${escapeHtml(link.label)}</strong>
+      <span>${escapeHtml(link.reason || "Related page")}</span>
+    </a>
+  `).join("");
+
+  return `
+    <div style="margin-top:18px;">
+      <strong>Suggested next pages:</strong>
+      <div class="suggestion-grid">
+        ${cards}
+      </div>
+    </div>
+  `;
+}
+
+function buildSuggestedLinks(category, clues) {
+  const clueText = Array.isArray(clues) ? clues.join(" ").toLowerCase() : "";
+
+  const map = {
+    plc_electrical: [
+      { label: "PLC / Electrical Hub", url: "/plc-electrical.html", reason: "Main PLC and controls section" },
+      { label: "PLC Inputs Not Working", url: "/plc-inputs-not-working.html", reason: "For sensors, input cards, and field wiring" },
+      { label: "PLC Outputs Not Working", url: "/plc-outputs-not-working.html", reason: "For output cards, relays, and solenoids" },
+      { label: "PLC Communication Troubleshooting", url: "/plc-communication-troubleshooting.html", reason: "For Ethernet/IP, device communication, and network issues" }
+    ],
+    pneumatics: [
+      { label: "Pneumatics Hub", url: "/pneumatics.html", reason: "Main air cylinder and pneumatic tools section" },
+      { label: "Pneumatic Force Calculator", url: "/pneumatic.html", reason: "For cylinder force and bore sizing" },
+      { label: "Air Consumption Calculator", url: "/air-consumption.html", reason: "For cylinder air use and compressor demand" },
+      { label: "Air Line Size Calculator", url: "/air-line-size-calculator.html", reason: "For tubing and pressure drop checks" }
+    ],
+    welding: [
+      { label: "Welding Hub", url: "/welding.html", reason: "Main resistance welding section" },
+      { label: "Spot Weld Calculator", url: "/spot-weld-calculator.html", reason: "For weld force, time, and current checks" },
+      { label: "Projection Weld Calculator", url: "/projection-weld-calculator.html", reason: "For projection weld setup review" },
+      { label: "Coolant Flow Calculator", url: "/coolant-flow-calculator.html", reason: "For weld gun and electrode cooling checks" }
+    ],
+    robotics: [
+      { label: "Robotics Hub", url: "/robotics.html", reason: "Main robot and EOAT section" },
+      { label: "Robot Cycle Time Calculator", url: "/robot.html", reason: "For cycle time and movement estimates" },
+      { label: "Robot Reach Calculator", url: "/robot-reach-calculator.html", reason: "For reach and layout checks" },
+      { label: "Robot Payload Calculator", url: "/robot-payload-calculator.html", reason: "For payload and EOAT checks" }
+    ],
+    motors_motion: [
+      { label: "Motors / Motion Hub", url: "/motors-motion.html", reason: "Main motors and motion section" },
+      { label: "Motor Calculator", url: "/motor.html", reason: "For motor sizing and power checks" },
+      { label: "Conveyor Speed Calculator", url: "/conveyor-speed.html", reason: "For belt and conveyor speed checks" },
+      { label: "Gear Ratio Calculator", url: "/gear-ratio.html", reason: "For gearbox and speed reduction checks" }
+    ],
+    machine_design: [
+      { label: "Machine Design Hub", url: "/machine-design.html", reason: "Main mechanical design section" },
+      { label: "Beam Deflection Calculator", url: "/beam-deflection-calculator.html", reason: "For frame and beam stiffness checks" },
+      { label: "Bolt Shear / Joint Separation", url: "/bolt-shear-joint-separation-calculator.html", reason: "For bolted joint checks" },
+      { label: "Weld Size Calculator", url: "/weld-size-calculator.html", reason: "For structural weld sizing checks" }
+    ],
+    unknown: [
+      { label: "Automation Help", url: "/automation-help.html", reason: "Start here when the image is unclear" },
+      { label: "Automation Calculators", url: "/automation-calculators.html", reason: "Browse all tools" }
+    ]
+  };
+
+  let links = map[category] || map.unknown;
+
+  if (category === "plc_electrical") {
+    if (clueText.includes("sensor") || clueText.includes("input")) {
+      links = [map.plc_electrical[1], map.plc_electrical[0], map.plc_electrical[3], map.plc_electrical[2]];
+    } else if (clueText.includes("ethernet") || clueText.includes("communication") || clueText.includes("network")) {
+      links = [map.plc_electrical[3], map.plc_electrical[0], map.plc_electrical[1], map.plc_electrical[2]];
+    }
+  }
+
+  return links;
 }
 
 function normalizeConfidence(value) {
@@ -604,7 +794,7 @@ function renderVisibleClues(clues) {
   `;
 }
 
-function sendPhotoFeedback(action, primaryCategory, secondaryCategory, confidence) {
+function sendPhotoFeedback(action, primaryCategory, secondaryCategory, confidence, showThanks = true, actualCategory = "") {
   const msg = document.getElementById("feedbackMsg");
   const hint = document.getElementById("photoHint")?.value || "";
 
@@ -613,13 +803,14 @@ function sendPhotoFeedback(action, primaryCategory, secondaryCategory, confidenc
       feedback_action: action,
       primary_category: primaryCategory,
       secondary_category: secondaryCategory,
+      actual_category: actualCategory,
       confidence: confidence,
       has_hint: hint.trim().length > 0,
       page_location: window.location.href
     });
   }
 
-  if (msg) {
+  if (msg && showThanks) {
     msg.innerHTML = "Thanks — this helps improve the tool.";
   }
 }
@@ -635,6 +826,16 @@ function trackPhotoRoute(category, confidence, routeType) {
   }
 }
 
+function trackSuggestedLink(label, url) {
+  if (typeof gtag === "function") {
+    gtag("event", "photo_tool_suggested_link_click", {
+      link_label: label,
+      link_url: url,
+      page_location: window.location.href
+    });
+  }
+}
+
 function escapeHtml(value) {
   return String(value || "")
     .replaceAll("&", "&amp;")
@@ -642,6 +843,13 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
+}
+
+function escapeJs(value) {
+  return String(value || "")
+    .replaceAll("\\", "\\\\")
+    .replaceAll("'", "\\'")
+    .replaceAll('"', '\\"');
 }
 
 fetch('/navbar.html?v=20260422')
