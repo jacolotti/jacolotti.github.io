@@ -6,6 +6,7 @@
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Photo Tool Finder | Upload a Machine Image and Find the Right Automation Tool</title>
   <meta name="description" content="Upload a photo of your machine, PLC cabinet, air cylinder, robot, motor, or weld setup. Get directed to the most relevant automation calculator or troubleshooting page.">
 
@@ -64,15 +65,8 @@
       align-items:center;
     }
 
-    .hero h1{
-      margin:0 0 16px;
-      font-size:2.4rem;
-    }
-
-    .hero p{
-      margin:0 0 14px;
-      color:rgba(255,255,255,0.95);
-    }
+    .hero h1{margin:0 0 16px;font-size:2.4rem;}
+    .hero p{margin:0 0 14px;color:rgba(255,255,255,0.95);}
 
     .hero-panel{
       background:rgba(255,255,255,0.12);
@@ -101,6 +95,7 @@
       font-weight:700;
       border:none;
       cursor:pointer;
+      text-decoration:none;
     }
 
     .btn-primary{
@@ -126,10 +121,30 @@
       display:none;
     }
 
+    .result-card{
+      display:block;
+      padding:14px;
+      margin-bottom:10px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#fff;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:700;
+    }
+
+    .result-card span{
+      display:block;
+      font-size:0.9rem;
+      color:var(--muted);
+      font-weight:400;
+    }
+
   </style>
 </head>
 
 <body>
+
 <div id="navbar"></div>
 
 <section class="hero">
@@ -138,12 +153,8 @@
       <h1>Photo Tool Finder</h1>
       <p>
         Upload a picture of what you're working on — PLC cabinet, air cylinder, robot,
-        motor, weld setup, or machine — and get pointed to the most relevant calculator or troubleshooting page.
+        motor, weld setup, or machine — and get pointed to the most relevant tool.
       </p>
-      <p>
-        Built for real plant-floor situations where you don’t know the exact tool name yet.
-      </p>
-
       <button class="btn btn-primary" onclick="document.getElementById('upload').scrollIntoView();">
         Upload Photo
       </button>
@@ -154,9 +165,9 @@
       <ul>
         <li>PLC panels and electrical cabinets</li>
         <li>Pneumatic cylinders and valves</li>
-        <li>Robots and end-of-arm tooling</li>
-        <li>Motors, conveyors, and gearboxes</li>
-        <li>Weld fixtures and tooling</li>
+        <li>Robots and EOAT</li>
+        <li>Motors and conveyors</li>
+        <li>Weld tooling and fixtures</li>
       </ul>
     </div>
   </div>
@@ -165,41 +176,22 @@
 <section class="section" id="upload">
   <div class="card">
     <h2>Upload Your Photo</h2>
-    <p>
-      This will analyze your image and recommend the closest matching tool or guide.
-    </p>
 
-<input type="file" id="photoUpload" accept="image/*">
+    <input type="file" id="photoUpload" accept="image/*">
 
-<p style="color:var(--muted); font-size:0.95rem;">
-  Tip: Add a few words like "PLC panel" or "air cylinder" to improve results.
-</p>
+    <label><strong>Optional hint:</strong></label>
+    <input 
+      type="text" 
+      id="photoHint" 
+      placeholder="Example: weld electrode, PLC panel, air cylinder"
+      style="width:100%; padding:12px; margin:10px 0 16px; border:1px solid var(--border); border-radius:10px;"
+    >
 
-<label for="photoHint"><strong>Optional:</strong> describe what is in the photo</label>
-<input 
-  type="text" 
-  id="photoHint" 
-  placeholder="Example: PLC panel, air cylinder, robot, conveyor motor, weld fixture"
-  style="width:100%; padding:12px; margin:10px 0 16px; border:1px solid var(--border); border-radius:10px;"
->
-
-<button class="btn btn-dark" onclick="analyzePhoto()">
-  Find Related Tool
-</button>
+    <button class="btn btn-dark" onclick="analyzePhoto()">
+      Find Related Tool
+    </button>
 
     <div id="result" class="result"></div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="card">
-    <h2>How This Works</h2>
-    <p>
-      This first version uses your photo file name and short description to recommend the closest matching calculator or troubleshooting page.
-    </p>
-    <p>
-      It’s designed to eliminate guessing and get you to the right tool faster.
-    </p>
   </div>
 </section>
 
@@ -210,6 +202,7 @@
 <script>
 async function analyzePhoto() {
   const file = document.getElementById("photoUpload").files[0];
+  const hint = document.getElementById("photoHint")?.value || "";
   const result = document.getElementById("result");
 
   if (!file) {
@@ -221,81 +214,93 @@ async function analyzePhoto() {
   result.style.display = "block";
   result.innerHTML = "<p>Compressing image...</p>";
 
-  // Compress image using canvas
   const img = new Image();
   const reader = new FileReader();
 
-  reader.onload = function (e) {
-    img.src = e.target.result;
-  };
+  reader.onload = e => img.src = e.target.result;
 
   img.onload = async function () {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
-    // Resize (max width 800px)
     const maxWidth = 800;
-    const scale = maxWidth / img.width;
+    const scale = Math.min(1, maxWidth / img.width);
 
-    canvas.width = maxWidth;
+    canvas.width = img.width * scale;
     canvas.height = img.height * scale;
 
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-    // Convert to compressed base64
-    const compressedBase64 = canvas
-      .toDataURL("image/jpeg", 0.6) // quality 60%
-      .split(",")[1];
+    const base64 = canvas.toDataURL("image/jpeg", 0.6).split(",")[1];
 
     result.innerHTML = "<p>Analyzing image...</p>";
 
     try {
       const response = await fetch("https://jacolotti-github-io.vercel.app/api/photo-tool-finder", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          imageBase64: compressedBase64
-        })
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ imageBase64: base64, hint })
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || JSON.stringify(data));
+      const primary = data.primary_category;
+      const primaryConf = Math.round((data.primary_confidence || 0) * 100);
+
+      const secondary = data.secondary_category;
+      const secondaryConf = Math.round((data.secondary_confidence || 0) * 100);
+
+      if (data.primary_confidence >= 0.72) {
+        result.innerHTML = `
+          <strong>Detected:</strong> ${formatCategory(primary)} (${primaryConf}%)<br><br>
+          <a class="btn btn-dark" href="${data.primary_url}">
+            Go to Recommended Tool
+          </a>
+        `;
+        return;
       }
 
-      const category = data.result.trim().toLowerCase();
-
-      let pageMap = {
-        plc_electrical: "/plc-electrical.html",
-        pneumatics: "/pneumatics.html",
-        robotics: "/robot.html",
-        motors_motion: "/motor.html",
-        welding: "/welding.html",
-        machine_design: "/machine-design.html"
-      };
-
-      const page = pageMap[category] || "/problem-solver.html";
-
       result.innerHTML = `
-        <strong>Detected:</strong> ${category.replace("_", " ")}<br><br>
-        <a class="btn btn-dark" href="${page}">
-          Go to Recommended Tool
+        <strong>Best matches:</strong><br><br>
+
+        <a class="result-card" href="${data.primary_url}">
+          ${formatCategory(primary)}
+          <span>${primaryConf}% confidence</span>
         </a>
+
+        <a class="result-card" href="${data.secondary_url}">
+          ${formatCategory(secondary)}
+          <span>${secondaryConf}% confidence</span>
+        </a>
+
+        <small>${data.reason || ""}</small>
       `;
 
     } catch (err) {
-      result.innerHTML = `
-        <strong>Error analyzing image.</strong><br><br>
-        <small>${err.message}</small>
-      `;
+      result.innerHTML = `<strong>Error:</strong><br>${err.message}`;
     }
   };
 
   reader.readAsDataURL(file);
 }
+
+function formatCategory(category) {
+  const map = {
+    welding: "Welding",
+    pneumatics: "Pneumatics",
+    plc_electrical: "PLC / Electrical",
+    robotics: "Robotics",
+    motors_motion: "Motors / Motion",
+    machine_design: "Machine Design",
+    unknown: "Not Sure"
+  };
+  return map[category] || category;
+}
+
+// NAVBAR LOAD
+fetch('/navbar.html?v=20260422')
+  .then(res => res.text())
+  .then(html => document.getElementById('navbar').innerHTML = html);
 </script>
 
 </body>
