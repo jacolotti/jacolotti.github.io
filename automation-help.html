@@ -33,7 +33,6 @@
     }
 
     *{box-sizing:border-box;}
-
     html{scroll-behavior:smooth;}
 
     body{
@@ -44,11 +43,7 @@
       line-height:1.6;
     }
 
-    a{
-      color:var(--accent);
-      text-decoration:none;
-    }
-
+    a{color:var(--accent); text-decoration:none;}
     a:hover{text-decoration:underline;}
 
     #navbar{
@@ -90,7 +85,6 @@
       margin:0 0 14px;
       font-size:2.35rem;
       line-height:1.15;
-      color:var(--text);
     }
 
     .hero p{
@@ -112,33 +106,16 @@
       padding:12px 16px;
       border-radius:10px;
       font-weight:700;
-      transition:.2s ease;
-      text-decoration:none;
       border:none;
       cursor:pointer;
       font-size:1rem;
-      font-family:Arial, Helvetica, sans-serif;
     }
 
-    .btn-primary{
-      background:var(--accent);
-      color:#fff;
-    }
-
-    .btn-primary:hover{
-      background:var(--accent-dark);
-      text-decoration:none;
-    }
-
+    .btn-primary{background:var(--accent); color:#fff;}
     .btn-secondary{
       background:var(--soft);
       color:var(--accent-dark);
       border:1px solid var(--border);
-    }
-
-    .btn-secondary:hover{
-      background:#e2edf9;
-      text-decoration:none;
     }
 
     .hero-panel{
@@ -148,37 +125,10 @@
       padding:22px;
     }
 
-    .hero-panel h3{
-      margin:0 0 10px;
-      font-size:1.08rem;
-      color:var(--text);
-    }
-
-    .hero-panel ul{
-      margin:0;
-      padding-left:18px;
-      color:var(--muted);
-    }
-
-    .hero-panel li{margin-bottom:8px;}
-
     .section{
       max-width:var(--max);
       margin:0 auto;
       padding:34px 20px;
-    }
-
-    .section h2{
-      margin:0 0 10px;
-      font-size:1.95rem;
-      color:var(--text);
-    }
-
-    .section-intro{
-      margin:0 0 22px;
-      color:var(--muted);
-      max-width:880px;
-      font-size:1.02rem;
     }
 
     .card{
@@ -189,503 +139,71 @@
       padding:26px;
     }
 
-    .grid-3,
-    .grid-4,
-    .grid-2{
-      display:grid;
-      gap:18px;
-    }
-
-    .grid-3{grid-template-columns:repeat(3, 1fr);}
-    .grid-4{grid-template-columns:repeat(4, 1fr);}
-    .grid-2{grid-template-columns:repeat(2, 1fr);}
-
-    .mini-card,
-    .tool-card,
-    .step-card{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:14px;
-      box-shadow:var(--shadow);
-      padding:20px;
-    }
-
-    .mini-card h3,
-    .tool-card h3,
-    .step-card h3{
-      margin:0 0 8px;
-      color:var(--text);
-      font-size:1.08rem;
-    }
-
-    .mini-card p,
-    .tool-card p,
-    .step-card p{
-      margin:0;
-      color:var(--muted);
-      font-size:0.96rem;
-    }
-
-    .tool-card a{
-      display:inline-block;
-      margin-top:12px;
-      font-weight:700;
-    }
-
-    .notice{
-      background:var(--soft);
-      border:1px solid var(--border);
-      border-left:5px solid var(--accent);
-      border-radius:12px;
-      padding:18px;
-      margin-top:18px;
-      color:var(--muted);
-    }
-
-    .band{
-      background:#eef4fa;
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
-    }
-
-    form{margin-top:18px;}
-
-    .form-grid{
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:15px;
-    }
-
-    .field{
-      display:flex;
-      flex-direction:column;
-    }
-
-    label{
-      font-weight:700;
-      margin-bottom:6px;
-      color:var(--text);
-    }
-
-    input,
-    select,
-    textarea{
-      padding:12px;
-      border:1px solid #cfd8e3;
-      border-radius:8px;
-      font-size:15px;
-      font-family:Arial, Helvetica, sans-serif;
-      background:#fff;
-      color:var(--text);
-    }
-
-    textarea{
-      min-height:140px;
-      resize:vertical;
-    }
-
-    .full-width{grid-column:1 / -1;}
-
-    .form-note{
-      font-size:0.92rem;
-      color:var(--muted);
-      margin:10px 0 0;
-      line-height:1.55;
-    }
-
-    .cta-card{
-      background:#fff;
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:28px;
-      text-align:left;
-    }
-
-    .cta-card h2{margin-top:0;}
-
-    .footer-note{
-      text-align:center;
-      color:#667584;
-      font-size:0.95rem;
-      padding:6px 0 10px;
-    }
+    .grid-3{display:grid; gap:18px; grid-template-columns:repeat(3,1fr);}
+    .grid-4{display:grid; gap:18px; grid-template-columns:repeat(4,1fr);}
 
     @media (max-width:1020px){
-      .hero-inner,
-      .grid-3,
-      .grid-4,
-      .grid-2,
-      .form-grid{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media (max-width:700px){
-      .hero-inner{padding:40px 16px 30px;}
-      .section{padding:30px 16px;}
-      .hero h1{font-size:1.95rem;}
-      .section h2{font-size:1.55rem;}
-      .card,
-      .cta-card,
-      .mini-card,
-      .tool-card,
-      .step-card{
-        padding:18px;
-      }
-      .btn{width:100%; text-align:center;}
+      .hero-inner,.grid-3,.grid-4{grid-template-columns:1fr;}
     }
   </style>
 </head>
 
 <body>
-  <div id="navbar"></div>
+<div id="navbar"></div>
 
-  <section class="hero">
-    <div class="hero-inner">
-      <div>
-        <span class="eyebrow">Project help for real automation work</span>
-        <h1>Get Help With Your Automation Project</h1>
-        <p>
-          Use practical engineering tools, troubleshoot faster, and get pointed toward the right next step when a project moves beyond a quick calculator check.
-        </p>
-        <p>
-          This page is for robotics, pneumatics, PLC and controls, motors and motion, conveyors, welding, fastening, machine design, and general automation project support.
-        </p>
+<section class="hero">
+  <div class="hero-inner">
 
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#project-form" onclick="gtag('event','help_page_cta_click',{'location':'hero_request_help'});">Request Project Help</a>
-          <a class="btn btn-secondary" href="#start-tools" onclick="gtag('event','help_page_cta_click',{'location':'hero_start_tools'});">Start With Tools</a>
-          <a class="btn btn-secondary" href="#integrator-apply" onclick="gtag('event','help_page_cta_click',{'location':'hero_apply_integrator'});">Apply as an Integrator</a>
-        </div>
-      </div>
+    <!-- LEFT COLUMN -->
+    <div>
+      <span class="eyebrow">Project help for real automation work</span>
 
-      <div class="hero-panel">
-        <h3>Good fit for this page</h3>
-        <ul>
-          <li>You are sizing, troubleshooting, or planning a real system</li>
-          <li>You need help choosing the right next calculator or path</li>
-          <li>You have a machine frame, shaft, bracket, weld, or bolted joint question</li>
-          <li>You may need an integrator, controls specialist, or technical resource</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+      <h1>Get Help With Your Automation Project</h1>
 
-  <section class="section" id="project-form">
-    <div class="card">
-      <h2>Get Help Before This Becomes a Costly Mistake</h2>
-      <p class="section-intro">
-        Working on a robotics cell, pneumatic circuit, PLC issue, conveyor upgrade, welding application, fastening process, machine design check, or general automation project? Submit the basics below and I will help point you toward the right next step.
+      <p>
+        Use practical engineering tools, troubleshoot faster, and get pointed toward the right next step when a project moves beyond a quick calculator check.
       </p>
 
-      <div class="notice">
-        You do not need perfect details. A short description of the machine, issue, goal, and timing is enough to start.
-      </div>
-
-      <form action="https://formspree.io/f/mgonbvpn" method="POST"
-        onsubmit="
-          localStorage.removeItem('calculated_power');
-          localStorage.removeItem('source_page');
-          gtag('event','lead_submit',{'page':'automation_help','type':'project_help'});
-        ">
-        <input type="hidden" name="calculated_power" id="hiddenPower">
-        <input type="hidden" name="source_page" id="sourcePage">
-
-        <div class="form-grid">
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" type="text" name="name" required>
-          </div>
-
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" type="email" name="email" required>
-          </div>
-
-          <div class="field">
-            <label for="company">Company</label>
-            <input id="company" type="text" name="company">
-          </div>
-
-          <div class="field">
-            <label for="projectType">Project Type</label>
-            <select id="projectType" name="project_type" required>
-              <option value="">Select One</option>
-              <option value="Robotics">Robotics</option>
-              <option value="Pneumatics">Pneumatics</option>
-              <option value="PLC / Controls">PLC / Controls</option>
-              <option value="Motors / Motion">Motors / Motion</option>
-              <option value="Conveyors">Conveyors</option>
-              <option value="Machine Design">Machine Design</option>
-              <option value="Welding">Welding</option>
-              <option value="Fastening">Fastening</option>
-              <option value="General Automation">General Automation</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="timeline">Project Timing</label>
-            <select id="timeline" name="project_timing" required>
-              <option value="">Select Timing</option>
-              <option value="ASAP">ASAP</option>
-              <option value="1-3 months">1–3 months</option>
-              <option value="3-6 months">3–6 months</option>
-              <option value="Exploring">Exploring / Early Planning</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="location">Location / Region</label>
-            <input id="location" type="text" name="location">
-          </div>
-
-          <div class="field full-width">
-            <label for="description">Project Description</label>
-            <textarea id="description" name="project_description" placeholder="Tell me what you are working on, what problem you are trying to solve, and any important details." required></textarea>
-          </div>
-
-          <input type="hidden" name="page_name" value="automation-help.html">
-          <input type="hidden" name="lead_source" value="automation_help_page">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit Project</button>
-        <p class="form-note">
-          This page is intended to help engineers and manufacturers find the right next step faster. Submitting this form does not commit you to anything.
-        </p>
-      </form>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>What Kind of Help Fits Here?</h2>
-    <p class="section-intro">
-      The goal is to help route practical technical problems. Some visitors need a calculator. Some need a troubleshooting guide. Some need an integrator or project support.
-    </p>
-
-    <div class="grid-3">
-      <div class="mini-card">
-        <h3>Controls &amp; Troubleshooting</h3>
-        <p>PLC inputs, communication problems, analog scaling, voltage drop, missed signals, and machine-side troubleshooting.</p>
-      </div>
-
-      <div class="mini-card">
-        <h3>Machine Design Checks</h3>
-        <p>Beam deflection, bending stress, frame rigidity, shaft behavior, bracket support, weld sizing, and bolted joints.</p>
-      </div>
-
-      <div class="mini-card">
-        <h3>Project Planning</h3>
-        <p>Automation ROI, downtime cost, labor savings, rough sizing, and early design direction before a project gets expensive.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section band">
-    <div style="max-width:1180px;margin:0 auto;">
-      <h2>How It Works</h2>
-      <p class="section-intro">
-        Keep the first step simple. Submit the project or use the tools first, then move toward support only when it makes sense.
-      </p>
-
-      <div class="grid-3">
-        <div class="step-card">
-          <h3>1. Submit the Basics</h3>
-          <p>Share the system type, issue, timing, and a short description of what you are trying to solve.</p>
-        </div>
-
-        <div class="step-card">
-          <h3>2. Get Pointed in the Right Direction</h3>
-          <p>The request can be routed toward a calculator, guide, troubleshooting path, or outside project support.</p>
-        </div>
-
-        <div class="step-card">
-          <h3>3. Move Forward Smarter</h3>
-          <p>Use the numbers and notes to reduce guessing before investing time, hardware, or outside support.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="start-tools">
-    <h2>Start With the Tools</h2>
-    <p class="section-intro">
-      Not ready to submit a project yet? Start with the calculators engineers are already using, then come back when you want help applying the numbers to a real system.
-    </p>
-
-    <div class="grid-4">
-      <div class="tool-card">
-        <h3>Problem Solver</h3>
-        <p>Start with a symptom and get routed to the most relevant calculator, guide, or troubleshooting page.</p>
-        <a href="/problem-solver.html" onclick="gtag('event','tool_open',{'tool':'problem_solver','source':'automation_help_page'});">Open Problem Solver</a>
-      </div>
-
-      <div class="tool-card">
-        <h3>Machine Design Hub</h3>
-        <p>Review beam loads, deflection, stress, plates, shafts, brackets, welds, and bolted joint checks.</p>
-        <a href="/machine-design.html" onclick="gtag('event','tool_open',{'tool':'machine_design_hub','source':'automation_help_page'});">Open Hub</a>
-      </div>
-
-      <div class="tool-card">
-        <h3>Pneumatics Hub</h3>
-        <p>Start with force, air use, speed, and line sizing for pneumatic systems.</p>
-        <a href="/pneumatics.html" onclick="gtag('event','tool_open',{'tool':'pneumatics_hub','source':'automation_help_page'});">Open Hub</a>
-      </div>
-
-      <div class="tool-card">
-        <h3>PLC &amp; Electrical Hub</h3>
-        <p>Use controls troubleshooting, signal, voltage drop, and electrical support tools.</p>
-        <a href="/plc-electrical.html" onclick="gtag('event','tool_open',{'tool':'plc_electrical_hub','source':'automation_help_page'});">Open Hub</a>
-      </div>
-
-      <div class="tool-card">
-        <h3>Beam Deflection Calculator</h3>
-        <p>Estimate beam deflection for supports, frames, tooling, and loaded members.</p>
-        <a href="/beam-deflection-calculator.html" onclick="gtag('event','tool_open',{'tool':'beam_deflection','source':'automation_help_page'});">Open Calculator</a>
-      </div>
-
-      <div class="tool-card">
-        <h3>Conveyor Motor Sizing</h3>
-        <p>Estimate conveyor horsepower, torque, and drive requirements.</p>
-        <a href="/motor.html" onclick="gtag('event','tool_open',{'tool':'conveyor_motor_sizing','source':'automation_help_page'});">Open Calculator</a>
-      </div>
-
-      <div class="tool-card">
-        <h3>Robot Cycle Time</h3>
-        <p>Estimate robot motion timing and compare assumptions against cycle targets.</p>
-        <a href="/robot.html" onclick="gtag('event','tool_open',{'tool':'robot_cycle_time','source':'automation_help_page'});">Open Calculator</a>
-      </div>
-
-      <div class="tool-card">
-        <h3>Automation ROI</h3>
-        <p>Estimate annual savings, payback, and project justification numbers.</p>
-        <a href="/automation-roi.html" onclick="gtag('event','tool_open',{'tool':'automation_roi','source':'automation_help_page'});">Open Calculator</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="card">
-      <h2>Built Around Practical Engineering Work</h2>
-      <p class="section-intro" style="margin-bottom:0;">
-        AutomationCalculators.net was built around real plant-floor and project work. The goal is simple: provide useful calculators, better starting points, and a more direct path to support when a project needs more than a rough estimate.
-      </p>
-
-      <div class="notice">
-        This page is meant for real manufacturing problems: controls issues, motion sizing, pneumatic sizing, robot concept checks, weld process support, machine frame questions, shaft concerns, brackets, bolted joints, and project planning.
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="integrator-apply">
-    <div class="card">
-      <h2>Are You an Integrator?</h2>
-      <p class="section-intro">
-        If you provide automation integration, controls support, panel building, robotics, tooling, fabrication, machine design, welding support, or related technical services, you can apply to be listed for relevant project opportunities.
-      </p>
-
-      <form action="https://formspree.io/f/mvzwnzar" method="POST" onsubmit="gtag('event','lead_submit',{'page':'automation_help','type':'integrator_apply'});">
-        <div class="form-grid">
-          <div class="field">
-            <label for="integratorCompany">Company Name</label>
-            <input id="integratorCompany" type="text" name="company_name" required>
-          </div>
-
-          <div class="field">
-            <label for="integratorEmail">Email</label>
-            <input id="integratorEmail" type="email" name="email" required>
-          </div>
-
-          <div class="field">
-            <label for="integratorRegion">Region Served</label>
-            <input id="integratorRegion" type="text" name="region_served" placeholder="Example: Michigan / Midwest / USA">
-          </div>
-
-          <div class="field">
-            <label for="integratorSpecialty">Primary Specialty</label>
-            <select id="integratorSpecialty" name="specialty" required>
-              <option value="">Select One</option>
-              <option value="General Automation Integration">General Automation Integration</option>
-              <option value="Robotics">Robotics</option>
-              <option value="PLC / Controls">PLC / Controls</option>
-              <option value="Motion / Servo">Motion / Servo</option>
-              <option value="Pneumatics / Tooling">Pneumatics / Tooling</option>
-              <option value="Panel Building">Panel Building</option>
-              <option value="Machine Design / Fabrication">Machine Design / Fabrication</option>
-              <option value="Welding">Welding</option>
-              <option value="Fabrication">Fabrication</option>
-            </select>
-          </div>
-
-          <div class="field full-width">
-            <label for="integratorServices">Services / Capabilities</label>
-            <textarea id="integratorServices" name="services_capabilities" placeholder="Describe your capabilities, industries served, and anything important a potential customer should know." required></textarea>
-          </div>
-
-          <input type="hidden" name="page_name" value="automation-help.html">
-          <input type="hidden" name="lead_source" value="automation_help_integrator_section">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Apply to Be Listed</button>
-        <p class="form-note">
-          Integrators, controls specialists, panel shops, machine builders, fabrication support, and other qualified automation service providers are welcome to apply.
-        </p>
-      </form>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="cta-card">
-      <h2>Do Not Guess Your Design</h2>
-      <p class="section-intro">
-        Start with the calculators, then get help applying them to a real project when the stakes are higher than a rough estimate.
+      <p>
+        This page is for robotics, pneumatics, PLC and controls, motors and motion, conveyors, welding, fastening, machine design, and general automation project support.
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#project-form" onclick="gtag('event','help_page_cta_click',{'location':'final_cta_request_help'});">Request Help Now</a>
-        <a class="btn btn-secondary" href="/automation-calculators.html" onclick="gtag('event','help_page_cta_click',{'location':'final_cta_index'});">Browse All Tools</a>
+        <a class="btn btn-primary" href="#project-form">Request Project Help</a>
+        <a class="btn btn-secondary" href="#start-tools">Start With Tools</a>
+        <a class="btn btn-secondary" href="#integrator-apply">Apply as an Integrator</a>
       </div>
+
+      <!-- Photo Tool (correct placement) -->
+      <div class="hero-actions" style="margin-top:10px;">
+        <a class="btn btn-secondary" href="/photo-tool-finder.html">
+          Find a Tool from a Photo
+        </a>
+      </div>
+
     </div>
 
-    <div class="footer-note">
-      Automation Engineering Tools • Practical calculators and project support for real automation work
+    <!-- RIGHT COLUMN -->
+    <div class="hero-panel">
+      <h3>Good fit for this page</h3>
+      <ul>
+        <li>You are sizing, troubleshooting, or planning a real system</li>
+        <li>You need help choosing the right next calculator or path</li>
+        <li>You have a machine frame, shaft, bracket, weld, or bolted joint question</li>
+        <li>You may need an integrator or controls specialist</li>
+      </ul>
     </div>
-  </section>
 
-  <script>
-    let storedPower = localStorage.getItem('calculated_power');
-    let sourcePage = localStorage.getItem('source_page');
+  </div>
+</section>
 
-    let powerField = document.getElementById('hiddenPower');
-    let sourceField = document.getElementById('sourcePage');
-    let projectTypeField = document.getElementById('projectType');
+<!-- KEEP REST OF YOUR PAGE EXACTLY AS-IS BELOW -->
 
-    if(storedPower && powerField){
-      powerField.value = storedPower;
-    }
+<script>
+fetch('/navbar.html?v=20260422')
+  .then(r => r.text())
+  .then(d => document.getElementById('navbar').innerHTML = d);
+</script>
 
-    if(sourcePage && sourceField){
-      sourceField.value = sourcePage;
-    }
-
-    if(sourcePage === 'motor_calculator' && projectTypeField){
-      projectTypeField.value = 'Motors / Motion';
-    } else if(sourcePage === 'pneumatic_force_calculator' && projectTypeField){
-      projectTypeField.value = 'Pneumatics';
-    } else if(sourcePage === 'beam_deflection_calculator' && projectTypeField){
-      projectTypeField.value = 'Machine Design';
-    }
-  </script>
-
-  <script>
-    fetch('/navbar.html?v=20260422')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar').innerHTML = data;
-      })
-      .catch(error => {
-        console.error('Navbar failed to load:', error);
-      });
-  </script>
 </body>
 </html>
