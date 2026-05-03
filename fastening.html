@@ -6,8 +6,9 @@
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Fastening Tools | Torque, Clamp Load, Torque Angle & Bolt Tightening</title>
-  <meta name="description" content="Fastening tools for automation engineers. Explore torque to clamp load, torque angle, and bolt tightening calculators for practical fastening work and real production applications.">
+  <meta name="description" content="Fastening tools for automation engineers. Explore torque to clamp load, torque angle, bolt tightening torque, clamp load problems, joint slip, loosening, and practical fastening workflows for real production applications.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -75,6 +76,18 @@
       align-items:center;
     }
 
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:14px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.25);
+      color:#fff;
+      font-weight:700;
+      font-size:0.9rem;
+    }
+
     .hero h1{
       margin:0 0 16px;
       font-size:2.45rem;
@@ -84,7 +97,7 @@
 
     .hero p{
       margin:0 0 14px;
-      max-width:760px;
+      max-width:780px;
       color:rgba(255,255,255,0.95);
       font-size:1.05rem;
     }
@@ -175,7 +188,7 @@
     .section-intro{
       margin:0 0 24px;
       color:var(--muted);
-      max-width:860px;
+      max-width:920px;
       font-size:1.02rem;
     }
 
@@ -199,7 +212,7 @@
     .grid-3{grid-template-columns:repeat(3,1fr);}
     .grid-2{grid-template-columns:repeat(2,1fr);}
     .tool-grid{grid-template-columns:repeat(3,1fr);}
-    .feature-list{grid-template-columns:repeat(4,1fr);}
+    .feature-list{grid-template-columns:repeat(3,1fr);}
 
     .card,
     .tool-card,
@@ -222,6 +235,8 @@
     .tool-card{
       padding:22px;
       height:100%;
+      display:flex;
+      flex-direction:column;
     }
 
     .card h3,
@@ -239,6 +254,16 @@
     .cta-section p{
       margin:0 0 12px;
       color:var(--muted);
+    }
+
+    .card ul{
+      margin:8px 0 0;
+      padding-left:20px;
+      color:var(--muted);
+    }
+
+    .card li{
+      margin-bottom:8px;
     }
 
     .card-links{
@@ -295,6 +320,7 @@
 
     .tool-card .label{
       display:inline-block;
+      align-self:flex-start;
       margin-bottom:10px;
       padding:6px 10px;
       border-radius:999px;
@@ -306,8 +332,20 @@
 
     .tool-card .tool-link{
       display:inline-block;
-      margin-top:10px;
+      margin-top:auto;
       font-weight:700;
+    }
+
+    .decision-block{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .decision-block h2{
+      margin-top:0;
     }
 
     .feature-band{
@@ -380,7 +418,8 @@
       .tool-card,
       .workflow,
       .feature-item,
-      .cta-section{
+      .cta-section,
+      .decision-block{
         padding:18px;
       }
 
@@ -402,12 +441,13 @@
   <section class="hero">
     <div class="hero-inner">
       <div>
+        <div class="eyebrow">Fastening & Joint Preload</div>
         <h1>Fastening Tools for Torque, Clamp Load, and Torque-Angle Work</h1>
         <p>
           Use this section to estimate torque to clamp load, work through torque-angle relationships, and check practical bolt tightening values for real fastening applications.
         </p>
         <p>
-          This is built for practical fastening work — bolted joints, torque strategy, clamp load checks, and production support.
+          This is built for practical fastening work — bolted joints, torque strategy, clamp load checks, joint slip, loosening problems, and production support.
         </p>
 
         <div class="trust-line">
@@ -416,6 +456,7 @@
 
         <div class="hero-actions">
           <a class="btn btn-primary" href="#start-here" onclick="gtag('event','fastening_cta',{'location':'hero','action':'start_here'});">Start Here</a>
+          <a class="btn btn-secondary" href="#tools" onclick="gtag('event','fastening_cta',{'location':'hero','action':'view_tools'});">View Fastening Tools</a>
           <a class="btn btn-secondary" href="/problem-solver.html" onclick="gtag('event','fastening_cta',{'location':'hero','action':'problem_solver'});">Start With Your Issue</a>
         </div>
       </div>
@@ -426,8 +467,8 @@
           <li>Torque to clamp load estimates</li>
           <li>Torque-angle fastening strategies</li>
           <li>Bolt tightening reference values</li>
-          <li>Basic fastening setup direction</li>
-          <li>Organizing the fastening tools into one real section</li>
+          <li>Joint slip, loosening, and separation checks</li>
+          <li>Separating torque number problems from real joint design problems</li>
         </ul>
       </div>
     </div>
@@ -435,7 +476,7 @@
 
   <section class="section">
     <div class="note-box">
-      <strong>Best way to use this section:</strong> if the real question is how much clamp load a torque value creates, start with Torque to Clamp Load. If the process uses angle-based tightening, go to Torque Angle. If you just need a practical tightening value, start with the Bolt Tightening Torque calculator.
+      <strong>Best way to use this section:</strong> if the real question is how much clamp load a torque value creates, start with Torque to Clamp Load. If the process uses angle-based tightening, go to Torque Angle. If you just need a practical tightening value, start with the Bolt Tightening Torque calculator. Do not treat torque as the same thing as clamp load — friction, lubrication, thread condition, joint stiffness, and hardware condition can change the real preload.
     </div>
   </section>
 
@@ -512,6 +553,129 @@
   </section>
 
   <section class="section">
+    <h2>Most Common Fastening Problems in Real Machines</h2>
+    <p class="section-intro">
+      Fastening problems usually appear as loose bolts, slipping joints, cracked brackets, uneven clamp load, stripped threads, broken fasteners, torque variation, or parts that shift after production starts. The fastest path is to separate torque, preload, friction, joint stiffness, load path, and installation method.
+    </p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Bolts Loosen During Production</h3>
+        <p>
+          Loosening can come from vibration, insufficient clamp load, joint slip, poor surface condition, embedment, soft material, wrong washer stack, wrong tightening method, or repeated load reversal.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/torque-clamp-load.html" onclick="gtag('event','fastening_authority_link',{'section':'common_problems','target':'torque_clamp_load'});">Check Clamp Load</a>
+          <a class="pill-link" href="/bolt-tightening-torque.html" onclick="gtag('event','fastening_authority_link',{'section':'common_problems','target':'bolt_tightening_torque'});">Check Torque</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Joint Slips Even Though Torque Was Applied</h3>
+        <p>
+          Torque alone does not prove the joint has enough preload. Friction variation, lubrication, plating, surface finish, washer condition, thread damage, and joint stiffness can change the actual clamp load.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/torque-clamp-load.html" onclick="gtag('event','fastening_authority_link',{'section':'common_problems','target':'torque_clamp_load'});">Estimate Clamp Load</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Fasteners Break or Threads Strip</h3>
+        <p>
+          Broken fasteners can come from over-tightening, poor material match, wrong grade, insufficient thread engagement, bending load, joint prying, shock load, or torque-angle strategy pushed too far.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/bolt-tightening-torque.html" onclick="gtag('event','fastening_authority_link',{'section':'common_problems','target':'bolt_tightening_torque'});">Check Tightening Torque</a>
+          <a class="pill-link" href="/torque-angle.html" onclick="gtag('event','fastening_authority_link',{'section':'common_problems','target':'torque_angle'});">Review Torque Angle</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Clamp Load Is Inconsistent</h3>
+        <p>
+          Inconsistent clamp load often comes from changing lubrication, dirty threads, damaged hardware, uneven surfaces, torque tool variation, operator technique, or different friction conditions across the same joint.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/torque-clamp-load.html" onclick="gtag('event','fastening_authority_link',{'section':'common_problems','target':'torque_clamp_load'});">Torque to Clamp Load</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Torque-Angle Process Feels Unstable</h3>
+        <p>
+          Torque-angle fastening can be strong, but it depends on snug torque, joint stiffness, angle target, hardware condition, and whether the joint is designed for stretch-based tightening.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/torque-angle.html" onclick="gtag('event','fastening_authority_link',{'section':'common_problems','target':'torque_angle'});">Check Torque Angle</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Bracket or Plate Moves After Tightening</h3>
+        <p>
+          Movement after tightening may point to low clamp load, plate deflection, poor contact area, joint separation, soft material, weld distortion, fixture flex, or load path problems.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/machine-design.html" onclick="gtag('event','fastening_authority_link',{'section':'common_problems','target':'machine_design'});">Check Machine Design</a>
+          <a class="pill-link" href="/torque-clamp-load.html" onclick="gtag('event','fastening_authority_link',{'section':'common_problems','target':'torque_clamp_load'});">Check Clamp Load</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>What People Commonly Misdiagnose in Fastening</h2>
+    <p class="section-intro">
+      Fastening issues get misdiagnosed when the torque number is treated as the whole answer. Torque is only the input; clamp load and joint behavior are what actually hold the parts together.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Assuming Torque Equals Clamp Load</h3>
+        <p>
+          Torque is heavily affected by thread friction and under-head friction. Two bolts tightened to the same torque can have very different clamp loads if lubrication, plating, washer condition, or thread condition changes.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Ignoring Joint Slip</h3>
+        <p>
+          A bolted joint should usually be held by clamp load and friction, not by letting the bolt act like a dowel in shear. If the joint slips, the bolt may see bending and impact loads it was not meant to carry.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Using Bigger Bolts Instead of Better Load Path</h3>
+        <p>
+          Bigger bolts may not fix poor geometry, flexible plates, prying action, poor contact area, vibration, or a bracket that should have been gusseted.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Skipping Surface and Hardware Condition</h3>
+        <p>
+          Paint, scale, oil, damaged threads, worn washers, burrs, soft material, and dirty contact faces can change preload and cause settling after tightening.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Applying Torque-Angle Without Understanding the Joint</h3>
+        <p>
+          Torque-angle methods rely on controlled stretch and predictable joint stiffness. They should not be copied blindly from one application to another.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Blaming the Operator When the Process Is Weak</h3>
+        <p>
+          If the joint is sensitive to small changes in technique, the issue may be poor fastener selection, bad access, wrong tooling, unclear sequence, or unstable joint design.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tools">
     <h2>Fastening Tools</h2>
     <p class="section-intro">
       These are the current fastening pages in the section. Together, they cover tightening torque, clamp load estimation, and angle-based fastening support.
@@ -555,12 +719,76 @@
       </div>
 
       <div class="tool-card">
+        <div class="label">Machine Design</div>
+        <h3>Joint, Plate, and Bracket Checks</h3>
+        <p>
+          Use Machine Design when the fastening problem may be caused by bracket flex, plate deflection, joint separation, or poor load path.
+        </p>
+        <a class="tool-link" href="/machine-design.html" onclick="gtag('event','fastening_tool_open',{'tool':'machine_design'});">Open machine design →</a>
+      </div>
+
+      <div class="tool-card">
         <div class="label">Help</div>
         <h3>Need Help With a Real Fastening Application?</h3>
         <p>
           Use the help page when the fastening issue is application-specific, production-critical, or needs more review than a calculator can provide.
         </p>
         <a class="tool-link" href="/automation-help.html" onclick="gtag('event','fastening_tool_open',{'tool':'automation_help'});">Request help →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="decision-block">
+      <h2>Fastening Troubleshooting Decision Checks</h2>
+      <p class="section-intro">
+        Use these checks when you need to decide whether the next step is a torque value check, clamp load estimate, torque-angle review, joint design review, or mechanical support check.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>If the bolt keeps loosening</h3>
+          <p>
+            Check clamp load, joint slip, vibration, settling, surface condition, washer stack, thread condition, and whether the joint is seeing load reversal.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/torque-clamp-load.html">Clamp Load</a>
+            <a class="pill-link" href="/bolt-tightening-torque.html">Bolt Torque</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>If the bolt breaks during tightening</h3>
+          <p>
+            Check torque value, lubrication, fastener grade, thread engagement, torque-angle amount, material strength, and whether the joint is bottoming out.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/bolt-tightening-torque.html">Bolt Tightening Torque</a>
+            <a class="pill-link" href="/torque-angle.html">Torque Angle</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>If the joint slips after tightening</h3>
+          <p>
+            Check whether clamp load is enough to create friction capacity, whether the surfaces are clean, whether the plates are stiff, and whether the load path is correct.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/torque-clamp-load.html">Torque to Clamp Load</a>
+            <a class="pill-link" href="/machine-design.html">Machine Design</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>If clamp load varies between builds</h3>
+          <p>
+            Check tool calibration, operator method, lubrication, thread quality, coating, washers, surface finish, and whether the process should use angle control.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/torque-angle.html">Torque Angle</a>
+            <a class="pill-link" href="/torque-clamp-load.html">Clamp Load</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -584,6 +812,11 @@
         </div>
 
         <div class="feature-item">
+          <h3>Clamp Load Context</h3>
+          <p>Clamp load is what holds the joint together. Torque is only one way to attempt to create that preload.</p>
+        </div>
+
+        <div class="feature-item">
           <h3>Better Tool Discovery</h3>
           <p>The fastening tools become a real section instead of a few isolated pages hidden in the broader site.</p>
         </div>
@@ -591,6 +824,61 @@
         <div class="feature-item">
           <h3>Useful Production Support</h3>
           <p>Built for real manufacturing work where joint preload, tightening strategy, and repeatability all matter.</p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Mechanical Awareness</h3>
+          <p>Fastening problems often connect to plate flex, bracket stiffness, surface condition, and load path design.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Related Engineering Areas</h2>
+    <p class="section-intro">
+      Fastening problems often overlap with machine design, welding, reference charts, and production troubleshooting.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Machine Design</h3>
+        <p>
+          Use this when bolts loosen, plates move, brackets flex, joints separate, or the fastening issue is really a load-path problem.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/machine-design.html" onclick="gtag('event','related_hub_click',{'page':'fastening','target':'machine_design'});">Open Machine Design Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Welding</h3>
+        <p>
+          Use this when the connection may need weld support, fixture review, bracket repair, or comparison between welded and bolted load paths.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/welding.html" onclick="gtag('event','related_hub_click',{'page':'fastening','target':'welding'});">Open Welding Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Reference Charts</h3>
+        <p>
+          Use this when you need quick lookup support for bolt torque, tap drills, wire gauge, or general shop reference values.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/reference-charts.html" onclick="gtag('event','related_hub_click',{'page':'fastening','target':'reference_charts'});">Open Reference Charts</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Automation Help</h3>
+        <p>
+          Use this when the fastening application needs real review of the joint, tooling, process, machine behavior, or production symptoms.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/automation-help.html" onclick="gtag('event','related_hub_click',{'page':'fastening','target':'automation_help'});">Request Help</a>
+          <a class="pill-link" href="/integrators.html" onclick="gtag('event','related_hub_click',{'page':'fastening','target':'integrators'});">Find an Integrator</a>
         </div>
       </div>
     </div>
@@ -600,7 +888,7 @@
     <div class="cta-section">
       <h2>Need Help Applying This on a Real Machine?</h2>
       <p>
-        Fastening calculators help with starting values and understanding, but real applications still depend on joint condition, lubrication, hardware, tolerance stack-up, and actual process behavior. If you need help on a live system, describe the application and the symptoms.
+        Fastening calculators help with starting values and understanding, but real applications still depend on joint condition, lubrication, hardware, tolerance stack-up, surface finish, tool calibration, and actual process behavior. If you need help on a live system, describe the application and the symptoms.
       </p>
       <div class="cta-actions">
         <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','fastening_cta',{'location':'bottom','action':'automation_help'});">Get Help With My Fastening Application</a>
@@ -614,13 +902,18 @@
   </footer>
 
   <script>
-    fetch('/navbar.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar').innerHTML = data;
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
       })
-      .catch(error => {
-        console.error('Navbar failed to load:', error);
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
+        console.error(error);
       });
   </script>
 </body>
