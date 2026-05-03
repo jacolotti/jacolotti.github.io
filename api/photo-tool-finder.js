@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { imageBase64, hint = "" } = req.body;
+    const { imageBase64, hint = "" } = req.body || {};
 
     if (!imageBase64) {
       return res.status(400).json({ error: "Missing imageBase64" });
@@ -38,21 +38,7 @@ export default async function handler(req, res) {
       unknown: "/automation-help.html"
     };
 
-    const response = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-4.1-mini",
-        input: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "input_text",
-                text: `
+    const prompt = `
 You are classifying industrial automation photos for a website router.
 
 Prioritize FUNCTION over shape.
@@ -69,11 +55,27 @@ Allowed categories:
 - machine_design
 - unknown
 
-Return the best category for the image.
+Return the best site category for the image.
 
 Category rules:
 
-1. welding
+1. plc_electrical
+Use for PLCs, programmable controllers, IO cards, relay modules, safety relays, terminal blocks, sensors, photoeyes, prox switches, HMIs, VFDs, control cabinets, wiring, connectors, fuses, breakers, power supplies, industrial network modules, and electrical panels.
+
+Important PLC/electrical clues:
+- Allen-Bradley, Siemens, Omron, Keyence, Mitsubishi, Schneider, Phoenix Contact, Pilz, Banner, IFM, Wago, Beckhoff
+- PLC model labels such as MicroLogix, CompactLogix, ControlLogix, SLC, GuardLogix
+- rows of screw terminals
+- removable terminal blocks
+- LCD screen on a controller
+- serial, Ethernet, or communication ports
+- DC input/output labels
+- relay output labels
+- terminal labels such as COM, IN, OUT, 24V, 0V, L1, L2, NC, NO
+
+If the image clearly shows a PLC or controller, choose plc_electrical with high confidence.
+
+2. welding
 Use for weld systems, weld tooling, weld electrodes, weld caps, copper tips, resistance welding parts, spot weld tooling, projection weld tooling, weld guns, weld holders, weld shunts, weld transformers, weld cables, weld fixtures, weld nests, and robot-mounted welding tools.
 
 Important welding clues:
@@ -89,15 +91,16 @@ Important welding clues:
 If uncertain between welding and motors_motion, choose welding.
 If uncertain between welding and robotics, choose welding when the weld tool is the main subject.
 
-2. pneumatics
+3. pneumatics
 Use for air cylinders, pneumatic valves, regulators, FRLs, air tubing, fittings, manifolds, flow controls, gauges, vacuum cups, pneumatic grippers, and air prep components.
 
-If tubing, push-to-connect fittings, air ports, or regulator knobs are visible, prefer pneumatics.
-
-3. plc_electrical
-Use for PLCs, IO cards, relays, safety relays, terminal blocks, sensors, photoeyes, prox switches, HMIs, VFDs, control cabinets, wiring, connectors, fuses, breakers, and electrical panels.
-
-If wires, terminals, IO modules, or control devices are visible, prefer plc_electrical.
+Important pneumatics clues:
+- blue, black, or clear air tubing
+- push-to-connect fittings
+- air ports
+- regulators or pressure gauges
+- solenoid valve manifolds
+- cylinder rods and cylinder bodies
 
 4. robotics
 Use for robot arms, robot bases, robot wrists, teach pendants, robot dress packs, EOAT, robot grippers, and robot-mounted tools.
@@ -117,14 +120,31 @@ Use for frames, brackets, plates, gussets, supports, guards, fixtures, bolted jo
 Use only if the image is not industrial or cannot reasonably be classified.
 
 Tie breakers:
+- A PLC/controller with terminals, screen, or IO labels is plc_electrical.
 - Cylindrical does not mean motor.
-- Copper industrial part usually means welding unless another function is obvious.
-- Air tubing/fittings usually means pneumatics.
-- Wires/terminals usually means plc_electrical.
+- Copper industrial weld-contact parts usually mean welding.
+- Air tubing/fittings usually mean pneumatics.
+- Wires/terminals usually mean plc_electrical.
 - Structural metal without controls, air, welding, or motion usually means machine_design.
 
 Return JSON only.
-`
+`;
+
+    const response = await fetch("https://api.openai.com/v1/responses", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "gpt-4.1-mini",
+        input: [
+          {
+            role: "user",
+            content: [
+              {
+                type: "input_text",
+                text: prompt
               },
               {
                 type: "input_image",
@@ -212,13 +232,13 @@ Return JSON only.
 
     return res.status(200).json({
       primary_category: primary,
-      primary_confidence: parsed.primary_confidence ?? 0,
+      primary_confidence: normalizeConfidence(parsed.primary_confidence),
       primary_url: routeMap[primary],
       secondary_category: secondary,
-      secondary_confidence: parsed.secondary_confidence ?? 0,
+      secondary_confidence: normalizeConfidence(parsed.secondary_confidence),
       secondary_url: routeMap[secondary],
       reason: parsed.reason || "",
-      visible_clues: parsed.visible_clues || []
+      visible_clues: Array.isArray(parsed.visible_clues) ? parsed.visible_clues : []
     });
 
   } catch (err) {
@@ -227,4 +247,18 @@ Return JSON only.
       error: err.message || "Unknown error"
     });
   }
+}
+
+function normalizeConfidence(value) {
+  const num = Number(value || 0);
+
+  if (Number.isNaN(num)) {
+    return 0;
+  }
+
+  if (num > 1) {
+    return Math.min(num / 100, 1);
+  }
+
+  return Math.max(0, Math.min(num, 1));
 }
