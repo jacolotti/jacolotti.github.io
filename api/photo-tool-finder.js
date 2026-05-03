@@ -38,10 +38,82 @@ export default async function handler(req, res) {
       unknown: "/automation-help.html"
     };
 
-    const prompt = `
+    let classification = await classifyImage({
+      imageBase64,
+      hint,
+      validCategories,
+      retryMode: false
+    });
+
+    let retryUsed = false;
+
+    if (
+      classification.primary_category === "unknown" ||
+      normalizeConfidence(classification.primary_confidence) < 0.6
+    ) {
+      retryUsed = true;
+
+      const retryHint = [
+        hint,
+        "industrial automation equipment",
+        "look for PLC terminals, labels, sensors, pneumatics, weld tooling, motors, robots, machine frames"
+      ].filter(Boolean).join(" | ");
+
+      const retryClassification = await classifyImage({
+        imageBase64,
+        hint: retryHint,
+        validCategories,
+        retryMode: true
+      });
+
+      if (
+        normalizeConfidence(retryClassification.primary_confidence) >
+        normalizeConfidence(classification.primary_confidence)
+      ) {
+        classification = retryClassification;
+      }
+    }
+
+    const primary = validCategories.includes(classification.primary_category)
+      ? classification.primary_category
+      : "unknown";
+
+    const secondary = validCategories.includes(classification.secondary_category)
+      ? classification.secondary_category
+      : "unknown";
+
+    const visibleClues = Array.isArray(classification.visible_clues)
+      ? classification.visible_clues
+      : [];
+
+    return res.status(200).json({
+      primary_category: primary,
+      primary_confidence: normalizeConfidence(classification.primary_confidence),
+      primary_url: routeMap[primary],
+      secondary_category: secondary,
+      secondary_confidence: normalizeConfidence(classification.secondary_confidence),
+      secondary_url: routeMap[secondary],
+      reason: classification.reason || "",
+      visible_clues: visibleClues,
+      suggested_links: buildSuggestedLinks(primary, visibleClues),
+      retry_used: retryUsed
+    });
+
+  } catch (err) {
+    console.error("API ERROR:", err);
+    return res.status(500).json({
+      error: err.message || "Unknown error"
+    });
+  }
+}
+
+async function classifyImage({ imageBase64, hint, validCategories, retryMode }) {
+  const prompt = `
 You are classifying industrial automation photos for a website router.
 
 Prioritize FUNCTION over shape.
+
+${retryMode ? "This is a second-pass classification. Be more decisive if industrial clues are visible." : ""}
 
 User hint:
 ${hint || "No hint provided"}
@@ -132,156 +204,220 @@ Confidence must be a decimal between 0 and 1. Example: 0.92, not 92.
 Return JSON only.
 `;
 
-    const response = await fetch("https://api.openai.com/v1/responses", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "gpt-4.1-mini",
-        input: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "input_text",
-                text: prompt
+  const response = await fetch("https://api.openai.com/v1/responses", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model: "gpt-4.1-mini",
+      input: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "input_text",
+              text: prompt
+            },
+            {
+              type: "input_image",
+              image_url: `data:image/jpeg;base64,${imageBase64}`
+            }
+          ]
+        }
+      ],
+      text: {
+        format: {
+          type: "json_schema",
+          name: "industrial_photo_classification",
+          strict: true,
+          schema: {
+            type: "object",
+            additionalProperties: false,
+            properties: {
+              primary_category: {
+                type: "string",
+                enum: validCategories
               },
-              {
-                type: "input_image",
-                image_url: `data:image/jpeg;base64,${imageBase64}`
+              primary_confidence: {
+                type: "number"
+              },
+              secondary_category: {
+                type: "string",
+                enum: validCategories
+              },
+              secondary_confidence: {
+                type: "number"
+              },
+              reason: {
+                type: "string"
+              },
+              visible_clues: {
+                type: "array",
+                items: {
+                  type: "string"
+                }
               }
+            },
+            required: [
+              "primary_category",
+              "primary_confidence",
+              "secondary_category",
+              "secondary_confidence",
+              "reason",
+              "visible_clues"
             ]
           }
-        ],
-        text: {
-          format: {
-            type: "json_schema",
-            name: "industrial_photo_classification",
-            strict: true,
-            schema: {
-              type: "object",
-              additionalProperties: false,
-              properties: {
-                primary_category: {
-                  type: "string",
-                  enum: validCategories
-                },
-                primary_confidence: {
-                  type: "number"
-                },
-                secondary_category: {
-                  type: "string",
-                  enum: validCategories
-                },
-                secondary_confidence: {
-                  type: "number"
-                },
-                reason: {
-                  type: "string"
-                },
-                visible_clues: {
-                  type: "array",
-                  items: {
-                    type: "string"
-                  }
-                }
-              },
-              required: [
-                "primary_category",
-                "primary_confidence",
-                "secondary_category",
-                "secondary_confidence",
-                "reason",
-                "visible_clues"
-              ]
-            }
-          }
         }
-      })
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      console.error("OpenAI error:", data);
-      return res.status(response.status).json({
-        error: "OpenAI request failed",
-        details: data
-      });
-    }
-
-    let parsed = null;
-
-    if (data.output?.[0]?.content?.[0]?.json) {
-      parsed = data.output[0].content[0].json;
-    }
-
-    if (!parsed) {
-      const rawText =
-        data.output_text ||
-        data.output?.[0]?.content?.find(c => c.type === "output_text")?.text ||
-        null;
-
-      if (!rawText) {
-        console.error("NO MODEL OUTPUT:", data);
-
-        return res.status(200).json({
-          primary_category: "plc_electrical",
-          primary_confidence: 0.72,
-          primary_url: "/plc-electrical.html",
-          secondary_category: "unknown",
-          secondary_confidence: 0,
-          secondary_url: "/automation-help.html",
-          reason: "Model returned no output. Fallback classification applied.",
-          visible_clues: []
-        });
       }
+    })
+  });
 
-      try {
-        parsed = JSON.parse(rawText);
-      } catch (err) {
-        console.error("BAD JSON FROM MODEL:", rawText);
+  const data = await response.json();
 
-        return res.status(200).json({
-          primary_category: "unknown",
-          primary_confidence: 0,
-          primary_url: "/automation-help.html",
-          secondary_category: "unknown",
-          secondary_confidence: 0,
-          secondary_url: "/automation-help.html",
-          reason: "Model returned invalid JSON.",
-          visible_clues: []
-        });
-      }
-    }
-
-    const primary = validCategories.includes(parsed.primary_category)
-      ? parsed.primary_category
-      : "unknown";
-
-    const secondary = validCategories.includes(parsed.secondary_category)
-      ? parsed.secondary_category
-      : "unknown";
-
-    return res.status(200).json({
-      primary_category: primary,
-      primary_confidence: normalizeConfidence(parsed.primary_confidence),
-      primary_url: routeMap[primary],
-      secondary_category: secondary,
-      secondary_confidence: normalizeConfidence(parsed.secondary_confidence),
-      secondary_url: routeMap[secondary],
-      reason: parsed.reason || "",
-      visible_clues: Array.isArray(parsed.visible_clues) ? parsed.visible_clues : []
-    });
-
-  } catch (err) {
-    console.error("API ERROR:", err);
-    return res.status(500).json({
-      error: err.message || "Unknown error"
-    });
+  if (!response.ok) {
+    console.error("OpenAI error:", data);
+    throw new Error("OpenAI request failed");
   }
+
+  let parsed = null;
+
+  if (data.output?.[0]?.content?.[0]?.json) {
+    parsed = data.output[0].content[0].json;
+  }
+
+  if (!parsed) {
+    const rawText =
+      data.output_text ||
+      data.output?.[0]?.content?.find(c => c.type === "output_text")?.text ||
+      null;
+
+    if (!rawText) {
+      console.error("NO MODEL OUTPUT:", data);
+
+      return {
+        primary_category: "unknown",
+        primary_confidence: 0,
+        secondary_category: "unknown",
+        secondary_confidence: 0,
+        reason: "Model returned no output.",
+        visible_clues: []
+      };
+    }
+
+    try {
+      parsed = JSON.parse(rawText);
+    } catch (err) {
+      console.error("BAD JSON FROM MODEL:", rawText);
+
+      return {
+        primary_category: "unknown",
+        primary_confidence: 0,
+        secondary_category: "unknown",
+        secondary_confidence: 0,
+        reason: "Model returned invalid JSON.",
+        visible_clues: []
+      };
+    }
+  }
+
+  return parsed;
+}
+
+function buildSuggestedLinks(category, visibleClues) {
+  const clueText = Array.isArray(visibleClues)
+    ? visibleClues.join(" ").toLowerCase()
+    : "";
+
+  const links = {
+    plc_electrical: [
+      { label: "PLC / Electrical Hub", url: "/plc-electrical.html", reason: "Main PLC and controls section" },
+      { label: "PLC Inputs Not Working", url: "/plc-inputs-not-working.html", reason: "For sensors, input cards, and field wiring" },
+      { label: "PLC Outputs Not Working", url: "/plc-outputs-not-working.html", reason: "For output cards, relays, and solenoids" },
+      { label: "PLC Communication Troubleshooting", url: "/plc-communication-troubleshooting.html", reason: "For Ethernet/IP, device communication, and network issues" }
+    ],
+    pneumatics: [
+      { label: "Pneumatics Hub", url: "/pneumatics.html", reason: "Main air cylinder and pneumatic tools section" },
+      { label: "Pneumatic Force Calculator", url: "/pneumatic.html", reason: "For cylinder force and bore sizing" },
+      { label: "Air Consumption Calculator", url: "/air-consumption.html", reason: "For cylinder air use and compressor demand" },
+      { label: "Air Line Size Calculator", url: "/air-line-size-calculator.html", reason: "For tubing and pressure drop checks" }
+    ],
+    welding: [
+      { label: "Welding Hub", url: "/welding.html", reason: "Main resistance welding section" },
+      { label: "Spot Weld Calculator", url: "/spot-weld-calculator.html", reason: "For weld force, time, and current checks" },
+      { label: "Projection Weld Calculator", url: "/projection-weld-calculator.html", reason: "For projection weld setup review" },
+      { label: "Coolant Flow Calculator", url: "/coolant-flow-calculator.html", reason: "For weld gun and electrode cooling checks" }
+    ],
+    robotics: [
+      { label: "Robotics Hub", url: "/robotics.html", reason: "Main robot and EOAT section" },
+      { label: "Robot Cycle Time Calculator", url: "/robot.html", reason: "For cycle time and movement estimates" },
+      { label: "Robot Reach Calculator", url: "/robot-reach-calculator.html", reason: "For reach and layout checks" },
+      { label: "Robot Payload Calculator", url: "/robot-payload-calculator.html", reason: "For payload and EOAT checks" }
+    ],
+    motors_motion: [
+      { label: "Motors / Motion Hub", url: "/motors-motion.html", reason: "Main motors and motion section" },
+      { label: "Motor Calculator", url: "/motor.html", reason: "For motor sizing and power checks" },
+      { label: "Conveyor Speed Calculator", url: "/conveyor-speed.html", reason: "For belt and conveyor speed checks" },
+      { label: "Gear Ratio Calculator", url: "/gear-ratio.html", reason: "For gearbox and speed reduction checks" }
+    ],
+    machine_design: [
+      { label: "Machine Design Hub", url: "/machine-design.html", reason: "Main mechanical design section" },
+      { label: "Beam Deflection Calculator", url: "/beam-deflection-calculator.html", reason: "For frame and beam stiffness checks" },
+      { label: "Bolt Shear / Joint Separation", url: "/bolt-shear-joint-separation-calculator.html", reason: "For bolted joint checks" },
+      { label: "Weld Size Calculator", url: "/weld-size-calculator.html", reason: "For structural weld sizing checks" }
+    ],
+    unknown: [
+      { label: "Automation Help", url: "/automation-help.html", reason: "Start here when the image is unclear" },
+      { label: "Automation Calculators", url: "/automation-calculators.html", reason: "Browse all tools" }
+    ]
+  };
+
+  let selected = links[category] || links.unknown;
+
+  if (category === "plc_electrical") {
+    if (clueText.includes("sensor") || clueText.includes("input")) {
+      selected = [
+        links.plc_electrical[1],
+        links.plc_electrical[0],
+        links.plc_electrical[3],
+        links.plc_electrical[2]
+      ];
+    }
+
+    if (clueText.includes("ethernet") || clueText.includes("communication") || clueText.includes("network")) {
+      selected = [
+        links.plc_electrical[3],
+        links.plc_electrical[0],
+        links.plc_electrical[1],
+        links.plc_electrical[2]
+      ];
+    }
+  }
+
+  if (category === "welding") {
+    if (clueText.includes("coolant") || clueText.includes("water") || clueText.includes("electrode")) {
+      selected = [
+        links.welding[3],
+        links.welding[0],
+        links.welding[1],
+        links.welding[2]
+      ];
+    }
+  }
+
+  if (category === "pneumatics") {
+    if (clueText.includes("cylinder")) {
+      selected = [
+        links.pneumatics[1],
+        links.pneumatics[2],
+        links.pneumatics[3],
+        links.pneumatics[0]
+      ];
+    }
+  }
+
+  return selected.slice(0, 4);
 }
 
 function normalizeConfidence(value) {
