@@ -241,6 +241,16 @@
       color:var(--muted);
     }
 
+    .card ul{
+      margin:8px 0 0;
+      padding-left:20px;
+      color:var(--muted);
+    }
+
+    .card li{
+      margin-bottom:8px;
+    }
+
     .card-links{
       display:flex;
       flex-wrap:wrap;
@@ -402,7 +412,7 @@
   <section class="hero">
     <div class="hero-inner">
       <div>
-        <h1>Motors & Motion Tools for Speed, Torque, Ratio, and Drive Sizing</h1>
+        <h1>Motors &amp; Motion Tools for Speed, Torque, Ratio, and Drive Sizing</h1>
         <p>
           Use this section to estimate conveyor speed, size motors, check servo torque, evaluate gear ratios, and confirm gearbox output for practical motion system design and troubleshooting.
         </p>
@@ -459,7 +469,7 @@
       <div class="card">
         <h3>The motor seems undersized or overloaded</h3>
         <p>
-          Go here when the conveyor struggles to start, stalls, overheats, or does not feel like it has enough torque or power.
+          Go here when the conveyor struggles to start, stalls, overheats, trips the drive, or does not feel like it has enough torque or power.
         </p>
         <div class="card-links">
           <a class="pill-link" href="/motor.html" onclick="gtag('event','motors_motion_start_path',{'path':'motor','target':'motor_sizing'});">Conveyor Motor Sizing</a>
@@ -474,13 +484,14 @@
         <div class="card-links">
           <a class="pill-link" href="/servo-torque.html" onclick="gtag('event','motors_motion_start_path',{'path':'servo','target':'servo_torque'});">Servo Torque</a>
           <a class="pill-link" href="/gear-ratio.html" onclick="gtag('event','motors_motion_start_path',{'path':'ratio','target':'gear_ratio'});">Gear Ratio</a>
+          <a class="pill-link" href="/gearbox-torque.html" onclick="gtag('event','motors_motion_start_path',{'path':'gearbox','target':'gearbox_torque'});">Gearbox Torque</a>
         </div>
       </div>
     </div>
   </section>
 
   <section class="section">
-    <h2>Common Motors & Motion Workflows</h2>
+    <h2>Common Motors &amp; Motion Workflows</h2>
     <p class="section-intro">
       These paths help people move through the motion section logically instead of bouncing between unrelated tools.
     </p>
@@ -515,7 +526,237 @@
   </section>
 
   <section class="section">
-    <h2>Motors & Motion Tools</h2>
+    <h2>Most Common Motors &amp; Motion Problems in Real Machines</h2>
+    <p class="section-intro">
+      Motion problems usually show up as speed errors, torque shortage, drive trips, poor acceleration, unstable movement, gearbox mismatch, or inconsistent conveyor flow. The fastest way to troubleshoot is to separate speed, torque, inertia, gearing, load, and control behavior.
+    </p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Conveyor Speed Does Not Match Production Need</h3>
+        <p>
+          If the line is too slow or too fast, start with the actual pulley, roller, drive speed, and required throughput. A motor may be fine while the chosen ratio or roller size creates the wrong belt speed.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/conveyor-speed.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'conveyor_speed'});">Check Conveyor Speed</a>
+          <a class="pill-link" href="/gear-ratio.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'gear_ratio'});">Check Ratio</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Motor Starts But Stalls Under Load</h3>
+        <p>
+          A motor that moves empty but struggles under load may be undersized, geared incorrectly, overloaded by friction, limited by drive settings, or fighting a mechanical problem such as belt tension, binding, or bad bearings.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/motor.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'motor_sizing'});">Check Motor Sizing</a>
+          <a class="pill-link" href="/gearbox-torque.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'gearbox_torque'});">Check Gearbox Torque</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Servo Axis Trips During Acceleration</h3>
+        <p>
+          Servo torque problems often show up during acceleration, not steady running. Check acceleration torque, reflected inertia, load torque, ratio, payload, friction, and whether the move profile is too aggressive.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/servo-torque.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'servo_torque'});">Check Servo Torque</a>
+          <a class="pill-link" href="/gear-ratio.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'gear_ratio'});">Review Gear Ratio</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Gearbox Output Torque Looks Good But Machine Still Struggles</h3>
+        <p>
+          Output torque alone does not prove the system will work. The load may have high starting friction, shock load, low efficiency, poor alignment, gearbox service factor issues, or a duty cycle the gearbox cannot support.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/gearbox-torque.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'gearbox_torque'});">Check Gearbox Torque</a>
+          <a class="pill-link" href="/motor.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'motor_sizing'});">Review Motor Load</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Drive Trips or Motor Overheats</h3>
+        <p>
+          Overheating and drive trips may come from overload, high acceleration, low speed cooling limits, incorrect motor data, bad bearings, jammed load, incorrect VFD settings, repeated starts, or poor duty cycle assumptions.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/motor.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'motor_sizing'});">Check Motor Load</a>
+          <a class="pill-link" href="/automation-help.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'automation_help'});">Get Help</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Motion Is Jerky, Unstable, or Inconsistent</h3>
+        <p>
+          Inconsistent motion can be caused by backlash, poor tuning, loose couplings, worn belts, encoder issues, ratio mismatch, unstable load, mechanical slip, or a move profile that does not match the mechanics.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/servo-torque.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'servo_torque'});">Review Servo Torque</a>
+          <a class="pill-link" href="/gear-ratio.html" onclick="gtag('event','motors_motion_authority_link',{'section':'common_problems','target':'gear_ratio'});">Review Ratio</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>What People Commonly Misdiagnose in Motion Systems</h2>
+    <p class="section-intro">
+      A motion problem is not always a motor problem. The motor is where the symptom appears, but the real cause may be gearing, inertia, friction, acceleration, mechanical alignment, control tuning, or incorrect speed assumptions.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Blaming the Motor Before Checking the Load</h3>
+        <p>
+          A motor may be correctly sized for the expected load but overloaded by real-world friction, jams, belt tension, product buildup, misalignment, or worn mechanical components. Always compare calculated load to actual machine behavior.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Ignoring Acceleration Torque</h3>
+        <p>
+          Many systems run fine once moving but fail during acceleration. Servo axes, indexing conveyors, turntables, and fast starts need acceleration torque checked, not only steady-state torque.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Using Gear Ratio Only for Speed</h3>
+        <p>
+          Ratio changes both speed and torque. A ratio that fixes speed may create poor acceleration, low output torque, low motor RPM, poor efficiency, or a reflected inertia problem.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Trusting Nameplate Power Alone</h3>
+        <p>
+          Horsepower or kilowatts are not the whole story. Starting torque, duty cycle, service factor, speed range, gearbox efficiency, thermal limits, and drive settings can decide whether the system works.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Forgetting About Mechanical Efficiency</h3>
+        <p>
+          Gearboxes, belts, chains, screws, bearings, and couplings all create losses. If efficiency is ignored, the calculated output torque can look better than what the machine actually sees.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Solving a Control Problem With Hardware</h3>
+        <p>
+          Poor tuning, bad move profiles, incorrect ramp times, torque limits, speed limits, and drive parameters can make a good motor and gearbox look wrong.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>When It Is Not Really a Motor Sizing Problem</h2>
+    <p class="section-intro">
+      Increasing motor size is not always the right fix. A bigger motor can hide the symptom while leaving the real problem in the mechanics, gearing, controls, or application assumptions.
+    </p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Mechanical Binding or Bad Alignment</h3>
+        <p>
+          Binding, bent shafts, overtight belts, bad bearings, damaged rollers, misaligned guides, or side-loaded mechanisms can create torque demand no sizing calculator predicted.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Incorrect Gear Ratio</h3>
+        <p>
+          The wrong ratio can force the motor into a poor speed range, reduce available output torque, or create acceleration problems. Ratio should be checked with both speed and torque in mind.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Drive or VFD Parameter Limits</h3>
+        <p>
+          Current limits, torque limits, acceleration ramps, motor data, braking settings, encoder setup, and overload settings can all limit performance even when the hardware is capable.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Bad Throughput Assumptions</h3>
+        <p>
+          A conveyor speed calculation can be right while the production rate is still wrong if spacing, accumulation, transfers, stops, indexing time, or operator interaction were ignored.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Shock Load or Duty Cycle</h3>
+        <p>
+          Applications with impact, repeated starts, stop-start duty, high inertia, or reversing loads may need a different service factor than a smooth steady conveyor.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Control Timing or Sensor Logic</h3>
+        <p>
+          A conveyor or axis may seem slow because of dwell time, sensor delay, PLC logic, robot wait states, reject timing, or safety interlocks — not motor capacity.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Motion Troubleshooting Decision Checks</h2>
+    <p class="section-intro">
+      Use these checks when you need to decide which direction to troubleshoot first.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>If the Speed Is Wrong But the System Runs Smoothly</h3>
+        <p>
+          Start with conveyor speed, pulley size, roller diameter, motor RPM, gearbox ratio, and drive frequency. This is usually a speed translation issue, not a motor sizing issue.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/conveyor-speed.html" onclick="gtag('event','motors_motion_decision_check',{'target':'conveyor_speed'});">Go to Conveyor Speed</a>
+          <a class="pill-link" href="/gear-ratio.html" onclick="gtag('event','motors_motion_decision_check',{'target':'gear_ratio'});">Check Gear Ratio</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>If the System Runs Empty But Fails Loaded</h3>
+        <p>
+          Focus on load torque, friction, incline, acceleration, duty cycle, gearbox efficiency, and mechanical condition. This is where motor sizing and gearbox torque checks matter.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/motor.html" onclick="gtag('event','motors_motion_decision_check',{'target':'motor_sizing'});">Go to Motor Sizing</a>
+          <a class="pill-link" href="/gearbox-torque.html" onclick="gtag('event','motors_motion_decision_check',{'target':'gearbox_torque'});">Check Gearbox Torque</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>If the Axis Trips During Starts or Indexing</h3>
+        <p>
+          Check acceleration torque, reflected inertia, move profile, torque limits, ratio, and whether the axis is being asked to accelerate too much mass too quickly.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/servo-torque.html" onclick="gtag('event','motors_motion_decision_check',{'target':'servo_torque'});">Go to Servo Torque</a>
+          <a class="pill-link" href="/gear-ratio.html" onclick="gtag('event','motors_motion_decision_check',{'target':'gear_ratio'});">Review Ratio</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>If Output Torque Looks Good But Motion Still Fails</h3>
+        <p>
+          Check service factor, shock load, real gearbox efficiency, output speed, coupling slip, bearing condition, mechanical binding, and whether the load is higher than expected.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/gearbox-torque.html" onclick="gtag('event','motors_motion_decision_check',{'target':'gearbox_torque'});">Go to Gearbox Torque</a>
+          <a class="pill-link" href="/automation-help.html" onclick="gtag('event','motors_motion_decision_check',{'target':'automation_help'});">Get Help</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Motors &amp; Motion Tools</h2>
     <p class="section-intro">
       These are the current motion pages in the section. Together, they cover line speed, motor sizing, servo torque, gearing, and gearbox output checks.
     </p>
@@ -635,7 +876,7 @@
   </footer>
 
   <script>
-    fetch('/navbar.html')
+    fetch('/navbar.html?v=20260422')
       .then(response => response.text())
       .then(data => {
         document.getElementById('navbar').innerHTML = data;
