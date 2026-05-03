@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/machine-design.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Machine Design Calculators | Beam Deflection, Shafts, Frames, Welds & Mechanical Sizing</title>
-  <meta name="description" content="Machine design calculators for beam loads, deflection, bending stress, section modulus, shafts, critical speed, bearings, frames, plates, buckling, gussets, welds, bolts, torque, and automation mechanical sizing." />
-  <meta name="robots" content="index, follow" />
-  <meta name="author" content="AutomationCalculators.net" />
-  <link rel="canonical" href="https://automationcalculators.net/machine-design.html" />
+  <meta name="description" content="Machine design calculators for beam loads, deflection, bending stress, section modulus, shafts, critical speed, bearings, frames, plates, buckling, gussets, welds, bolts, torque, and automation mechanical sizing.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -19,529 +19,487 @@
   </script>
 
   <style>
-    :root {
-      --blue-900: #0f172a;
-      --blue-800: #1e3a8a;
-      --blue-700: #1d4ed8;
-      --blue-600: #2563eb;
-      --blue-100: #dbeafe;
-      --slate-900: #0f172a;
-      --slate-800: #1e293b;
-      --slate-700: #334155;
-      --slate-600: #475569;
-      --slate-500: #64748b;
-      --slate-200: #e2e8f0;
-      --slate-100: #f1f5f9;
-      --white: #ffffff;
-      --amber-100: #fef3c7;
-      --amber-700: #b45309;
-      --green-100: #dcfce7;
-      --green-700: #15803d;
-      --red-100: #fee2e2;
-      --red-700: #b91c1c;
-      --purple-100: #ede9fe;
-      --purple-700: #6d28d9;
-      --cyan-100: #cffafe;
-      --cyan-700: #0e7490;
-      --radius: 18px;
-      --shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
     }
 
-    * { box-sizing: border-box; }
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
 
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--slate-800);
-      background: #f8fafc;
-      line-height: 1.6;
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
     }
 
-    a {
-      color: var(--blue-700);
-      text-decoration: none;
+    a{
+      color:var(--accent);
+      text-decoration:none;
     }
 
-    a:hover { text-decoration: underline; }
+    a:hover{text-decoration:underline;}
 
-    #navbar {
-      position: relative;
-      z-index: 50;
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
     }
 
-    .hero {
-      background:
-        radial-gradient(circle at top left, rgba(96, 165, 250, 0.35), transparent 32%),
-        linear-gradient(135deg, #0f172a 0%, #1e3a8a 52%, #2563eb 100%);
-      color: white;
-      padding: 72px 20px 64px;
+    .hero{
+      background:linear-gradient(135deg, #0b66c3 0%, #0d79d0 45%, #0b3d69 100%);
+      color:#fff;
+      padding:60px 20px 42px;
     }
 
-    .hero-inner {
-      max-width: 1180px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(300px, 0.75fr);
-      gap: 34px;
-      align-items: center;
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:26px;
+      align-items:center;
     }
 
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-      margin-bottom: 16px;
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:14px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.25);
+      color:#fff;
+      font-weight:700;
+      font-size:0.9rem;
     }
 
-    .hero h1 {
-      margin: 0 0 18px;
-      font-size: clamp(2.2rem, 5vw, 4.3rem);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
+    .hero h1{
+      margin:0 0 16px;
+      font-size:2.45rem;
+      line-height:1.12;
+      color:#fff;
     }
 
-    .hero p {
-      font-size: 1.12rem;
-      max-width: 780px;
-      margin: 0 0 24px;
-      color: rgba(255, 255, 255, 0.9);
+    .hero p{
+      margin:0 0 14px;
+      max-width:780px;
+      color:rgba(255,255,255,0.95);
+      font-size:1.05rem;
     }
 
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 24px;
+    .trust-line{
+      margin-top:8px;
+      color:rgba(255,255,255,0.9);
+      font-weight:700;
+      font-size:0.98rem;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-weight: 800;
-      border: 1px solid transparent;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:22px;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      text-decoration: none;
+    .btn{
+      display:inline-block;
+      padding:13px 18px;
+      border-radius:10px;
+      font-weight:700;
+      text-decoration:none;
+      transition:.2s ease;
+      border:none;
+      cursor:pointer;
+      text-align:center;
     }
 
-    .btn-primary {
-      background: white;
-      color: var(--blue-800);
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.22);
+    .btn-primary{
+      background:#fff;
+      color:var(--accent-dark);
     }
 
-    .btn-secondary {
-      color: white;
-      border-color: rgba(255, 255, 255, 0.35);
-      background: rgba(255, 255, 255, 0.1);
+    .btn-primary:hover{
+      background:#f1f6fb;
+      text-decoration:none;
     }
 
-    .hero-panel {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.24);
-      backdrop-filter: blur(10px);
+    .btn-secondary{
+      background:rgba(255,255,255,0.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.28);
     }
 
-    .hero-panel h2 {
-      margin: 0 0 12px;
-      color: white;
-      font-size: 1.35rem;
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.2);
+      text-decoration:none;
     }
 
-    .hero-panel ul {
-      margin: 0;
-      padding-left: 20px;
-      color: rgba(255, 255, 255, 0.92);
+    .hero-panel{
+      background:rgba(255,255,255,0.12);
+      border:1px solid rgba(255,255,255,0.18);
+      border-radius:18px;
+      padding:22px;
+      backdrop-filter:blur(5px);
     }
 
-    .hero-panel li { margin: 8px 0; }
-
-    .page {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 42px 20px 70px;
+    .hero-panel h3{
+      margin:0 0 12px;
+      font-size:1.15rem;
+      color:#fff;
     }
 
-    .section { margin-bottom: 46px; }
-
-    .section-header { margin-bottom: 22px; }
-
-    .section-header h2 {
-      margin: 0 0 8px;
-      color: var(--slate-900);
-      font-size: clamp(1.65rem, 3vw, 2.3rem);
-      line-height: 1.15;
-      letter-spacing: -0.025em;
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
     }
 
-    .section-header p {
-      margin: 0;
-      max-width: 920px;
-      color: var(--slate-600);
-      font-size: 1.04rem;
+    .hero-panel li{
+      margin-bottom:10px;
+      color:rgba(255,255,255,0.95);
     }
 
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:38px 20px;
     }
 
-    .card-grid.two {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .section h2{
+      margin:0 0 10px;
+      font-size:1.95rem;
+      color:var(--text);
     }
 
-    .card {
-      background: white;
-      border: 1px solid var(--slate-200);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+    .section-intro{
+      margin:0 0 24px;
+      color:var(--muted);
+      max-width:920px;
+      font-size:1.02rem;
     }
 
-    .card h3 {
-      margin: 0 0 9px;
-      color: var(--slate-900);
-      font-size: 1.18rem;
-      line-height: 1.25;
+    .note-box{
+      background:#fff8df;
+      border:1px solid #f1df95;
+      color:#5c4a12;
+      padding:16px 18px;
+      border-radius:14px;
+      box-shadow:var(--shadow);
     }
 
-    .card p {
-      margin: 0 0 14px;
-      color: var(--slate-600);
+    .grid-4,
+    .grid-3,
+    .grid-2,
+    .tool-grid,
+    .feature-list{
+      display:grid;
+      gap:18px;
     }
 
-    .card ul {
-      margin: 10px 0 0;
-      padding-left: 20px;
-      color: var(--slate-600);
+    .grid-4{grid-template-columns:repeat(4,1fr);}
+    .grid-3{grid-template-columns:repeat(3,1fr);}
+    .grid-2{grid-template-columns:repeat(2,1fr);}
+    .tool-grid{grid-template-columns:repeat(3,1fr);}
+    .feature-list{grid-template-columns:repeat(3,1fr);}
+
+    .card,
+    .tool-card,
+    .workflow,
+    .feature-item,
+    .cta-section{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
     }
 
-    .card li { margin: 6px 0; }
-
-    .tool-card {
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
+    .card,
+    .workflow,
+    .feature-item,
+    .cta-section{
+      padding:24px;
     }
 
-    .tool-card .tag {
-      align-self: flex-start;
-      display: inline-flex;
-      border-radius: 999px;
-      padding: 5px 10px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      margin-bottom: 12px;
-      background: var(--blue-100);
-      color: var(--blue-800);
+    .tool-card{
+      padding:22px;
+      height:100%;
+      display:flex;
+      flex-direction:column;
     }
 
-    .tool-card .tag.structural {
-      background: var(--amber-100);
-      color: var(--amber-700);
+    .card h3,
+    .workflow h3,
+    .feature-item h3,
+    .tool-card h3{
+      margin:0 0 10px;
+      color:var(--text);
     }
 
-    .tool-card .tag.fastening {
-      background: var(--green-100);
-      color: var(--green-700);
+    .card p,
+    .workflow p,
+    .feature-item p,
+    .tool-card p,
+    .cta-section p{
+      margin:0 0 12px;
+      color:var(--muted);
     }
 
-    .tool-card .tag.reference {
-      background: var(--red-100);
-      color: var(--red-700);
+    .card ul{
+      margin:8px 0 0;
+      padding-left:20px;
+      color:var(--muted);
     }
 
-    .tool-card .tag.shaft {
-      background: var(--purple-100);
-      color: var(--purple-700);
+    .card li{
+      margin-bottom:8px;
     }
 
-    .tool-card .tag.welding {
-      background: var(--cyan-100);
-      color: var(--cyan-700);
+    .card-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
     }
 
-    .tool-card a.tool-link {
-      margin-top: auto;
-      font-weight: 800;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+    .pill-link{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:var(--soft);
+      color:var(--accent-dark);
+      font-weight:700;
+      font-size:0.95rem;
+      text-decoration:none;
     }
 
-    .start-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
+    .pill-link:hover{
+      background:#dfeefa;
+      text-decoration:none;
     }
 
-    .start-card {
-      background: white;
-      border-radius: var(--radius);
-      border: 1px solid var(--slate-200);
-      padding: 20px;
-      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+    .workflow{
+      height:100%;
     }
 
-    .start-card span {
-      display: inline-flex;
-      width: 34px;
-      height: 34px;
-      align-items: center;
-      justify-content: center;
-      border-radius: 12px;
-      background: var(--blue-100);
-      color: var(--blue-800);
-      font-weight: 900;
-      margin-bottom: 12px;
+    .flow-steps{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:center;
+      font-weight:700;
     }
 
-    .start-card h3 {
-      margin: 0 0 8px;
-      color: var(--slate-900);
-      font-size: 1.05rem;
+    .flow-steps a{
+      background:var(--soft);
+      padding:9px 12px;
+      border-radius:999px;
+      color:var(--accent-dark);
+      text-decoration:none;
     }
 
-    .start-card p {
-      margin: 0;
-      color: var(--slate-600);
-      font-size: 0.96rem;
+    .flow-steps a:hover{
+      background:#dfeefa;
     }
 
-    .workflow {
-      background: white;
-      border: 1px solid var(--slate-200);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: var(--shadow);
+    .arrow{
+      color:#7b8b9b;
+      font-weight:700;
     }
 
-    .workflow-row {
-      display: grid;
-      grid-template-columns: 90px minmax(0, 1fr) minmax(230px, 0.55fr);
-      gap: 18px;
-      padding: 22px;
-      border-bottom: 1px solid var(--slate-200);
-      align-items: center;
+    .workflow-list{
+      display:grid;
+      gap:14px;
     }
 
-    .workflow-row:last-child { border-bottom: none; }
-
-    .step-number {
-      width: 48px;
-      height: 48px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--blue-800), var(--blue-600));
-      color: white;
-      font-weight: 900;
-      font-size: 1.1rem;
+    .workflow-row{
+      display:grid;
+      grid-template-columns:56px minmax(0,1fr) minmax(180px,auto);
+      gap:16px;
+      align-items:center;
+      padding:18px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+      box-shadow:0 4px 14px rgba(15,35,60,0.04);
     }
 
-    .workflow-row h3 {
-      margin: 0 0 5px;
-      color: var(--slate-900);
+    .step-number{
+      width:42px;
+      height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:800;
     }
 
-    .workflow-row p {
-      margin: 0;
-      color: var(--slate-600);
+    .workflow-row h3{
+      margin:0 0 5px;
+      color:var(--text);
     }
 
-    .workflow-link { font-weight: 900; }
-
-    .feature-band {
-      background:
-        radial-gradient(circle at top right, rgba(37, 99, 235, 0.16), transparent 35%),
-        white;
-      border: 1px solid var(--slate-200);
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: var(--shadow);
+    .workflow-row p{
+      margin:0;
+      color:var(--muted);
     }
 
-    .feature-band h2 {
-      margin: 0 0 12px;
-      color: var(--slate-900);
-      font-size: clamp(1.55rem, 3vw, 2.15rem);
+    .workflow-link{
+      font-weight:800;
+      white-space:nowrap;
     }
 
-    .feature-band p {
-      margin: 0 0 18px;
-      color: var(--slate-600);
-      max-width: 920px;
+    .tool-card .label{
+      display:inline-block;
+      align-self:flex-start;
+      margin-bottom:10px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:#eef4fb;
+      color:#0b66c3;
+      font-size:0.86rem;
+      font-weight:700;
     }
 
-    .check-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 22px;
+    .tool-card .label.structural{background:#fff8df;color:#8a5a00;}
+    .tool-card .label.shaft{background:#f2ecff;color:#6d28d9;}
+    .tool-card .label.fastening{background:#e8f8ed;color:#176a38;}
+    .tool-card .label.welding{background:#e7f8fb;color:#0e7490;}
+    .tool-card .label.reference{background:#fff0f0;color:#a31d1d;}
+    .tool-card .label.motion{background:#eef4fb;color:#0b66c3;}
+
+    .tool-card .tool-link{
+      display:inline-block;
+      margin-top:auto;
+      font-weight:700;
     }
 
-    .check-item {
-      background: #f8fafc;
-      border: 1px solid var(--slate-200);
-      border-radius: 16px;
-      padding: 16px;
+    .feature-band{
+      background:#eef4fa;
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
     }
 
-    .check-item strong {
-      display: block;
-      color: var(--slate-900);
-      margin-bottom: 4px;
+    .decision-block{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:24px;
+      box-shadow:var(--shadow);
     }
 
-    .check-item span { color: var(--slate-600); }
-
-    .decision-block {
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      border-radius: 24px;
-      padding: 26px;
+    .decision-block h2{
+      margin-top:0;
     }
 
-    .decision-block h2 {
-      margin: 0 0 12px;
-      color: var(--slate-900);
+    .cta-section{
+      background:linear-gradient(135deg, #0d4d86 0%, #0b66c3 100%);
+      color:#fff;
     }
 
-    .decision-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 18px;
+    .cta-section h2{
+      color:#fff;
+      margin-top:0;
     }
 
-    .decision-card {
-      background: white;
-      border: 1px solid #bfdbfe;
-      border-radius: 18px;
-      padding: 18px;
+    .cta-section p{
+      color:rgba(255,255,255,0.94);
+      max-width:820px;
     }
 
-    .decision-card h3 {
-      margin: 0 0 8px;
-      color: var(--slate-900);
+    .cta-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
     }
 
-    .decision-card p {
-      margin: 0;
-      color: var(--slate-600);
+    footer{
+      text-align:center;
+      padding:26px 20px 38px;
+      color:#5d6d7b;
+      font-size:0.96rem;
     }
 
-    .bottom-cta {
-      background: linear-gradient(135deg, #0f172a, #1d4ed8);
-      color: white;
-      border-radius: 28px;
-      padding: 34px;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 24px;
-      align-items: center;
-    }
-
-    .bottom-cta h2 {
-      margin: 0 0 10px;
-      font-size: 2rem;
-      line-height: 1.15;
-    }
-
-    .bottom-cta p {
-      margin: 0;
-      color: rgba(255, 255, 255, 0.9);
-      max-width: 780px;
-    }
-
-    footer {
-      text-align: center;
-      color: var(--slate-500);
-      padding: 34px 20px 44px;
-      border-top: 1px solid var(--slate-200);
-      background: white;
-    }
-
-    @media (max-width: 980px) {
+    @media (max-width: 980px){
       .hero-inner,
-      .bottom-cta {
-        grid-template-columns: 1fr;
+      .grid-4,
+      .grid-3,
+      .grid-2,
+      .tool-grid,
+      .feature-list{
+        grid-template-columns:1fr;
       }
 
-      .card-grid,
-      .card-grid.two,
-      .decision-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .hero h1{
+        font-size:2.1rem;
       }
 
-      .start-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .workflow-row{
+        grid-template-columns:56px minmax(0,1fr);
       }
 
-      .workflow-row {
-        grid-template-columns: 64px 1fr;
-      }
-
-      .workflow-row > a {
-        grid-column: 2;
+      .workflow-link{
+        grid-column:2;
       }
     }
 
-    @media (max-width: 680px) {
-      .hero {
-        padding: 54px 16px 44px;
+    @media (max-width: 700px){
+      .hero{
+        padding:46px 16px 34px;
       }
 
-      .page {
-        padding: 32px 16px 54px;
+      .section{
+        padding:32px 16px;
       }
 
-      .card-grid,
-      .card-grid.two,
-      .start-grid,
-      .decision-grid,
-      .check-grid {
-        grid-template-columns: 1fr;
+      .hero h1{
+        font-size:1.85rem;
       }
 
-      .workflow-row {
-        grid-template-columns: 1fr;
+      .section h2{
+        font-size:1.58rem;
       }
 
-      .workflow-row > a {
-        grid-column: auto;
+      .card,
+      .tool-card,
+      .workflow,
+      .feature-item,
+      .cta-section,
+      .decision-block{
+        padding:18px;
       }
 
-      .bottom-cta {
-        padding: 26px;
+      .hero-actions,
+      .cta-actions{
+        flex-direction:column;
       }
 
-      .hero-actions {
-        flex-direction: column;
+      .hero-actions .btn,
+      .cta-actions .btn{
+        width:100%;
       }
 
-      .btn {
-        width: 100%;
+      .workflow-row{
+        grid-template-columns:1fr;
+      }
+
+      .workflow-link{
+        grid-column:auto;
+        white-space:normal;
       }
     }
   </style>
@@ -550,32 +508,31 @@
 <body>
   <div id="navbar"></div>
 
-  <header class="hero">
+  <section class="hero">
     <div class="hero-inner">
       <div>
-        <div class="eyebrow">Machine Design & Structural Sizing</div>
+        <div class="eyebrow">Machine Design &amp; Structural Sizing</div>
         <h1>Machine Design Calculators for Real Automation Builds</h1>
         <p>
-          Use this hub to size and troubleshoot mechanical parts before they become field problems.
-          Start with loads, reactions, stiffness, stress, and section shape. Then validate shafts,
-          bearings, plates, fasteners, welds, frames, conveyors, servos, gearboxes, and automation hardware.
+          Use this hub to size and troubleshoot mechanical parts before they become field problems. Start with loads, reactions, stiffness, stress, and section shape. Then validate shafts, bearings, plates, fasteners, welds, frames, conveyors, servos, gearboxes, and automation hardware.
+        </p>
+        <p>
+          This section is built for practical automation design — brackets, frames, tooling plates, shafts, welds, bolted joints, fixtures, conveyors, and real mechanical problems that show up during machine build or startup.
         </p>
 
+        <div class="trust-line">
+          Built for real machine design problems — practical first.
+        </div>
+
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/beam-load-calculator.html" onclick="gtag('event','hub_cta_click',{'page':'machine_design','target':'beam_load','location':'hero'});">
-            Start with Beam Loads
-          </a>
-          <a class="btn btn-secondary" href="/frame-rigidity-estimator.html" onclick="gtag('event','hub_cta_click',{'page':'machine_design','target':'frame_rigidity','location':'hero'});">
-            Check Frame Rigidity
-          </a>
-          <a class="btn btn-secondary" href="/shaft-deflection-calculator.html" onclick="gtag('event','hub_cta_click',{'page':'machine_design','target':'shaft_deflection','location':'hero'});">
-            Check Shaft Deflection
-          </a>
+          <a class="btn btn-primary" href="/beam-load-calculator.html" onclick="gtag('event','hub_cta_click',{'page':'machine_design','target':'beam_load','location':'hero'});">Start with Beam Loads</a>
+          <a class="btn btn-secondary" href="/frame-rigidity-estimator.html" onclick="gtag('event','hub_cta_click',{'page':'machine_design','target':'frame_rigidity','location':'hero'});">Check Frame Rigidity</a>
+          <a class="btn btn-secondary" href="/shaft-deflection-calculator.html" onclick="gtag('event','hub_cta_click',{'page':'machine_design','target':'shaft_deflection','location':'hero'});">Check Shaft Deflection</a>
         </div>
       </div>
 
-      <aside class="hero-panel">
-        <h2>Use this section when you need to answer:</h2>
+      <div class="hero-panel">
+        <h3>This section helps answer</h3>
         <ul>
           <li>Will this beam, plate, bracket, shaft, post, or frame bend too much?</li>
           <li>Is the part strong enough, stiff enough, and supported correctly?</li>
@@ -583,715 +540,740 @@
           <li>Are the bolts, welds, gussets, and plates sized for the load path?</li>
           <li>Which mechanical issue should be checked before controls troubleshooting?</li>
         </ul>
-      </aside>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <main class="page">
+  <section class="section">
+    <div class="note-box">
+      <strong>Best way to use this section:</strong> start with the physical symptom. If something bends, starts with load, section shape, stress, and deflection. If something rotates, check shaft deflection, critical speed, bearing life, and overhung load. If something loosens or cracks, check bolts, clamp load, weld size, gussets, and the real load path before changing controls or replacing parts.
+    </div>
+  </section>
 
-    <section class="section">
-      <div class="section-header">
-        <h2>Start Here by Design Problem</h2>
+  <section class="section" id="start-here">
+    <h2>Start Here by Design Problem</h2>
+    <p class="section-intro">
+      Machine design problems are easier when you choose the right first calculation. A bent bracket, short bearing life, cracked weld, loose fixture, vibrating shaft, or flexible frame may look like one issue on the floor, but each starts from a different mechanical check.
+    </p>
+
+    <div class="grid-4">
+      <div class="card">
+        <h3>Something bends, sags, or flexes</h3>
         <p>
-          Machine design problems are easier when you choose the right first calculation.
-          A bent bracket, short bearing life, cracked weld, loose fixture, vibrating shaft, or flexible frame
-          may look like one issue on the floor, but each starts from a different mechanical check.
+          Start with beam load, beam deflection, section modulus, plate deflection, or frame rigidity.
         </p>
-      </div>
-
-      <div class="start-grid">
-        <div class="start-card">
-          <span>1</span>
-          <h3>Something bends, sags, or flexes</h3>
-          <p>
-            Start with beam load, beam deflection, section modulus, plate deflection, or frame rigidity.
-          </p>
-        </div>
-
-        <div class="start-card">
-          <span>2</span>
-          <h3>Something rotates or supports a shaft</h3>
-          <p>
-            Check shaft deflection, shaft critical speed, bearing life, overhung load, and speed.
-          </p>
-        </div>
-
-        <div class="start-card">
-          <span>3</span>
-          <h3>Something loosens, cracks, or separates</h3>
-          <p>
-            Check bolt shear, clamp load, weld size, gussets, base plates, and joint load path.
-          </p>
-        </div>
-
-        <div class="start-card">
-          <span>4</span>
-          <h3>Something moves too slowly or overloads</h3>
-          <p>
-            Check conveyor speed, gear ratio, gearbox torque, servo torque, and motor sizing.
-          </p>
+        <div class="card-links">
+          <a class="pill-link" href="/beam-load-calculator.html" onclick="gtag('event','machine_design_start_path',{'path':'bends','target':'beam_load'});">Beam Load</a>
+          <a class="pill-link" href="/beam-deflection-calculator.html" onclick="gtag('event','machine_design_start_path',{'path':'bends','target':'beam_deflection'});">Beam Deflection</a>
+          <a class="pill-link" href="/frame-rigidity-estimator.html" onclick="gtag('event','machine_design_start_path',{'path':'bends','target':'frame_rigidity'});">Frame Rigidity</a>
         </div>
       </div>
-    </section>
 
-    <section class="section">
-      <div class="section-header">
-        <h2>Recommended Machine Design Workflow</h2>
+      <div class="card">
+        <h3>Something rotates or supports a shaft</h3>
         <p>
-          Use this flow when you are designing or troubleshooting a mechanical automation assembly.
-          It keeps the process grounded: load path first, stiffness second, strength third, connections next,
-          and motion hardware after the structure makes sense.
+          Check shaft deflection, shaft critical speed, bearing life, overhung load, and speed.
         </p>
-      </div>
-
-      <div class="workflow">
-        <div class="workflow-row">
-          <div class="step-number">1</div>
-          <div>
-            <h3>Define loads, reactions, and moments</h3>
-            <p>
-              Identify the real load, span, support condition, force direction, load position, impact,
-              acceleration, and whether the load is static, cyclic, or shock-loaded.
-            </p>
-          </div>
-          <a class="workflow-link" href="/beam-load-calculator.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'define_load','target':'beam_load'});">
-            Beam Load →
-          </a>
-        </div>
-
-        <div class="workflow-row">
-          <div class="step-number">2</div>
-          <div>
-            <h3>Check section shape, deflection, and stress</h3>
-            <p>
-              A part can be strong enough and still be too flexible. Compare section modulus, moment of
-              inertia, deflection, and bending stress before guessing at material size.
-            </p>
-          </div>
-          <a class="workflow-link" href="/section-modulus-calculator.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'section_properties','target':'section_modulus'});">
-            Section Modulus →
-          </a>
-        </div>
-
-        <div class="workflow-row">
-          <div class="step-number">3</div>
-          <div>
-            <h3>Check frames, plates, columns, and gussets</h3>
-            <p>
-              Machine frames fail by more than simple beam bending. Check plate flex, post buckling,
-              bracket stiffness, gusset effectiveness, and overall frame rigidity.
-            </p>
-          </div>
-          <a class="workflow-link" href="/frame-rigidity-estimator.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'frame_rigidity','target':'frame_rigidity'});">
-            Frame Rigidity →
-          </a>
-        </div>
-
-        <div class="workflow-row">
-          <div class="step-number">4</div>
-          <div>
-            <h3>Validate shafts and rotating supports</h3>
-            <p>
-              Shafts and rollers need stiffness, bearing support, critical speed margin, and load control.
-              Do not blame bearings until shaft deflection and overhung loads are checked.
-            </p>
-          </div>
-          <a class="workflow-link" href="/shaft-deflection-calculator.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'shaft_deflection','target':'shaft_deflection'});">
-            Shaft Deflection →
-          </a>
-        </div>
-
-        <div class="workflow-row">
-          <div class="step-number">5</div>
-          <div>
-            <h3>Check bolts, welds, and joints</h3>
-            <p>
-              A stiff member does not help if the joint slips, separates, cracks, or transfers load poorly.
-              Check clamp load, bolt shear, joint separation, weld size, and weld group load path.
-            </p>
-          </div>
-          <a class="workflow-link" href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'joints','target':'bolt_joint'});">
-            Bolt Joint Check →
-          </a>
-        </div>
-
-        <div class="workflow-row">
-          <div class="step-number">6</div>
-          <div>
-            <h3>Validate motion, torque, speed, and bearings</h3>
-            <p>
-              Once the structure is reasonable, check the drive system. Conveyor speed, gear ratio,
-              gearbox torque, servo torque, motor sizing, and bearing life all depend on the mechanical load.
-            </p>
-          </div>
-          <a class="workflow-link" href="/motors-motion.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'motion','target':'motors_motion'});">
-            Motors & Motion →
-          </a>
+        <div class="card-links">
+          <a class="pill-link" href="/shaft-deflection-calculator.html" onclick="gtag('event','machine_design_start_path',{'path':'shaft','target':'shaft_deflection'});">Shaft Deflection</a>
+          <a class="pill-link" href="/shaft-critical-speed-calculator.html" onclick="gtag('event','machine_design_start_path',{'path':'shaft','target':'shaft_critical_speed'});">Critical Speed</a>
+          <a class="pill-link" href="/bearing-life-calculator.html" onclick="gtag('event','machine_design_start_path',{'path':'shaft','target':'bearing_life'});">Bearing Life</a>
         </div>
       </div>
-    </section>
 
-    <section class="section">
-      <div class="section-header">
-        <h2>Structural Load, Deflection, and Stress Tools</h2>
+      <div class="card">
+        <h3>Something loosens, cracks, or separates</h3>
         <p>
-          Use these first when sizing beams, rails, brackets, plates, frames, crossmembers, and structural
-          machine details. These tools build the load path from reaction force to section shape to stress
-          and deflection.
+          Check bolt shear, clamp load, weld size, gussets, base plates, and joint load path.
         </p>
-      </div>
-
-      <div class="card-grid">
-        <article class="card tool-card">
-          <span class="tag structural">Structural</span>
-          <h3>Beam Load & Reaction Calculator</h3>
-          <p>
-            Calculate support reactions, total load, maximum shear, and maximum bending moment for common
-            beam load cases.
-          </p>
-          <a class="tool-link" href="/beam-load-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'beam_load'});">
-            Open Beam Load →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag structural">Structural</span>
-          <h3>Section Modulus & Moment of Inertia</h3>
-          <p>
-            Calculate area, moment of inertia, outer fiber distance, section modulus, and radius of gyration
-            for common machine-design shapes.
-          </p>
-          <a class="tool-link" href="/section-modulus-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'section_modulus'});">
-            Open Section Modulus →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag structural">Structural</span>
-          <h3>Beam Deflection Calculator</h3>
-          <p>
-            Estimate beam deflection for mechanical frames, rails, tooling supports, brackets, machine
-            bases, and automation structures.
-          </p>
-          <a class="tool-link" href="/beam-deflection-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'beam_deflection'});">
-            Open Beam Deflection →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag structural">Structural</span>
-          <h3>Bending Stress Calculator</h3>
-          <p>
-            Estimate bending stress and safety factor for beams, rails, brackets, plates, frames, and
-            other loaded members.
-          </p>
-          <a class="tool-link" href="/bending-stress-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'bending_stress'});">
-            Open Bending Stress →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag structural">Structural</span>
-          <h3>Frame Rigidity Estimator</h3>
-          <p>
-            Estimate machine frame rigidity, member deflection, support stiffness, bending stress, and
-            practical rigidity risk.
-          </p>
-          <a class="tool-link" href="/frame-rigidity-estimator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'frame_rigidity'});">
-            Open Frame Rigidity →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag structural">Structural</span>
-          <h3>Plate Deflection Calculator</h3>
-          <p>
-            Estimate plate deflection, stiffness, bending stress, and support risk for tooling plates,
-            adapter plates, nest plates, and machine base plates.
-          </p>
-          <a class="tool-link" href="/plate-deflection-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'plate_deflection'});">
-            Open Plate Deflection →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag structural">Structural</span>
-          <h3>Column Buckling Calculator</h3>
-          <p>
-            Estimate Euler buckling load, compression stress, slenderness ratio, and safety factor for
-            posts, legs, supports, and compression members.
-          </p>
-          <a class="tool-link" href="/column-buckling-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'column_buckling'});">
-            Open Column Buckling →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag structural">Structural</span>
-          <h3>Gusset Plate & Bracket Stiffness</h3>
-          <p>
-            Estimate bracket deflection before and after gusset reinforcement for tabs, arms, sensor
-            mounts, guard supports, and welded machine frames.
-          </p>
-          <a class="tool-link" href="/gusset-plate-bracket-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'gusset_bracket'});">
-            Open Gusset Calculator →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag welding">Welding</span>
-          <h3>Weld Size Calculator</h3>
-          <p>
-            Estimate fillet weld throat area, weld stress, allowable load, and safety factor for welded
-            brackets, gussets, tabs, frames, and plates.
-          </p>
-          <a class="tool-link" href="/weld-size-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'weld_size'});">
-            Open Weld Size →
-          </a>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <h2>Shaft, Bearing, and Rotating Component Tools</h2>
-        <p>
-          Use these when the mechanical design involves rollers, drive shafts, pulleys, sprockets,
-          bearings, conveyors, rotating supports, overhung loads, or shaft speed.
-        </p>
-      </div>
-
-      <div class="card-grid">
-        <article class="card tool-card">
-          <span class="tag shaft">Shafts</span>
-          <h3>Shaft Deflection Calculator</h3>
-          <p>
-            Estimate shaft deflection, bending moment, support reactions, and bending stress for rollers,
-            drive shafts, conveyor shafts, and overhung loads.
-          </p>
-          <a class="tool-link" href="/shaft-deflection-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'shaft_deflection'});">
-            Open Shaft Deflection →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag shaft">Shafts</span>
-          <h3>Shaft Critical Speed Calculator</h3>
-          <p>
-            Estimate first critical speed and operating RPM margin for rotating shafts, rollers, pulleys,
-            sprockets, and long unsupported drive components.
-          </p>
-          <a class="tool-link" href="/shaft-critical-speed-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'shaft_critical_speed'});">
-            Open Critical Speed →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag">Bearing</span>
-          <h3>Bearing Life Calculator</h3>
-          <p>
-            Estimate bearing life from load, speed, and rating values. Useful for conveyors, shafts,
-            rollers, gearboxes, and rotating machine components.
-          </p>
-          <a class="tool-link" href="/bearing-life-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'bearing_life'});">
-            Open Bearing Life →
-          </a>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <h2>Fastening, Joint, and Connection Tools</h2>
-        <p>
-          Use these when the design depends on bolts, clamp load, tightening sequence, joint separation,
-          weld transfer, bracket mounting, or plate movement.
-        </p>
-      </div>
-
-      <div class="card-grid">
-        <article class="card tool-card">
-          <span class="tag fastening">Fastening</span>
-          <h3>Bolt Shear & Joint Separation</h3>
-          <p>
-            Estimate bolt shear stress, shear safety factor, clamp load margin, friction slip capacity,
-            and joint separation risk.
-          </p>
-          <a class="tool-link" href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'bolt_shear_joint_separation'});">
-            Open Bolt Joint Check →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag fastening">Fastening</span>
-          <h3>Torque to Clamp Load</h3>
-          <p>
-            Convert tightening torque into estimated clamp load for bolted joints, fixture plates,
-            brackets, machine bases, and structural connections.
-          </p>
-          <a class="tool-link" href="/torque-clamp-load.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'torque_clamp_load'});">
-            Open Clamp Load →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag fastening">Fastening</span>
-          <h3>Bolt Tightening Torque</h3>
-          <p>
-            Estimate practical bolt tightening torque using diameter, thread, grade, and friction
-            assumptions for industrial machine assemblies.
-          </p>
-          <a class="tool-link" href="/bolt-tightening-torque.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'bolt_tightening_torque'});">
-            Open Bolt Torque →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag fastening">Fastening</span>
-          <h3>Bolt Torque Chart</h3>
-          <p>
-            Reference common bolt torque values when setting up maintenance standards, assembly
-            instructions, and machine build documentation.
-          </p>
-          <a class="tool-link" href="/bolt-torque-chart.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'bolt_torque_chart'});">
-            Open Bolt Torque Chart →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag fastening">Fastening</span>
-          <h3>Multi-Stage Torque Sequence</h3>
-          <p>
-            Plan staged tightening patterns for plates, tooling, machine bases, guards, and bolted
-            assemblies where even clamp load matters.
-          </p>
-          <a class="tool-link" href="/multi-stage-torque-sequence.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'multi_stage_torque_sequence'});">
-            Open Torque Sequence →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag welding">Welding</span>
-          <h3>Weld Size Calculator</h3>
-          <p>
-            Check whether fillet weld size and weld length are enough to transfer bracket, gusset, frame,
-            and plate loads.
-          </p>
-          <a class="tool-link" href="/weld-size-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'weld_size_fastening_section'});">
-            Open Weld Size →
-          </a>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-header">
-        <h2>Motion, Torque, Conveyor, and Reference Tools</h2>
-        <p>
-          Use these when the mechanical design connects to drive sizing, conveyor speed, torque transfer,
-          servo demand, gearbox ratio, reference values, or machine build documentation.
-        </p>
-      </div>
-
-      <div class="card-grid">
-        <article class="card tool-card">
-          <span class="tag">Motion</span>
-          <h3>Conveyor Motor Sizing</h3>
-          <p>
-            Estimate motor requirements for conveyor loads, belt speed, friction, incline, and basic
-            industrial transport applications.
-          </p>
-          <a class="tool-link" href="/motor.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'conveyor_motor_sizing'});">
-            Open Motor Sizing →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag">Motion</span>
-          <h3>Conveyor Speed Calculator</h3>
-          <p>
-            Convert pulley diameter, RPM, line speed, and conveyor motion values when checking cycle
-            time, throughput, or drive changes.
-          </p>
-          <a class="tool-link" href="/conveyor-speed.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'conveyor_speed'});">
-            Open Conveyor Speed →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag">Motion</span>
-          <h3>Servo Torque Calculator</h3>
-          <p>
-            Estimate torque requirements for servo-driven systems before tuning, selecting a gearbox, or
-            changing acceleration.
-          </p>
-          <a class="tool-link" href="/servo-torque.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'servo_torque'});">
-            Open Servo Torque →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag">Motion</span>
-          <h3>Gear Ratio Calculator</h3>
-          <p>
-            Calculate speed reduction, torque multiplication, output RPM, and mechanical advantage for
-            gear-driven automation systems.
-          </p>
-          <a class="tool-link" href="/gear-ratio.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'gear_ratio'});">
-            Open Gear Ratio →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag">Motion</span>
-          <h3>Gearbox Torque Calculator</h3>
-          <p>
-            Estimate gearbox output torque and compare it against the mechanical load before selecting
-            or replacing a gearbox.
-          </p>
-          <a class="tool-link" href="/gearbox-torque.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'gearbox_torque'});">
-            Open Gearbox Torque →
-          </a>
-        </article>
-
-        <article class="card tool-card">
-          <span class="tag reference">Reference</span>
-          <h3>Reference Charts Hub</h3>
-          <p>
-            Jump to engineering reference charts for wire, taps, torque, symbols, and common field
-            values used during machine design and troubleshooting.
-          </p>
-          <a class="tool-link" href="/reference-charts.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'reference_charts'});">
-            Open Reference Charts →
-          </a>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="decision-block">
-        <h2>Which Machine Design Check Should You Run First?</h2>
-        <p>
-          Do not start by changing motors, speeds, controls settings, or component brands if the mechanical
-          system is not stiff, supported, fastened, or welded correctly. Use the symptom to pick the first calculation.
-        </p>
-
-        <div class="decision-grid">
-          <div class="decision-card">
-            <h3>Part moves, flexes, or loses alignment</h3>
-            <p>
-              Start with <a href="/beam-load-calculator.html">Beam Load</a>, then use
-              <a href="/beam-deflection-calculator.html">Beam Deflection</a>,
-              <a href="/section-modulus-calculator.html">Section Modulus</a>, or
-              <a href="/frame-rigidity-estimator.html">Frame Rigidity</a>.
-            </p>
-          </div>
-
-          <div class="decision-card">
-            <h3>Plate, nest, or fixture shifts</h3>
-            <p>
-              Start with <a href="/plate-deflection-calculator.html">Plate Deflection</a>, then check
-              <a href="/bolt-shear-joint-separation-calculator.html">Bolt Shear & Joint Separation</a>
-              and <a href="/torque-clamp-load.html">Clamp Load</a>.
-            </p>
-          </div>
-
-          <div class="decision-card">
-            <h3>Bracket, tab, or arm vibrates</h3>
-            <p>
-              Start with <a href="/gusset-plate-bracket-calculator.html">Gusset Plate & Bracket Stiffness</a>,
-              then check <a href="/weld-size-calculator.html">Weld Size</a> and
-              <a href="/frame-rigidity-estimator.html">Frame Rigidity</a>.
-            </p>
-          </div>
-
-          <div class="decision-card">
-            <h3>Post, leg, or upright looks weak</h3>
-            <p>
-              Start with <a href="/column-buckling-calculator.html">Column Buckling</a>, then check
-              <a href="/frame-rigidity-estimator.html">Frame Rigidity</a> and
-              <a href="/plate-deflection-calculator.html">Plate Deflection</a>.
-            </p>
-          </div>
-
-          <div class="decision-card">
-            <h3>Bearing fails repeatedly</h3>
-            <p>
-              Start with <a href="/shaft-deflection-calculator.html">Shaft Deflection</a>, then check
-              <a href="/shaft-critical-speed-calculator.html">Shaft Critical Speed</a> and
-              <a href="/bearing-life-calculator.html">Bearing Life</a>.
-            </p>
-          </div>
-
-          <div class="decision-card">
-            <h3>Bolts loosen or welds crack</h3>
-            <p>
-              Start with <a href="/bolt-shear-joint-separation-calculator.html">Bolt Shear & Joint Separation</a>
-              or <a href="/weld-size-calculator.html">Weld Size</a>, then check the bracket, plate, and frame behind it.
-            </p>
-          </div>
+        <div class="card-links">
+          <a class="pill-link" href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','machine_design_start_path',{'path':'joints','target':'bolt_joint'});">Bolt Joint Check</a>
+          <a class="pill-link" href="/torque-clamp-load.html" onclick="gtag('event','machine_design_start_path',{'path':'joints','target':'torque_clamp_load'});">Clamp Load</a>
+          <a class="pill-link" href="/weld-size-calculator.html" onclick="gtag('event','machine_design_start_path',{'path':'joints','target':'weld_size'});">Weld Size</a>
         </div>
       </div>
-    </section>
 
-    <section class="section">
-      <div class="feature-band">
-        <h2>Machine Design Notes for Automation Engineers</h2>
+      <div class="card">
+        <h3>Something moves too slowly or overloads</h3>
         <p>
-          In automation, the mechanical design and controls design are tied together. A PLC, servo,
-          robot, or vision system may get blamed for a problem that actually comes from weak brackets,
-          poor bearing support, loose joints, a flexible frame, a cracked weld, a deflecting plate, or a
-          drive system that was never sized for the real load.
+          Check conveyor speed, gear ratio, gearbox torque, servo torque, and motor sizing.
         </p>
-
-        <div class="check-grid">
-          <div class="check-item">
-            <strong>Stiffness affects sensors and vision.</strong>
-            <span>
-              Camera mounts, proximity sensors, laser sensors, and inspection tooling can all drift if
-              the structure deflects under load or vibration.
-            </span>
-          </div>
-
-          <div class="check-item">
-            <strong>Deflection affects robot repeatability.</strong>
-            <span>
-              A robot can repeat accurately while the fixture, nest, rail, bracket, plate, or EOAT bends.
-              The robot may not be the problem.
-            </span>
-          </div>
-
-          <div class="check-item">
-            <strong>Torque problems are not always motor problems.</strong>
-            <span>
-              Binding, poor gear ratio, excessive friction, poor shaft support, or bad load assumptions
-              can make a properly sized motor look undersized.
-            </span>
-          </div>
-
-          <div class="check-item">
-            <strong>Bearing failures usually have a reason.</strong>
-            <span>
-              Replacing the same bearing repeatedly without checking shaft deflection, overhung load,
-              alignment, and environment is expensive guessing.
-            </span>
-          </div>
-
-          <div class="check-item">
-            <strong>Bolted and welded joints need a load path.</strong>
-            <span>
-              Clamp load, bolt shear, joint separation, weld throat area, plate stiffness, and parent
-              material all work together.
-            </span>
-          </div>
-
-          <div class="check-item">
-            <strong>Reference charts support the build.</strong>
-            <span>
-              Tap drills, bolt torque, wire gauge, symbols, and standard values help keep machine design,
-              build, and maintenance documentation consistent.
-            </span>
-          </div>
+        <div class="card-links">
+          <a class="pill-link" href="/motors-motion.html" onclick="gtag('event','machine_design_start_path',{'path':'motion','target':'motors_motion'});">Motors &amp; Motion</a>
+          <a class="pill-link" href="/motor.html" onclick="gtag('event','machine_design_start_path',{'path':'motion','target':'motor_sizing'});">Motor Sizing</a>
+          <a class="pill-link" href="/gearbox-torque.html" onclick="gtag('event','machine_design_start_path',{'path':'motion','target':'gearbox_torque'});">Gearbox Torque</a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="section">
-      <div class="section-header">
-        <h2>Related Engineering Areas</h2>
-        <p>
-          Machine design overlaps with motion, pneumatics, fastening, welding, robotics, and electrical controls.
-          Use these hubs when the mechanical check leads into another design area.
-        </p>
-      </div>
+  <section class="section">
+    <h2>Recommended Machine Design Workflow</h2>
+    <p class="section-intro">
+      Use this flow when you are designing or troubleshooting a mechanical automation assembly. It keeps the process grounded: load path first, stiffness second, strength third, connections next, and motion hardware after the structure makes sense.
+    </p>
 
-      <div class="card-grid two">
-        <article class="card">
-          <h3>Motors & Motion</h3>
-          <p>
-            Use this when the machine design problem involves speed, torque, inertia, gearbox ratio,
-            conveyor motion, or servo selection.
-          </p>
-          <a class="tool-link" href="/motors-motion.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'motors_motion'});">
-            Open Motors & Motion Hub →
-          </a>
-        </article>
-
-        <article class="card">
-          <h3>Fastening</h3>
-          <p>
-            Use this when the problem involves bolts, clamp load, tightening sequence, joint movement,
-            brackets, plates, or fixture hardware.
-          </p>
-          <a class="tool-link" href="/fastening.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'fastening'});">
-            Open Fastening Hub →
-          </a>
-        </article>
-
-        <article class="card">
-          <h3>Welding</h3>
-          <p>
-            Use this when machine frames, brackets, fixtures, gussets, cooling circuits, or welded supports
-            are part of the mechanical load path.
-          </p>
-          <a class="tool-link" href="/welding.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'welding'});">
-            Open Welding Hub →
-          </a>
-        </article>
-
-        <article class="card">
-          <h3>Pneumatics</h3>
-          <p>
-            Use this when the mechanical load is moved by cylinders, grippers, slides, actuators, air
-            prep, valves, or compressed-air systems.
-          </p>
-          <a class="tool-link" href="/pneumatics.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'pneumatics'});">
-            Open Pneumatics Hub →
-          </a>
-        </article>
-
-        <article class="card">
-          <h3>Robotics</h3>
-          <p>
-            Use this when the mechanical design affects robot reach, payload, EOAT weight, fixture
-            position, cycle time, or workcell layout.
-          </p>
-          <a class="tool-link" href="/robotics.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'robotics'});">
-            Open Robotics Hub →
-          </a>
-        </article>
-
-        <article class="card">
-          <h3>Reference Charts</h3>
-          <p>
-            Use this when the design needs tap drill values, bolt torque references, wire gauge, symbols,
-            or common engineering lookup values.
-          </p>
-          <a class="tool-link" href="/reference-charts.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'reference_charts'});">
-            Open Reference Charts →
-          </a>
-        </article>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="bottom-cta">
+    <div class="workflow-list">
+      <div class="workflow-row">
+        <div class="step-number">1</div>
         <div>
-          <h2>Build the mechanical system before chasing controls problems.</h2>
+          <h3>Define loads, reactions, and moments</h3>
           <p>
-            Start with load, stiffness, stress, and section shape. Then validate shafts, bearings, plates,
-            frames, bolts, welds, motion sizing, torque, and speed. A stable mechanical design makes
-            automation troubleshooting faster and cleaner.
+            Identify the real load, span, support condition, force direction, load position, impact, acceleration, and whether the load is static, cyclic, or shock-loaded.
+          </p>
+        </div>
+        <a class="workflow-link" href="/beam-load-calculator.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'define_load','target':'beam_load'});">Beam Load →</a>
+      </div>
+
+      <div class="workflow-row">
+        <div class="step-number">2</div>
+        <div>
+          <h3>Check section shape, deflection, and stress</h3>
+          <p>
+            A part can be strong enough and still be too flexible. Compare section modulus, moment of inertia, deflection, and bending stress before guessing at material size.
+          </p>
+        </div>
+        <a class="workflow-link" href="/section-modulus-calculator.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'section_properties','target':'section_modulus'});">Section Modulus →</a>
+      </div>
+
+      <div class="workflow-row">
+        <div class="step-number">3</div>
+        <div>
+          <h3>Check frames, plates, columns, and gussets</h3>
+          <p>
+            Machine frames fail by more than simple beam bending. Check plate flex, post buckling, bracket stiffness, gusset effectiveness, and overall frame rigidity.
+          </p>
+        </div>
+        <a class="workflow-link" href="/frame-rigidity-estimator.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'frame_rigidity','target':'frame_rigidity'});">Frame Rigidity →</a>
+      </div>
+
+      <div class="workflow-row">
+        <div class="step-number">4</div>
+        <div>
+          <h3>Validate shafts and rotating supports</h3>
+          <p>
+            Shafts and rollers need stiffness, bearing support, critical speed margin, and load control. Do not blame bearings until shaft deflection and overhung loads are checked.
+          </p>
+        </div>
+        <a class="workflow-link" href="/shaft-deflection-calculator.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'shaft_deflection','target':'shaft_deflection'});">Shaft Deflection →</a>
+      </div>
+
+      <div class="workflow-row">
+        <div class="step-number">5</div>
+        <div>
+          <h3>Check bolts, welds, and joints</h3>
+          <p>
+            A stiff member does not help if the joint slips, separates, cracks, or transfers load poorly. Check clamp load, bolt shear, joint separation, weld size, and weld group load path.
+          </p>
+        </div>
+        <a class="workflow-link" href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'joints','target':'bolt_joint'});">Bolt Joint Check →</a>
+      </div>
+
+      <div class="workflow-row">
+        <div class="step-number">6</div>
+        <div>
+          <h3>Validate motion, torque, speed, and bearings</h3>
+          <p>
+            Once the structure is reasonable, check the drive system. Conveyor speed, gear ratio, gearbox torque, servo torque, motor sizing, and bearing life all depend on the mechanical load.
+          </p>
+        </div>
+        <a class="workflow-link" href="/motors-motion.html" onclick="gtag('event','workflow_click',{'page':'machine_design','step':'motion','target':'motors_motion'});">Motors &amp; Motion →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Most Common Machine Design Problems in Real Automation Builds</h2>
+    <p class="section-intro">
+      Mechanical problems usually show up as movement, flex, cracked welds, loose fasteners, bearing failures, bad repeatability, vibration, or motion systems that seem undersized. The fastest way to troubleshoot is to separate load path, stiffness, stress, joints, rotating components, and motion hardware.
+    </p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Fixture or Bracket Moves Under Load</h3>
+        <p>
+          If a fixture, stop, sensor mount, camera mount, or bracket moves during the cycle, the issue is usually stiffness, section shape, unsupported span, gusseting, or a joint that is slipping.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/beam-deflection-calculator.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'beam_deflection'});">Check Deflection</a>
+          <a class="pill-link" href="/gusset-plate-bracket-calculator.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'gusset_bracket'});">Check Gusset</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Frame Looks Strong But Still Flexes</h3>
+        <p>
+          A frame can have enough material strength and still be too flexible for automation accuracy. Long spans, open frames, weak crossmembers, poor support locations, or poor load paths can cause motion and repeatability issues.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/frame-rigidity-estimator.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'frame_rigidity'});">Check Frame Rigidity</a>
+          <a class="pill-link" href="/section-modulus-calculator.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'section_modulus'});">Check Section</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Welds Crack or Brackets Tear Away</h3>
+        <p>
+          Weld cracking is often a load-path issue, not just a weld-size issue. Check the parent material, gusseting, weld length, weld throat, bracket stiffness, cyclic load, and whether the weld is carrying bending instead of shear.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/weld-size-calculator.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'weld_size'});">Check Weld Size</a>
+          <a class="pill-link" href="/gusset-plate-bracket-calculator.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'gusset_bracket'});">Check Bracket Stiffness</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Bolts Loosen or Joints Slip</h3>
+        <p>
+          If a bolted joint moves, the problem may be low clamp load, joint separation, shear load, poor friction surface, wrong tightening method, soft mounting plates, or vibration.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'bolt_joint'});">Bolt Joint Check</a>
+          <a class="pill-link" href="/torque-clamp-load.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'torque_clamp_load'});">Clamp Load</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Bearing Fails Repeatedly</h3>
+        <p>
+          Replacing bearings without checking shaft deflection, alignment, overhung load, speed, contamination, lubrication, and mounting conditions usually leads to another failure.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/shaft-deflection-calculator.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'shaft_deflection'});">Check Shaft Deflection</a>
+          <a class="pill-link" href="/bearing-life-calculator.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'bearing_life'});">Check Bearing Life</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Motor or Servo Gets Blamed for Mechanical Load</h3>
+        <p>
+          Drives and motors often get blamed when the real issue is binding, excessive friction, weak shafts, bad gear ratio, poor bearing support, frame movement, or load assumptions that were never checked.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/motors-motion.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'motors_motion'});">Motors &amp; Motion</a>
+          <a class="pill-link" href="/gearbox-torque.html" onclick="gtag('event','machine_design_authority_link',{'section':'common_problems','target':'gearbox_torque'});">Gearbox Torque</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>What People Commonly Misdiagnose in Machine Design</h2>
+    <p class="section-intro">
+      Mechanical problems often get misdiagnosed because the visible symptom appears somewhere else — a PLC fault, servo trip, robot miss, camera reject, bearing failure, or operator adjustment issue.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Assuming Strength Means Stiffness</h3>
+        <p>
+          A part can be strong enough to avoid breaking but still too flexible for the machine to repeat accurately. Deflection checks matter for sensors, tooling, robots, cameras, nests, and precision stops.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Replacing Components Without Checking the Load Path</h3>
+        <p>
+          Replacing the same bearing, bolt, weld, bracket, or motor over and over usually means the root load path was never fixed. The failure point is often only the weakest visible part.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Blaming Controls for Mechanical Movement</h3>
+        <p>
+          A PLC, robot, or servo can only control what the mechanics allow. Frame flex, bracket deflection, backlash, slip, and loose joints can look like control problems.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Ignoring Joint and Mounting Stiffness</h3>
+        <p>
+          A stiff beam or plate does not help if the bolted joint slips, the base plate deflects, the weld cracks, or the mounting face is not rigid.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Checking Static Loads Only</h3>
+        <p>
+          Automation equipment sees acceleration, impact, vibration, repeated cycles, shock loads, and production abuse. Static calculations are only the first pass.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Oversizing Instead of Solving Geometry</h3>
+        <p>
+          More material is not always the cleanest fix. A better support location, shorter span, different section shape, gusset, triangulation, or joint design can be more effective.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Structural Load, Deflection, and Stress Tools</h2>
+    <p class="section-intro">
+      Use these first when sizing beams, rails, brackets, plates, frames, crossmembers, and structural machine details. These tools build the load path from reaction force to section shape to stress and deflection.
+    </p>
+
+    <div class="tool-grid">
+      <article class="tool-card">
+        <div class="label structural">Structural</div>
+        <h3>Beam Load &amp; Reaction Calculator</h3>
+        <p>
+          Calculate support reactions, total load, maximum shear, and maximum bending moment for common beam load cases.
+        </p>
+        <a class="tool-link" href="/beam-load-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'beam_load'});">Open Beam Load →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label structural">Structural</div>
+        <h3>Section Modulus &amp; Moment of Inertia</h3>
+        <p>
+          Calculate area, moment of inertia, outer fiber distance, section modulus, and radius of gyration for common machine-design shapes.
+        </p>
+        <a class="tool-link" href="/section-modulus-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'section_modulus'});">Open Section Modulus →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label structural">Structural</div>
+        <h3>Beam Deflection Calculator</h3>
+        <p>
+          Estimate beam deflection for mechanical frames, rails, tooling supports, brackets, machine bases, and automation structures.
+        </p>
+        <a class="tool-link" href="/beam-deflection-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'beam_deflection'});">Open Beam Deflection →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label structural">Structural</div>
+        <h3>Bending Stress Calculator</h3>
+        <p>
+          Estimate bending stress and safety factor for beams, rails, brackets, plates, frames, and other loaded members.
+        </p>
+        <a class="tool-link" href="/bending-stress-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'bending_stress'});">Open Bending Stress →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label structural">Structural</div>
+        <h3>Frame Rigidity Estimator</h3>
+        <p>
+          Estimate machine frame rigidity, member deflection, support stiffness, bending stress, and practical rigidity risk.
+        </p>
+        <a class="tool-link" href="/frame-rigidity-estimator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'frame_rigidity'});">Open Frame Rigidity →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label structural">Structural</div>
+        <h3>Plate Deflection Calculator</h3>
+        <p>
+          Estimate plate deflection, stiffness, bending stress, and support risk for tooling plates, adapter plates, nest plates, and machine base plates.
+        </p>
+        <a class="tool-link" href="/plate-deflection-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'plate_deflection'});">Open Plate Deflection →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label structural">Structural</div>
+        <h3>Column Buckling Calculator</h3>
+        <p>
+          Estimate Euler buckling load, compression stress, slenderness ratio, and safety factor for posts, legs, supports, and compression members.
+        </p>
+        <a class="tool-link" href="/column-buckling-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'column_buckling'});">Open Column Buckling →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label structural">Structural</div>
+        <h3>Gusset Plate &amp; Bracket Stiffness</h3>
+        <p>
+          Estimate bracket deflection before and after gusset reinforcement for tabs, arms, sensor mounts, guard supports, and welded machine frames.
+        </p>
+        <a class="tool-link" href="/gusset-plate-bracket-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'gusset_bracket'});">Open Gusset Calculator →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label welding">Welding</div>
+        <h3>Weld Size Calculator</h3>
+        <p>
+          Estimate fillet weld throat area, weld stress, allowable load, and safety factor for welded brackets, gussets, tabs, frames, and plates.
+        </p>
+        <a class="tool-link" href="/weld-size-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'weld_size'});">Open Weld Size →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Shaft, Bearing, and Rotating Component Tools</h2>
+    <p class="section-intro">
+      Use these when the mechanical design involves rollers, drive shafts, pulleys, sprockets, bearings, conveyors, rotating supports, overhung loads, or shaft speed.
+    </p>
+
+    <div class="tool-grid">
+      <article class="tool-card">
+        <div class="label shaft">Shafts</div>
+        <h3>Shaft Deflection Calculator</h3>
+        <p>
+          Estimate shaft deflection, bending moment, support reactions, and bending stress for rollers, drive shafts, conveyor shafts, and overhung loads.
+        </p>
+        <a class="tool-link" href="/shaft-deflection-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'shaft_deflection'});">Open Shaft Deflection →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label shaft">Shafts</div>
+        <h3>Shaft Critical Speed Calculator</h3>
+        <p>
+          Estimate first critical speed and operating RPM margin for rotating shafts, rollers, pulleys, sprockets, and long unsupported drive components.
+        </p>
+        <a class="tool-link" href="/shaft-critical-speed-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'shaft_critical_speed'});">Open Critical Speed →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label motion">Bearing</div>
+        <h3>Bearing Life Calculator</h3>
+        <p>
+          Estimate bearing life from load, speed, and rating values. Useful for conveyors, shafts, rollers, gearboxes, and rotating machine components.
+        </p>
+        <a class="tool-link" href="/bearing-life-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'bearing_life'});">Open Bearing Life →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Fastening, Joint, and Connection Tools</h2>
+    <p class="section-intro">
+      Use these when the design depends on bolts, clamp load, tightening sequence, joint separation, weld transfer, bracket mounting, or plate movement.
+    </p>
+
+    <div class="tool-grid">
+      <article class="tool-card">
+        <div class="label fastening">Fastening</div>
+        <h3>Bolt Shear &amp; Joint Separation</h3>
+        <p>
+          Estimate bolt shear stress, shear safety factor, clamp load margin, friction slip capacity, and joint separation risk.
+        </p>
+        <a class="tool-link" href="/bolt-shear-joint-separation-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'bolt_shear_joint_separation'});">Open Bolt Joint Check →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label fastening">Fastening</div>
+        <h3>Torque to Clamp Load</h3>
+        <p>
+          Convert tightening torque into estimated clamp load for bolted joints, fixture plates, brackets, machine bases, and structural connections.
+        </p>
+        <a class="tool-link" href="/torque-clamp-load.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'torque_clamp_load'});">Open Clamp Load →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label fastening">Fastening</div>
+        <h3>Bolt Tightening Torque</h3>
+        <p>
+          Estimate practical bolt tightening torque using diameter, thread, grade, and friction assumptions for industrial machine assemblies.
+        </p>
+        <a class="tool-link" href="/bolt-tightening-torque.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'bolt_tightening_torque'});">Open Bolt Torque →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label fastening">Fastening</div>
+        <h3>Bolt Torque Chart</h3>
+        <p>
+          Reference common bolt torque values when setting up maintenance standards, assembly instructions, and machine build documentation.
+        </p>
+        <a class="tool-link" href="/bolt-torque-chart.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'bolt_torque_chart'});">Open Bolt Torque Chart →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label fastening">Fastening</div>
+        <h3>Multi-Stage Torque Sequence</h3>
+        <p>
+          Plan staged tightening patterns for plates, tooling, machine bases, guards, and bolted assemblies where even clamp load matters.
+        </p>
+        <a class="tool-link" href="/multi-stage-torque-sequence.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'multi_stage_torque_sequence'});">Open Torque Sequence →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label welding">Welding</div>
+        <h3>Weld Size Calculator</h3>
+        <p>
+          Check whether fillet weld size and weld length are enough to transfer bracket, gusset, frame, and plate loads.
+        </p>
+        <a class="tool-link" href="/weld-size-calculator.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'weld_size_fastening_section'});">Open Weld Size →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Motion, Torque, Conveyor, and Reference Tools</h2>
+    <p class="section-intro">
+      Use these when the mechanical design connects to drive sizing, conveyor speed, torque transfer, servo demand, gearbox ratio, reference values, or machine build documentation.
+    </p>
+
+    <div class="tool-grid">
+      <article class="tool-card">
+        <div class="label motion">Motion</div>
+        <h3>Conveyor Motor Sizing</h3>
+        <p>
+          Estimate motor requirements for conveyor loads, belt speed, friction, incline, and basic industrial transport applications.
+        </p>
+        <a class="tool-link" href="/motor.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'conveyor_motor_sizing'});">Open Motor Sizing →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label motion">Motion</div>
+        <h3>Conveyor Speed Calculator</h3>
+        <p>
+          Convert pulley diameter, RPM, line speed, and conveyor motion values when checking cycle time, throughput, or drive changes.
+        </p>
+        <a class="tool-link" href="/conveyor-speed.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'conveyor_speed'});">Open Conveyor Speed →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label motion">Motion</div>
+        <h3>Servo Torque Calculator</h3>
+        <p>
+          Estimate torque requirements for servo-driven systems before tuning, selecting a gearbox, or changing acceleration.
+        </p>
+        <a class="tool-link" href="/servo-torque.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'servo_torque'});">Open Servo Torque →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label motion">Motion</div>
+        <h3>Gear Ratio Calculator</h3>
+        <p>
+          Calculate speed reduction, torque multiplication, output RPM, and mechanical advantage for gear-driven automation systems.
+        </p>
+        <a class="tool-link" href="/gear-ratio.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'gear_ratio'});">Open Gear Ratio →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label motion">Motion</div>
+        <h3>Gearbox Torque Calculator</h3>
+        <p>
+          Estimate gearbox output torque and compare it against the mechanical load before selecting or replacing a gearbox.
+        </p>
+        <a class="tool-link" href="/gearbox-torque.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'gearbox_torque'});">Open Gearbox Torque →</a>
+      </article>
+
+      <article class="tool-card">
+        <div class="label reference">Reference</div>
+        <h3>Reference Charts Hub</h3>
+        <p>
+          Jump to engineering reference charts for wire, taps, torque, symbols, and common field values used during machine design and troubleshooting.
+        </p>
+        <a class="tool-link" href="/reference-charts.html" onclick="gtag('event','tool_open',{'page':'machine_design','tool':'reference_charts'});">Open Reference Charts →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="decision-block">
+      <h2>Which Machine Design Check Should You Run First?</h2>
+      <p class="section-intro">
+        Do not start by changing motors, speeds, controls settings, or component brands if the mechanical system is not stiff, supported, fastened, or welded correctly. Use the symptom to pick the first calculation.
+      </p>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Part moves, flexes, or loses alignment</h3>
+          <p>
+            Start with Beam Load, then use Beam Deflection, Section Modulus, or Frame Rigidity.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/beam-load-calculator.html">Beam Load</a>
+            <a class="pill-link" href="/beam-deflection-calculator.html">Beam Deflection</a>
+            <a class="pill-link" href="/frame-rigidity-estimator.html">Frame Rigidity</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Plate, nest, or fixture shifts</h3>
+          <p>
+            Start with Plate Deflection, then check Bolt Shear &amp; Joint Separation and Clamp Load.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/plate-deflection-calculator.html">Plate Deflection</a>
+            <a class="pill-link" href="/bolt-shear-joint-separation-calculator.html">Bolt Joint</a>
+            <a class="pill-link" href="/torque-clamp-load.html">Clamp Load</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Bracket, tab, or arm vibrates</h3>
+          <p>
+            Start with Gusset Plate &amp; Bracket Stiffness, then check Weld Size and Frame Rigidity.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/gusset-plate-bracket-calculator.html">Gusset Calculator</a>
+            <a class="pill-link" href="/weld-size-calculator.html">Weld Size</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Post, leg, or upright looks weak</h3>
+          <p>
+            Start with Column Buckling, then check Frame Rigidity and Plate Deflection.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/column-buckling-calculator.html">Column Buckling</a>
+            <a class="pill-link" href="/frame-rigidity-estimator.html">Frame Rigidity</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Bearing fails repeatedly</h3>
+          <p>
+            Start with Shaft Deflection, then check Shaft Critical Speed and Bearing Life.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/shaft-deflection-calculator.html">Shaft Deflection</a>
+            <a class="pill-link" href="/shaft-critical-speed-calculator.html">Critical Speed</a>
+            <a class="pill-link" href="/bearing-life-calculator.html">Bearing Life</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Bolts loosen or welds crack</h3>
+          <p>
+            Start with Bolt Shear &amp; Joint Separation or Weld Size, then check the bracket, plate, and frame behind it.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/bolt-shear-joint-separation-calculator.html">Bolt Joint</a>
+            <a class="pill-link" href="/weld-size-calculator.html">Weld Size</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="feature-band">
+    <div class="section">
+      <h2>Machine Design Notes for Automation Engineers</h2>
+      <p class="section-intro">
+        In automation, the mechanical design and controls design are tied together. A PLC, servo, robot, or vision system may get blamed for a problem that actually comes from weak brackets, poor bearing support, loose joints, a flexible frame, a cracked weld, a deflecting plate, or a drive system that was never sized for the real load.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <h3>Stiffness affects sensors and vision</h3>
+          <p>
+            Camera mounts, proximity sensors, laser sensors, and inspection tooling can all drift if the structure deflects under load or vibration.
           </p>
         </div>
 
-        <a class="btn btn-primary" href="/beam-load-calculator.html" onclick="gtag('event','bottom_cta_click',{'page':'machine_design','target':'beam_load'});">
-          Start Calculating
-        </a>
-      </div>
-    </section>
+        <div class="feature-item">
+          <h3>Deflection affects robot repeatability</h3>
+          <p>
+            A robot can repeat accurately while the fixture, nest, rail, bracket, plate, or EOAT bends. The robot may not be the problem.
+          </p>
+        </div>
 
-  </main>
+        <div class="feature-item">
+          <h3>Torque problems are not always motor problems</h3>
+          <p>
+            Binding, poor gear ratio, excessive friction, poor shaft support, or bad load assumptions can make a properly sized motor look undersized.
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Bearing failures usually have a reason</h3>
+          <p>
+            Replacing the same bearing repeatedly without checking shaft deflection, overhung load, alignment, and environment is expensive guessing.
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Bolted and welded joints need a load path</h3>
+          <p>
+            Clamp load, bolt shear, joint separation, weld throat area, plate stiffness, and parent material all work together.
+          </p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Reference charts support the build</h3>
+          <p>
+            Tap drills, bolt torque, wire gauge, symbols, and standard values help keep machine design, build, and maintenance documentation consistent.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Related Engineering Areas</h2>
+    <p class="section-intro">
+      Machine design overlaps with motion, pneumatics, fastening, welding, robotics, and electrical controls. Use these hubs when the mechanical check leads into another design area.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Motors &amp; Motion</h3>
+        <p>
+          Use this when the machine design problem involves speed, torque, inertia, gearbox ratio, conveyor motion, or servo selection.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/motors-motion.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'motors_motion'});">Open Motors &amp; Motion Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Fastening</h3>
+        <p>
+          Use this when the problem involves bolts, clamp load, tightening sequence, joint movement, brackets, plates, or fixture hardware.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/fastening.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'fastening'});">Open Fastening Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Welding</h3>
+        <p>
+          Use this when machine frames, brackets, fixtures, gussets, cooling circuits, or welded supports are part of the mechanical load path.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/welding.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'welding'});">Open Welding Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Pneumatics</h3>
+        <p>
+          Use this when the mechanical load is moved by cylinders, grippers, slides, actuators, air prep, valves, or compressed-air systems.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/pneumatics.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'pneumatics'});">Open Pneumatics Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Robotics</h3>
+        <p>
+          Use this when the mechanical design affects robot reach, payload, EOAT weight, fixture position, cycle time, or workcell layout.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/robotics.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'robotics'});">Open Robotics Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Reference Charts</h3>
+        <p>
+          Use this when the design needs tap drill values, bolt torque references, wire gauge, symbols, or common engineering lookup values.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/reference-charts.html" onclick="gtag('event','related_hub_click',{'page':'machine_design','target':'reference_charts'});">Open Reference Charts</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-section">
+      <h2>Build the mechanical system before chasing controls problems.</h2>
+      <p>
+        Start with load, stiffness, stress, and section shape. Then validate shafts, bearings, plates, frames, bolts, welds, motion sizing, torque, and speed. A stable mechanical design makes automation troubleshooting faster and cleaner.
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="/beam-load-calculator.html" onclick="gtag('event','bottom_cta_click',{'page':'machine_design','target':'beam_load'});">Start Calculating</a>
+        <a class="btn btn-secondary" href="/automation-help.html" onclick="gtag('event','bottom_cta_click',{'page':'machine_design','target':'automation_help'});">Get Help With My Design</a>
+      </div>
+    </div>
+  </section>
 
   <footer>
     Automation Engineering Tools • Practical calculators for real automation work
