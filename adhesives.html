@@ -6,8 +6,9 @@
   <meta name="robots" content="index, follow">
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Adhesive Application Tools | Setup, Parameters, Usage, Timing & Troubleshooting</title>
-  <meta name="description" content="Adhesive application tools and guides for automation engineers. Explore hot melt system setup, Nordson parameter explanations, adhesive usage, pattern timing, and troubleshooting resources.">
+  <meta name="description" content="Adhesive application tools and guides for automation engineers. Explore hot melt system setup, Nordson parameter explanations, adhesive usage, pattern timing, troubleshooting, and real production support workflows.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -75,6 +76,18 @@
       align-items:center;
     }
 
+    .eyebrow{
+      display:inline-block;
+      margin-bottom:14px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.14);
+      border:1px solid rgba(255,255,255,0.25);
+      color:#fff;
+      font-weight:700;
+      font-size:0.9rem;
+    }
+
     .hero h1{
       margin:0 0 16px;
       font-size:2.45rem;
@@ -84,7 +97,7 @@
 
     .hero p{
       margin:0 0 14px;
-      max-width:760px;
+      max-width:780px;
       color:rgba(255,255,255,0.95);
       font-size:1.05rem;
     }
@@ -175,7 +188,7 @@
     .section-intro{
       margin:0 0 24px;
       color:var(--muted);
-      max-width:860px;
+      max-width:920px;
       font-size:1.02rem;
     }
 
@@ -188,6 +201,7 @@
       box-shadow:var(--shadow);
     }
 
+    .grid-4,
     .grid-3,
     .grid-2,
     .tool-grid,
@@ -196,10 +210,11 @@
       gap:18px;
     }
 
+    .grid-4{grid-template-columns:repeat(4,1fr);}
     .grid-3{grid-template-columns:repeat(3,1fr);}
     .grid-2{grid-template-columns:repeat(2,1fr);}
     .tool-grid{grid-template-columns:repeat(3,1fr);}
-    .feature-list{grid-template-columns:repeat(4,1fr);}
+    .feature-list{grid-template-columns:repeat(3,1fr);}
 
     .card,
     .tool-card,
@@ -222,6 +237,8 @@
     .tool-card{
       padding:22px;
       height:100%;
+      display:flex;
+      flex-direction:column;
     }
 
     .card h3,
@@ -239,6 +256,16 @@
     .cta-section p{
       margin:0 0 12px;
       color:var(--muted);
+    }
+
+    .card ul{
+      margin:8px 0 0;
+      padding-left:20px;
+      color:var(--muted);
+    }
+
+    .card li{
+      margin-bottom:8px;
     }
 
     .card-links{
@@ -293,8 +320,53 @@
       font-weight:700;
     }
 
+    .workflow-list{
+      display:grid;
+      gap:14px;
+    }
+
+    .workflow-row{
+      display:grid;
+      grid-template-columns:56px minmax(0,1fr) minmax(180px,auto);
+      gap:16px;
+      align-items:center;
+      padding:18px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      background:#fff;
+      box-shadow:0 4px 14px rgba(15,35,60,0.04);
+    }
+
+    .step-number{
+      width:42px;
+      height:42px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:14px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:800;
+    }
+
+    .workflow-row h3{
+      margin:0 0 5px;
+      color:var(--text);
+    }
+
+    .workflow-row p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .workflow-link{
+      font-weight:800;
+      white-space:nowrap;
+    }
+
     .tool-card .label{
       display:inline-block;
+      align-self:flex-start;
       margin-bottom:10px;
       padding:6px 10px;
       border-radius:999px;
@@ -306,8 +378,20 @@
 
     .tool-card .tool-link{
       display:inline-block;
-      margin-top:10px;
+      margin-top:auto;
       font-weight:700;
+    }
+
+    .decision-block{
+      background:#eff6ff;
+      border:1px solid #bfdbfe;
+      border-radius:18px;
+      padding:24px;
+      box-shadow:var(--shadow);
+    }
+
+    .decision-block h2{
+      margin-top:0;
     }
 
     .feature-band{
@@ -347,6 +431,7 @@
 
     @media (max-width: 980px){
       .hero-inner,
+      .grid-4,
       .grid-3,
       .grid-2,
       .tool-grid,
@@ -356,6 +441,14 @@
 
       .hero h1{
         font-size:2.1rem;
+      }
+
+      .workflow-row{
+        grid-template-columns:56px minmax(0,1fr);
+      }
+
+      .workflow-link{
+        grid-column:2;
       }
     }
 
@@ -380,7 +473,8 @@
       .tool-card,
       .workflow,
       .feature-item,
-      .cta-section{
+      .cta-section,
+      .decision-block{
         padding:18px;
       }
 
@@ -393,21 +487,32 @@
       .cta-actions .btn{
         width:100%;
       }
+
+      .workflow-row{
+        grid-template-columns:1fr;
+      }
+
+      .workflow-link{
+        grid-column:auto;
+        white-space:normal;
+      }
     }
   </style>
 </head>
+
 <body>
   <div id="navbar"></div>
 
   <section class="hero">
     <div class="hero-inner">
       <div>
+        <div class="eyebrow">Adhesive Application &amp; Dispensing</div>
         <h1>Adhesive Application Tools for Setup, Timing, Usage, and Troubleshooting</h1>
         <p>
           Use this section to understand industrial hot melt adhesive systems, explain common parameters, estimate adhesive use, check timing logic, and troubleshoot real application problems.
         </p>
         <p>
-          This is built for practical automation work — setup, bring-up, line changes, and real production troubleshooting.
+          This is built for practical automation work — setup, bring-up, line changes, bead placement, material usage, and real production troubleshooting.
         </p>
 
         <div class="trust-line">
@@ -416,6 +521,7 @@
 
         <div class="hero-actions">
           <a class="btn btn-primary" href="#start-here" onclick="gtag('event','adhesives_cta',{'location':'hero','action':'start_here'});">Start Here</a>
+          <a class="btn btn-secondary" href="#tools" onclick="gtag('event','adhesives_cta',{'location':'hero','action':'view_tools'});">View Adhesive Tools</a>
           <a class="btn btn-secondary" href="/automation-help.html" onclick="gtag('event','adhesives_cta',{'location':'hero','action':'automation_help'});">Get Help With an Application</a>
         </div>
       </div>
@@ -426,8 +532,8 @@
           <li>New adhesive system bring-up</li>
           <li>Understanding Nordson-style parameters in plain language</li>
           <li>Estimating adhesive output and usage</li>
-          <li>Checking timing versus line speed</li>
-          <li>Troubleshooting poor cutoff, stringing, or inconsistent dispense</li>
+          <li>Checking pattern timing versus line speed</li>
+          <li>Troubleshooting poor cutoff, stringing, weak bond, or inconsistent dispense</li>
         </ul>
       </div>
     </div>
@@ -435,7 +541,7 @@
 
   <section class="section">
     <div class="note-box">
-      <strong>Best way to use this section:</strong> start with setup if you need system-level context, go to parameter explanations if the equipment settings are confusing, then move into usage, timing, and troubleshooting based on the real problem in front of you.
+      <strong>Best way to use this section:</strong> start with setup if you need system-level context, go to parameter explanations if the equipment settings are confusing, then move into usage, timing, and troubleshooting based on the real problem in front of you. Do not change temperature, pressure, or timing blindly before checking nozzle condition, adhesive condition, line speed, trigger reference, and machine stabilization.
     </div>
   </section>
 
@@ -445,14 +551,15 @@
       Use the path that matches the situation instead of guessing which adhesive page fits.
     </p>
 
-    <div class="grid-3">
+    <div class="grid-4">
       <div class="card">
         <h3>I’m setting up or bringing up an adhesive system</h3>
         <p>
-          Start with the full system overview first so the interaction between temperatures, pressure, timing, hardware, and line speed makes sense.
+          Start with the full system overview first so the interaction between temperatures, pressure, timing, hardware, adhesive condition, and line speed makes sense.
         </p>
         <div class="card-links">
           <a class="pill-link" href="/adhesive-system-setup.html" onclick="gtag('event','adhesives_start_path',{'path':'setup','target':'adhesive_system_setup'});">Adhesive System Setup Guide</a>
+          <a class="pill-link" href="/nordson-parameters-explained.html" onclick="gtag('event','adhesives_start_path',{'path':'setup','target':'nordson_parameters'});">Parameter Guide</a>
         </div>
       </div>
 
@@ -473,6 +580,17 @@
         </p>
         <div class="card-links">
           <a class="pill-link" href="/hot-melt-troubleshooting.html" onclick="gtag('event','adhesives_start_path',{'path':'troubleshooting','target':'hot_melt_troubleshooting'});">Hot Melt Troubleshooting</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>I need usage, output, or timing direction</h3>
+        <p>
+          Use these calculators when the question is material usage, bead size, line speed, trigger delay, gun on-time, or pattern placement.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/adhesive-usage-calculator.html" onclick="gtag('event','adhesives_start_path',{'path':'usage_timing','target':'adhesive_usage'});">Usage Calculator</a>
+          <a class="pill-link" href="/pattern-timing-calculator.html" onclick="gtag('event','adhesives_start_path',{'path':'usage_timing','target':'pattern_timing'});">Pattern Timing</a>
         </div>
       </div>
     </div>
@@ -516,6 +634,132 @@
   </section>
 
   <section class="section">
+    <h2>Most Common Adhesive Application Problems in Production</h2>
+    <p class="section-intro">
+      Adhesive issues usually show up as missing beads, stringing, tailing, poor cutoff, weak bond, bad placement, inconsistent bead size, nozzle clogging, adhesive charring, or usage that does not match expectations. The fastest path is to separate temperature, pressure, timing, nozzle condition, adhesive condition, product condition, and line speed.
+    </p>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Missing, Skipped, or Short Beads</h3>
+        <p>
+          Missing beads can come from trigger timing, gun delay, clogged nozzles, low pressure, blocked filters, low tank level, solenoid response, encoder scaling, or line-speed changes.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/hot-melt-troubleshooting.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'hot_melt_troubleshooting'});">Troubleshooting</a>
+          <a class="pill-link" href="/pattern-timing-calculator.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'pattern_timing'});">Check Timing</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Stringing, Tailing, or Dripping</h3>
+        <p>
+          Stringing and dripping can point to temperature, viscosity, nozzle condition, gun shutoff, adhesive type, pressure, gun-to-part distance, or timing that keeps the gun on too long.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/hot-melt-troubleshooting.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'hot_melt_troubleshooting_stringing'});">Troubleshooting</a>
+          <a class="pill-link" href="/nordson-parameters-explained.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'nordson_parameters'});">Parameter Guide</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Poor Bond or Weak Adhesion</h3>
+        <p>
+          Weak adhesion can come from incorrect temperature, contaminated substrate, open time, compression timing, bead size, product temperature, adhesive age, or not enough adhesive volume.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/adhesive-usage-calculator.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'adhesive_usage'});">Check Usage</a>
+          <a class="pill-link" href="/hot-melt-troubleshooting.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'hot_melt_troubleshooting'});">Troubleshoot Bond</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Bead Placement Is Late, Early, or Offset</h3>
+        <p>
+          Placement problems often come from trigger position, encoder scaling, line speed, product spacing, gun response delay, sensor timing, or a reference point that is not understood clearly.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/pattern-timing-calculator.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'pattern_timing'});">Pattern Timing</a>
+          <a class="pill-link" href="/plc-electrical.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'plc_electrical'});">PLC / Electrical</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Nozzles Clog or Adhesive Chars</h3>
+        <p>
+          Clogging and charring can come from excessive temperature, long dwell time, old adhesive, dirty tanks, contamination, blocked filters, poor maintenance, or adhesive sitting hot too long.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/nordson-parameters-explained.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'nordson_parameters'});">Review Temperatures</a>
+          <a class="pill-link" href="/adhesive-system-setup.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'adhesive_system_setup'});">Setup Guide</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Adhesive Usage Is Higher Than Expected</h3>
+        <p>
+          High usage can come from oversized bead, excessive pressure, long on-time, wrong nozzle, poor pattern control, line-speed changes, rework, or unnecessary continuous application.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/adhesive-usage-calculator.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'adhesive_usage'});">Estimate Usage</a>
+          <a class="pill-link" href="/pattern-timing-calculator.html" onclick="gtag('event','adhesives_authority_link',{'section':'common_problems','target':'pattern_timing'});">Review Timing</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>What People Commonly Misdiagnose in Adhesive Systems</h2>
+    <p class="section-intro">
+      Adhesive problems get misdiagnosed when every issue is treated like a temperature problem. Temperature matters, but so do pressure, timing, nozzle condition, adhesive age, line speed, product condition, and machine stabilization.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>Changing Temperature Before Checking Timing</h3>
+        <p>
+          Bead placement, bead length, and bead start/stop problems are often timing or trigger-reference problems, not adhesive temperature problems.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Ignoring Machine Warm-Up and Stabilization</h3>
+        <p>
+          Hot melt systems need time to stabilize. Judging bead quality too early can lead to unnecessary setting changes and inconsistent startup behavior.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Assuming Pressure Fixes Every Weak Bead</h3>
+        <p>
+          Higher pressure can increase flow, but it can also create stringing, waste, poor cutoff, and inconsistent bead placement if the real issue is nozzle or timing related.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Overlooking Nozzle and Filter Condition</h3>
+        <p>
+          A partially clogged nozzle, dirty filter, worn gun, or sluggish solenoid can make the system look like it has a parameter problem.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Forgetting About Adhesive Age and Contamination</h3>
+        <p>
+          Adhesive that has been overheated, contaminated, mixed incorrectly, or left in the tank too long can behave differently even when machine settings are unchanged.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Not Comparing Bead Assumptions to Real Production</h3>
+        <p>
+          Usage estimates depend on bead size, bead length, line speed, and cycle rate. If one assumption is wrong, material planning and cost estimates will be wrong too.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="tools">
     <h2>Adhesive Tools and Guides</h2>
     <p class="section-intro">
       These are the current pages in the adhesive section. Together, they cover system understanding, parameter explanation, output estimation, timing, and troubleshooting.
@@ -553,7 +797,7 @@
         <div class="label">Calculator</div>
         <h3>Pattern Timing Calculator</h3>
         <p>
-          Check adhesive timing relative to line speed and part travel to help with placement, pattern length, and edge control.
+          Check adhesive timing relative to line speed and part travel to help with placement, pattern length, trigger delay, and edge control.
         </p>
         <a class="tool-link" href="/pattern-timing-calculator.html" onclick="gtag('event','adhesive_tool_open',{'tool':'pattern_timing_calculator'});">Open calculator →</a>
       </div>
@@ -562,7 +806,7 @@
         <div class="label">Troubleshooter</div>
         <h3>Hot Melt Troubleshooting</h3>
         <p>
-          Work through common hot melt problems such as stringing, poor cutoff, inconsistent beads, bad placement, or unstable application.
+          Work through common hot melt problems such as stringing, poor cutoff, inconsistent beads, bad placement, weak bond, or unstable application.
         </p>
         <a class="tool-link" href="/hot-melt-troubleshooting.html" onclick="gtag('event','adhesive_tool_open',{'tool':'hot_melt_troubleshooting'});">Open troubleshooting page →</a>
       </div>
@@ -578,6 +822,61 @@
     </div>
   </section>
 
+  <section class="section">
+    <div class="decision-block">
+      <h2>Adhesive Troubleshooting Decision Checks</h2>
+      <p class="section-intro">
+        Use these checks when you need to decide whether the next step is setup review, parameter review, timing calculation, usage estimate, or symptom-based troubleshooting.
+      </p>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>If the bead is missing or misplaced</h3>
+          <p>
+            Check trigger reference, line speed, gun delay, encoder scaling, nozzle condition, product spacing, and whether the gun is firing at the expected point.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/pattern-timing-calculator.html">Pattern Timing</a>
+            <a class="pill-link" href="/hot-melt-troubleshooting.html">Troubleshooting Tool</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>If the adhesive is stringing or dripping</h3>
+          <p>
+            Check temperature, pressure, nozzle cutoff, adhesive type, gun condition, gun-to-part distance, and whether the system is stabilized.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/nordson-parameters-explained.html">Parameter Guide</a>
+            <a class="pill-link" href="/hot-melt-troubleshooting.html">Troubleshooting Tool</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>If material usage is too high</h3>
+          <p>
+            Check bead size, bead length, gun on-time, pressure, nozzle size, line speed, cycle rate, and whether the actual pattern matches the intended pattern.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/adhesive-usage-calculator.html">Usage Calculator</a>
+            <a class="pill-link" href="/pattern-timing-calculator.html">Timing Calculator</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>If the adhesive bond is weak</h3>
+          <p>
+            Check adhesive temperature, open time, compression timing, bead size, substrate condition, contamination, part temperature, and material compatibility.
+          </p>
+          <div class="card-links">
+            <a class="pill-link" href="/adhesive-system-setup.html">Setup Guide</a>
+            <a class="pill-link" href="/hot-melt-troubleshooting.html">Troubleshooting Tool</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="feature-band">
     <div class="section">
       <h2>What This Section Is Actually For</h2>
@@ -588,7 +887,7 @@
       <div class="feature-list">
         <div class="feature-item">
           <h3>System Understanding</h3>
-          <p>Good adhesive troubleshooting starts with understanding how the melter, hose, gun, nozzle, and timing all interact.</p>
+          <p>Good adhesive troubleshooting starts with understanding how the melter, hose, gun, nozzle, pressure, and timing all interact.</p>
         </div>
 
         <div class="feature-item">
@@ -598,7 +897,17 @@
 
         <div class="feature-item">
           <h3>Better Timing Decisions</h3>
-          <p>Line speed and trigger timing can break a good application fast. This section helps make that visible.</p>
+          <p>Line speed, product spacing, trigger delay, and gun response can break a good application fast.</p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Usage Awareness</h3>
+          <p>Bead size, bead length, line speed, and production rate directly affect material usage, cost, and system demand.</p>
+        </div>
+
+        <div class="feature-item">
+          <h3>Hardware Awareness</h3>
+          <p>Nozzles, filters, hoses, guns, solenoids, and temperature zones can create symptoms that look like parameter problems.</p>
         </div>
 
         <div class="feature-item">
@@ -610,10 +919,59 @@
   </section>
 
   <section class="section">
+    <h2>Related Engineering Areas</h2>
+    <p class="section-intro">
+      Adhesive dispensing issues often overlap with PLC timing, machine design, pneumatics, robotics, and production troubleshooting.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>PLC / Electrical</h3>
+        <p>
+          Use this when bead timing, trigger signals, encoder scaling, gun outputs, sensor timing, or HMI parameters are part of the issue.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/plc-electrical.html" onclick="gtag('event','related_hub_click',{'page':'adhesives','target':'plc_electrical'});">Open PLC / Electrical Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Pneumatics</h3>
+        <p>
+          Use this when gun actuation, air pressure, valves, solenoids, or pneumatic response affects adhesive application.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/pneumatics.html" onclick="gtag('event','related_hub_click',{'page':'adhesives','target':'pneumatics'});">Open Pneumatics Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Machine Design</h3>
+        <p>
+          Use this when nozzle position, fixture stiffness, product presentation, brackets, or machine layout affects bead placement.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/machine-design.html" onclick="gtag('event','related_hub_click',{'page':'adhesives','target':'machine_design'});">Open Machine Design Hub</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Robotics</h3>
+        <p>
+          Use this when adhesive application is tied to robot path, reach, payload, cycle time, or EOAT-mounted dispensing hardware.
+        </p>
+        <div class="card-links">
+          <a class="pill-link" href="/robotics.html" onclick="gtag('event','related_hub_click',{'page':'adhesives','target':'robotics'});">Open Robotics Hub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="cta-section">
       <h2>Need Help Applying This on a Real Machine?</h2>
       <p>
-        Adhesive calculators and guides help you move faster, but some applications need real review of hardware, settings, timing, and line conditions. If you need help on a live process, use the help page and describe what the system is doing.
+        Adhesive calculators and guides help you move faster, but some applications need real review of hardware, settings, timing, line speed, and machine conditions. If you need help on a live process, use the help page and describe what the system is doing.
       </p>
       <div class="cta-actions">
         <a class="btn btn-primary" href="/automation-help.html" onclick="gtag('event','adhesives_cta',{'location':'bottom','action':'automation_help'});">Get Help With My Adhesive System</a>
@@ -627,12 +985,17 @@
   </footer>
 
   <script>
-    fetch('/navbar.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar').innerHTML = data;
+    fetch('/navbar.html?v=20260422')
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Navbar failed to load');
+        }
+        return response.text();
       })
-      .catch(error => {
+      .then(function(html) {
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error) {
         console.error('Navbar failed to load:', error);
       });
   </script>
