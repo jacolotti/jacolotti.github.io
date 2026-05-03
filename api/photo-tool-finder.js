@@ -31,8 +31,26 @@ export default async function handler(req, res) {
           content: [
             {
               type: "input_text",
-              text: "Classify this industrial image into ONE category only: plc_electrical, pneumatics, robotics, motors_motion, welding, machine_design. If the image shows weld coolant, weld hoses, weld gun cooling, water flow for a welder, or weld flow meters, return welding. Respond ONLY with the category."
-            },
+                text: `
+              You are classifying industrial automation images.
+
+              Prioritize FUNCTION over shape.
+
+              Rules:
+              - If it is part of a weld system (electrodes, caps, weld guns, weld tooling), return "welding"
+              - If it is piping, flow meters, regulators, air cylinders, return "pneumatics"
+              - If it is wiring, PLCs, sensors, panels, return "plc_electrical"
+              - If it is robot arms or EOAT, return "robotics"
+              - If it is clearly motors, gearboxes, belts, shafts in motion systems, return "motors_motion"
+              - If it is structural components (frames, brackets), return "machine_design"
+
+            Important:
+            - Do NOT classify based only on shape (cylinders ≠ motors)
+            - If uncertain between motors_motion and welding, choose "welding"
+
+            Respond with ONLY one category.
+`
+          },
             {
               type: "input_image",
               image_url: `data:image/jpeg;base64,${imageBase64}`
