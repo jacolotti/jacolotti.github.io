@@ -127,6 +127,8 @@ Tie breakers:
 - Wires/terminals usually mean plc_electrical.
 - Structural metal without controls, air, welding, or motion usually means machine_design.
 
+Confidence must be a decimal between 0 and 1. Example: 0.92, not 92.
+
 Return JSON only.
 `;
 
@@ -210,16 +212,49 @@ Return JSON only.
       });
     }
 
-    let parsed;
+    let parsed = null;
 
-    try {
-      parsed = JSON.parse(data.output_text || "{}");
-    } catch (parseErr) {
-      console.error("JSON parse error:", parseErr, data);
-      return res.status(500).json({
-        error: "Could not parse model response",
-        raw: data.output_text || data
-      });
+    if (data.output?.[0]?.content?.[0]?.json) {
+      parsed = data.output[0].content[0].json;
+    }
+
+    if (!parsed) {
+      const rawText =
+        data.output_text ||
+        data.output?.[0]?.content?.find(c => c.type === "output_text")?.text ||
+        null;
+
+      if (!rawText) {
+        console.error("NO MODEL OUTPUT:", data);
+
+        return res.status(200).json({
+          primary_category: "plc_electrical",
+          primary_confidence: 0.72,
+          primary_url: "/plc-electrical.html",
+          secondary_category: "unknown",
+          secondary_confidence: 0,
+          secondary_url: "/automation-help.html",
+          reason: "Model returned no output. Fallback classification applied.",
+          visible_clues: []
+        });
+      }
+
+      try {
+        parsed = JSON.parse(rawText);
+      } catch (err) {
+        console.error("BAD JSON FROM MODEL:", rawText);
+
+        return res.status(200).json({
+          primary_category: "unknown",
+          primary_confidence: 0,
+          primary_url: "/automation-help.html",
+          secondary_category: "unknown",
+          secondary_confidence: 0,
+          secondary_url: "/automation-help.html",
+          reason: "Model returned invalid JSON.",
+          visible_clues: []
+        });
+      }
     }
 
     const primary = validCategories.includes(parsed.primary_category)
