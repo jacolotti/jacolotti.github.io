@@ -7,7 +7,7 @@
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Pneumatics Hub | Air Cylinder Force, Consumption, Speed, Line Sizing</title>
-  <meta name="description" content="Pneumatics engineering tools for air cylinder force, air consumption, cylinder speed, and compressed air line sizing. Use this hub to follow a practical workflow for real pneumatic system design and troubleshooting.">
+  <meta name="description" content="Pneumatics engineering tools for air cylinder force, air consumption, cylinder speed, compressed air line sizing, and practical pneumatic troubleshooting. Use this hub to follow a real workflow for pneumatic system design and machine problems.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -34,6 +34,10 @@
     }
 
     *{box-sizing:border-box;}
+
+    html{
+      scroll-behavior:smooth;
+    }
 
     body{
       margin:0;
@@ -114,6 +118,7 @@
       border-radius:10px;
       font-weight:700;
       transition:0.2s ease;
+      text-align:center;
     }
 
     .btn-primary{
@@ -276,6 +281,45 @@
       font-weight:700;
     }
 
+    .authority-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .authority-grid.two-col{
+      grid-template-columns:repeat(2, 1fr);
+    }
+
+    .authority-card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:22px;
+    }
+
+    .authority-card h3{
+      margin:0 0 10px;
+      color:var(--blue-dark);
+      font-size:1.08rem;
+    }
+
+    .authority-card p{
+      margin:0 0 12px;
+      color:var(--muted);
+    }
+
+    .authority-card ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+
+    .authority-card li{
+      margin-bottom:8px;
+    }
+
     .guide-grid{
       display:grid;
       grid-template-columns:repeat(3, 1fr);
@@ -393,7 +437,9 @@
       .hero-inner,
       .workflow,
       .guide-grid,
-      .system-map{
+      .system-map,
+      .authority-grid,
+      .authority-grid.two-col{
         grid-template-columns:1fr;
       }
 
@@ -648,6 +694,265 @@
 
     <section class="section">
       <div class="section-card">
+        <h2>Most Common Pneumatic Failures in Real Machines</h2>
+        <p class="description">
+          Pneumatic problems usually show up as weak motion, slow motion, inconsistent motion, pressure loss, high air consumption, or cylinders that move correctly only part of the time. Most of those failures can be narrowed down by separating force, flow, pressure, control, and mechanical load.
+        </p>
+
+        <div class="authority-grid">
+          <div class="authority-card">
+            <h3>Cylinder Moves But Does Not Have Enough Force</h3>
+            <p>
+              This usually points to low working pressure, undersized bore, excessive load, poor mechanical advantage, friction, binding, or a cylinder that was selected without enough safety margin.
+            </p>
+            <div class="internal-links">
+              <a href="/pneumatic.html" onclick="gtag('event','pneumatic_authority_link',{'section':'common_failures','target':'pneumatic_force'});">Check Force</a>
+            </div>
+          </div>
+
+          <div class="authority-card">
+            <h3>Cylinder Is Slow or Inconsistent</h3>
+            <p>
+              Slow movement is often a flow problem, not a force problem. Restricted tubing, undersized valves, clogged silencers, long air runs, poor exhaust flow, or aggressive flow controls can limit motion speed.
+            </p>
+            <div class="internal-links">
+              <a href="/pneumatic-speed.html" onclick="gtag('event','pneumatic_authority_link',{'section':'common_failures','target':'pneumatic_speed'});">Check Speed</a>
+              <a href="/air-line-size-calculator.html" onclick="gtag('event','pneumatic_authority_link',{'section':'common_failures','target':'air_line_size'});">Check Line Size</a>
+            </div>
+          </div>
+
+          <div class="authority-card">
+            <h3>Pressure Looks Good Until the Cylinder Moves</h3>
+            <p>
+              Static pressure at the regulator does not prove the system can deliver flow. If pressure drops during motion, the issue may be upstream restriction, undersized supply line, shared demand, clogged filter, or a regulator that cannot flow enough air.
+            </p>
+            <div class="internal-links">
+              <a href="/air-line-size-calculator.html" onclick="gtag('event','pneumatic_authority_link',{'section':'common_failures','target':'air_line_size'});">Verify Supply Path</a>
+            </div>
+          </div>
+
+          <div class="authority-card">
+            <h3>Machine Uses More Air Than Expected</h3>
+            <p>
+              Large bores, long strokes, high cycle rates, leaks, unnecessary blowoffs, poor valve timing, and over-pressurized circuits can drive air use higher than expected.
+            </p>
+            <div class="internal-links">
+              <a href="/air-consumption.html" onclick="gtag('event','pneumatic_authority_link',{'section':'common_failures','target':'air_consumption'});">Estimate Air Use</a>
+            </div>
+          </div>
+
+          <div class="authority-card">
+            <h3>Cylinder Extends Correctly But Retracts Weakly</h3>
+            <p>
+              Retract force is lower on a rod-style cylinder because the rod reduces piston area. This becomes important when the retract stroke is doing real work or pulling tooling back under load.
+            </p>
+            <div class="internal-links">
+              <a href="/pneumatic.html" onclick="gtag('event','pneumatic_authority_link',{'section':'common_failures','target':'pneumatic_force_retract'});">Compare Extend / Retract Force</a>
+            </div>
+          </div>
+
+          <div class="authority-card">
+            <h3>Cylinder Slams, Bounces, or Hits Hard</h3>
+            <p>
+              Fast cylinders can create impact problems if speed, cushioning, flow controls, load, and end-stop design are not matched. This may look like a control issue but often starts with motion energy.
+            </p>
+            <div class="internal-links">
+              <a href="/pneumatic-speed.html" onclick="gtag('event','pneumatic_authority_link',{'section':'common_failures','target':'pneumatic_speed'});">Review Motion Speed</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>Field check:</strong> always compare static pressure, pressure during motion, cylinder force requirement, and exhaust restriction. A regulator gauge can look fine while the moving cylinder is starving for flow.
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>What People Commonly Misdiagnose in Pneumatic Systems</h2>
+        <p class="description">
+          A lot of pneumatic troubleshooting gets messy because the visible symptom is not always the root cause. A weak or slow cylinder may not be a bad cylinder. A pressure reading may not prove flow. A speed problem may be caused by the exhaust side, not the supply side.
+        </p>
+
+        <div class="authority-grid two-col">
+          <div class="authority-card">
+            <h3>Assuming Pressure Means Available Force</h3>
+            <p>
+              Pressure matters, but force depends on piston area and actual working pressure at the cylinder. Pressure drop during motion, friction, side loading, and poor mechanical geometry can reduce usable performance.
+            </p>
+          </div>
+
+          <div class="authority-card">
+            <h3>Blaming the Cylinder Before Checking Flow</h3>
+            <p>
+              A cylinder can be perfectly fine and still move slowly if the valve, fitting, tubing, regulator, filter, or exhaust path is restricting flow.
+            </p>
+          </div>
+
+          <div class="authority-card">
+            <h3>Ignoring Retract Force</h3>
+            <p>
+              Extend force and retract force are not equal on a rod cylinder. If the retract stroke is pulling, lifting, stripping, or returning tooling under load, it needs to be checked directly.
+            </p>
+          </div>
+
+          <div class="authority-card">
+            <h3>Using Regulator Pressure as the Only Test</h3>
+            <p>
+              A regulator gauge shows pressure at one point. It does not show pressure at the cylinder during motion. Long runs, undersized tubing, clogged filters, or shared circuits can cause pressure to collapse under demand.
+            </p>
+          </div>
+
+          <div class="authority-card">
+            <h3>Overlooking Exhaust Restrictions</h3>
+            <p>
+              Air has to get out as well as in. Plugged mufflers, undersized exhaust ports, tight flow controls, and poor valve sizing can slow a cylinder even if supply pressure looks correct.
+            </p>
+          </div>
+
+          <div class="authority-card">
+            <h3>Confusing Mechanical Binding With Air Problems</h3>
+            <p>
+              Bent rods, misaligned slides, worn bearings, side loading, dirty guides, or part interference can make a pneumatic axis look underpowered when the real issue is mechanical resistance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>When It Is Not Really a Pneumatic Sizing Problem</h2>
+        <p class="description">
+          Not every pneumatic issue should be solved by increasing bore size or pressure. Some problems come from mechanical design, control timing, valve selection, supply infrastructure, or machine conditions.
+        </p>
+
+        <div class="authority-grid">
+          <div class="authority-card">
+            <h3>Mechanical Binding or Side Load</h3>
+            <p>
+              Pneumatic cylinders are poor linear guides. If the cylinder is carrying side load, fighting misalignment, or pushing through a bind, a larger bore may hide the issue temporarily but not fix the design.
+            </p>
+          </div>
+
+          <div class="authority-card">
+            <h3>Valve or Flow Control Selection</h3>
+            <p>
+              A correctly sized cylinder can still be slow if the valve, ports, fittings, flow controls, or silencers are undersized. Flow path matters as much as bore size.
+            </p>
+          </div>
+
+          <div class="authority-card">
+            <h3>Supply Infrastructure Limits</h3>
+            <p>
+              Multiple machines sharing the same air header can create pressure dips. A local regulator may be fine at rest but unable to support repeated cylinder demand.
+            </p>
+          </div>
+
+          <div class="authority-card">
+            <h3>Control Timing or Sequencing</h3>
+            <p>
+              PLC timing, valve overlap, sensor confirmation, and sequence logic can make a pneumatic actuator look slow or inconsistent even when the air hardware is acceptable.
+            </p>
+          </div>
+
+          <div class="authority-card">
+            <h3>Leaks and Blowoff Waste</h3>
+            <p>
+              Leaks, open blowoffs, damaged tubing, bad fittings, and unused air jets can consume compressor capacity and create system-wide pressure problems.
+            </p>
+          </div>
+
+          <div class="authority-card">
+            <h3>Poor Cushioning or End Stops</h3>
+            <p>
+              If the cylinder slams or bounces at the end of stroke, the issue may be speed control, cushioning, load energy, or stop design rather than basic force sizing.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
+        <h2>Pneumatic Troubleshooting Decision Checks</h2>
+        <p class="description">
+          Use these checks when you are standing at the machine and need to decide what to test first.
+        </p>
+
+        <div class="authority-grid two-col">
+          <div class="authority-card">
+            <h3>If the Cylinder Stalls or Cannot Push the Load</h3>
+            <p>
+              Start with required force, actual pressure, bore size, rod side force, load direction, mechanical friction, and whether the cylinder is side-loaded.
+            </p>
+            <div class="internal-links">
+              <a href="/pneumatic.html" onclick="gtag('event','pneumatic_decision_check',{'target':'pneumatic_force'});">Go to Force Calculator</a>
+            </div>
+          </div>
+
+          <div class="authority-card">
+            <h3>If the Cylinder Is Slow But Eventually Completes Stroke</h3>
+            <p>
+              Focus on flow path: valve size, tubing size, fitting restrictions, flow controls, exhaust mufflers, regulator capacity, and supply line drop during movement.
+            </p>
+            <div class="internal-links">
+              <a href="/pneumatic-speed.html" onclick="gtag('event','pneumatic_decision_check',{'target':'pneumatic_speed'});">Go to Speed Calculator</a>
+              <a href="/air-line-size-calculator.html" onclick="gtag('event','pneumatic_decision_check',{'target':'air_line_size'});">Check Line Size</a>
+            </div>
+          </div>
+
+          <div class="authority-card">
+            <h3>If Pressure Drops When the Machine Cycles</h3>
+            <p>
+              Check total air demand, shared circuits, compressor capacity, air header size, regulator flow capacity, filters, and whether several actuators or blowoffs are running at once.
+            </p>
+            <div class="internal-links">
+              <a href="/air-consumption.html" onclick="gtag('event','pneumatic_decision_check',{'target':'air_consumption'});">Estimate Air Consumption</a>
+            </div>
+          </div>
+
+          <div class="authority-card">
+            <h3>If Motion Is Fast But Harsh</h3>
+            <p>
+              Review stroke speed, impact load, cushioning, end stops, flow control placement, and whether the cylinder is being used to absorb energy it should not absorb.
+            </p>
+            <div class="internal-links">
+              <a href="/pneumatic-speed.html" onclick="gtag('event','pneumatic_decision_check',{'target':'pneumatic_speed'});">Review Speed</a>
+            </div>
+          </div>
+
+          <div class="authority-card">
+            <h3>If Air Consumption Is Too High</h3>
+            <p>
+              Check bore size, stroke length, cycle rate, leaks, blowoffs, unnecessary pressure, and whether the cylinder is oversized for the actual force requirement.
+            </p>
+            <div class="internal-links">
+              <a href="/air-consumption.html" onclick="gtag('event','pneumatic_decision_check',{'target':'air_consumption'});">Check Air Use</a>
+              <a href="/pneumatic.html" onclick="gtag('event','pneumatic_decision_check',{'target':'pneumatic_force'});">Recheck Force Need</a>
+            </div>
+          </div>
+
+          <div class="authority-card">
+            <h3>If the Problem Only Happens During Production</h3>
+            <p>
+              Look for shared demand, temperature effects, worn seals, vibration, intermittent valve response, air prep restrictions, or mechanical loading that is different under real cycle conditions.
+            </p>
+            <div class="internal-links">
+              <a href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','pneumatic_decision_check',{'target':'pneumatic_system_sizing_guide'});">Open Sizing Guide</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="note">
+          <strong>Best troubleshooting habit:</strong> measure the system while it is moving. Pneumatic systems can look healthy at rest and fail under dynamic demand.
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-card">
         <h2>Supporting pneumatic guides</h2>
         <p class="description">
           In addition to calculators, these pages help explain sizing logic and how the numbers connect to real pneumatic design decisions.
@@ -719,10 +1024,13 @@
   </div>
 
   <script>
-    fetch('/navbar.html')
+    fetch('/navbar.html?v=20260422')
       .then(response => response.text())
       .then(data => {
         document.getElementById('navbar').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Navbar failed to load:', error);
       });
   </script>
 </body>
