@@ -52,6 +52,10 @@
     cursor: pointer;
   }
 
+  .menu-toggle:hover {
+    background: #dfeefa;
+  }
+
   .nav-wrap {
     display: flex;
     align-items: center;
@@ -85,12 +89,14 @@
     cursor: pointer;
     transition: background 0.2s ease, color 0.2s ease;
     white-space: nowrap;
+    font-family: Arial, Helvetica, sans-serif;
   }
 
   .nav-link:hover,
   .dropbtn:hover,
   .dropdown:hover > .dropbtn,
-  .dropdown:focus-within > .dropbtn {
+  .dropdown:focus-within > .dropbtn,
+  .dropdown.open > .dropbtn {
     background: #eef4fb;
     color: #0b66c3;
     text-decoration: none;
@@ -105,6 +111,9 @@
     text-decoration: none;
     transition: background 0.2s ease, transform 0.2s ease;
     white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .btn-help:hover {
@@ -115,15 +124,6 @@
 
   .dropdown {
     position: relative;
-  }
-
-  .dropdown::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: 100%;
-    height: 14px;
   }
 
   .dropdown-panel {
@@ -144,24 +144,6 @@
     box-shadow: 0 14px 34px rgba(12,35,64,0.14);
     padding: 18px;
     z-index: 1100;
-  }
-
-  .dropdown-panel.tools-panel,
-  .dropdown-panel.resources-panel {
-    min-width: 0;
-  }
-
-  .dropdown-panel::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  .dropdown-panel::-webkit-scrollbar-thumb {
-    background: #c9d7e6;
-    border-radius: 999px;
-  }
-
-  .dropdown-panel::-webkit-scrollbar-track {
-    background: transparent;
   }
 
   .dropdown:hover .dropdown-panel,
@@ -271,23 +253,20 @@
     .dropbtn,
     .btn-help {
       width: 100%;
-      justify-content: flex-start;
+      justify-content: space-between;
+      text-align: left;
     }
 
     .dropdown {
       width: 100%;
     }
 
-    .dropdown::after {
-      display: none;
-    }
-
     .dropdown-panel,
-    .dropdown-panel.tools-panel,
-    .dropdown-panel.resources-panel {
+    .dropdown:hover .dropdown-panel,
+    .dropdown:focus-within .dropdown-panel {
+      display: none;
       position: static;
       transform: none;
-      display: none;
       width: 100%;
       max-width: 100%;
       max-height: none;
@@ -296,6 +275,7 @@
       box-shadow: none;
       border-radius: 12px;
       padding: 14px;
+      background: #ffffff;
     }
 
     .dropdown.open .dropdown-panel {
@@ -306,6 +286,38 @@
     .mega-grid.three-col {
       grid-template-columns: 1fr;
       gap: 14px;
+    }
+
+    .mega-col {
+      border-bottom: 1px solid #eef2f7;
+      padding-bottom: 12px;
+    }
+
+    .mega-col:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .navbar-inner {
+      padding: 10px 14px;
+    }
+
+    .brand {
+      font-size: 1rem;
+    }
+
+    .menu-toggle {
+      padding: 9px 12px;
+    }
+
+    .dropdown-panel {
+      padding: 12px;
+    }
+
+    .mega-links a {
+      padding: 9px 10px;
     }
   }
 </style>
@@ -324,7 +336,9 @@
       <div class="nav-left">
         <a href="/" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'home'});">Home</a>
 
-        <a href="/photo-tool-finder.html">Photo Tool Finder</a>
+        <a href="/photo-tool-finder.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'photo_tool_finder'});">
+          Photo Tool Finder
+        </a>
 
         <a href="/problem-solver.html" class="nav-link" onclick="gtag('event','nav_click',{'location':'navbar','item':'problem_solver'});">
           Start With Your Issue
@@ -335,7 +349,7 @@
         </a>
 
         <div class="dropdown">
-          <button class="dropbtn" type="button">
+          <button class="dropbtn" type="button" aria-expanded="false">
             Tools &amp; Calculators ▾
           </button>
 
@@ -343,9 +357,7 @@
             <div class="mega-grid">
               <div class="mega-col">
                 <h4>Pneumatics</h4>
-                <a class="group-link" href="/pneumatics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatics_group'});">
-                  View category overview
-                </a>
+                <a class="group-link" href="/pneumatics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatics_group'});">View category overview</a>
                 <div class="mega-links">
                   <a href="/pneumatic.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_force'});">Pneumatic Force</a>
                   <a href="/pneumatic-speed.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'pneumatic_speed'});">Pneumatic Speed</a>
@@ -357,9 +369,7 @@
 
               <div class="mega-col">
                 <h4>PLC / Electrical</h4>
-                <a class="group-link" href="/plc-electrical.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_group'});">
-                  View category overview
-                </a>
+                <a class="group-link" href="/plc-electrical.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_group'});">View category overview</a>
                 <div class="mega-links">
                   <a href="/plc-troubleshooter.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_troubleshooter'});">PLC Troubleshooter</a>
                   <a href="/plc-communication-troubleshooting.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'plc_communication_troubleshooter'});">PLC Communication Troubleshooter</a>
@@ -378,9 +388,7 @@
 
               <div class="mega-col">
                 <h4>Motors &amp; Motion</h4>
-                <a class="group-link" href="/motors-motion.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'motion_group'});">
-                  View category overview
-                </a>
+                <a class="group-link" href="/motors-motion.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'motion_group'});">View category overview</a>
                 <div class="mega-links">
                   <a href="/motor.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'motor_sizing'});">Conveyor Motor Sizing</a>
                   <a href="/conveyor-speed.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'conveyor_speed'});">Conveyor Speed</a>
@@ -392,9 +400,7 @@
 
               <div class="mega-col">
                 <h4>Machine Design</h4>
-                <a class="group-link" href="/machine-design.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'machine_design_group'});">
-                  View category overview
-                </a>
+                <a class="group-link" href="/machine-design.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'machine_design_group'});">View category overview</a>
                 <div class="mega-links">
                   <a href="/beam-load-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'beam_load'});">Beam Load &amp; Reactions</a>
                   <a href="/section-modulus-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'section_modulus'});">Section Modulus</a>
@@ -413,9 +419,7 @@
 
               <div class="mega-col">
                 <h4>Robotics</h4>
-                <a class="group-link" href="/robotics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robotics_group'});">
-                  View category overview
-                </a>
+                <a class="group-link" href="/robotics.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robotics_group'});">View category overview</a>
                 <div class="mega-links">
                   <a href="/robot.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robot_cycle_time'});">Robot Cycle Time</a>
                   <a href="/robot-reach.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'robot_reach'});">Robot Reach</a>
@@ -430,9 +434,7 @@
             <div class="mega-grid">
               <div class="mega-col">
                 <h4>Welding</h4>
-                <a class="group-link" href="/welding.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'welding_group'});">
-                  View category overview
-                </a>
+                <a class="group-link" href="/welding.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'welding_group'});">View category overview</a>
                 <div class="mega-links">
                   <a href="/spot-weld.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'spot_weld'});">Resistance Spot Weld</a>
                   <a href="/projection-weld.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'projection_weld'});">Projection Weld</a>
@@ -442,9 +444,7 @@
 
               <div class="mega-col">
                 <h4>Fastening</h4>
-                <a class="group-link" href="/fastening.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'fastening_group'});">
-                  View category overview
-                </a>
+                <a class="group-link" href="/fastening.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'fastening_group'});">View category overview</a>
                 <div class="mega-links">
                   <a href="/torque-clamp-load.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'torque_clamp_load'});">Torque to Clamp Load</a>
                   <a href="/torque-angle.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'torque_angle'});">Torque Angle</a>
@@ -454,9 +454,7 @@
 
               <div class="mega-col">
                 <h4>Adhesives</h4>
-                <a class="group-link" href="/adhesives.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesives_group'});">
-                  View category overview
-                </a>
+                <a class="group-link" href="/adhesives.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesives_group'});">View category overview</a>
                 <div class="mega-links">
                   <a href="/adhesive-system-setup.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'adhesive_setup'});">Adhesive System Setup</a>
                   <a href="/nordson-parameters-explained.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'nordson_parameters_explained'});">Nordson Parameters Explained</a>
@@ -468,9 +466,7 @@
 
               <div class="mega-col">
                 <h4>ROI / Planning</h4>
-                <a class="group-link" href="/roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi_group'});">
-                  View category overview
-                </a>
+                <a class="group-link" href="/roi.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'roi_group'});">View category overview</a>
                 <div class="mega-links">
                   <a href="/downtime-cost-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'downtime_cost'});">Downtime Cost Calculator</a>
                   <a href="/labor-savings-calculator.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'labor_savings'});">Labor Savings Calculator</a>
@@ -487,7 +483,7 @@
         </div>
 
         <div class="dropdown">
-          <button class="dropbtn" type="button">
+          <button class="dropbtn" type="button" aria-expanded="false">
             Guides &amp; Resources ▾
           </button>
 
@@ -497,6 +493,7 @@
                 <h4>Start Here</h4>
                 <div class="mega-links">
                   <a href="/problem-solver.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'problem_solver_resource'});">Start With Your Issue</a>
+                  <a href="/photo-tool-finder.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'photo_tool_resource'});">Photo Tool Finder</a>
                   <a href="/automation-calculators.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'all_calculators_resource'});">Automation Calculators Overview</a>
                   <a href="/reference-charts.html" onclick="gtag('event','nav_click',{'location':'navbar','item':'reference_charts'});">Reference Charts</a>
                 </div>
@@ -542,38 +539,70 @@
   (function () {
     const navbar = document.getElementById('siteNavbar');
     const menuToggle = document.getElementById('menuToggle');
-    const dropdowns = navbar.querySelectorAll('.dropdown');
+    const dropdowns = navbar ? navbar.querySelectorAll('.dropdown') : [];
 
-    if (menuToggle) {
-      menuToggle.addEventListener('click', function () {
-        const isOpen = navbar.classList.toggle('open');
-        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      });
-    }
+    if (!navbar || !menuToggle) return;
+
+    menuToggle.addEventListener('click', function () {
+      const isOpen = navbar.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+      if (!isOpen) {
+        dropdowns.forEach(function (dropdown) {
+          dropdown.classList.remove('open');
+          const btn = dropdown.querySelector('.dropbtn');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
+        });
+      }
+    });
 
     dropdowns.forEach(function (dropdown) {
       const button = dropdown.querySelector('.dropbtn');
 
-      if (button) {
-        button.addEventListener('click', function (e) {
-          if (window.innerWidth <= 1250) {
-            e.preventDefault();
-            dropdown.classList.toggle('open');
-          }
-        });
-      }
+      if (!button) return;
+
+      button.addEventListener('click', function (e) {
+        if (window.innerWidth <= 1250) {
+          e.preventDefault();
+
+          dropdowns.forEach(function (otherDropdown) {
+            if (otherDropdown !== dropdown) {
+              otherDropdown.classList.remove('open');
+              const otherBtn = otherDropdown.querySelector('.dropbtn');
+              if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+            }
+          });
+
+          const isOpen = dropdown.classList.toggle('open');
+          button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+      });
+    });
+
+    navbar.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (window.innerWidth <= 1250) {
+          navbar.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+
+          dropdowns.forEach(function (dropdown) {
+            dropdown.classList.remove('open');
+            const btn = dropdown.querySelector('.dropbtn');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
     });
 
     window.addEventListener('resize', function () {
       if (window.innerWidth > 1250) {
         navbar.classList.remove('open');
-
-        if (menuToggle) {
-          menuToggle.setAttribute('aria-expanded', 'false');
-        }
+        menuToggle.setAttribute('aria-expanded', 'false');
 
         dropdowns.forEach(function (dropdown) {
           dropdown.classList.remove('open');
+          const btn = dropdown.querySelector('.dropbtn');
+          if (btn) btn.setAttribute('aria-expanded', 'false');
         });
       }
     });
