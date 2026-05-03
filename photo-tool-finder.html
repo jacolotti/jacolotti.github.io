@@ -31,8 +31,6 @@
       --shadow:0 8px 24px rgba(15,35,60,0.08);
       --radius:16px;
       --max:1180px;
-      --success:#147a3d;
-      --warn:#9a6200;
     }
 
     *{box-sizing:border-box;}
@@ -170,30 +168,12 @@
       display:none;
     }
 
-    .result-card{
-      display:block;
-      padding:14px;
-      margin:10px 0;
-      border-radius:10px;
-      border:1px solid var(--border);
-      background:#fff;
-      text-decoration:none;
-      color:var(--text);
-      font-weight:700;
-    }
-
-    .result-card span{
-      display:block;
-      font-size:0.9rem;
-      color:var(--muted);
-      font-weight:400;
-    }
-
     .suggestion-grid{
       display:grid;
       grid-template-columns:repeat(2, 1fr);
       gap:12px;
       margin-top:12px;
+      margin-bottom:18px;
     }
 
     .suggestion-card{
@@ -215,6 +195,25 @@
       display:block;
       color:var(--muted);
       font-size:0.92rem;
+    }
+
+    .result-card{
+      display:block;
+      padding:14px;
+      margin:10px 0;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:#fff;
+      text-decoration:none;
+      color:var(--text);
+      font-weight:700;
+    }
+
+    .result-card span{
+      display:block;
+      font-size:0.9rem;
+      color:var(--muted);
+      font-weight:400;
     }
 
     .feedback-box{
@@ -311,7 +310,7 @@
   <div class="card">
     <h2>Upload Your Photo</h2>
     <p>
-      Upload a machine or component photo. The tool will classify the image and recommend the closest matching section of AutomationCalculators.net.
+      Upload a machine or component photo. The tool will classify the image and recommend the closest matching action path on AutomationCalculators.net.
     </p>
 
     <input type="file" id="photoUpload" accept="image/*">
@@ -340,14 +339,14 @@
     <div class="card">
       <h3>Smarter routing</h3>
       <p>
-        The tool now recommends the main category and also suggests more specific pages when the image clues point to wiring, sensors, pneumatics, welding, motors, robots, or machine design.
+        The tool recommends the main category and also suggests more specific pages when the image clues point to wiring, sensors, pneumatics, welding, motors, robots, or machine design.
       </p>
     </div>
 
     <div class="card">
       <h3>Low-confidence protection</h3>
       <p>
-        If the tool is not confident, it shows multiple choices instead of forcing the wrong page. The backend also performs a second pass on weak classifications.
+        If the tool is not confident, it shows multiple choices instead of forcing you into the wrong page.
       </p>
     </div>
 
@@ -479,9 +478,11 @@ async function analyzePhoto() {
       const primaryUrl = data.primary_url || fallbackUrl(primary);
       const secondaryUrl = data.secondary_url || fallbackUrl(secondary);
 
+      const visibleClues = Array.isArray(data.visible_clues) ? data.visible_clues : [];
+
       const suggestedLinks = Array.isArray(data.suggested_links) && data.suggested_links.length
         ? data.suggested_links
-        : buildSuggestedLinks(primary, data.visible_clues || []);
+        : buildSuggestedLinks(primary, visibleClues);
 
       lastPhotoResult = {
         primary,
@@ -492,7 +493,7 @@ async function analyzePhoto() {
         secondaryUrl,
         suggestedLinks,
         reason: data.reason || "",
-        visibleClues: data.visible_clues || [],
+        visibleClues,
         hasHint: hint.trim().length > 0,
         retryUsed: Boolean(data.retry_used)
       };
@@ -511,17 +512,22 @@ async function analyzePhoto() {
 
       if (primaryConfRaw >= 0.72 && primary !== "unknown") {
         result.innerHTML = `
-          <strong>Detected:</strong> ${formatCategory(primary)} (${primaryConf}% confidence)<br><br>
+          <strong>Looks like a ${formatCategory(primary)} system</strong>
+          <span style="color:var(--muted);">(${primaryConf}% confidence)</span>
 
-          <p>${escapeHtml(data.reason || "This category appears to be the closest match based on the visible machine components.")}</p>
+          ${renderShortClueSummary(visibleClues, data.reason)}
 
-          ${renderVisibleClues(data.visible_clues)}
-
-          <a class="btn btn-dark" href="${primaryUrl}" onclick="trackPhotoRoute('${primary}', ${primaryConfRaw}, 'high_confidence');">
-            Go to Recommended Tool
-          </a>
+          <p style="font-weight:700; margin-top:16px; margin-bottom:6px;">
+            Most likely what you need:
+          </p>
 
           ${renderSuggestedLinks(suggestedLinks)}
+
+          <div style="margin-top:14px;">
+            <a class="btn btn-dark" href="${primaryUrl}" onclick="trackPhotoRoute('${primary}', ${primaryConfRaw}, 'hub_click');">
+              Go to Full ${formatCategory(primary)} Section
+            </a>
+          </div>
 
           ${renderFeedbackBox(primary, secondary, primaryConfRaw)}
         `;
@@ -529,7 +535,7 @@ async function analyzePhoto() {
       }
 
       result.innerHTML = `
-        <strong>Best matches:</strong><br><br>
+        <strong>Closest matches:</strong><br><br>
 
         <p>
           The image was not confident enough for automatic routing, so choose the closest match below.
@@ -545,11 +551,11 @@ async function analyzePhoto() {
           <span>${secondaryConf}% confidence</span>
         </a>
 
-        <p style="margin-top:14px;">
-          ${escapeHtml(data.reason || "")}
-        </p>
+        ${renderShortClueSummary(visibleClues, data.reason)}
 
-        ${renderVisibleClues(data.visible_clues)}
+        <p style="font-weight:700; margin-top:16px; margin-bottom:6px;">
+          Suggested next steps:
+        </p>
 
         ${renderSuggestedLinks(suggestedLinks)}
 
@@ -572,6 +578,26 @@ async function analyzePhoto() {
   };
 
   reader.readAsDataURL(file);
+}
+
+function renderShortClueSummary(clues, fallbackReason) {
+  if (Array.isArray(clues) && clues.length > 0) {
+    return `
+      <p style="color:var(--muted); margin-top:14px;">
+        Based on visible components like: ${escapeHtml(clues.slice(0, 4).join(", "))}.
+      </p>
+    `;
+  }
+
+  if (fallbackReason) {
+    return `
+      <p style="color:var(--muted); margin-top:14px;">
+        ${escapeHtml(fallbackReason)}
+      </p>
+    `;
+  }
+
+  return "";
 }
 
 function renderFeedbackBox(primary, secondary, confidence, lowConfidenceMode = false) {
@@ -652,19 +678,49 @@ function renderSuggestedLinks(links) {
 
   const cards = links.slice(0, 4).map(link => `
     <a class="suggestion-card" href="${escapeHtml(link.url)}" onclick="trackSuggestedLink('${escapeJs(link.label)}', '${escapeJs(link.url)}');">
-      <strong>${escapeHtml(link.label)}</strong>
+      <strong>${escapeHtml(actionLabel(link.label))}</strong>
       <span>${escapeHtml(link.reason || "Related page")}</span>
     </a>
   `).join("");
 
   return `
-    <div style="margin-top:18px;">
-      <strong>Suggested next pages:</strong>
-      <div class="suggestion-grid">
-        ${cards}
-      </div>
+    <div class="suggestion-grid">
+      ${cards}
     </div>
   `;
+}
+
+function actionLabel(label) {
+  const map = {
+    "PLC Communication Troubleshooting": "Troubleshoot PLC Communication",
+    "PLC Inputs Not Working": "Fix PLC Inputs Not Working",
+    "PLC Outputs Not Working": "Fix PLC Outputs Not Working",
+    "PLC / Electrical Hub": "Open PLC / Electrical Hub",
+    "Pneumatics Hub": "Open Pneumatics Hub",
+    "Pneumatic Force Calculator": "Calculate Pneumatic Force",
+    "Air Consumption Calculator": "Estimate Air Consumption",
+    "Air Line Size Calculator": "Size Pneumatic Air Line",
+    "Welding Hub": "Open Welding Hub",
+    "Spot Weld Calculator": "Check Spot Weld Parameters",
+    "Projection Weld Calculator": "Check Projection Weld Setup",
+    "Coolant Flow Calculator": "Check Weld Coolant Flow",
+    "Robotics Hub": "Open Robotics Hub",
+    "Robot Cycle Time Calculator": "Estimate Robot Cycle Time",
+    "Robot Reach Calculator": "Check Robot Reach",
+    "Robot Payload Calculator": "Check Robot Payload",
+    "Motors / Motion Hub": "Open Motors / Motion Hub",
+    "Motor Calculator": "Size a Motor",
+    "Conveyor Speed Calculator": "Calculate Conveyor Speed",
+    "Gear Ratio Calculator": "Calculate Gear Ratio",
+    "Machine Design Hub": "Open Machine Design Hub",
+    "Beam Deflection Calculator": "Check Beam Deflection",
+    "Bolt Shear / Joint Separation": "Check Bolt Shear / Joint Separation",
+    "Weld Size Calculator": "Check Weld Size",
+    "Automation Help": "Get Automation Help",
+    "Automation Calculators": "Browse All Calculators"
+  };
+
+  return map[label] || label;
 }
 
 function buildSuggestedLinks(category, clues) {
@@ -672,40 +728,40 @@ function buildSuggestedLinks(category, clues) {
 
   const map = {
     plc_electrical: [
+      { label: "PLC Communication Troubleshooting", url: "/plc-communication-troubleshooting.html", reason: "For Ethernet/IP, device communication, and network issues" },
       { label: "PLC / Electrical Hub", url: "/plc-electrical.html", reason: "Main PLC and controls section" },
       { label: "PLC Inputs Not Working", url: "/plc-inputs-not-working.html", reason: "For sensors, input cards, and field wiring" },
-      { label: "PLC Outputs Not Working", url: "/plc-outputs-not-working.html", reason: "For output cards, relays, and solenoids" },
-      { label: "PLC Communication Troubleshooting", url: "/plc-communication-troubleshooting.html", reason: "For Ethernet/IP, device communication, and network issues" }
+      { label: "PLC Outputs Not Working", url: "/plc-outputs-not-working.html", reason: "For output cards, relays, and solenoids" }
     ],
     pneumatics: [
-      { label: "Pneumatics Hub", url: "/pneumatics.html", reason: "Main air cylinder and pneumatic tools section" },
       { label: "Pneumatic Force Calculator", url: "/pneumatic.html", reason: "For cylinder force and bore sizing" },
       { label: "Air Consumption Calculator", url: "/air-consumption.html", reason: "For cylinder air use and compressor demand" },
-      { label: "Air Line Size Calculator", url: "/air-line-size-calculator.html", reason: "For tubing and pressure drop checks" }
+      { label: "Air Line Size Calculator", url: "/air-line-size-calculator.html", reason: "For tubing and pressure drop checks" },
+      { label: "Pneumatics Hub", url: "/pneumatics.html", reason: "Main air cylinder and pneumatic tools section" }
     ],
     welding: [
-      { label: "Welding Hub", url: "/welding.html", reason: "Main resistance welding section" },
+      { label: "Coolant Flow Calculator", url: "/coolant-flow-calculator.html", reason: "For weld gun and electrode cooling checks" },
       { label: "Spot Weld Calculator", url: "/spot-weld-calculator.html", reason: "For weld force, time, and current checks" },
       { label: "Projection Weld Calculator", url: "/projection-weld-calculator.html", reason: "For projection weld setup review" },
-      { label: "Coolant Flow Calculator", url: "/coolant-flow-calculator.html", reason: "For weld gun and electrode cooling checks" }
+      { label: "Welding Hub", url: "/welding.html", reason: "Main resistance welding section" }
     ],
     robotics: [
-      { label: "Robotics Hub", url: "/robotics.html", reason: "Main robot and EOAT section" },
       { label: "Robot Cycle Time Calculator", url: "/robot.html", reason: "For cycle time and movement estimates" },
       { label: "Robot Reach Calculator", url: "/robot-reach-calculator.html", reason: "For reach and layout checks" },
-      { label: "Robot Payload Calculator", url: "/robot-payload-calculator.html", reason: "For payload and EOAT checks" }
+      { label: "Robot Payload Calculator", url: "/robot-payload-calculator.html", reason: "For payload and EOAT checks" },
+      { label: "Robotics Hub", url: "/robotics.html", reason: "Main robot and EOAT section" }
     ],
     motors_motion: [
-      { label: "Motors / Motion Hub", url: "/motors-motion.html", reason: "Main motors and motion section" },
       { label: "Motor Calculator", url: "/motor.html", reason: "For motor sizing and power checks" },
       { label: "Conveyor Speed Calculator", url: "/conveyor-speed.html", reason: "For belt and conveyor speed checks" },
-      { label: "Gear Ratio Calculator", url: "/gear-ratio.html", reason: "For gearbox and speed reduction checks" }
+      { label: "Gear Ratio Calculator", url: "/gear-ratio.html", reason: "For gearbox and speed reduction checks" },
+      { label: "Motors / Motion Hub", url: "/motors-motion.html", reason: "Main motors and motion section" }
     ],
     machine_design: [
-      { label: "Machine Design Hub", url: "/machine-design.html", reason: "Main mechanical design section" },
       { label: "Beam Deflection Calculator", url: "/beam-deflection-calculator.html", reason: "For frame and beam stiffness checks" },
       { label: "Bolt Shear / Joint Separation", url: "/bolt-shear-joint-separation-calculator.html", reason: "For bolted joint checks" },
-      { label: "Weld Size Calculator", url: "/weld-size-calculator.html", reason: "For structural weld sizing checks" }
+      { label: "Weld Size Calculator", url: "/weld-size-calculator.html", reason: "For structural weld sizing checks" },
+      { label: "Machine Design Hub", url: "/machine-design.html", reason: "Main mechanical design section" }
     ],
     unknown: [
       { label: "Automation Help", url: "/automation-help.html", reason: "Start here when the image is unclear" },
@@ -716,14 +772,37 @@ function buildSuggestedLinks(category, clues) {
   let links = map[category] || map.unknown;
 
   if (category === "plc_electrical") {
-    if (clueText.includes("sensor") || clueText.includes("input")) {
-      links = [map.plc_electrical[1], map.plc_electrical[0], map.plc_electrical[3], map.plc_electrical[2]];
-    } else if (clueText.includes("ethernet") || clueText.includes("communication") || clueText.includes("network")) {
-      links = [map.plc_electrical[3], map.plc_electrical[0], map.plc_electrical[1], map.plc_electrical[2]];
+    if (clueText.includes("sensor") || clueText.includes("input") || clueText.includes("terminal")) {
+      links = [
+        map.plc_electrical[2],
+        map.plc_electrical[0],
+        map.plc_electrical[3],
+        map.plc_electrical[1]
+      ];
+    }
+
+    if (clueText.includes("ethernet") || clueText.includes("communication") || clueText.includes("network") || clueText.includes("db9")) {
+      links = [
+        map.plc_electrical[0],
+        map.plc_electrical[1],
+        map.plc_electrical[2],
+        map.plc_electrical[3]
+      ];
     }
   }
 
-  return links;
+  if (category === "welding") {
+    if (clueText.includes("coolant") || clueText.includes("water") || clueText.includes("electrode")) {
+      links = [
+        map.welding[0],
+        map.welding[1],
+        map.welding[2],
+        map.welding[3]
+      ];
+    }
+  }
+
+  return links.slice(0, 4);
 }
 
 function normalizeConfidence(value) {
@@ -774,24 +853,6 @@ function formatCategory(category) {
   };
 
   return map[category] || "Not Sure";
-}
-
-function renderVisibleClues(clues) {
-  if (!Array.isArray(clues) || clues.length === 0) {
-    return "";
-  }
-
-  const items = clues
-    .slice(0, 5)
-    .map(clue => `<li>${escapeHtml(clue)}</li>`)
-    .join("");
-
-  return `
-    <div style="margin:12px 0;">
-      <strong>Visible clues:</strong>
-      <ul class="small-list">${items}</ul>
-    </div>
-  `;
 }
 
 function sendPhotoFeedback(action, primaryCategory, secondaryCategory, confidence, showThanks = true, actualCategory = "") {
