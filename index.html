@@ -470,6 +470,7 @@
     }
   </style>
 </head>
+  
 <body>
   <div id="navbar"></div>
 
@@ -491,6 +492,12 @@
         <div class="hero-actions">
           <a class="btn btn-primary" href="/problem-solver.html" onclick="gtag('event','homepage_cta',{'location':'hero','action':'problem_solver'});">Troubleshoot a Problem</a>
           <a class="btn btn-secondary" href="/automation-calculators.html" onclick="gtag('event','homepage_cta',{'location':'hero','action':'browse_all'});">Browse All Tools</a>
+          <a class="btn btn-secondary"
+           href="#"
+           id="authButton"
+           onclick="alert('Login system coming next'); return false;">
+           Sign In
+        </a>
           <a class="btn btn-secondary" href="/robot-simulator.html" onclick="gtag('event','homepage_cta',{'location':'hero','action':'robot_simulator'});">Try the Robot Simulator</a>
         </div>
 
@@ -827,7 +834,7 @@
     Automation Engineering Tools • Practical calculators and troubleshooting tools for real automation work
   </footer>
 
-  <!-- Brevo script once at bottom -->
+    <!-- Brevo script once at bottom -->
   <script>
     window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
     window.LOCALE = 'en';
@@ -846,9 +853,34 @@
 
     var AUTOHIDE = Boolean(0);
   </script>
+
   <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
-  <!-- Navbar script once at bottom -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/supabase.js"></script>
+
+  <script>
+    async function checkUser() {
+      const {
+        data: { session }
+      } = await supabaseClient.auth.getSession();
+
+      if (session?.user) {
+        console.log("Logged in:", session.user.email);
+        window.currentUser = session.user;
+
+        const authBtn = document.getElementById("authButton");
+        if (authBtn) {
+          authBtn.textContent = "My Account";
+        }
+      } else {
+        console.log("Not logged in");
+      }
+    }
+
+    checkUser();
+  </script>
+
   <script>
     fetch('/navbar.html?v=20260422')
       .then(response => {
