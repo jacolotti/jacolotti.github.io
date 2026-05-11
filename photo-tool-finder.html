@@ -301,6 +301,7 @@
         <li>Robots, EOAT, grippers, and robot-mounted tooling</li>
         <li>Motors, gearboxes, conveyors, shafts, and motion parts</li>
         <li>Weld electrodes, weld guns, caps, fixtures, and tooling</li>
+        <li>Adhesive systems, glue guns, Nordson equipment, and hot melt hoses</li>
       </ul>
     </div>
   </div>
@@ -339,7 +340,7 @@
     <div class="card">
       <h3>Smarter routing</h3>
       <p>
-        The tool recommends the main category and also suggests more specific pages when the image clues point to wiring, sensors, pneumatics, welding, motors, robots, or machine design.
+        The tool recommends the main category and also suggests more specific pages when the image clues point to wiring, sensors, pneumatics, welding, robots, motion systems, adhesive dispensing equipment, or machine design.
       </p>
     </div>
 
@@ -370,6 +371,7 @@
     <span class="pill">Motors / Motion</span>
     <span class="pill">Welding</span>
     <span class="pill">Machine Design</span>
+    <span class="pill">Adhesives / Dispensing</span>
 
     <p style="margin-top:18px;">
       When the photo is unclear, the safe fallback is the Automation Help page instead of forcing the wrong category.
@@ -509,6 +511,7 @@ async function analyzePhoto() {
   retry_used: Boolean(data.retry_used),
   page_location: window.location.href
 });
+}
 
       if (primaryConfRaw >= 0.72 && primary !== "unknown") {
         result.innerHTML = `
@@ -631,6 +634,7 @@ function renderFeedbackBox(primary, secondary, confidence, lowConfidenceMode = f
           <option value="robotics">Robotics</option>
           <option value="motors_motion">Motors / Motion</option>
           <option value="machine_design">Machine Design</option>
+          <option value="adhesives">Adhesives / Dispensing</option>
           <option value="unknown">Not Sure / Other</option>
         </select>
 
@@ -717,7 +721,11 @@ function actionLabel(label) {
     "Bolt Shear / Joint Separation": "Check Bolt Shear / Joint Separation",
     "Weld Size Calculator": "Check Weld Size",
     "Automation Help": "Get Automation Help",
-    "Automation Calculators": "Browse All Calculators"
+    "Automation Calculators": "Browse All Calculators",
+    "Adhesives Hub": "Open Adhesives Hub",
+    "Adhesive System Setup": "Open Adhesive System Setup",
+    "Pattern Timing Calculator": "Calculate Adhesive Pattern Timing",
+    "Hot Melt Troubleshooting": "Troubleshoot Hot Melt System"
   };
 
   return map[label] || label;
@@ -762,6 +770,12 @@ function buildSuggestedLinks(category, clues) {
       { label: "Bolt Shear / Joint Separation", url: "/bolt-shear-joint-separation-calculator.html", reason: "For bolted joint checks" },
       { label: "Weld Size Calculator", url: "/weld-size-calculator.html", reason: "For structural weld sizing checks" },
       { label: "Machine Design Hub", url: "/machine-design.html", reason: "Main mechanical design section" }
+    ],
+    adhesives: [
+      { label: "Adhesives Hub", url: "/adhesives.html", reason: "Main adhesives and dispensing section" },
+      { label: "Adhesive System Setup", url: "/adhesive-system-setup.html", reason: "For setup and dispensing tuning" },
+      { label: "Pattern Timing Calculator", url: "/pattern-timing-calculator.html", reason: "For timing and bead placement" },
+      { label: "Hot Melt Troubleshooting", url: "/hot-melt-troubleshooting.html", reason: "For stringing, clogging, and bead problems" }
     ],
     unknown: [
       { label: "Automation Help", url: "/automation-help.html", reason: "Start here when the image is unclear" },
@@ -820,6 +834,7 @@ function normalizeCategory(category) {
     "robotics",
     "motors_motion",
     "machine_design",
+    "adhesives",
     "unknown"
   ];
 
@@ -835,7 +850,8 @@ function fallbackUrl(category) {
     robotics: "/robotics.html",
     motors_motion: "/motors-motion.html",
     machine_design: "/machine-design.html",
-    unknown: "/automation-help.html"
+    unknown: "/automation-help.html",
+    adhesives: "/adhesives.html"
   };
 
   return map[category] || "/automation-help.html";
@@ -849,6 +865,7 @@ function formatCategory(category) {
     robotics: "Robotics",
     motors_motion: "Motors / Motion",
     machine_design: "Machine Design",
+    adhesives: "Adhesives / Dispensing",
     unknown: "Not Sure"
   };
 
