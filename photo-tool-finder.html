@@ -500,15 +500,15 @@ async function analyzePhoto() {
 
       if (typeof gtag === "function") {
         gtag("event", "photo_tool_classification", {
-          primary_category: primary,
-          secondary_category: secondary,
-          primary_confidence: primaryConfRaw,
-          secondary_confidence: secondaryConfRaw,
-          has_hint: hint.trim().length > 0,
-          retry_used: Boolean(data.retry_used),
-          page_location: window.location.href
-        });
-      }
+  primary_category: primary,
+  secondary_category: secondary,
+  primary_confidence: primaryConfRaw,
+  secondary_confidence: secondaryConfRaw,
+  visible_clues: visibleClues.join(", "),
+  has_hint: hint.trim().length > 0,
+  retry_used: Boolean(data.retry_used),
+  page_location: window.location.href
+});
 
       if (primaryConfRaw >= 0.72 && primary !== "unknown") {
         result.innerHTML = `
@@ -889,9 +889,14 @@ function trackPhotoRoute(category, confidence, routeType) {
 
 function trackSuggestedLink(label, url) {
   if (typeof gtag === "function") {
-    gtag("event", "photo_tool_suggested_link_click", {
-      link_label: label,
-      link_url: url,
+    gtag("event", "photo_tool_route", {
+      detected_category: lastPhotoResult?.primary || "unknown",
+      secondary_category: lastPhotoResult?.secondary || "unknown",
+      confidence: lastPhotoResult?.primaryConfidence || 0,
+      selected_tool: label,
+      selected_url: url,
+      has_hint: lastPhotoResult?.hasHint || false,
+      retry_used: lastPhotoResult?.retryUsed || false,
       page_location: window.location.href
     });
   }
