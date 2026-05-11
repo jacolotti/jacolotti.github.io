@@ -495,7 +495,7 @@
           <a class="btn btn-secondary"
            href="#"
            id="authButton"
-           onclick="alert('Login system coming next'); return false;">
+           onclick="openAuthModal(); return false;">
            Sign In
         </a>
           <a class="btn btn-secondary" href="/robot-simulator.html" onclick="gtag('event','homepage_cta',{'location':'hero','action':'robot_simulator'});">Try the Robot Simulator</a>
@@ -830,6 +830,22 @@
     </div>
   </section>
 
+  <div id="authModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:#fff; max-width:420px; width:100%; border-radius:16px; padding:24px; box-shadow:0 12px 40px rgba(0,0,0,0.25);">
+    <h2 style="margin-top:0;">Sign In</h2>
+    <p style="color:#5d6b79;">Save calculations and access them later.</p>
+
+    <input id="authEmail" type="email" placeholder="Email" style="width:100%; padding:12px; margin-bottom:10px;">
+    <input id="authPassword" type="password" placeholder="Password" style="width:100%; padding:12px; margin-bottom:14px;">
+
+    <button class="btn btn-dark" onclick="signInUser()">Sign In</button>
+    <button class="btn btn-light" onclick="signUpUser()">Create Account</button>
+    <button class="btn btn-light" onclick="closeAuthModal()">Cancel</button>
+
+    <p id="authMessage" style="margin-top:12px; color:#5d6b79;"></p>
+  </div>
+</div>
+
   <footer>
     Automation Engineering Tools • Practical calculators and troubleshooting tools for real automation work
   </footer>
@@ -880,6 +896,49 @@
 
     checkUser();
   </script>
+
+  <script>
+function openAuthModal() {
+  document.getElementById("authModal").style.display = "flex";
+}
+
+function closeAuthModal() {
+  document.getElementById("authModal").style.display = "none";
+}
+
+async function signUpUser() {
+  const email = document.getElementById("authEmail").value.trim();
+  const password = document.getElementById("authPassword").value;
+  const msg = document.getElementById("authMessage");
+
+  const { error } = await supabaseClient.auth.signUp({
+    email,
+    password
+  });
+
+  msg.textContent = error ? error.message : "Check your email to confirm your account.";
+}
+
+async function signInUser() {
+  const email = document.getElementById("authEmail").value.trim();
+  const password = document.getElementById("authPassword").value;
+  const msg = document.getElementById("authMessage");
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    msg.textContent = error.message;
+    return;
+  }
+
+  window.currentUser = data.user;
+  document.getElementById("authButton").textContent = "My Account";
+  closeAuthModal();
+}
+</script>
 
   <script>
     fetch('/navbar.html?v=20260422')
