@@ -247,16 +247,21 @@
     .feature-list{grid-template-columns:repeat(4,1fr);}
 
     .card,
-    .tool-card,
-    .workflow,
-    .feature-item,
-    .signup-card,
-    .library-card{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-    }
+.tool-card,
+.workflow,
+.feature-item,
+.signup-card,
+.library-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+
+.photo-feature-card{
+  border:2px solid #bfdbfe;
+  background:#f0f7ff;
+}
 
     .card,
     .workflow,
@@ -527,7 +532,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card photo-feature-card">
         <h3>Upload a Machine Photo</h3>
         <p>
           Upload a photo of a PLC, air cylinder, weld setup, robot, motor, or machine component and get routed to the closest calculator or troubleshooting guide.
@@ -845,7 +850,7 @@
 
   <!-- Navbar script once at bottom -->
   <script>
-    fetch('/navbar.html')
+    fetch('/navbar.html?v=20260422')
       .then(response => {
         if (!response.ok) {
           throw new Error('Navbar failed to load');
