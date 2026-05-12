@@ -432,6 +432,111 @@
       padding:8px 0 4px;
     }
 
+    .save-status{
+  margin-top:12px;
+  font-weight:700;
+  min-height:22px;
+}
+
+.save-status.success{color:#15803d;}
+.save-status.error{color:#b91c1c;}
+.save-status.muted{color:var(--muted);}
+
+.btn-danger{
+  background:#fee2e2;
+  color:#b91c1c;
+  border:1px solid #fecaca;
+}
+
+.btn-danger:hover{
+  background:#fecaca;
+  text-decoration:none;
+}
+
+.saved-header{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+
+.saved-user{
+  color:var(--muted);
+  font-weight:700;
+  margin-top:4px;
+}
+
+.saved-list{
+  display:grid;
+  gap:14px;
+  margin-top:18px;
+}
+
+.saved-item{
+  background:#f8fbff;
+  border:1px solid #d7e6ff;
+  border-radius:14px;
+  padding:16px;
+}
+
+.saved-title-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.saved-title{
+  font-weight:800;
+  color:var(--text);
+}
+
+.saved-meta{
+  color:var(--muted);
+  font-size:0.92rem;
+}
+
+.saved-values{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:12px 0;
+}
+
+.saved-value{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px;
+  font-size:0.92rem;
+}
+
+.saved-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+@media (max-width: 1020px){
+  .saved-values{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media (max-width: 700px){
+  .saved-values{
+    grid-template-columns:1fr;
+  }
+
+  .saved-actions .btn{
+    width:100%;
+  }
+}
+
     @media (max-width: 1020px){
       .hero-inner,
       .grid-2,
@@ -627,48 +732,43 @@
         Enter your values above and click <strong>Calculate Air Usage</strong>.
       </div>
 
-      <section style="margin-top:24px;">
+    <section id="saved-calculations" class="section">
   <div class="card">
-    <h2>Save This Calculation</h2>
+    <div class="saved-header">
+      <div>
+        <h2>My Saved Air Consumption Calculations</h2>
 
-    <p class="section-intro">
-      Save pneumatic air consumption setups and reload them later from any device.
-    </p>
+        <p class="section-intro" style="margin-bottom:0;">
+          Save air consumption setups, reload previous inputs, and reuse common pneumatic sizing checks.
+        </p>
 
-    <div class="button-row">
-      <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">
-        Save Calculation
-      </button>
+        <div id="authUserLabel" class="saved-user">
+          Checking account status...
+        </div>
+      </div>
 
-      <button class="btn btn-secondary" type="button" id="authButton" onclick="handleAuthButton()">
-        Sign In
-      </button>
-    </div>
+      <div class="hero-actions" style="margin-top:0;">
+        <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">
+          Save Calculation
+        </button>
 
-    <div id="authUserLabel" class="save-status muted">
-      Sign in to save and reload calculations.
+        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">
+          Sign In
+        </button>
+
+        <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">
+          Refresh
+        </button>
+      </div>
     </div>
 
     <div id="saveStatus" class="save-status muted"></div>
-  </div>
-</section>
 
-<section style="margin-top:24px;">
-  <div class="card">
-    <h2>My Saved Calculations</h2>
-
-    <p class="section-intro">
-      Reload previous air consumption estimates and pneumatic sizing setups.
-    </p>
-
-    <div id="savedStatus" class="save-status muted">
-      Loading saved calculations...
-    </div>
+    <div id="savedStatus" class="save-status muted"></div>
 
     <div id="savedList" class="saved-list"></div>
   </div>
 </section>
-
       <p class="note">
         Standard free air conversion uses absolute pressure ratio based on PSIG input. This is a practical engineering estimate and does not account for tubing dead volume, leakage, valve timing losses, cushioning losses, unusual motion profiles, or dynamic pressure drop through undersized valves and air lines.
       </p>
