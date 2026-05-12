@@ -428,6 +428,111 @@
       padding:8px 0 4px;
     }
 
+    .save-status{
+  margin-top:12px;
+  font-weight:700;
+  min-height:22px;
+}
+
+.save-status.success{color:#15803d;}
+.save-status.error{color:#b91c1c;}
+.save-status.muted{color:var(--muted);}
+
+.btn-danger{
+  background:#fee2e2;
+  color:#b91c1c;
+  border:1px solid #fecaca;
+}
+
+.btn-danger:hover{
+  background:#fecaca;
+  text-decoration:none;
+}
+
+.saved-header{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+
+.saved-user{
+  color:var(--muted);
+  font-weight:700;
+  margin-top:4px;
+}
+
+.saved-list{
+  display:grid;
+  gap:14px;
+  margin-top:18px;
+}
+
+.saved-item{
+  background:#f8fbff;
+  border:1px solid #d7e6ff;
+  border-radius:14px;
+  padding:16px;
+}
+
+.saved-title-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.saved-title{
+  font-weight:800;
+  color:var(--text);
+}
+
+.saved-meta{
+  color:var(--muted);
+  font-size:0.92rem;
+}
+
+.saved-values{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:12px 0;
+}
+
+.saved-value{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px;
+  font-size:0.92rem;
+}
+
+.saved-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+@media (max-width: 1020px){
+  .saved-values{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media (max-width: 700px){
+  .saved-values{
+    grid-template-columns:1fr;
+  }
+
+  .saved-actions .btn{
+    width:100%;
+  }
+}
+
     @media (max-width:1020px){
       .hero-inner,
       .grid-2,
@@ -640,6 +745,42 @@
       Enter your signal range and engineering range, then press <strong>Calculate Scaling</strong>.
     </div>
 
+    <section id="saved-calculations" class="section">
+  <div class="card">
+    <div class="saved-header">
+      <div>
+        <h2>My Saved Analog Scaling Calculations</h2>
+
+        <p class="section-intro" style="margin-bottom:0;">
+          Save analog scaling setups, reload previous inputs, and reuse common PLC signal ranges.
+        </p>
+
+        <div id="authUserLabel" class="saved-user">
+          Checking account status...
+        </div>
+      </div>
+
+      <div class="hero-actions" style="margin-top:0;">
+        <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">
+          Save Calculation
+        </button>
+
+        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">
+          Sign In
+        </button>
+
+        <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">
+          Refresh
+        </button>
+      </div>
+    </div>
+
+    <div id="saveStatus" class="save-status muted"></div>
+    <div id="savedStatus" class="save-status muted"></div>
+    <div id="savedList" class="saved-list"></div>
+  </div>
+</section>
+
     <p class="note">
       This calculator uses standard linear interpolation. It is intended for normal analog scaling applications and does not include filtering, sensor non-linearity, card calibration offsets, underrange/overrange fault thresholds, broken-wire diagnostics, or module-specific behavior.
     </p>
@@ -811,84 +952,168 @@
     output.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  function calculateAnalogScaling(){
-    const rawInput = parseFloat(document.getElementById("rawInput").value);
-    const rawMin = parseFloat(document.getElementById("rawMin").value);
-    const rawMax = parseFloat(document.getElementById("rawMax").value);
-    const engMin = parseFloat(document.getElementById("engMin").value);
-    const engMax = parseFloat(document.getElementById("engMax").value);
-    const engUnits = document.getElementById("engUnits").value.trim();
-    const mode = document.getElementById("mode").value;
-    const decimals = parseInt(document.getElementById("decimals").value, 10);
-    const output = document.getElementById("output");
+  function calculateAnalogScaling() {
+  const preset = document.getElementById("preset")?.value || "custom";
 
-    if([rawInput, rawMin, rawMax, engMin, engMax].some(v => isNaN(v))){
-      output.innerHTML = "<strong>Please enter valid numeric values in all numeric fields.</strong>";
-      scrollToResult();
-      return;
+  const rawInput = parseFloat(document.getElementById("rawInput")?.value);
+  const rawMin = parseFloat(document.getElementById("rawMin")?.value);
+  const rawMax = parseFloat(document.getElementById("rawMax")?.value);
+  const engMin = parseFloat(document.getElementById("engMin")?.value);
+  const engMax = parseFloat(document.getElementById("engMax")?.value);
+
+  const units =
+    document.getElementById("engUnits")?.value ||
+    document.getElementById("units")?.value ||
+    "";
+
+  const mode =
+    document.getElementById("mode")?.value ||
+    document.getElementById("scalingMode")?.value ||
+    "normal";
+
+  const decimals = parseInt(document.getElementById("decimals")?.value || "2", 10);
+
+  const resultBox = document.getElementById("output");
+  const structuredTextBox = document.getElementById("structuredText");
+
+  if (
+    isNaN(rawInput) ||
+    isNaN(rawMin) ||
+    isNaN(rawMax) ||
+    isNaN(engMin) ||
+    isNaN(engMax)
+  ) {
+    if (resultBox) {
+      resultBox.innerHTML = `
+        <div class="result-error">
+          Please enter valid numbers for the raw input range and engineering range.
+        </div>
+      `;
     }
 
-    if(rawMax === rawMin){
-      output.innerHTML = "<strong>Raw minimum and raw maximum cannot be the same.</strong>";
-      scrollToResult();
-      return;
-    }
-
-    const fraction = (rawInput - rawMin) / (rawMax - rawMin);
-    const scaledValue = fraction * (engMax - engMin) + engMin;
-
-    const engLow = Math.min(engMin, engMax);
-    const engHigh = Math.max(engMin, engMax);
-    const clampedValue = clamp(scaledValue, engLow, engHigh);
-
-    const displayValue = (mode === "clamp") ? clampedValue : scaledValue;
-    const percentOfRawRange = fraction * 100;
-
-    let status = "Input is within the defined raw range.";
-    if(rawInput < rawMin){
-      status = "Input is below the raw minimum.";
-    } else if(rawInput > rawMax){
-      status = "Input is above the raw maximum.";
-    }
-
-    const unitsText = engUnits ? " " + engUnits : "";
-
-    const structuredText =
-`ScaledValue := ((InputValue - ${rawMin}) / (${rawMax} - ${rawMin})) * (${engMax} - ${engMin}) + ${engMin};`;
-
-    const structuredTextClamp =
-`ScaledValue := ((InputValue - ${rawMin}) / (${rawMax} - ${rawMin})) * (${engMax} - ${engMin}) + ${engMin};
-IF ScaledValue < ${engLow} THEN ScaledValue := ${engLow}; END_IF;
-IF ScaledValue > ${engHigh} THEN ScaledValue := ${engHigh}; END_IF;`;
-
-    const formulaUsed =
-      "((Input - Raw Min) / (Raw Max - Raw Min)) × (Engineering Max - Engineering Min) + Engineering Min";
-
-    output.innerHTML =
-      "<strong>Scaled Engineering Value</strong><br>" +
-      formatNumber(displayValue, decimals) + unitsText + "<br><br>" +
-
-      "<strong>Unclamped Calculated Value</strong><br>" +
-      formatNumber(scaledValue, decimals) + unitsText + "<br><br>" +
-
-      "<strong>Clamped Engineering Value</strong><br>" +
-      formatNumber(clampedValue, decimals) + unitsText + "<br><br>" +
-
-      "<strong>Percent of Raw Range</strong><br>" +
-      formatNumber(percentOfRawRange, 2) + "%<br><br>" +
-
-      "<strong>Input Status</strong><br>" +
-      status + "<br><br>" +
-
-      "<strong>Formula Used</strong><br>" +
-      formulaUsed + "<br><br>" +
-
-      "<strong>Structured Text Example</strong>" +
-      "<div class='codebox'>" + (mode === "clamp" ? structuredTextClamp : structuredText) + "</div>";
-
-    scrollToResult();
+    return null;
   }
 
+  if (rawMax === rawMin) {
+    if (resultBox) {
+      resultBox.innerHTML = `
+        <div class="result-error">
+          Raw maximum and raw minimum cannot be the same value.
+        </div>
+      `;
+    }
+
+    return null;
+  }
+
+  const rawSpan = rawMax - rawMin;
+  const engSpan = engMax - engMin;
+
+  let percentOfRawRange = ((rawInput - rawMin) / rawSpan) * 100;
+  let scaledValue = engMin + ((rawInput - rawMin) * engSpan) / rawSpan;
+
+  let clampedValue = scaledValue;
+  let status = "In Range";
+
+  if (rawInput < rawMin) {
+    status = "Below Raw Range";
+    clampedValue = engMin;
+  } else if (rawInput > rawMax) {
+    status = "Above Raw Range";
+    clampedValue = engMax;
+  }
+
+  const displayValue = Number(clampedValue).toFixed(decimals);
+
+  let statusClass = "result-good";
+  if (status !== "In Range") {
+    statusClass = "result-warning";
+  }
+
+  const structuredText =
+    `Analog Scaling Result\n` +
+    `Preset: ${preset}\n` +
+    `Raw Input: ${rawInput}\n` +
+    `Raw Range: ${rawMin} to ${rawMax}\n` +
+    `Engineering Range: ${engMin} to ${engMax} ${units}\n` +
+    `Mode: ${mode}\n` +
+    `Scaled Value: ${Number(scaledValue).toFixed(decimals)} ${units}\n` +
+    `Clamped Value: ${displayValue} ${units}\n` +
+    `Percent of Raw Range: ${percentOfRawRange.toFixed(2)}%\n` +
+    `Status: ${status}`;
+
+  if (resultBox) {
+    resultBox.innerHTML = `
+      <div class="${statusClass}">
+        <h3>Scaled Output</h3>
+        <div class="result-main">
+          ${displayValue}${units ? " " + units : ""}
+        </div>
+
+        <div class="result-grid">
+          <div>
+            <strong>Raw Input</strong>
+            <span>${rawInput}</span>
+          </div>
+          <div>
+            <strong>Raw Range</strong>
+            <span>${rawMin} to ${rawMax}</span>
+          </div>
+          <div>
+            <strong>Engineering Range</strong>
+            <span>${engMin} to ${engMax}${units ? " " + units : ""}</span>
+          </div>
+          <div>
+            <strong>Percent of Raw Range</strong>
+            <span>${percentOfRawRange.toFixed(2)}%</span>
+          </div>
+          <div>
+            <strong>Status</strong>
+            <span>${status}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  if (structuredTextBox) {
+    structuredTextBox.value = structuredText;
+  }
+
+  if (typeof gtag === "function") {
+    gtag("event", "analog_scaling_calculation", {
+      preset: preset,
+      mode: mode,
+      status: status
+    });
+  }
+
+  const calculationData = {
+    preset: preset,
+    raw_input: rawInput,
+    raw_min: rawMin,
+    raw_max: rawMax,
+    engineering_min: engMin,
+    engineering_max: engMax,
+    engineering_units: units,
+    mode: mode,
+    decimals: decimals,
+    scaled_value: Number(scaledValue.toFixed(decimals)),
+    clamped_value: Number(clampedValue.toFixed(decimals)),
+    display_value: displayValue,
+    percent_of_raw_range: Number(percentOfRawRange.toFixed(2)),
+    status: status,
+    structured_text: structuredText,
+    timestamp: new Date().toISOString()
+  };
+
+  window.lastAnalogScalingCalculation = calculationData;
+  window.currentCalculationData = calculationData;
+
+  return calculationData;
+}
+
+   
   function clearCalculator(){
     document.getElementById("preset").value = "custom";
     document.getElementById("rawInput").value = "12";
@@ -953,6 +1178,64 @@ IF ScaledValue > ${engHigh} THEN ScaledValue := ${engHigh}; END_IF;`;
     document.getElementById("decimals").value = "2";
     calculateAnalogScaling();
   }
+</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=1"></script>
+
+  <script>
+  const ANALOG_SCALING_SAVE_CONFIG = {
+    toolName: "PLC Analog Scaling Calculator",
+    toolUrl: "/analog-scaling.html",
+    analyticsTool: "analog_scaling",
+    savedItemTitle: "Analog Scaling Setup",
+
+    collectData: function(){
+      return calculateAnalogScaling();
+    },
+
+    reloadData: function(savedData){
+      document.getElementById("preset").value = savedData.preset || "custom";
+      document.getElementById("rawInput").value = savedData.raw_input ?? "";
+      document.getElementById("rawMin").value = savedData.raw_min ?? "";
+      document.getElementById("rawMax").value = savedData.raw_max ?? "";
+      document.getElementById("engMin").value = savedData.engineering_min ?? "";
+      document.getElementById("engMax").value = savedData.engineering_max ?? "";
+      document.getElementById("engUnits").value = savedData.engineering_units ?? "";
+      document.getElementById("mode").value = savedData.mode || "extrapolate";
+      document.getElementById("decimals").value = savedData.decimals ?? "3";
+
+      calculateAnalogScaling();
+    },
+
+    renderFields: function(d){
+      return [
+        { label:"Preset", value: savedToolsSafeValue(d.preset) },
+        { label:"Input", value: savedToolsSafeValue(d.raw_input) },
+        { label:"Raw Range", value: savedToolsSafeValue(d.raw_min) + " to " + savedToolsSafeValue(d.raw_max) },
+        { label:"Eng Range", value: savedToolsSafeValue(d.engineering_min) + " to " + savedToolsSafeValue(d.engineering_max) + " " + savedToolsSafeValue(d.engineering_units) },
+        { label:"Scaled", value: savedToolsSafeValue(d.display_value) + " " + savedToolsSafeValue(d.engineering_units) },
+        { label:"Percent", value: savedToolsSafeValue(d.percent_of_raw_range) + "%" },
+        { label:"Mode", value: savedToolsSafeValue(d.mode) },
+        { label:"Status", value: savedToolsSafeValue(d.status) }
+      ];
+    }
+  };
+
+  function saveCurrentCalculation(){
+    savedToolsSave(ANALOG_SCALING_SAVE_CONFIG);
+  }
+
+  function loadSavedCalculations(){
+    savedToolsLoad(ANALOG_SCALING_SAVE_CONFIG);
+  }
+
+  function handleAuthButton(){
+    savedToolsHandleAuthButton(ANALOG_SCALING_SAVE_CONFIG);
+  }
+
+  savedToolsInit(ANALOG_SCALING_SAVE_CONFIG);
 </script>
 
 <script>
