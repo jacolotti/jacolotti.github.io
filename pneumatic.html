@@ -1528,7 +1528,6 @@
         .from("saved_tools")
         .select("id, tool_name, tool_url, saved_data, created_at")
         .eq("user_id", currentUser.id)
-        .eq("tool_url", "/pneumatic.html")
         .order("created_at", { ascending:false });
 
       if(error){
