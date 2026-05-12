@@ -55,9 +55,9 @@ function savedToolsUpdateAuthUI(){
   }
 }
 
-function savedToolsHandleAuthButton(){
+function savedToolsHandleAuthButton(config){
   if(savedToolsCurrentUser){
-    savedToolsLoad();
+    savedToolsLoad(config);
     savedToolsSetStatus("savedStatus", "You are signed in. Your saved calculations are shown below.", "success");
   } else if(typeof openAuthModal === "function"){
     openAuthModal();
@@ -65,7 +65,6 @@ function savedToolsHandleAuthButton(){
     savedToolsSetStatus("savedStatus", "Please sign in from the account button first.", "error");
   }
 }
-
 async function savedToolsSave(config){
   if(!config || !config.toolName || !config.toolUrl || typeof config.collectData !== "function"){
     savedToolsSetStatus("saveStatus", "Save setup is missing required tool configuration.", "error");
