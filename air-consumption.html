@@ -627,6 +627,48 @@
         Enter your values above and click <strong>Calculate Air Usage</strong>.
       </div>
 
+      <section style="margin-top:24px;">
+  <div class="card">
+    <h2>Save This Calculation</h2>
+
+    <p class="section-intro">
+      Save pneumatic air consumption setups and reload them later from any device.
+    </p>
+
+    <div class="button-row">
+      <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">
+        Save Calculation
+      </button>
+
+      <button class="btn btn-secondary" type="button" id="authButton" onclick="handleAuthButton()">
+        Sign In
+      </button>
+    </div>
+
+    <div id="authUserLabel" class="save-status muted">
+      Sign in to save and reload calculations.
+    </div>
+
+    <div id="saveStatus" class="save-status muted"></div>
+  </div>
+</section>
+
+<section style="margin-top:24px;">
+  <div class="card">
+    <h2>My Saved Calculations</h2>
+
+    <p class="section-intro">
+      Reload previous air consumption estimates and pneumatic sizing setups.
+    </p>
+
+    <div id="savedStatus" class="save-status muted">
+      Loading saved calculations...
+    </div>
+
+    <div id="savedList" class="saved-list"></div>
+  </div>
+</section>
+
       <p class="note">
         Standard free air conversion uses absolute pressure ratio based on PSIG input. This is a practical engineering estimate and does not account for tubing dead volume, leakage, valve timing losses, cushioning losses, unusual motion profiles, or dynamic pressure drop through undersized valves and air lines.
       </p>
@@ -887,7 +929,20 @@
         "<strong>Note</strong><br>" +
         cylinderNote;
 
+            const calculationData = {
+  bore: bore,
+  rod: rod,
+  stroke: stroke,
+  pressure: pressure,
+  cycles_per_minute: cpm,
+  cylinder_type: doubleActing === "yes" ? "double" : "single",
+  air_consumption_scfm: roundTo(scfmPractical, 3),
+  air_consumption_nl_min: roundTo(scfmPractical * 28.3168, 2),
+  timestamp: new Date().toISOString()
+};
+
       scrollToOutput();
+return calculationData;
     }
 
     function clearCalculator(){
@@ -934,6 +989,63 @@
       calculateAirConsumption();
     }
   </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=1"></script>
+
+  <script>
+  const AIR_CONSUMPTION_SAVE_CONFIG = {
+    toolName: "Pneumatic Air Consumption Calculator",
+    toolUrl: "/air-consumption.html",
+    analyticsTool: "air_consumption",
+    savedItemTitle: "Air Consumption Setup",
+
+    collectData: function(){
+      return calculateAirConsumption();
+    },
+
+    reloadData: function(savedData){
+      document.getElementById("bore").value = savedData.bore ?? "";
+      document.getElementById("rod").value = savedData.rod ?? "";
+      document.getElementById("stroke").value = savedData.stroke ?? "";
+      document.getElementById("pressure").value = savedData.pressure ?? "";
+      document.getElementById("cpm").value = savedData.cycles_per_minute ?? "";
+
+      document.getElementById("doubleActing").value =
+        savedData.cylinder_type === "single" ? "no" : "yes";
+
+      calculateAirConsumption();
+    },
+
+    renderFields: function(d){
+      return [
+        { label:"Bore", value: savedToolsSafeValue(d.bore) + " in" },
+        { label:"Rod", value: savedToolsSafeValue(d.rod) + " in" },
+        { label:"Stroke", value: savedToolsSafeValue(d.stroke) + " in" },
+        { label:"Pressure", value: savedToolsSafeValue(d.pressure) + " psi" },
+        { label:"Cycles/Min", value: savedToolsSafeValue(d.cycles_per_minute) },
+        { label:"SCFM", value: savedToolsSafeValue(d.air_consumption_scfm) },
+        { label:"NL/min", value: savedToolsSafeValue(d.air_consumption_nl_min) },
+        { label:"Type", value: savedToolsSafeValue(d.cylinder_type) }
+      ];
+    }
+  };
+
+  function saveCurrentCalculation(){
+    savedToolsSave(AIR_CONSUMPTION_SAVE_CONFIG);
+  }
+
+  function loadSavedCalculations(){
+    savedToolsLoad(AIR_CONSUMPTION_SAVE_CONFIG);
+  }
+
+  function handleAuthButton(){
+    savedToolsHandleAuthButton(AIR_CONSUMPTION_SAVE_CONFIG);
+  }
+
+  savedToolsInit(AIR_CONSUMPTION_SAVE_CONFIG);
+</script>
 
   <script>
     fetch('/navbar.html?v=20260422')
