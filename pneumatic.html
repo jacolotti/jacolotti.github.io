@@ -1020,622 +1020,436 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="/supabase.js"></script>
+  <script src="/supabase.js?v=debug1"></script>
+  <script src="/saved-tools.js?v=1"></script>
 
-  <script>
-    let currentUser = null;
-    let authMode = "signin";
-    let latestPneumaticCalculation = null;
+ <script>
+  let authMode = "signin";
+  let latestPneumaticCalculation = null;
 
-    function setStatus(id, message, type){
-      const el = document.getElementById(id);
-      if(!el) return;
-      el.textContent = message || "";
-      el.className = "save-status " + (type || "muted");
+  function setStatus(id, message, type){
+    if(typeof savedToolsSetStatus === "function"){
+      savedToolsSetStatus(id, message, type);
+      return;
     }
 
-    function updateLabels(){
-      let lengthUnit = document.getElementById("lengthUnit").value;
-      let pressureUnit = document.getElementById("pressureUnit").value;
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.textContent = message || "";
+    el.className = "save-status " + (type || "muted");
+  }
 
-      document.getElementById("boreLabel").innerText =
-        "Bore Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+  function updateLabels(){
+    let lengthUnit = document.getElementById("lengthUnit").value;
+    let pressureUnit = document.getElementById("pressureUnit").value;
 
-      document.getElementById("rodLabel").innerText =
-        "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+    document.getElementById("boreLabel").innerText =
+      "Bore Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
 
-      document.getElementById("strokeLabel").innerText =
-        "Stroke Length (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
+    document.getElementById("rodLabel").innerText =
+      "Rod Diameter (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
 
-      document.getElementById("pressureLabel").innerText =
-        "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
-    }
+    document.getElementById("strokeLabel").innerText =
+      "Stroke Length (" + (lengthUnit === "inch" ? "in" : "mm") + ")";
 
-    function scrollToOutput(){
-      document.getElementById("output").scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
+    document.getElementById("pressureLabel").innerText =
+      "Air Pressure (" + (pressureUnit === "psi" ? "psi" : "bar") + ")";
+  }
 
-    function calculate(){
-      let bore = parseFloat(document.getElementById("bore").value) || 0;
-      let rod = parseFloat(document.getElementById("rod").value) || 0;
-      let pressure = parseFloat(document.getElementById("pressure").value) || 0;
-      let stroke = parseFloat(document.getElementById("stroke").value) || 0;
-      let derating = parseFloat(document.getElementById("derating").value) || 0;
+  function scrollToOutput(){
+    document.getElementById("output").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
 
-      let lengthUnit = document.getElementById("lengthUnit").value;
-      let pressureUnit = document.getElementById("pressureUnit").value;
-      let cylinderType = document.getElementById("cylinderType").value;
-      const output = document.getElementById("output");
+  function calculate(){
+    let bore = parseFloat(document.getElementById("bore").value) || 0;
+    let rod = parseFloat(document.getElementById("rod").value) || 0;
+    let pressure = parseFloat(document.getElementById("pressure").value) || 0;
+    let stroke = parseFloat(document.getElementById("stroke").value) || 0;
+    let derating = parseFloat(document.getElementById("derating").value) || 0;
 
-      if(bore <= 0){
-        output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
-        scrollToOutput();
-        return null;
-      }
+    let lengthUnit = document.getElementById("lengthUnit").value;
+    let pressureUnit = document.getElementById("pressureUnit").value;
+    let cylinderType = document.getElementById("cylinderType").value;
+    const output = document.getElementById("output");
 
-      if(rod < 0){
-        output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
-        scrollToOutput();
-        return null;
-      }
-
-      if(rod >= bore){
-        output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
-        scrollToOutput();
-        return null;
-      }
-
-      if(pressure <= 0){
-        output.innerHTML = "<strong>Please enter an air pressure greater than 0.</strong>";
-        scrollToOutput();
-        return null;
-      }
-
-      if(stroke < 0){
-        output.innerHTML = "<strong>Please enter a stroke length of 0 or greater.</strong>";
-        scrollToOutput();
-        return null;
-      }
-
-      if(derating <= 0 || derating > 100){
-        output.innerHTML = "<strong>Please enter a force derating percentage greater than 0 and up to 100.</strong>";
-        scrollToOutput();
-        return null;
-      }
-
-      let boreMm = bore;
-      let rodMm = rod;
-      let strokeMm = stroke;
-      let pressureBar = pressure;
-
-      if(lengthUnit === "inch"){
-        boreMm = bore * 25.4;
-        rodMm = rod * 25.4;
-        strokeMm = stroke * 25.4;
-      }
-
-      if(pressureUnit === "psi"){
-        pressureBar = pressure * 0.0689476;
-      }
-
-      let derateFactor = derating / 100;
-
-      let boreAreaMm2 = Math.PI * Math.pow(boreMm / 2, 2);
-      let rodAreaMm2 = Math.PI * Math.pow(rodMm / 2, 2);
-      let retractAreaMm2 = boreAreaMm2 - rodAreaMm2;
-
-      let extendForceN = boreAreaMm2 * pressureBar * 0.1;
-      let retractForceN = retractAreaMm2 * pressureBar * 0.1;
-
-      let deratedExtendForceN = extendForceN * derateFactor;
-      let deratedRetractForceN = retractForceN * derateFactor;
-
-      let extendForceLbf = extendForceN * 0.224809;
-      let retractForceLbf = retractForceN * 0.224809;
-      let deratedExtendForceLbf = deratedExtendForceN * 0.224809;
-      let deratedRetractForceLbf = deratedRetractForceN * 0.224809;
-
-      let extendForceKgf = extendForceN / 9.80665;
-      let retractForceKgf = retractForceN / 9.80665;
-      let deratedExtendForceKgf = deratedExtendForceN / 9.80665;
-      let deratedRetractForceKgf = deratedRetractForceN / 9.80665;
-
-      let strokeMeters = strokeMm / 1000;
-      let extendWorkJ = deratedExtendForceN * strokeMeters;
-      let retractWorkJ = deratedRetractForceN * strokeMeters;
-
-      let hiddenForce = document.getElementById("hiddenForce");
-      if(hiddenForce){
-        hiddenForce.value = deratedExtendForceLbf.toFixed(2) + " lbf";
-      }
-
-      let helpForce = document.getElementById("helpForce");
-      if(helpForce){
-        helpForce.value = deratedExtendForceLbf.toFixed(2) + " lbf";
-      }
-
-      let cylinderTypeText = cylinderType === "single" ? "Single Acting" : "Double Acting";
-
-      let retractSectionTitle = "Retract Force";
-      let retractDeratedTitle = "Derated Retract Force";
-      let retractWorkTitle = "Approx. Retract Work Per Stroke";
-
-      if(cylinderType === "single"){
-        retractSectionTitle = "Retract-Side Force Reference";
-        retractDeratedTitle = "Derated Retract-Side Force Reference";
-        retractWorkTitle = "Approx. Retract-Side Work Reference";
-      }
-
-      let recommendation = "";
-
-      if(deratedExtendForceLbf < 50){
-        recommendation = "Your derated extend force is relatively light. This usually points toward smaller pneumatic cylinders for light clamping, positioning, ejecting, or simple actuator tasks. Still confirm friction, alignment, and any shock loads before final selection.";
-      } else if(deratedExtendForceLbf < 200){
-        recommendation = "Your derated extend force is in a moderate range. This is common for general automation tasks like part stops, moderate clamps, slides, and tooling motion. Check mounting rigidity, speed requirements, and pressure stability before ordering.";
-      } else if(deratedExtendForceLbf < 500){
-        recommendation = "Your derated extend force is fairly strong. This suggests a more substantial cylinder setup may be needed. Make sure your structure, tooling, and mounting can handle the reaction loads, not just the cylinder output.";
-      } else {
-        recommendation = "Your derated extend force is high. This kind of application deserves a careful review of frame strength, side loading, pressure drop, safety factor, and whether pneumatics are still the best fit compared with hydraulic or servo-driven alternatives.";
-      }
-
-      document.getElementById("recommendationText").innerHTML =
-        "<strong>Derated Extend Force:</strong> " + deratedExtendForceLbf.toFixed(2) + " lbf<br><br>" + recommendation;
-
-      output.innerHTML =
-        "<strong>Cylinder Type</strong><br>" +
-        cylinderTypeText + "<br><br>" +
-
-        "<strong>Bore Area</strong><br>" +
-        boreAreaMm2.toFixed(2) + " mm²<br><br>" +
-
-        "<strong>Rod Area</strong><br>" +
-        rodAreaMm2.toFixed(2) + " mm²<br><br>" +
-
-        "<strong>Retract-Side Area</strong><br>" +
-        retractAreaMm2.toFixed(2) + " mm²<br><br>" +
-
-        "<strong>Extend Force</strong><br>" +
-        extendForceN.toFixed(2) + " N<br>" +
-        extendForceLbf.toFixed(2) + " lbf<br>" +
-        extendForceKgf.toFixed(2) + " kgf<br><br>" +
-
-        "<strong>" + retractSectionTitle + "</strong><br>" +
-        retractForceN.toFixed(2) + " N<br>" +
-        retractForceLbf.toFixed(2) + " lbf<br>" +
-        retractForceKgf.toFixed(2) + " kgf<br><br>" +
-
-        "<strong>Derated Extend Force</strong><br>" +
-        deratedExtendForceN.toFixed(2) + " N<br>" +
-        deratedExtendForceLbf.toFixed(2) + " lbf<br>" +
-        deratedExtendForceKgf.toFixed(2) + " kgf<br><br>" +
-
-        "<strong>" + retractDeratedTitle + "</strong><br>" +
-        deratedRetractForceN.toFixed(2) + " N<br>" +
-        deratedRetractForceLbf.toFixed(2) + " lbf<br>" +
-        deratedRetractForceKgf.toFixed(2) + " kgf<br><br>" +
-
-        "<strong>Approx. Extend Work Per Stroke</strong><br>" +
-        extendWorkJ.toFixed(3) + " J<br><br>" +
-
-        "<strong>" + retractWorkTitle + "</strong><br>" +
-        retractWorkJ.toFixed(3) + " J<br><br>" +
-
-        "<strong>Interpretation</strong><br>" +
-        recommendation +
-        "<br><br><strong>Next Step:</strong> Use this force value to estimate air consumption and verify your system can maintain performance under real conditions.";
-
-      latestPneumaticCalculation = {
-        bore: bore,
-        rod: rod,
-        pressure: pressure,
-        stroke: stroke,
-        derating: derating,
-        length_unit: lengthUnit,
-        pressure_unit: pressureUnit,
-        cylinder_type: cylinderType,
-        bore_mm: Number(boreMm.toFixed(4)),
-        rod_mm: Number(rodMm.toFixed(4)),
-        stroke_mm: Number(strokeMm.toFixed(4)),
-        pressure_bar: Number(pressureBar.toFixed(5)),
-        bore_area_mm2: Number(boreAreaMm2.toFixed(4)),
-        rod_area_mm2: Number(rodAreaMm2.toFixed(4)),
-        retract_area_mm2: Number(retractAreaMm2.toFixed(4)),
-        extend_force_n: Number(extendForceN.toFixed(4)),
-        retract_force_n: Number(retractForceN.toFixed(4)),
-        extend_force_lbf: Number(extendForceLbf.toFixed(4)),
-        retract_force_lbf: Number(retractForceLbf.toFixed(4)),
-        derated_extend_force_n: Number(deratedExtendForceN.toFixed(4)),
-        derated_retract_force_n: Number(deratedRetractForceN.toFixed(4)),
-        derated_extend_force_lbf: Number(deratedExtendForceLbf.toFixed(4)),
-        derated_retract_force_lbf: Number(deratedRetractForceLbf.toFixed(4)),
-        extend_work_j: Number(extendWorkJ.toFixed(4)),
-        retract_work_j: Number(retractWorkJ.toFixed(4)),
-        recommendation: recommendation,
-        timestamp: new Date().toISOString()
-      };
-
+    if(bore <= 0){
+      output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
       scrollToOutput();
-      return latestPneumaticCalculation;
+      return null;
     }
 
-    function resetCalculator(){
-      document.getElementById("lengthUnit").value = "mm";
-      document.getElementById("pressureUnit").value = "bar";
-      document.getElementById("cylinderType").value = "double";
-      document.getElementById("bore").value = "50";
-      document.getElementById("rod").value = "20";
-      document.getElementById("pressure").value = "6";
-      document.getElementById("stroke").value = "100";
-      document.getElementById("derating").value = "100";
-      updateLabels();
-      document.getElementById("output").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
-      document.getElementById("recommendationText").innerHTML =
-        "Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.";
-
-      let helpForce = document.getElementById("helpForce");
-      if(helpForce){helpForce.value = "";}
-
-      let hiddenForce = document.getElementById("hiddenForce");
-      if(hiddenForce){hiddenForce.value = "";}
-
-      latestPneumaticCalculation = null;
-      setStatus("saveStatus", "", "muted");
+    if(rod < 0){
+      output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
+      scrollToOutput();
+      return null;
     }
 
-    function loadExample1(){
-      document.getElementById("lengthUnit").value = "mm";
-      document.getElementById("pressureUnit").value = "bar";
-      document.getElementById("cylinderType").value = "double";
-      document.getElementById("bore").value = "50";
-      document.getElementById("rod").value = "20";
-      document.getElementById("pressure").value = "6";
-      document.getElementById("stroke").value = "100";
-      document.getElementById("derating").value = "90";
-      updateLabels();
-      calculate();
+    if(rod >= bore){
+      output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
+      scrollToOutput();
+      return null;
     }
 
-    function loadExample2(){
-      document.getElementById("lengthUnit").value = "mm";
-      document.getElementById("pressureUnit").value = "bar";
-      document.getElementById("cylinderType").value = "double";
-      document.getElementById("bore").value = "80";
-      document.getElementById("rod").value = "25";
-      document.getElementById("pressure").value = "6";
-      document.getElementById("stroke").value = "150";
-      document.getElementById("derating").value = "85";
-      updateLabels();
-      calculate();
+    if(pressure <= 0){
+      output.innerHTML = "<strong>Please enter an air pressure greater than 0.</strong>";
+      scrollToOutput();
+      return null;
     }
 
-    function loadExample3(){
-      document.getElementById("lengthUnit").value = "inch";
-      document.getElementById("pressureUnit").value = "psi";
-      document.getElementById("cylinderType").value = "double";
-      document.getElementById("bore").value = "2";
-      document.getElementById("rod").value = "0.625";
-      document.getElementById("pressure").value = "90";
-      document.getElementById("stroke").value = "6";
-      document.getElementById("derating").value = "90";
-      updateLabels();
-      calculate();
+    if(stroke < 0){
+      output.innerHTML = "<strong>Please enter a stroke length of 0 or greater.</strong>";
+      scrollToOutput();
+      return null;
     }
 
-    async function checkUser(){
-  if(!window.supabaseClient){
-    currentUser = null;
-    updateAuthUI();
-    setStatus("savedStatus", "Supabase is not loaded. Check /supabase.js.", "error");
-    return null;
+    if(derating <= 0 || derating > 100){
+      output.innerHTML = "<strong>Please enter a force derating percentage greater than 0 and up to 100.</strong>";
+      scrollToOutput();
+      return null;
+    }
+
+    let boreMm = bore;
+    let rodMm = rod;
+    let strokeMm = stroke;
+    let pressureBar = pressure;
+
+    if(lengthUnit === "inch"){
+      boreMm = bore * 25.4;
+      rodMm = rod * 25.4;
+      strokeMm = stroke * 25.4;
+    }
+
+    if(pressureUnit === "psi"){
+      pressureBar = pressure * 0.0689476;
+    }
+
+    let derateFactor = derating / 100;
+
+    let boreAreaMm2 = Math.PI * Math.pow(boreMm / 2, 2);
+    let rodAreaMm2 = Math.PI * Math.pow(rodMm / 2, 2);
+    let retractAreaMm2 = boreAreaMm2 - rodAreaMm2;
+
+    let extendForceN = boreAreaMm2 * pressureBar * 0.1;
+    let retractForceN = retractAreaMm2 * pressureBar * 0.1;
+
+    let deratedExtendForceN = extendForceN * derateFactor;
+    let deratedRetractForceN = retractForceN * derateFactor;
+
+    let extendForceLbf = extendForceN * 0.224809;
+    let retractForceLbf = retractForceN * 0.224809;
+    let deratedExtendForceLbf = deratedExtendForceN * 0.224809;
+    let deratedRetractForceLbf = deratedRetractForceN * 0.224809;
+
+    let extendForceKgf = extendForceN / 9.80665;
+    let retractForceKgf = retractForceN / 9.80665;
+    let deratedExtendForceKgf = deratedExtendForceN / 9.80665;
+    let deratedRetractForceKgf = deratedRetractForceN / 9.80665;
+
+    let strokeMeters = strokeMm / 1000;
+    let extendWorkJ = deratedExtendForceN * strokeMeters;
+    let retractWorkJ = deratedRetractForceN * strokeMeters;
+
+    let hiddenForce = document.getElementById("hiddenForce");
+    if(hiddenForce){
+      hiddenForce.value = deratedExtendForceLbf.toFixed(2) + " lbf";
+    }
+
+    let helpForce = document.getElementById("helpForce");
+    if(helpForce){
+      helpForce.value = deratedExtendForceLbf.toFixed(2) + " lbf";
+    }
+
+    let cylinderTypeText = cylinderType === "single" ? "Single Acting" : "Double Acting";
+
+    let retractSectionTitle = "Retract Force";
+    let retractDeratedTitle = "Derated Retract Force";
+    let retractWorkTitle = "Approx. Retract Work Per Stroke";
+
+    if(cylinderType === "single"){
+      retractSectionTitle = "Retract-Side Force Reference";
+      retractDeratedTitle = "Derated Retract-Side Force Reference";
+      retractWorkTitle = "Approx. Retract-Side Work Reference";
+    }
+
+    let recommendation = "";
+
+    if(deratedExtendForceLbf < 50){
+      recommendation = "Your derated extend force is relatively light. This usually points toward smaller pneumatic cylinders for light clamping, positioning, ejecting, or simple actuator tasks. Still confirm friction, alignment, and any shock loads before final selection.";
+    } else if(deratedExtendForceLbf < 200){
+      recommendation = "Your derated extend force is in a moderate range. This is common for general automation tasks like part stops, moderate clamps, slides, and tooling motion. Check mounting rigidity, speed requirements, and pressure stability before ordering.";
+    } else if(deratedExtendForceLbf < 500){
+      recommendation = "Your derated extend force is fairly strong. This suggests a more substantial cylinder setup may be needed. Make sure your structure, tooling, and mounting can handle the reaction loads, not just the cylinder output.";
+    } else {
+      recommendation = "Your derated extend force is high. This kind of application deserves a careful review of frame strength, side loading, pressure drop, safety factor, and whether pneumatics are still the best fit compared with hydraulic or servo-driven alternatives.";
+    }
+
+    document.getElementById("recommendationText").innerHTML =
+      "<strong>Derated Extend Force:</strong> " + deratedExtendForceLbf.toFixed(2) + " lbf<br><br>" + recommendation;
+
+    output.innerHTML =
+      "<strong>Cylinder Type</strong><br>" +
+      cylinderTypeText + "<br><br>" +
+
+      "<strong>Bore Area</strong><br>" +
+      boreAreaMm2.toFixed(2) + " mm²<br><br>" +
+
+      "<strong>Rod Area</strong><br>" +
+      rodAreaMm2.toFixed(2) + " mm²<br><br>" +
+
+      "<strong>Retract-Side Area</strong><br>" +
+      retractAreaMm2.toFixed(2) + " mm²<br><br>" +
+
+      "<strong>Extend Force</strong><br>" +
+      extendForceN.toFixed(2) + " N<br>" +
+      extendForceLbf.toFixed(2) + " lbf<br>" +
+      extendForceKgf.toFixed(2) + " kgf<br><br>" +
+
+      "<strong>" + retractSectionTitle + "</strong><br>" +
+      retractForceN.toFixed(2) + " N<br>" +
+      retractForceLbf.toFixed(2) + " lbf<br>" +
+      retractForceKgf.toFixed(2) + " kgf<br><br>" +
+
+      "<strong>Derated Extend Force</strong><br>" +
+      deratedExtendForceN.toFixed(2) + " N<br>" +
+      deratedExtendForceLbf.toFixed(2) + " lbf<br>" +
+      deratedExtendForceKgf.toFixed(2) + " kgf<br><br>" +
+
+      "<strong>" + retractDeratedTitle + "</strong><br>" +
+      deratedRetractForceN.toFixed(2) + " N<br>" +
+      deratedRetractForceLbf.toFixed(2) + " lbf<br>" +
+      deratedRetractForceKgf.toFixed(2) + " kgf<br><br>" +
+
+      "<strong>Approx. Extend Work Per Stroke</strong><br>" +
+      extendWorkJ.toFixed(3) + " J<br><br>" +
+
+      "<strong>" + retractWorkTitle + "</strong><br>" +
+      retractWorkJ.toFixed(3) + " J<br><br>" +
+
+      "<strong>Interpretation</strong><br>" +
+      recommendation +
+      "<br><br><strong>Next Step:</strong> Use this force value to estimate air consumption and verify your system can maintain performance under real conditions.";
+
+    latestPneumaticCalculation = {
+      bore: bore,
+      rod: rod,
+      pressure: pressure,
+      stroke: stroke,
+      derating: derating,
+      length_unit: lengthUnit,
+      pressure_unit: pressureUnit,
+      cylinder_type: cylinderType,
+      bore_mm: Number(boreMm.toFixed(4)),
+      rod_mm: Number(rodMm.toFixed(4)),
+      stroke_mm: Number(strokeMm.toFixed(4)),
+      pressure_bar: Number(pressureBar.toFixed(5)),
+      bore_area_mm2: Number(boreAreaMm2.toFixed(4)),
+      rod_area_mm2: Number(rodAreaMm2.toFixed(4)),
+      retract_area_mm2: Number(retractAreaMm2.toFixed(4)),
+      extend_force_n: Number(extendForceN.toFixed(4)),
+      retract_force_n: Number(retractForceN.toFixed(4)),
+      extend_force_lbf: Number(extendForceLbf.toFixed(4)),
+      retract_force_lbf: Number(retractForceLbf.toFixed(4)),
+      derated_extend_force_n: Number(deratedExtendForceN.toFixed(4)),
+      derated_retract_force_n: Number(deratedRetractForceN.toFixed(4)),
+      derated_extend_force_lbf: Number(deratedExtendForceLbf.toFixed(4)),
+      derated_retract_force_lbf: Number(deratedRetractForceLbf.toFixed(4)),
+      extend_work_j: Number(extendWorkJ.toFixed(4)),
+      retract_work_j: Number(retractWorkJ.toFixed(4)),
+      recommendation: recommendation,
+      timestamp: new Date().toISOString()
+    };
+
+    scrollToOutput();
+    return latestPneumaticCalculation;
   }
 
-  const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
+  function resetCalculator(){
+    document.getElementById("lengthUnit").value = "mm";
+    document.getElementById("pressureUnit").value = "bar";
+    document.getElementById("cylinderType").value = "double";
+    document.getElementById("bore").value = "50";
+    document.getElementById("rod").value = "20";
+    document.getElementById("pressure").value = "6";
+    document.getElementById("stroke").value = "100";
+    document.getElementById("derating").value = "100";
+    updateLabels();
 
-  if(sessionError){
-    console.error("Session check error:", sessionError);
+    document.getElementById("output").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
+    document.getElementById("recommendationText").innerHTML =
+      "Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.";
+
+    let helpForce = document.getElementById("helpForce");
+    if(helpForce){ helpForce.value = ""; }
+
+    let hiddenForce = document.getElementById("hiddenForce");
+    if(hiddenForce){ hiddenForce.value = ""; }
+
+    latestPneumaticCalculation = null;
+    setStatus("saveStatus", "", "muted");
   }
 
-  if(sessionData && sessionData.session && sessionData.session.user){
-    currentUser = sessionData.session.user;
-    updateAuthUI();
-    return currentUser;
+  function loadExample1(){
+    document.getElementById("lengthUnit").value = "mm";
+    document.getElementById("pressureUnit").value = "bar";
+    document.getElementById("cylinderType").value = "double";
+    document.getElementById("bore").value = "50";
+    document.getElementById("rod").value = "20";
+    document.getElementById("pressure").value = "6";
+    document.getElementById("stroke").value = "100";
+    document.getElementById("derating").value = "90";
+    updateLabels();
+    calculate();
   }
 
-  if(currentUser){
-    updateAuthUI();
-    return currentUser;
+  function loadExample2(){
+    document.getElementById("lengthUnit").value = "mm";
+    document.getElementById("pressureUnit").value = "bar";
+    document.getElementById("cylinderType").value = "double";
+    document.getElementById("bore").value = "80";
+    document.getElementById("rod").value = "25";
+    document.getElementById("pressure").value = "6";
+    document.getElementById("stroke").value = "150";
+    document.getElementById("derating").value = "85";
+    updateLabels();
+    calculate();
   }
 
-  currentUser = null;
-  updateAuthUI();
-  return null;
-}
+  function loadExample3(){
+    document.getElementById("lengthUnit").value = "inch";
+    document.getElementById("pressureUnit").value = "psi";
+    document.getElementById("cylinderType").value = "double";
+    document.getElementById("bore").value = "2";
+    document.getElementById("rod").value = "0.625";
+    document.getElementById("pressure").value = "90";
+    document.getElementById("stroke").value = "6";
+    document.getElementById("derating").value = "90";
+    updateLabels();
+    calculate();
+  }
 
-    function updateAuthUI(){
-      const authButton = document.getElementById("authButton");
-      const authUserLabel = document.getElementById("authUserLabel");
+  function openAuthModal(){
+    document.getElementById("authModal").classList.add("active");
+    setStatus("authStatus", "", "muted");
 
-      if(currentUser){
-        if(authButton){authButton.textContent = "My Account";}
-        if(authUserLabel){authUserLabel.textContent = "Signed in as " + currentUser.email;}
-      } else {
-        if(authButton){authButton.textContent = "Sign In";}
-        if(authUserLabel){authUserLabel.textContent = "Sign in to save and reload pneumatic calculations.";}
-      }
-    }
-
-    function handleAuthButton(){
-      if(currentUser){
-        loadSavedCalculations();
-        setStatus("savedStatus", "You are signed in. Your saved calculations are shown below.", "success");
-      } else {
-        openAuthModal();
-      }
-    }
-
-    function openAuthModal(){
-      document.getElementById("authModal").classList.add("active");
-      setStatus("authStatus", "", "muted");
+    if(typeof gtag === "function"){
       gtag("event","auth_modal_open",{"location":"pneumatic_force"});
     }
+  }
 
-    function closeAuthModal(){
-      document.getElementById("authModal").classList.remove("active");
+  function closeAuthModal(){
+    document.getElementById("authModal").classList.remove("active");
+  }
+
+  function setAuthMode(mode){
+    authMode = mode;
+    document.getElementById("signInTab").classList.toggle("active", mode === "signin");
+    document.getElementById("signUpTab").classList.toggle("active", mode === "signup");
+    document.getElementById("authSubmitButton").textContent = mode === "signin" ? "Sign In" : "Create Account";
+    setStatus("authStatus", "", "muted");
+  }
+
+  async function submitAuthForm(){
+    if(authMode === "signup"){
+      await signUpUser();
+    } else {
+      await signInUser();
+    }
+  }
+
+  async function signUpUser(){
+    const email = document.getElementById("authEmail").value.trim();
+    const password = document.getElementById("authPassword").value;
+
+    if(!email || !password){
+      setStatus("authStatus", "Enter an email and password.", "error");
+      return;
     }
 
-    function setAuthMode(mode){
-      authMode = mode;
-      document.getElementById("signInTab").classList.toggle("active", mode === "signin");
-      document.getElementById("signUpTab").classList.toggle("active", mode === "signup");
-      document.getElementById("authSubmitButton").textContent = mode === "signin" ? "Sign In" : "Create Account";
-      setStatus("authStatus", "", "muted");
+    const { error } = await supabaseClient.auth.signUp({
+      email: email,
+      password: password
+    });
+
+    if(error){
+      setStatus("authStatus", error.message, "error");
+      return;
     }
 
-    async function submitAuthForm(){
-      if(authMode === "signup"){
-        await signUpUser();
-      } else {
-        await signInUser();
-      }
-    }
-
-    async function signUpUser(){
-      const email = document.getElementById("authEmail").value.trim();
-      const password = document.getElementById("authPassword").value;
-
-      if(!email || !password){
-        setStatus("authStatus", "Enter an email and password.", "error");
-        return;
-      }
-
-      const { error } = await supabaseClient.auth.signUp({
-        email: email,
-        password: password
-      });
-
-      if(error){
-        setStatus("authStatus", error.message, "error");
-        return;
-      }
-
+    if(typeof gtag === "function"){
       gtag("event","account_signup_started",{"location":"pneumatic_force"});
-      setStatus("authStatus", "Account created. Check your email to confirm your account, then sign in.", "success");
     }
 
-    async function signInUser(){
-      const email = document.getElementById("authEmail").value.trim();
-      const password = document.getElementById("authPassword").value;
+    setStatus("authStatus", "Account created. Check your email to confirm your account, then sign in.", "success");
+  }
 
-      if(!email || !password){
-        setStatus("authStatus", "Enter your email and password.", "error");
-        return;
-      }
+  async function signInUser(){
+    const email = document.getElementById("authEmail").value.trim();
+    const password = document.getElementById("authPassword").value;
 
-      const { data, error } = await supabaseClient.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+    if(!email || !password){
+      setStatus("authStatus", "Enter your email and password.", "error");
+      return;
+    }
 
-      if(error){
-        setStatus("authStatus", error.message, "error");
-        return;
-      }
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
 
-      currentUser = data.user;
-      updateAuthUI();
-      closeAuthModal();
+    if(error){
+      setStatus("authStatus", error.message, "error");
+      return;
+    }
 
+    closeAuthModal();
+
+    if(typeof gtag === "function"){
       gtag("event","account_login",{"location":"pneumatic_force"});
-      setStatus("saveStatus", "Signed in. You can now save this calculation.", "success");
-
-      await loadSavedCalculations();
     }
 
-async function saveCurrentCalculation(){
-  const calculation = calculate();
-
-  if(!calculation){
-    setStatus("saveStatus", "Fix the calculator inputs before saving.", "error");
-    return;
+    setStatus("saveStatus", "Signed in. You can now save this calculation.", "success");
+    await savedToolsLoad(PNEUMATIC_SAVE_CONFIG);
   }
 
-  const user = await checkUser();
+  const PNEUMATIC_SAVE_CONFIG = {
+    toolName: "Pneumatic Cylinder Force Calculator",
+    toolUrl: "/pneumatic.html",
+    analyticsTool: "pneumatic_force",
+    savedItemTitle: "Pneumatic Cylinder Setup",
 
-  if(!user){
-    setStatus("saveStatus", "Your session was not found. Please sign in again, then press Save Calculation.", "error");
-    openAuthModal();
-    return;
-  }
+    collectData: function(){
+      const calculation = calculate();
+      if(!calculation) return null;
 
-  const savedData = {
-    bore: calculation.bore,
-    rod: calculation.rod,
-    pressure: calculation.pressure,
-    stroke: calculation.stroke,
-    derating: calculation.derating,
-    length_unit: calculation.length_unit,
-    pressure_unit: calculation.pressure_unit,
-    cylinder_type: calculation.cylinder_type,
-    extend_force: calculation.derated_extend_force_lbf,
-    retract_force: calculation.derated_retract_force_lbf,
-    theoretical_extend_force_lbf: calculation.extend_force_lbf,
-    theoretical_retract_force_lbf: calculation.retract_force_lbf,
-    extend_force_n: calculation.derated_extend_force_n,
-    retract_force_n: calculation.derated_retract_force_n,
-    bore_area_mm2: calculation.bore_area_mm2,
-    rod_area_mm2: calculation.rod_area_mm2,
-    retract_area_mm2: calculation.retract_area_mm2,
-    extend_work_j: calculation.extend_work_j,
-    retract_work_j: calculation.retract_work_j,
-    recommendation: calculation.recommendation,
-    timestamp: calculation.timestamp
-  };
+      return {
+        bore: calculation.bore,
+        rod: calculation.rod,
+        pressure: calculation.pressure,
+        stroke: calculation.stroke,
+        derating: calculation.derating,
+        length_unit: calculation.length_unit,
+        pressure_unit: calculation.pressure_unit,
+        cylinder_type: calculation.cylinder_type,
+        extend_force: calculation.derated_extend_force_lbf,
+        retract_force: calculation.derated_retract_force_lbf,
+        theoretical_extend_force_lbf: calculation.extend_force_lbf,
+        theoretical_retract_force_lbf: calculation.retract_force_lbf,
+        extend_force_n: calculation.derated_extend_force_n,
+        retract_force_n: calculation.derated_retract_force_n,
+        bore_area_mm2: calculation.bore_area_mm2,
+        rod_area_mm2: calculation.rod_area_mm2,
+        retract_area_mm2: calculation.retract_area_mm2,
+        extend_work_j: calculation.extend_work_j,
+        retract_work_j: calculation.retract_work_j,
+        recommendation: calculation.recommendation,
+        timestamp: calculation.timestamp
+      };
+    },
 
-  setStatus("saveStatus", "Saving calculation...", "muted");
-
-  const { data, error } = await supabaseClient
-    .from("saved_tools")
-    .insert({
-      user_id: user.id,
-      tool_name: "Pneumatic Cylinder Force Calculator",
-      tool_url: "/pneumatic.html",
-      saved_data: savedData
-    })
-    .select();
-
-  console.log("Save response:", { data, error });
-
-  if(error){
-    setStatus("saveStatus", "Save failed: " + error.message, "error");
-    return;
-  }
-
-  gtag("event","calculation_saved",{
-    "tool":"pneumatic_force",
-    "bore":savedData.bore,
-    "rod":savedData.rod,
-    "pressure":savedData.pressure,
-    "extend_force_lbf":savedData.extend_force,
-    "retract_force_lbf":savedData.retract_force
-  });
-
-  setStatus("saveStatus", "Calculation saved successfully.", "success");
-  await loadSavedCalculations();
-}
-
-    async function loadSavedCalculations(){
-      await checkUser();
-
-      const list = document.getElementById("savedList");
-      if(list){list.innerHTML = "";}
-
-      if(!currentUser){
-        setStatus("savedStatus", "Sign in to view saved pneumatic calculations.", "muted");
-        return;
-      }
-
-      setStatus("savedStatus", "Loading saved calculations...", "muted");
-
-      const { data, error } = await supabaseClient
-        .from("saved_tools")
-        .select("id, tool_name, tool_url, saved_data, created_at")
-        .eq("user_id", currentUser.id)
-        .order("created_at", { ascending:false });
-
-      if(error){
-        setStatus("savedStatus", "Could not load saved calculations: " + error.message, "error");
-        return;
-      }
-
-      if(!data || data.length === 0){
-        setStatus("savedStatus", "No saved pneumatic calculations yet.", "muted");
-        return;
-      }
-
-      setStatus("savedStatus", data.length + " saved calculation" + (data.length === 1 ? "" : "s") + " found.", "success");
-
-      data.forEach(item => {
-        const d = item.saved_data || {};
-        const createdDate = item.created_at ? new Date(item.created_at) : null;
-        const createdLabel = createdDate ? createdDate.toLocaleString() : "Saved calculation";
-
-        const div = document.createElement("div");
-        div.className = "saved-item";
-
-        const titleRow = document.createElement("div");
-        titleRow.className = "saved-title-row";
-
-        const titleWrap = document.createElement("div");
-        const title = document.createElement("div");
-        title.className = "saved-title";
-        title.textContent = "Pneumatic Cylinder Setup";
-
-        const meta = document.createElement("div");
-        meta.className = "saved-meta";
-        meta.textContent = createdLabel;
-
-        titleWrap.appendChild(title);
-        titleWrap.appendChild(meta);
-        titleRow.appendChild(titleWrap);
-
-        const values = document.createElement("div");
-        values.className = "saved-values";
-        values.innerHTML =
-          '<div class="saved-value"><strong>Bore:</strong><br>' + safeValue(d.bore) + ' ' + safeValue(d.length_unit) + '</div>' +
-          '<div class="saved-value"><strong>Rod:</strong><br>' + safeValue(d.rod) + ' ' + safeValue(d.length_unit) + '</div>' +
-          '<div class="saved-value"><strong>Pressure:</strong><br>' + safeValue(d.pressure) + ' ' + safeValue(d.pressure_unit) + '</div>' +
-          '<div class="saved-value"><strong>Stroke:</strong><br>' + safeValue(d.stroke) + ' ' + safeValue(d.length_unit) + '</div>' +
-          '<div class="saved-value"><strong>Derating:</strong><br>' + safeValue(d.derating) + '%</div>' +
-          '<div class="saved-value"><strong>Extend:</strong><br>' + safeValue(d.extend_force) + ' lbf</div>' +
-          '<div class="saved-value"><strong>Retract:</strong><br>' + safeValue(d.retract_force) + ' lbf</div>' +
-          '<div class="saved-value"><strong>Type:</strong><br>' + safeValue(d.cylinder_type) + '</div>';
-
-        const actions = document.createElement("div");
-        actions.className = "saved-actions";
-
-        const reloadBtn = document.createElement("button");
-        reloadBtn.className = "btn btn-primary";
-        reloadBtn.type = "button";
-        reloadBtn.textContent = "Reload Setup";
-        reloadBtn.addEventListener("click", function(){
-          reloadSavedCalculation(d);
-        });
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.className = "btn btn-danger";
-        deleteBtn.type = "button";
-        deleteBtn.textContent = "Delete";
-        deleteBtn.addEventListener("click", function(){
-          deleteSavedCalculation(item.id);
-        });
-
-        actions.appendChild(reloadBtn);
-        actions.appendChild(deleteBtn);
-
-        div.appendChild(titleRow);
-        div.appendChild(values);
-        div.appendChild(actions);
-
-        list.appendChild(div);
-      });
-    }
-
-    function safeValue(value){
-      if(value === undefined || value === null || value === "") return "—";
-      if(typeof value === "number"){
-        return Number(value).toLocaleString(undefined, {
-          maximumFractionDigits: 3
-        });
-      }
-      return String(value);
-    }
-
-    function reloadSavedCalculation(savedData){
-      if(!savedData) return;
-
+    reloadData: function(savedData){
       document.getElementById("lengthUnit").value = savedData.length_unit || "mm";
       document.getElementById("pressureUnit").value = savedData.pressure_unit || "bar";
       document.getElementById("cylinderType").value = savedData.cylinder_type || "double";
@@ -1647,80 +1461,45 @@ async function saveCurrentCalculation(){
 
       updateLabels();
       calculate();
+    },
 
-      gtag("event","saved_calculation_reloaded",{
-        "tool":"pneumatic_force",
-        "bore":savedData.bore,
-        "rod":savedData.rod,
-        "pressure":savedData.pressure
-      });
-
-      setStatus("saveStatus", "Saved setup reloaded into the calculator.", "success");
-
-      document.getElementById("calculator").scrollIntoView({
-        behavior:"smooth",
-        block:"start"
-      });
+    renderFields: function(d){
+      return [
+        { label: "Bore", value: savedToolsSafeValue(d.bore) + " " + savedToolsSafeValue(d.length_unit) },
+        { label: "Rod", value: savedToolsSafeValue(d.rod) + " " + savedToolsSafeValue(d.length_unit) },
+        { label: "Pressure", value: savedToolsSafeValue(d.pressure) + " " + savedToolsSafeValue(d.pressure_unit) },
+        { label: "Stroke", value: savedToolsSafeValue(d.stroke) + " " + savedToolsSafeValue(d.length_unit) },
+        { label: "Derating", value: savedToolsSafeValue(d.derating) + "%" },
+        { label: "Extend", value: savedToolsSafeValue(d.extend_force) + " lbf" },
+        { label: "Retract", value: savedToolsSafeValue(d.retract_force) + " lbf" },
+        { label: "Type", value: savedToolsSafeValue(d.cylinder_type) }
+      ];
     }
+  };
 
-    async function deleteSavedCalculation(id){
-      await checkUser();
+  function saveCurrentCalculation(){
+    savedToolsSave(PNEUMATIC_SAVE_CONFIG);
+  }
 
-      if(!currentUser){
-        openAuthModal();
-        return;
-      }
+  function loadSavedCalculations(){
+    savedToolsLoad(PNEUMATIC_SAVE_CONFIG);
+  }
 
-      const { error } = await supabaseClient
-        .from("saved_tools")
-        .delete()
-        .eq("id", id)
-        .eq("user_id", currentUser.id);
+  function handleAuthButton(){
+    savedToolsHandleAuthButton(PNEUMATIC_SAVE_CONFIG);
+  }
 
-      if(error){
-        setStatus("savedStatus", "Delete failed: " + error.message, "error");
-        return;
-      }
+  updateLabels();
+  savedToolsInit(PNEUMATIC_SAVE_CONFIG);
 
-      gtag("event","saved_calculation_deleted",{
-        "tool":"pneumatic_force"
-      });
-
-      setStatus("savedStatus", "Saved calculation deleted.", "success");
-      await loadSavedCalculations();
-    }
-
-    updateLabels();
-
-    document.addEventListener("DOMContentLoaded", async function(){
-      await checkUser();
-      await loadSavedCalculations();
-
-      if(window.supabaseClient && supabaseClient.auth && supabaseClient.auth.onAuthStateChange){
-        supabaseClient.auth.onAuthStateChange(async function(event, session){
-          currentUser = session && session.user ? session.user : null;
-          updateAuthUI();
-
-          if(event === "SIGNED_IN"){
-            await loadSavedCalculations();
-          }
-
-          if(event === "SIGNED_OUT"){
-            document.getElementById("savedList").innerHTML = "";
-            setStatus("savedStatus", "Sign in to view saved pneumatic calculations.", "muted");
-          }
-        });
-      }
+  fetch('/navbar.html?v=20260422')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('navbar').innerHTML = data;
+    })
+    .catch(error => {
+      console.error('Navbar failed to load:', error);
     });
-
-    fetch('/navbar.html?v=20260422')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar').innerHTML = data;
-      })
-      .catch(error => {
-        console.error('Navbar failed to load:', error);
-      });
-  </script>
+</script>
 </body>
 </html>
