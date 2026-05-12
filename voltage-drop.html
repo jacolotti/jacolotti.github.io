@@ -532,6 +532,112 @@
       font-size:0.96rem;
     }
 
+    .save-status{
+  margin-top:12px;
+  font-weight:700;
+  min-height:22px;
+}
+
+.save-status.success{color:#15803d;}
+.save-status.error{color:#b91c1c;}
+.save-status.muted{color:var(--muted);}
+
+.btn-danger{
+  background:#fee2e2 !important;
+  color:#b91c1c !important;
+  border:1px solid #fecaca !important;
+}
+
+.btn-danger:hover{
+  background:#fecaca !important;
+  text-decoration:none;
+}
+
+.saved-header{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+
+.saved-user{
+  color:var(--muted);
+  font-weight:700;
+  margin-top:4px;
+}
+
+.saved-list{
+  display:grid;
+  gap:14px;
+  margin-top:18px;
+}
+
+.saved-item{
+  background:#f8fbff;
+  border:1px solid #d7e6ff;
+  border-radius:14px;
+  padding:16px;
+}
+
+.saved-title-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.saved-title{
+  font-weight:800;
+  color:var(--text);
+}
+
+.saved-meta{
+  color:var(--muted);
+  font-size:0.92rem;
+}
+
+.saved-values{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:12px 0;
+}
+
+.saved-value{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px;
+  font-size:0.92rem;
+}
+
+.saved-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+@media (max-width: 1020px){
+  .saved-values{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media (max-width: 700px){
+  .saved-values{
+    grid-template-columns:1fr;
+  }
+
+  .saved-actions .btn,
+  .saved-actions button{
+    width:100%;
+  }
+}
+
     @media (max-width: 980px){
       .hero-inner,
       .grid-3,
@@ -846,6 +952,42 @@
         Enter values and press <strong>Calculate</strong>.
       </div>
 
+      <section id="saved-calculations" class="section" style="padding-left:0;padding-right:0;">
+  <div class="card">
+    <div class="saved-header">
+      <div>
+        <h2>My Saved Voltage Drop Calculations</h2>
+
+        <p class="section-intro" style="margin-bottom:0;">
+          Save voltage drop setups, reload previous wire runs, and reuse common machine circuit checks.
+        </p>
+
+        <div id="authUserLabel" class="saved-user">
+          Checking account status...
+        </div>
+      </div>
+
+      <div class="hero-actions" style="margin-top:0;">
+        <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">
+          Save Calculation
+        </button>
+
+        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">
+          Sign In
+        </button>
+
+        <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">
+          Refresh
+        </button>
+      </div>
+    </div>
+
+    <div id="saveStatus" class="save-status muted"></div>
+    <div id="savedStatus" class="save-status muted"></div>
+    <div id="savedList" class="saved-list"></div>
+  </div>
+</section>
+
       <div class="inline-cta">
         <h3>Need help applying this to a real machine?</h3>
         <p>
@@ -1012,139 +1154,225 @@
     }
 
     function calculateVoltageDrop(){
-      let voltage = parseFloat(document.getElementById("voltage").value) || 0;
-      let current = parseFloat(document.getElementById("current").value) || 0;
-      let length = parseFloat(document.getElementById("length").value) || 0;
-      let awg = document.getElementById("awg").value;
-      let material = document.getElementById("material").value;
+  const voltage = parseFloat(document.getElementById("voltage").value) || 0;
+  const current = parseFloat(document.getElementById("current").value) || 0;
+  const length = parseFloat(document.getElementById("length").value) || 0;
+  const awg = document.getElementById("awg").value;
+  const material = document.getElementById("material").value;
 
-      const output = document.getElementById("output");
+  const output = document.getElementById("output");
 
-      if(voltage <= 0){
-        output.innerHTML = "<strong>Please enter a system voltage greater than 0.</strong>";
-        scrollToOutput();
-        return;
-      }
+  if(voltage <= 0){
+    output.innerHTML = "<strong>Please enter a system voltage greater than 0.</strong>";
+    scrollToOutput();
+    return null;
+  }
 
-      if(current < 0){
-        output.innerHTML = "<strong>Please enter a current of 0 or greater.</strong>";
-        scrollToOutput();
-        return;
-      }
+  if(current < 0){
+    output.innerHTML = "<strong>Please enter a current of 0 or greater.</strong>";
+    scrollToOutput();
+    return null;
+  }
 
-      if(length < 0){
-        output.innerHTML = "<strong>Please enter a wire length of 0 or greater.</strong>";
-        scrollToOutput();
-        return;
-      }
+  if(length < 0){
+    output.innerHTML = "<strong>Please enter a wire length of 0 or greater.</strong>";
+    scrollToOutput();
+    return null;
+  }
 
-      let copperResistance = {
-        "18": 6.385,
-        "16": 4.016,
-        "14": 2.525,
-        "12": 1.588,
-        "10": 0.999,
-        "8": 0.6282,
-        "6": 0.3951,
-        "4": 0.2485,
-        "2": 0.1563
-      };
+  const copperResistance = {
+    "18": 6.385,
+    "16": 4.016,
+    "14": 2.525,
+    "12": 1.588,
+    "10": 0.999,
+    "8": 0.6282,
+    "6": 0.3951,
+    "4": 0.2485,
+    "2": 0.1563
+  };
 
-      let aluminumMultiplier = 1.61;
+  const aluminumMultiplier = 1.61;
 
-      let resistancePer1000Ft = copperResistance[awg];
-      if(material === "aluminum"){
-        resistancePer1000Ft = resistancePer1000Ft * aluminumMultiplier;
-      }
+  let resistancePer1000Ft = copperResistance[awg];
 
-      let totalLength = length * 2;
-      let totalResistance = (resistancePer1000Ft / 1000) * totalLength;
-      let voltageDrop = current * totalResistance;
-      let percentDrop = voltage > 0 ? (voltageDrop / voltage) * 100 : 0;
-      let finalVoltage = voltage - voltageDrop;
+  if(material === "aluminum"){
+    resistancePer1000Ft = resistancePer1000Ft * aluminumMultiplier;
+  }
 
-      let dropRating = "Good";
-      let interpretation = "This is a relatively low estimated voltage drop for many practical control circuits.";
+  const totalLength = length * 2;
+  const totalResistance = (resistancePer1000Ft / 1000) * totalLength;
+  const voltageDrop = current * totalResistance;
+  const percentDrop = voltage > 0 ? (voltageDrop / voltage) * 100 : 0;
+  const finalVoltage = voltage - voltageDrop;
 
-      if(percentDrop > 10){
-        dropRating = "High";
-        interpretation = "This is a high estimated voltage drop. The load may see reduced performance or unstable operation, especially on lower-voltage control circuits.";
-      } else if(percentDrop > 5){
-        dropRating = "Caution";
-        interpretation = "This is a moderate voltage drop. It may still work, but device sensitivity, startup current, and supply tolerance should be reviewed carefully.";
-      }
+  let dropRating = "Good";
+  let interpretation = "This is a relatively low estimated voltage drop for many practical control circuits.";
 
-      output.innerHTML =
-        "<strong>Round-Trip Circuit Length</strong><br>" +
-        totalLength.toFixed(1) + " ft<br><br>" +
+  if(percentDrop > 10){
+    dropRating = "High";
+    interpretation = "This is a high estimated voltage drop. The load may see reduced performance or unstable operation, especially on lower-voltage control circuits.";
+  } else if(percentDrop > 5){
+    dropRating = "Caution";
+    interpretation = "This is a moderate voltage drop. It may still work, but device sensitivity, startup current, and supply tolerance should be reviewed carefully.";
+  }
 
-        "<strong>Total Circuit Resistance</strong><br>" +
-        totalResistance.toFixed(4) + " Ω<br><br>" +
+  output.innerHTML =
+    "<strong>Round-Trip Circuit Length</strong><br>" +
+    totalLength.toFixed(1) + " ft<br><br>" +
 
-        "<strong>Voltage Drop</strong><br>" +
-        voltageDrop.toFixed(3) + " V<br><br>" +
+    "<strong>Total Circuit Resistance</strong><br>" +
+    totalResistance.toFixed(4) + " Ω<br><br>" +
 
-        "<strong>Percent Drop</strong><br>" +
-        percentDrop.toFixed(2) + "%<br><br>" +
+    "<strong>Voltage Drop</strong><br>" +
+    voltageDrop.toFixed(3) + " V<br><br>" +
 
-        "<strong>Final Voltage At Load</strong><br>" +
-        finalVoltage.toFixed(3) + " V<br><br>" +
+    "<strong>Percent Drop</strong><br>" +
+    percentDrop.toFixed(2) + "%<br><br>" +
 
-        "<strong>Drop Rating</strong><br>" +
-        dropRating + "<br><br>" +
+    "<strong>Final Voltage At Load</strong><br>" +
+    finalVoltage.toFixed(3) + " V<br><br>" +
 
-        "<strong>Interpretation</strong><br>" +
-        interpretation;
+    "<strong>Drop Rating</strong><br>" +
+    dropRating + "<br><br>" +
 
-      scrollToOutput();
-    }
+    "<strong>Interpretation</strong><br>" +
+    interpretation;
 
-    function clearCalculator(){
-      document.getElementById("voltage").value = "24";
-      document.getElementById("current").value = "2";
-      document.getElementById("length").value = "100";
-      document.getElementById("awg").value = "18";
-      document.getElementById("material").value = "copper";
-      showMessage("Enter values and press Calculate.");
-    }
+  scrollToOutput();
 
-    function loadExample1(){
-      document.getElementById("voltage").value = "24";
-      document.getElementById("current").value = "2";
-      document.getElementById("length").value = "100";
-      document.getElementById("awg").value = "16";
-      document.getElementById("material").value = "copper";
+  if(typeof gtag === "function"){
+    gtag("event", "voltage_drop_calculation", {
+      awg: awg,
+      material: material,
+      drop_rating: dropRating
+    });
+  }
+
+  const calculationData = {
+    voltage: voltage,
+    current: current,
+    length: length,
+    awg: awg,
+    material: material,
+    total_length: Number(totalLength.toFixed(1)),
+    resistance_per_1000_ft: Number(resistancePer1000Ft.toFixed(4)),
+    total_resistance: Number(totalResistance.toFixed(4)),
+    voltage_drop: Number(voltageDrop.toFixed(3)),
+    percent_drop: Number(percentDrop.toFixed(2)),
+    final_voltage: Number(finalVoltage.toFixed(3)),
+    drop_rating: dropRating,
+    interpretation: interpretation,
+    timestamp: new Date().toISOString()
+  };
+
+  window.lastVoltageDropCalculation = calculationData;
+  window.currentCalculationData = calculationData;
+
+  return calculationData;
+}
+
+function clearCalculator(){
+  document.getElementById("voltage").value = "24";
+  document.getElementById("current").value = "2";
+  document.getElementById("length").value = "100";
+  document.getElementById("awg").value = "18";
+  document.getElementById("material").value = "copper";
+  showMessage("Enter values and press Calculate.");
+}
+
+function loadExample1(){
+  document.getElementById("voltage").value = "24";
+  document.getElementById("current").value = "2";
+  document.getElementById("length").value = "100";
+  document.getElementById("awg").value = "16";
+  document.getElementById("material").value = "copper";
+  calculateVoltageDrop();
+}
+
+function loadExample2(){
+  document.getElementById("voltage").value = "24";
+  document.getElementById("current").value = "1.5";
+  document.getElementById("length").value = "200";
+  document.getElementById("awg").value = "14";
+  document.getElementById("material").value = "copper";
+  calculateVoltageDrop();
+}
+
+function loadExample3(){
+  document.getElementById("voltage").value = "24";
+  document.getElementById("current").value = "4";
+  document.getElementById("length").value = "100";
+  document.getElementById("awg").value = "12";
+  document.getElementById("material").value = "copper";
+  calculateVoltageDrop();
+}
+</script>
+
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=1"></script>
+
+<script>
+  const VOLTAGE_DROP_SAVE_CONFIG = {
+    toolName: "Voltage Drop Calculator",
+    toolUrl: "/voltage-drop.html",
+    analyticsTool: "voltage_drop",
+    savedItemTitle: "Voltage Drop Setup",
+
+    collectData: function(){
+      return calculateVoltageDrop();
+    },
+
+    reloadData: function(savedData){
+      document.getElementById("voltage").value = savedData.voltage ?? "";
+      document.getElementById("current").value = savedData.current ?? "";
+      document.getElementById("length").value = savedData.length ?? "";
+      document.getElementById("awg").value = savedData.awg || "18";
+      document.getElementById("material").value = savedData.material || "copper";
+
       calculateVoltageDrop();
-    }
+    },
 
-    function loadExample2(){
-      document.getElementById("voltage").value = "24";
-      document.getElementById("current").value = "1.5";
-      document.getElementById("length").value = "200";
-      document.getElementById("awg").value = "14";
-      document.getElementById("material").value = "copper";
-      calculateVoltageDrop();
+    renderFields: function(d){
+      return [
+        { label:"Voltage", value: savedToolsSafeValue(d.voltage) + " V" },
+        { label:"Current", value: savedToolsSafeValue(d.current) + " A" },
+        { label:"Length", value: savedToolsSafeValue(d.length) + " ft one-way" },
+        { label:"Wire", value: savedToolsSafeValue(d.awg) + " AWG" },
+        { label:"Material", value: savedToolsSafeValue(d.material) },
+        { label:"Voltage Drop", value: savedToolsSafeValue(d.voltage_drop) + " V" },
+        { label:"Percent Drop", value: savedToolsSafeValue(d.percent_drop) + "%" },
+        { label:"Final Voltage", value: savedToolsSafeValue(d.final_voltage) + " V" },
+        { label:"Rating", value: savedToolsSafeValue(d.drop_rating) }
+      ];
     }
+  };
 
-    function loadExample3(){
-      document.getElementById("voltage").value = "24";
-      document.getElementById("current").value = "4";
-      document.getElementById("length").value = "100";
-      document.getElementById("awg").value = "12";
-      document.getElementById("material").value = "copper";
-      calculateVoltageDrop();
-    }
-  </script>
+  function saveCurrentCalculation(){
+    savedToolsSave(VOLTAGE_DROP_SAVE_CONFIG);
+  }
+
+  function loadSavedCalculations(){
+    savedToolsLoad(VOLTAGE_DROP_SAVE_CONFIG);
+  }
+
+  function handleAuthButton(){
+    savedToolsHandleAuthButton(VOLTAGE_DROP_SAVE_CONFIG);
+  }
+
+  savedToolsInit(VOLTAGE_DROP_SAVE_CONFIG);
+</script>
 
   <script>
-    fetch("navbar.html?v=20260314")
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("navbar").innerHTML = data;
-      })
-      .catch(error => {
-        console.error("Navbar failed to load:", error);
-      });
-  </script>
+  fetch('/navbar.html?v=20260422')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("navbar").innerHTML = data;
+    })
+    .catch(error => {
+      console.error("Navbar failed to load:", error);
+    });
+</script>
 </body>
 </html>
