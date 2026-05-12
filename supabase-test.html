@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Supabase Test</title>
+</head>
+<body>
+  <h1>Supabase Test</h1>
+
+  <button onclick="testSupabase()">Test Supabase</button>
+
+  <pre id="output">Click test.</pre>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/supabase.js?v=debug1"></script>
+
+  <script>
+    async function testSupabase(){
+      const out = document.getElementById("output");
+
+      try {
+        out.textContent = "Testing...";
+
+        console.log("supabase object:", window.supabase);
+        console.log("supabaseClient:", window.supabaseClient);
+
+        if(!window.supabaseClient){
+          out.textContent = "FAILED: window.supabaseClient does not exist.";
+          return;
+        }
+
+        const sessionResult = await supabaseClient.auth.getSession();
+
+        const tableResult = await supabaseClient
+          .from("saved_tools")
+          .select("id, user_id, tool_name, tool_url, created_at")
+          .limit(5);
+
+        out.textContent =
+          "SESSION RESULT:\n" +
+          JSON.stringify(sessionResult, null, 2) +
+          "\n\nTABLE RESULT:\n" +
+          JSON.stringify(tableResult, null, 2);
+
+      } catch(err) {
+        console.error(err);
+        out.textContent = "ERROR:\n" + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
