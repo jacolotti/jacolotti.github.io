@@ -35,13 +35,13 @@
       --warn-bg:#fff7df;
       --warn-border:#f1d98a;
       --warn-text:#5c4a12;
+      --danger:#b91c1c;
+      --success:#15803d;
     }
 
     *{box-sizing:border-box;}
 
-    html{
-      scroll-behavior:smooth;
-    }
+    html{scroll-behavior:smooth;}
 
     body{
       margin:0;
@@ -51,14 +51,8 @@
       line-height:1.6;
     }
 
-    a{
-      color:var(--accent);
-      text-decoration:none;
-    }
-
-    a:hover{
-      text-decoration:underline;
-    }
+    a{color:var(--accent);text-decoration:none;}
+    a:hover{text-decoration:underline;}
 
     #navbar{
       position:sticky;
@@ -114,17 +108,11 @@
       border:none;
       cursor:pointer;
       font-size:15px;
+      font-family:Arial, Helvetica, sans-serif;
     }
 
-    .btn-primary{
-      background:var(--accent);
-      color:#fff;
-    }
-
-    .btn-primary:hover{
-      background:var(--accent-dark);
-      text-decoration:none;
-    }
+    .btn-primary{background:var(--accent);color:#fff;}
+    .btn-primary:hover{background:var(--accent-dark);text-decoration:none;}
 
     .btn-secondary{
       background:var(--soft);
@@ -134,6 +122,17 @@
 
     .btn-secondary:hover{
       background:#e2edf9;
+      text-decoration:none;
+    }
+
+    .btn-danger{
+      background:#fee2e2;
+      color:var(--danger);
+      border:1px solid #fecaca;
+    }
+
+    .btn-danger:hover{
+      background:#fecaca;
       text-decoration:none;
     }
 
@@ -156,9 +155,7 @@
       color:var(--muted);
     }
 
-    .hero-panel li{
-      margin-bottom:8px;
-    }
+    .hero-panel li{margin-bottom:8px;}
 
     .section{
       max-width:var(--max);
@@ -205,9 +202,7 @@
       box-shadow:var(--shadow);
     }
 
-    .card{
-      padding:26px;
-    }
+    .card{padding:26px;}
 
     .formula-box{
       padding:18px;
@@ -245,9 +240,7 @@
       font-size:0.95rem;
     }
 
-    .quick-card button{
-      width:100%;
-    }
+    .quick-card button{width:100%;}
 
     .controls{
       display:grid;
@@ -273,7 +266,8 @@
     .control-group select,
     .lead-form input,
     .lead-form select,
-    .lead-form textarea{
+    .lead-form textarea,
+    .auth-modal input{
       width:100%;
       padding:10px 12px;
       font-size:16px;
@@ -288,7 +282,8 @@
     .control-group select:focus,
     .lead-form input:focus,
     .lead-form select:focus,
-    .lead-form textarea:focus{
+    .lead-form textarea:focus,
+    .auth-modal input:focus{
       outline:none;
       border-color:#5a78b5;
       box-shadow:0 0 0 3px rgba(90,120,181,0.12);
@@ -311,6 +306,16 @@
       font-weight:500;
       scroll-margin-top:100px;
     }
+
+    .save-status{
+      margin-top:12px;
+      font-weight:700;
+      min-height:22px;
+    }
+
+    .save-status.success{color:var(--success);}
+    .save-status.error{color:var(--danger);}
+    .save-status.muted{color:var(--muted);}
 
     .workflow{
       padding:20px;
@@ -339,13 +344,9 @@
       text-decoration:none;
     }
 
-    .flow-steps a:hover{
-      background:#e2edf9;
-    }
+    .flow-steps a:hover{background:#e2edf9;}
 
-    .arrow{
-      color:#8695a3;
-    }
+    .arrow{color:#8695a3;}
 
     .internal-links{
       display:flex;
@@ -365,9 +366,7 @@
       font-weight:700;
     }
 
-    .internal-links a:hover{
-      background:#e9eef8;
-    }
+    .internal-links a:hover{background:#e9eef8;}
 
     .cta-box{
       margin-top:22px;
@@ -377,9 +376,7 @@
       border-radius:14px;
     }
 
-    .cta-box h3{
-      margin:0 0 10px;
-    }
+    .cta-box h3{margin:0 0 10px;}
 
     .cta-box p{
       margin:0 0 16px;
@@ -392,8 +389,8 @@
       gap:18px;
     }
 
-    .grid-2{ grid-template-columns:repeat(2,1fr); }
-    .grid-3{ grid-template-columns:repeat(3,1fr); }
+    .grid-2{grid-template-columns:repeat(2,1fr);}
+    .grid-3{grid-template-columns:repeat(3,1fr);}
 
     .mini-card{
       background:white;
@@ -428,9 +425,7 @@
       margin-top:14px;
     }
 
-    .lead-form .full{
-      grid-column:1 / -1;
-    }
+    .lead-form .full{grid-column:1 / -1;}
 
     .note{
       margin-top:18px;
@@ -446,6 +441,152 @@
       padding:8px 0 4px;
     }
 
+    .saved-header{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .saved-user{
+      color:var(--muted);
+      font-weight:700;
+      margin-top:4px;
+    }
+
+    .saved-list{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .saved-item{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:14px;
+      padding:16px;
+    }
+
+    .saved-title-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+
+    .saved-title{
+      font-weight:800;
+      color:var(--text);
+    }
+
+    .saved-meta{
+      color:var(--muted);
+      font-size:0.92rem;
+    }
+
+    .saved-values{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin:12px 0;
+    }
+
+    .saved-value{
+      background:white;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:10px;
+      font-size:0.92rem;
+    }
+
+    .saved-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    .auth-modal-backdrop{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(15, 23, 42, 0.58);
+      z-index:9999;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+
+    .auth-modal-backdrop.active{display:flex;}
+
+    .auth-modal{
+      width:min(480px, 100%);
+      background:white;
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:0 24px 70px rgba(15, 23, 42, 0.28);
+      padding:24px;
+    }
+
+    .auth-modal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .auth-modal h2{
+      margin:0 0 4px;
+      font-size:1.5rem;
+    }
+
+    .close-btn{
+      border:0;
+      background:var(--soft);
+      color:var(--text);
+      border-radius:10px;
+      padding:8px 11px;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    .auth-tabs{
+      display:flex;
+      gap:8px;
+      margin:14px 0 18px;
+    }
+
+    .auth-tab{
+      flex:1;
+      border:1px solid var(--border);
+      background:white;
+      border-radius:10px;
+      padding:10px;
+      font-weight:800;
+      cursor:pointer;
+      color:var(--accent-dark);
+    }
+
+    .auth-tab.active{
+      background:var(--accent);
+      color:white;
+      border-color:var(--accent);
+    }
+
+    .auth-field{
+      margin-bottom:12px;
+    }
+
+    .auth-field label{
+      display:block;
+      font-weight:700;
+      margin-bottom:6px;
+    }
+
     @media (max-width: 1020px){
       .hero-inner,
       .grid-2,
@@ -453,47 +594,35 @@
       .quick-row{
         grid-template-columns:1fr;
       }
+
+      .saved-values{
+        grid-template-columns:repeat(2,1fr);
+      }
     }
 
     @media (max-width: 700px){
-      .hero-inner{
-        padding:40px 16px 30px;
-      }
+      .hero-inner{padding:40px 16px 30px;}
+      .section{padding:30px 16px;}
 
-      .section{
-        padding:30px 16px;
-      }
-
-      .hero h1{
-        font-size:1.95rem;
-      }
-
-      .section h2{
-        font-size:1.55rem;
-      }
+      .hero h1{font-size:1.95rem;}
+      .section h2{font-size:1.55rem;}
 
       .card,
       .workflow,
       .note-card,
       .quick-card,
-      .mini-card{
-        padding:18px;
-      }
+      .mini-card{padding:18px;}
 
-      .button-row{
-        flex-direction:column;
-      }
+      .button-row{flex-direction:column;}
+      .button-row .btn{width:100%;}
 
-      .button-row .btn{
-        width:100%;
-      }
-
-      .lead-form{
-        grid-template-columns:1fr;
-      }
+      .lead-form{grid-template-columns:1fr;}
+      .saved-values{grid-template-columns:1fr;}
+      .saved-actions .btn{width:100%;}
     }
   </style>
 </head>
+
 <body>
   <div id="navbar"></div>
 
@@ -510,6 +639,7 @@
 
         <div class="hero-actions">
           <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta',{'location':'hero','action':'open_calculator'});">Open Calculator</a>
+          <a class="btn btn-secondary" href="#saved-calculations" onclick="gtag('event','page_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
           <a class="btn btn-secondary" href="/pneumatics.html" onclick="gtag('event','page_cta',{'location':'hero','action':'pneumatics_hub'});">Pneumatics Hub</a>
           <a class="btn btn-secondary" href="/air-consumption.html" onclick="gtag('event','page_cta',{'location':'hero','action':'air_consumption'});">Next: Air Consumption</a>
         </div>
@@ -525,6 +655,7 @@
           <li>Estimate theoretical and derated cylinder force</li>
           <li>Compare extend-side and retract-side performance</li>
           <li>Check whether a cylinder is even in the right range</li>
+          <li>Save and reload cylinder setups after signing in</li>
           <li>Move into the next pneumatic sizing steps with the right workflow</li>
         </ul>
       </div>
@@ -638,9 +769,12 @@
 
       <div class="button-row">
         <button class="btn btn-primary" onclick="calculate(); gtag('event','pneumatic_force_calculation');">Calculate</button>
+        <button class="btn btn-secondary" onclick="saveCurrentCalculation();">Save Calculation</button>
         <button class="btn btn-secondary" onclick="loadExample1();">Load Example</button>
         <button class="btn btn-secondary" onclick="resetCalculator(); gtag('event','pneumatic_force_clear');">Reset</button>
       </div>
+
+      <div id="saveStatus" class="save-status muted"></div>
 
       <div class="result" id="output">
         Enter values and press <strong>Calculate</strong>.
@@ -653,6 +787,28 @@
       <p class="note">
         For single-acting cylinders, this tool still shows retract-side area for reference, but actual return behavior may depend on spring force, gravity, or external load.
       </p>
+    </div>
+  </section>
+
+  <section class="section" id="saved-calculations">
+    <div class="card">
+      <div class="saved-header">
+        <div>
+          <h2>My Saved Pneumatic Calculations</h2>
+          <p class="section-intro" style="margin-bottom:0;">
+            Save cylinder setups, reload previous inputs, and reuse common sizing checks. This uses your Supabase <code>saved_tools</code> table.
+          </p>
+          <div id="authUserLabel" class="saved-user">Checking account status...</div>
+        </div>
+
+        <div class="hero-actions" style="margin-top:0;">
+          <button id="authButton" class="btn btn-secondary" onclick="handleAuthButton()">Sign In</button>
+          <button class="btn btn-secondary" onclick="loadSavedCalculations()">Refresh</button>
+        </div>
+      </div>
+
+      <div id="savedStatus" class="save-status muted"></div>
+      <div id="savedList" class="saved-list"></div>
     </div>
   </section>
 
@@ -829,7 +985,55 @@
     </div>
   </section>
 
+  <div id="authModal" class="auth-modal-backdrop">
+    <div class="auth-modal">
+      <div class="auth-modal-head">
+        <div>
+          <h2>Automation Calculators Account</h2>
+          <div class="saved-user">Sign in or create an account to save calculations.</div>
+        </div>
+        <button class="close-btn" onclick="closeAuthModal()">×</button>
+      </div>
+
+      <div class="auth-tabs">
+        <button id="signInTab" class="auth-tab active" onclick="setAuthMode('signin')">Sign In</button>
+        <button id="signUpTab" class="auth-tab" onclick="setAuthMode('signup')">Create Account</button>
+      </div>
+
+      <div class="auth-field">
+        <label for="authEmail">Email</label>
+        <input id="authEmail" type="email" autocomplete="email">
+      </div>
+
+      <div class="auth-field">
+        <label for="authPassword">Password</label>
+        <input id="authPassword" type="password" autocomplete="current-password">
+      </div>
+
+      <div class="button-row">
+        <button id="authSubmitButton" class="btn btn-primary" onclick="submitAuthForm()">Sign In</button>
+        <button class="btn btn-secondary" onclick="closeAuthModal()">Cancel</button>
+      </div>
+
+      <div id="authStatus" class="save-status muted"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/supabase.js"></script>
+
   <script>
+    let currentUser = null;
+    let authMode = "signin";
+    let latestPneumaticCalculation = null;
+
+    function setStatus(id, message, type){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.textContent = message || "";
+      el.className = "save-status " + (type || "muted");
+    }
+
     function updateLabels(){
       let lengthUnit = document.getElementById("lengthUnit").value;
       let pressureUnit = document.getElementById("pressureUnit").value;
@@ -869,37 +1073,37 @@
       if(bore <= 0){
         output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       if(rod < 0){
         output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       if(rod >= bore){
         output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       if(pressure <= 0){
         output.innerHTML = "<strong>Please enter an air pressure greater than 0.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       if(stroke < 0){
         output.innerHTML = "<strong>Please enter a stroke length of 0 or greater.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       if(derating <= 0 || derating > 100){
         output.innerHTML = "<strong>Please enter a force derating percentage greater than 0 and up to 100.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       let boreMm = bore;
@@ -1023,7 +1227,38 @@
         recommendation +
         "<br><br><strong>Next Step:</strong> Use this force value to estimate air consumption and verify your system can maintain performance under real conditions.";
 
+      latestPneumaticCalculation = {
+        bore: bore,
+        rod: rod,
+        pressure: pressure,
+        stroke: stroke,
+        derating: derating,
+        length_unit: lengthUnit,
+        pressure_unit: pressureUnit,
+        cylinder_type: cylinderType,
+        bore_mm: Number(boreMm.toFixed(4)),
+        rod_mm: Number(rodMm.toFixed(4)),
+        stroke_mm: Number(strokeMm.toFixed(4)),
+        pressure_bar: Number(pressureBar.toFixed(5)),
+        bore_area_mm2: Number(boreAreaMm2.toFixed(4)),
+        rod_area_mm2: Number(rodAreaMm2.toFixed(4)),
+        retract_area_mm2: Number(retractAreaMm2.toFixed(4)),
+        extend_force_n: Number(extendForceN.toFixed(4)),
+        retract_force_n: Number(retractForceN.toFixed(4)),
+        extend_force_lbf: Number(extendForceLbf.toFixed(4)),
+        retract_force_lbf: Number(retractForceLbf.toFixed(4)),
+        derated_extend_force_n: Number(deratedExtendForceN.toFixed(4)),
+        derated_retract_force_n: Number(deratedRetractForceN.toFixed(4)),
+        derated_extend_force_lbf: Number(deratedExtendForceLbf.toFixed(4)),
+        derated_retract_force_lbf: Number(deratedRetractForceLbf.toFixed(4)),
+        extend_work_j: Number(extendWorkJ.toFixed(4)),
+        retract_work_j: Number(retractWorkJ.toFixed(4)),
+        recommendation: recommendation,
+        timestamp: new Date().toISOString()
+      };
+
       scrollToOutput();
+      return latestPneumaticCalculation;
     }
 
     function resetCalculator(){
@@ -1039,14 +1274,15 @@
       document.getElementById("output").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
       document.getElementById("recommendationText").innerHTML =
         "Run the calculator to see a practical cylinder sizing note based on your estimated derated extend force.";
+
       let helpForce = document.getElementById("helpForce");
-      if(helpForce){
-        helpForce.value = "";
-      }
+      if(helpForce){helpForce.value = "";}
+
       let hiddenForce = document.getElementById("hiddenForce");
-      if(hiddenForce){
-        hiddenForce.value = "";
-      }
+      if(hiddenForce){hiddenForce.value = "";}
+
+      latestPneumaticCalculation = null;
+      setStatus("saveStatus", "", "muted");
     }
 
     function loadExample1(){
@@ -1088,10 +1324,381 @@
       calculate();
     }
 
-    updateLabels();
-  </script>
+    async function checkUser(){
+      if(!window.supabaseClient){
+        currentUser = null;
+        updateAuthUI();
+        setStatus("savedStatus", "Supabase is not loaded. Check that the CDN and /supabase.js are loading correctly.", "error");
+        return null;
+      }
 
-  <script>
+      const { data, error } = await supabaseClient.auth.getUser();
+
+      if(error || !data || !data.user){
+        currentUser = null;
+      } else {
+        currentUser = data.user;
+      }
+
+      updateAuthUI();
+      return currentUser;
+    }
+
+    function updateAuthUI(){
+      const authButton = document.getElementById("authButton");
+      const authUserLabel = document.getElementById("authUserLabel");
+
+      if(currentUser){
+        if(authButton){authButton.textContent = "My Account";}
+        if(authUserLabel){authUserLabel.textContent = "Signed in as " + currentUser.email;}
+      } else {
+        if(authButton){authButton.textContent = "Sign In";}
+        if(authUserLabel){authUserLabel.textContent = "Sign in to save and reload pneumatic calculations.";}
+      }
+    }
+
+    function handleAuthButton(){
+      if(currentUser){
+        loadSavedCalculations();
+        setStatus("savedStatus", "You are signed in. Your saved calculations are shown below.", "success");
+      } else {
+        openAuthModal();
+      }
+    }
+
+    function openAuthModal(){
+      document.getElementById("authModal").classList.add("active");
+      setStatus("authStatus", "", "muted");
+      gtag("event","auth_modal_open",{"location":"pneumatic_force"});
+    }
+
+    function closeAuthModal(){
+      document.getElementById("authModal").classList.remove("active");
+    }
+
+    function setAuthMode(mode){
+      authMode = mode;
+      document.getElementById("signInTab").classList.toggle("active", mode === "signin");
+      document.getElementById("signUpTab").classList.toggle("active", mode === "signup");
+      document.getElementById("authSubmitButton").textContent = mode === "signin" ? "Sign In" : "Create Account";
+      setStatus("authStatus", "", "muted");
+    }
+
+    async function submitAuthForm(){
+      if(authMode === "signup"){
+        await signUpUser();
+      } else {
+        await signInUser();
+      }
+    }
+
+    async function signUpUser(){
+      const email = document.getElementById("authEmail").value.trim();
+      const password = document.getElementById("authPassword").value;
+
+      if(!email || !password){
+        setStatus("authStatus", "Enter an email and password.", "error");
+        return;
+      }
+
+      const { error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password
+      });
+
+      if(error){
+        setStatus("authStatus", error.message, "error");
+        return;
+      }
+
+      gtag("event","account_signup_started",{"location":"pneumatic_force"});
+      setStatus("authStatus", "Account created. Check your email to confirm your account, then sign in.", "success");
+    }
+
+    async function signInUser(){
+      const email = document.getElementById("authEmail").value.trim();
+      const password = document.getElementById("authPassword").value;
+
+      if(!email || !password){
+        setStatus("authStatus", "Enter your email and password.", "error");
+        return;
+      }
+
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if(error){
+        setStatus("authStatus", error.message, "error");
+        return;
+      }
+
+      currentUser = data.user;
+      updateAuthUI();
+      closeAuthModal();
+
+      gtag("event","account_login",{"location":"pneumatic_force"});
+      setStatus("saveStatus", "Signed in. You can now save this calculation.", "success");
+
+      await loadSavedCalculations();
+    }
+
+    async function saveCurrentCalculation(){
+      const calculation = calculate();
+
+      if(!calculation){
+        setStatus("saveStatus", "Fix the calculator inputs before saving.", "error");
+        return;
+      }
+
+      await checkUser();
+
+      if(!currentUser){
+        setStatus("saveStatus", "Sign in to save this calculation.", "error");
+        openAuthModal();
+        return;
+      }
+
+      const savedData = {
+        bore: calculation.bore,
+        rod: calculation.rod,
+        pressure: calculation.pressure,
+        stroke: calculation.stroke,
+        derating: calculation.derating,
+        length_unit: calculation.length_unit,
+        pressure_unit: calculation.pressure_unit,
+        cylinder_type: calculation.cylinder_type,
+        extend_force: calculation.derated_extend_force_lbf,
+        retract_force: calculation.derated_retract_force_lbf,
+        theoretical_extend_force_lbf: calculation.extend_force_lbf,
+        theoretical_retract_force_lbf: calculation.retract_force_lbf,
+        extend_force_n: calculation.derated_extend_force_n,
+        retract_force_n: calculation.derated_retract_force_n,
+        bore_area_mm2: calculation.bore_area_mm2,
+        rod_area_mm2: calculation.rod_area_mm2,
+        retract_area_mm2: calculation.retract_area_mm2,
+        extend_work_j: calculation.extend_work_j,
+        retract_work_j: calculation.retract_work_j,
+        recommendation: calculation.recommendation,
+        timestamp: calculation.timestamp
+      };
+
+      const { error } = await supabaseClient
+        .from("saved_tools")
+        .insert({
+          user_id: currentUser.id,
+          tool_name: "Pneumatic Cylinder Force Calculator",
+          tool_url: "/pneumatic.html",
+          saved_data: savedData
+        });
+
+      if(error){
+        setStatus("saveStatus", "Save failed: " + error.message, "error");
+        return;
+      }
+
+      gtag("event","calculation_saved",{
+        "tool":"pneumatic_force",
+        "bore":savedData.bore,
+        "rod":savedData.rod,
+        "pressure":savedData.pressure,
+        "extend_force_lbf":savedData.extend_force,
+        "retract_force_lbf":savedData.retract_force
+      });
+
+      setStatus("saveStatus", "Calculation saved.", "success");
+      await loadSavedCalculations();
+    }
+
+    async function loadSavedCalculations(){
+      await checkUser();
+
+      const list = document.getElementById("savedList");
+      if(list){list.innerHTML = "";}
+
+      if(!currentUser){
+        setStatus("savedStatus", "Sign in to view saved pneumatic calculations.", "muted");
+        return;
+      }
+
+      setStatus("savedStatus", "Loading saved calculations...", "muted");
+
+      const { data, error } = await supabaseClient
+        .from("saved_tools")
+        .select("id, tool_name, tool_url, saved_data, created_at")
+        .eq("user_id", currentUser.id)
+        .eq("tool_url", "/pneumatic.html")
+        .order("created_at", { ascending:false });
+
+      if(error){
+        setStatus("savedStatus", "Could not load saved calculations: " + error.message, "error");
+        return;
+      }
+
+      if(!data || data.length === 0){
+        setStatus("savedStatus", "No saved pneumatic calculations yet.", "muted");
+        return;
+      }
+
+      setStatus("savedStatus", data.length + " saved calculation" + (data.length === 1 ? "" : "s") + " found.", "success");
+
+      data.forEach(item => {
+        const d = item.saved_data || {};
+        const createdDate = item.created_at ? new Date(item.created_at) : null;
+        const createdLabel = createdDate ? createdDate.toLocaleString() : "Saved calculation";
+
+        const div = document.createElement("div");
+        div.className = "saved-item";
+
+        const titleRow = document.createElement("div");
+        titleRow.className = "saved-title-row";
+
+        const titleWrap = document.createElement("div");
+        const title = document.createElement("div");
+        title.className = "saved-title";
+        title.textContent = "Pneumatic Cylinder Setup";
+
+        const meta = document.createElement("div");
+        meta.className = "saved-meta";
+        meta.textContent = createdLabel;
+
+        titleWrap.appendChild(title);
+        titleWrap.appendChild(meta);
+        titleRow.appendChild(titleWrap);
+
+        const values = document.createElement("div");
+        values.className = "saved-values";
+        values.innerHTML =
+          '<div class="saved-value"><strong>Bore:</strong><br>' + safeValue(d.bore) + ' ' + safeValue(d.length_unit) + '</div>' +
+          '<div class="saved-value"><strong>Rod:</strong><br>' + safeValue(d.rod) + ' ' + safeValue(d.length_unit) + '</div>' +
+          '<div class="saved-value"><strong>Pressure:</strong><br>' + safeValue(d.pressure) + ' ' + safeValue(d.pressure_unit) + '</div>' +
+          '<div class="saved-value"><strong>Stroke:</strong><br>' + safeValue(d.stroke) + ' ' + safeValue(d.length_unit) + '</div>' +
+          '<div class="saved-value"><strong>Derating:</strong><br>' + safeValue(d.derating) + '%</div>' +
+          '<div class="saved-value"><strong>Extend:</strong><br>' + safeValue(d.extend_force) + ' lbf</div>' +
+          '<div class="saved-value"><strong>Retract:</strong><br>' + safeValue(d.retract_force) + ' lbf</div>' +
+          '<div class="saved-value"><strong>Type:</strong><br>' + safeValue(d.cylinder_type) + '</div>';
+
+        const actions = document.createElement("div");
+        actions.className = "saved-actions";
+
+        const reloadBtn = document.createElement("button");
+        reloadBtn.className = "btn btn-primary";
+        reloadBtn.type = "button";
+        reloadBtn.textContent = "Reload Setup";
+        reloadBtn.addEventListener("click", function(){
+          reloadSavedCalculation(d);
+        });
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "btn btn-danger";
+        deleteBtn.type = "button";
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", function(){
+          deleteSavedCalculation(item.id);
+        });
+
+        actions.appendChild(reloadBtn);
+        actions.appendChild(deleteBtn);
+
+        div.appendChild(titleRow);
+        div.appendChild(values);
+        div.appendChild(actions);
+
+        list.appendChild(div);
+      });
+    }
+
+    function safeValue(value){
+      if(value === undefined || value === null || value === "") return "—";
+      if(typeof value === "number"){
+        return Number(value).toLocaleString(undefined, {
+          maximumFractionDigits: 3
+        });
+      }
+      return String(value);
+    }
+
+    function reloadSavedCalculation(savedData){
+      if(!savedData) return;
+
+      document.getElementById("lengthUnit").value = savedData.length_unit || "mm";
+      document.getElementById("pressureUnit").value = savedData.pressure_unit || "bar";
+      document.getElementById("cylinderType").value = savedData.cylinder_type || "double";
+      document.getElementById("bore").value = savedData.bore ?? "";
+      document.getElementById("rod").value = savedData.rod ?? "";
+      document.getElementById("pressure").value = savedData.pressure ?? "";
+      document.getElementById("stroke").value = savedData.stroke ?? "";
+      document.getElementById("derating").value = savedData.derating ?? "100";
+
+      updateLabels();
+      calculate();
+
+      gtag("event","saved_calculation_reloaded",{
+        "tool":"pneumatic_force",
+        "bore":savedData.bore,
+        "rod":savedData.rod,
+        "pressure":savedData.pressure
+      });
+
+      setStatus("saveStatus", "Saved setup reloaded into the calculator.", "success");
+
+      document.getElementById("calculator").scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+      });
+    }
+
+    async function deleteSavedCalculation(id){
+      await checkUser();
+
+      if(!currentUser){
+        openAuthModal();
+        return;
+      }
+
+      const { error } = await supabaseClient
+        .from("saved_tools")
+        .delete()
+        .eq("id", id)
+        .eq("user_id", currentUser.id);
+
+      if(error){
+        setStatus("savedStatus", "Delete failed: " + error.message, "error");
+        return;
+      }
+
+      gtag("event","saved_calculation_deleted",{
+        "tool":"pneumatic_force"
+      });
+
+      setStatus("savedStatus", "Saved calculation deleted.", "success");
+      await loadSavedCalculations();
+    }
+
+    updateLabels();
+
+    document.addEventListener("DOMContentLoaded", async function(){
+      await checkUser();
+      await loadSavedCalculations();
+
+      if(window.supabaseClient && supabaseClient.auth && supabaseClient.auth.onAuthStateChange){
+        supabaseClient.auth.onAuthStateChange(async function(event, session){
+          currentUser = session && session.user ? session.user : null;
+          updateAuthUI();
+
+          if(event === "SIGNED_IN"){
+            await loadSavedCalculations();
+          }
+
+          if(event === "SIGNED_OUT"){
+            document.getElementById("savedList").innerHTML = "";
+            setStatus("savedStatus", "Sign in to view saved pneumatic calculations.", "muted");
+          }
+        });
+      }
+    });
+
     fetch('/navbar.html?v=20260422')
       .then(response => response.text())
       .then(data => {
