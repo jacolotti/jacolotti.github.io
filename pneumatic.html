@@ -1325,24 +1325,34 @@
     }
 
     async function checkUser(){
-      if(!window.supabaseClient){
-        currentUser = null;
-        updateAuthUI();
-        setStatus("savedStatus", "Supabase is not loaded. Check that the CDN and /supabase.js are loading correctly.", "error");
-        return null;
-      }
+  if(!window.supabaseClient){
+    currentUser = null;
+    updateAuthUI();
+    setStatus("savedStatus", "Supabase is not loaded. Check /supabase.js.", "error");
+    return null;
+  }
 
-      const { data, error } = await supabaseClient.auth.getUser();
+  const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
 
-      if(error || !data || !data.user){
-        currentUser = null;
-      } else {
-        currentUser = data.user;
-      }
+  if(sessionError){
+    console.error("Session check error:", sessionError);
+  }
 
-      updateAuthUI();
-      return currentUser;
-    }
+  if(sessionData && sessionData.session && sessionData.session.user){
+    currentUser = sessionData.session.user;
+    updateAuthUI();
+    return currentUser;
+  }
+
+  if(currentUser){
+    updateAuthUI();
+    return currentUser;
+  }
+
+  currentUser = null;
+  updateAuthUI();
+  return null;
+}
 
     function updateAuthUI(){
       const authButton = document.getElementById("authButton");
@@ -1444,72 +1454,77 @@
       await loadSavedCalculations();
     }
 
-    async function saveCurrentCalculation(){
-      const calculation = calculate();
+async function saveCurrentCalculation(){
+  const calculation = calculate();
 
-      if(!calculation){
-        setStatus("saveStatus", "Fix the calculator inputs before saving.", "error");
-        return;
-      }
+  if(!calculation){
+    setStatus("saveStatus", "Fix the calculator inputs before saving.", "error");
+    return;
+  }
 
-      await checkUser();
+  const user = await checkUser();
 
-      if(!currentUser){
-        setStatus("saveStatus", "Sign in to save this calculation.", "error");
-        openAuthModal();
-        return;
-      }
+  if(!user){
+    setStatus("saveStatus", "Your session was not found. Please sign in again, then press Save Calculation.", "error");
+    openAuthModal();
+    return;
+  }
 
-      const savedData = {
-        bore: calculation.bore,
-        rod: calculation.rod,
-        pressure: calculation.pressure,
-        stroke: calculation.stroke,
-        derating: calculation.derating,
-        length_unit: calculation.length_unit,
-        pressure_unit: calculation.pressure_unit,
-        cylinder_type: calculation.cylinder_type,
-        extend_force: calculation.derated_extend_force_lbf,
-        retract_force: calculation.derated_retract_force_lbf,
-        theoretical_extend_force_lbf: calculation.extend_force_lbf,
-        theoretical_retract_force_lbf: calculation.retract_force_lbf,
-        extend_force_n: calculation.derated_extend_force_n,
-        retract_force_n: calculation.derated_retract_force_n,
-        bore_area_mm2: calculation.bore_area_mm2,
-        rod_area_mm2: calculation.rod_area_mm2,
-        retract_area_mm2: calculation.retract_area_mm2,
-        extend_work_j: calculation.extend_work_j,
-        retract_work_j: calculation.retract_work_j,
-        recommendation: calculation.recommendation,
-        timestamp: calculation.timestamp
-      };
+  const savedData = {
+    bore: calculation.bore,
+    rod: calculation.rod,
+    pressure: calculation.pressure,
+    stroke: calculation.stroke,
+    derating: calculation.derating,
+    length_unit: calculation.length_unit,
+    pressure_unit: calculation.pressure_unit,
+    cylinder_type: calculation.cylinder_type,
+    extend_force: calculation.derated_extend_force_lbf,
+    retract_force: calculation.derated_retract_force_lbf,
+    theoretical_extend_force_lbf: calculation.extend_force_lbf,
+    theoretical_retract_force_lbf: calculation.retract_force_lbf,
+    extend_force_n: calculation.derated_extend_force_n,
+    retract_force_n: calculation.derated_retract_force_n,
+    bore_area_mm2: calculation.bore_area_mm2,
+    rod_area_mm2: calculation.rod_area_mm2,
+    retract_area_mm2: calculation.retract_area_mm2,
+    extend_work_j: calculation.extend_work_j,
+    retract_work_j: calculation.retract_work_j,
+    recommendation: calculation.recommendation,
+    timestamp: calculation.timestamp
+  };
 
-      const { error } = await supabaseClient
-        .from("saved_tools")
-        .insert({
-          user_id: currentUser.id,
-          tool_name: "Pneumatic Cylinder Force Calculator",
-          tool_url: "/pneumatic.html",
-          saved_data: savedData
-        });
+  setStatus("saveStatus", "Saving calculation...", "muted");
 
-      if(error){
-        setStatus("saveStatus", "Save failed: " + error.message, "error");
-        return;
-      }
+  const { data, error } = await supabaseClient
+    .from("saved_tools")
+    .insert({
+      user_id: user.id,
+      tool_name: "Pneumatic Cylinder Force Calculator",
+      tool_url: "/pneumatic.html",
+      saved_data: savedData
+    })
+    .select();
 
-      gtag("event","calculation_saved",{
-        "tool":"pneumatic_force",
-        "bore":savedData.bore,
-        "rod":savedData.rod,
-        "pressure":savedData.pressure,
-        "extend_force_lbf":savedData.extend_force,
-        "retract_force_lbf":savedData.retract_force
-      });
+  console.log("Save response:", { data, error });
 
-      setStatus("saveStatus", "Calculation saved.", "success");
-      await loadSavedCalculations();
-    }
+  if(error){
+    setStatus("saveStatus", "Save failed: " + error.message, "error");
+    return;
+  }
+
+  gtag("event","calculation_saved",{
+    "tool":"pneumatic_force",
+    "bore":savedData.bore,
+    "rod":savedData.rod,
+    "pressure":savedData.pressure,
+    "extend_force_lbf":savedData.extend_force,
+    "retract_force_lbf":savedData.retract_force
+  });
+
+  setStatus("saveStatus", "Calculation saved successfully.", "success");
+  await loadSavedCalculations();
+}
 
     async function loadSavedCalculations(){
       await checkUser();
