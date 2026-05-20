@@ -458,6 +458,33 @@ async function savedToolsDelete(id, config){
   await savedToolsLoad(config);
 }
 
+async function savedToolsSignOut(){
+  if(!window.supabaseClient){
+    savedToolsSetStatus("savedStatus", "Supabase is not loaded.", "error");
+    return;
+  }
+
+  const { error } = await supabaseClient.auth.signOut();
+
+  if(error){
+    savedToolsSetStatus("savedStatus", "Sign out failed: " + error.message, "error");
+    console.error("Sign out failed:", error);
+    return;
+  }
+
+  savedToolsCurrentUser = null;
+  savedToolsUpdateAuthUI();
+
+  const list = document.getElementById("savedList");
+
+  if(list){
+    list.innerHTML = "";
+  }
+
+  savedToolsSetStatus("saveStatus", "", "muted");
+  savedToolsSetStatus("savedStatus", "Signed out successfully.", "success");
+}
+
 function savedToolsInjectAuthStyles(){
   if(document.getElementById("savedToolsAuthStyles")) return;
 
