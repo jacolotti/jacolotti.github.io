@@ -429,6 +429,8 @@ function savedToolsDefaultFields(d){
 }
 
 async function savedToolsDelete(id, config){
+  savedToolsSetStatus("savedStatus", "Deleting saved calculation...", "muted");
+
   const user = await savedToolsCheckUser();
 
   if(!user){
@@ -436,14 +438,22 @@ async function savedToolsDelete(id, config){
     return;
   }
 
-  const { error } = await supabaseClient
+  const { data, error } = await supabaseClient
     .from("saved_tools")
     .delete()
     .eq("id", id)
-    .eq("user_id", user.id);
+    .eq("user_id", user.id)
+    .select();
+
+  console.log("Delete response:", { id, data, error });
 
   if(error){
     savedToolsSetStatus("savedStatus", "Delete failed: " + error.message, "error");
+    return;
+  }
+
+  if(!data || data.length === 0){
+    savedToolsSetStatus("savedStatus", "Delete did not remove anything. Check Supabase RLS delete policy.", "error");
     return;
   }
 
