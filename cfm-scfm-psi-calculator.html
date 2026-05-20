@@ -423,6 +423,112 @@ tr:nth-child(even){
   text-align:center;
 }
 
+.save-status{
+  margin-top:12px;
+  font-weight:700;
+  min-height:22px;
+}
+
+.save-status.success{color:#15803d;}
+.save-status.error{color:#b91c1c;}
+.save-status.muted{color:#555;}
+
+.btn-danger{
+  background:#fee2e2 !important;
+  color:#b91c1c !important;
+  border:1px solid #fecaca !important;
+}
+
+.btn-danger:hover{
+  background:#fecaca !important;
+}
+
+.saved-header{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:flex-start;
+  flex-wrap:wrap;
+  margin-bottom:14px;
+}
+
+.saved-user{
+  color:#555;
+  font-weight:700;
+  margin-top:4px;
+}
+
+.saved-list{
+  display:grid;
+  gap:14px;
+  margin-top:18px;
+}
+
+.saved-item{
+  background:#f8fbff;
+  border:1px solid #d7e6ff;
+  border-radius:14px;
+  padding:16px;
+}
+
+.saved-title-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.saved-title{
+  font-weight:800;
+  color:#1f2a44;
+}
+
+.saved-meta{
+  color:#555;
+  font-size:0.92rem;
+}
+
+.saved-values{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin:12px 0;
+}
+
+.saved-value{
+  background:white;
+  border:1px solid #d9dfeb;
+  border-radius:10px;
+  padding:10px;
+  font-size:0.92rem;
+}
+
+.saved-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.saved-actions button,
+.saved-header button{
+  background:#1f2a44;
+  color:white;
+  border:none;
+  padding:12px 16px;
+  font-size:15px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+@media (max-width:1020px){
+  .saved-values{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
 @media (max-width:900px){
   .main-grid{
     grid-template-columns:1fr;
@@ -449,12 +555,19 @@ tr:nth-child(even){
     max-width:320px;
   }
 
-  .button-row{
+  .button-row,
+  .saved-actions{
     flex-direction:column;
   }
 
-  .button-row button{
+  .button-row button,
+  .saved-actions button,
+  .saved-header button{
     width:100%;
+  }
+
+  .saved-values{
+    grid-template-columns:1fr;
   }
 
   th, td{
@@ -478,6 +591,7 @@ tr:nth-child(even){
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#saved-calculations" class="secondary" onclick="gtag('event','page_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
       <a href="/integrators.html" class="secondary" onclick="gtag('event','integrator_cta_click',{'source':'cfm_scfm_hero'});">Find an Integrator</a>
     </div>
   </div>
@@ -558,6 +672,29 @@ tr:nth-child(even){
       <div class="result" id="result">
         Enter values above and click <strong>Calculate Conversion</strong>.
       </div>
+
+      <section id="saved-calculations" class="card" style="margin-top:26px;">
+        <div class="saved-header">
+          <div>
+            <h2>My Saved CFM / SCFM Calculations</h2>
+            <p class="description" style="margin-bottom:0;">
+              Save compressed air flow conversions, reload previous inputs, and reuse common pressure-corrected flow checks.
+            </p>
+            <div id="authUserLabel" class="saved-user">Checking account status...</div>
+          </div>
+
+          <div class="hero-cta" style="margin-top:0;">
+            <button type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+            <button id="authButton" type="button" onclick="handleAuthButton()">Sign In</button>
+            <button type="button" onclick="loadSavedCalculations()">Refresh</button>
+            <button class="btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+          </div>
+        </div>
+
+        <div id="saveStatus" class="save-status muted"></div>
+        <div id="savedStatus" class="save-status muted"></div>
+        <div id="savedList" class="saved-list"></div>
+      </section>
 
       <div class="cta-box">
         <h3>Need help applying this to a real pneumatic system?</h3>
@@ -668,7 +805,7 @@ function calculateAirFlow(){
   ){
     result.innerHTML = "<strong>Please enter valid flow, pressure, and temperature values.</strong>";
     scrollToResult();
-    return;
+    return null;
   }
 
   const actualPressureAbs = gaugePressure + 14.7;
@@ -677,10 +814,12 @@ function calculateAirFlow(){
 
   let convertedFlow;
   let modeText;
+  let outputUnit;
 
   if(calcMode === "cfm_to_scfm"){
     convertedFlow = flowValue * (actualPressureAbs / stdPressure) * (stdTempR / actualTempR);
     modeText = "Converted Standard Flow";
+    outputUnit = "SCFM";
     result.innerHTML = `
       <strong>${modeText}</strong><br>
       ${convertedFlow.toFixed(2)} SCFM
@@ -695,6 +834,7 @@ function calculateAirFlow(){
   } else {
     convertedFlow = flowValue * (stdPressure / actualPressureAbs) * (actualTempR / stdTempR);
     modeText = "Converted Actual Flow";
+    outputUnit = "CFM";
     result.innerHTML = `
       <strong>${modeText}</strong><br>
       ${convertedFlow.toFixed(2)} CFM
@@ -708,7 +848,25 @@ function calculateAirFlow(){
     `;
   }
 
+  const calculationData = {
+    calc_mode: calcMode,
+    flow_value: flowValue,
+    gauge_pressure_psig: gaugePressure,
+    actual_pressure_psia: Number(actualPressureAbs.toFixed(2)),
+    air_temp_f: airTempF,
+    standard_pressure_psia: stdPressure,
+    standard_temp_f: stdTempF,
+    converted_flow: Number(convertedFlow.toFixed(2)),
+    converted_flow_unit: outputUnit,
+    mode_text: modeText,
+    timestamp: new Date().toISOString()
+  };
+
+  window.lastCfmScfmCalculation = calculationData;
+  window.currentCalculationData = calculationData;
+
   scrollToResult();
+  return calculationData;
 }
 
 function resetCalculator(){
@@ -750,7 +908,63 @@ function loadExample3(){
   document.getElementById("stdTempF").value = "68";
   calculateAirFlow();
 }
+</script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+
+<script>
+const CFM_SCFM_SAVE_CONFIG = {
+  toolName: "CFM SCFM PSI Calculator",
+  toolUrl: "/cfm-scfm-psi-calculator.html",
+  analyticsTool: "cfm_scfm_psi",
+  savedItemTitle: "CFM SCFM PSI Conversion",
+
+  collectData: function(){
+    return calculateAirFlow();
+  },
+
+  reloadData: function(savedData){
+    document.getElementById("calcMode").value = savedData.calc_mode || "cfm_to_scfm";
+    document.getElementById("flowValue").value = savedData.flow_value ?? "";
+    document.getElementById("gaugePressure").value = savedData.gauge_pressure_psig ?? "";
+    document.getElementById("airTempF").value = savedData.air_temp_f ?? "68";
+    document.getElementById("stdPressure").value = savedData.standard_pressure_psia ?? "14.7";
+    document.getElementById("stdTempF").value = savedData.standard_temp_f ?? "68";
+    calculateAirFlow();
+  },
+
+  renderFields: function(d){
+    return [
+      { label:"Mode", value: savedToolsSafeValue(d.calc_mode) },
+      { label:"Input Flow", value: savedToolsSafeValue(d.flow_value) },
+      { label:"Pressure", value: savedToolsSafeValue(d.gauge_pressure_psig) + " psig" },
+      { label:"Temperature", value: savedToolsSafeValue(d.air_temp_f) + " °F" },
+      { label:"Std Pressure", value: savedToolsSafeValue(d.standard_pressure_psia) + " psia" },
+      { label:"Std Temp", value: savedToolsSafeValue(d.standard_temp_f) + " °F" },
+      { label:"Converted", value: savedToolsSafeValue(d.converted_flow) + " " + savedToolsSafeValue(d.converted_flow_unit) },
+      { label:"Result", value: savedToolsSafeValue(d.mode_text) }
+    ];
+  }
+};
+
+function saveCurrentCalculation(){
+  savedToolsSave(CFM_SCFM_SAVE_CONFIG);
+}
+
+function loadSavedCalculations(){
+  savedToolsLoad(CFM_SCFM_SAVE_CONFIG);
+}
+
+function handleAuthButton(){
+  savedToolsHandleAuthButton(CFM_SCFM_SAVE_CONFIG);
+}
+
+savedToolsInit(CFM_SCFM_SAVE_CONFIG);
+</script>
+
+<script>
 fetch("navbar.html?v=20260314")
 .then(response => response.text())
 .then(data => {
