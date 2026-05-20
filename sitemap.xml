@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
   <url>
+    <loc>https://automationcalculators.net/saved-calculations.html</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
+  <url>
     <loc>https://automationcalculators.net/adhesives-dispensing.html</loc>
     <lastmod>2026-05-03</lastmod>
     <priority>0.80</priority>
