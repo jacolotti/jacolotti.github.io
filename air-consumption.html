@@ -575,7 +575,8 @@
         flex-direction:column;
       }
 
-      .button-row .btn{
+      .button-row .btn,
+      .hero-actions .btn{
         width:100%;
       }
     }
@@ -598,6 +599,7 @@
 
         <div class="hero-actions">
           <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta',{'location':'hero','action':'open_calculator'});">Open Calculator</a>
+          <a class="btn btn-secondary" href="#saved-calculations" onclick="gtag('event','page_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
           <a class="btn btn-secondary" href="/pneumatics.html" onclick="gtag('event','page_cta',{'location':'hero','action':'pneumatics_hub'});">Pneumatics Hub</a>
           <a class="btn btn-secondary" href="/air-line-size-calculator.html" onclick="gtag('event','page_cta',{'location':'hero','action':'air_line_size'});">Next: Air Line Size</a>
         </div>
@@ -758,6 +760,10 @@
 
         <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">
           Refresh
+        </button>
+
+        <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">
+          Sign Out
         </button>
       </div>
     </div>
@@ -947,37 +953,37 @@
       if(bore <= 0){
         output.innerHTML = "<strong>Please enter a bore diameter greater than 0.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       if(rod < 0){
         output.innerHTML = "<strong>Please enter a rod diameter of 0 or greater.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       if(rod >= bore){
         output.innerHTML = "<strong>Rod diameter must be smaller than bore diameter.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       if(stroke <= 0){
         output.innerHTML = "<strong>Please enter a stroke length greater than 0.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       if(pressure <= 0){
         output.innerHTML = "<strong>Please enter an operating pressure greater than 0.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       if(cpm < 0){
         output.innerHTML = "<strong>Please enter cycles per minute of 0 or greater.</strong>";
         scrollToOutput();
-        return;
+        return null;
       }
 
       const boreArea = Math.PI * Math.pow(bore / 2, 2);
@@ -1029,20 +1035,32 @@
         "<strong>Note</strong><br>" +
         cylinderNote;
 
-            const calculationData = {
-  bore: bore,
-  rod: rod,
-  stroke: stroke,
-  pressure: pressure,
-  cycles_per_minute: cpm,
-  cylinder_type: doubleActing === "yes" ? "double" : "single",
-  air_consumption_scfm: roundTo(scfmPractical, 3),
-  air_consumption_nl_min: roundTo(scfmPractical * 28.3168, 2),
-  timestamp: new Date().toISOString()
-};
+      const calculationData = {
+        bore: bore,
+        rod: rod,
+        stroke: stroke,
+        pressure: pressure,
+        cycles_per_minute: cpm,
+        cylinder_type: doubleActing === "yes" ? "double" : "single",
+        usage_factor: usageFactor,
+        extend_volume_in3: roundTo(extendVolumeIn3, 2),
+        retract_volume_in3: roundTo(retractVolumeIn3, 2),
+        swept_volume_per_cycle_in3: roundTo(sweptVolumePerCycleIn3, 2),
+        standard_free_air_per_cycle_in3: roundTo(standardFreeAirPerCycleIn3, 2),
+        practical_free_air_per_cycle_in3: roundTo(practicalFreeAirPerCycleIn3, 2),
+        air_consumption_scfm_ideal: roundTo(scfmIdeal, 3),
+        air_consumption_scfm: roundTo(scfmPractical, 3),
+        air_consumption_nl_min: roundTo(scfmPractical * 28.3168, 2),
+        standard_air_per_hour_ft3: roundTo(standardFt3PerHour, 2),
+        note: cylinderNote,
+        timestamp: new Date().toISOString()
+      };
+
+      window.lastAirConsumptionCalculation = calculationData;
+      window.currentCalculationData = calculationData;
 
       scrollToOutput();
-return calculationData;
+      return calculationData;
     }
 
     function clearCalculator(){
@@ -1092,7 +1110,7 @@ return calculationData;
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/supabase.js?v=debug1"></script>
-<script src="/saved-tools.js?v=1"></script>
+<script src="/saved-tools.js?v=6"></script>
 
   <script>
   const AIR_CONSUMPTION_SAVE_CONFIG = {
@@ -1111,6 +1129,7 @@ return calculationData;
       document.getElementById("stroke").value = savedData.stroke ?? "";
       document.getElementById("pressure").value = savedData.pressure ?? "";
       document.getElementById("cpm").value = savedData.cycles_per_minute ?? "";
+      document.getElementById("usageFactor").value = savedData.usage_factor ?? "1.15";
 
       document.getElementById("doubleActing").value =
         savedData.cylinder_type === "single" ? "no" : "yes";
@@ -1125,8 +1144,8 @@ return calculationData;
         { label:"Stroke", value: savedToolsSafeValue(d.stroke) + " in" },
         { label:"Pressure", value: savedToolsSafeValue(d.pressure) + " psi" },
         { label:"Cycles/Min", value: savedToolsSafeValue(d.cycles_per_minute) },
+        { label:"Usage Factor", value: savedToolsSafeValue(d.usage_factor) },
         { label:"SCFM", value: savedToolsSafeValue(d.air_consumption_scfm) },
-        { label:"NL/min", value: savedToolsSafeValue(d.air_consumption_nl_min) },
         { label:"Type", value: savedToolsSafeValue(d.cylinder_type) }
       ];
     }
