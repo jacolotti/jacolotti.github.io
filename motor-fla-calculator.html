@@ -606,10 +606,26 @@
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta',{'location':'hero','action':'open_calculator'});">Open Calculator</a>
-        <a class="btn btn-secondary" href="/voltage-drop.html" onclick="gtag('event','page_cta',{'location':'hero','action':'voltage_drop'});">Voltage Drop Calculator</a>
-        <a class="btn btn-secondary" href="/plc-electrical.html" onclick="gtag('event','page_cta',{'location':'hero','action':'plc_electrical_hub'});">PLC &amp; Electrical Hub</a>
-      </div>
+  <a class="btn btn-primary" href="#calculator"
+     onclick="gtag('event','page_cta',{'location':'hero','action':'open_calculator'});">
+     Open Calculator
+  </a>
+
+  <a class="btn btn-secondary" href="#saved-calculations"
+     onclick="gtag('event','page_cta',{'location':'hero','action':'saved_calculations'});">
+     My Saved Calculations
+  </a>
+
+  <a class="btn btn-secondary" href="/voltage-drop.html"
+     onclick="gtag('event','page_cta',{'location':'hero','action':'voltage_drop'});">
+     Voltage Drop Calculator
+  </a>
+
+  <a class="btn btn-secondary" href="/plc-electrical.html"
+     onclick="gtag('event','page_cta',{'location':'hero','action':'plc_electrical_hub'});">
+     PLC &amp; Electrical Hub
+  </a>
+</div>
 
       <div class="info-note">
         <strong>Good starting use case:</strong> choose 1-phase or 3-phase, enter voltage, then use horsepower or kW with estimated efficiency and power factor to get a fast current estimate before checking nameplate and code tables.
@@ -767,6 +783,10 @@
 
             <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">
               Refresh
+            </button>
+
+            <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">
+              Sign Out
             </button>
           </div>
         </div>
@@ -1097,7 +1117,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/supabase.js?v=debug1"></script>
-<script src="/saved-tools.js?v=1"></script>
+<script src="/saved-tools.js?v=6"></script>
 
 <script>
   const MOTOR_FLA_SAVE_CONFIG = {
