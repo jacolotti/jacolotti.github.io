@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/saved-calculations.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>My Saved Calculations | AutomationCalculators.net</title>
+  <meta name="description" content="View saved engineering calculations from AutomationCalculators.net. Sign in to reload saved calculator setups for pneumatic, electrical, PLC, motion, and machine design tools.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-G4TY96JHNH");
+  </script>
+
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --text:#16202a;
+      --muted:#5d6b79;
+      --accent:#0b66c3;
+      --accent-dark:#084c92;
+      --soft:#edf4fb;
+      --border:#d9e3ee;
+      --shadow:0 8px 24px rgba(15,35,60,0.08);
+      --radius:16px;
+      --max:1180px;
+      --danger:#b91c1c;
+      --success:#15803d;
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{color:var(--accent);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .hero{
+      background:#fff;
+      border-bottom:1px solid var(--border);
+    }
+
+    .hero-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:52px 20px 38px;
+      display:grid;
+      grid-template-columns:1.35fr 0.85fr;
+      gap:24px;
+      align-items:start;
+    }
+
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.25rem;
+      line-height:1.15;
+    }
+
+    .hero p{
+      margin:0 0 14px;
+      color:var(--muted);
+      max-width:780px;
+      font-size:1.03rem;
+    }
+
+    .hero-panel{
+      background:var(--soft);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:22px;
+    }
+
+    .hero-panel h3{
+      margin:0 0 10px;
+    }
+
+    .hero-panel ul{
+      margin:0;
+      padding-left:18px;
+      color:var(--muted);
+    }
+
+    .hero-panel li{margin-bottom:8px;}
+
+    .section{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:34px 20px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:15px;
+    }
+
+    .btn-primary{
+      background:var(--accent);
+      color:#fff;
+    }
+
+    .btn-primary:hover{
+      background:var(--accent-dark);
+      text-decoration:none;
+    }
+
+    .btn-secondary{
+      background:var(--soft);
+      color:var(--accent-dark);
+      border:1px solid var(--border);
+    }
+
+    .btn-secondary:hover{
+      background:#e2edf9;
+      text-decoration:none;
+    }
+
+    .btn-danger{
+      background:#fee2e2;
+      color:var(--danger);
+      border:1px solid #fecaca;
+    }
+
+    .btn-danger:hover{
+      background:#fecaca;
+      text-decoration:none;
+    }
+
+    .button-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .saved-header{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .saved-user{
+      color:var(--muted);
+      font-weight:700;
+      margin-top:4px;
+    }
+
+    .save-status{
+      margin-top:12px;
+      font-weight:700;
+      min-height:22px;
+    }
+
+    .save-status.success{color:var(--success);}
+    .save-status.error{color:var(--danger);}
+    .save-status.muted{color:var(--muted);}
+
+    .filters{
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr;
+      gap:12px;
+      margin:18px 0;
+    }
+
+    .filters input,
+    .filters select{
+      width:100%;
+      padding:11px 12px;
+      font-size:16px;
+      border:1px solid #cfd6e4;
+      border-radius:10px;
+      background:#fff;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    .saved-list{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .saved-item{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:14px;
+      padding:16px;
+    }
+
+    .saved-title-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+
+    .saved-title{
+      font-weight:800;
+      color:var(--text);
+    }
+
+    .saved-meta{
+      color:var(--muted);
+      font-size:0.92rem;
+    }
+
+    .saved-values{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin:12px 0;
+    }
+
+    .saved-value{
+      background:white;
+      border:1px solid var(--border);
+      border-radius:10px;
+      padding:10px;
+      font-size:0.92rem;
+    }
+
+    .saved-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
+    footer{
+      text-align:center;
+      padding:26px 20px 38px;
+      color:#5d6d7b;
+      font-size:0.96rem;
+    }
+
+    @media(max-width:900px){
+      .hero-inner,
+      .filters{
+        grid-template-columns:1fr;
+      }
+
+      .saved-values{
+        grid-template-columns:repeat(2,1fr);
+      }
+    }
+
+    @media(max-width:650px){
+      .hero-inner,
+      .section{
+        padding-left:16px;
+        padding-right:16px;
+      }
+
+      .hero h1{
+        font-size:1.85rem;
+      }
+
+      .button-row,
+      .saved-actions{
+        flex-direction:column;
+      }
+
+      .btn,
+      .saved-actions .btn{
+        width:100%;
+        text-align:center;
+      }
+
+      .saved-values{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <h1>My Saved Calculations</h1>
+        <p>
+          View saved calculator setups from AutomationCalculators.net. Use this page to return to common wire runs, pneumatic setups, sizing checks, and troubleshooting calculations.
+        </p>
+        <p>
+          This is the start of your engineering workspace. More saved tools, profiles, exports, and project folders can be added from here.
+        </p>
+
+        <div class="button-row">
+          <a class="btn btn-primary" href="/automation-calculators.html">Browse Calculators</a>
+          <a class="btn btn-secondary" href="/plc-electrical.html">PLC & Electrical Hub</a>
+          <a class="btn btn-secondary" href="/pneumatics.html">Pneumatics Hub</a>
+        </div>
+      </div>
+
+      <div class="hero-panel">
+        <h3>This page will show</h3>
+        <ul>
+          <li>Saved voltage drop setups</li>
+          <li>Saved pneumatic calculations</li>
+          <li>Saved electrical and PLC tools</li>
+          <li>Reload links back to each calculator</li>
+          <li>Delete control for old saved setups</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="card">
+      <div class="saved-header">
+        <div>
+          <h2>Saved Tool Library</h2>
+          <p class="saved-user" id="authUserLabel">Checking account status...</p>
+        </div>
+
+        <div class="button-row" style="margin-top:0;">
+          <button class="btn btn-secondary" id="authButton" type="button" onclick="savedDashboardAuthButton()">Sign In</button>
+          <button class="btn btn-secondary" type="button" onclick="loadAllSavedTools()">Refresh</button>
+          <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+        </div>
+      </div>
+
+      <div class="filters">
+        <input id="savedSearch" type="search" placeholder="Search saved calculations..." oninput="renderSavedDashboardList()">
+
+        <select id="toolFilter" onchange="renderSavedDashboardList()">
+          <option value="">All tools</option>
+        </select>
+      </div>
+
+      <div id="savedStatus" class="save-status muted"></div>
+      <div id="saveStatus" class="save-status muted"></div>
+      <div id="savedList" class="saved-list"></div>
+    </div>
+  </section>
+
+  <footer>
+    Automation Engineering Tools • Saved calculator workspace
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/supabase.js?v=debug1"></script>
+  <script src="/saved-tools.js?v=5"></script>
+
+  <script>
+    let dashboardSavedItems = [];
+
+    function savedDashboardAuthButton(){
+      if(savedToolsCurrentUser){
+        loadAllSavedTools();
+      } else {
+        openAuthModal();
+      }
+    }
+
+    async function loadAllSavedTools(){
+      const user = await savedToolsCheckUser();
+
+      const list = document.getElementById("savedList");
+      if(list){
+        list.innerHTML = "";
+      }
+
+      if(!user){
+        savedToolsSetStatus("savedStatus", "Sign in to view saved calculations.", "muted");
+        return;
+      }
+
+      savedToolsSetStatus("savedStatus", "Loading all saved calculations...", "muted");
+
+      const { data, error } = await supabaseClient
+        .from("saved_tools")
+        .select("id, tool_name, tool_url, saved_data, created_at")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending:false });
+
+      console.log("Saved dashboard response:", { data, error });
+
+      if(error){
+        savedToolsSetStatus("savedStatus", "Could not load saved calculations: " + error.message, "error");
+        return;
+      }
+
+      dashboardSavedItems = data || [];
+      buildToolFilter();
+      renderSavedDashboardList();
+    }
+
+    function buildToolFilter(){
+      const filter = document.getElementById("toolFilter");
+      if(!filter) return;
+
+      const currentValue = filter.value;
+      const tools = [...new Set(dashboardSavedItems.map(item => item.tool_name || item.tool_url || "Unknown Tool"))];
+
+      filter.innerHTML = '<option value="">All tools</option>';
+
+      tools.forEach(tool => {
+        const option = document.createElement("option");
+        option.value = tool;
+        option.textContent = tool;
+        filter.appendChild(option);
+      });
+
+      filter.value = currentValue;
+    }
+
+    function renderSavedDashboardList(){
+      const list = document.getElementById("savedList");
+      if(!list) return;
+
+      list.innerHTML = "";
+
+      const search = (document.getElementById("savedSearch")?.value || "").toLowerCase();
+      const toolFilter = document.getElementById("toolFilter")?.value || "";
+
+      let filtered = dashboardSavedItems.filter(item => {
+        const d = item.saved_data || {};
+        const searchable = [
+          item.tool_name,
+          item.tool_url,
+          JSON.stringify(d)
+        ].join(" ").toLowerCase();
+
+        const matchesSearch = !search || searchable.includes(search);
+        const matchesTool = !toolFilter || item.tool_name === toolFilter;
+
+        return matchesSearch && matchesTool;
+      });
+
+      if(filtered.length === 0){
+        savedToolsSetStatus("savedStatus", "No saved calculations match this view.", "muted");
+        return;
+      }
+
+      savedToolsSetStatus("savedStatus", filtered.length + " saved calculation" + (filtered.length === 1 ? "" : "s") + " shown.", "success");
+
+      filtered.forEach(item => {
+        renderDashboardSavedItem(item);
+      });
+    }
+
+    function renderDashboardSavedItem(item){
+      const list = document.getElementById("savedList");
+      if(!list) return;
+
+      const d = item.saved_data || {};
+      const createdDate = item.created_at ? new Date(item.created_at) : null;
+      const createdLabel = createdDate ? createdDate.toLocaleString() : "Saved calculation";
+
+      const div = document.createElement("div");
+      div.className = "saved-item";
+
+      const titleRow = document.createElement("div");
+      titleRow.className = "saved-title-row";
+
+      const titleWrap = document.createElement("div");
+
+      const title = document.createElement("div");
+      title.className = "saved-title";
+      title.textContent = item.tool_name || "Saved Calculation";
+
+      const meta = document.createElement("div");
+      meta.className = "saved-meta";
+      meta.textContent = createdLabel + " • " + (item.tool_url || "");
+
+      titleWrap.appendChild(title);
+      titleWrap.appendChild(meta);
+      titleRow.appendChild(titleWrap);
+
+      const values = document.createElement("div");
+      values.className = "saved-values";
+
+      Object.keys(d).slice(0, 8).forEach(key => {
+        const box = document.createElement("div");
+        box.className = "saved-value";
+
+        const label = document.createElement("strong");
+        label.textContent = key.replaceAll("_", " ") + ":";
+
+        const br = document.createElement("br");
+        const value = document.createTextNode(savedToolsSafeValue(d[key]));
+
+        box.appendChild(label);
+        box.appendChild(br);
+        box.appendChild(value);
+        values.appendChild(box);
+      });
+
+      const actions = document.createElement("div");
+      actions.className = "saved-actions";
+
+      const openBtn = document.createElement("a");
+      openBtn.className = "btn btn-primary";
+      openBtn.href = item.tool_url || "/automation-calculators.html";
+      openBtn.textContent = "Open Tool";
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.className = "btn btn-danger";
+      deleteBtn.type = "button";
+      deleteBtn.textContent = "Delete";
+      deleteBtn.addEventListener("click", function(){
+        deleteDashboardSavedItem(item.id);
+      });
+
+      actions.appendChild(openBtn);
+      actions.appendChild(deleteBtn);
+
+      div.appendChild(titleRow);
+      div.appendChild(values);
+      div.appendChild(actions);
+
+      list.appendChild(div);
+    }
+
+    async function deleteDashboardSavedItem(id){
+      savedToolsSetStatus("savedStatus", "Deleting saved calculation...", "muted");
+
+      const user = await savedToolsCheckUser();
+
+      if(!user){
+        openAuthModal();
+        return;
+      }
+
+      const { data, error } = await supabaseClient
+        .from("saved_tools")
+        .delete()
+        .eq("id", id)
+        .eq("user_id", user.id)
+        .select();
+
+      console.log("Dashboard delete response:", { id, data, error });
+
+      if(error){
+        savedToolsSetStatus("savedStatus", "Delete failed: " + error.message, "error");
+        return;
+      }
+
+      if(!data || data.length === 0){
+        savedToolsSetStatus("savedStatus", "Delete did not remove anything. Check Supabase delete policy.", "error");
+        return;
+      }
+
+      dashboardSavedItems = dashboardSavedItems.filter(item => item.id !== id);
+      renderSavedDashboardList();
+
+      if(typeof gtag === "function"){
+        gtag("event", "saved_calculation_deleted", {
+          location: "saved_calculations_dashboard"
+        });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", async function(){
+      savedToolsInjectAuthStyles();
+      savedToolsEnsureAuthModal();
+
+      await savedToolsCheckUser();
+      await loadAllSavedTools();
+
+      if(window.supabaseClient && supabaseClient.auth && supabaseClient.auth.onAuthStateChange){
+        supabaseClient.auth.onAuthStateChange(async function(event, session){
+          savedToolsCurrentUser = session && session.user ? session.user : null;
+          savedToolsUpdateAuthUI();
+
+          if(event === "SIGNED_IN"){
+            await loadAllSavedTools();
+          }
+
+          if(event === "SIGNED_OUT"){
+            dashboardSavedItems = [];
+            document.getElementById("savedList").innerHTML = "";
+            savedToolsSetStatus("savedStatus", "Sign in to view saved calculations.", "muted");
+          }
+        });
+      }
+    });
+
+    fetch("/navbar.html?v=20260422")
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById("navbar").innerHTML = data;
+      })
+      .catch(error => {
+        console.error("Navbar failed to load:", error);
+      });
+  </script>
+</body>
+</html>
