@@ -590,10 +590,26 @@
       </p>
 
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta',{'location':'hero','action':'open_calculator'});">Open Calculator</a>
-        <a class="btn btn-secondary" href="/plc-electrical.html" onclick="gtag('event','page_cta',{'location':'hero','action':'plc_electrical_hub'});">PLC &amp; Electrical Hub</a>
-        <a class="btn btn-secondary" href="/plc-inputs-not-working.html" onclick="gtag('event','page_cta',{'location':'hero','action':'plc_inputs'});">PLC Input Issues</a>
-      </div>
+  <a class="btn btn-primary" href="#calculator"
+     onclick="gtag('event','page_cta',{'location':'hero','action':'open_calculator'});">
+     Open Calculator
+  </a>
+
+  <a class="btn btn-secondary" href="#saved-calculations"
+     onclick="gtag('event','page_cta',{'location':'hero','action':'saved_calculations'});">
+     My Saved Calculations
+  </a>
+
+  <a class="btn btn-secondary" href="/plc-electrical.html"
+     onclick="gtag('event','page_cta',{'location':'hero','action':'plc_electrical_hub'});">
+     PLC &amp; Electrical Hub
+  </a>
+
+  <a class="btn btn-secondary" href="/plc-inputs-not-working.html"
+     onclick="gtag('event','page_cta',{'location':'hero','action':'plc_inputs'});">
+     PLC Input Issues
+  </a>
+</div>
 
       <div class="info-note">
         <strong>Good starting use case:</strong> if your analog device is scaled 4-20 mA = 0-300 PSI, enter the live signal value, define the raw range, define the engineering range, and press Calculate.
@@ -771,6 +787,10 @@
 
         <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">
           Refresh
+        </button>
+
+        <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">
+          Sign Out
         </button>
       </div>
     </div>
@@ -1182,7 +1202,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/supabase.js?v=debug1"></script>
-<script src="/saved-tools.js?v=1"></script>
+<script src="/saved-tools.js?v=5"></script>
 
   <script>
   const ANALOG_SCALING_SAVE_CONFIG = {
