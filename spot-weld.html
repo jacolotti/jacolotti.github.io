@@ -309,6 +309,122 @@
       background:#dde7f8;
     }
 
+    .btn{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      transition:.2s ease;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+
+    .btn-primary{
+      background:#1e6bd6;
+      color:#fff;
+    }
+
+    .btn-primary:hover{background:#1555ad;}
+
+    .btn-secondary{
+      background:#eef3ff;
+      color:#1f2a44;
+      border:1px solid #cfdaf5;
+    }
+
+    .btn-secondary:hover{background:#e2edf9;}
+
+    .btn-danger{
+      background:#fee2e2;
+      color:#b91c1c;
+      border:1px solid #fecaca;
+    }
+
+    .btn-danger:hover{background:#fecaca;}
+
+    .save-status{
+      margin-top:12px;
+      font-weight:700;
+      min-height:22px;
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .save-status.success{color:#15803d;}
+    .save-status.error{color:#b91c1c;}
+    .save-status.muted{color:#666;}
+
+    .saved-header{
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      margin-bottom:14px;
+    }
+
+    .saved-user{
+      color:#4f5b70;
+      font-weight:700;
+      margin-top:4px;
+    }
+
+    .saved-list{
+      display:grid;
+      gap:14px;
+      margin-top:18px;
+    }
+
+    .saved-item{
+      background:#f8fbff;
+      border:1px solid #d7e6ff;
+      border-radius:14px;
+      padding:16px;
+    }
+
+    .saved-title-row{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+
+    .saved-title{
+      font-weight:800;
+      color:#1f2a44;
+    }
+
+    .saved-meta{
+      color:#4f5b70;
+      font-size:0.92rem;
+    }
+
+    .saved-values{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin:12px 0;
+    }
+
+    .saved-value{
+      background:white;
+      border:1px solid #d6e0f1;
+      border-radius:10px;
+      padding:10px;
+      font-size:0.92rem;
+    }
+
+    .saved-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+    }
+
     .result{
       margin-top:25px;
       padding:20px;
@@ -417,6 +533,20 @@
 
       .button-row button{
         width:100%;
+      }
+
+      .saved-values{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .saved-actions .btn{
+        width:100%;
+      }
+    }
+
+    @media (max-width:520px){
+      .saved-values{
+        grid-template-columns:1fr;
       }
     }
   </style>
@@ -686,17 +816,17 @@
           <div id="authUserLabel" class="saved-user">Checking account status...</div>
         </div>
 
-        <div class="hero-cta" style="margin-top:0;">
-          <button type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
-          <button id="authButton" type="button" onclick="handleAuthButton()">Sign In</button>
-          <button type="button" onclick="loadSavedCalculations()">Refresh</button>
-          <button class="ghost" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+        <div class="button-row" style="margin:0;">
+          <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+          <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+          <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+          <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
         </div>
       </div>
 
-      <div id="saveStatus" class="note"></div>
-      <div id="savedStatus" class="note"></div>
-      <div id="savedList"></div>
+      <div id="saveStatus" class="save-status muted"></div>
+      <div id="savedStatus" class="save-status muted"></div>
+      <div id="savedList" class="saved-list"></div>
     </section>
 
     <p class="note">
