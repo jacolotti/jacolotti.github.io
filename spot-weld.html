@@ -568,6 +568,7 @@
 
     <div class="hero-cta">
       <a href="#calculator" class="primary" onclick="gtag('event','hero_cta_click',{'from':'spot_weld','to':'calculator'});">Open Calculator</a>
+      <a href="#saved-calculations" class="secondary" onclick="gtag('event','page_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
       <a href="/projection-weld.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'spot_weld_hero','to':'projection_weld'});">Projection Weld Calculator</a>
     </div>
   </div>
@@ -1213,7 +1214,29 @@
       "<strong>Important</strong><br>" +
       "These are conservative first-pass starting values only. Validate with destructive testing, nugget checks, peel tests, and actual machine behavior.";
 
+    const calculationData = {
+      material: material,
+      thickness_1_mm: t1,
+      thickness_2_mm: t2,
+      stack_type: stackType,
+      quality_target: quality,
+      machine_type: machine,
+      current_low_ka: roundTo(currentLow, 1),
+      current_high_ka: roundTo(currentHigh, 1),
+      force_low_kn: roundTo(forceLowKN, 2),
+      force_high_kn: roundTo(forceHighKN, 2),
+      weld_time_low_cycles: roundTo(timeLow, 0),
+      weld_time_high_cycles: roundTo(timeHigh, 0),
+      tip_diameter_mm: roundTo(tipDiameterMM, 1),
+      nugget_diameter_mm: roundTo(nuggetDiameterMM, 1),
+      timestamp: new Date().toISOString()
+    };
+
+    window.lastSpotWeldCalculation = calculationData;
+    window.currentCalculationData = calculationData;
+
     scrollToOutput();
+    return calculationData;
   }
 
   function clearCalculator(){
@@ -1255,6 +1278,41 @@
     document.getElementById("machine").value = "mfdc";
     calculateSpotWeld();
   }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+
+<script>
+const SPOT_WELD_SAVE_CONFIG = {
+  toolName: "Spot Weld Parameter Calculator",
+  toolUrl: "/spot-weld.html",
+  analyticsTool: "spot_weld",
+  savedItemTitle: "Spot Weld Setup",
+  collectData: function(){ return calculateSpotWeld(); },
+  reloadData: function(savedData){
+    document.getElementById("material").value = savedData.material || "mild";
+    document.getElementById("thickness1").value = savedData.thickness_1_mm ?? "1.0";
+    document.getElementById("thickness2").value = savedData.thickness_2_mm ?? "1.0";
+    document.getElementById("stackType").value = savedData.stack_type || "equal";
+    document.getElementById("quality").value = savedData.quality_target || "standard";
+    document.getElementById("machine").value = savedData.machine_type || "ac";
+    calculateSpotWeld();
+  },
+  renderFields: function(d){
+    return [
+      { label: "Material", value: savedToolsSafeValue(d.material) },
+      { label: "Sheet 1", value: savedToolsSafeValue(d.thickness_1_mm) + " mm" },
+      { label: "Sheet 2", value: savedToolsSafeValue(d.thickness_2_mm) + " mm" },
+      { label: "Current", value: savedToolsSafeValue(d.current_low_ka) + " to " + savedToolsSafeValue(d.current_high_ka) + " kA" }
+    ];
+  }
+};
+function saveCurrentCalculation(){ savedToolsSave(SPOT_WELD_SAVE_CONFIG); }
+function loadSavedCalculations(){ savedToolsLoad(SPOT_WELD_SAVE_CONFIG); }
+function handleAuthButton(){ savedToolsHandleAuthButton(SPOT_WELD_SAVE_CONFIG); }
+savedToolsInit(SPOT_WELD_SAVE_CONFIG);
 </script>
 
 <script>
