@@ -774,8 +774,6 @@
         <button class="btn btn-secondary" onclick="resetCalculator(); gtag('event','pneumatic_force_clear');">Reset</button>
       </div>
 
-      <div id="saveStatus" class="save-status muted"></div>
-
       <div class="result" id="output">
         Enter values and press <strong>Calculate</strong>.
       </div>
@@ -802,11 +800,14 @@
         </div>
 
         <div class="hero-actions" style="margin-top:0;">
-          <button id="authButton" class="btn btn-secondary" onclick="handleAuthButton()">Sign In</button>
-          <button class="btn btn-secondary" onclick="loadSavedCalculations()">Refresh</button>
+          <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+          <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+          <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+          <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
         </div>
       </div>
 
+      <div id="saveStatus" class="save-status muted"></div>
       <div id="savedStatus" class="save-status muted"></div>
       <div id="savedList" class="saved-list"></div>
     </div>
@@ -985,43 +986,10 @@
     </div>
   </section>
 
-  <div id="authModal" class="auth-modal-backdrop">
-    <div class="auth-modal">
-      <div class="auth-modal-head">
-        <div>
-          <h2>Automation Calculators Account</h2>
-          <div class="saved-user">Sign in or create an account to save calculations.</div>
-        </div>
-        <button class="close-btn" onclick="closeAuthModal()">×</button>
-      </div>
-
-      <div class="auth-tabs">
-        <button id="signInTab" class="auth-tab active" onclick="setAuthMode('signin')">Sign In</button>
-        <button id="signUpTab" class="auth-tab" onclick="setAuthMode('signup')">Create Account</button>
-      </div>
-
-      <div class="auth-field">
-        <label for="authEmail">Email</label>
-        <input id="authEmail" type="email" autocomplete="email">
-      </div>
-
-      <div class="auth-field">
-        <label for="authPassword">Password</label>
-        <input id="authPassword" type="password" autocomplete="current-password">
-      </div>
-
-      <div class="button-row">
-        <button id="authSubmitButton" class="btn btn-primary" onclick="submitAuthForm()">Sign In</button>
-        <button class="btn btn-secondary" onclick="closeAuthModal()">Cancel</button>
-      </div>
-
-      <div id="authStatus" class="save-status muted"></div>
-    </div>
-  </div>
-
+  
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/supabase.js?v=debug1"></script>
-  <script src="/saved-tools.js?v=1"></script>
+  <script src="/saved-tools.js?v=6"></script>
 
  <script>
   let authMode = "signin";
@@ -1030,11 +998,11 @@
   function setStatus(id, message, type){
     if(typeof savedToolsSetStatus === "function"){
       savedToolsSetStatus(id, message, type);
-      return;
+      return null;
     }
 
     const el = document.getElementById(id);
-    if(!el) return;
+    if(!el) return null;
     el.textContent = message || "";
     el.className = "save-status " + (type || "muted");
   }
@@ -1330,89 +1298,6 @@
     calculate();
   }
 
-  function openAuthModal(){
-    document.getElementById("authModal").classList.add("active");
-    setStatus("authStatus", "", "muted");
-
-    if(typeof gtag === "function"){
-      gtag("event","auth_modal_open",{"location":"pneumatic_force"});
-    }
-  }
-
-  function closeAuthModal(){
-    document.getElementById("authModal").classList.remove("active");
-  }
-
-  function setAuthMode(mode){
-    authMode = mode;
-    document.getElementById("signInTab").classList.toggle("active", mode === "signin");
-    document.getElementById("signUpTab").classList.toggle("active", mode === "signup");
-    document.getElementById("authSubmitButton").textContent = mode === "signin" ? "Sign In" : "Create Account";
-    setStatus("authStatus", "", "muted");
-  }
-
-  async function submitAuthForm(){
-    if(authMode === "signup"){
-      await signUpUser();
-    } else {
-      await signInUser();
-    }
-  }
-
-  async function signUpUser(){
-    const email = document.getElementById("authEmail").value.trim();
-    const password = document.getElementById("authPassword").value;
-
-    if(!email || !password){
-      setStatus("authStatus", "Enter an email and password.", "error");
-      return;
-    }
-
-    const { error } = await supabaseClient.auth.signUp({
-      email: email,
-      password: password
-    });
-
-    if(error){
-      setStatus("authStatus", error.message, "error");
-      return;
-    }
-
-    if(typeof gtag === "function"){
-      gtag("event","account_signup_started",{"location":"pneumatic_force"});
-    }
-
-    setStatus("authStatus", "Account created. Check your email to confirm your account, then sign in.", "success");
-  }
-
-  async function signInUser(){
-    const email = document.getElementById("authEmail").value.trim();
-    const password = document.getElementById("authPassword").value;
-
-    if(!email || !password){
-      setStatus("authStatus", "Enter your email and password.", "error");
-      return;
-    }
-
-    const { error } = await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
-
-    if(error){
-      setStatus("authStatus", error.message, "error");
-      return;
-    }
-
-    closeAuthModal();
-
-    if(typeof gtag === "function"){
-      gtag("event","account_login",{"location":"pneumatic_force"});
-    }
-
-    setStatus("saveStatus", "Signed in. You can now save this calculation.", "success");
-    await savedToolsLoad(PNEUMATIC_SAVE_CONFIG);
-  }
 
   const PNEUMATIC_SAVE_CONFIG = {
     toolName: "Pneumatic Cylinder Force Calculator",
