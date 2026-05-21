@@ -675,6 +675,30 @@
       Enter values and press <strong>Calculate</strong>.
     </div>
 
+
+    <section id="saved-calculations" class="section" style="margin-top:26px;">
+      <div class="saved-header">
+        <div>
+          <h2>My Saved Spot Weld Calculations</h2>
+          <p class="description" style="margin-bottom:0;">
+            Save spot weld setup checks, reload previous inputs, and reuse common schedule starting points.
+          </p>
+          <div id="authUserLabel" class="saved-user">Checking account status...</div>
+        </div>
+
+        <div class="hero-cta" style="margin-top:0;">
+          <button type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+          <button id="authButton" type="button" onclick="handleAuthButton()">Sign In</button>
+          <button type="button" onclick="loadSavedCalculations()">Refresh</button>
+          <button class="ghost" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+        </div>
+      </div>
+
+      <div id="saveStatus" class="note"></div>
+      <div id="savedStatus" class="note"></div>
+      <div id="savedList"></div>
+    </section>
+
     <p class="note">
       Coated steels such as galvanized and galvaneal usually require tighter process control because coating affects contact resistance, heat balance, and electrode life.
     </p>
@@ -902,13 +926,13 @@
     if(t1 <= 0 || t2 <= 0){
       output.innerHTML = "<strong>Please enter sheet thickness values greater than 0.</strong>";
       scrollToOutput();
-      return;
+      return null;
     }
 
     if(t1 > 6 || t2 > 6){
       output.innerHTML = "<strong>This calculator is intended for light to moderate sheet thicknesses up to about 6 mm.</strong>";
       scrollToOutput();
-      return;
+      return null;
     }
 
     const totalThickness = t1 + t2;
