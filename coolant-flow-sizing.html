@@ -470,6 +470,7 @@
     .saved-values{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0;}
     .saved-value{background:white;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.92rem;}
     .saved-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+    .saved-actions .btn{margin:0;}
 
 </style>
 </head>
@@ -716,7 +717,7 @@
       <div id="authUserLabel" class="saved-user">Checking account status...</div>
       <div class="saved-actions">
         <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
-        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">My Account</button>
         <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
         <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
       </div>
