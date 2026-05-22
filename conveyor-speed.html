@@ -408,6 +408,7 @@
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#saved-calculations" class="secondary" onclick="gtag('event','page_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
       <a href="/motor.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'conveyor_speed_hero','to':'conveyor_motor'});">Conveyor Motor Sizing</a>
       <a href="/motors-motion.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'conveyor_speed_hero','to':'motors_motion_hub'});">Motors & Motion Hub</a>
     </div>
@@ -558,6 +559,24 @@
     </p>
   </section>
 
+  <section class="section" id="saved-calculations">
+    <div class="card">
+      <div class="section-label">Saved calculations</div>
+      <h2>My Saved Calculations</h2>
+      <p class="description">Save setups, reload prior inputs, and reuse common checks.</p>
+      <div id="authUserLabel" class="description">Checking account status...</div>
+      <div class="button-row">
+        <button type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+        <button id="authButton" class="secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+        <button class="secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+        <button class="ghost" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+      </div>
+      <div id="saveStatus" class="description"></div>
+      <div id="savedStatus" class="description"></div>
+      <div id="savedList" class="description"></div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="section-label">Continue the design</div>
     <h2>Complete Your Conveyor Sizing</h2>
@@ -590,6 +609,9 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
 <script>
   function scrollToOutput(){
     document.getElementById("output").scrollIntoView({
@@ -669,6 +691,34 @@
     document.getElementById("travelDistance").value = "25";
     calculateConveyorSpeed();
   }
+
+  const CONVEYOR_SPEED_SAVE_CONFIG = {
+    toolId: "conveyor_speed",
+    toolName: "Conveyor Speed Calculator",
+    getInputs: () => {
+      const spacing = parseFloat(document.getElementById("spacing").value);
+      const ppm = parseFloat(document.getElementById("ppm").value);
+      const travelDistance = parseFloat(document.getElementById("travelDistance").value);
+      if(!(spacing > 0) || !(ppm > 0) || !(travelDistance > 0)){ return null; }
+      return { spacing, ppm, travelDistance };
+    },
+    applyInputs: (data) => {
+      document.getElementById("spacing").value = data.spacing ?? "";
+      document.getElementById("ppm").value = data.ppm ?? "";
+      document.getElementById("travelDistance").value = data.travelDistance ?? "";
+      calculateConveyorSpeed();
+    },
+    clearInputs: resetCalculator,
+    statusElId: "saveStatus",
+    listElId: "savedList",
+    emptyText: "No saved conveyor speed calculations yet.",
+    formatResult: () => document.getElementById("output").innerText
+  };
+
+  function saveCurrentCalculation(){ savedToolsSave(CONVEYOR_SPEED_SAVE_CONFIG); }
+  function loadSavedCalculations(){ savedToolsLoad(CONVEYOR_SPEED_SAVE_CONFIG); }
+  function handleAuthButton(){ savedToolsHandleAuthButton(CONVEYOR_SPEED_SAVE_CONFIG); }
+  savedToolsInit(CONVEYOR_SPEED_SAVE_CONFIG);
 
   fetch('/navbar.html?v=20260422')
     .then(response => response.text())
