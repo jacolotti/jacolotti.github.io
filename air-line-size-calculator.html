@@ -413,6 +413,14 @@
       text-align:left;
     }
 
+     .btn-danger{background:#c62828;color:#fff;}
+    .btn-danger:hover{background:#9f1f1f;}
+    .save-status{margin-top:12px;font-weight:700;}
+    .save-status.muted{color:var(--muted);}
+    .saved-header{display:flex;justify-content:space-between;gap:14px;align-items:flex-start;flex-wrap:wrap;}
+    .saved-user{margin-top:8px;color:var(--muted);font-size:0.95rem;}
+    .saved-list{margin-top:12px;}
+
     .footer-note{
       text-align:center;
       color:#667584;
@@ -463,6 +471,7 @@
       }
     }
   </style>
+  <script src="/saved-tools.js?v=6"></script>
 </head>
 <body>
 
@@ -482,6 +491,7 @@
       <div class="hero-actions">
         <a class="btn btn-primary" href="#calculator" onclick="gtag('event','page_cta',{'location':'hero','action':'open_calculator'});">Open Calculator</a>
         <a class="btn btn-secondary" href="/pneumatics.html" onclick="gtag('event','page_cta',{'location':'hero','action':'pneumatics_hub'});">Pneumatics Hub</a>
+        <a class="btn btn-secondary" href="#saved-calculations" onclick="gtag('event','page_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
         <a class="btn btn-secondary" href="/pneumatic-system-sizing-guide.html" onclick="gtag('event','page_cta',{'location':'hero','action':'system_guide'});">System Guide</a>
       </div>
 
@@ -595,6 +605,28 @@
     <p class="note">
       This calculator uses a practical sizing method based on air velocity and a simple line-length penalty. It is intended for early design and troubleshooting. Final sizing should also consider fittings, quick disconnects, regulators, filters, hose restrictions, branch drops, simultaneous demand, and allowable pressure drop at peak flow. The existing sizing logic was preserved from your current page. :contentReference[oaicite:1]{index=1}
     </p>
+  </div>
+</section>
+
+
+<section class="section" id="saved-calculations">
+  <div class="card">
+    <div class="saved-header">
+      <div>
+        <h2>My Saved Calculations</h2>
+        <p class="section-intro" style="margin-bottom:0;">Save setups, reload prior inputs, and reuse common checks.</p>
+        <div id="authUserLabel" class="saved-user">Checking account status...</div>
+      </div>
+      <div class="hero-actions" style="margin-top:0;">
+        <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+        <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+        <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+      </div>
+    </div>
+    <div id="saveStatus" class="save-status muted"></div>
+    <div id="savedStatus" class="save-status muted"></div>
+    <div id="savedList" class="saved-list"></div>
   </div>
 </section>
 
@@ -904,7 +936,35 @@
 </script>
 
 <script>
-  fetch('/navbar.html?v=20260422')
+  
+  const AIR_LINE_SIZE_SAVE_CONFIG = {
+    toolName: document.title.replace(' | Automation Calculators',''),
+    toolUrl: '/' + window.location.pathname.split('/').pop(),
+    analyticsTool: window.location.pathname.replace('/','').replace('.html','').replace(/-/g,'_'),
+    savedItemTitle: 'Saved Calculation',
+    collectData: function(){
+      const calcFn = window.calculatePneumaticSpeed || window.calculateAirLine || window.calculateForce;
+      if(!calcFn) return null;
+      calcFn();
+      const out = document.getElementById('output') || document.getElementById('result');
+      if(!out || out.textContent.toLowerCase().includes('please enter') || out.textContent.toLowerCase().includes('enter valid')) return null;
+      return Object.fromEntries(Array.from(document.querySelectorAll('input,select')).map(el=>[el.id, el.value]));
+    },
+    reloadData: function(savedData){
+      Object.entries(savedData || {}).forEach(([k,v]) => { const el=document.getElementById(k); if(el) el.value=v; });
+      const calcFn = window.calculatePneumaticSpeed || window.calculateAirLine || window.calculateForce;
+      if(calcFn) calcFn();
+    },
+    renderFields: function(d){
+      return Object.keys(d||{}).filter(k=>!['id','created_at','updated_at'].includes(k)).slice(0,8).map(k=>({label:k.replace(/_/g,' '),value:savedToolsSafeValue(d[k])}));
+    }
+  };
+  function saveCurrentCalculation(){ savedToolsSave(AIR_LINE_SIZE_SAVE_CONFIG); }
+  function loadSavedCalculations(){ savedToolsLoad(AIR_LINE_SIZE_SAVE_CONFIG); }
+  function handleAuthButton(){ savedToolsHandleAuthButton(AIR_LINE_SIZE_SAVE_CONFIG); }
+  savedToolsInit(AIR_LINE_SIZE_SAVE_CONFIG);
+
+fetch('/navbar.html?v=20260422')
     .then(response => response.text())
     .then(data => {
       document.getElementById('navbar').innerHTML = data;
