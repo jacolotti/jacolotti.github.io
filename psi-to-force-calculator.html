@@ -445,6 +445,7 @@
       }
     }
   </style>
+  <script src="/saved-tools.js?v=6"></script>
 </head>
 <body>
 
@@ -459,6 +460,7 @@
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
       <a href="/pneumatic.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'psi_force_hero','to':'pneumatic_force'});">Pneumatic Force Calculator</a>
+      <a href="#saved-calculations" class="secondary" onclick="gtag('event','page_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
     </div>
   </div>
 </section>
@@ -614,6 +616,27 @@
   </div>
 </div>
 
+<section class="section" id="saved-calculations">
+  <div class="card">
+    <div class="saved-header">
+      <div>
+        <h2>My Saved Calculations</h2>
+        <p class="description" style="margin-bottom:0;">Save setups, reload prior inputs, and reuse common checks.</p>
+        <div id="authUserLabel" class="saved-user">Checking account status...</div>
+      </div>
+      <div class="button-row" style="margin-top:0;">
+        <button type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+        <button id="authButton" class="secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+        <button class="secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+        <button class="ghost" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+      </div>
+    </div>
+    <div id="saveStatus" class="save-status muted"></div>
+    <div id="savedStatus" class="save-status muted"></div>
+    <div id="savedList" class="saved-list"></div>
+  </div>
+</section>
+
 <script>
   function scrollToResult(){
     document.getElementById("result").scrollIntoView({
@@ -721,7 +744,35 @@
 </script>
 
 <script>
-  fetch("navbar.html?v=20260314")
+  
+  const PSI_FORCE_SAVE_CONFIG = {
+    toolName: document.title.replace(' | Automation Calculators',''),
+    toolUrl: '/' + window.location.pathname.split('/').pop(),
+    analyticsTool: window.location.pathname.replace('/','').replace('.html','').replace(/-/g,'_'),
+    savedItemTitle: 'Saved Calculation',
+    collectData: function(){
+      const calcFn = window.calculatePneumaticSpeed || window.calculateAirLine || window.calculateForce;
+      if(!calcFn) return null;
+      calcFn();
+      const out = document.getElementById('output') || document.getElementById('result');
+      if(!out || out.textContent.toLowerCase().includes('please enter') || out.textContent.toLowerCase().includes('enter valid')) return null;
+      return Object.fromEntries(Array.from(document.querySelectorAll('input,select')).map(el=>[el.id, el.value]));
+    },
+    reloadData: function(savedData){
+      Object.entries(savedData || {}).forEach(([k,v]) => { const el=document.getElementById(k); if(el) el.value=v; });
+      const calcFn = window.calculatePneumaticSpeed || window.calculateAirLine || window.calculateForce;
+      if(calcFn) calcFn();
+    },
+    renderFields: function(d){
+      return Object.keys(d||{}).filter(k=>!['id','created_at','updated_at'].includes(k)).slice(0,8).map(k=>({label:k.replace(/_/g,' '),value:savedToolsSafeValue(d[k])}));
+    }
+  };
+  function saveCurrentCalculation(){ savedToolsSave(PSI_FORCE_SAVE_CONFIG); }
+  function loadSavedCalculations(){ savedToolsLoad(PSI_FORCE_SAVE_CONFIG); }
+  function handleAuthButton(){ savedToolsHandleAuthButton(PSI_FORCE_SAVE_CONFIG); }
+  savedToolsInit(PSI_FORCE_SAVE_CONFIG);
+
+fetch("navbar.html?v=20260314")
     .then(response => response.text())
     .then(data => {
       document.getElementById("navbar").innerHTML = data;
