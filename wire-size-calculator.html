@@ -895,6 +895,31 @@
 
       <div id="statusMessage"></div>
 
+
+
+  <section id="saved-calculations" class="section">
+    <div class="card">
+      <div class="saved-header">
+        <div>
+          <h2>My Saved Wire Size Calculations</h2>
+          <p class="section-intro" style="margin-bottom:0;">
+            Save wire sizing checks, reload previous inputs, and quickly compare voltage drop outcomes.
+          </p>
+          <div id="authUserLabel" class="saved-user">Checking account status...</div>
+        </div>
+        <div class="hero-actions" style="margin-top:0;">
+          <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+          <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+          <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+          <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+        </div>
+      </div>
+      <div id="saveStatus" class="save-status muted"></div>
+      <div id="savedStatus" class="save-status muted"></div>
+      <div id="savedList" class="saved-list"></div>
+    </div>
+  </section>
+
       <div class="inline-cta">
         <h3>Need help applying this to a real machine?</h3>
         <p>
@@ -1076,31 +1101,6 @@
       </div>
     </div>
   </section>
-
-
-  <section id="saved-calculations" class="section">
-    <div class="card">
-      <div class="saved-header">
-        <div>
-          <h2>My Saved Wire Size Calculations</h2>
-          <p class="description" style="margin-bottom:0;">
-            Save wire sizing checks, reload previous inputs, and quickly compare voltage drop outcomes.
-          </p>
-          <div id="authUserLabel" class="saved-user">Checking account status...</div>
-        </div>
-        <div class="hero-actions" style="margin-top:0;">
-          <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
-          <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
-          <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
-          <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
-        </div>
-      </div>
-      <div id="saveStatus" class="save-status muted"></div>
-      <div id="savedStatus" class="save-status muted"></div>
-      <div id="savedList" class="saved-list"></div>
-    </div>
-  </section>
-
   <footer>
     Automation Engineering Tools • Practical calculators for real automation work
   </footer>
