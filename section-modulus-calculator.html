@@ -20,6 +20,13 @@
 
   <style>
     :root {
+      --accent:#0b66c3;
+      --accent-dark:#084f98;
+      --soft:#eef6ff;
+      --line:#d7e3f3;
+      --border:#d7e3f3;
+      --text:#102033;
+      --muted:#4f5f73;
       --blue-900:#0f172a;
       --blue-800:#1e3a8a;
       --blue-700:#1d4ed8;
@@ -521,7 +528,31 @@
         width:100%;
       }
     }
-  </style>
+  
+    .save-status{margin-top:12px;font-weight:700;min-height:22px;}
+    .save-status.success{color:#15803d;}
+    .save-status.error{color:#b91c1c;}
+    .save-status.muted{color:var(--muted);}
+    .saved-header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px;}
+    .saved-user{color:var(--muted);font-weight:700;margin-top:4px;}
+    .saved-list{display:grid;gap:14px;margin-top:18px;}
+    .saved-item{background:#f8fbff;border:1px solid #d7e6ff;border-radius:14px;padding:16px;}
+    .saved-title-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+    .saved-values{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0;}
+    .saved-value{background:white;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.92rem;}
+    .saved-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+
+    #saved-calculations .saved-actions button,
+    #saved-calculations .saved-actions .btn{margin:0;opacity:1;visibility:visible;}
+    #saved-calculations .btn{display:inline-block;padding:12px 16px;border-radius:10px;font-weight:700;transition:.2s ease;text-decoration:none;border:none;cursor:pointer;font-size:15px;}
+    #saved-calculations .btn-primary{background:var(--accent);color:#fff;}
+    #saved-calculations .btn-primary:hover{background:var(--accent-dark);text-decoration:none;}
+    #saved-calculations .btn-secondary{background:var(--soft);color:var(--accent-dark);border:1px solid var(--line);}
+    #saved-calculations .btn-secondary:hover{background:#e2edf9;text-decoration:none;}
+    #saved-calculations .btn-danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;}
+    #saved-calculations .btn-danger:hover{background:#fecaca;text-decoration:none;}
+
+</style>
 </head>
 
 <body>
@@ -1207,9 +1238,43 @@ r = √(I / A)</code>
       if (!valid || A <= 0 || I <= 0 || c <= 0) {
         statusBox.classList.add('warn');
         statusBox.textContent = message;
+        window.lastSectionModulusCalculation = null;
       } else {
         statusBox.classList.add('good');
         statusBox.textContent = message;
+        var areaUnit = system === 'imperial' ? 'in²' : 'mm²';
+        var inertiaUnit = system === 'imperial' ? 'in⁴' : 'mm⁴';
+        var lengthUnit = system === 'imperial' ? 'in' : 'mm';
+        var sectionUnit = system === 'imperial' ? 'in³' : 'mm³';
+        window.lastSectionModulusCalculation = {
+          inputs: {
+            unitSystem: system,
+            shape: shape,
+            rectWidth: getValue('rectWidth'),
+            rectHeight: getValue('rectHeight'),
+            diameter: getValue('diameter'),
+            outerDiameter: getValue('outerDiameter'),
+            innerDiameter: getValue('innerDiameter'),
+            tubeWidth: getValue('tubeWidth'),
+            tubeHeight: getValue('tubeHeight'),
+            wallThickness: getValue('wallThickness'),
+            customArea: getValue('customArea'),
+            customI: getValue('customI'),
+            customC: getValue('customC')
+          },
+          results: {
+            area: A,
+            inertia: I,
+            c: c,
+            sectionModulus: S,
+            radius: r,
+            areaUnit: areaUnit,
+            inertiaUnit: inertiaUnit,
+            cUnit: lengthUnit,
+            sectionUnit: sectionUnit,
+            radiusUnit: lengthUnit
+          }
+        };
       }
     }
 
@@ -1238,5 +1303,40 @@ r = √(I / A)</code>
     toggleShapeFields();
     calculateSectionProperties();
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+<script>
+window.lastSectionModulusCalculation=window.lastSectionModulusCalculation||null;
+const SAVE_CONFIG={
+  toolId:'section_modulus',toolName:'Section Modulus Calculator',toolUrl:'https://automationcalculators.net/section-modulus-calculator.html',analyticsTool:'section_modulus',savedItemTitle:'Section Modulus Calculator Result',
+  collectData(){
+    const inputs={};
+    const ids=['unitSystem', 'shape', 'rectWidth', 'rectHeight', 'diameter', 'outerDiameter', 'innerDiameter', 'tubeWidth', 'tubeHeight', 'wallThickness', 'customArea', 'customI', 'customC'];
+    for (const id of ids){const el=document.getElementById(id); if(!el||el.value==='') return null; inputs[id]=el.value;}
+    const last=window.lastSectionModulusCalculation; if(!last||!last.results) return null;
+    return {...inputs,resultSummary:last.results};
+  },
+  renderFields(data){
+    if (!data) return [];
+    const s = data.resultSummary || {};
+    return [
+      { label: 'Shape', value: data.shape },
+      { label: 'Area', value: `${Number(s.area || 0).toFixed(4)} ${s.areaUnit || ''}` },
+      { label: 'Inertia', value: `${Number(s.inertia || 0).toFixed(4)} ${s.inertiaUnit || ''}` },
+      { label: 'c Distance', value: `${Number(s.c || 0).toFixed(4)} ${s.cUnit || ''}` },
+      { label: 'Section Modulus', value: `${Number(s.sectionModulus || 0).toFixed(4)} ${s.sectionUnit || ''}` },
+      { label: 'Radius of Gyration', value: `${Number(s.radius || 0).toFixed(4)} ${s.radiusUnit || ''}` }
+    ];
+  },
+  reloadData(data){ if(!data) return; const ids=['unitSystem', 'shape', 'rectWidth', 'rectHeight', 'diameter', 'outerDiameter', 'innerDiameter', 'tubeWidth', 'tubeHeight', 'wallThickness', 'customArea', 'customI', 'customC']; ids.forEach(id=>{const el=document.getElementById(id); if(el&&data[id]!==undefined) el.value=data[id];}); if(typeof calculateSectionProperties==='function') calculateSectionProperties(); }
+};
+function saveCurrentCalculation(){ savedToolsSave(SAVE_CONFIG); }
+function loadSavedCalculations(){ savedToolsLoad(SAVE_CONFIG); }
+function handleAuthButton(){ savedToolsHandleAuthButton(SAVE_CONFIG); }
+savedToolsInit(SAVE_CONFIG);
+</script>
+
 </body>
 </html>
