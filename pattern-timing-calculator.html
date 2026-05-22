@@ -1098,6 +1098,8 @@
     });
   }
 
+  window.lastPatternTimingCalculation = null;
+
   function calculate(){
     let lineSpeed = parseFloat(document.getElementById("lineSpeed").value) || 0;
     let productLength = parseFloat(document.getElementById("productLength").value) || 0;
@@ -1107,6 +1109,7 @@
     let triggerMode = document.getElementById("triggerMode").value;
 
     const output = document.getElementById("output");
+    window.lastPatternTimingCalculation = null;
 
     if(lineSpeed <= 0){
       output.innerHTML = "<strong>Please enter a line speed greater than 0.</strong>";
@@ -1258,6 +1261,28 @@
       recommendation + " " + timingComment +
       "<br><br><strong>Next Step:</strong> Compare this result to your real trigger position, product tracking, and actual gun response.";
 
+    window.lastPatternTimingCalculation = {
+      inputs: {
+        lineSpeed,
+        productLength,
+        productGap,
+        startOffset,
+        beadLength,
+        triggerMode
+      },
+      results: {
+        lineSpeedMmSec,
+        cycleDistanceMm,
+        cycleTimeSec,
+        startTimeSec,
+        onTimeSec,
+        endOffsetMm,
+        endTimeSec,
+        offDistanceMm,
+        offTimeSec
+      }
+    };
+
     scrollToOutput();
   }
 
@@ -1271,6 +1296,7 @@
     document.getElementById("output").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
     document.getElementById("recommendationText").innerHTML =
       "Run the calculator to see a practical timing note based on your current line speed and pattern length.";
+    window.lastPatternTimingCalculation = null;
   }
 
   function loadExample1(){
@@ -1327,32 +1353,52 @@
     analyticsTool: 'pattern_timing',
     savedItemTitle: 'Pattern Timing Setup',
     collectData(){
-      const data = this.reloadData();
-      if (!data) return null;
-      return data;
+      const ids = ["lineSpeed","productLength","productGap","startOffset","beadLength","triggerMode"];
+      const inputs = {};
+
+      for (const id of ids){
+        const el = document.getElementById(id);
+        if (!el) return null;
+        const value = el.value;
+        if (value === "") return null;
+        inputs[id] = value;
+      }
+
+      const result = window.lastPatternTimingCalculation;
+      if (!result || !result.results) return null;
+
+      return {
+        ...inputs,
+        resultSummary: {
+          lineSpeedMmSec: result.results.lineSpeedMmSec,
+          cycleTimeMs: result.results.cycleTimeSec * 1000,
+          beadStartMs: result.results.startTimeSec * 1000,
+          onTimeMs: result.results.onTimeSec * 1000,
+          beadEndMs: result.results.endTimeSec * 1000,
+          offTimeMs: result.results.offTimeSec * 1000
+        }
+      };
     },
     renderFields(data){
       if (!data) return [];
-      return Object.entries(data).map(([k,v]) => ({ label:k.replace(/([A-Z])/g,' $1').replace(/^./,c=>c.toUpperCase()), value:String(v) }));
+      const summary = data.resultSummary || {};
+      return [
+        { label: 'Line Speed', value: `${data.lineSpeed} m/min` },
+        { label: 'Pattern Length', value: `${data.beadLength} mm` },
+        { label: 'Bead Start Offset', value: `${data.startOffset} mm` },
+        { label: 'Gun ON Time', value: Number(summary.onTimeMs || 0).toFixed(1) + ' ms' },
+        { label: 'Cycle Time', value: Number(summary.cycleTimeMs || 0).toFixed(1) + ' ms' },
+        { label: 'Gun OFF Time', value: Number(summary.offTimeMs || 0).toFixed(1) + ' ms' }
+      ];
     },
     reloadData(data){
-      if (data){
-        Object.entries(data).forEach(([id,val]) => { const el=document.getElementById(id); if (el) el.value = val; });
-        if (typeof calculate === 'function') calculate();
-        if (typeof calculateTiming === 'function') calculateTiming();
-        if (typeof calculateCoolantFlow === 'function') calculateCoolantFlow();
-        return;
-      }
-      const ids = ['lineSpeed','productLength','productGap','beadStartOffset','beadLength','timingReference'];
-      const out = {};
-      for (const id of ids){
-        const el=document.getElementById(id);
-        if (!el) return null;
-        if (el.value === '') return null;
-        out[id]=el.value;
-      }
-      const hasResult = (document.getElementById('output').textContent.includes('Timing Calculation Results'));
-      return hasResult ? out : null;
+      if (!data) return;
+      const fields = ["lineSpeed","productLength","productGap","startOffset","beadLength","triggerMode"];
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && data[id] !== undefined) el.value = data[id];
+      });
+      if (typeof calculate === 'function') calculate();
     }
   };
   function saveCurrentCalculation(){ savedToolsSave(SAVE_CONFIG); }
