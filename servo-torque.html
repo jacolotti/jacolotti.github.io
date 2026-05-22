@@ -805,6 +805,10 @@
             <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">
               Refresh
             </button>
+
+            <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">
+              Sign Out
+            </button>
           </div>
         </div>
 
@@ -1338,10 +1342,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/supabase.js?v=debug1"></script>
-<script src="/saved-tools.js?v=1"></script>
+<script src="/saved-tools.js?v=6"></script>
 
 <script>
   const SERVO_TORQUE_SAVE_CONFIG = {
+    toolId: "servo_torque",
     toolName: "Servo Motor Torque Calculator",
     toolUrl: "/servo-torque.html",
     analyticsTool: "servo_torque",

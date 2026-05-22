@@ -369,6 +369,20 @@
       background:#e9eef8;
     }
 
+    .saved-shell{background:#fff;border:1px solid #d9e3ee;border-radius:12px;padding:18px;}
+    .saved-header{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start;}
+    .saved-user{color:#555;font-size:14px;}
+    .save-status{margin-top:10px;font-size:14px;}
+    .saved-list{display:grid;gap:14px;margin-top:14px;}
+    .saved-item{background:#f8fbff;border:1px solid #d7e6ff;border-radius:10px;padding:14px;}
+    .saved-title-row{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;}
+    .saved-values{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px;}
+    .saved-value{font-size:14px;color:#24344f;}
+    .saved-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:700;text-decoration:none;}
+    .btn-primary{background:#1e6bd6;color:#fff;}
+    .btn-secondary{background:#eef3ff;color:#1f2a44;border:1px solid #cfdaf5;}
+    .btn-danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;}
     .footer{
       margin-top:40px;
       color:#666;
@@ -418,6 +432,7 @@
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#saved-calculations" class="secondary" onclick="gtag('event','conveyor_motor_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
       <a href="/conveyor-speed.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'conveyor_motor_hero','to':'conveyor_speed'});">Conveyor Speed Calculator</a>
       <a href="/motors-motion.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'conveyor_motor_hero','to':'motors_motion_hub'});">Motors & Motion Hub</a>
     </div>
@@ -616,6 +631,28 @@
     </div>
   </section>
 
+
+  <section id="saved-calculations" class="section">
+    <div class="section-label">Saved calculations</div>
+    <h2>My Saved Calculations</h2>
+    <p class="description">Save calculation setups, reload previous inputs, and reuse common design checks.</p>
+
+    <div class="saved-shell">
+      <div class="saved-header">
+        <div id="authUserLabel" class="saved-user">Checking account status...</div>
+        <div class="hero-actions" style="margin-top:0;">
+          <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+          <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+          <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+          <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+        </div>
+      </div>
+      <div id="saveStatus" class="save-status muted"></div>
+      <div id="savedStatus" class="save-status muted"></div>
+      <div id="savedList" class="saved-list"></div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="cta-box">
       <h3>Still unsure if this motor sizing will hold up in the real system?</h3>
@@ -670,32 +707,32 @@
 
     if(weight < 0){
       showMessage("Please enter a load weight of 0 or greater.");
-      return;
+      return null;
     }
 
     if(speed < 0){
       showMessage("Please enter a conveyor speed of 0 or greater.");
-      return;
+      return null;
     }
 
     if(diameter <= 0){
       showMessage("Please enter a drive roller diameter greater than 0.");
-      return;
+      return null;
     }
 
     if(friction < 0){
       showMessage("Please enter a friction factor of 0 or greater.");
-      return;
+      return null;
     }
 
     if(efficiencyPercent <= 0 || efficiencyPercent > 100){
       showMessage("Please enter a mechanical efficiency greater than 0 and up to 100%.");
-      return;
+      return null;
     }
 
     if(safety <= 0){
       showMessage("Please enter a safety factor greater than 0.");
-      return;
+      return null;
     }
 
     let efficiency = efficiencyPercent / 100;
@@ -739,6 +776,19 @@
 
       "<strong>Interpretation</strong><br>" +
       comment;
+
+    return {
+      load_weight_kg: weight,
+      conveyor_speed_m_min: speed,
+      roller_diameter_mm: diameter,
+      friction_factor: friction,
+      efficiency_percent: efficiencyPercent,
+      safety_factor: safety,
+      required_force_n: force.toFixed(2),
+      required_torque_nm: torque.toFixed(2),
+      roller_rpm: rollerRPM.toFixed(2),
+      required_power_kw: powerKw.toFixed(3)
+    };
   }
 
   function clearCalculator(){
@@ -790,6 +840,36 @@
     .catch(error => {
       console.error("Navbar failed to load:", error);
     });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+
+<script>
+  const CONFIG = {
+    toolId: "conveyor_motor_sizing",
+    toolName: "Conveyor Motor Sizing Calculator",
+    toolUrl: "/motor.html",
+    analyticsTool: "conveyor_motor",
+    savedItemTitle: "Conveyor Motor Setup",
+    collectData: function(){ return calculate(); },
+    renderFields: function(d){ return [{ label:'Load', value: savedToolsSafeValue(d.load_weight_kg) + ' kg' },{ label:'Speed', value: savedToolsSafeValue(d.conveyor_speed_m_min) + ' m/min' },{ label:'Diameter', value: savedToolsSafeValue(d.roller_diameter_mm) + ' mm' },{ label:'Friction', value: savedToolsSafeValue(d.friction_factor) + '' },{ label:'Efficiency', value: savedToolsSafeValue(d.efficiency_percent) + '%' },{ label:'Safety Factor', value: savedToolsSafeValue(d.safety_factor) + '' },{ label:'Force', value: savedToolsSafeValue(d.required_force_n) + ' N' },{ label:'Torque', value: savedToolsSafeValue(d.required_torque_nm) + ' N·m' },{ label:'Roller RPM', value: savedToolsSafeValue(d.roller_rpm) + ' RPM' },{ label:'Power', value: savedToolsSafeValue(d.required_power_kw) + ' kW' }]; },
+    reloadData: function(savedData){
+      Object.keys(savedData || {}).forEach(() => {});
+      if(savedData.load_weight_kg !== undefined) document.getElementById("weight").value = savedData.load_weight_kg ?? "";
+      if(savedData.conveyor_speed_m_min !== undefined) document.getElementById("speed").value = savedData.conveyor_speed_m_min ?? "";
+      if(savedData.roller_diameter_mm !== undefined) document.getElementById("diameter").value = savedData.roller_diameter_mm ?? "";
+      if(savedData.friction_factor !== undefined) document.getElementById("friction").value = savedData.friction_factor ?? "";
+      if(savedData.efficiency_percent !== undefined) document.getElementById("efficiency").value = savedData.efficiency_percent ?? "";
+      if(savedData.safety_factor !== undefined) document.getElementById("safety").value = savedData.safety_factor ?? "";
+      calculate();
+    }
+  };
+  function saveCurrentCalculation(){ savedToolsSave(CONFIG); }
+  function loadSavedCalculations(){ savedToolsLoad(CONFIG); }
+  function handleAuthButton(){ savedToolsHandleAuthButton(CONFIG); }
+  savedToolsInit(CONFIG);
 </script>
 
 </body>
