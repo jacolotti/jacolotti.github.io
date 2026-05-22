@@ -732,26 +732,36 @@
   const GEARBOX_TORQUE_SAVE_CONFIG = {
     toolId: "gearbox_torque",
     toolName: "Gearbox Torque Calculator",
-    getInputs: () => {
+    toolUrl: "/gearbox-torque.html",
+    analyticsTool: "gearbox_torque",
+    savedItemTitle: "Gearbox Torque Setup",
+
+    collectData: function(){
       const motorTorque = parseFloat(document.getElementById("motorTorque").value);
       const motorRPM = parseFloat(document.getElementById("motorRPM").value);
       const gearRatio = parseFloat(document.getElementById("gearRatio").value);
       const efficiency = parseFloat(document.getElementById("efficiency").value);
       if(!(motorTorque > 0) || !(motorRPM > 0) || !(gearRatio > 0) || !(efficiency > 0) || efficiency > 100){ return null; }
+      calculateGearboxTorque();
       return { motorTorque, motorRPM, gearRatio, efficiency };
     },
-    applyInputs: (data) => {
-      document.getElementById("motorTorque").value = data.motorTorque ?? "";
-      document.getElementById("motorRPM").value = data.motorRPM ?? "";
-      document.getElementById("gearRatio").value = data.gearRatio ?? "";
-      document.getElementById("efficiency").value = data.efficiency ?? "";
+
+    reloadData: function(savedData){
+      document.getElementById("motorTorque").value = savedData.motorTorque ?? "";
+      document.getElementById("motorRPM").value = savedData.motorRPM ?? "";
+      document.getElementById("gearRatio").value = savedData.gearRatio ?? "";
+      document.getElementById("efficiency").value = savedData.efficiency ?? "";
       calculateGearboxTorque();
     },
-    clearInputs: resetCalculator,
-    statusElId: "saveStatus",
-    listElId: "savedList",
-    emptyText: "No saved gearbox torque calculations yet.",
-    formatResult: () => document.getElementById("output").innerText
+
+    renderFields: function(d){
+      return [
+        { label: "Motor Torque", value: savedToolsSafeValue(d.motorTorque) + " lb-in" },
+        { label: "Motor Speed", value: savedToolsSafeValue(d.motorRPM) + " RPM" },
+        { label: "Gear Ratio", value: savedToolsSafeValue(d.gearRatio) + ":1" },
+        { label: "Efficiency", value: savedToolsSafeValue(d.efficiency) + "%" }
+      ];
+    }
   };
   function saveCurrentCalculation(){ savedToolsSave(GEARBOX_TORQUE_SAVE_CONFIG); }
   function loadSavedCalculations(){ savedToolsLoad(GEARBOX_TORQUE_SAVE_CONFIG); }
