@@ -530,11 +530,6 @@
     .saved-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
     .saved-value{background:var(--soft2);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:13px;}
     .saved-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
-    #saved-calculations .btn{appearance:none;-webkit-appearance:none;}
-    #saved-calculations .btn-primary{background:var(--accent);color:#fff;}
-    #saved-calculations .btn-secondary{background:var(--soft);color:var(--accent-dark);border:1px solid var(--line);}
-    #saved-calculations .btn-danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;}
-    #saved-calculations .saved-actions .btn{font-size:14px;}
     @media (max-width:720px){
       .saved-values{grid-template-columns:1fr;}
       .saved-actions .btn{width:100%;}
@@ -1039,9 +1034,9 @@ const SAVE_CONFIG = {
     calculate();
   }
 };
-function saveCurrentCalculation(){ return savedToolsSaveCalculation(SAVE_CONFIG); }
-function loadSavedCalculations(){ return savedToolsLoadList(SAVE_CONFIG); }
-function handleAuthButton(){ return savedToolsHandleAuthButton(SAVE_CONFIG); }
+function saveCurrentCalculation(){ savedToolsSave(SAVE_CONFIG); }
+function loadSavedCalculations(){ savedToolsLoad(SAVE_CONFIG); }
+function handleAuthButton(){ savedToolsHandleAuthButton(SAVE_CONFIG); }
 savedToolsInit(SAVE_CONFIG);
 </script>
 </body>
