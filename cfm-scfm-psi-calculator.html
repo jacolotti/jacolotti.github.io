@@ -511,17 +511,6 @@ tr:nth-child(even){
   margin-top:12px;
 }
 
-.saved-actions button,
-.saved-header button{
-  background:#1f2a44;
-  color:white;
-  border:none;
-  padding:12px 16px;
-  font-size:15px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-}
 
 @media (max-width:1020px){
   .saved-values{
@@ -561,8 +550,8 @@ tr:nth-child(even){
   }
 
   .button-row button,
-  .saved-actions button,
-  .saved-header button{
+  .saved-actions .btn,
+  .saved-header .btn{
     width:100%;
   }
 
@@ -673,7 +662,7 @@ tr:nth-child(even){
         Enter values above and click <strong>Calculate Conversion</strong>.
       </div>
 
-      <section id="saved-calculations" class="card" style="margin-top:26px;">
+      <section id="saved-calculations" class="section">
         <div class="saved-header">
           <div>
             <h2>My Saved CFM / SCFM Calculations</h2>
@@ -683,11 +672,11 @@ tr:nth-child(even){
             <div id="authUserLabel" class="saved-user">Checking account status...</div>
           </div>
 
-          <div class="hero-cta" style="margin-top:0;">
-            <button type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
-            <button id="authButton" type="button" onclick="handleAuthButton()">Sign In</button>
-            <button type="button" onclick="loadSavedCalculations()">Refresh</button>
-            <button class="btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+          <div class="saved-actions">
+            <button type="button" class="btn btn-primary" onclick="saveCurrentCalculation()">Save Calculation</button>
+            <button id="authButton" type="button" class="btn btn-secondary" onclick="handleAuthButton()">Sign In</button>
+            <button type="button" class="btn btn-secondary" onclick="loadSavedCalculations()">Refresh</button>
+            <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
           </div>
         </div>
 
