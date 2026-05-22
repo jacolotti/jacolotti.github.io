@@ -456,6 +456,7 @@
       <a href="#calculator" class="primary">Open Estimator</a>
       <a href="/voltage-drop.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'wire_gauge_chart_hero','to':'voltage_drop'});">Voltage Drop Calculator</a>
       <a href="/plc-electrical.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'wire_gauge_chart_hero','to':'plc_electrical_hub'});">PLC & Electrical Hub</a>
+      <a href="#saved-calculations" class="secondary" onclick="gtag('event','related_tool_click',{'from':'wire_gauge_chart_hero','to':'saved_calculations'});">My Saved Calculations</a>
     </div>
   </div>
 </section>
@@ -656,10 +657,36 @@
     </div>
   </section>
 
+
+  <section id="saved-calculations" class="section">
+    <div class="card">
+      <div class="saved-header">
+        <div>
+          <h2>My Saved Wire Gauge Calculations</h2>
+          <p class="description" style="margin-bottom:0;">Save quick gauge estimates and reload common current/distance scenarios.</p>
+          <div id="authUserLabel" class="saved-user">Checking account status...</div>
+        </div>
+        <div class="hero-actions" style="margin-top:0;">
+          <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+          <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+          <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+          <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+        </div>
+      </div>
+      <div id="saveStatus" class="save-status muted"></div>
+      <div id="savedStatus" class="save-status muted"></div>
+      <div id="savedList" class="saved-list"></div>
+    </div>
+  </section>
+
   <div class="footer">
     Automation Engineering Tools • Practical calculators for real automation work
   </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
 
 <script>
   const wireDataCopper = [
@@ -780,6 +807,39 @@
     document.getElementById("result").innerHTML = 'Enter values and press <strong>Calculate</strong>.';
     document.getElementById("statusMessage").innerHTML = "";
   }
+
+  const WIRE_GAUGE_AMPS_SAVE_CONFIG = {
+    toolId: 'wire-gauge-amps',
+    toolName: 'Wire Gauge vs Amps Chart',
+    toolUrl: '/wire-gauge-amps.html',
+    analyticsTool: 'wire_gauge_chart',
+    savedItemTitle: 'Wire Gauge Estimate',
+    collectData: function(){
+      const amps = parseFloat(document.getElementById('amps').value);
+      const distance = parseFloat(document.getElementById('distance').value);
+      const voltage = parseFloat(document.getElementById('voltage').value);
+      if([amps,distance,voltage].some(v=>Number.isNaN(v)||v<=0)) return null;
+      calculateWireGauge();
+      return { amps, distance, voltage, material: document.getElementById('material').value, result_html: document.getElementById('result').innerHTML };
+    },
+    renderFields: function(d){ return [
+      { label:'Current', value: savedToolsSafeValue(d.amps) + ' A' },
+      { label:'Distance', value: savedToolsSafeValue(d.distance) + ' ft' },
+      { label:'Voltage', value: savedToolsSafeValue(d.voltage) + ' V' },
+      { label:'Material', value: savedToolsSafeValue(d.material) }
+    ]; },
+    reloadData: function(d){
+      document.getElementById('amps').value = d.amps ?? '';
+      document.getElementById('distance').value = d.distance ?? '';
+      document.getElementById('voltage').value = d.voltage ?? '24';
+      document.getElementById('material').value = d.material || 'copper';
+      calculateWireGauge();
+    }
+  };
+  function saveCurrentCalculation(){ savedToolsSave(WIRE_GAUGE_AMPS_SAVE_CONFIG); }
+  function loadSavedCalculations(){ savedToolsLoad(WIRE_GAUGE_AMPS_SAVE_CONFIG); }
+  function handleAuthButton(){ savedToolsHandleAuthButton(WIRE_GAUGE_AMPS_SAVE_CONFIG); }
+  savedToolsInit(WIRE_GAUGE_AMPS_SAVE_CONFIG);
 
   fetch('/navbar.html?v=20260422')
     .then(response => response.text())

@@ -665,6 +665,7 @@
         <div class="hero-actions">
           <a href="#calculator" class="btn btn-primary" onclick="gtag('event','wire_size_cta',{'location':'hero','action':'open_calculator'});">Open Calculator</a>
           <a href="/voltage-drop.html" class="btn btn-secondary" onclick="gtag('event','wire_size_cta',{'location':'hero','action':'voltage_drop'});">Voltage Drop Calculator</a>
+          <a href="#saved-calculations" class="btn btn-secondary" onclick="gtag('event','wire_size_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
         </div>
       </div>
 
@@ -1076,6 +1077,30 @@
     </div>
   </section>
 
+
+  <section id="saved-calculations" class="section">
+    <div class="card">
+      <div class="saved-header">
+        <div>
+          <h2>My Saved Wire Size Calculations</h2>
+          <p class="description" style="margin-bottom:0;">
+            Save wire sizing checks, reload previous inputs, and quickly compare voltage drop outcomes.
+          </p>
+          <div id="authUserLabel" class="saved-user">Checking account status...</div>
+        </div>
+        <div class="hero-actions" style="margin-top:0;">
+          <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+          <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+          <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+          <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+        </div>
+      </div>
+      <div id="saveStatus" class="save-status muted"></div>
+      <div id="savedStatus" class="save-status muted"></div>
+      <div id="savedList" class="saved-list"></div>
+    </div>
+  </section>
+
   <footer>
     Automation Engineering Tools • Practical calculators for real automation work
   </footer>
@@ -1254,6 +1279,56 @@
       document.getElementById("maxDrop").value = "3";
       calculateWireSize();
     }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/supabase.js?v=debug1"></script>
+  <script src="/saved-tools.js?v=6"></script>
+
+  <script>
+    const WIRE_SIZE_SAVE_CONFIG = {
+      toolId: "wire-size-calculator",
+      toolName: "Wire Size Calculator",
+      toolUrl: "/wire-size-calculator.html",
+      analyticsTool: "wire_size",
+      savedItemTitle: "Wire Size Setup",
+      collectData: function(){
+        const amps = parseFloat(document.getElementById("amps").value);
+        const voltage = parseFloat(document.getElementById("voltage").value);
+        const distance = parseFloat(document.getElementById("distance").value);
+        const maxDrop = parseFloat(document.getElementById("maxDrop").value);
+        if([amps,voltage,distance,maxDrop].some(v=>Number.isNaN(v)||v<=0)) return null;
+        calculateWireSize();
+        return {
+          amps, voltage, distance, material: document.getElementById("material").value,
+          phase: document.getElementById("phase").value, max_drop_percent: maxDrop,
+          result_html: document.getElementById("result").innerHTML
+        };
+      },
+      renderFields: function(d){
+        return [
+          {label:"Current", value: savedToolsSafeValue(d.amps)+" A"},
+          {label:"Voltage", value: savedToolsSafeValue(d.voltage)+" V"},
+          {label:"Distance", value: savedToolsSafeValue(d.distance)+" ft"},
+          {label:"Material", value: savedToolsSafeValue(d.material)},
+          {label:"Phase", value: savedToolsSafeValue(d.phase)},
+          {label:"Max Drop", value: savedToolsSafeValue(d.max_drop_percent)+"%"}
+        ];
+      },
+      reloadData: function(d){
+        document.getElementById("amps").value=d.amps??"";
+        document.getElementById("voltage").value=d.voltage??"";
+        document.getElementById("distance").value=d.distance??"";
+        document.getElementById("material").value=d.material||"copper";
+        document.getElementById("phase").value=d.phase||"single";
+        document.getElementById("maxDrop").value=d.max_drop_percent??"3";
+        calculateWireSize();
+      }
+    };
+    function saveCurrentCalculation(){ savedToolsSave(WIRE_SIZE_SAVE_CONFIG); }
+    function loadSavedCalculations(){ savedToolsLoad(WIRE_SIZE_SAVE_CONFIG); }
+    function handleAuthButton(){ savedToolsHandleAuthButton(WIRE_SIZE_SAVE_CONFIG); }
+    savedToolsInit(WIRE_SIZE_SAVE_CONFIG);
   </script>
 
   <script>
