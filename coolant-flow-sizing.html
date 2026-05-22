@@ -1130,6 +1130,33 @@
       document.getElementById('warningBox').innerHTML = '';
     }
 
+    window.lastCoolantFlowCalculation = {
+      inputs: {
+        componentType: document.getElementById('componentType').value,
+        deviceCount,
+        flowPerDevice,
+        simultaneousFactor,
+        safetyFactor,
+        coolantType,
+        hoseId,
+        equivalentLength,
+        availablePressure,
+        allowableDrop,
+        restrictionFactor,
+        maxPreferredVelocity
+      },
+      results: {
+        baseFlow,
+        recommendedFlow,
+        velocity,
+        pressureDrop,
+        pressureMargin,
+        recommendedLine,
+        goodMessage,
+        warningCount: warnings.length
+      }
+    };
+
     if (typeof gtag === 'function') {
       gtag('event', 'calculator_used', {
         tool: 'weld_coolant_flow',
@@ -1157,6 +1184,7 @@
     document.getElementById('resultSection').style.display = 'none';
     document.getElementById('statusBox').innerHTML = '';
     document.getElementById('warningBox').innerHTML = '';
+    window.lastCoolantFlowCalculation = null;
   }
 </script>
 
@@ -1183,32 +1211,52 @@
     analyticsTool: 'weld_coolant_flow',
     savedItemTitle: 'Coolant Flow Scenario',
     collectData(){
-      const data = this.reloadData();
-      if (!data) return null;
-      return data;
+      const ids = ['componentType','deviceCount','flowPerDevice','simultaneousFactor','safetyFactor','coolantType','hoseId','equivalentLength','availablePressure','allowableDrop','restrictionFactor','maxPreferredVelocity'];
+      const inputs = {};
+
+      for (const id of ids){
+        const el = document.getElementById(id);
+        if (!el) return null;
+        const value = el.value;
+        if (value === '') return null;
+        inputs[id] = value;
+      }
+
+      const result = window.lastCoolantFlowCalculation;
+      if (!result || !result.results) return null;
+
+      return {
+        ...inputs,
+        resultSummary: {
+          recommendedFlowGpm: result.results.recommendedFlow,
+          velocityFtSec: result.results.velocity,
+          pressureDropPsi: result.results.pressureDrop,
+          pressureMarginPsi: result.results.pressureMargin,
+          suggestedLineIn: result.results.recommendedLine,
+          warningCount: result.results.warningCount
+        }
+      };
     },
     renderFields(data){
       if (!data) return [];
-      return Object.entries(data).map(([k,v]) => ({ label:k.replace(/([A-Z])/g,' $1').replace(/^./,c=>c.toUpperCase()), value:String(v) }));
+      const summary = data.resultSummary || {};
+      return [
+        { label: 'Devices', value: data.deviceCount },
+        { label: 'Target Flow / Device', value: `${data.flowPerDevice} GPM` },
+        { label: 'Recommended Total Flow', value: Number(summary.recommendedFlowGpm || 0).toFixed(2) + ' GPM' },
+        { label: 'Velocity', value: Number(summary.velocityFtSec || 0).toFixed(2) + ' ft/s' },
+        { label: 'Pressure Drop', value: Number(summary.pressureDropPsi || 0).toFixed(2) + ' psi' },
+        { label: 'Pressure Margin', value: Number(summary.pressureMarginPsi || 0).toFixed(2) + ' psi' }
+      ];
     },
     reloadData(data){
-      if (data){
-        Object.entries(data).forEach(([id,val]) => { const el=document.getElementById(id); if (el) el.value = val; });
-        if (typeof calculate === 'function') calculate();
-        if (typeof calculateTiming === 'function') calculateTiming();
-        if (typeof calculateCoolantFlow === 'function') calculateCoolantFlow();
-        return;
-      }
-      const ids = ['componentType','deviceCount','flowPerDevice','simultaneousFactor','safetyFactor','coolantType','hoseId','equivalentLength','availablePressure','allowableDrop','restrictionFactor','maxPreferredVelocity'];
-      const out = {};
-      for (const id of ids){
-        const el=document.getElementById(id);
-        if (!el) return null;
-        if (el.value === '') return null;
-        out[id]=el.value;
-      }
-      const hasResult = (document.getElementById('resultSection').style.display !== 'none');
-      return hasResult ? out : null;
+      if (!data) return;
+      const fields = ['componentType','deviceCount','flowPerDevice','simultaneousFactor','safetyFactor','coolantType','hoseId','equivalentLength','availablePressure','allowableDrop','restrictionFactor','maxPreferredVelocity'];
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && data[id] !== undefined) el.value = data[id];
+      });
+      if (typeof calculateCoolantFlow === 'function') calculateCoolantFlow();
     }
   };
   function saveCurrentCalculation(){ savedToolsSave(SAVE_CONFIG); }
