@@ -20,6 +20,13 @@
 
   <style>
     :root {
+      --accent:#0b66c3;
+      --accent-dark:#084f98;
+      --soft:#eef6ff;
+      --line:#d7e3f3;
+      --border:#d7e3f3;
+      --text:#102033;
+      --muted:#4f5f73;
       --blue-900: #0f172a;
       --blue-800: #1e3a8a;
       --blue-700: #1d4ed8;
@@ -537,7 +544,31 @@
         width: 100%;
       }
     }
-  </style>
+  
+    .save-status{margin-top:12px;font-weight:700;min-height:22px;}
+    .save-status.success{color:#15803d;}
+    .save-status.error{color:#b91c1c;}
+    .save-status.muted{color:var(--muted);}
+    .saved-header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px;}
+    .saved-user{color:var(--muted);font-weight:700;margin-top:4px;}
+    .saved-list{display:grid;gap:14px;margin-top:18px;}
+    .saved-item{background:#f8fbff;border:1px solid #d7e6ff;border-radius:14px;padding:16px;}
+    .saved-title-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+    .saved-values{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0;}
+    .saved-value{background:white;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.92rem;}
+    .saved-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+
+    #saved-calculations .saved-actions button,
+    #saved-calculations .saved-actions .btn{margin:0;opacity:1;visibility:visible;}
+    #saved-calculations .btn{display:inline-block;padding:12px 16px;border-radius:10px;font-weight:700;transition:.2s ease;text-decoration:none;border:none;cursor:pointer;font-size:15px;}
+    #saved-calculations .btn-primary{background:var(--accent);color:#fff;}
+    #saved-calculations .btn-primary:hover{background:var(--accent-dark);text-decoration:none;}
+    #saved-calculations .btn-secondary{background:var(--soft);color:var(--accent-dark);border:1px solid var(--line);}
+    #saved-calculations .btn-secondary:hover{background:#e2edf9;text-decoration:none;}
+    #saved-calculations .btn-danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;}
+    #saved-calculations .btn-danger:hover{background:#fecaca;text-decoration:none;}
+
+</style>
 </head>
 
 <body>
@@ -1249,6 +1280,38 @@ S = section modulus</code>
         statusBox.classList.add('bad');
         statusBox.textContent = 'Low safety factor. Increase section size, reduce span, reduce load, change geometry, or select a stronger design before relying on this part.';
       }
+
+      window.lastBendingStressCalculation = (M > 0 && props.I > 0 && props.S > 0 && stress > 0) ? {
+        inputs: {
+          unitSystem: system,
+          loadCase: document.getElementById('loadCase').value,
+          shape: document.getElementById('shape').value,
+          yieldStrength: yieldStrength,
+          span: getValue('span'),
+          load: getValue('load'),
+          uniformLoad: getValue('uniformLoad'),
+          loadPosition: getValue('loadPosition'),
+          directMoment: getValue('directMoment'),
+          rectWidth: getValue('rectWidth'),
+          rectHeight: getValue('rectHeight'),
+          diameter: getValue('diameter'),
+          outerDiameter: getValue('outerDiameter'),
+          innerDiameter: getValue('innerDiameter'),
+          customI: getValue('customI'),
+          customC: getValue('customC')
+        },
+        results: {
+          moment: M,
+          inertia: props.I,
+          sectionModulus: props.S,
+          stress: stress,
+          safetyFactor: safetyFactor,
+          momentUnit: momentUnit,
+          inertiaUnit: inertiaUnit,
+          sectionUnit: sectionUnit,
+          stressUnit: stressUnit
+        }
+      } : null;
     }
 
     function resetCalculator() {
@@ -1279,5 +1342,40 @@ S = section modulus</code>
     toggleShapeFields();
     calculateBendingStress();
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+<script>
+window.lastBendingStressCalculation=window.lastBendingStressCalculation||null;
+const SAVE_CONFIG={
+  toolId:'bending_stress',toolName:'Bending Stress Calculator',toolUrl:'https://automationcalculators.net/bending-stress-calculator.html',analyticsTool:'bending_stress',savedItemTitle:'Bending Stress Calculator Result',
+  collectData(){
+    const inputs={};
+    const ids=['unitSystem', 'loadCase', 'shape', 'yieldStrength', 'span', 'load', 'uniformLoad', 'loadPosition', 'directMoment', 'rectWidth', 'rectHeight', 'diameter', 'outerDiameter', 'innerDiameter', 'customI', 'customC'];
+    for (const id of ids){const el=document.getElementById(id); if(!el||el.value==='') return null; inputs[id]=el.value;}
+    const last=window.lastBendingStressCalculation; if(!last||!last.results) return null;
+    return {...inputs,resultSummary:last.results};
+  },
+  renderFields(data){
+    if (!data) return [];
+    const s = data.resultSummary || {};
+    return [
+      { label: 'Load Case', value: data.loadCase },
+      { label: 'Section Shape', value: data.shape },
+      { label: 'Moment', value: `${Number(s.moment || 0).toFixed(2)} ${s.momentUnit || ''}` },
+      { label: 'Section Modulus', value: `${Number(s.sectionModulus || 0).toFixed(4)} ${s.sectionUnit || ''}` },
+      { label: 'Bending Stress', value: `${Number(s.stress || 0).toFixed(2)} ${s.stressUnit || ''}` },
+      { label: 'Safety Factor', value: Number(s.safetyFactor || 0).toFixed(2) }
+    ];
+  },
+  reloadData(data){ if(!data) return; const ids=['unitSystem', 'loadCase', 'shape', 'yieldStrength', 'span', 'load', 'uniformLoad', 'loadPosition', 'directMoment', 'rectWidth', 'rectHeight', 'diameter', 'outerDiameter', 'innerDiameter', 'customI', 'customC']; ids.forEach(id=>{const el=document.getElementById(id); if(el&&data[id]!==undefined) el.value=data[id];}); if(typeof calculateBendingStress==='function') calculateBendingStress(); }
+};
+function saveCurrentCalculation(){ savedToolsSave(SAVE_CONFIG); }
+function loadSavedCalculations(){ savedToolsLoad(SAVE_CONFIG); }
+function handleAuthButton(){ savedToolsHandleAuthButton(SAVE_CONFIG); }
+savedToolsInit(SAVE_CONFIG);
+</script>
+
 </body>
 </html>
