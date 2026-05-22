@@ -304,6 +304,31 @@
       scroll-margin-top:100px;
     }
 
+
+
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 16px;border-radius:10px;border:1px solid transparent;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;line-height:1.2;transition:.2s ease;}
+    .btn:hover{transform:translateY(-1px);text-decoration:none;}
+    .btn-primary{background:#1e6bd6;color:#fff;border-color:#1e6bd6;}
+    .btn-primary:hover{background:#1555ad;border-color:#1555ad;}
+    .btn-secondary{background:#eef3ff;color:#1f2a44;border-color:#cfdaf5;}
+    .btn-secondary:hover{background:#dfe9ff;}
+    .btn-danger{background:#dc2626;color:#fff;border-color:#dc2626;}
+    .btn-danger:hover{background:#b91c1c;border-color:#b91c1c;}
+
+    .save-status{margin-top:10px;font-size:14px;font-weight:600;min-height:20px;}
+    .save-status.success{color:#15803d;}
+    .save-status.error{color:#b91c1c;}
+    .save-status.muted{color:#64748b;}
+
+    #savedList{display:grid;gap:14px;margin-top:14px;}
+    .saved-item{background:#f8fbff;border:1px solid #d7e6ff;border-radius:12px;padding:14px;}
+    .saved-title-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:10px;}
+    .saved-title{font-weight:700;color:#1f2a44;}
+    .saved-meta{font-size:13px;color:#64748b;margin-top:4px;}
+    .saved-values{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;}
+    .saved-value{background:#fff;border:1px solid #dbe7ff;border-radius:10px;padding:10px;color:#334155;font-size:14px;line-height:1.45;}
+    .saved-actions{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;}
+
     .cta-box{
       padding:24px;
       background:#eef3ff;
@@ -394,6 +419,14 @@
       }
 
       .button-row button{
+        width:100%;
+      }
+
+      .saved-values{
+        grid-template-columns:1fr;
+      }
+
+      .saved-actions .btn{
         width:100%;
       }
     }
@@ -560,14 +593,14 @@
       <p class="description">Save setups, reload prior inputs, and reuse common checks.</p>
       <div id="authUserLabel" class="description">Checking account status...</div>
       <div class="button-row">
-        <button type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
-        <button id="authButton" class="secondary" type="button" onclick="handleAuthButton()">Sign In</button>
-        <button class="secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
-        <button class="ghost" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+        <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+        <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+        <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
       </div>
-      <div id="saveStatus" class="description"></div>
-      <div id="savedStatus" class="description"></div>
-      <div id="savedList" class="description"></div>
+      <div id="saveStatus" class="save-status muted"></div>
+      <div id="savedStatus" class="save-status muted"></div>
+      <div id="savedList"></div>
     </div>
   </section>
 
