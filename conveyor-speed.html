@@ -695,24 +695,33 @@
   const CONVEYOR_SPEED_SAVE_CONFIG = {
     toolId: "conveyor_speed",
     toolName: "Conveyor Speed Calculator",
-    getInputs: () => {
+    toolUrl: "/conveyor-speed.html",
+    analyticsTool: "conveyor_speed",
+    savedItemTitle: "Conveyor Speed Setup",
+
+    collectData: function(){
       const spacing = parseFloat(document.getElementById("spacing").value);
       const ppm = parseFloat(document.getElementById("ppm").value);
       const travelDistance = parseFloat(document.getElementById("travelDistance").value);
       if(!(spacing > 0) || !(ppm > 0) || !(travelDistance > 0)){ return null; }
+      calculateConveyorSpeed();
       return { spacing, ppm, travelDistance };
     },
-    applyInputs: (data) => {
-      document.getElementById("spacing").value = data.spacing ?? "";
-      document.getElementById("ppm").value = data.ppm ?? "";
-      document.getElementById("travelDistance").value = data.travelDistance ?? "";
+
+    reloadData: function(savedData){
+      document.getElementById("spacing").value = savedData.spacing ?? "";
+      document.getElementById("ppm").value = savedData.ppm ?? "";
+      document.getElementById("travelDistance").value = savedData.travelDistance ?? "";
       calculateConveyorSpeed();
     },
-    clearInputs: resetCalculator,
-    statusElId: "saveStatus",
-    listElId: "savedList",
-    emptyText: "No saved conveyor speed calculations yet.",
-    formatResult: () => document.getElementById("output").innerText
+
+    renderFields: function(d){
+      return [
+        { label: "Part Spacing", value: savedToolsSafeValue(d.spacing) + " in" },
+        { label: "Parts per Minute", value: savedToolsSafeValue(d.ppm) },
+        { label: "Travel Distance", value: savedToolsSafeValue(d.travelDistance) + " ft" }
+      ];
+    }
   };
 
   function saveCurrentCalculation(){ savedToolsSave(CONVEYOR_SPEED_SAVE_CONFIG); }

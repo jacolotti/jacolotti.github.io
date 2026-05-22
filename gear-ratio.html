@@ -1006,21 +1006,35 @@
   const GEAR_RATIO_SAVE_CONFIG = {
     toolId: "gear_ratio",
     toolName: "Gear Ratio Calculator",
-    getInputs: () => {
+    toolUrl: "/gear-ratio.html",
+    analyticsTool: "gear_ratio",
+    savedItemTitle: "Gear Ratio Setup",
+
+    collectData: function(){
       const ids = ["inputSpeed","speedUnit","inputTorque","torqueUnit","efficiency","decimalPlaces","driver1","driven1","driver2","driven2","driver3","driven3"];
       const data = Object.fromEntries(ids.map(id => [id, document.getElementById(id).value]));
       if(!(parseFloat(data.inputSpeed) > 0) || !(parseFloat(data.efficiency) > 0) || !(parseFloat(data.driver1) > 0) || !(parseFloat(data.driven1) > 0)){ return null; }
+      calculateGearRatio();
       return data;
     },
-    applyInputs: (data) => {
-      ["inputSpeed","speedUnit","inputTorque","torqueUnit","efficiency","decimalPlaces","driver1","driven1","driver2","driven2","driver3","driven3"].forEach(id => document.getElementById(id).value = data[id] ?? "");
+
+    reloadData: function(savedData){
+      ["inputSpeed","speedUnit","inputTorque","torqueUnit","efficiency","decimalPlaces","driver1","driven1","driver2","driven2","driver3","driven3"].forEach(id => {
+        document.getElementById(id).value = savedData[id] ?? "";
+      });
       calculateGearRatio();
     },
-    clearInputs: clearCalculator,
-    statusElId: "saveStatus",
-    listElId: "savedList",
-    emptyText: "No saved gear ratio calculations yet.",
-    formatResult: () => document.getElementById("output").innerText
+
+    renderFields: function(d){
+      return [
+        { label: "Input Speed", value: savedToolsSafeValue(d.inputSpeed) + " " + savedToolsSafeValue(d.speedUnit) },
+        { label: "Input Torque", value: savedToolsSafeValue(d.inputTorque) + " " + savedToolsSafeValue(d.torqueUnit) },
+        { label: "Efficiency", value: savedToolsSafeValue(d.efficiency) + "%" },
+        { label: "Stage 1", value: savedToolsSafeValue(d.driver1) + ":" + savedToolsSafeValue(d.driven1) },
+        { label: "Stage 2", value: (d.driver2 && d.driven2) ? (savedToolsSafeValue(d.driver2) + ":" + savedToolsSafeValue(d.driven2)) : "Not used" },
+        { label: "Stage 3", value: (d.driver3 && d.driven3) ? (savedToolsSafeValue(d.driver3) + ":" + savedToolsSafeValue(d.driven3)) : "Not used" }
+      ];
+    }
   };
   function saveCurrentCalculation(){ savedToolsSave(GEAR_RATIO_SAVE_CONFIG); }
   function loadSavedCalculations(){ savedToolsLoad(GEAR_RATIO_SAVE_CONFIG); }
