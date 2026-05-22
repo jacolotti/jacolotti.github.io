@@ -514,13 +514,13 @@
       .button-row{flex-direction:column;}
       .button-row button{width:100%;}
     }
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid transparent;font-weight:700;font-size:14px;line-height:1.2;cursor:pointer;text-decoration:none;transition:all .2s ease;}
-    .btn-primary{background:var(--accent);color:#fff;}
-    .btn-primary:hover{background:var(--accent-dark);text-decoration:none;}
-    .btn-secondary{background:var(--soft);color:var(--accent-dark);border:1px solid var(--line);}
-    .btn-secondary:hover{background:#e2edf9;text-decoration:none;}
-    .btn-danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;}
-    .btn-danger:hover{background:#fecaca;text-decoration:none;}
+    #saved-calculations .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;border-radius:10px;border:1px solid transparent;font-weight:700;font-size:14px;line-height:1.2;cursor:pointer;text-decoration:none;transition:all .2s ease;}
+    #saved-calculations .btn-primary{background:var(--accent);color:#fff;}
+    #saved-calculations .btn-primary:hover{background:var(--accent-dark);text-decoration:none;}
+    #saved-calculations .btn-secondary{background:var(--soft);color:var(--accent-dark);border:1px solid var(--line);}
+    #saved-calculations .btn-secondary:hover{background:#e2edf9;text-decoration:none;}
+    #saved-calculations .btn-danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;}
+    #saved-calculations .btn-danger:hover{background:#fecaca;text-decoration:none;}
     .save-status{min-height:20px;margin-top:8px;font-size:13px;color:var(--muted);}
     .saved-header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;}
     .saved-user{font-size:14px;color:var(--muted);}
@@ -532,7 +532,7 @@
     .saved-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
     @media (max-width:720px){
       .saved-values{grid-template-columns:1fr;}
-      .saved-actions .btn{width:100%;}
+      #saved-calculations .saved-actions .btn{width:100%;}
     }
   </style>
 </head>
@@ -1004,7 +1004,7 @@ const SAVE_CONFIG = {
   toolName: "Break-Even Calculator",
   toolUrl: "/break-even-calculator.html",
   analyticsTool: "break_even",
-  savedItemTitle: () => "Break-Even: " + (window.lastBreakEvenCalculation ? (window.lastBreakEvenCalculation.results.breakEvenMonths > 0 ? window.lastBreakEvenCalculation.results.breakEvenMonths.toFixed(1)+" months" : "No payback") : "Scenario"),
+  savedItemTitle: "ROI Scenario",
   collectData(){ return window.lastBreakEvenCalculation; },
   renderFields(data){
     if(!data || !data.inputs || !data.results) return [];
