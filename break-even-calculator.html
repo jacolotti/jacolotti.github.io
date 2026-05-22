@@ -639,6 +639,24 @@
       Enter project cost and savings to calculate break-even time.
     </div>
 
+
+  <section id="saved-calculations" class="section">
+    <div class="saved-header">
+      <h2>Saved Calculations</h2>
+      <div id="authUserLabel" class="saved-user">Not signed in.</div>
+    </div>
+    <p class="muted">Save this setup to your account, reload it later, and quickly compare scenarios.</p>
+    <div class="saved-actions">
+      <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+      <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">My Account</button>
+      <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+      <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+    </div>
+    <div id="saveStatus" class="save-status" aria-live="polite"></div>
+    <div id="savedStatus" class="save-status" aria-live="polite">Sign in to view saved calculations.</div>
+    <div id="savedList" class="saved-list"></div>
+  </section>
+
     <div class="callout warning">
       <p>
         <strong>Important:</strong> use annual net savings, not inflated gross savings. If the project adds yearly maintenance, service, utilities, software, or consumables, subtract those costs before judging payback.
@@ -818,6 +836,8 @@
     });
   }
 
+  window.lastBreakEvenCalculation = null;
+
   function scrollToOutput(){
     document.getElementById("breakEvenOutput").scrollIntoView({
       behavior:"smooth",
@@ -866,6 +886,11 @@
       annual_operating_cost:annualOperatingCost,
       break_even_months:parseFloat(breakEvenMonths.toFixed(1))
     });
+
+    window.lastBreakEvenCalculation = {
+      inputs:{projectCost,annualSavings,annualOperatingCost},
+      results:{netSavings,breakEvenYears,breakEvenMonths,monthlyNetSavings,costRemainingAfterYearOne,fiveYearNetValue,fiveYearNetSavings}
+    };
 
     document.getElementById("breakEvenOutput").innerHTML =
       "<strong>Break-Even Estimate</strong>" +
@@ -932,6 +957,7 @@
     document.getElementById("projectCost").value = "";
     document.getElementById("annualSavings").value = "";
     document.getElementById("annualOperatingCost").value = "";
+    window.lastBreakEvenCalculation = null;
     document.getElementById("breakEvenOutput").innerHTML =
       "Enter project cost and savings to calculate break-even time.";
   }
@@ -948,5 +974,39 @@
     });
 </script>
 
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+<script>
+const SAVE_CONFIG = {
+  toolId: "break_even_calculator",
+  toolName: "Break-Even Calculator",
+  toolUrl: "/break-even-calculator.html",
+  analyticsTool: "break_even",
+  savedItemTitle: () => "Break-Even: " + (window.lastBreakEvenCalculation ? (window.lastBreakEvenCalculation.results.breakEvenMonths > 0 ? window.lastBreakEvenCalculation.results.breakEvenMonths.toFixed(1)+" months" : "No payback") : "Scenario"),
+  collectData(){ return window.lastBreakEvenCalculation; },
+  renderFields(data){
+    if(!data || !data.inputs || !data.results) return [];
+    return [
+      {label:"Project Cost", value: formatCurrency(data.inputs.projectCost)},
+      {label:"Annual Savings", value: formatCurrency(data.inputs.annualSavings)},
+      {label:"Net Savings", value: formatCurrency(data.results.netSavings)},
+      {label:"Break-Even", value: data.results.breakEvenMonths > 0 ? data.results.breakEvenMonths.toFixed(1)+" months" : "No payback"}
+    ];
+  },
+  reloadData(data){
+    if(!data || !data.inputs) return;
+    document.getElementById("projectCost").value = data.inputs.projectCost ?? "";
+    document.getElementById("annualSavings").value = data.inputs.annualSavings ?? "";
+    document.getElementById("annualOperatingCost").value = data.inputs.annualOperatingCost ?? "";
+    calculateBreakEven();
+  }
+};
+function saveCurrentCalculation(){ return savedToolsSaveCalculation(SAVE_CONFIG); }
+function loadSavedCalculations(){ return savedToolsLoadList(SAVE_CONFIG); }
+function handleAuthButton(){ return savedToolsHandleAuthButton(SAVE_CONFIG); }
+savedToolsInit(SAVE_CONFIG);
+</script>
 </body>
 </html>
