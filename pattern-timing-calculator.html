@@ -580,7 +580,40 @@
       .button-row button{width:100%;}
       .timing-table{display:block; overflow-x:auto;}
     }
-  </style>
+  
+    .btn{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      transition:.2s ease;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      font-size:15px;
+    }
+
+    .btn-primary{background:var(--accent);color:#fff;}
+    .btn-primary:hover{background:var(--accent-dark);text-decoration:none;}
+    .btn-secondary{background:var(--soft);color:var(--accent-dark);border:1px solid var(--line);}
+    .btn-secondary:hover{background:#e2edf9;text-decoration:none;}
+    .btn-danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;}
+    .btn-danger:hover{background:#fecaca;text-decoration:none;}
+
+    .save-status{margin-top:12px;font-weight:700;min-height:22px;}
+    .save-status.success{color:#15803d;}
+    .save-status.error{color:#b91c1c;}
+    .save-status.muted{color:var(--muted);}
+    .saved-header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:14px;}
+    .saved-user{color:var(--muted);font-weight:700;margin-top:4px;}
+    .saved-list{display:grid;gap:14px;margin-top:18px;}
+    .saved-item{background:#f8fbff;border:1px solid #d7e6ff;border-radius:14px;padding:16px;}
+    .saved-title-row{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+    .saved-values{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:12px 0;}
+    .saved-value{background:white;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:.92rem;}
+    .saved-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+
+</style>
 </head>
 
 <body>
@@ -763,6 +796,24 @@
     <div class="result" id="output">
       Enter values and press <strong>Calculate</strong>.
     </div>
+
+  <section id="saved-calculations" class="section">
+    <div class="section-label">Saved Calculations</div>
+    <h2>My Saved Calculations</h2>
+    <p>Save this calculator setup, reload previous entries, and reuse common production checks.</p>
+    <div class="saved-header">
+      <div id="authUserLabel" class="saved-user">Checking account status...</div>
+      <div class="saved-actions">
+        <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+        <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+        <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+      </div>
+    </div>
+    <div id="saveStatus" class="save-status muted"></div>
+    <div id="savedStatus" class="save-status muted"></div>
+    <div id="savedList" class="saved-list"></div>
+  </section>
 
     <div class="callout">
       <p>
@@ -1262,6 +1313,52 @@
     .catch(error => {
       console.error("Navbar failed to load:", error);
     });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+<script>
+  const SAVE_CONFIG = {
+    toolId: 'pattern_timing_calculator',
+    toolName: 'Pattern Timing Calculator',
+    toolUrl: 'https://automationcalculators.net/pattern-timing-calculator.html',
+    analyticsTool: 'pattern_timing',
+    savedItemTitle: 'Pattern Timing Setup',
+    collectData(){
+      const data = this.reloadData();
+      if (!data) return null;
+      return data;
+    },
+    renderFields(data){
+      if (!data) return [];
+      return Object.entries(data).map(([k,v]) => ({ label:k.replace(/([A-Z])/g,' $1').replace(/^./,c=>c.toUpperCase()), value:String(v) }));
+    },
+    reloadData(data){
+      if (data){
+        Object.entries(data).forEach(([id,val]) => { const el=document.getElementById(id); if (el) el.value = val; });
+        if (typeof calculate === 'function') calculate();
+        if (typeof calculateTiming === 'function') calculateTiming();
+        if (typeof calculateCoolantFlow === 'function') calculateCoolantFlow();
+        return;
+      }
+      const ids = ['lineSpeed','productLength','productGap','beadStartOffset','beadLength','timingReference'];
+      const out = {};
+      for (const id of ids){
+        const el=document.getElementById(id);
+        if (!el) return null;
+        if (el.value === '') return null;
+        out[id]=el.value;
+      }
+      const hasResult = (document.getElementById('output').textContent.includes('Timing Calculation Results'));
+      return hasResult ? out : null;
+    }
+  };
+  function saveCurrentCalculation(){ savedToolsSave(SAVE_CONFIG); }
+  function loadSavedCalculations(){ savedToolsLoad(SAVE_CONFIG); }
+  function handleAuthButton(){ savedToolsHandleAuthButton(SAVE_CONFIG); }
+  savedToolsInit(SAVE_CONFIG);
 </script>
 
 </body>
