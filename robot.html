@@ -375,6 +375,20 @@
       text-align:left;
     }
 
+    .saved-shell{background:#fff;border:1px solid #d9e3ee;border-radius:12px;padding:18px;}
+    .saved-header{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:flex-start;}
+    .saved-user{color:#555;font-size:14px;}
+    .save-status{margin-top:10px;font-size:14px;}
+    .saved-list{display:grid;gap:14px;margin-top:14px;}
+    .saved-item{background:#f8fbff;border:1px solid #d7e6ff;border-radius:10px;padding:14px;}
+    .saved-title-row{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;}
+    .saved-values{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:10px;}
+    .saved-value{font-size:14px;color:#24344f;}
+    .saved-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:700;text-decoration:none;}
+    .btn-primary{background:#1e6bd6;color:#fff;}
+    .btn-secondary{background:#eef3ff;color:#1f2a44;border:1px solid #cfdaf5;}
+    .btn-danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;}
     .footer{
       margin-top:40px;
       color:#666;
@@ -424,6 +438,7 @@
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#saved-calculations" class="secondary" onclick="gtag('event','robot_cycle_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
       <a href="/robot-payload.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'robot_cycle_hero','to':'robot_payload'});">Robot Payload Calculator</a>
       <a href="/robot-reach.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'robot_cycle_hero','to':'robot_reach'});">Robot Reach Calculator</a>
       <a href="/robotics.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'robot_cycle_hero','to':'robotics_hub'});">Robotics Hub</a>
@@ -672,6 +687,28 @@
     </div>
   </section>
 
+
+  <section id="saved-calculations" class="section">
+    <div class="section-label">Saved calculations</div>
+    <h2>My Saved Calculations</h2>
+    <p class="description">Save calculation setups, reload previous inputs, and reuse common design checks.</p>
+
+    <div class="saved-shell">
+      <div class="saved-header">
+        <div id="authUserLabel" class="saved-user">Checking account status...</div>
+        <div class="hero-actions" style="margin-top:0;">
+          <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+          <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+          <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+          <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+        </div>
+      </div>
+      <div id="saveStatus" class="save-status muted"></div>
+      <div id="savedStatus" class="save-status muted"></div>
+      <div id="savedList" class="saved-list"></div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="cta-box">
       <h3>Need help applying this to a real machine?</h3>
@@ -757,37 +794,37 @@
     if(jointDistance < 0 || linearDistance < 0){
       output.innerHTML = "<strong>Please enter move distances of 0 or greater.</strong>";
       scrollToOutput();
-      return;
+      return null;
     }
 
     if(speed <= 0){
       output.innerHTML = "<strong>Please enter a robot speed greater than 0.</strong>";
       scrollToOutput();
-      return;
+      return null;
     }
 
     if(pickPoints < 0 || placePoints < 0){
       output.innerHTML = "<strong>Please enter pick and place points of 0 or greater.</strong>";
       scrollToOutput();
-      return;
+      return null;
     }
 
     if((pickPoints + placePoints) <= 0){
       output.innerHTML = "<strong>Please enter at least 1 total point.</strong>";
       scrollToOutput();
-      return;
+      return null;
     }
 
     if(dwell < 0){
       output.innerHTML = "<strong>Please enter a dwell time of 0 or greater.</strong>";
       scrollToOutput();
-      return;
+      return null;
     }
 
     if(payload < 0){
       output.innerHTML = "<strong>Please enter a payload of 0 or greater.</strong>";
       scrollToOutput();
-      return;
+      return null;
     }
 
     if(distanceUnit === "inch"){
@@ -909,6 +946,24 @@
       interpretation;
 
     scrollToOutput();
+    return {
+      robot_preset: preset,
+      distance_unit: distanceUnit,
+      speed_unit: speedUnit,
+      joint_distance: document.getElementById("jointDistance").value,
+      linear_distance: document.getElementById("linearDistance").value,
+      robot_speed: document.getElementById("speed").value,
+      pick_points: pickPoints,
+      place_points: placePoints,
+      total_points: totalPoints,
+      dwell_ms: dwell,
+      payload_kg: payload,
+      blend_setting: blend,
+      accel_profile: accelProfile,
+      cycle_time_sec: totalCycleTime.toFixed(3),
+      parts_per_minute: partsPerMinute.toFixed(2),
+      parts_per_hour: partsPerHour.toFixed(0)
+    };
   }
 
   function resetCalculator(){
@@ -991,6 +1046,43 @@
     .catch(error => {
       console.error("Navbar failed to load:", error);
     });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+
+<script>
+  const CONFIG = {
+    toolId: "robot_cycle_time",
+    toolName: "Robot Cycle Time Calculator",
+    toolUrl: "/robot.html",
+    analyticsTool: "robot_cycle",
+    savedItemTitle: "Robot Cycle Setup",
+    collectData: function(){ return calculate(); },
+    renderFields: function(d){ return [{ label:'Joint Distance', value: savedToolsSafeValue(d.joint_distance) + ' ' + savedToolsSafeValue(d.distance_unit) },{ label:'Linear Distance', value: savedToolsSafeValue(d.linear_distance) + ' ' + savedToolsSafeValue(d.distance_unit) },{ label:'Speed', value: savedToolsSafeValue(d.robot_speed) + ' ' + savedToolsSafeValue(d.speed_unit) },{ label:'Total Points', value: savedToolsSafeValue(d.total_points) },{ label:'Payload', value: savedToolsSafeValue(d.payload_kg) + ' kg' },{ label:'Blend', value: savedToolsSafeValue(d.blend_setting) },{ label:'Cycle Time', value: savedToolsSafeValue(d.cycle_time_sec) + ' s' },{ label:'Parts/Hour', value: savedToolsSafeValue(d.parts_per_hour) }]; },
+    reloadData: function(savedData){
+      Object.keys(savedData || {}).forEach(() => {});
+      if(savedData.robot_preset !== undefined) document.getElementById("robotPreset").value = savedData.robot_preset ?? "fanucSmall";
+      if(savedData.distance_unit !== undefined) document.getElementById("distanceUnit").value = savedData.distance_unit ?? "mm";
+      if(savedData.speed_unit !== undefined) document.getElementById("speedUnit").value = savedData.speed_unit ?? "mms";
+      if(savedData.joint_distance !== undefined) document.getElementById("jointDistance").value = savedData.joint_distance ?? "";
+      if(savedData.linear_distance !== undefined) document.getElementById("linearDistance").value = savedData.linear_distance ?? "";
+      if(savedData.robot_speed !== undefined) document.getElementById("speed").value = savedData.robot_speed ?? "";
+      if(savedData.pick_points !== undefined) document.getElementById("pickPoints").value = savedData.pick_points ?? "";
+      if(savedData.place_points !== undefined) document.getElementById("placePoints").value = savedData.place_points ?? "";
+      if(savedData.dwell_ms !== undefined) document.getElementById("dwell").value = savedData.dwell_ms ?? "";
+      if(savedData.payload_kg !== undefined) document.getElementById("payload").value = savedData.payload_kg ?? "";
+      if(savedData.blend_setting !== undefined) document.getElementById("blend").value = savedData.blend_setting ?? "fine";
+      if(savedData.accel_profile !== undefined) document.getElementById("accelProfile").value = savedData.accel_profile ?? "normal";
+      updateLabels();
+      calculate();
+    }
+  };
+  function saveCurrentCalculation(){ savedToolsSave(CONFIG); }
+  function loadSavedCalculations(){ savedToolsLoad(CONFIG); }
+  function handleAuthButton(){ savedToolsHandleAuthButton(CONFIG); }
+  savedToolsInit(CONFIG);
 </script>
 
 </body>
