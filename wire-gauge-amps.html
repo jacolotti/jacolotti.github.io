@@ -20,6 +20,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
+    :root{
+      --accent:#0b66c3;
+      --accent-dark:#084f98;
+      --soft:#eef6ff;
+      --border:#d7e3f3;
+      --text:#102033;
+      --muted:#4f5f73;
+    }
+
     body{
       font-family:Arial, sans-serif;
       background:#f4f4f4;
@@ -747,24 +756,22 @@
 
 
   <section id="saved-calculations" class="section">
-    <div class="card">
-      <div class="saved-header">
-        <div>
-          <h2>My Saved Wire Gauge Calculations</h2>
-          <p class="section-intro" style="margin-bottom:0;">Save quick gauge estimates and reload common current/distance scenarios.</p>
-          <div id="authUserLabel" class="saved-user">Checking account status...</div>
-        </div>
-        <div class="hero-actions" style="margin-top:0;">
-          <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
-          <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
-          <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
-          <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
-        </div>
+    <div class="saved-header">
+      <div>
+        <h2>My Saved Wire Gauge Calculations</h2>
+        <p class="section-intro" style="margin-bottom:0;">Save quick gauge estimates and reload common current/distance scenarios.</p>
+        <div id="authUserLabel" class="saved-user">Checking account status...</div>
       </div>
-      <div id="saveStatus" class="save-status muted"></div>
-      <div id="savedStatus" class="save-status muted"></div>
-      <div id="savedList" class="saved-list"></div>
+      <div class="saved-actions" style="margin-top:0;">
+        <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+        <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+        <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+      </div>
     </div>
+    <div id="saveStatus" class="save-status muted"></div>
+    <div id="savedStatus" class="save-status muted"></div>
+    <div id="savedList" class="saved-list"></div>
   </section>
 
     <div class="cta-box">
