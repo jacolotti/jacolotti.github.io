@@ -1017,7 +1017,7 @@ const SAVE_CONFIG = {
   toolName: "Downtime Cost Calculator",
   toolUrl: "/downtime-cost-calculator.html",
   analyticsTool: "downtime_cost",
-  savedItemTitle: () => "Downtime: " + (window.lastDowntimeCostCalculation ? formatMoney(window.lastDowntimeCostCalculation.results.totalCost) : "Scenario"),
+  savedItemTitle: 'Downtime Cost Scenario',
   collectData(){ return window.lastDowntimeCostCalculation; },
   renderFields(data){
     if(!data || !data.inputs || !data.results) return [];
