@@ -8,7 +8,10 @@
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
-  <script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+<script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
@@ -409,6 +412,7 @@
     </p>
     <div class="hero-cta">
       <a href="#calculator" class="primary">Open Calculator</a>
+      <a href="#saved-calculations" class="secondary" onclick="gtag('event','page_cta',{'location':'hero','action':'saved_calculations'});">My Saved Calculations</a>
       <a href="/gear-ratio.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'gearbox_torque_hero','to':'gear_ratio'});">Gear Ratio Calculator</a>
       <a href="/motors-motion.html" class="secondary" onclick="gtag('event','related_tool_click',{'from':'gearbox_torque_hero','to':'motors_motion_hub'});">Motors & Motion Hub</a>
     </div>
@@ -544,6 +548,26 @@
 
     <div class="result" id="output">
       Enter values and press <strong>Calculate</strong>.
+    </div>
+  </section>
+
+
+
+  <section class="section" id="saved-calculations">
+    <div class="card">
+      <div class="section-label">Saved calculations</div>
+      <h2>My Saved Calculations</h2>
+      <p class="description">Save setups, reload prior inputs, and reuse common checks.</p>
+      <div id="authUserLabel" class="description">Checking account status...</div>
+      <div class="button-row">
+        <button type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+        <button id="authButton" class="secondary" type="button" onclick="handleAuthButton()">Sign In</button>
+        <button class="secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+        <button class="ghost" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+      </div>
+      <div id="saveStatus" class="description"></div>
+      <div id="savedStatus" class="description"></div>
+      <div id="savedList" class="description"></div>
     </div>
   </section>
 
@@ -703,6 +727,37 @@
     document.getElementById("efficiency").value = "75";
     calculateGearboxTorque();
   }
+
+
+  const GEARBOX_TORQUE_SAVE_CONFIG = {
+    toolId: "gearbox_torque",
+    toolName: "Gearbox Torque Calculator",
+    getInputs: () => {
+      const motorTorque = parseFloat(document.getElementById("motorTorque").value);
+      const motorRPM = parseFloat(document.getElementById("motorRPM").value);
+      const gearRatio = parseFloat(document.getElementById("gearRatio").value);
+      const efficiency = parseFloat(document.getElementById("efficiency").value);
+      if(!(motorTorque > 0) || !(motorRPM > 0) || !(gearRatio > 0) || !(efficiency > 0) || efficiency > 100){ return null; }
+      return { motorTorque, motorRPM, gearRatio, efficiency };
+    },
+    applyInputs: (data) => {
+      document.getElementById("motorTorque").value = data.motorTorque ?? "";
+      document.getElementById("motorRPM").value = data.motorRPM ?? "";
+      document.getElementById("gearRatio").value = data.gearRatio ?? "";
+      document.getElementById("efficiency").value = data.efficiency ?? "";
+      calculateGearboxTorque();
+    },
+    clearInputs: resetCalculator,
+    statusElId: "saveStatus",
+    listElId: "savedList",
+    emptyText: "No saved gearbox torque calculations yet.",
+    formatResult: () => document.getElementById("output").innerText
+  };
+  function saveCurrentCalculation(){ savedToolsSave(GEARBOX_TORQUE_SAVE_CONFIG); }
+  function loadSavedCalculations(){ savedToolsLoad(GEARBOX_TORQUE_SAVE_CONFIG); }
+  function handleAuthButton(){ savedToolsHandleAuthButton(GEARBOX_TORQUE_SAVE_CONFIG); }
+  savedToolsInit(GEARBOX_TORQUE_SAVE_CONFIG);
+
 
   fetch('/navbar.html?v=20260422')
     .then(response => response.text())
