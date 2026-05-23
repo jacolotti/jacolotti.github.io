@@ -1021,6 +1021,26 @@
       "<strong>Interpretation</strong><br>" +
       interpretation;
 
+    window.lastTorqueClampLoadCalculation = {
+      inputs: {
+        torque,
+        torqueUnit,
+        boltSize: document.getElementById("boltSize").value,
+        nominalDiameter,
+        tensileArea,
+        nutFactor,
+        efficiency
+      },
+      results: {
+        convertedTorqueNm: Number(torqueNm.toFixed(2)),
+        adjustedTorqueNm: Number(adjustedTorqueNm.toFixed(2)),
+        clampLoadN: Number(clampLoadN.toFixed(0)),
+        clampLoadKN: Number(clampLoadKN.toFixed(2)),
+        clampLoadLbf: Number(clampLoadLbf.toFixed(0)),
+        outputHtml: output.innerHTML
+      }
+    };
+
     scrollToOutput();
   }
 
@@ -1090,13 +1110,21 @@ const SAVE_CONFIG = {
   renderFields(data){
     const i=data.inputs||{}; const r=data.results||{};
     return [
-      { label:'Primary Input', value:Object.values(i)[0] ?? '—' },
-      { label:'Secondary Input', value:Object.values(i)[1] ?? '—' },
-      { label:'Primary Result', value:Object.values(r)[0] ?? '—' }
+      { label:'Torque', value:i.torque != null ? (i.torque + ' ' + (i.torqueUnit || 'Nm')) : '—' },
+      { label:'Bolt Size', value:i.boltSize ?? '—' },
+      { label:'Clamp Load', value:r.clampLoadKN != null ? (r.clampLoadKN + ' kN') : '—' }
     ];
   },
   reloadData(data){
-    Object.entries((data && data.inputs) || {}).forEach(([id,val])=>{ const el=document.getElementById(id); if(el) el.value=val; });
+    const i=(data && data.inputs) || {};
+    if(i.torque != null) document.getElementById("torque").value = i.torque;
+    if(i.torqueUnit != null) document.getElementById("torqueUnit").value = i.torqueUnit;
+    if(i.boltSize != null) document.getElementById("boltSize").value = i.boltSize;
+    if(i.nutFactor != null) document.getElementById("nutFactor").value = i.nutFactor;
+    if(i.efficiency != null) document.getElementById("efficiency").value = i.efficiency;
+    applyBoltData();
+    if(i.nominalDiameter != null) document.getElementById("nominalDiameter").value = i.nominalDiameter;
+    if(i.tensileArea != null) document.getElementById("tensileArea").value = i.tensileArea;
     calculateClampLoad();
   }
 };
