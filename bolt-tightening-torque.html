@@ -927,6 +927,22 @@
       Enter values and calculate tightening torque.
     </div>
 
+
+  <section id="saved-calculations" class="section">
+    <div class="saved-header">
+      <div><h2>Saved Calculations</h2><div id="authUserLabel" class="saved-user">Checking account status...</div></div>
+      <div class="saved-actions">
+        <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">My Account</button>
+        <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+        <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+      </div>
+    </div>
+    <div id="saveStatus" class="save-status muted"></div>
+    <div id="savedStatus" class="save-status muted"></div>
+    <div id="savedList" class="saved-list"></div>
+  </section>
+
     <p class="note">
       This calculator uses a practical preload relationship based on torque = K × clamp load × nominal diameter. Real clamp load depends strongly on thread friction, under-head friction, lubrication, coatings, joint stiffness, washer condition, and assembly variation.
     </p>
@@ -1504,6 +1520,18 @@
     .catch(error => {
       console.error("Navbar failed to load:", error);
     });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+<script>
+const SAVE_CONFIG={toolId:"bolt-tightening-torque-calculator",toolName:"Bolt Tightening Torque Calculator",toolUrl:"/bolt-tightening-torque.html",analyticsTool:"bolt_tightening_torque",savedItemTitle:"Bolt Tightening Torque Setup",
+collectData(){const inputs={}; ["boltSize","threadSeries","pitch","tensileArea","propertyClass","proofStrength","proofPercent","jointType","bearingCondition","condition","nutFactor","showUnits"].forEach(id=>{const el=document.getElementById(id); if(el) inputs[id]=el.value;}); const output=(document.getElementById('output')||{}).innerText||''; if(!output||/Enter values/i.test(output)||/Please enter/i.test(output)) return null; return {inputs,results:{output}};},
+renderFields(data){const items=[]; Object.entries(data.inputs||{}).slice(0,6).forEach(([k,v])=>items.push(`<div class="saved-value"><strong>${k}</strong><br>${v}</div>`)); items.push(`<div class="saved-value"><strong>Result</strong><br>${(data.results&&data.results.output||'').slice(0,120)}...</div>`); return items.join('');},
+reloadData(data){Object.entries((data&&data.inputs)||{}).forEach(([id,val])=>{const el=document.getElementById(id); if(el) el.value=val;}); calculateTorque();}
+}; savedToolsInit(SAVE_CONFIG);
 </script>
 
 </body>

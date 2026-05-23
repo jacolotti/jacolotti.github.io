@@ -703,6 +703,22 @@
       Enter values and press <strong>Calculate</strong>.
     </div>
 
+
+  <section id="saved-calculations" class="section">
+    <div class="saved-header">
+      <div><h2>Saved Calculations</h2><div id="authUserLabel" class="saved-user">Checking account status...</div></div>
+      <div class="saved-actions">
+        <button class="btn btn-primary" type="button" onclick="saveCurrentCalculation()">Save Calculation</button>
+        <button id="authButton" class="btn btn-secondary" type="button" onclick="handleAuthButton()">My Account</button>
+        <button class="btn btn-secondary" type="button" onclick="loadSavedCalculations()">Refresh</button>
+        <button class="btn btn-danger" type="button" onclick="savedToolsSignOut()">Sign Out</button>
+      </div>
+    </div>
+    <div id="saveStatus" class="save-status muted"></div>
+    <div id="savedStatus" class="save-status muted"></div>
+    <div id="savedList" class="saved-list"></div>
+  </section>
+
     <p class="note">
       Projection welding is highly sensitive to projection geometry, fastener design, coating, machine stiffness, force follow-up, electrode face condition, tooling flatness, and secondary impedance. These values are conservative starting ranges, not guaranteed production settings.
     </p>
@@ -1256,6 +1272,18 @@
     .catch(error => {
       console.error("Navbar failed to load:", error);
     });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/supabase.js?v=debug1"></script>
+<script src="/saved-tools.js?v=6"></script>
+<script>
+const SAVE_CONFIG={toolId:"projection-weld-calculator",toolName:"Projection Weld Calculator",toolUrl:"/projection-weld.html",analyticsTool:"projection_weld",savedItemTitle:"Projection Weld Setup",
+collectData(){const inputs={}; ["partType","size","material","baseThickness","projections","quality","machine","customCurrentPerProjection","customForcePerProjection"].forEach(id=>{const el=document.getElementById(id); if(el) inputs[id]=el.value;}); const output=(document.getElementById('output')||{}).innerText||''; if(!output||/Enter values/i.test(output)||/Please enter/i.test(output)) return null; return {inputs,results:{output}};},
+renderFields(data){const items=[]; Object.entries(data.inputs||{}).slice(0,6).forEach(([k,v])=>items.push(`<div class="saved-value"><strong>${k}</strong><br>${v}</div>`)); items.push(`<div class="saved-value"><strong>Result</strong><br>${(data.results&&data.results.output||'').slice(0,120)}...</div>`); return items.join('');},
+reloadData(data){Object.entries((data&&data.inputs)||{}).forEach(([id,val])=>{const el=document.getElementById(id); if(el) el.value=val;}); calculateProjectionWeld();}
+}; savedToolsInit(SAVE_CONFIG);
 </script>
 
 </body>
