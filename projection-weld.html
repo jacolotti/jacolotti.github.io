@@ -1238,6 +1238,25 @@
       "<strong>Important</strong><br>" +
       "These are conservative first-pass starting values only. Validate using collapse, destructive testing, thread quality checks, and machine capability review.";
 
+    window.lastProjectionWeldCalculation = {
+      inputs: {
+        partType,
+        size,
+        material,
+        baseThickness,
+        projections,
+        quality,
+        machine
+      },
+      results: {
+        totalCurrent: roundTo(totalCurrent, 1),
+        totalForceKN: roundTo(totalForceKN, 2),
+        totalForceLbf: roundTo(totalForceLbf, 0),
+        weldTime: roundTo(timeCycles, 0),
+        outputHtml: output.innerHTML
+      }
+    };
+
     scrollToOutput();
   }
 
@@ -1316,13 +1335,21 @@ const SAVE_CONFIG = {
   renderFields(data){
     const i=data.inputs||{}; const r=data.results||{};
     return [
-      { label:'Primary Input', value:Object.values(i)[0] ?? '—' },
-      { label:'Secondary Input', value:Object.values(i)[1] ?? '—' },
-      { label:'Primary Result', value:Object.values(r)[0] ?? '—' }
+      { label:'Part Type', value:i.partType ?? '—' },
+      { label:'Projection Count', value:i.projections ?? '—' },
+      { label:'Current', value:r.totalCurrent != null ? (r.totalCurrent + ' kA') : '—' }
     ];
   },
   reloadData(data){
-    Object.entries((data && data.inputs) || {}).forEach(([id,val])=>{ const el=document.getElementById(id); if(el) el.value=val; });
+    const i=(data && data.inputs) || {};
+    if(i.partType != null) document.getElementById("partType").value = i.partType;
+    if(i.size != null) document.getElementById("size").value = i.size;
+    if(i.material != null) document.getElementById("material").value = i.material;
+    if(i.baseThickness != null) document.getElementById("baseThickness").value = i.baseThickness;
+    if(i.projections != null) document.getElementById("projections").value = i.projections;
+    if(i.quality != null) document.getElementById("quality").value = i.quality;
+    if(i.machine != null) document.getElementById("machine").value = i.machine;
+    applyPreset();
     calculateProjectionWeld();
   }
 };
