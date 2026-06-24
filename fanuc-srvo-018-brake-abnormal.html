@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/fanuc-srvo-018-brake-abnormal.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>FANUC SRVO-018 Brake Abnormal | Causes, Checks & Field Fixes</title>
+  <meta name="description" content="Troubleshoot FANUC SRVO-018 Brake Abnormal alarms. Includes common causes, Group 1 Axis 2 checks, welding robot field fixes, and practical diagnostic steps.">
+
+  <style>
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#16202a;line-height:1.6;}
+    #navbar{position:sticky;top:0;z-index:999;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05);}
+    .hero{background:linear-gradient(135deg,#0b66c3,#0b3d69);color:#fff;padding:56px 20px;}
+    .hero-inner,.section{max-width:1180px;margin:0 auto;}
+    .hero h1{margin:0 0 14px;font-size:2.35rem;}
+    .hero p{max-width:880px;color:rgba(255,255,255,.95);font-size:1.05rem;}
+    .section{padding:36px 20px;}
+    .card{background:#fff;border:1px solid #d9e3ee;border-radius:16px;padding:24px;margin-bottom:22px;box-shadow:0 8px 24px rgba(15,35,60,.08);}
+    h2{margin-top:0;color:#16202a;}
+    h3{color:#16202a;}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    .pill-link{display:inline-block;padding:8px 12px;border-radius:999px;background:#edf4fb;color:#084c92;font-weight:700;text-decoration:none;margin:4px 6px 4px 0;}
+    .pill-link:hover{background:#dfeefa;text-decoration:none;}
+    .note{background:#fff8df;border:1px solid #f1df95;color:#5c4a12;padding:16px;border-radius:14px;}
+    .warning{background:#fff4e5;border-left:5px solid #f0a000;padding:16px;border-radius:8px;}
+    .field-note{background:#eefaf1;border-left:5px solid #2e8b57;padding:16px;border-radius:8px;}
+    .danger{background:#fff0f0;border-left:5px solid #b42318;padding:16px;border-radius:8px;}
+    .checklist li{margin-bottom:10px;}
+    .cta{background:linear-gradient(135deg,#0d4d86,#0b66c3);color:#fff;border-radius:16px;padding:26px;}
+    .cta h2{color:#fff;}
+    .cta p{color:rgba(255,255,255,.94);}
+    .cta a{display:inline-block;background:#fff;color:#084c92;padding:12px 18px;border-radius:10px;font-weight:700;text-decoration:none;}
+    footer{text-align:center;padding:28px 20px;color:#5d6d7b;}
+    @media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr;}.hero h1{font-size:1.9rem;}}
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>FANUC SRVO-018 Brake Abnormal</h1>
+      <p>
+        Practical troubleshooting guide for FANUC SRVO-018 Brake Abnormal alarms, including Group 1 Axis 2 faults, wiring checks, brake circuit causes, servo amplifier concerns, and real-world welding robot field fixes.
+      </p>
+      <a class="pill-link" href="/fanuc-alarm-codes.html">← Back to FANUC Alarm Codes</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="note">
+      <strong>Quick meaning:</strong> SRVO-018 Brake Abnormal means the robot controller detected an abnormal condition related to the brake circuit. Do not assume the brake itself is bad until wiring, connectors, external tooling, and moving dress-package components are checked.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="card">
+      <h2>SRVO-018 Quick Answer</h2>
+      <p>
+        The FANUC SRVO-018 alarm usually points toward a brake circuit problem, brake wiring issue, motor/brake issue, servo amplifier issue, or related axis wiring problem. On welding robots, the actual root cause may also come from external equipment attached to the robot, especially cables and connections that move with the arm.
+      </p>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Alarm</h3>
+          <p><strong>SRVO-018</strong></p>
+          <p>Brake Abnormal</p>
+        </div>
+
+        <div class="card">
+          <h3>Example</h3>
+          <p><strong>Group 1 Axis 2</strong></p>
+          <p>Commonly points technicians toward Axis 2 brake-related diagnostics.</p>
+        </div>
+
+        <div class="card">
+          <h3>Important</h3>
+          <p><strong>Check external moving cables</strong></p>
+          <p>Especially on resistance welding robots with weld gun power cables.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Colotti Automation Field Verified Fix</h2>
+
+      <div class="field-note">
+        <strong>Real production case:</strong> A FANUC robot faulted with <strong>SRVO-018 Brake Abnormal on Group 1 Axis 2</strong>. The fault occurred while trying to move the robot, even when the robot was not welding. The issue was traced to a broken, wet, dirty, loose, or contaminated weld gun power cable connection.
+      </div>
+
+      <p>
+        This matters because the alarm can send technicians straight toward the brake, servo amplifier, internal robot harness, or motor. In this case, the smarter first move was to inspect the weld gun power cable connections and the moving dress package.
+      </p>
+
+      <h3>Symptoms Seen</h3>
+      <ul>
+        <li>SRVO-018 Brake Abnormal alarm</li>
+        <li>Group 1 Axis 2 shown on the fault</li>
+        <li>Fault occurred while trying to move or jog the robot</li>
+        <li>Robot was not actively welding when the fault occurred</li>
+        <li>Issue could have led to unnecessary brake or servo troubleshooting</li>
+      </ul>
+
+      <h3>What To Check On Welding Robots</h3>
+      <ol class="checklist">
+        <li>Inspect weld gun power cable connectors.</li>
+        <li>Look for water, coolant, dirt, weld dust, or contamination.</li>
+        <li>Check for loose terminals, damaged connector bodies, or poor seating.</li>
+        <li>Look for burnt pins, carbon tracking, arc marks, discoloration, or overheating.</li>
+        <li>Inspect the cable where it flexes during robot movement.</li>
+        <li>Verify grounding straps and bonding points.</li>
+        <li>Move the robot slowly and watch whether the cable flex location lines up with the fault.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>Common Causes of SRVO-018</h2>
+
+      <div class="grid-2">
+        <div>
+          <h3>Robot / Brake Side</h3>
+          <ul>
+            <li>Brake wiring problem</li>
+            <li>Loose brake connector</li>
+            <li>Damaged internal robot harness</li>
+            <li>Brake coil problem</li>
+            <li>Motor/brake assembly issue</li>
+            <li>Axis-specific wiring problem</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Controller / External Side</h3>
+          <ul>
+            <li>Servo amplifier issue</li>
+            <li>Loose cabinet connector</li>
+            <li>Damaged dress package cable</li>
+            <li>Water or contamination in connectors</li>
+            <li>Grounding or leakage issue</li>
+            <li>External tooling cable problem</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Recommended Troubleshooting Flow</h2>
+
+      <ol class="checklist">
+        <li><strong>Record the exact alarm.</strong> Write down SRVO-018, group number, axis number, and the full pendant message.</li>
+        <li><strong>Note when it faults.</strong> Power-up, jogging, automatic motion, welding, servo on, or after a reset.</li>
+        <li><strong>Ask what changed.</strong> Servo amp replacement, gun work, cable replacement, crash, water leak, weld gun maintenance, battery work, or mechanical repair.</li>
+        <li><strong>Inspect moving cables first.</strong> On welding robots, check the weld gun power cable and dress package before replacing expensive robot components.</li>
+        <li><strong>Inspect brake wiring and connectors.</strong> Look for loose plugs, damaged pins, moisture, contamination, or pulled wiring.</li>
+        <li><strong>Check cabinet-side connections.</strong> Verify servo amplifier connections and robot cable connections are fully seated.</li>
+        <li><strong>Use OEM electrical checks.</strong> Follow FANUC procedures for brake circuit, amplifier, and motor checks.</li>
+        <li><strong>Only replace parts after evidence points there.</strong> Avoid guessing with brakes, motors, servo amps, or robot harnesses.</li>
+      </ol>
+    </div>
+
+    <div class="warning">
+      <strong>Do not skip this:</strong> If SRVO-018 happens while jogging and not welding, still inspect weld gun power cable connections on welding robots. The cable moves with the robot and can cause intermittent conditions during motion.
+    </div>
+
+    <div class="card">
+      <h2>Parts That Get Replaced Too Early</h2>
+      <p>
+        These parts may be legitimate causes, but they are often expensive and should not be replaced just because SRVO-018 appears.
+      </p>
+
+      <ul>
+        <li>Brake assembly</li>
+        <li>Servo amplifier</li>
+        <li>Motor</li>
+        <li>Internal robot harness</li>
+        <li>Pulse coder-related components</li>
+        <li>Robot connection cables</li>
+      </ul>
+
+      <p>
+        Check cables, connectors, water intrusion, contamination, grounding, and external tooling first when the fault is intermittent or motion-related.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>SRVO-018 Group 1 Axis 2 Notes</h2>
+
+      <p>
+        When the alarm references <strong>Group 1 Axis 2</strong>, technicians naturally focus on Axis 2 brake wiring, motor/brake hardware, and the servo system. That is a reasonable direction, but it should not blind the team to equipment attached to the robot arm.
+      </p>
+
+      <p>
+        On resistance welding robots, Axis 2 movement can flex heavy weld gun power cables, cooling lines, dress package components, and external tool wiring. A bad cable connection may only show up when the robot moves, even if there is no active weld schedule running.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Printable Checklist</h2>
+
+      <ul class="checklist">
+        <li>Alarm code recorded: SRVO-018</li>
+        <li>Group and axis recorded</li>
+        <li>Fault timing recorded: power-up, jog, auto, weld, or random</li>
+        <li>Recent work checked</li>
+        <li>Robot cable connections inspected</li>
+        <li>Servo amplifier connections inspected</li>
+        <li>Brake wiring inspected</li>
+        <li>Weld gun power cable inspected</li>
+        <li>Dress package flex points inspected</li>
+        <li>Moisture, dirt, coolant, and contamination checked</li>
+        <li>Grounding and bonding checked</li>
+        <li>OEM brake circuit checks completed</li>
+        <li>Root cause documented</li>
+      </ul>
+    </div>
+
+    <div class="danger">
+      <strong>Safety reminder:</strong> Robot troubleshooting can involve stored energy, servo power, brake circuits, weld power, pinch points, and unexpected motion. Follow lockout, plant safety rules, and FANUC/OEM procedures.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta">
+      <h2>Need help with SRVO-018?</h2>
+      <p>
+        Colotti Automation can help troubleshoot FANUC robot faults, welding robot issues, PLC problems, vision systems, and production downtime.
+      </p>
+      <a href="/automation-help.html">Get Help With My Cell</a>
+    </div>
+  </section>
+
+  <footer>
+    AutomationCalculators.net • FANUC SRVO-018 Brake Abnormal troubleshooting and field notes
+  </footer>
+
+  <script>
+    fetch('/navbar.html?v=20260422')
+      .then(function(response){
+        if(!response.ok){throw new Error('Navbar failed to load');}
+        return response.text();
+      })
+      .then(function(html){
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error){
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
