@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/fanuc-alarm-codes.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>FANUC Alarm Codes & SRVO Troubleshooting</title>
+  <meta name="description" content="Search FANUC robot SRVO alarm codes, common causes, troubleshooting checks, and field-proven fixes for real production robot faults.">
+
+  <style>
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#16202a;line-height:1.6;}
+    #navbar{position:sticky;top:0;z-index:999;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05);}
+    .hero{background:linear-gradient(135deg,#0b66c3,#0b3d69);color:#fff;padding:56px 20px;}
+    .hero-inner,.section{max-width:1180px;margin:0 auto;}
+    .hero h1{margin:0 0 14px;font-size:2.35rem;}
+    .hero p{max-width:850px;color:rgba(255,255,255,.95);font-size:1.05rem;}
+    .section{padding:36px 20px;}
+    .card{background:#fff;border:1px solid #d9e3ee;border-radius:16px;padding:24px;margin-bottom:22px;box-shadow:0 8px 24px rgba(15,35,60,.08);}
+    h2{margin-top:0;color:#16202a;}
+    h3{color:#16202a;}
+    .search-box{width:100%;padding:14px;font-size:1rem;border:2px solid #d9e3ee;border-radius:10px;margin:12px 0 20px;}
+    table{width:100%;border-collapse:collapse;background:#fff;}
+    th,td{padding:13px;border-bottom:1px solid #d9e3ee;text-align:left;vertical-align:top;}
+    th{background:#0b66c3;color:#fff;}
+    tr:hover{background:#edf4fb;}
+    .pill-link{display:inline-block;padding:8px 12px;border-radius:999px;background:#edf4fb;color:#084c92;font-weight:700;text-decoration:none;margin:4px 6px 4px 0;}
+    .pill-link:hover{background:#dfeefa;text-decoration:none;}
+    .note{background:#fff8df;border:1px solid #f1df95;color:#5c4a12;padding:16px;border-radius:14px;}
+    .field-note{background:#eefaf1;border-left:5px solid #2e8b57;padding:16px;border-radius:8px;}
+    .warning{background:#fff4e5;border-left:5px solid #f0a000;padding:16px;border-radius:8px;}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+    .cta{background:linear-gradient(135deg,#0d4d86,#0b66c3);color:#fff;border-radius:16px;padding:26px;}
+    .cta h2{color:#fff;}
+    .cta p{color:rgba(255,255,255,.94);}
+    .cta a{display:inline-block;background:#fff;color:#084c92;padding:12px 18px;border-radius:10px;font-weight:700;text-decoration:none;}
+    footer{text-align:center;padding:28px 20px;color:#5d6d7b;}
+    @media(max-width:900px){.grid-3{grid-template-columns:1fr;} table,thead,tbody,tr,td{display:block;} th{display:none;} tr{border:1px solid #d9e3ee;border-radius:12px;margin-bottom:12px;padding:10px;} td{border:0;padding:8px;}}
+  </style>
+</head>
+
+<body>
+  <div id="navbar"></div>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>FANUC Alarm Codes & SRVO Troubleshooting</h1>
+      <p>
+        Search common FANUC robot alarm codes, SRVO faults, safety issues, mastering problems, and field-proven fixes from real production environments.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="note">
+      <strong>Use this first:</strong> record the exact alarm code, group, axis, what the robot was doing when it faulted, and what changed recently. Many robot faults are wiring, tooling, safety, or dress-package problems before they are major component failures.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="card">
+      <h2>Search FANUC Alarm Codes</h2>
+      <input id="alarmSearch" class="search-box" type="text" placeholder="Search: SRVO-018, brake abnormal, IMSTP, BZAL, pulse coder..." onkeyup="filterTable()">
+
+      <table id="alarmTable">
+        <thead>
+          <tr>
+            <th>Alarm</th>
+            <th>Plain-English Meaning</th>
+            <th>Common Checks</th>
+            <th>Page</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SRVO-018</strong></td>
+            <td>Brake Abnormal</td>
+            <td>Brake wiring, axis brake circuit, robot harness, servo amp, robot arm cable, external tooling, weld gun power cable connections.</td>
+            <td><a class="pill-link" href="/fanuc-srvo-018-brake-abnormal.html">Open SRVO-018</a></td>
+          </tr>
+          <tr>
+            <td><strong>SRVO-037</strong></td>
+            <td>IMSTP Input</td>
+            <td>External stop input, UOP signals, PLC safety logic, E-stop chain, safety relay, Ethernet/IP mapping.</td>
+            <td><span class="pill-link">Coming Soon</span></td>
+          </tr>
+          <tr>
+            <td><strong>SRVO-038</strong></td>
+            <td>Pulse Mismatch</td>
+            <td>Pulse coder, mastering data, axis position mismatch, battery loss, improper mastering.</td>
+            <td><span class="pill-link">Coming Soon</span></td>
+          </tr>
+          <tr>
+            <td><strong>SRVO-062</strong></td>
+            <td>BZAL / Battery Alarm</td>
+            <td>Robot batteries, pulse coder battery circuit, mastering data, battery replacement procedure.</td>
+            <td><span class="pill-link">Coming Soon</span></td>
+          </tr>
+          <tr>
+            <td><strong>SRVO-075</strong></td>
+            <td>Pulse Not Established</td>
+            <td>Pulse coder reset, mastering, battery loss, encoder position not established.</td>
+            <td><span class="pill-link">Coming Soon</span></td>
+          </tr>
+          <tr>
+            <td><strong>SRVO-105</strong></td>
+            <td>Door Open / E-Stop Related Fault</td>
+            <td>Door circuit, external E-stop, safety chain, IMSTP, fence circuit, safety inputs.</td>
+            <td><span class="pill-link">Coming Soon</span></td>
+          </tr>
+          <tr>
+            <td><strong>SRVO-230</strong></td>
+            <td>Chain Abnormal / Safety Chain Issue</td>
+            <td>Dual-channel safety circuit, E-stop chain, safety board, fence/door inputs, external safety devices.</td>
+            <td><span class="pill-link">Coming Soon</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>Start With the Exact Alarm</h3>
+        <p>
+          Write down the code, group, axis, and full alarm text. For example, SRVO-018 on Group 1 Axis 2 points you toward a specific axis-related brake abnormal fault.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Do Not Replace Parts Too Fast</h3>
+        <p>
+          Many robot faults are caused by wiring, external devices, safety inputs, cables, connectors, water intrusion, dress package damage, or tooling issues.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Field Verified Fixes</h3>
+        <p>
+          This database includes real production-floor fixes that may not be obvious from the alarm text alone.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Featured Field Fix: SRVO-018 Brake Abnormal</h2>
+
+      <div class="field-note">
+        <strong>Colotti Automation Field Verified:</strong>
+        A FANUC robot showed <strong>SRVO-018 Brake Abnormal on Group 1 Axis 2</strong>. The fault occurred while trying to move the robot, even when it was not welding. The root cause was tied to a broken, wet, dirty, or contaminated weld gun power cable connection.
+      </div>
+
+      <p>
+        This is the kind of fault that can send a team down the wrong path replacing brake hardware, servo amplifiers, or robot harnesses. On welding robots, inspect the weld gun power cable connections and dress package before assuming the brake circuit is the only possible cause.
+      </p>
+
+      <a class="pill-link" href="/fanuc-srvo-018-brake-abnormal.html">Read Full SRVO-018 Troubleshooting Page</a>
+    </div>
+
+    <div class="card">
+      <h2>Basic FANUC Robot Fault Troubleshooting Flow</h2>
+      <ol>
+        <li>Record the exact alarm code, group, axis, and full pendant message.</li>
+        <li>Identify whether the fault happens while jogging, during automatic motion, during welding, during homing, or at power-up.</li>
+        <li>Check what changed recently: cables, tooling, servo amp, batteries, weld gun, dress package, safety device, or program change.</li>
+        <li>Inspect connectors, cables, moisture, contamination, loose terminals, and grounding before replacing major components.</li>
+        <li>Use OEM procedures for electrical checks, mastering, battery replacement, and servo troubleshooting.</li>
+        <li>Document the final root cause so the same downtime does not happen again.</li>
+      </ol>
+    </div>
+
+    <div class="warning">
+      <strong>Safety reminder:</strong> Robot troubleshooting can involve stored energy, servo power, brake circuits, weld power, pinch points, and hazardous motion. Follow lockout, safety, and OEM procedures.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta">
+      <h2>Need help with a FANUC robot fault?</h2>
+      <p>
+        Colotti Automation can help with robot faults, production downtime, PLC issues, vision systems, and real-world troubleshooting.
+      </p>
+      <a href="/automation-help.html">Get Help With My Cell</a>
+    </div>
+  </section>
+
+  <footer>
+    AutomationCalculators.net • FANUC alarm codes, robot troubleshooting, and industrial automation field notes
+  </footer>
+
+  <script>
+    function filterTable(){
+      const filter = document.getElementById("alarmSearch").value.toLowerCase();
+      const rows = document.querySelectorAll("#alarmTable tbody tr");
+
+      rows.forEach(function(row){
+        row.style.display = row.innerText.toLowerCase().includes(filter) ? "" : "none";
+      });
+    }
+
+    fetch('/navbar.html?v=20260422')
+      .then(function(response){
+        if(!response.ok){throw new Error('Navbar failed to load');}
+        return response.text();
+      })
+      .then(function(html){
+        document.getElementById('navbar').innerHTML = html;
+      })
+      .catch(function(error){
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
