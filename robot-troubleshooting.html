@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/robot-troubleshooting.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Industrial Robot Troubleshooting | FANUC, ABB, Yaskawa & More</title>
+
+  <meta name="description"
+        content="Industrial robot troubleshooting database covering FANUC, ABB, Yaskawa, robot alarm codes, safety faults, servo issues, communication faults, and field-proven solutions.">
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:#f5f7fb;
+      color:#16202a;
+      line-height:1.6;
+    }
+
+    #navbar{
+      position:sticky;
+      top:0;
+      z-index:999;
+      background:#fff;
+      box-shadow:0 2px 10px rgba(0,0,0,.05);
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#0b66c3,#0b3d69);
+      color:#fff;
+      padding:56px 20px;
+    }
+
+    .hero-inner,
+    .section{
+      max-width:1180px;
+      margin:0 auto;
+    }
+
+    .hero h1{
+      margin:0 0 14px;
+      font-size:2.4rem;
+    }
+
+    .hero p{
+      max-width:900px;
+      color:rgba(255,255,255,.95);
+      font-size:1.05rem;
+    }
+
+    .section{
+      padding:36px 20px;
+    }
+
+    h2{
+      margin-top:0;
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid #d9e3ee;
+      border-radius:16px;
+      padding:24px;
+      margin-bottom:20px;
+      box-shadow:0 8px 24px rgba(15,35,60,.08);
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .pill-link{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#edf4fb;
+      color:#084c92;
+      font-weight:700;
+      text-decoration:none;
+      margin:4px;
+    }
+
+    .pill-link:hover{
+      background:#dfeefa;
+    }
+
+    .note{
+      background:#fff8df;
+      border:1px solid #f1df95;
+      padding:16px;
+      border-radius:12px;
+      color:#5c4a12;
+    }
+
+    .coming-soon{
+      background:#eefaf1;
+      border-left:5px solid #2e8b57;
+      padding:16px;
+      border-radius:8px;
+    }
+
+    .workflow-step{
+      padding:18px;
+      border:1px solid #d9e3ee;
+      border-radius:12px;
+      margin-bottom:12px;
+      background:#fff;
+    }
+
+    footer{
+      text-align:center;
+      padding:28px 20px;
+      color:#5d6d7b;
+    }
+
+    @media(max-width:900px){
+      .grid-2,
+      .grid-3{
+        grid-template-columns:1fr;
+      }
+
+      .hero h1{
+        font-size:1.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Industrial Robot Troubleshooting Database</h1>
+
+    <p>
+      Search robot alarm codes, servo faults, communication issues,
+      safety faults, mastering problems, welding robot issues,
+      vision system faults, and real-world field-proven fixes.
+    </p>
+
+    <a class="pill-link" href="/fanuc-alarm-codes.html">
+      FANUC Alarm Codes
+    </a>
+  </div>
+</section>
+
+<section class="section">
+
+  <div class="note">
+    <strong>Goal:</strong>
+    Build the most practical robot troubleshooting database available.
+    Every solution includes alarm descriptions, diagnostic procedures,
+    common causes, and field-verified fixes from real production environments.
+  </div>
+
+</section>
+
+<section class="section">
+
+  <h2>Start With Your Robot Brand</h2>
+
+  <div class="grid-3">
+
+    <div class="card">
+      <h3>FANUC</h3>
+
+      <p>
+        SRVO alarms, safety faults, mastering issues,
+        servo problems, DCS faults, and field fixes.
+      </p>
+
+      <a class="pill-link"
+         href="/fanuc-alarm-codes.html">
+         Open FANUC Database
+      </a>
+
+      <a class="pill-link"
+         href="/fanuc-srvo-018-brake-abnormal.html">
+         SRVO-018
+      </a>
+    </div>
+
+    <div class="card">
+      <h3>ABB</h3>
+
+      <p>
+        IRC5 faults, drive faults,
+        motion supervision alarms,
+        communication issues.
+      </p>
+
+      <div class="coming-soon">
+        Coming Soon
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Yaskawa</h3>
+
+      <p>
+        Motoman alarms,
+        servo faults,
+        encoder issues,
+        safety faults.
+      </p>
+
+      <div class="coming-soon">
+        Coming Soon
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <h2>Most Common Robot Problems</h2>
+
+  <div class="grid-2">
+
+    <div class="card">
+      <h3>Robot Will Not Move</h3>
+
+      <ul>
+        <li>Servo alarms</li>
+        <li>Safety faults</li>
+        <li>E-stop active</li>
+        <li>DCS restrictions</li>
+        <li>Fence open</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Robot Lost Position</h3>
+
+      <ul>
+        <li>Battery alarms</li>
+        <li>BZAL faults</li>
+        <li>Mastering lost</li>
+        <li>Pulse coder issues</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Robot Stops Randomly</h3>
+
+      <ul>
+        <li>Intermittent wiring</li>
+        <li>Dress package failures</li>
+        <li>Communication faults</li>
+        <li>Safety interruptions</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Welding Robot Problems</h3>
+
+      <ul>
+        <li>Weld gun cables</li>
+        <li>Water intrusion</li>
+        <li>Gun dress package damage</li>
+        <li>Power cable faults</li>
+      </ul>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="section">
+
+  <h2>Recommended Troubleshooting Workflow</h2>
+
+  <div class="workflow-step">
+    <strong>1.</strong>
+    Record the exact alarm code and full alarm text.
+  </div>
+
+  <div class="workflow-step">
+    <strong>2.</strong>
+    Record the group and axis.
+  </div>
+
+  <div class="workflow-step">
+    <strong>3.</strong>
+    Determine when the fault occurs:
+    power-up, jogging, automatic cycle, welding, or random.
+  </div>
+
+  <div class="workflow-step">
+    <strong>4.</strong>
+    Determine what changed recently.
+  </div>
+
+  <div class="workflow-step">
+    <strong>5.</strong>
+    Check cables, connectors, and dress package before replacing major components.
+  </div>
+
+  <div class="workflow-step">
+    <strong>6.</strong>
+    Follow OEM procedures for electrical testing and verification.
+  </div>
+
+</section>
+
+<section class="section">
+
+  <h2>Featured Troubleshooting Pages</h2>
+
+  <div class="grid-3">
+
+    <div class="card">
+      <h3>SRVO-018 Brake Abnormal</h3>
+
+      <p>
+        Includes a real production case where
+        a contaminated weld gun power cable caused
+        a Group 1 Axis 2 brake abnormal fault
+        while simply jogging the robot.
+      </p>
+
+      <a class="pill-link"
+         href="/fanuc-srvo-018-brake-abnormal.html">
+         Read Article
+      </a>
+    </div>
+
+    <div class="card">
+      <h3>SRVO-037 IMSTP</h3>
+
+      <p>
+        External stop inputs,
+        safety circuits,
+        and PLC interactions.
+      </p>
+
+      <div class="coming-soon">
+        Coming Soon
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>SRVO-062 BZAL</h3>
+
+      <p>
+        Battery alarms,
+        mastering issues,
+        and pulse coder recovery.
+      </p>
+
+      <div class="coming-soon">
+        Coming Soon
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  AutomationCalculators.net • Industrial Robot Troubleshooting Database
+</footer>
+
+<script>
+fetch('/navbar.html?v=20260422')
+.then(function(response){
+  if(!response.ok){
+    throw new Error('Navbar failed to load');
+  }
+  return response.text();
+})
+.then(function(html){
+  document.getElementById('navbar').innerHTML = html;
+})
+.catch(function(error){
+  console.error(error);
+});
+</script>
+
+</body>
+</html>
