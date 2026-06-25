@@ -9,6 +9,27 @@
   </url>
 
   <url>
+    <loc>https://automationcalculators.net/fanuc-alarm-codes.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+</url>
+
+<url>
+    <loc>https://automationcalculators.net/robot-troubleshooting.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+</url>
+
+<url>
+    <loc>https://automationcalculators.net/fanuc-srvo-018-brake-abnormal.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+</url>
+
+  <url>
     <loc>https://automationcalculators.net/adhesives-dispensing.html</loc>
     <lastmod>2026-05-03</lastmod>
     <priority>0.80</priority>
