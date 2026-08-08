@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="canonical" href="https://automationcalculators.net/colotti-pulse.html">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="AutomationCalculators.net">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Colotti Pulse | Read-Only Allen-Bradley PLC Monitoring</title>
+  <meta name="description" content="Colotti Pulse is read-only Windows software for monitoring multiple Allen-Bradley PLCs, viewing live tags, saving machine profiles, trending data, and troubleshooting faster.">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G4TY96JHNH');
+  </script>
+
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+
+  <style>
+    :root{--bg:#f5f7fb;--card:#fff;--text:#16202a;--muted:#5d6b79;--accent:#0b66c3;--accent-dark:#084c92;--soft:#edf4fb;--border:#d9e3ee;--success:#1f6d3a;--success-soft:#edf8f1;--shadow:0 8px 24px rgba(15,35,60,.08);--radius:16px;--max:1180px}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6} a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline} button,input{font:inherit}
+    #navbar{position:sticky;top:0;z-index:999;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+    .hero{background:#fff;border-bottom:1px solid var(--border)} .hero-inner{max-width:var(--max);margin:0 auto;padding:54px 20px 42px;display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:center}
+    .eyebrow{display:inline-block;margin-bottom:12px;padding:6px 11px;border-radius:999px;background:var(--success-soft);color:var(--success);border:1px solid #cfe7d7;font-weight:700;font-size:.88rem}
+    .hero h1{margin:0 0 14px;font-size:2.6rem;line-height:1.1}.hero .lead{margin:0 0 14px;max-width:760px;color:var(--muted);font-size:1.08rem}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+    .btn{border:0;border-radius:10px;padding:12px 17px;font-weight:700;cursor:pointer;text-decoration:none;transition:.18s ease}.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-dark);text-decoration:none}.btn-secondary{background:var(--soft);color:var(--accent-dark);border:1px solid var(--border)}.btn-secondary:hover{background:#e2edf9;text-decoration:none}
+    .price-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}.price-card .price{margin:8px 0 2px;font-size:2.4rem;line-height:1;font-weight:800}.price-card .per{color:var(--muted);font-size:.94rem}.price-card ul{margin:18px 0;padding-left:20px;color:var(--muted)}.price-card li{margin:7px 0}
+    .qty-row{display:flex;gap:10px;align-items:end;margin:18px 0 12px}.qty-row label{display:block;font-weight:700;font-size:.9rem;margin-bottom:5px}.qty-row input{width:90px;padding:10px;border:1px solid var(--border);border-radius:9px;background:#fff}.buy-btn{width:100%;background:var(--success);color:#fff;padding:13px 16px;border:0;border-radius:10px;font-weight:800;cursor:pointer}.buy-btn:hover{filter:brightness(.93)}.small{color:var(--muted);font-size:.86rem}
+    .section{max-width:var(--max);margin:0 auto;padding:40px 20px}.section h2{margin:0 0 9px;font-size:1.95rem}.section-intro{margin:0 0 24px;color:var(--muted);max-width:850px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}.card h3{margin:0 0 8px}.card p{margin:0;color:var(--muted)}.read-only{background:var(--success-soft);border:1px solid #cfe7d7}.read-only h3{color:var(--success)}.feature-list{margin:0;padding-left:20px;color:var(--muted)}.feature-list li{margin-bottom:9px}
+    .steps{counter-reset:step;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.step{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px}.step::before{counter-increment:step;content:counter(step);display:flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:50%;margin-bottom:12px;background:var(--soft);color:var(--accent-dark);font-weight:800}.step strong{display:block;margin-bottom:5px}.step span{color:var(--muted);font-size:.94rem}
+    .notice{max-width:var(--max);margin:0 auto 40px;padding:0 20px}.notice-inner{background:#fff8e8;border:1px solid #ead6a3;border-radius:14px;padding:18px 20px;color:#6b571e} footer{border-top:1px solid var(--border);background:#fff;margin-top:24px}.footer-inner{max-width:var(--max);margin:0 auto;padding:24px 20px;color:var(--muted);font-size:.9rem}
+    @media(max-width:900px){.hero-inner,.grid-3,.grid-2,.steps{grid-template-columns:1fr}.hero h1{font-size:2.1rem}}
+  </style>
+</head>
+<body>
+<div id="navbar"></div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">Read-only industrial PLC monitoring</span>
+      <h1>See What Your Allen-Bradley PLCs Are Doing — From One Screen</h1>
+      <p class="lead">Colotti Pulse is a lightweight Windows monitoring and diagnostics application built for controls engineers, maintenance teams, and integrators who need live PLC visibility without opening a programming project.</p>
+      <p class="lead">Connect multiple PLCs, browse tags, save machine profiles, choose dashboard values, trend live data, and keep each monitoring session independent.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#buy">Buy Colotti Pulse</a>
+        <a class="btn btn-secondary" href="#features">View Features</a>
+        <a class="btn btn-secondary" href="#how-it-works">How Licensing Works</a>
+      </div>
+    </div>
+
+    <aside class="price-card" id="buy">
+      <strong>Colotti Pulse 1.1.0</strong>
+      <div class="price">$399</div>
+      <div class="per">USD per seat · one-time purchase</div>
+      <ul>
+        <li>Perpetual single-seat license</li>
+        <li>Multi-machine monitoring</li>
+        <li>Signed offline license activation</li>
+        <li>No subscription required</li>
+        <li>Windows application + Quick Start Guide</li>
+      </ul>
+      <div class="qty-row">
+        <div><label for="seatQty">Seats / activations</label><input id="seatQty" type="number" min="1" max="25" value="1" inputmode="numeric"></div>
+        <div class="small">1–25 seats per order</div>
+      </div>
+      <button class="buy-btn" id="buyPulseButton" type="button">Buy Colotti Pulse — $399/seat</button>
+      <p class="small" style="margin-bottom:0">Secure checkout is provided by Paddle. Sandbox checkout is enabled during testing.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <h2>Built for Real Troubleshooting Work</h2>
+  <p class="section-intro">Pulse is focused on fast, read-only visibility into the values you care about without turning the monitoring PC into another PLC programming station.</p>
+  <div class="grid-3">
+    <div class="card"><h3>Multi-Machine Dashboard</h3><p>Open and monitor multiple saved PLC profiles independently from one plant dashboard.</p></div>
+    <div class="card"><h3>Live PLC Tags</h3><p>Browse controller tags, select the values that matter, and monitor them at a configurable polling rate.</p></div>
+    <div class="card"><h3>Machine Profiles</h3><p>Save PLC routes, monitored tags, favorites, and dashboard selections for fast repeat access.</p></div>
+    <div class="card"><h3>Dashboard Tags</h3><p>Choose up to five key live values per machine for quick plant-level scanning.</p></div>
+    <div class="card"><h3>Trend & Export</h3><p>Trend selected numeric tags and export captured data for troubleshooting and review.</p></div>
+    <div class="card"><h3>Independent Sessions</h3><p>A communication problem with one PLC does not stop monitoring sessions for the others.</p></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="grid-2">
+    <div class="card read-only"><h3>Read-Only by Design</h3><p>Colotti Pulse is intended for monitoring and diagnostics. It does not provide PLC write, force, edit, download, or controller mode-change functions.</p></div>
+    <div class="card"><h3>Designed for Allen-Bradley Environments</h3><p>Pulse is built around practical monitoring of supported Allen-Bradley Logix controllers and the tags used in real manufacturing equipment.</p></div>
+  </div>
+</section>
+
+<section class="section" id="how-it-works">
+  <h2>Purchase & Activation</h2>
+  <p class="section-intro">Pulse uses a signed offline license file. The application does not require continuous internet access to validate the license.</p>
+  <div class="steps">
+    <div class="step"><strong>Purchase</strong><span>Choose the number of seats and complete secure checkout through Paddle.</span></div>
+    <div class="step"><strong>License</strong><span>Your order is used to issue a signed Colotti Pulse license for the purchased seat count.</span></div>
+    <div class="step"><strong>Install</strong><span>Run the Windows installer, accept the EULA, and follow the included Quick Start Guide.</span></div>
+    <div class="step"><strong>Activate</strong><span>Select the provided license file in Pulse. The signed license is then verified locally.</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>What You Need</h2>
+  <div class="grid-2">
+    <div class="card"><h3>Windows PC</h3><ul class="feature-list"><li>64-bit Windows 10 or Windows 11</li><li>Network access to the PLCs you intend to monitor</li><li>No Python or VS Code required for the installed application</li></ul></div>
+    <div class="card"><h3>Supported Use</h3><ul class="feature-list"><li>Industrial monitoring and troubleshooting</li><li>Controls, maintenance, and engineering workflows</li><li>Not a safety system or safety-rated control</li></ul></div>
+  </div>
+</section>
+
+<div class="notice"><div class="notice-inner"><strong>Early release fulfillment:</strong> Colotti Pulse licenses are currently issued after order review. The installer and signed license file are delivered to the purchaser using the order contact information. Do not use Pulse as a safety system or as the sole means of protecting personnel or equipment.</div></div>
+
+<footer><div class="footer-inner">Colotti Pulse is developed by Colotti Automation LLC. Secure checkout is provided by Paddle.</div></footer>
+
+<script>
+fetch('/navbar.html?v=20260422').then(r=>r.text()).then(d=>document.getElementById('navbar').innerHTML=d);
+</script>
+
+<script>
+  /*
+    Replace BOTH placeholders below on your LOCAL copy.
+    Never put a Paddle API key or the Colotti Pulse private signing key here.
+  */
+  const PADDLE_CLIENT_TOKEN = 'test_2cd08d207e7d24fe6f9a0ba8f5e';
+  const PULSE_PRICE_ID = 'pri_01kzhhnv709p80p901pvkecvny';
+
+  let paddleReady = false;
+  try {
+    Paddle.Environment.set('sandbox');
+    Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN });
+    paddleReady = true;
+  } catch (error) {
+    console.error('Paddle initialization failed:', error);
+  }
+
+  const qtyInput = document.getElementById('seatQty');
+  const buyButton = document.getElementById('buyPulseButton');
+
+  function normalizedQuantity(){
+    let qty = parseInt(qtyInput.value,10);
+    if(!Number.isFinite(qty)) qty=1;
+    qty=Math.min(25,Math.max(1,qty));
+    qtyInput.value=qty;
+    return qty;
+  }
+
+  qtyInput.addEventListener('change', normalizedQuantity);
+  buyButton.addEventListener('click', function(){
+    const qty=normalizedQuantity();
+    if(!paddleReady || PADDLE_CLIENT_TOKEN.includes('PASTE_YOUR_') || PULSE_PRICE_ID.includes('PASTE_YOUR_')){
+      alert('Paddle sandbox is not configured yet. Add your sandbox client-side token and Colotti Pulse price ID in colotti-pulse.html.');
+      return;
+    }
+    Paddle.Checkout.open({
+      items:[{priceId:PULSE_PRICE_ID,quantity:qty}],
+      settings:{displayMode:'overlay',theme:'light',locale:'en'}
+    });
+  });
+</script>
+</body>
+</html>
