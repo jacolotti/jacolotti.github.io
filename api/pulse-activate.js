@@ -19,9 +19,16 @@ export default async function handler(req, res) {
     const supabaseSecretKey =
       process.env.SUPABASE_SECRET_KEY;
 
-    if (!supabaseUrl || !supabaseSecretKey) {
+    const privateKeyPem =
+      process.env.PULSE_PRIVATE_KEY_PEM;
+
+    if (
+      !supabaseUrl ||
+      !supabaseSecretKey ||
+      !privateKeyPem
+    ) {
       console.error(
-        "Missing Supabase environment variables."
+        "Missing activation server environment variables."
       );
 
       return res.status(500).json({
@@ -50,7 +57,6 @@ export default async function handler(req, res) {
         .trim()
         .slice(0, 120);
 
-    // Validate license-key format.
     if (
       !/^PULSE-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}$/.test(
         licenseKey
@@ -62,7 +68,6 @@ export default async function handler(req, res) {
       });
     }
 
-    // Basic sanity check on machine fingerprint.
     if (
       machineFingerprint.length < 16 ||
       machineFingerprint.length > 512
@@ -73,7 +78,6 @@ export default async function handler(req, res) {
       });
     }
 
-    // Never store the raw machine fingerprint.
     const machineHash =
       crypto
         .createHash("sha256")
@@ -83,7 +87,6 @@ export default async function handler(req, res) {
         )
         .digest("hex");
 
-    // Find the license.
     const license =
       await getLicense(
         supabaseUrl,
@@ -105,11 +108,9 @@ export default async function handler(req, res) {
       });
     }
 
-    /*
-      If this license is already bound
-      to a machine, only that same machine
-      may continue using it.
-    */
+    let activatedLicense;
+    let alreadyActivated = false;
+
     if (license.machine_id) {
       if (license.machine_id !== machineHash) {
         return res.status(409).json({
@@ -126,49 +127,66 @@ export default async function handler(req, res) {
         machineName
       );
 
-      return res.status(200).json({
-        ok: true,
-        activated: true,
-        already_activated: true,
-        license_id: license.id,
-        seat_number: license.seat_number,
-        status: license.status,
-      });
-    }
+      activatedLicense = license;
+      alreadyActivated = true;
 
-    /*
-      First activation.
+    } else {
+      activatedLicense =
+        await bindLicenseToMachine(
+          supabaseUrl,
+          supabaseSecretKey,
+          license.id,
+          machineHash,
+          machineName
+        );
 
-      The PATCH only succeeds while
-      machine_id is NULL. This prevents
-      two machines from claiming the same
-      seat at the same time.
-    */
-    const activatedLicense =
-      await bindLicenseToMachine(
+      await recordActivation(
         supabaseUrl,
         supabaseSecretKey,
-        license.id,
+        license.pulse_order_id,
         machineHash,
         machineName
       );
+    }
 
-    // Add activation to audit/history table.
-    await recordActivation(
-      supabaseUrl,
-      supabaseSecretKey,
-      license.pulse_order_id,
-      machineHash,
-      machineName
-    );
+    const order =
+      await getOrder(
+        supabaseUrl,
+        supabaseSecretKey,
+        activatedLicense.pulse_order_id
+      );
+
+    if (!order) {
+      throw new Error(
+        "License order record was not found"
+      );
+    }
+
+    const licenseDocument =
+      createSignedLicenseDocument({
+        privateKeyPem,
+        order,
+        license: activatedLicense,
+        machineHash,
+      });
 
     return res.status(200).json({
       ok: true,
       activated: true,
-      already_activated: false,
-      license_id: activatedLicense.id,
-      seat_number: activatedLicense.seat_number,
-      status: activatedLicense.status,
+      already_activated:
+        alreadyActivated,
+
+      license_id:
+        activatedLicense.id,
+
+      seat_number:
+        activatedLicense.seat_number,
+
+      status:
+        activatedLicense.status,
+
+      license_document:
+        licenseDocument,
     });
 
   } catch (error) {
@@ -226,6 +244,52 @@ async function getLicense(
 
     throw new Error(
       "License lookup failed"
+    );
+  }
+
+  const rows =
+    await response.json();
+
+  if (
+    !Array.isArray(rows) ||
+    rows.length === 0
+  ) {
+    return null;
+  }
+
+  return rows[0];
+}
+
+
+async function getOrder(
+  supabaseUrl,
+  secretKey,
+  orderId
+) {
+  const url =
+    `${supabaseUrl}/rest/v1/pulse_orders` +
+    `?id=eq.${encodeURIComponent(orderId)}` +
+    `&select=id,paddle_transaction_id,paddle_customer_id,customer_email,company_name,seats_purchased,status,purchased_at`;
+
+  const response =
+    await fetch(url, {
+      method: "GET",
+      headers:
+        supabaseHeaders(secretKey),
+    });
+
+  if (!response.ok) {
+    const text =
+      await response.text();
+
+    console.error(
+      "Supabase order lookup failed:",
+      response.status,
+      text
+    );
+
+    throw new Error(
+      "Order lookup failed"
     );
   }
 
@@ -381,10 +445,6 @@ async function recordActivation(
   machineName
 ) {
   if (!orderId) {
-    console.warn(
-      "Activation has no pulse_order_id."
-    );
-
     return;
   }
 
@@ -434,4 +494,84 @@ async function recordActivation(
       "Could not record activation"
     );
   }
+}
+
+
+function canonicalPayload(data) {
+  const ordered = {};
+
+  for (
+    const key of
+    Object.keys(data).sort()
+  ) {
+    ordered[key] =
+      data[key];
+  }
+
+  return JSON.stringify(ordered);
+}
+
+
+function createSignedLicenseDocument({
+  privateKeyPem,
+  order,
+  license,
+  machineHash,
+}) {
+  const customer =
+    order.company_name ||
+    order.customer_email ||
+    order.paddle_customer_id ||
+    "Colotti Pulse Customer";
+
+  const issued =
+    new Date()
+      .toISOString()
+      .slice(0, 10);
+
+  const payload = {
+    product:
+      "Colotti Pulse Base",
+
+    customer,
+
+    license_id:
+      license.id,
+
+    license_type:
+      "perpetual",
+
+    seats:
+      1,
+
+    issued,
+
+    machine_id:
+      machineHash,
+  };
+
+  const canonical =
+    canonicalPayload(payload);
+
+  const privateKey =
+    crypto.createPrivateKey(
+      privateKeyPem
+    );
+
+  const signature =
+    crypto.sign(
+      null,
+      Buffer.from(
+        canonical,
+        "utf8"
+      ),
+      privateKey
+    );
+
+  return {
+    payload,
+
+    signature:
+      signature.toString("base64"),
+  };
 }
