@@ -25,6 +25,9 @@ export default async function handler(req, res) {
     const paddleApiKey =
       process.env.PADDLE_API_KEY;
 
+    const paddleEnvironment =
+      process.env.PADDLE_ENVIRONMENT || "sandbox"; 
+
     const supabaseUrl =
       process.env.SUPABASE_URL;
 
@@ -180,7 +183,8 @@ export default async function handler(req, res) {
       transaction.customer_id
         ? await getPaddleCustomer(
             paddleApiKey,
-            transaction.customer_id
+            transaction.customer_id,
+            paddleEnvironment
           )
         : null;
 
@@ -410,10 +414,16 @@ export default async function handler(req, res) {
 
 async function getPaddleCustomer(
   paddleApiKey,
-  customerId
+  customerId,
+  paddleEnvironment
 ) {
+  const paddleApiBase =
+    paddleEnvironment === "live"
+      ? "https://api.paddle.com"
+      : "https://sandbox-api.paddle.com";
+
   const url =
-    `https://sandbox-api.paddle.com/customers/${encodeURIComponent(customerId)}`;
+    `${paddleApiBase}/customers/${encodeURIComponent(customerId)}`;
 
   const response =
     await fetch(url, {
