@@ -125,12 +125,11 @@ fetch('/navbar.html?v=20260422').then(r=>r.text()).then(d=>document.getElementBy
     Replace BOTH placeholders below on your LOCAL copy.
     Never put a Paddle API key or the Colotti Pulse private signing key here.
   */
-  const PADDLE_CLIENT_TOKEN = 'test_2cd08d207e7d24fe6f9a0ba8f5e';
-  const PULSE_PRICE_ID = 'pri_01kzhhnv709p80p901pvkecvny';
+  const PADDLE_CLIENT_TOKEN = 'live_9104d43b403f13bdb8913cbe862';
+  const PULSE_PRICE_ID = 'pri_01kzprqnvcgc7cs874ckrmscsa';
 
   let paddleReady = false;
   try {
-    Paddle.Environment.set('sandbox');
     Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN });
     paddleReady = true;
   } catch (error) {
