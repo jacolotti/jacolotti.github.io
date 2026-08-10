@@ -9,6 +9,7 @@ export const config = {
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
+
     return res.status(405).json({
       error: "Method not allowed",
     });
@@ -86,7 +87,6 @@ export default async function handler(req, res) {
       });
     }
 
-    // Only fulfill completed transactions.
     if (
       event.event_type !==
       "transaction.completed"
@@ -107,7 +107,6 @@ export default async function handler(req, res) {
         ? transaction.items
         : [];
 
-    // Find Colotti Pulse items.
     const pulseItems =
       items.filter((item) => {
         const priceId =
@@ -119,10 +118,6 @@ export default async function handler(req, res) {
       });
 
     if (pulseItems.length === 0) {
-      console.log(
-        "Completed transaction does not contain Colotti Pulse."
-      );
-
       return res.status(200).json({
         received: true,
         ignored: true,
@@ -133,7 +128,6 @@ export default async function handler(req, res) {
       });
     }
 
-    // Add up purchased seats.
     const seats =
       pulseItems.reduce(
         (total, item) => {
@@ -159,11 +153,6 @@ export default async function handler(req, res) {
       seats < 1 ||
       seats > 25
     ) {
-      console.error(
-        "Invalid Pulse seat quantity:",
-        seats
-      );
-
       return res.status(400).json({
         error:
           "Invalid Pulse seat quantity",
@@ -227,12 +216,31 @@ export default async function handler(req, res) {
         orderRecord
       );
 
+    let licenseKeys = [];
+
+    if (
+      databaseResult.status ===
+      "created"
+    ) {
+      licenseKeys =
+        await createPulseLicenses(
+          supabaseUrl,
+          supabaseSecretKey,
+          databaseResult.order,
+          seats
+        );
+    }
+
     console.log(
       "COLOTTI_PULSE_PAID_ORDER",
       JSON.stringify({
-        ...orderRecord,
+        transaction_id:
+          transaction.id,
+        seats,
         database:
           databaseResult.status,
+        licenses_created:
+          licenseKeys.length,
       })
     );
 
@@ -245,6 +253,8 @@ export default async function handler(req, res) {
       seats,
       database:
         databaseResult.status,
+      licenses_created:
+        licenseKeys.length,
     });
 
   } catch (error) {
@@ -290,24 +300,11 @@ async function savePulseOrder(
         ),
     });
 
-  /*
-    paddle_transaction_id has a UNIQUE
-    constraint.
-
-    If Paddle retries the same webhook,
-    Supabase will reject the duplicate.
-    We treat that as already processed
-    instead of creating extra seats.
-  */
   if (response.status === 409) {
-    console.log(
-      "Duplicate Paddle transaction ignored:",
-      orderRecord.paddle_transaction_id
-    );
-
     return {
       status:
         "already_processed",
+      order: null,
     };
   }
 
@@ -326,7 +323,7 @@ async function savePulseOrder(
     );
   }
 
-  let data = null;
+  let data = [];
 
   if (responseText) {
     try {
@@ -335,14 +332,139 @@ async function savePulseOrder(
           responseText
         );
     } catch {
-      data = null;
+      data = [];
     }
+  }
+
+  const order =
+    Array.isArray(data) &&
+    data.length > 0
+      ? data[0]
+      : null;
+
+  if (!order?.id) {
+    throw new Error(
+      "Supabase did not return created Pulse order"
+    );
   }
 
   return {
     status: "created",
-    data,
+    order,
   };
+}
+
+
+async function createPulseLicenses(
+  supabaseUrl,
+  supabaseSecretKey,
+  order,
+  seats
+) {
+  const rows = [];
+
+  for (
+    let seatNumber = 1;
+    seatNumber <= seats;
+    seatNumber += 1
+  ) {
+    rows.push({
+      license_key:
+        generateLicenseKey(),
+
+      pulse_order_id:
+        order.id,
+
+      paddle_transaction_id:
+        order.paddle_transaction_id,
+
+      seat_number:
+        seatNumber,
+
+      status:
+        "active",
+    });
+  }
+
+  const url =
+    `${supabaseUrl}/rest/v1/pulse_licenses`;
+
+  const response =
+    await fetch(url, {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "application/json",
+
+        apikey:
+          supabaseSecretKey,
+
+        Prefer:
+          "return=representation",
+      },
+
+      body:
+        JSON.stringify(rows),
+    });
+
+  const responseText =
+    await response.text();
+
+  if (!response.ok) {
+    console.error(
+      "Supabase license insert failed:",
+      response.status,
+      responseText
+    );
+
+    throw new Error(
+      "Failed to create Pulse licenses"
+    );
+  }
+
+  let data = [];
+
+  if (responseText) {
+    try {
+      data =
+        JSON.parse(
+          responseText
+        );
+    } catch {
+      data = [];
+    }
+  }
+
+  if (
+    !Array.isArray(data) ||
+    data.length !== seats
+  ) {
+    throw new Error(
+      "Unexpected number of Pulse licenses created"
+    );
+  }
+
+  return data.map(
+    (row) => row.license_key
+  );
+}
+
+
+function generateLicenseKey() {
+  const hex =
+    crypto
+      .randomBytes(8)
+      .toString("hex")
+      .toUpperCase();
+
+  return (
+    "PULSE-" +
+    hex.slice(0, 4) + "-" +
+    hex.slice(4, 8) + "-" +
+    hex.slice(8, 12) + "-" +
+    hex.slice(12, 16)
+  );
 }
 
 
@@ -414,10 +536,6 @@ function verifyPaddleSignature(
     );
 
   if (ageSeconds > 5) {
-    console.warn(
-      "Rejected Paddle webhook: timestamp outside tolerance."
-    );
-
     return false;
   }
 
