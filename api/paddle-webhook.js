@@ -22,6 +22,9 @@ export default async function handler(req, res) {
     const pulsePriceId =
       process.env.PADDLE_PULSE_PRICE_ID;
 
+    const paddleApiKey =
+      process.env.PADDLE_API_KEY;
+
     const supabaseUrl =
       process.env.SUPABASE_URL;
 
@@ -31,6 +34,7 @@ export default async function handler(req, res) {
     if (
       !webhookSecret ||
       !pulsePriceId ||
+      !paddleApiKey ||
       !supabaseUrl ||
       !supabaseSecretKey
     ) {
@@ -173,6 +177,33 @@ export default async function handler(req, res) {
           )
         : null;
 
+    /*
+      Retrieve the Paddle customer so we can
+      permanently store their email with the order.
+    */
+    let paddleCustomer = null;
+
+    if (transaction.customer_id) {
+      try {
+        paddleCustomer =
+          await getPaddleCustomer(
+            paddleApiKey,
+            transaction.customer_id
+          );
+      } catch (error) {
+        /*
+          Do not throw away a paid order just because
+          customer lookup temporarily failed.
+
+          We log the problem and continue fulfillment.
+        */
+        console.error(
+          "Paddle customer lookup error:",
+          error
+        );
+      }
+    }
+
     const orderRecord = {
       paddle_transaction_id:
         transaction.id,
@@ -183,7 +214,15 @@ export default async function handler(req, res) {
       paddle_customer_id:
         transaction.customer_id || null,
 
-      customer_email: null,
+      customer_email:
+        paddleCustomer?.email || null,
+
+      /*
+        Paddle customer objects may not always
+        contain a company name. Keep this nullable
+        until we add business lookup or checkout
+        custom data later.
+      */
       company_name: null,
 
       paddle_price_id:
@@ -236,9 +275,15 @@ export default async function handler(req, res) {
       JSON.stringify({
         transaction_id:
           transaction.id,
+
+        customer_email:
+          orderRecord.customer_email,
+
         seats,
+
         database:
           databaseResult.status,
+
         licenses_created:
           licenseKeys.length,
       })
@@ -248,11 +293,20 @@ export default async function handler(req, res) {
       received: true,
       verified: true,
       pulse_order: true,
+
       transaction_id:
         transaction.id,
+
+      customer_email_found:
+        Boolean(
+          orderRecord.customer_email
+        ),
+
       seats,
+
       database:
         databaseResult.status,
+
       licenses_created:
         licenseKeys.length,
     });
@@ -268,6 +322,61 @@ export default async function handler(req, res) {
         "Webhook processing failed",
     });
   }
+}
+
+
+async function getPaddleCustomer(
+  paddleApiKey,
+  customerId
+) {
+  const url =
+    `https://sandbox-api.paddle.com/customers/${encodeURIComponent(customerId)}`;
+
+  const response =
+    await fetch(url, {
+      method: "GET",
+
+      headers: {
+        Authorization:
+          `Bearer ${paddleApiKey}`,
+
+        "Paddle-Version":
+          "1",
+
+        "Content-Type":
+          "application/json",
+      },
+    });
+
+  const responseText =
+    await response.text();
+
+  if (!response.ok) {
+    console.error(
+      "Paddle customer lookup failed:",
+      response.status,
+      responseText
+    );
+
+    throw new Error(
+      "Failed to retrieve Paddle customer"
+    );
+  }
+
+  let parsed;
+
+  try {
+    parsed =
+      JSON.parse(
+        responseText
+      );
+  } catch {
+    throw new Error(
+      "Invalid Paddle customer response"
+    );
+  }
+
+  return parsed?.data || null;
 }
 
 
@@ -300,10 +409,23 @@ async function savePulseOrder(
         ),
     });
 
+  /*
+    paddle_transaction_id is UNIQUE.
+
+    Paddle may retry webhook delivery.
+    A retry must not create another order
+    or additional license seats.
+  */
   if (response.status === 409) {
+    console.log(
+      "Duplicate Paddle transaction ignored:",
+      orderRecord.paddle_transaction_id
+    );
+
     return {
       status:
         "already_processed",
+
       order: null,
     };
   }
@@ -536,6 +658,10 @@ function verifyPaddleSignature(
     );
 
   if (ageSeconds > 5) {
+    console.warn(
+      "Rejected Paddle webhook: timestamp outside tolerance."
+    );
+
     return false;
   }
 
