@@ -31,12 +31,24 @@ export default async function handler(req, res) {
     const supabaseSecretKey =
       process.env.SUPABASE_SECRET_KEY;
 
+    const brevoApiKey =
+      process.env.BREVO_API_KEY;
+
+    const brevoSenderEmail =
+      process.env.BREVO_SENDER_EMAIL;
+
+    const brevoSenderName =
+      process.env.BREVO_SENDER_NAME;
+
     if (
       !webhookSecret ||
       !pulsePriceId ||
       !paddleApiKey ||
       !supabaseUrl ||
-      !supabaseSecretKey
+      !supabaseSecretKey ||
+      !brevoApiKey ||
+      !brevoSenderEmail ||
+      !brevoSenderName
     ) {
       console.error(
         "Missing required server environment variables."
@@ -72,10 +84,6 @@ export default async function handler(req, res) {
         webhookSecret
       )
     ) {
-      console.warn(
-        "Rejected Paddle webhook: invalid signature."
-      );
-
       return res.status(401).json({
         error: "Invalid webhook signature",
       });
@@ -136,9 +144,7 @@ export default async function handler(req, res) {
       pulseItems.reduce(
         (total, item) => {
           const quantity =
-            Number(
-              item?.quantity || 0
-            );
+            Number(item?.quantity || 0);
 
           return (
             total +
@@ -170,39 +176,38 @@ export default async function handler(req, res) {
       });
     }
 
+    const paddleCustomer =
+      transaction.customer_id
+        ? await getPaddleCustomer(
+            paddleApiKey,
+            transaction.customer_id
+          )
+        : null;
+
+    if (!paddleCustomer?.email) {
+      throw new Error(
+        "Paddle customer email was not available"
+      );
+    }
+
+    const customerEmail =
+      paddleCustomer.email
+        .trim()
+        .toLowerCase();
+
+    const customerName =
+      paddleCustomer.name
+        ? String(
+            paddleCustomer.name
+          ).trim()
+        : "";
+
     const amountTotal =
       transaction?.details?.totals?.total
         ? Number(
             transaction.details.totals.total
           )
         : null;
-
-    /*
-      Retrieve the Paddle customer so we can
-      permanently store their email with the order.
-    */
-    let paddleCustomer = null;
-
-    if (transaction.customer_id) {
-      try {
-        paddleCustomer =
-          await getPaddleCustomer(
-            paddleApiKey,
-            transaction.customer_id
-          );
-      } catch (error) {
-        /*
-          Do not throw away a paid order just because
-          customer lookup temporarily failed.
-
-          We log the problem and continue fulfillment.
-        */
-        console.error(
-          "Paddle customer lookup error:",
-          error
-        );
-      }
-    }
 
     const orderRecord = {
       paddle_transaction_id:
@@ -215,15 +220,10 @@ export default async function handler(req, res) {
         transaction.customer_id || null,
 
       customer_email:
-        paddleCustomer?.email || null,
+        customerEmail,
 
-      /*
-        Paddle customer objects may not always
-        contain a company name. Keep this nullable
-        until we add business lookup or checkout
-        custom data later.
-      */
-      company_name: null,
+      company_name:
+        null,
 
       paddle_price_id:
         pulsePriceId,
@@ -240,7 +240,8 @@ export default async function handler(req, res) {
           ? amountTotal
           : null,
 
-      status: "active",
+      status:
+        "active",
 
       purchased_at:
         transaction.updated_at ||
@@ -249,25 +250,98 @@ export default async function handler(req, res) {
     };
 
     const databaseResult =
-      await savePulseOrder(
+      await saveOrGetPulseOrder(
         supabaseUrl,
         supabaseSecretKey,
         orderRecord
       );
 
-    let licenseKeys = [];
+    let order =
+      databaseResult.order;
+
+    if (!order?.id) {
+      throw new Error(
+        "Pulse order could not be resolved"
+      );
+    }
+
+    if (
+      !order.customer_email &&
+      customerEmail
+    ) {
+      order =
+        await updateOrderCustomerEmail(
+          supabaseUrl,
+          supabaseSecretKey,
+          order.id,
+          customerEmail
+        );
+    }
+
+    let licenseRows;
 
     if (
       databaseResult.status ===
       "created"
     ) {
-      licenseKeys =
+      licenseRows =
         await createPulseLicenses(
           supabaseUrl,
           supabaseSecretKey,
-          databaseResult.order,
+          order,
           seats
         );
+    } else {
+      licenseRows =
+        await getPulseLicenses(
+          supabaseUrl,
+          supabaseSecretKey,
+          transaction.id
+        );
+    }
+
+    if (
+      !Array.isArray(licenseRows) ||
+      licenseRows.length !== seats
+    ) {
+      throw new Error(
+        "Unexpected Pulse license count"
+      );
+    }
+
+    licenseRows.sort(
+      (a, b) =>
+        Number(a.seat_number) -
+        Number(b.seat_number)
+    );
+
+    let emailStatus =
+      "already_sent";
+
+    if (!order.license_email_sent_at) {
+      const emailResult =
+        await sendLicenseEmail({
+          brevoApiKey,
+          senderEmail:
+            brevoSenderEmail,
+          senderName:
+            brevoSenderName,
+          customerEmail,
+          customerName,
+          transactionId:
+            transaction.id,
+          licenseRows,
+        });
+
+      await markLicenseEmailSent(
+        supabaseUrl,
+        supabaseSecretKey,
+        order.id,
+        emailResult.messageId
+      );
+
+      emailStatus =
+        "sent";
     }
 
     console.log(
@@ -277,38 +351,47 @@ export default async function handler(req, res) {
           transaction.id,
 
         customer_email:
-          orderRecord.customer_email,
+          customerEmail,
 
         seats,
 
         database:
           databaseResult.status,
 
-        licenses_created:
-          licenseKeys.length,
+        licenses_ready:
+          licenseRows.length,
+
+        email_status:
+          emailStatus,
       })
     );
 
     return res.status(200).json({
-      received: true,
-      verified: true,
-      pulse_order: true,
+      received:
+        true,
+
+      verified:
+        true,
+
+      pulse_order:
+        true,
 
       transaction_id:
         transaction.id,
 
       customer_email_found:
-        Boolean(
-          orderRecord.customer_email
-        ),
+        true,
 
       seats,
 
       database:
         databaseResult.status,
 
-      licenses_created:
-        licenseKeys.length,
+      licenses_ready:
+        licenseRows.length,
+
+      email_status:
+        emailStatus,
     });
 
   } catch (error) {
@@ -343,7 +426,7 @@ async function getPaddleCustomer(
         "Paddle-Version":
           "1",
 
-        "Content-Type":
+        Accept:
           "application/json",
       },
     });
@@ -367,9 +450,7 @@ async function getPaddleCustomer(
 
   try {
     parsed =
-      JSON.parse(
-        responseText
-      );
+      JSON.parse(responseText);
   } catch {
     throw new Error(
       "Invalid Paddle customer response"
@@ -380,7 +461,7 @@ async function getPaddleCustomer(
 }
 
 
-async function savePulseOrder(
+async function saveOrGetPulseOrder(
   supabaseUrl,
   supabaseSecretKey,
   orderRecord
@@ -392,41 +473,38 @@ async function savePulseOrder(
     await fetch(url, {
       method: "POST",
 
-      headers: {
-        "Content-Type":
-          "application/json",
-
-        apikey:
+      headers:
+        supabaseHeaders(
           supabaseSecretKey,
-
-        Prefer:
-          "return=representation",
-      },
+          {
+            Prefer:
+              "return=representation",
+          }
+        ),
 
       body:
-        JSON.stringify(
-          orderRecord
-        ),
+        JSON.stringify(orderRecord),
     });
 
-  /*
-    paddle_transaction_id is UNIQUE.
-
-    Paddle may retry webhook delivery.
-    A retry must not create another order
-    or additional license seats.
-  */
   if (response.status === 409) {
-    console.log(
-      "Duplicate Paddle transaction ignored:",
-      orderRecord.paddle_transaction_id
-    );
+    const existingOrder =
+      await getPulseOrderByTransaction(
+        supabaseUrl,
+        supabaseSecretKey,
+        orderRecord.paddle_transaction_id
+      );
+
+    if (!existingOrder) {
+      throw new Error(
+        "Existing Pulse order could not be found"
+      );
+    }
 
     return {
       status:
         "already_processed",
-
-      order: null,
+      order:
+        existingOrder,
     };
   }
 
@@ -450,9 +528,7 @@ async function savePulseOrder(
   if (responseText) {
     try {
       data =
-        JSON.parse(
-          responseText
-        );
+        JSON.parse(responseText);
     } catch {
       data = [];
     }
@@ -471,9 +547,115 @@ async function savePulseOrder(
   }
 
   return {
-    status: "created",
+    status:
+      "created",
     order,
   };
+}
+
+
+async function getPulseOrderByTransaction(
+  supabaseUrl,
+  supabaseSecretKey,
+  transactionId
+) {
+  const url =
+    `${supabaseUrl}/rest/v1/pulse_orders` +
+    `?paddle_transaction_id=eq.${encodeURIComponent(transactionId)}` +
+    `&select=*`;
+
+  const response =
+    await fetch(url, {
+      method: "GET",
+      headers:
+        supabaseHeaders(
+          supabaseSecretKey
+        ),
+    });
+
+  const responseText =
+    await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to retrieve existing Pulse order"
+    );
+  }
+
+  let rows = [];
+
+  if (responseText) {
+    try {
+      rows =
+        JSON.parse(responseText);
+    } catch {
+      rows = [];
+    }
+  }
+
+  return (
+    Array.isArray(rows) &&
+    rows.length > 0
+      ? rows[0]
+      : null
+  );
+}
+
+
+async function updateOrderCustomerEmail(
+  supabaseUrl,
+  supabaseSecretKey,
+  orderId,
+  customerEmail
+) {
+  const url =
+    `${supabaseUrl}/rest/v1/pulse_orders` +
+    `?id=eq.${encodeURIComponent(orderId)}`;
+
+  const response =
+    await fetch(url, {
+      method: "PATCH",
+
+      headers:
+        supabaseHeaders(
+          supabaseSecretKey,
+          {
+            Prefer:
+              "return=representation",
+          }
+        ),
+
+      body:
+        JSON.stringify({
+          customer_email:
+            customerEmail,
+
+          updated_at:
+            new Date().toISOString(),
+        }),
+    });
+
+  const responseText =
+    await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to update Pulse customer email"
+    );
+  }
+
+  let rows = [];
+
+  if (responseText) {
+    try {
+      rows =
+        JSON.parse(responseText);
+    } catch {
+      rows = [];
+    }
+  }
+
+  return rows[0];
 }
 
 
@@ -515,16 +697,14 @@ async function createPulseLicenses(
     await fetch(url, {
       method: "POST",
 
-      headers: {
-        "Content-Type":
-          "application/json",
-
-        apikey:
+      headers:
+        supabaseHeaders(
           supabaseSecretKey,
-
-        Prefer:
-          "return=representation",
-      },
+          {
+            Prefer:
+              "return=representation",
+          }
+        ),
 
       body:
         JSON.stringify(rows),
@@ -550,9 +730,7 @@ async function createPulseLicenses(
   if (responseText) {
     try {
       data =
-        JSON.parse(
-          responseText
-        );
+        JSON.parse(responseText);
     } catch {
       data = [];
     }
@@ -567,9 +745,52 @@ async function createPulseLicenses(
     );
   }
 
-  return data.map(
-    (row) => row.license_key
-  );
+  return data;
+}
+
+
+async function getPulseLicenses(
+  supabaseUrl,
+  supabaseSecretKey,
+  transactionId
+) {
+  const url =
+    `${supabaseUrl}/rest/v1/pulse_licenses` +
+    `?paddle_transaction_id=eq.${encodeURIComponent(transactionId)}` +
+    `&select=id,license_key,pulse_order_id,paddle_transaction_id,seat_number,status`;
+
+  const response =
+    await fetch(url, {
+      method: "GET",
+      headers:
+        supabaseHeaders(
+          supabaseSecretKey
+        ),
+    });
+
+  const responseText =
+    await response.text();
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to retrieve Pulse licenses"
+    );
+  }
+
+  let rows = [];
+
+  if (responseText) {
+    try {
+      rows =
+        JSON.parse(responseText);
+    } catch {
+      rows = [];
+    }
+  }
+
+  return Array.isArray(rows)
+    ? rows
+    : [];
 }
 
 
@@ -587,6 +808,310 @@ function generateLicenseKey() {
     hex.slice(8, 12) + "-" +
     hex.slice(12, 16)
   );
+}
+
+
+async function sendLicenseEmail({
+  brevoApiKey,
+  senderEmail,
+  senderName,
+  customerEmail,
+  customerName,
+  transactionId,
+  licenseRows,
+}) {
+  const licenseListHtml =
+    licenseRows
+      .map(
+        (license) => `
+          <div style="
+            margin:12px 0;
+            padding:14px 16px;
+            border:1px solid #d9e3ee;
+            border-radius:8px;
+            background:#f7f9fc;
+          ">
+            <div style="
+              font-size:12px;
+              color:#5d6b79;
+              margin-bottom:5px;
+            ">
+              Seat ${escapeHtml(
+                String(
+                  license.seat_number
+                )
+              )}
+            </div>
+
+            <div style="
+              font-family:Consolas,Monaco,monospace;
+              font-size:18px;
+              font-weight:700;
+              color:#16202a;
+            ">
+              ${escapeHtml(
+                license.license_key
+              )}
+            </div>
+          </div>
+        `
+      )
+      .join("");
+
+  const greeting =
+    customerName
+      ? `Hello ${escapeHtml(customerName)},`
+      : "Hello,";
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<body style="
+  margin:0;
+  padding:0;
+  background:#f5f7fb;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#16202a;
+">
+
+<div style="
+  max-width:680px;
+  margin:0 auto;
+  padding:28px 18px;
+">
+
+<div style="
+  background:#ffffff;
+  border:1px solid #d9e3ee;
+  border-radius:12px;
+  padding:28px;
+">
+
+<h2>Colotti Pulse</h2>
+
+<p>${greeting}</p>
+
+<p>
+Thank you for purchasing Colotti Pulse.
+Your license ${
+    licenseRows.length === 1
+      ? "is"
+      : "keys are"
+  } ready.
+</p>
+
+<h3>Your License ${
+    licenseRows.length === 1
+      ? "Key"
+      : "Keys"
+  }</h3>
+
+${licenseListHtml}
+
+<h3>Activation</h3>
+
+<ol>
+  <li>Install and open Colotti Pulse.</li>
+  <li>Enter one license key in the activation window.</li>
+  <li>Click <strong>Activate Online</strong>.</li>
+  <li>
+    After initial activation, Pulse can operate
+    offline on that licensed computer.
+  </li>
+</ol>
+
+${
+  licenseRows.length > 1
+    ? `
+<p>
+<strong>Multiple seats:</strong>
+Use a different license key on each computer.
+</p>
+`
+    : ""
+}
+
+<p>
+Product page:<br>
+<a href="https://automationcalculators.net/colotti-pulse.html">
+automationcalculators.net/colotti-pulse.html
+</a>
+</p>
+
+<p>
+Keep this email for your records.
+</p>
+
+<p>
+Colotti Automation LLC<br>
+Colotti Pulse
+</p>
+
+<hr>
+
+<small>
+Paddle transaction:
+${escapeHtml(transactionId)}
+</small>
+
+</div>
+</div>
+
+</body>
+</html>
+  `.trim();
+
+  const response =
+    await fetch(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        method:
+          "POST",
+
+        headers: {
+          Accept:
+            "application/json",
+
+          "Content-Type":
+            "application/json",
+
+          "api-key":
+            brevoApiKey,
+        },
+
+        body:
+          JSON.stringify({
+            sender: {
+              name:
+                senderName,
+
+              email:
+                senderEmail,
+            },
+
+            to: [
+              {
+                email:
+                  customerEmail,
+
+                ...(customerName
+                  ? {
+                      name:
+                        customerName,
+                    }
+                  : {}),
+              },
+            ],
+
+            replyTo: {
+              email:
+                senderEmail,
+
+              name:
+                senderName,
+            },
+
+            subject:
+              licenseRows.length === 1
+                ? "Your Colotti Pulse License"
+                : "Your Colotti Pulse Licenses",
+
+            htmlContent,
+
+            tags: [
+              "colotti-pulse-license",
+            ],
+          }),
+      }
+    );
+
+  const responseText =
+    await response.text();
+
+  if (!response.ok) {
+    console.error(
+      "Brevo license email failed:",
+      response.status,
+      responseText
+    );
+
+    throw new Error(
+      "Failed to send Pulse license email"
+    );
+  }
+
+  const parsed =
+    responseText
+      ? JSON.parse(responseText)
+      : {};
+
+  if (!parsed.messageId) {
+    throw new Error(
+      "Brevo did not return a messageId"
+    );
+  }
+
+  return {
+    messageId:
+      parsed.messageId,
+  };
+}
+
+
+async function markLicenseEmailSent(
+  supabaseUrl,
+  supabaseSecretKey,
+  orderId,
+  messageId
+) {
+  const url =
+    `${supabaseUrl}/rest/v1/pulse_orders` +
+    `?id=eq.${encodeURIComponent(orderId)}`;
+
+  const response =
+    await fetch(url, {
+      method:
+        "PATCH",
+
+      headers:
+        supabaseHeaders(
+          supabaseSecretKey
+        ),
+
+      body:
+        JSON.stringify({
+          license_email_sent_at:
+            new Date().toISOString(),
+
+          license_email_message_id:
+            messageId || null,
+
+          updated_at:
+            new Date().toISOString(),
+        }),
+    });
+
+  if (!response.ok) {
+    throw new Error(
+      "Failed to record Pulse license email"
+    );
+  }
+}
+
+
+function supabaseHeaders(
+  secretKey,
+  extra = {}
+) {
+  return {
+    apikey:
+      secretKey,
+
+    "Content-Type":
+      "application/json",
+
+    ...extra,
+  };
 }
 
 
@@ -658,10 +1183,6 @@ function verifyPaddleSignature(
     );
 
   if (ageSeconds > 5) {
-    console.warn(
-      "Rejected Paddle webhook: timestamp outside tolerance."
-    );
-
     return false;
   }
 
@@ -725,6 +1246,16 @@ function timingSafeHexEqual(
 }
 
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll("\"", "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
 function readRawBody(req) {
   return new Promise(
     (resolve, reject) => {
@@ -745,9 +1276,7 @@ function readRawBody(req) {
         "end",
         () => {
           resolve(
-            Buffer.concat(
-              chunks
-            )
+            Buffer.concat(chunks)
           );
         }
       );
