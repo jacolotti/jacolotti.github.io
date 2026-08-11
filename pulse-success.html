@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Colotti Pulse Purchase Complete</title>
+  <style>
+    :root{--bg:#f5f7fb;--card:#fff;--text:#16202a;--muted:#5d6b79;--accent:#0b66c3;--success:#1f6d3a;--border:#d9e3ee;--shadow:0 8px 24px rgba(15,35,60,.08)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--text)}
+    .wrap{max-width:760px;margin:0 auto;padding:56px 20px}.card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);padding:32px}
+    .badge{display:inline-block;padding:7px 11px;border-radius:999px;background:#edf8f1;color:var(--success);font-weight:700;margin-bottom:14px}
+    h1{margin:0 0 12px;font-size:2.2rem}.lead{color:var(--muted);font-size:1.06rem;line-height:1.65}
+    .btn{display:inline-block;margin-top:18px;padding:13px 18px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;border:0;cursor:pointer}
+    .btn[aria-disabled="true"]{opacity:.55;pointer-events:none}.status{margin-top:16px;padding:13px 15px;border-radius:10px;background:#edf4fb;color:#29445f}
+    .small{margin-top:18px;color:var(--muted);font-size:.92rem;line-height:1.55}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+      <div class="badge">Purchase complete</div>
+      <h1>Thank you for purchasing Colotti Pulse.</h1>
+      <p class="lead">Your license is being delivered by email. You can also download the Windows installer from this page once your completed Stripe order is verified.</p>
+      <div id="status" class="status">Verifying your purchase…</div>
+      <a id="downloadButton" class="btn" href="#" aria-disabled="true">Download Colotti Pulse</a>
+      <p class="small">If your license email does not arrive within a few minutes, check your spam folder. Keep the email for your records because it contains your activation key.</p>
+    </section>
+  </main>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id');
+    const statusEl = document.getElementById('status');
+    const downloadButton = document.getElementById('downloadButton');
+
+    if (!sessionId || !sessionId.startsWith('cs_')) {
+      statusEl.textContent = 'We could not verify this purchase because the Checkout Session ID is missing.';
+    } else {
+      const downloadUrl = '/api/pulse-download?session_id=' + encodeURIComponent(sessionId);
+      downloadButton.href = downloadUrl;
+      downloadButton.setAttribute('aria-disabled', 'false');
+      statusEl.textContent = 'Purchase found. Your installer is ready to download.';
+    }
+  </script>
+</body>
+</html>
