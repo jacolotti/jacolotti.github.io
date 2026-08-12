@@ -7,10 +7,14 @@ export default async function handler(req, res) {
   try {
     const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
     const pulsePriceId = process.env.STRIPE_PULSE_PRICE_ID;
-    const installerUrl = process.env.PULSE_INSTALLER_URL;
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseSecretKey = process.env.SUPABASE_SECRET_KEY;
     const sessionId = String(req.query?.session_id || '').trim();
 
-    if (!stripeSecretKey || !pulsePriceId || !installerUrl) {
+    const bucket = 'pulse-releases';
+    const objectPath = 'ColottiPulseSetup-v1.1.0.exe';
+
+    if (!stripeSecretKey || !pulsePriceId || !supabaseUrl || !supabaseSecretKey) {
       console.error('Pulse download configuration is incomplete.');
       return res.status(500).json({ error: 'Download is not configured' });
     }
@@ -70,8 +74,34 @@ export default async function handler(req, res) {
       return res.status(403).json({ error: 'Colotti Pulse purchase required' });
     }
 
+    const signResponse = await fetch(
+      `${supabaseUrl}/storage/v1/object/sign/${encodeURIComponent(bucket)}/${objectPath}`,
+      {
+        method: 'POST',
+        headers: {
+          apikey: supabaseSecretKey,
+          Authorization: `Bearer ${supabaseSecretKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ expiresIn: 300 }),
+      }
+    );
+
+    const signText = await signResponse.text();
+    let signData = null;
+    try { signData = JSON.parse(signText); } catch {}
+
+    if (!signResponse.ok || !signData?.signedURL) {
+      console.error('Supabase signed download URL failed:', signResponse.status, signText);
+      return res.status(500).json({ error: 'Installer link could not be created' });
+    }
+
+    const signedUrl = signData.signedURL.startsWith('http')
+      ? signData.signedURL
+      : `${supabaseUrl}/storage/v1${signData.signedURL}`;
+
     res.setHeader('Cache-Control', 'no-store');
-    return res.redirect(302, installerUrl);
+    return res.redirect(302, signedUrl);
   } catch (error) {
     console.error('Pulse download error:', error);
     return res.status(500).json({ error: 'Download verification failed' });
