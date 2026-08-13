@@ -36,7 +36,7 @@
     if (!sessionId || !sessionId.startsWith('cs_')) {
       statusEl.textContent = 'We could not verify this purchase because the Checkout Session ID is missing.';
     } else {
-      const downloadUrl = '/api/pulse-download?session_id=' + encodeURIComponent(sessionId);
+      const downloadUrl = 'https://jacolotti-github-io.vercel.app/api/pulse-download?session_id=' + encodeURIComponent(sessionId);
       downloadButton.href = downloadUrl;
       downloadButton.setAttribute('aria-disabled', 'false');
       statusEl.textContent = 'Purchase found. Your installer is ready to download.';
