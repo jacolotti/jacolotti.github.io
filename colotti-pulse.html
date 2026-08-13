@@ -17,8 +17,6 @@
     gtag('config', 'G-G4TY96JHNH');
   </script>
 
-  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-
   <style>
     :root{--bg:#f5f7fb;--card:#fff;--text:#16202a;--muted:#5d6b79;--accent:#0b66c3;--accent-dark:#084c92;--soft:#edf4fb;--border:#d9e3ee;--success:#1f6d3a;--success-soft:#edf8f1;--shadow:0 8px 24px rgba(15,35,60,.08);--radius:16px;--max:1180px}
     *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.6} a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline} button,input{font:inherit}
@@ -28,7 +26,7 @@
     .hero h1{margin:0 0 14px;font-size:2.6rem;line-height:1.1}.hero .lead{margin:0 0 14px;max-width:760px;color:var(--muted);font-size:1.08rem}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
     .btn{border:0;border-radius:10px;padding:12px 17px;font-weight:700;cursor:pointer;text-decoration:none;transition:.18s ease}.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-dark);text-decoration:none}.btn-secondary{background:var(--soft);color:var(--accent-dark);border:1px solid var(--border)}.btn-secondary:hover{background:#e2edf9;text-decoration:none}
     .price-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}.price-card .price{margin:8px 0 2px;font-size:2.4rem;line-height:1;font-weight:800}.price-card .per{color:var(--muted);font-size:.94rem}.price-card ul{margin:18px 0;padding-left:20px;color:var(--muted)}.price-card li{margin:7px 0}
-    .qty-row{display:flex;gap:10px;align-items:end;margin:18px 0 12px}.qty-row label{display:block;font-weight:700;font-size:.9rem;margin-bottom:5px}.qty-row input{width:90px;padding:10px;border:1px solid var(--border);border-radius:9px;background:#fff}.buy-btn{width:100%;background:var(--success);color:#fff;padding:13px 16px;border:0;border-radius:10px;font-weight:800;cursor:pointer}.buy-btn:hover{filter:brightness(.93)}.small{color:var(--muted);font-size:.86rem}
+    .qty-row{display:flex;gap:10px;align-items:end;margin:18px 0 12px}.qty-row label{display:block;font-weight:700;font-size:.9rem;margin-bottom:5px}.qty-row input{width:90px;padding:10px;border:1px solid var(--border);border-radius:9px;background:#fff}.buy-btn{width:100%;background:var(--success);color:#fff;padding:13px 16px;border:0;border-radius:10px;font-weight:800;cursor:pointer}.buy-btn:hover{filter:brightness(.93)}.buy-btn:disabled{opacity:.65;cursor:wait}.small{color:var(--muted);font-size:.86rem}
     .section{max-width:var(--max);margin:0 auto;padding:40px 20px}.section h2{margin:0 0 9px;font-size:1.95rem}.section-intro{margin:0 0 24px;color:var(--muted);max-width:850px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}.card h3{margin:0 0 8px}.card p{margin:0;color:var(--muted)}.read-only{background:var(--success-soft);border:1px solid #cfe7d7}.read-only h3{color:var(--success)}.feature-list{margin:0;padding-left:20px;color:var(--muted)}.feature-list li{margin-bottom:9px}
     .steps{counter-reset:step;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.step{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px}.step::before{counter-increment:step;content:counter(step);display:flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:50%;margin-bottom:12px;background:var(--soft);color:var(--accent-dark);font-weight:800}.step strong{display:block;margin-bottom:5px}.step span{color:var(--muted);font-size:.94rem}
     .notice{max-width:var(--max);margin:0 auto 40px;padding:0 20px}.notice-inner{background:#fff8e8;border:1px solid #ead6a3;border-radius:14px;padding:18px 20px;color:#6b571e} footer{border-top:1px solid var(--border);background:#fff;margin-top:24px}.footer-inner{max-width:var(--max);margin:0 auto;padding:24px 20px;color:var(--muted);font-size:.9rem}
@@ -59,18 +57,18 @@
       <ul>
         <li>Perpetual single-seat license</li>
         <li>Multi-machine monitoring</li>
-        <li>Signed offline license activation</li>
+        <li>Online activation with signed local license</li>
         <li>No subscription required</li>
-        <li>Windows application + Quick Start Guide</li>
+        <li>Windows application</li>
       </ul>
-      <div class="qty-row">
-        <div><label for="seatQty">Seats / activations</label><input id="seatQty" type="number" min="1" max="25" value="1" inputmode="numeric"></div>
-        <div class="small">1–25 seats per order</div>
-      </div>
-      <button class="buy-btn" id="buyPulseButton" type="button">Buy Colotti Pulse — $399/seat</button>
-      <p class="small" style="margin-bottom:0">
-        Secure checkout is provided by Paddle.
-      </p>
+      <form id="pulseCheckoutForm" action="/api/create-pulse-checkout" method="post">
+        <div class="qty-row">
+          <div><label for="seatQty">Seats / activations</label><input id="seatQty" name="quantity" type="number" min="1" max="25" value="1" inputmode="numeric"></div>
+          <div class="small">1–25 seats per order</div>
+        </div>
+        <button class="buy-btn" id="buyPulseButton" type="submit">Buy Colotti Pulse — $399/seat</button>
+      </form>
+      <p class="small" style="margin-bottom:0">Secure checkout and payment processing are provided by Stripe.</p>
     </aside>
   </div>
 </section>
@@ -80,7 +78,7 @@
   <p class="section-intro">Pulse is focused on fast, read-only visibility into the values you care about without turning the monitoring PC into another PLC programming station.</p>
   <div class="grid-3">
     <div class="card"><h3>Multi-Machine Dashboard</h3><p>Open and monitor multiple saved PLC profiles independently from one plant dashboard.</p></div>
-    <div class="card"><h3>Live PLC Tags</h3><p>Browse controller tags, select the values that matter, and monitor them at a configurable polling rate.</p></div>
+    <div class="card"><h3>Live PLC Tags</h3><p>Browse controller tags, including expandable DINT bits, select the values that matter, and monitor them at a configurable polling rate.</p></div>
     <div class="card"><h3>Machine Profiles</h3><p>Save PLC routes, monitored tags, favorites, and dashboard selections for fast repeat access.</p></div>
     <div class="card"><h3>Dashboard Tags</h3><p>Choose up to five key live values per machine for quick plant-level scanning.</p></div>
     <div class="card"><h3>Trend & Export</h3><p>Trend selected numeric tags and export captured data for troubleshooting and review.</p></div>
@@ -97,12 +95,12 @@
 
 <section class="section" id="how-it-works">
   <h2>Purchase & Activation</h2>
-  <p class="section-intro">Pulse uses a signed offline license file. The application does not require continuous internet access to validate the license.</p>
+  <p class="section-intro">Pulse uses a machine-specific signed local license after activation. The application does not require continuous internet access to validate the installed license.</p>
   <div class="steps">
-    <div class="step"><strong>Purchase</strong><span>Choose the number of seats and complete secure checkout through Paddle.</span></div>
-    <div class="step"><strong>License</strong><span>Your order is used to issue a signed Colotti Pulse license for the purchased seat count.</span></div>
-    <div class="step"><strong>Install</strong><span>Run the Windows installer, accept the EULA, and follow the included Quick Start Guide.</span></div>
-    <div class="step"><strong>Activate</strong><span>Select the provided license file in Pulse. The signed license is then verified locally.</span></div>
+    <div class="step"><strong>Purchase</strong><span>Choose the number of seats and complete secure checkout through Stripe.</span></div>
+    <div class="step"><strong>License</strong><span>Your license key is automatically issued and emailed after successful payment.</span></div>
+    <div class="step"><strong>Install</strong><span>Download the protected Windows installer from the purchase-success page and install Pulse.</span></div>
+    <div class="step"><strong>Activate</strong><span>Enter the emailed license key and select Activate Online. Pulse installs a signed machine-specific license locally.</span></div>
   </div>
 </section>
 
@@ -114,15 +112,11 @@
   </div>
 </section>
 
-<div class="notice"><div class="notice-inner"><strong>Early release fulfillment:</strong> Colotti Pulse licenses are currently issued after order review. The installer and signed license file are delivered to the purchaser using the order contact information. Do not use Pulse as a safety system or as the sole means of protecting personnel or equipment.</div></div>
+<div class="notice"><div class="notice-inner"><strong>Important:</strong> Colotti Pulse is a monitoring and diagnostics tool. Do not use Pulse as a safety system or as the sole means of protecting personnel or equipment.</div></div>
 
 <footer>
   <div class="footer-inner">
-    <div>
-      Colotti Pulse is developed by Colotti Automation LLC.
-      Secure checkout is provided by Paddle.
-    </div>
-
+    <div>Colotti Pulse is developed by Colotti Automation LLC. Secure checkout and payment processing are provided by Stripe.</div>
     <div style="margin-top:10px;">
       <a href="/terms.html">Terms of Service</a>
       &nbsp;•&nbsp;
@@ -138,23 +132,8 @@
 <script>
 fetch('/navbar.html?v=20260422').then(r=>r.text()).then(d=>document.getElementById('navbar').innerHTML=d);
 </script>
-
 <script>
-  /*
-    Replace BOTH placeholders below on your LOCAL copy.
-    Never put a Paddle API key or the Colotti Pulse private signing key here.
-  */
-  const PADDLE_CLIENT_TOKEN = 'live_9104d43b403f13bdb8913cbe862';
-  const PULSE_PRICE_ID = 'pri_01kzprqnvcgc7cs874ckrmscsa';
-
-  let paddleReady = false;
-  try {
-    Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN });
-    paddleReady = true;
-  } catch (error) {
-    console.error('Paddle initialization failed:', error);
-  }
-
+  const form = document.getElementById('pulseCheckoutForm');
   const qtyInput = document.getElementById('seatQty');
   const buyButton = document.getElementById('buyPulseButton');
 
@@ -167,16 +146,10 @@ fetch('/navbar.html?v=20260422').then(r=>r.text()).then(d=>document.getElementBy
   }
 
   qtyInput.addEventListener('change', normalizedQuantity);
-  buyButton.addEventListener('click', function(){
-    const qty=normalizedQuantity();
-    if(!paddleReady || PADDLE_CLIENT_TOKEN.includes('PASTE_YOUR_') || PULSE_PRICE_ID.includes('PASTE_YOUR_')){
-      alert('Paddle sandbox is not configured yet. Add your sandbox client-side token and Colotti Pulse price ID in colotti-pulse.html.');
-      return;
-    }
-    Paddle.Checkout.open({
-      items:[{priceId:PULSE_PRICE_ID,quantity:qty}],
-      settings:{displayMode:'overlay',theme:'light',locale:'en'}
-    });
+  form.addEventListener('submit', function(){
+    normalizedQuantity();
+    buyButton.disabled = true;
+    buyButton.textContent = 'Opening secure checkout…';
   });
 </script>
 </body>
