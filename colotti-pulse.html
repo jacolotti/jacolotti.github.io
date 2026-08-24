@@ -7,7 +7,7 @@
   <meta name="author" content="AutomationCalculators.net">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Colotti Pulse | Read-Only Allen-Bradley PLC Monitoring</title>
-  <meta name="description" content="Colotti Pulse is read-only Windows software for monitoring multiple Allen-Bradley PLCs, viewing live tags, saving machine profiles, trending data, and troubleshooting faster.">
+  <meta name="description" content="Colotti Pulse 1.2.0 is read-only Windows software for Allen-Bradley PLC monitoring, automatic diagnostic discovery, live incident tracking, trending, and multi-machine troubleshooting. Try it free for 7 days with no credit card required.">
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-G4TY96JHNH"></script>
   <script>
@@ -24,13 +24,14 @@
     .hero{background:#fff;border-bottom:1px solid var(--border)} .hero-inner{max-width:var(--max);margin:0 auto;padding:54px 20px 42px;display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:center}
     .eyebrow{display:inline-block;margin-bottom:12px;padding:6px 11px;border-radius:999px;background:var(--success-soft);color:var(--success);border:1px solid #cfe7d7;font-weight:700;font-size:.88rem}
     .hero h1{margin:0 0 14px;font-size:2.6rem;line-height:1.1}.hero .lead{margin:0 0 14px;max-width:760px;color:var(--muted);font-size:1.08rem}.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-    .btn{border:0;border-radius:10px;padding:12px 17px;font-weight:700;cursor:pointer;text-decoration:none;transition:.18s ease}.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-dark);text-decoration:none}.btn-secondary{background:var(--soft);color:var(--accent-dark);border:1px solid var(--border)}.btn-secondary:hover{background:#e2edf9;text-decoration:none}
-    .price-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}.price-card .price{margin:8px 0 2px;font-size:2.4rem;line-height:1;font-weight:800}.price-card .per{color:var(--muted);font-size:.94rem}.price-card ul{margin:18px 0;padding-left:20px;color:var(--muted)}.price-card li{margin:7px 0}
+    .btn{display:inline-block;border:0;border-radius:10px;padding:12px 17px;font-weight:700;cursor:pointer;text-decoration:none;transition:.18s ease}.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-dark);text-decoration:none}.btn-secondary{background:var(--soft);color:var(--accent-dark);border:1px solid var(--border)}.btn-secondary:hover{background:#e2edf9;text-decoration:none}.btn-success{background:var(--success);color:#fff}.btn-success:hover{filter:brightness(.93);text-decoration:none}
+    .price-card,.trial-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:26px}.price-card .price{margin:8px 0 2px;font-size:2.4rem;line-height:1;font-weight:800}.price-card .per{color:var(--muted);font-size:.94rem}.price-card ul,.trial-card ul{margin:18px 0;padding-left:20px;color:var(--muted)}.price-card li,.trial-card li{margin:7px 0}.trial-card{border:2px solid #cfe7d7;background:linear-gradient(180deg,#ffffff 0%,#f7fcf8 100%)}.trial-card h2{margin:4px 0 8px;font-size:1.55rem}.trial-card .trial-note{color:var(--success);font-weight:800}.trial-btn{display:block;width:100%;text-align:center;background:var(--success);color:#fff;padding:14px 16px;border-radius:10px;font-weight:800}.trial-btn:hover{filter:brightness(.93);text-decoration:none}
     .qty-row{display:flex;gap:10px;align-items:end;margin:18px 0 12px}.qty-row label{display:block;font-weight:700;font-size:.9rem;margin-bottom:5px}.qty-row input{width:90px;padding:10px;border:1px solid var(--border);border-radius:9px;background:#fff}.buy-btn{width:100%;background:var(--success);color:#fff;padding:13px 16px;border:0;border-radius:10px;font-weight:800;cursor:pointer}.buy-btn:hover{filter:brightness(.93)}.buy-btn:disabled{opacity:.65;cursor:wait}.small{color:var(--muted);font-size:.86rem}
-    .section{max-width:var(--max);margin:0 auto;padding:40px 20px}.section h2{margin:0 0 9px;font-size:1.95rem}.section-intro{margin:0 0 24px;color:var(--muted);max-width:850px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}.card h3{margin:0 0 8px}.card p{margin:0;color:var(--muted)}.read-only{background:var(--success-soft);border:1px solid #cfe7d7}.read-only h3{color:var(--success)}.feature-list{margin:0;padding-left:20px;color:var(--muted)}.feature-list li{margin-bottom:9px}
+    .section{max-width:var(--max);margin:0 auto;padding:40px 20px}.section h2{margin:0 0 9px;font-size:1.95rem}.section-intro{margin:0 0 24px;color:var(--muted);max-width:900px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}.card h3{margin:0 0 8px}.card p{margin:0;color:var(--muted)}.read-only{background:var(--success-soft);border:1px solid #cfe7d7}.read-only h3{color:var(--success)}.feature-list{margin:0;padding-left:20px;color:var(--muted)}.feature-list li{margin-bottom:9px}
+    .trial-section{background:#eef8f1;border-top:1px solid #d8eadf;border-bottom:1px solid #d8eadf}.trial-section .section{padding-top:34px;padding-bottom:34px}.trial-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center}.trial-points{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 18px;margin-top:16px}.trial-point{background:#fff;border:1px solid #d8eadf;border-radius:12px;padding:12px 14px;color:var(--muted)}
     .steps{counter-reset:step;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.step{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px}.step::before{counter-increment:step;content:counter(step);display:flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:50%;margin-bottom:12px;background:var(--soft);color:var(--accent-dark);font-weight:800}.step strong{display:block;margin-bottom:5px}.step span{color:var(--muted);font-size:.94rem}
     .notice{max-width:var(--max);margin:0 auto 40px;padding:0 20px}.notice-inner{background:#fff8e8;border:1px solid #ead6a3;border-radius:14px;padding:18px 20px;color:#6b571e} footer{border-top:1px solid var(--border);background:#fff;margin-top:24px}.footer-inner{max-width:var(--max);margin:0 auto;padding:24px 20px;color:var(--muted);font-size:.9rem}
-    @media(max-width:900px){.hero-inner,.grid-3,.grid-2,.steps{grid-template-columns:1fr}.hero h1{font-size:2.1rem}}
+    @media(max-width:900px){.hero-inner,.grid-3,.grid-2,.steps,.trial-grid,.trial-points{grid-template-columns:1fr}.hero h1{font-size:2.1rem}}
   </style>
 </head>
 <body>
@@ -39,50 +40,67 @@
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <span class="eyebrow">Read-only industrial PLC monitoring</span>
-      <h1>See What Your Allen-Bradley PLCs Are Doing — From One Screen</h1>
-      <p class="lead">Colotti Pulse is a lightweight Windows monitoring and diagnostics application built for controls engineers, maintenance teams, and integrators who need live PLC visibility without opening a programming project.</p>
-      <p class="lead">Connect multiple PLCs, browse tags, save machine profiles, choose dashboard values, trend live data, and keep each monitoring session independent.</p>
+      <span class="eyebrow">Colotti Pulse 1.2.0 · Read-only industrial PLC diagnostics</span>
+      <h1>See What Your Allen-Bradley PLCs Are Doing — Without Opening a Programming Project</h1>
+      <p class="lead">Colotti Pulse is a lightweight Windows monitoring and diagnostics application built for controls engineers, maintenance teams, and integrators who need fast PLC visibility without adding another programming station.</p>
+      <p class="lead">Pulse can automatically discover likely diagnostic signals, monitor high-confidence fault BOOLs, build a live diagnostic timeline, correlate transitions into incidents, and track recovery and duration — all while keeping PLC access read-only.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#buy">Buy Colotti Pulse</a>
+        <a class="btn btn-success" href="#trial">Download Free 7-Day Trial</a>
+        <a class="btn btn-primary" href="#buy">Buy Full License — $399</a>
         <a class="btn btn-secondary" href="#features">View Features</a>
-        <a class="btn btn-secondary" href="#how-it-works">How Licensing Works</a>
       </div>
     </div>
 
-    <aside class="price-card" id="buy">
-      <strong>Colotti Pulse 1.1.0</strong>
-      <div class="price">$399</div>
-      <div class="per">USD per seat · one-time purchase</div>
+    <aside class="trial-card">
+      <span class="eyebrow">Try it on your own PLC</span>
+      <h2>Free 7-Day Trial</h2>
+      <div class="trial-note">No credit card required.</div>
       <ul>
-        <li>Perpetual single-seat license</li>
-        <li>Multi-machine monitoring</li>
-        <li>Online activation with signed local license</li>
-        <li>No subscription required</li>
-        <li>Windows application</li>
+        <li>Full 1.2.0 application</li>
+        <li>Automatic diagnostic discovery</li>
+        <li>Live diagnostic incident timeline</li>
+        <li>Trending and multi-machine monitoring</li>
+        <li>Upgrade to a perpetual license without reinstalling</li>
       </ul>
-      <form id="pulseCheckoutForm" action="https://jacolotti-github-io.vercel.app/api/create-pulse-checkout" method="post">
-        <div class="qty-row">
-          <div><label for="seatQty">Seats / activations</label><input id="seatQty" name="quantity" type="number" min="1" max="25" value="1" inputmode="numeric"></div>
-          <div class="small">1–25 seats per order</div>
-        </div>
-        <button class="buy-btn" id="buyPulseButton" type="submit">Buy Colotti Pulse — $399/seat</button>
-      </form>
-      <p class="small" style="margin-bottom:0">Secure checkout and payment processing are provided by Stripe.</p>
+      <a class="trial-btn" href="https://github.com/jacolotti/Colotti-Pulse/releases/download/v1.2.0/ColottiPulseSetup-v1.2.0.exe" onclick="gtag('event','pulse_trial_download',{'version':'1.2.0','location':'hero'});">Download Colotti Pulse 1.2.0</a>
+      <p class="small" style="margin-bottom:0;margin-top:12px;">Windows installer · Trial begins when you start the free trial inside Pulse.</p>
     </aside>
+  </div>
+</section>
+
+<section class="trial-section" id="trial">
+  <div class="section">
+    <div class="trial-grid">
+      <div>
+        <h2>Try Colotti Pulse Free for 7 Days</h2>
+        <p class="section-intro">Install Pulse, connect to a supported Allen-Bradley Logix PLC, and evaluate the software on real machine data. No credit card is required to start the trial.</p>
+        <div class="trial-points">
+          <div class="trial-point"><strong>Read-only by design</strong><br>No PLC write, force, edit, download, or mode-change functions.</div>
+          <div class="trial-point"><strong>Automatic diagnostics</strong><br>Pulse discovers likely fault and diagnostic points from accessible PLC definitions.</div>
+          <div class="trial-point"><strong>Live incident tracking</strong><br>See diagnostic transitions grouped into incidents with recovery and duration.</div>
+          <div class="trial-point"><strong>No reinstall to upgrade</strong><br>Purchase a full license and activate it from inside Pulse.</div>
+        </div>
+      </div>
+      <div class="trial-card">
+        <h2>Colotti Pulse 1.2.0</h2>
+        <p class="section-intro">The same installer is used for both the free trial and the full licensed product.</p>
+        <a class="trial-btn" href="https://github.com/jacolotti/Colotti-Pulse/releases/download/v1.2.0/ColottiPulseSetup-v1.2.0.exe" onclick="gtag('event','pulse_trial_download',{'version':'1.2.0','location':'trial_section'});">Download Free 7-Day Trial</a>
+        <p class="small" style="margin-bottom:0;margin-top:12px;">No credit card required · 64-bit Windows 10/11</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="section" id="features">
   <h2>Built for Real Troubleshooting Work</h2>
-  <p class="section-intro">Pulse is focused on fast, read-only visibility into the values you care about without turning the monitoring PC into another PLC programming station.</p>
+  <p class="section-intro">Pulse combines live PLC visibility with automatic diagnostic discovery so you can spend less time deciding what to watch and more time understanding what happened.</p>
   <div class="grid-3">
+    <div class="card"><h3>Automatic Diagnostic Discovery</h3><p>Pulse inspects accessible controller definitions and identifies likely faults and diagnostic signals using tag names, structures, and confidence scoring.</p></div>
+    <div class="card"><h3>Automatic Diagnostic Monitoring</h3><p>High-confidence BOOL diagnostics can be monitored automatically alongside the tags you explicitly choose, without creating another PLC programming dependency.</p></div>
+    <div class="card"><h3>Diagnostic Incident Timeline</h3><p>Diagnostic transitions are timestamped and correlated into incidents with first-observed events, recovery tracking, and incident duration.</p></div>
     <div class="card"><h3>Multi-Machine Dashboard</h3><p>Open and monitor multiple saved PLC profiles independently from one plant dashboard.</p></div>
-    <div class="card"><h3>Live PLC Tags</h3><p>Browse controller tags, including expandable DINT bits, select the values that matter, and monitor them at a configurable polling rate.</p></div>
-    <div class="card"><h3>Machine Profiles</h3><p>Save PLC routes, monitored tags, favorites, and dashboard selections for fast repeat access.</p></div>
-    <div class="card"><h3>Dashboard Tags</h3><p>Choose up to five key live values per machine for quick plant-level scanning.</p></div>
-    <div class="card"><h3>Trend & Export</h3><p>Trend selected numeric tags and export captured data for troubleshooting and review.</p></div>
-    <div class="card"><h3>Independent Sessions</h3><p>A communication problem with one PLC does not stop monitoring sessions for the others.</p></div>
+    <div class="card"><h3>Live PLC Tags & Profiles</h3><p>Browse controller tags, save monitored tags and favorites, and return quickly to the machines you troubleshoot regularly.</p></div>
+    <div class="card"><h3>Trend & Export</h3><p>Trend selected numeric tags and export captured data for troubleshooting, process review, and documentation.</p></div>
   </div>
 </section>
 
@@ -93,14 +111,47 @@
   </div>
 </section>
 
+<section class="section" id="buy">
+  <h2>Upgrade to a Full License</h2>
+  <p class="section-intro">Keep using the same installed application after the trial. Purchase a perpetual single-seat license and activate it from inside Pulse.</p>
+  <div class="grid-2">
+    <div class="price-card">
+      <strong>Colotti Pulse 1.2.0 Full License</strong>
+      <div class="price">$399</div>
+      <div class="per">USD per seat · one-time purchase</div>
+      <ul>
+        <li>Perpetual single-seat license</li>
+        <li>No subscription required</li>
+        <li>Future Pulse software updates included</li>
+        <li>Online activation with signed local license</li>
+        <li>Use the same installer as the free trial</li>
+      </ul>
+      <form id="pulseCheckoutForm" action="https://jacolotti-github-io.vercel.app/api/create-pulse-checkout" method="post">
+        <div class="qty-row">
+          <div><label for="seatQty">Seats / activations</label><input id="seatQty" name="quantity" type="number" min="1" max="25" value="1" inputmode="numeric"></div>
+          <div class="small">1–25 seats per order</div>
+        </div>
+        <button class="buy-btn" id="buyPulseButton" type="submit">Buy Full License — $399/seat</button>
+      </form>
+      <p class="small" style="margin-bottom:0">Secure checkout and payment processing are provided by Stripe.</p>
+    </div>
+
+    <div class="card">
+      <h3>Already evaluating Pulse?</h3>
+      <p>Your trial installation does not need to be removed. After purchase, use <strong>Activate Purchased License</strong> inside Pulse and enter the license key issued after checkout.</p>
+      <p style="margin-top:14px;">The machine-specific signed license is stored locally after activation, so Pulse does not require continuous internet access to validate a paid license.</p>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="how-it-works">
-  <h2>Purchase & Activation</h2>
-  <p class="section-intro">Pulse uses a machine-specific signed local license after activation. The application does not require continuous internet access to validate the installed license.</p>
+  <h2>Trial, Purchase & Activation</h2>
+  <p class="section-intro">You can evaluate the full application before purchasing. If Pulse fits your workflow, upgrade the same installation to a perpetual license.</p>
   <div class="steps">
-    <div class="step"><strong>Purchase</strong><span>Choose the number of seats and complete secure checkout through Stripe.</span></div>
-    <div class="step"><strong>License</strong><span>Your license key is automatically issued and emailed after successful payment.</span></div>
-    <div class="step"><strong>Install</strong><span>Download the protected Windows installer from the purchase-success page and install Pulse.</span></div>
-    <div class="step"><strong>Activate</strong><span>Enter the emailed license key and select Activate Online. Pulse installs a signed machine-specific license locally.</span></div>
+    <div class="step"><strong>Download</strong><span>Install Colotti Pulse 1.2.0 and select Start Free 7-Day Trial. No credit card is required.</span></div>
+    <div class="step"><strong>Evaluate</strong><span>Connect to supported PLCs, browse tags, trend values, and use automatic diagnostics on your own equipment.</span></div>
+    <div class="step"><strong>Purchase</strong><span>Buy one or more perpetual seats through secure Stripe checkout when you are ready to keep using Pulse.</span></div>
+    <div class="step"><strong>Activate</strong><span>Enter the purchased license key in Pulse. The trial installation is upgraded to a signed machine-specific full license.</span></div>
   </div>
 </section>
 
@@ -112,7 +163,7 @@
   </div>
 </section>
 
-<div class="notice"><div class="notice-inner"><strong>Important:</strong> Colotti Pulse is a monitoring and diagnostics tool. Do not use Pulse as a safety system or as the sole means of protecting personnel or equipment.</div></div>
+<div class="notice"><div class="notice-inner"><strong>Important:</strong> Colotti Pulse is a monitoring and diagnostics tool. Do not use Pulse as a safety system or as the sole means of protecting personnel or equipment. Diagnostic discovery and incident correlation are troubleshooting aids and should be validated against the actual machine logic and process.</div></div>
 
 <footer>
   <div class="footer-inner">
