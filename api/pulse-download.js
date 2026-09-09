@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     const sessionId = String(req.query?.session_id || '').trim();
 
     const bucket = 'pulse-releases';
-    const objectPath = 'ColottiPulseSetup-v1.1.0.exe';
+    const objectPath = 'ColottiPulseSetup-v1.2.2.exe';
 
     if (!stripeSecretKey || !pulsePriceId || !supabaseUrl || !supabaseSecretKey) {
       console.error('Pulse download configuration is incomplete.');
