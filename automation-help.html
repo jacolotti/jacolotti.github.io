@@ -142,10 +142,24 @@
     .grid-3{display:grid; gap:18px; grid-template-columns:repeat(3,1fr);}
     .grid-4{display:grid; gap:18px; grid-template-columns:repeat(4,1fr);}
 
+    .project-form{display:grid; gap:16px; margin-top:18px;}
+    .form-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+    .field{display:grid; gap:7px;}
+    .field-full{grid-column:1 / -1;}
+    .project-form label{font-weight:700;}
+    .project-form input,.project-form select,.project-form textarea{
+      width:100%; padding:12px 13px; border:1px solid var(--border); border-radius:9px;
+      font:inherit; color:var(--text); background:#fff;
+    }
+    .project-form textarea{min-height:150px; resize:vertical;}
+    .form-note{margin:0; color:var(--muted); font-size:.92rem;}
+
     @media (max-width:1020px){
-      .hero-inner,.grid-3,.grid-4{grid-template-columns:1fr;}
+      .hero-inner,.grid-3,.grid-4,.form-grid{grid-template-columns:1fr;}
+      .field-full{grid-column:auto;}
     }
   </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
@@ -171,7 +185,7 @@
       <div class="hero-actions">
         <a class="btn btn-primary" href="#project-form">Request Project Help</a>
         <a class="btn btn-secondary" href="#start-tools">Start With Tools</a>
-        <a class="btn btn-secondary" href="#integrator-apply">Apply as an Integrator</a>
+        <a class="btn btn-secondary" href="/integrators.html#integrator-apply">Apply as an Integrator</a>
       </div>
 
       <!-- Photo Tool (correct placement) -->
@@ -197,7 +211,53 @@
   </div>
 </section>
 
-<!-- KEEP REST OF YOUR PAGE EXACTLY AS-IS BELOW -->
+<section class="section" id="project-form">
+  <div class="card">
+    <span class="eyebrow">Project request</span>
+    <h2>Tell Us About Your Automation Project</h2>
+    <p>Send the basics below and we'll use them to understand what kind of automation or controls help you need.</p>
+
+    <form class="project-form" action="https://formspree.io/f/mwvwjzlz" method="POST">
+      <div class="form-grid">
+        <div class="field">
+          <label for="projectName">Name</label>
+          <input id="projectName" type="text" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="projectEmail">Email</label>
+          <input id="projectEmail" type="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="projectCompany">Company</label>
+          <input id="projectCompany" type="text" name="company" autocomplete="organization">
+        </div>
+        <div class="field">
+          <label for="projectType">Project Type</label>
+          <select id="projectType" name="project_type" required>
+            <option value="">Select one</option>
+            <option>PLC / Controls</option>
+            <option>Robotics</option>
+            <option>Machine Vision</option>
+            <option>Pneumatics</option>
+            <option>Motors / Motion</option>
+            <option>Machine Design</option>
+            <option>Troubleshooting</option>
+            <option>Other Automation</option>
+          </select>
+        </div>
+        <div class="field field-full">
+          <label for="projectDetails">Project Details</label>
+          <textarea id="projectDetails" name="message" placeholder="Describe the machine, process, problem, or project and what you need help with." required></textarea>
+        </div>
+      </div>
+
+      <input type="hidden" name="_subject" value="AutomationCalculators Project Help Request">
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAAFQXwrU_pJXf8n-H"></div>
+      <button class="btn btn-primary" type="submit">Submit Project Request</button>
+      <p class="form-note">Protected by Cloudflare Turnstile.</p>
+    </form>
+  </div>
+</section>
 
 <script>
 fetch('/navbar.html?v=20260422')
